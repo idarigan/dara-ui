@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+dist-ssr/
+*.local
+
+# Storybook
+storybook-static/
+*.storybook.log
+
+# IDE
+.vscode/
+.idea/
+*.sw?
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env.*.local

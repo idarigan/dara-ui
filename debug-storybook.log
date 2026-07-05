@@ -1,0 +1,270 @@
+[18:57:13.206] [DEBUG] Command "yarn.cmd" not found, trying next variation...
+[18:57:13.269] [DEBUG] Command "yarn.exe" not found, trying next variation...
+[18:57:13.333] [DEBUG] Command "yarn.ps1" not found, trying next variation...
+[18:57:13.457] [DEBUG] Command "pnpm.cmd" not found, trying next variation...
+[18:57:13.521] [DEBUG] Command "pnpm.exe" not found, trying next variation...
+[18:57:13.584] [DEBUG] Command "pnpm.ps1" not found, trying next variation...
+[18:57:14.180] [INFO] [36mInitializing Storybook[39m
+[18:57:14.264] [DEBUG] Command "yarn.cmd" not found, trying next variation...
+[18:57:14.329] [DEBUG] Command "yarn.exe" not found, trying next variation...
+[18:57:14.390] [DEBUG] Command "yarn.ps1" not found, trying next variation...
+[18:57:14.517] [DEBUG] Command "pnpm.cmd" not found, trying next variation...
+[18:57:14.577] [DEBUG] Command "pnpm.exe" not found, trying next variation...
+[18:57:14.634] [DEBUG] Command "pnpm.ps1" not found, trying next variation...
+[18:57:15.214] [DEBUG] Getting package.json info for D:/D's/dara-ui/package.json...
+[18:57:15.214] [INFO] Package manager: npm
+[18:57:15.217] [DEBUG] Getting CLI versions from NPM for storybook...
+[18:57:15.218] [DEBUG] Executing command: npm info storybook version
+[18:57:15.219] [DEBUG] Resolved command variation: npm.cmd
+[18:57:18.970] [INFO] Adding Storybook version 10.4.6 to your project
+[18:57:18.971] [DEBUG] Executing command: npm config get min-release-age --workspaces=false --include-workspace-root
+[18:57:18.972] [DEBUG] Resolved command variation: npm.cmd
+[18:57:19.515] [DEBUG] Using cached package.json for D:\D's\dara-ui\package.json...
+[18:57:19.516] [DEBUG] Project type detected: react
+[18:57:26.476] [PROMPT] We found a .storybook config directory in your project.
+We assume that Storybook is already instantiated for your project. Do you still want to continue and force the initialization? {"choice":true}
+[18:57:26.477] [DEBUG] Using cached package.json for D:\D's\dara-ui\package.json...
+[18:57:26.518] [DEBUG] Using cached package.json for D:\D's\dara-ui\package.json...
+[18:57:26.518] [INFO] Framework detected: react-vite
+[18:57:26.520] [DEBUG] Getting installed version for vitest...
+[18:57:26.527] [DEBUG] Executing command: npm ls --json --depth=99 2>NUL
+[18:57:26.527] [DEBUG] Resolved command variation: npm.cmd
+[18:57:28.253] [DEBUG] Executing command: npm ls --json --depth=0 2>NUL
+[18:57:28.254] [DEBUG] Resolved command variation: npm.cmd
+[18:57:29.926] [DEBUG] Error finding installations for vitest: ExecaError: Command failed with exit code 1: npm.cmd ls --json "--depth=0" "2>NUL"
+
+npm error code EINVALIDTAGNAME
+npm error Invalid tag name "2>NUL" of package "2>NUL": Tags may not have any characters that encodeURIComponent encodes.
+npm error A complete log of this run can be found in: C:\Users\D\AppData\Local\npm-cache\_logs\2026-07-01T22_57_28_654Z-debug-0.log
+
+{
+  "error": {
+    "code": "EINVALIDTAGNAME",
+    "summary": "Invalid tag name \"2>NUL\" of package \"2>NUL\": Tags may not have any characters that encodeURIComponent encodes.",
+    "detail": ""
+  }
+}
+[18:57:29.926] [DEBUG] No installations found for vitest
+[18:57:29.926] [DEBUG] Getting installed version for msw...
+[18:57:29.926] [DEBUG] Executing command: npm ls --json --depth=99 2>NUL
+[18:57:29.927] [DEBUG] Resolved command variation: npm.cmd
+[18:57:31.604] [DEBUG] Executing command: npm ls --json --depth=0 2>NUL
+[18:57:31.605] [DEBUG] Resolved command variation: npm.cmd
+[18:57:33.273] [DEBUG] Error finding installations for msw: ExecaError: Command failed with exit code 1: npm.cmd ls --json "--depth=0" "2>NUL"
+
+npm error code EINVALIDTAGNAME
+npm error Invalid tag name "2>NUL" of package "2>NUL": Tags may not have any characters that encodeURIComponent encodes.
+npm error A complete log of this run can be found in: C:\Users\D\AppData\Local\npm-cache\_logs\2026-07-01T22_57_32_011Z-debug-0.log
+
+{
+  "error": {
+    "code": "EINVALIDTAGNAME",
+    "summary": "Invalid tag name \"2>NUL\" of package \"2>NUL\": Tags may not have any characters that encodeURIComponent encodes.",
+    "detail": ""
+  }
+}
+[18:57:33.273] [DEBUG] No installations found for msw
+[18:57:45.754] [PROMPT] New to Storybook? {"choice":true}
+[18:58:16.236] [PROMPT] Would you like to install AI features (MCP addon and prompt suggestions)? {"choice":true}
+[18:58:46.426] [INFO] base-generator-task-start: Generating Storybook configuration
+[18:58:46.428] [DEBUG] Using cached package.json for D:\D's\dara-ui\package.json...
+[18:58:46.429] [DEBUG] Using cached package.json for D:\D's\dara-ui\package.json...
+[18:58:46.429] [DEBUG] Using cached package.json for D:\D's\dara-ui\package.json...
+[18:58:46.433] [INFO] base-generator-task: - Configuring main.ts
+[18:58:46.443] [INFO] base-generator-task: - Configuring preview.ts
+[18:58:46.451] [INFO] base-generator-task: - Adding Storybook command to package.json
+[18:58:46.452] [DEBUG] Getting package.json info for D:/D's/dara-ui/package.json...
+[18:58:46.452] [DEBUG] Using cached package.json for D:\D's\dara-ui\package.json...
+[18:58:46.452] [DEBUG] Using cached package.json for D:\D's\dara-ui\package.json...
+[18:58:46.462] [INFO] base-generator-task: - Copying framework templates
+[18:58:46.537] [DEBUG] Executing command: npm config get registry --workspaces=false --include-workspace-root
+[18:58:46.537] [DEBUG] Resolved command variation: npm.cmd
+[18:58:47.880] [INFO] base-generator-task-success: Storybook configuration generated
+[18:58:47.890] [DEBUG] Using cached package.json for D:\D's\dara-ui\package.json...
+[18:58:47.891] [DEBUG] Using cached installed version for vitest...
+[18:58:47.892] [DEBUG] Getting installed version for @vitest/coverage-v8...
+[18:58:47.892] [DEBUG] Executing command: npm ls --json --depth=99 2>NUL
+[18:58:47.893] [DEBUG] Resolved command variation: npm.cmd
+[18:58:49.880] [DEBUG] Executing command: npm ls --json --depth=0 2>NUL
+[18:58:49.881] [DEBUG] Resolved command variation: npm.cmd
+[18:58:51.912] [DEBUG] Error finding installations for @vitest/coverage-v8: ExecaError: Command failed with exit code 1: npm.cmd ls --json "--depth=0" "2>NUL"
+
+npm error code EINVALIDTAGNAME
+npm error Invalid tag name "2>NUL" of package "2>NUL": Tags may not have any characters that encodeURIComponent encodes.
+npm error A complete log of this run can be found in: C:\Users\D\AppData\Local\npm-cache\_logs\2026-07-01T22_58_50_355Z-debug-0.log
+
+{
+  "error": {
+    "code": "EINVALIDTAGNAME",
+    "summary": "Invalid tag name \"2>NUL\" of package \"2>NUL\": Tags may not have any characters that encodeURIComponent encodes.",
+    "detail": ""
+  }
+}
+[18:58:51.912] [DEBUG] No installations found for @vitest/coverage-v8
+[18:58:51.912] [DEBUG] Getting installed version for @vitest/coverage-istanbul...
+[18:58:51.912] [DEBUG] Executing command: npm ls --json --depth=99 2>NUL
+[18:58:51.913] [DEBUG] Resolved command variation: npm.cmd
+[18:58:53.596] [DEBUG] Executing command: npm ls --json --depth=0 2>NUL
+[18:58:53.597] [DEBUG] Resolved command variation: npm.cmd
+[18:58:55.240] [DEBUG] Error finding installations for @vitest/coverage-istanbul: ExecaError: Command failed with exit code 1: npm.cmd ls --json "--depth=0" "2>NUL"
+
+npm error code EINVALIDTAGNAME
+npm error Invalid tag name "2>NUL" of package "2>NUL": Tags may not have any characters that encodeURIComponent encodes.
+npm error A complete log of this run can be found in: C:\Users\D\AppData\Local\npm-cache\_logs\2026-07-01T22_58_53_994Z-debug-0.log
+
+{
+  "error": {
+    "code": "EINVALIDTAGNAME",
+    "summary": "Invalid tag name \"2>NUL\" of package \"2>NUL\": Tags may not have any characters that encodeURIComponent encodes.",
+    "detail": ""
+  }
+}
+[18:58:55.240] [DEBUG] No installations found for @vitest/coverage-istanbul
+[18:58:55.241] [INFO] adding-dependencies-task-start: Adding dependencies to package.json
+[18:58:55.241] [INFO] adding-dependencies-task: Adding devDependencies:
+- @vitest/coverage-v8@^4.1.9
+[18:58:55.242] [DEBUG] Using cached package.json for D:\D's\dara-ui\package.json...
+[18:58:55.242] [DEBUG] Getting CLI versions from NPM for @vitest/coverage-v8...
+[18:58:55.242] [DEBUG] Executing command: npm info @vitest/coverage-v8 version
+[18:58:55.243] [DEBUG] Resolved command variation: npm.cmd
+[18:58:57.185] [DEBUG] Using cached package.json for D:\D's\dara-ui\package.json...
+[18:58:57.186] [INFO] adding-dependencies-task-success: Dependencies added to package.json
+[18:58:57.187] [INFO] Installing dependencies...
+[18:58:57.188] [INFO] install-dependencies-spinner-start: Installing dependencies...
+[18:58:57.190] [DEBUG] Executing command: npm install
+[18:58:57.191] [DEBUG] Resolved command variation: npm.cmd
+[18:59:00.143] [INFO] Installing dependencies...: 
+up to date, audited 365 packages in 3s
+
+[18:59:00.143] [INFO] install-dependencies-spinner: Installing dependencies...: up to date, audited 365 p
+[18:59:00.143] [INFO] Installing dependencies...: 
+98 packages are looking for funding
+  run `npm fund` for details
+
+[18:59:00.143] [INFO] install-dependencies-spinner: Installing dependencies...: 98 packages are looking f
+[18:59:00.145] [INFO] Installing dependencies...: 
+found 0 vulnerabilities
+
+[18:59:00.145] [INFO] install-dependencies-spinner: Installing dependencies...: found 0 vulnerabilities
+[18:59:00.172] [INFO] Dependencies installed
+[18:59:00.172] [INFO] install-dependencies-spinner-stop: Dependencies installed
+[18:59:00.182] [INFO] configure-addons-task-start: Configuring addons...
+[18:59:00.183] [INFO] configure-addons-task: Configuring @chromatic-com/storybook...
+[18:59:00.204] [INFO] configure-addons-task: @chromatic-com/storybook configured
+
+[18:59:00.205] [INFO] configure-addons-task: Configuring @storybook/addon-vitest...
+[18:59:00.207] [DEBUG] Getting package.json info for D:/D's/dara-ui/package.json...
+[18:59:00.207] [DEBUG] Using cached package.json for D:\D's\dara-ui\package.json...
+[18:59:00.207] [DEBUG] Getting installed version for vitest...
+[18:59:00.207] [DEBUG] Executing command: npm ls --json --depth=99 2>NUL
+[18:59:00.209] [DEBUG] Resolved command variation: npm.cmd
+[18:59:02.425] [DEBUG] Executing command: npm ls --json --depth=0 2>NUL
+[18:59:02.426] [DEBUG] Resolved command variation: npm.cmd
+[18:59:04.114] [DEBUG] Error finding installations for vitest: ExecaError: Command failed with exit code 1: npm.cmd ls --json "--depth=0" "2>NUL"
+
+npm error code EINVALIDTAGNAME
+npm error Invalid tag name "2>NUL" of package "2>NUL": Tags may not have any characters that encodeURIComponent encodes.
+npm error A complete log of this run can be found in: C:\Users\D\AppData\Local\npm-cache\_logs\2026-07-01T22_59_02_832Z-debug-0.log
+
+{
+  "error": {
+    "code": "EINVALIDTAGNAME",
+    "summary": "Invalid tag name \"2>NUL\" of package \"2>NUL\": Tags may not have any characters that encodeURIComponent encodes.",
+    "detail": ""
+  }
+}
+[18:59:04.114] [DEBUG] No installations found for vitest
+[18:59:04.114] [DEBUG] Vitest version specifier: 4.1.9
+[18:59:04.120] [DEBUG] Using cached installed version for vitest...
+[18:59:04.120] [DEBUG] Getting installed version for msw...
+[18:59:04.120] [DEBUG] Executing command: npm ls --json --depth=99 2>NUL
+[18:59:04.120] [DEBUG] Resolved command variation: npm.cmd
+[18:59:05.758] [DEBUG] Executing command: npm ls --json --depth=0 2>NUL
+[18:59:05.759] [DEBUG] Resolved command variation: npm.cmd
+[18:59:07.431] [DEBUG] Error finding installations for msw: ExecaError: Command failed with exit code 1: npm.cmd ls --json "--depth=0" "2>NUL"
+
+npm error code EINVALIDTAGNAME
+npm error Invalid tag name "2>NUL" of package "2>NUL": Tags may not have any characters that encodeURIComponent encodes.
+npm error A complete log of this run can be found in: C:\Users\D\AppData\Local\npm-cache\_logs\2026-07-01T22_59_06_161Z-debug-0.log
+
+{
+  "error": {
+    "code": "EINVALIDTAGNAME",
+    "summary": "Invalid tag name \"2>NUL\" of package \"2>NUL\": Tags may not have any characters that encodeURIComponent encodes.",
+    "detail": ""
+  }
+}
+[18:59:07.431] [DEBUG] No installations found for msw
+[18:59:07.449] [INFO] [32mVitest for Storybook is already properly configured. Skipping setup.[39m
+[18:59:07.450] [INFO] Setting up a11y addon for @storybook/addon-vitest
+[18:59:07.450] [INFO] Setting up a11y addon for @storybook/addon-vitest
+[18:59:07.450] [DEBUG] Executing command: npx storybook@10.4.6 automigrate addon-a11y-addon-test --loglevel silent --yes --skip-doctor --package-manager npm --skip-install
+[18:59:07.451] [DEBUG] Resolved command variation: npx.cmd
+[18:59:51.010] [INFO] a11y addon setup successfully
+[18:59:51.010] [INFO] [32ma11y addon setup successfully[39m
+[18:59:51.011] [INFO] [32m@storybook/addon-vitest setup completed successfully[39m
+[18:59:51.011] [INFO] @storybook/addon-vitest is now configured and you're ready to run your tests!
+Here are a couple of tips to get you started:
+
+• You can run tests with "[36mnpx vitest --project=storybook[39m"
+• Vitest IDE extension shows all stories as tests in your editor!
+
+Check the documentation for more information about its features and options at:
+https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
+[18:59:51.012] [INFO] configure-addons-task: @storybook/addon-vitest configured
+
+[18:59:51.013] [INFO] configure-addons-task: Configuring @storybook/addon-a11y...
+[18:59:51.013] [DEBUG] Executing command: npx storybook@10.4.6 automigrate addon-a11y-addon-test --loglevel silent --skip-doctor --yes --package-manager npm --config-dir .storybook
+[18:59:51.014] [DEBUG] Resolved command variation: npx.cmd
+[19:00:37.053] [INFO] configure-addons-task: @storybook/addon-a11y configured
+
+[19:00:37.054] [INFO] configure-addons-task: Configuring @storybook/addon-docs...
+[19:00:37.074] [INFO] configure-addons-task: @storybook/addon-docs configured
+
+[19:00:37.074] [INFO] configure-addons-task: Configuring @storybook/addon-mcp...
+[19:00:37.091] [INFO] configure-addons-task: @storybook/addon-mcp configured
+
+[19:00:37.091] [INFO] configure-addons-task-success: Addons configured successfully
+[19:00:37.092] [INFO] [2m✅ @chromatic-com/storybook[22m
+[19:00:37.094] [INFO] [2m✅ @storybook/addon-vitest[22m
+[19:00:37.094] [INFO] [2m✅ @storybook/addon-a11y[22m
+[19:00:37.096] [INFO] [2m✅ @storybook/addon-docs[22m
+[19:00:37.097] [INFO] [2m✅ @storybook/addon-mcp[22m
+[19:00:37.099] [INFO] Playwright browser binaries are necessary for @storybook/addon-vitest. The download can take some time. If you don't want to wait, you can skip the installation and run the following command manually later:
+[36mnpx playwright install chromium --with-deps[39m
+[19:01:05.272] [PROMPT] Do you want to install Playwright with Chromium now? {"choice":true}
+[19:01:05.272] [INFO] Installing Playwright browser binaries (press "c" to abort)
+[19:01:05.273] [INFO] playwright-installation-spinner-start: Installing Playwright browser binaries (press "c" to abort)
+[19:01:05.273] [DEBUG] Executing command: npx playwright install chromium --with-deps
+[19:01:05.274] [DEBUG] Resolved command variation: npx.cmd
+[19:01:08.751] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Testing 149.0.7827.55 (playwright chromium v1228)[2m from https://cdn.playwright.dev/builds/cft/149.0.7827.55/win64/chrome-win64.zip[22m
+
+[19:01:08.751] [INFO] playwright-installation-spinner: Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Te
+[19:01:11.228] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Testing 149.0.7827.55 (playwright chromium v1228)[2m from https://cdn.playwright.dev/builds/cft/149.0.7827.55/win64/chrome-win64.zip[22m
+
+[19:01:11.228] [INFO] playwright-installation-spinner: Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Te
+[19:01:13.575] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Testing 149.0.7827.55 (playwright chromium v1228)[2m from https://cdn.playwright.dev/builds/cft/149.0.7827.55/win64/chrome-win64.zip[22m
+
+[19:01:13.575] [INFO] playwright-installation-spinner: Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Te
+[19:01:16.430] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Testing 149.0.7827.55 (playwright chromium v1228)[2m from https://cdn.playwright.dev/builds/cft/149.0.7827.55/win64/chrome-win64.zip[22m
+
+[19:01:16.430] [INFO] playwright-installation-spinner: Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Te
+[19:01:19.059] [INFO] Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Testing 149.0.7827.55 (playwright chromium v1228)[2m from https://cdn.playwright.dev/builds/cft/149.0.7827.55/win64/chrome-win64.zip[22m
+
+[19:01:19.059] [INFO] playwright-installation-spinner: Installing Playwright browser binaries (press "c" to abort): Downloading Chrome for Te
+[19:01:21.544] [INFO] Installing Playwright browser binaries (press "c" to abort): Failed to install browsers
+Error: Failed to download Chrome for Testing 149.0.7827.55 (playwright chromium v1228), caused by
+Error: Download failure, code=1
+    at ChildProcess.<anonymous> (D:\D's\dara-ui\node_modules\playwright-core\lib\coreBundle.js:27793:32)
+    at ChildProcess.emit (node:events:519:28)
+    at ChildProcess._handle.onexit (node:internal/child_process:293:12)
+
+[19:01:21.544] [INFO] playwright-installation-spinner: Installing Playwright browser binaries (press "c" to abort): Failed to install browser
+[19:01:21.589] [ERROR] An error occurred while installing Playwright browser binaries. Please run the following command later: npx playwright install chromium --with-deps {"error":"ExecaError: Command failed with exit code 1: npx.cmd playwright install chromium --with-deps\n\nError: Download failed: server returned code 403 body '<?xml version='1.0' encoding='UTF-8'?><Error><Code>AccessDenied</Code><Message>Access denied.</Message><Details>We're sorry, but this service is not available in your location</Details></Error>'. URL: https://cdn.playwright.dev/builds/cft/149.0.7827.55/win64/chrome-win64.zip\n    at IncomingMessage.handleError (D:\\D's\\dara-ui\\node_modules\\playwright-core\\lib\\coreBundle.js:27916:23)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\nError: Download failed: server returned code 403 body '<?xml version='1.0' encoding='UTF-8'?><Error><Code>AccessDenied</Code><Message>Access denied.</Message><Details>We're sorry, but this service is not available in your location</Details></Error>'. URL: https://cdn.playwright.dev/builds/cft/149.0.7827.55/win64/chrome-win64.zip\n    at IncomingMessage.handleError (D:\\D's\\dara-ui\\node_modules\\playwright-core\\lib\\coreBundle.js:27916:23)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\nError: Download failed: server returned code 403 body '<?xml version='1.0' encoding='UTF-8'?><Error><Code>AccessDenied</Code><Message>Access denied.</Message><Details>We're sorry, but this service is not available in your location</Details></Error>'. URL: https://cdn.playwright.dev/builds/cft/149.0.7827.55/win64/chrome-win64.zip\n    at IncomingMessage.handleError (D:\\D's\\dara-ui\\node_modules\\playwright-core\\lib\\coreBundle.js:27916:23)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\nError: Download failed: server returned code 403 body '<?xml version='1.0' encoding='UTF-8'?><Error><Code>AccessDenied</Code><Message>Access denied.</Message><Details>We're sorry, but this service is not available in your location</Details></Error>'. URL: https://cdn.playwright.dev/builds/cft/149.0.7827.55/win64/chrome-win64.zip\n    at IncomingMessage.handleError (D:\\D's\\dara-ui\\node_modules\\playwright-core\\lib\\coreBundle.js:27916:23)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\nError: Download failed: server returned code 403 body '<?xml version='1.0' encoding='UTF-8'?><Error><Code>AccessDenied</Code><Message>Access denied.</Message><Details>We're sorry, but this service is not available in your location</Details></Error>'. URL: https://cdn.playwright.dev/builds/cft/149.0.7827.55/win64/chrome-win64.zip\n    at IncomingMessage.handleError (D:\\D's\\dara-ui\\node_modules\\playwright-core\\lib\\coreBundle.js:27916:23)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\n\nDownloading Chrome for Testing 149.0.7827.55 (playwright chromium v1228) from https://cdn.playwright.dev/builds/cft/149.0.7827.55/win64/chrome-win64.zip\nDownloading Chrome for Testing 149.0.7827.55 (playwright chromium v1228) from https://cdn.playwright.dev/builds/cft/149.0.7827.55/win64/chrome-win64.zip\nDownloading Chrome for Testing 149.0.7827.55 (playwright chromium v1228) from https://cdn.playwright.dev/builds/cft/149.0.7827.55/win64/chrome-win64.zip\nDownloading Chrome for Testing 149.0.7827.55 (playwright chromium v1228) from https://cdn.playwright.dev/builds/cft/149.0.7827.55/win64/chrome-win64.zip\nDownloading Chrome for Testing 149.0.7827.55 (playwright chromium v1228) from https://cdn.playwright.dev/builds/cft/149.0.7827.55/win64/chrome-win64.zip\nFailed to install browsers\nError: Failed to download Chrome for Testing 149.0.7827.55 (playwright chromium v1228), caused by\nError: Download failure, code=1\n    at ChildProcess.<anonymous> (D:\\D's\\dara-ui\\node_modules\\playwright-core\\lib\\coreBundle.js:27793:32)\n    at ChildProcess.emit (node:events:519:28)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)\n    at getFinalError (file:///C:/Users/D/AppData/Local/npm-cache/_npx/60944b67ced26ac3/node_modules/storybook/dist/_node-chunks/chunk-6U2XPXR7.js:11529:10)\n    at makeError (file:///C:/Users/D/AppData/Local/npm-cache/_npx/60944b67ced26ac3/node_modules/storybook/dist/_node-chunks/chunk-6U2XPXR7.js:13065:15)\n    at getAsyncResult (file:///C:/Users/D/AppData/Local/npm-cache/_npx/60944b67ced26ac3/node_modules/storybook/dist/_node-chunks/chunk-6U2XPXR7.js:15711:158)\n    at handlePromise (file:///C:/Users/D/AppData/Local/npm-cache/_npx/60944b67ced26ac3/node_modules/storybook/dist/_node-chunks/chunk-6U2XPXR7.js:15697:162)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Object.executeTaskWithSpinner (file:///C:/Users/D/AppData/Local/npm-cache/_npx/60944b67ced26ac3/node_modules/storybook/dist/_node-chunks/chunk-YBD2A4LF.js:3683:11)\n    at async AddonVitestService.installPlaywright (file:///C:/Users/D/AppData/Local/npm-cache/_npx/60944b67ced26ac3/node_modules/storybook/dist/_node-chunks/chunk-WPDWCGPK.js:5856:17)\n    at async AddonConfigurationCommand.execute (file:///C:/Users/D/AppData/Local/npm-cache/_npx/60944b67ced26ac3/node_modules/create-storybook/dist/_node-chunks/chunk-SGWNRTQ7.js:2197:26)\n    at async doInitiate (file:///C:/Users/D/AppData/Local/npm-cache/_npx/60944b67ced26ac3/node_modules/create-storybook/dist/_node-chunks/chunk-SGWNRTQ7.js:3547:3)\n    at async file:///C:/Users/D/AppData/Local/npm-cache/_npx/60944b67ced26ac3/node_modules/create-storybook/dist/_node-chunks/chunk-SGWNRTQ7.js:3590:20"}
+[19:01:21.589] [ERROR] playwright-installation-spinner-error: [31mAn error occurred while installing Playwright browser binaries. Please run the following command later: npx playwright install chromium --with-deps[39m
+[19:02:22.355] [WARN] Storybook setup completed, but some non-blocking errors occurred. Please check the log file below for details.
+[19:02:22.359] [INFO] To run Storybook, run [36mnpm run storybook[39m. CTRL+C to stop.
+[19:02:22.360] [INFO] Official documentation reference: [36mhttps://storybook.js.org/llms.txt[39m
+[19:02:22.361] [INFO] To finalize setting up with AI, paste this prompt to your AI agent:
+
+[38;2;255;71;133mRun `npx storybook ai setup` and follow its instructions precisely.[39m
