@@ -24,7 +24,8 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: resolve(__dirname, "src/components/Button/index.ts"),
+      // ✅ Use dirname variable, point to library root
+      entry: resolve(dirname, "src/index.ts"),
       name: "DaraUI",
       formats: ["es", "cjs"],
       fileName: (format) => `dara-ui.${format}.js`,

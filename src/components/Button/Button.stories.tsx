@@ -12,7 +12,15 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "outline", "ghost", "danger"],
+      options: [
+        "primary",
+        "secondary",
+        "outline",
+        "ghost",
+        "danger",
+        "success",
+        "glass",
+      ],
       description: "Button visual style variant",
     },
     size: {
@@ -32,6 +40,10 @@ const meta = {
       control: "boolean",
       description: "Disables button interaction",
     },
+    glow: {
+      control: "boolean",
+      description: "Adds glow effect on hover",
+    },
     children: {
       control: "text",
       description: "Button content",
@@ -45,7 +57,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Default Button
 export const Default: Story = {
   args: {
     children: "Button",
@@ -54,7 +65,6 @@ export const Default: Story = {
   },
 };
 
-// All Variants
 export const Variants: Story = {
   render: () => (
     <div className="flex items-center gap-4 flex-wrap">
@@ -63,11 +73,12 @@ export const Variants: Story = {
       <Button variant="outline">Outline</Button>
       <Button variant="ghost">Ghost</Button>
       <Button variant="danger">Danger</Button>
+      <Button variant="success">Success</Button>
+      <Button variant="glass">Glass</Button>
     </div>
   ),
 };
 
-// All Sizes
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-4 flex-wrap">
@@ -78,7 +89,6 @@ export const Sizes: Story = {
   ),
 };
 
-// With Icons
 export const WithIcons: Story = {
   render: () => (
     <div className="flex items-center gap-4 flex-wrap">
@@ -117,6 +127,7 @@ export const WithIcons: Story = {
             />
           </svg>
         }
+        variant="secondary"
       >
         Next
       </Button>
@@ -124,7 +135,6 @@ export const WithIcons: Story = {
   ),
 };
 
-// Loading State
 export const Loading: Story = {
   render: () => (
     <div className="flex items-center gap-4 flex-wrap">
@@ -136,7 +146,6 @@ export const Loading: Story = {
   ),
 };
 
-// Full Width
 export const FullWidth: Story = {
   render: () => (
     <div className="w-80">
@@ -145,7 +154,6 @@ export const FullWidth: Story = {
   ),
 };
 
-// Disabled States
 export const Disabled: Story = {
   render: () => (
     <div className="flex items-center gap-4 flex-wrap">
@@ -153,14 +161,26 @@ export const Disabled: Story = {
       <Button disabled variant="secondary">
         Disabled Secondary
       </Button>
-      <Button disabled variant="outline">
-        Disabled Outline
+    </div>
+  ),
+};
+
+export const WithGlow: Story = {
+  render: () => (
+    <div className="flex items-center gap-4 flex-wrap">
+      <Button glow variant="primary">
+        Glow Primary
+      </Button>
+      <Button glow variant="success">
+        Glow Success
+      </Button>
+      <Button glow variant="danger">
+        Glow Danger
       </Button>
     </div>
   ),
 };
 
-// Interactive Playground
 export const Interactive: Story = {
   args: {
     children: "Click me!",
@@ -169,5 +189,6 @@ export const Interactive: Story = {
     fullWidth: false,
     loading: false,
     disabled: false,
+    glow: false,
   },
 };

@@ -1,6 +1,6 @@
 ================================================================================
 ADVANCED PROJECT CODE EXPORT
-Generated: 2026-07-05 06:52:46
+Generated: 2026-07-06 17:23:24
 Project: dara-ui
 Path: D:\D's\dara-ui
 ================================================================================
@@ -15,7 +15,7 @@ TABLE OF CONTENTS
 ================================================================================
 
 dara-ui/
-├── .gitignore (286.0 B)
+├── .gitignore (242.0 B)
 ├── dara-ui_export.txt (0.0 B)
 ├── eslint.config.js (786.0 B)
 ├── export_project.py (16.9 KB)
@@ -26,14 +26,18 @@ dara-ui/
 │   └── icons.svg (4.9 KB)
 ├── README.md (2.4 KB)
 ├── src/
+│   ├── App.tsx (5.4 KB)
 │   ├── components/
 │   │   └── Button/
 │   │       ├── Button.stories.tsx (0.0 B)
-│   │       ├── Button.tsx (73.0 B)
-│   │       └── index.ts (0.0 B)
-│   ├── main.tsx (272.0 B)
+│   │       ├── Button.tsx (3.1 KB)
+│   │       └── index.ts (106.0 B)
+│   ├── fonts/
+│   ├── main.tsx (267.0 B)
 │   └── styles/
-│       └── index.css (383.0 B)
+│       ├── fonts.css (1.6 KB)
+│       ├── index.css (5.1 KB)
+│       └── tokens.css (9.7 KB)
 ├── tsconfig.app.json (655.0 B)
 ├── tsconfig.json (119.0 B)
 ├── tsconfig.node.json (558.0 B)
@@ -47,44 +51,42 @@ dara-ui/
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 1/21: .gitignore
-Language: plaintext | Size: 286 bytes
-Lines: 28 total | 22 code | 2 comments | 4 blank
+FILE 1/24: .gitignore
+Language: plaintext | Size: 242 bytes
+Lines: 25 total | 16 code | 5 comments | 4 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```plaintext
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
-node_modules
-dist
-dist-ssr
+# Build outputs
+dist/
+dist-ssr/
 *.local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Storybook
+storybook-static/
+*.storybook.log
 
-*storybook.log
-storybook-static
+# IDE
+.vscode/
+.idea/
+*.sw?
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env.*.local
 ```
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 2/21: .storybook\main.ts
+FILE 2/24: .storybook\main.ts
 Language: typescript | Size: 418 bytes
 Lines: 17 total | 16 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -111,7 +113,7 @@ export default config;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 3/21: .storybook\preview.tsx
+FILE 3/24: .storybook\preview.tsx
 Language: tsx | Size: 466 bytes
 Lines: 23 total | 19 code | 0 comments | 4 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -143,7 +145,7 @@ export default preview;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 4/21: dara-ui_export.txt
+FILE 4/24: dara-ui_export.txt
 Language: plaintext | Size: 0 bytes
 Lines: 1 total | 0 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -154,7 +156,7 @@ Lines: 1 total | 0 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 5/21: eslint.config.js
+FILE 5/24: eslint.config.js
 Language: javascript | Size: 764 bytes
 Lines: 23 total | 19 code | 1 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -186,7 +188,7 @@ export default defineConfig([globalIgnores(['dist']), {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 6/21: export_project.py
+FILE 6/24: export_project.py
 Language: python | Size: 16,849 bytes
 Lines: 421 total | 345 code | 1 comments | 75 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -617,7 +619,7 @@ if __name__ == "__main__":
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 7/21: index.html
+FILE 7/24: index.html
 Language: html | Size: 359 bytes
 Lines: 14 total | 13 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -640,9 +642,9 @@ Lines: 14 total | 13 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 8/21: package.json
-Language: json | Size: 1,741 bytes
-Lines: 66 total | 65 code | 0 comments | 1 blank
+FILE 8/24: package.json
+Language: json | Size: 1,782 bytes
+Lines: 67 total | 66 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```json
@@ -670,10 +672,11 @@ Lines: 66 total | 65 code | 0 comments | 1 blank
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "build:lib": "tsc -b && vite build",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.2",
@@ -715,7 +718,7 @@ Lines: 66 total | 65 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 9/21: public\favicon.svg
+FILE 9/24: public\favicon.svg
 Language: plaintext | Size: 9,522 bytes
 Lines: 1 total | 1 code | 0 comments | 0 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -726,7 +729,7 @@ Lines: 1 total | 1 code | 0 comments | 0 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 10/21: public\icons.svg
+FILE 10/24: public\icons.svg
 Language: plaintext | Size: 5,031 bytes
 Lines: 25 total | 24 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -760,7 +763,7 @@ Lines: 25 total | 24 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 11/21: README.md
+FILE 11/24: README.md
 Language: markdown | Size: 2,427 bytes
 Lines: 76 total | 57 code | 3 comments | 16 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -845,7 +848,152 @@ export default defineConfig([
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 12/21: src\components\Button\Button.stories.tsx
+FILE 12/24: src\App.tsx
+Language: tsx | Size: 5,297 bytes
+Lines: 136 total | 124 code | 0 comments | 12 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import React, { useState } from "react";
+import Button from "./components/Button/Button";
+import "./styles/index.css";
+
+type Theme = "nightfall" | "daylight" | "bloody-moon";
+
+function App() {
+  const [theme, setTheme] = useState<Theme>("nightfall");
+
+  const changeTheme = (newTheme: Theme) => {
+    setTheme(newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+  };
+
+  return (
+    <div className="min-h-screen p-8 transition-theme">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-4xl font-bold text-gradient-primary">
+            Dara UI Components
+          </h1>
+
+          {/* Theme Switcher */}
+          <div className="flex gap-2">
+            <Button
+              size="sm"
+              variant={theme === "nightfall" ? "primary" : "outline"}
+              onClick={() => changeTheme("nightfall")}
+            >
+              🌙 Nightfall
+            </Button>
+            <Button
+              size="sm"
+              variant={theme === "daylight" ? "primary" : "outline"}
+              onClick={() => changeTheme("daylight")}
+            >
+              ☀️ Daylight
+            </Button>
+            <Button
+              size="sm"
+              variant={theme === "bloody-moon" ? "primary" : "outline"}
+              onClick={() => changeTheme("bloody-moon")}
+            >
+              🌹 Bloody Moon
+            </Button>
+          </div>
+        </div>
+
+        {/* Button Showcase */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Button Variants</h2>
+          <div className="flex flex-wrap gap-3">
+            <Button variant="primary">Primary</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="outline">Outline</Button>
+            <Button variant="ghost">Ghost</Button>
+            <Button variant="danger">Danger</Button>
+          </div>
+        </section>
+
+        {/* Gradient Showcase */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Gradients</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-primary text-white text-center">
+              Primary
+            </div>
+            <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-accent text-white text-center">
+              Accent
+            </div>
+            <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-success text-white text-center">
+              Success
+            </div>
+            <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-danger text-white text-center">
+              Danger
+            </div>
+          </div>
+        </section>
+
+        {/* Glass & Glow Showcase */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Effects</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="p-6 rounded-[var(--radius-standard)] glass text-center">
+              Glass Effect
+            </div>
+            <div className="p-6 rounded-[var(--radius-standard)] glow-primary text-center bg-[var(--color-bg-tertiary)]">
+              Glow Primary
+            </div>
+            <div className="p-6 rounded-[var(--radius-standard)] glow-accent text-center bg-[var(--color-bg-tertiary)]">
+              Glow Accent
+            </div>
+          </div>
+        </section>
+
+        {/* Typography Showcase */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Typography</h2>
+          <div className="space-y-4">
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              Text Secondary
+            </p>
+            <p className="text-base">Regular body text with Inter font</p>
+            <p className="text-xl font-bold text-gradient-primary">
+              Gradient Heading
+            </p>
+            <p className="text-lg font-medium text-[var(--color-accent)]">
+              Accent colored text
+            </p>
+            <code className="px-3 py-1 rounded-[var(--radius-sm)] block">
+              console.log("Code with JetBrains Mono");
+            </code>
+          </div>
+        </section>
+
+        {/* Persian Text Showcase */}
+        <section className="p-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Persian Support</h2>
+          <div className="space-y-4">
+            <p className="lang-fa text-lg">
+              این متن با قلم وزیرمتن نمایش داده می‌شود
+            </p>
+            <h3 className="lang-fa-heading text-xl">عنوان فارسی با قلم Kook</h3>
+            <p className="lang-fa text-sm text-[var(--color-text-secondary)]">
+              متن فارسی با اندازه کوچک و رنگ ثانویه
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+export default App;
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 13/24: src\components\Button\Button.stories.tsx
 Language: tsx | Size: 0 bytes
 Lines: 1 total | 0 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -856,79 +1004,823 @@ Lines: 1 total | 0 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 13/21: src\components\Button\Button.tsx
-Language: tsx | Size: 70 bytes
-Lines: 4 total | 3 code | 0 comments | 1 blank
+FILE 14/24: src\components\Button\Button.tsx
+Language: tsx | Size: 3,042 bytes
+Lines: 101 total | 92 code | 0 comments | 9 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
-export default function Button() {
-  return <button>Click</button>;
+import React from "react";
+
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger";
+  size?: "sm" | "md" | "lg";
+  fullWidth?: boolean;
+  loading?: boolean;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
 }
+
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      variant = "primary",
+      size = "md",
+      fullWidth = false,
+      loading = false,
+      leftIcon,
+      rightIcon,
+      className = "",
+      disabled,
+      ...props
+    },
+    ref,
+  ) => {
+    const baseStyles =
+      "inline-flex items-center justify-center font-medium transition-all duration-200 rounded-[var(--radius-standard)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)] disabled:opacity-60 disabled:cursor-not-allowed";
+
+    const variants = {
+      primary:
+        "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary)]/90 active:bg-[var(--color-primary)]/80",
+      secondary:
+        "bg-[var(--color-secondary)] text-[var(--color-bg-main)] hover:bg-[var(--color-secondary)]/90 active:bg-[var(--color-secondary)]/80",
+      outline:
+        "border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 active:bg-[var(--color-primary)]/20",
+      ghost:
+        "text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 active:bg-[var(--color-primary)]/20",
+      danger:
+        "bg-[var(--color-danger)] text-white hover:bg-[var(--color-danger)]/90 active:bg-[var(--color-danger)]/80",
+    };
+
+    const sizes = {
+      sm: "px-3 py-1.5 text-sm",
+      md: "px-4 py-2.5 text-base",
+      lg: "px-6 py-3.5 text-lg",
+    };
+
+    const classes = [
+      baseStyles,
+      variants[variant],
+      sizes[size],
+      fullWidth ? "w-full" : "",
+      loading ? "opacity-70 cursor-wait" : "",
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    return (
+      <button
+        ref={ref}
+        className={classes}
+        disabled={disabled || loading}
+        {...props}
+      >
+        {loading && (
+          <svg
+            className="mr-2 h-4 w-4 animate-spin"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            />
+          </svg>
+        )}
+        {leftIcon && <span className="mr-2">{leftIcon}</span>}
+        {children}
+        {rightIcon && <span className="ml-2">{rightIcon}</span>}
+      </button>
+    );
+  },
+);
+
+Button.displayName = "Button";
+
+export default Button;
 ```
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 14/21: src\components\Button\index.ts
-Language: typescript | Size: 0 bytes
-Lines: 1 total | 0 code | 0 comments | 1 blank
+FILE 15/24: src\components\Button\index.ts
+Language: typescript | Size: 103 bytes
+Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```typescript
-
+export { Button } from "./Button";
+export type { ButtonProps } from "./Button";
+export default Button;
 ```
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 15/21: src\main.tsx
-Language: tsx | Size: 272 bytes
-Lines: 11 total | 9 code | 0 comments | 2 blank
+FILE 16/24: src\main.tsx
+Language: tsx | Size: 267 bytes
+Lines: 12 total | 10 code | 0 comments | 2 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles/index.css";
-import Button from "./components/Button/Button";
+import "./styles/fonts.css";
+import App from "./App";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Button></Button>
+    <App />
   </StrictMode>,
 );
 ```
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 16/21: src\styles\index.css
-Language: css | Size: 383 bytes
-Lines: 19 total | 14 code | 2 comments | 3 blank
+FILE 17/24: src\styles\fonts.css
+Language: css | Size: 1,534 bytes
+Lines: 64 total | 50 code | 6 comments | 8 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```css
-@import "tailwindcss";
+/* src/styles/fonts.css */
 
-@theme {
-  /* color tokens */
-  --color-bg-main: #0b0f19;
-  --color-bg-secondary: #121826;
-  --color-primary: #7c5cff;
-  --color-secondary: #00d9ff;
-  --color-accent: #ff4d9d;
-  --color-success: #00ff99;
-  --color-danger: #ff5370;
-  --color-warning: #ffc857;
+/* ===== Space Grotesk (Headings – English) ===== */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/src/fonts/Space-Grotesk-Variable.woff2") format("woff2-variations");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
 
-  /* border radius */
-  --radius-standard: 18px;
-  --radius-large: 24px;
-  --radius-pill: 999px;
+/* ===== Inter (Body – English) ===== */
+@font-face {
+  font-family: "Inter";
+  src: url("/src/fonts/Inter-Variable.woff2") format("woff2-variations");
+  font-weight: 200 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== Kook (Headings – Persian) ===== */
+@font-face {
+  font-family: "Kook";
+  src: url("/src/fonts/Kook-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Kook";
+  src: url("/src/fonts/Kook-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Kook";
+  src: url("/src/fonts/Kook-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== Vazirmatn (Body – Persian) ===== */
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/src/fonts/Vazirmatn-RD-Variable.woff2") format("woff2-variations");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== JetBrains Mono (Code – Both languages) ===== */
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/src/fonts/JetBrains-Mono-Variable.woff2")
+    format("woff2-variations");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
 }
 ```
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 17/21: tsconfig.app.json
+FILE 18/24: src\styles\index.css
+Language: css | Size: 5,129 bytes
+Lines: 250 total | 202 code | 16 comments | 32 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```css
+@import "tailwindcss";
+@import "./tokens.css";
+@import "./fonts.css";
+
+/* =============================================
+   BASE STYLES
+   ============================================= */
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base);
+}
+
+/* ── Headings ── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-heading);
+  color: var(--color-text-primary);
+}
+
+/* ── Code ── */
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-family-mono);
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+  padding: 0.2em 0.4em;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Links ── */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+/* ── Selection ── */
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-primary);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* =============================================
+   UTILITY CLASSES
+   ============================================= */
+
+/* ── Gradients ── */
+.bg-gradient-primary {
+  background: var(--gradient-primary);
+}
+.bg-gradient-accent {
+  background: var(--gradient-accent);
+}
+.bg-gradient-success {
+  background: var(--gradient-success);
+}
+.bg-gradient-danger {
+  background: var(--gradient-danger);
+}
+.bg-gradient-warm {
+  background: var(--gradient-warm);
+}
+.bg-gradient-cool {
+  background: var(--gradient-cool);
+}
+.bg-gradient-glass {
+  background: var(--gradient-glass);
+}
+
+/* ── Text Gradients ── */
+.text-gradient-primary {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-accent {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-success {
+  background: var(--gradient-success);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-danger {
+  background: var(--gradient-danger);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-warm {
+  background: var(--gradient-warm);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-cool {
+  background: var(--gradient-cool);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glows ── */
+.glow-primary {
+  box-shadow: var(--shadow-glow-primary);
+}
+.glow-secondary {
+  box-shadow: var(--shadow-glow-secondary);
+}
+.glow-accent {
+  box-shadow: var(--shadow-glow-accent);
+}
+.glow-success {
+  box-shadow: var(--shadow-glow-success);
+}
+.glow-danger {
+  box-shadow: var(--shadow-glow-danger);
+}
+.glow-warning {
+  box-shadow: var(--shadow-glow-warning);
+}
+
+/* ── Glass ── */
+.glass {
+  background: var(--gradient-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border-primary);
+  box-shadow: var(--shadow-glass);
+}
+
+/* ── Float ── */
+.float {
+  box-shadow: var(--shadow-float);
+  transform: translateY(0);
+  transition:
+    transform var(--transition-med),
+    box-shadow var(--transition-med);
+}
+
+.float:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-float), var(--shadow-glow-primary);
+}
+
+/* ── Transition Helper ── */
+.transition-theme {
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+/* =============================================
+   LANGUAGE SUPPORT
+   ============================================= */
+
+/* ── Persian/Arabic ── */
+html[lang="fa"],
+html[lang="fa-IR"],
+html[lang="ar"],
+html[lang="ar-SA"] {
+  body {
+    font-family: var(--font-family-persian-body);
+    direction: rtl;
+    line-height: 1.8;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-family-persian-heading);
+  }
+}
+
+/* ── Mixed Language Utilities ── */
+.lang-en {
+  font-family: var(--font-family-sans) !important;
+  direction: ltr !important;
+  unicode-bidi: embed;
+}
+
+.lang-fa {
+  font-family: var(--font-family-persian-body) !important;
+  direction: rtl !important;
+  unicode-bidi: embed;
+}
+
+.lang-en-heading {
+  font-family: var(--font-family-heading) !important;
+  direction: ltr !important;
+  unicode-bidi: embed;
+}
+
+.lang-fa-heading {
+  font-family: var(--font-family-persian-heading) !important;
+  direction: rtl !important;
+  unicode-bidi: embed;
+}
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 19/24: src\styles\tokens.css
+Language: css | Size: 9,557 bytes
+Lines: 331 total | 249 code | 29 comments | 53 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```css
+/* src/styles/tokens.css
+ * ======================================================
+ * DARA UI DESIGN TOKENS
+ * Only what's unique to Dara — Tailwind handles the rest
+ * ======================================================
+ */
+
+/* =============================================
+   1. DARA BRAND COLORS (Base values)
+   ============================================= */
+
+:root {
+  /* ── Brand Colors ── */
+  --dara-primary: #7c5cff;
+  --dara-primary-hover: #6b4ae8;
+  --dara-primary-active: #5a3fd1;
+  --dara-primary-light: rgba(124, 92, 255, 0.15);
+
+  --dara-secondary: #00d9ff;
+  --dara-secondary-hover: #00c4e6;
+  --dara-secondary-active: #00afcc;
+  --dara-secondary-light: rgba(0, 217, 255, 0.15);
+
+  --dara-accent: #ff4d9d;
+  --dara-accent-hover: #e63d8a;
+  --dara-accent-active: #cc2d78;
+  --dara-accent-light: rgba(255, 77, 157, 0.15);
+
+  --dara-success: #00ff99;
+  --dara-success-hover: #00e68a;
+  --dara-success-light: rgba(0, 255, 153, 0.15);
+
+  --dara-danger: #ff5370;
+  --dara-danger-hover: #e63d5a;
+  --dara-danger-light: rgba(255, 83, 112, 0.15);
+
+  --dara-warning: #ffc857;
+  --dara-warning-hover: #e6b44e;
+  --dara-warning-light: rgba(255, 200, 87, 0.15);
+
+  --dara-info: #60a5fa;
+  --dara-info-light: rgba(96, 165, 250, 0.15);
+}
+
+/* =============================================
+   2. DARA BORDER RADII
+   ============================================= */
+
+:root {
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-standard: 18px;
+  --radius-large: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+}
+
+/* =============================================
+   3. DARA SHADOWS
+   ============================================= */
+
+:root {
+  /* ── Glow Shadows ── */
+  --shadow-glow-primary: 0 0 40px rgba(124, 92, 255, 0.3);
+  --shadow-glow-secondary: 0 0 40px rgba(0, 217, 255, 0.3);
+  --shadow-glow-accent: 0 0 40px rgba(255, 77, 157, 0.3);
+  --shadow-glow-success: 0 0 40px rgba(0, 255, 153, 0.3);
+  --shadow-glow-danger: 0 0 40px rgba(255, 83, 112, 0.3);
+  --shadow-glow-warning: 0 0 40px rgba(255, 200, 87, 0.3);
+
+  /* ── Glass Shadow ── */
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.2);
+
+  /* ── Float Shadow ── */
+  --shadow-float: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* =============================================
+   4. DARA FONT FAMILIES
+   ============================================= */
+
+:root {
+  --font-family-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, sans-serif;
+  --font-family-heading: "Space Grotesk", var(--font-family-sans);
+  --font-family-mono: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
+  --font-family-persian-body: "Vazirmatn", var(--font-family-sans);
+  --font-family-persian-heading: "Kook", var(--font-family-heading);
+}
+
+/* =============================================
+   5. DARA MOTION TOKENS
+   ============================================= */
+
+:root {
+  --transition-fast: 180ms ease;
+  --transition-med: 220ms ease;
+  --transition-base: 280ms ease;
+  --transition-slow: 380ms ease;
+  --transition-slower: 500ms ease;
+}
+
+/* =============================================
+   6. THEMES
+   ============================================= */
+
+/* ── NIGHTFALL (Default) ── */
+[data-theme="nightfall"] {
+  /* Backgrounds */
+  --color-bg-primary: #0a0e1a;
+  --color-bg-secondary: #111827;
+  --color-bg-tertiary: #1a2332;
+  --color-bg-elevated: #1f2a3f;
+  --color-bg-inverse: #f8fafc;
+
+  /* Text */
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-tertiary: #64748b;
+  --color-text-inverse: #0a0e1a;
+
+  /* Borders */
+  --color-border-primary: #2a3a52;
+  --color-border-secondary: #1e2d42;
+
+  /* Semantic Colors (using Dara brand) */
+  --color-primary: var(--dara-primary);
+  --color-primary-hover: var(--dara-primary-hover);
+  --color-primary-active: var(--dara-primary-active);
+  --color-primary-light: var(--dara-primary-light);
+
+  --color-secondary: var(--dara-secondary);
+  --color-secondary-hover: var(--dara-secondary-hover);
+  --color-secondary-active: var(--dara-secondary-active);
+  --color-secondary-light: var(--dara-secondary-light);
+
+  --color-accent: var(--dara-accent);
+  --color-accent-hover: var(--dara-accent-hover);
+  --color-accent-active: var(--dara-accent-active);
+  --color-accent-light: var(--dara-accent-light);
+
+  --color-success: var(--dara-success);
+  --color-success-hover: var(--dara-success-hover);
+  --color-success-light: var(--dara-success-light);
+
+  --color-danger: var(--dara-danger);
+  --color-danger-hover: var(--dara-danger-hover);
+  --color-danger-light: var(--dara-danger-light);
+
+  --color-warning: var(--dara-warning);
+  --color-warning-hover: var(--dara-warning-hover);
+  --color-warning-light: var(--dara-warning-light);
+
+  --color-info: var(--dara-info);
+  --color-info-light: var(--dara-info-light);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--dara-primary) 0%,
+    var(--dara-secondary) 100%
+  );
+  --gradient-accent: linear-gradient(
+    135deg,
+    var(--dara-accent) 0%,
+    var(--dara-warning) 100%
+  );
+  --gradient-success: linear-gradient(
+    135deg,
+    var(--dara-success) 0%,
+    var(--dara-secondary) 100%
+  );
+  --gradient-danger: linear-gradient(
+    135deg,
+    var(--dara-danger) 0%,
+    var(--dara-accent) 100%
+  );
+  --gradient-warm: linear-gradient(
+    135deg,
+    var(--dara-warning) 0%,
+    var(--dara-accent) 100%
+  );
+  --gradient-cool: linear-gradient(
+    135deg,
+    var(--dara-primary) 0%,
+    var(--dara-info) 100%
+  );
+  --gradient-glass: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+}
+
+/* ── DAYLIGHT ── */
+[data-theme="daylight"] {
+  /* Backgrounds */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8fafc;
+  --color-bg-tertiary: #f1f5f9;
+  --color-bg-elevated: #ffffff;
+  --color-bg-inverse: #0a0e1a;
+
+  /* Text */
+  --color-text-primary: #0a0e1a;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #94a3b8;
+  --color-text-inverse: #ffffff;
+
+  /* Borders */
+  --color-border-primary: #e2e8f0;
+  --color-border-secondary: #f1f5f9;
+
+  /* Semantic Colors */
+  --color-primary: var(--dara-primary);
+  --color-primary-hover: var(--dara-primary-hover);
+  --color-primary-active: var(--dara-primary-active);
+  --color-primary-light: rgba(124, 92, 255, 0.1);
+
+  --color-secondary: #0891b2;
+  --color-secondary-hover: #0e7490;
+  --color-secondary-active: #155e75;
+  --color-secondary-light: rgba(8, 145, 178, 0.1);
+
+  --color-accent: #db2777;
+  --color-accent-hover: #be185d;
+  --color-accent-active: #9d174d;
+  --color-accent-light: rgba(219, 39, 119, 0.1);
+
+  --color-success: #059669;
+  --color-success-hover: #047857;
+  --color-success-light: rgba(5, 150, 105, 0.1);
+
+  --color-danger: #dc2626;
+  --color-danger-hover: #b91c1c;
+  --color-danger-light: rgba(220, 38, 38, 0.1);
+
+  --color-warning: #d97706;
+  --color-warning-hover: #b45309;
+  --color-warning-light: rgba(217, 119, 6, 0.1);
+
+  --color-info: #2563eb;
+  --color-info-light: rgba(37, 99, 235, 0.1);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--dara-primary) 0%,
+    #0891b2 100%
+  );
+  --gradient-accent: linear-gradient(135deg, #db2777 0%, #d97706 100%);
+  --gradient-success: linear-gradient(135deg, #059669 0%, #0891b2 100%);
+  --gradient-danger: linear-gradient(135deg, #dc2626 0%, #db2777 100%);
+  --gradient-warm: linear-gradient(135deg, #d97706 0%, #db2777 100%);
+  --gradient-cool: linear-gradient(
+    135deg,
+    var(--dara-primary) 0%,
+    #2563eb 100%
+  );
+  --gradient-glass: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+}
+
+/* ── BLOODY MOON (Dracula) ── */
+[data-theme="bloody-moon"] {
+  /* Backgrounds */
+  --color-bg-primary: #1a1b26;
+  --color-bg-secondary: #24283b;
+  --color-bg-tertiary: #2d3142;
+  --color-bg-elevated: #32364a;
+  --color-bg-inverse: #f8fafc;
+
+  /* Text */
+  --color-text-primary: #c0caf5;
+  --color-text-secondary: #a9b1d6;
+  --color-text-tertiary: #787c99;
+  --color-text-inverse: #1a1b26;
+
+  /* Borders */
+  --color-border-primary: #414868;
+  --color-border-secondary: #32364a;
+
+  /* Semantic Colors */
+  --color-primary: #bb9af7;
+  --color-primary-hover: #a88ae8;
+  --color-primary-active: #957ad9;
+  --color-primary-light: rgba(187, 154, 247, 0.15);
+
+  --color-secondary: #7dcfff;
+  --color-secondary-hover: #62bce6;
+  --color-secondary-active: #4aa9cc;
+  --color-secondary-light: rgba(125, 207, 255, 0.15);
+
+  --color-accent: #f7768e;
+  --color-accent-hover: #e0627a;
+  --color-accent-active: #c94e66;
+  --color-accent-light: rgba(247, 118, 142, 0.15);
+
+  --color-success: #9ece6a;
+  --color-success-hover: #86b85a;
+  --color-success-light: rgba(158, 206, 106, 0.15);
+
+  --color-danger: #f7768e;
+  --color-danger-hover: #e0627a;
+  --color-danger-light: rgba(247, 118, 142, 0.15);
+
+  --color-warning: #e0af68;
+  --color-warning-hover: #c99e58;
+  --color-warning-light: rgba(224, 175, 104, 0.15);
+
+  --color-info: #7aa2f7;
+  --color-info-light: rgba(122, 162, 247, 0.15);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #bb9af7 0%, #7dcfff 100%);
+  --gradient-accent: linear-gradient(135deg, #f7768e 0%, #e0af68 100%);
+  --gradient-success: linear-gradient(135deg, #9ece6a 0%, #7dcfff 100%);
+  --gradient-danger: linear-gradient(135deg, #f7768e 0%, #bb9af7 100%);
+  --gradient-warm: linear-gradient(135deg, #e0af68 0%, #f7768e 100%);
+  --gradient-cool: linear-gradient(135deg, #bb9af7 0%, #7aa2f7 100%);
+  --gradient-glass: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+}
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 20/24: tsconfig.app.json
 Language: json | Size: 655 bytes
 Lines: 27 total | 24 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -964,7 +1856,7 @@ Lines: 27 total | 24 code | 0 comments | 3 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 18/21: tsconfig.json
+FILE 21/24: tsconfig.json
 Language: json | Size: 119 bytes
 Lines: 8 total | 7 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -981,7 +1873,7 @@ Lines: 8 total | 7 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 19/21: tsconfig.node.json
+FILE 22/24: tsconfig.node.json
 Language: json | Size: 558 bytes
 Lines: 24 total | 21 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -1014,9 +1906,9 @@ Lines: 24 total | 21 code | 0 comments | 3 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 20/21: vite.config.ts
-Language: typescript | Size: 1,826 bytes
-Lines: 65 total | 57 code | 5 comments | 3 blank
+FILE 23/24: vite.config.ts
+Language: typescript | Size: 1,799 bytes
+Lines: 73 total | 69 code | 1 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```typescript
@@ -1025,44 +1917,52 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import dts from "vite-plugin-dts";
-
-// https://vite.dev/config/
 import path, { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
 import { playwright } from "@vitest/browser-playwright";
+
 const dirname =
   typeof __dirname !== "undefined"
     ? __dirname
     : path.dirname(fileURLToPath(import.meta.url));
 
-// More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
-  plugins: [react(), tailwindcss(), dts({ include: ["src"] })],
+  plugins: [
+    react(),
+    tailwindcss(),
+    dts({
+      include: ["src"],
+      exclude: ["src/**/*.stories.tsx", "src/App.tsx"],
+    }),
+  ],
   build: {
     lib: {
-      entry: resolve(__dirname, "src/main.tsx"),
+      entry: resolve(__dirname, "src/components/Button/index.ts"),
       name: "DaraUI",
       formats: ["es", "cjs"],
       fileName: (format) => `dara-ui.${format}.js`,
     },
     rollupOptions: {
-      external: ["react", "react-dom"],
+      external: ["react", "react-dom", "react/jsx-runtime"],
       output: {
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
         },
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === "style.css") return "style.css";
+          return assetInfo.name;
+        },
       },
     },
+    cssCodeSplit: false,
   },
   test: {
     projects: [
       {
         extends: true,
         plugins: [
-          // The plugin will run tests for the stories defined in your Storybook config
-          // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
           storybookTest({
             configDir: path.join(dirname, ".storybook"),
           }),
@@ -1088,7 +1988,7 @@ export default defineConfig({
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 21/21: vitest.shims.d.ts
+FILE 24/24: vitest.shims.d.ts
 Language: typescript | Size: 52 bytes
 Lines: 1 total | 0 code | 1 comments | 0 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -1103,21 +2003,21 @@ Lines: 1 total | 0 code | 1 comments | 0 blank
 
 GENERAL STATISTICS
 ----------------------------------------
-Total files exported: 21
-Total size: 41,798 bytes (40.82 KB, 0.04 MB)
-Average file size: 1,990 bytes
+Total files exported: 24
+Total size: 65,972 bytes (64.43 KB, 0.06 MB)
+Average file size: 2,749 bytes
 
 LANGUAGE DISTRIBUTION
 ----------------------------------------
-plaintext          4 files ( 19.0%) █████████
-typescript         4 files ( 19.0%) █████████
-tsx                4 files ( 19.0%) █████████
-json               4 files ( 19.0%) █████████
-javascript         1 files (  4.8%) ██
-python             1 files (  4.8%) ██
-html               1 files (  4.8%) ██
-markdown           1 files (  4.8%) ██
-css                1 files (  4.8%) ██
+tsx                5 files ( 20.8%) ██████████
+plaintext          4 files ( 16.7%) ████████
+typescript         4 files ( 16.7%) ████████
+json               4 files ( 16.7%) ████████
+css                3 files ( 12.5%) ██████
+javascript         1 files (  4.2%) ██
+python             1 files (  4.2%) ██
+html               1 files (  4.2%) ██
+markdown           1 files (  4.2%) ██
 
 DUPLICATE FILES DETECTED
 ----------------------------------------
@@ -1125,14 +2025,13 @@ DUPLICATE FILES DETECTED
 Hash: e3b0c442
   • dara-ui_export.txt
   • src\components\Button\Button.stories.tsx
-  • src\components\Button\index.ts
 
 Total duplicate groups: 1
 
 EXPORT METADATA
 ----------------------------------------
 Export tool: Advanced Project Code Exporter v2.0
-Export date: 2026-07-05 06:52:47
+Export date: 2026-07-06 17:23:24
 Python version: 3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]
 Platform: win32
 

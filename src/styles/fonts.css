@@ -1,0 +1,60 @@
+/* ===== Space Grotesk (Headings – English) ===== */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("../fonts/Space-Grotesk-Variable.woff2") format("woff2-variations");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== Inter (Body – English) ===== */
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/Inter-Variable.woff2") format("woff2-variations");
+  font-weight: 200 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== Kook (Headings – Persian) ===== */
+@font-face {
+  font-family: "Kook";
+  src: url("../fonts/Kook-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Kook";
+  src: url("../fonts/Kook-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Kook";
+  src: url("../fonts/Kook-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== Vazirmatn (Body – Persian) ===== */
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("../fonts/Vazirmatn-RD-Variable.woff2") format("woff2-variations");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== JetBrains Mono (Code – Both languages) ===== */
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/JetBrains-Mono-Variable.woff2") format("woff2-variations");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}

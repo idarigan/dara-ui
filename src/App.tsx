@@ -1,149 +1,153 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "./components/Button/Button";
 import "./styles/index.css";
 
+type Theme = "nightfall" | "daylight" | "bloody-moon";
+
 function App() {
-  const [count, setCount] = useState(0);
+  const [theme, setTheme] = useState<Theme>("nightfall");
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  const changeTheme = (newTheme: Theme) => {
+    setTheme(newTheme);
+  };
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-main)] text-white p-8">
+    <div className="min-h-screen p-8 transition-theme">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] bg-clip-text text-transparent">
-          Dara UI Component Library
-        </h1>
+        {/* Header */}
+        <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
+          <h1 className="text-4xl font-bold text-gradient-primary">
+            Dara UI Components
+          </h1>
+
+          {/* Theme Switcher */}
+          <div className="flex gap-2 flex-wrap">
+            <Button
+              size="sm"
+              variant={theme === "nightfall" ? "primary" : "outline"}
+              onClick={() => changeTheme("nightfall")}
+            >
+              🌙 Nightfall
+            </Button>
+            <Button
+              size="sm"
+              variant={theme === "daylight" ? "primary" : "outline"}
+              onClick={() => changeTheme("daylight")}
+            >
+              ☀️ Daylight
+            </Button>
+            <Button
+              size="sm"
+              variant={theme === "bloody-moon" ? "primary" : "outline"}
+              onClick={() => changeTheme("bloody-moon")}
+            >
+              🌹 Bloody Moon
+            </Button>
+          </div>
+        </div>
 
         {/* Button Showcase */}
-        <section className="bg-[var(--color-bg-secondary)] rounded-[var(--radius-large)] p-8 mb-8">
-          <h2 className="text-2xl font-semibold mb-6">Button Examples</h2>
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Button Variants</h2>
+          <div className="flex flex-wrap gap-3">
+            <Button variant="primary">Primary</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="outline">Outline</Button>
+            <Button variant="ghost">Ghost</Button>
+            <Button variant="danger">Danger</Button>
+            <Button variant="success">Success</Button>
+            <Button variant="glass">Glass</Button>
+          </div>
+        </section>
 
-          <div className="space-y-6">
-            {/* Variants */}
-            <div>
-              <h3 className="text-sm uppercase tracking-wider text-gray-400 mb-3">
-                Variants
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                <Button variant="primary">Primary</Button>
-                <Button variant="secondary">Secondary</Button>
-                <Button variant="outline">Outline</Button>
-                <Button variant="ghost">Ghost</Button>
-                <Button variant="danger">Danger</Button>
-              </div>
+        {/* Glow Showcase */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Glow Effects</h2>
+          <div className="flex flex-wrap gap-3">
+            <Button glow variant="primary">
+              Glow Primary
+            </Button>
+            <Button glow variant="success">
+              Glow Success
+            </Button>
+            <Button glow variant="danger">
+              Glow Danger
+            </Button>
+          </div>
+        </section>
+
+        {/* Gradient Showcase */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Gradients</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-primary text-white text-center">
+              Primary
             </div>
-
-            {/* Sizes */}
-            <div>
-              <h3 className="text-sm uppercase tracking-wider text-gray-400 mb-3">
-                Sizes
-              </h3>
-              <div className="flex flex-wrap items-center gap-3">
-                <Button size="sm">Small</Button>
-                <Button size="md">Medium</Button>
-                <Button size="lg">Large</Button>
-              </div>
+            <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-accent text-white text-center">
+              Accent
             </div>
-
-            {/* Interactive Demo */}
-            <div>
-              <h3 className="text-sm uppercase tracking-wider text-gray-400 mb-3">
-                Interactive
-              </h3>
-              <div className="flex flex-wrap items-center gap-3">
-                <Button onClick={() => setCount(count + 1)}>
-                  Clicked {count} times
-                </Button>
-                <Button variant="secondary" onClick={() => setCount(0)}>
-                  Reset
-                </Button>
-              </div>
+            <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-success text-white text-center">
+              Success
             </div>
-
-            {/* With Icons */}
-            <div>
-              <h3 className="text-sm uppercase tracking-wider text-gray-400 mb-3">
-                With Icons
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                <Button
-                  leftIcon={
-                    <svg
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                      />
-                    </svg>
-                  }
-                >
-                  Add
-                </Button>
-                <Button
-                  rightIcon={
-                    <svg
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M14 5l7 7m0 0l-7 7m7-7H3"
-                      />
-                    </svg>
-                  }
-                  variant="secondary"
-                >
-                  Next
-                </Button>
-              </div>
-            </div>
-
-            {/* States */}
-            <div>
-              <h3 className="text-sm uppercase tracking-wider text-gray-400 mb-3">
-                States
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                <Button loading>Loading</Button>
-                <Button disabled>Disabled</Button>
-                <Button fullWidth>Full Width</Button>
-              </div>
+            <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-danger text-white text-center">
+              Danger
             </div>
           </div>
         </section>
 
-        {/* Features List */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-[var(--color-bg-secondary)] rounded-[var(--radius-standard)] p-6">
-            <div className="text-[var(--color-primary)] text-3xl mb-2">🎨</div>
-            <h3 className="font-semibold mb-1">Customizable</h3>
-            <p className="text-sm text-gray-400">
-              Fully customizable with CSS variables
-            </p>
-          </div>
-          <div className="bg-[var(--color-bg-secondary)] rounded-[var(--radius-standard)] p-6">
-            <div className="text-[var(--color-secondary)] text-3xl mb-2">
-              ⚡
+        {/* Glass & Glow Showcase */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Effects</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="p-6 rounded-[var(--radius-standard)] glass text-center">
+              Glass Effect
             </div>
-            <h3 className="font-semibold mb-1">Fast & Light</h3>
-            <p className="text-sm text-gray-400">
-              Built with performance in mind
+            <div className="p-6 rounded-[var(--radius-standard)] glow-primary text-center bg-[var(--color-bg-tertiary)]">
+              Glow Primary
+            </div>
+            <div className="p-6 rounded-[var(--radius-standard)] glow-accent text-center bg-[var(--color-bg-tertiary)]">
+              Glow Accent
+            </div>
+          </div>
+        </section>
+
+        {/* Typography Showcase */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Typography</h2>
+          <div className="space-y-4">
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              Text Secondary
+            </p>
+            <p className="text-base">Regular body text with Inter font</p>
+            <p className="text-xl font-bold text-gradient-primary">
+              Gradient Heading
+            </p>
+            <p className="text-lg font-medium text-[var(--color-accent)]">
+              Accent colored text
+            </p>
+            <code className="px-3 py-1 rounded-[var(--radius-sm)] block">
+              console.log("Code with JetBrains Mono");
+            </code>
+          </div>
+        </section>
+
+        {/* Persian Text Showcase */}
+        <section className="p-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Persian Support</h2>
+          <div className="space-y-4">
+            <p className="lang-fa text-lg">
+              این متن با فونت وزیرمتن نمایش داده می‌شود
+            </p>
+            <h3 className="lang-fa-heading text-xl">عنوان فارسی با قلم Kook</h3>
+            <p className="lang-fa text-sm text-[var(--color-text-secondary)]">
+              متن فارسی با اندازه کوچک و رنگ ثانویه
             </p>
           </div>
-          <div className="bg-[var(--color-bg-secondary)] rounded-[var(--radius-standard)] p-6">
-            <div className="text-[var(--color-accent)] text-3xl mb-2">🎯</div>
-            <h3 className="font-semibold mb-1">Type Safe</h3>
-            <p className="text-sm text-gray-400">Full TypeScript support</p>
-          </div>
-        </div>
+        </section>
       </div>
     </div>
   );
