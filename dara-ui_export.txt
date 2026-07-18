@@ -1,6 +1,6 @@
 ================================================================================
 ADVANCED PROJECT CODE EXPORT
-Generated: 2026-07-06 17:23:24
+Generated: 2026-07-18 17:25:45
 Project: dara-ui
 Path: D:\D's\dara-ui
 ================================================================================
@@ -26,18 +26,21 @@ dara-ui/
 │   └── icons.svg (4.9 KB)
 ├── README.md (2.4 KB)
 ├── src/
-│   ├── App.tsx (5.4 KB)
+│   ├── App.tsx (6.4 KB)
 │   ├── components/
 │   │   └── Button/
-│   │       ├── Button.stories.tsx (0.0 B)
-│   │       ├── Button.tsx (3.1 KB)
-│   │       └── index.ts (106.0 B)
+│   │       ├── Button.stories.tsx (4.4 KB)
+│   │       ├── Button.tsx (4.1 KB)
+│   │       └── index.ts (129.0 B)
 │   ├── fonts/
-│   ├── main.tsx (267.0 B)
+│   ├── hooks/
+│   │   └── useDirection.ts (732.0 B)
+│   ├── index.ts (304.0 B)
+│   ├── main.tsx (305.0 B)
 │   └── styles/
-│       ├── fonts.css (1.6 KB)
-│       ├── index.css (5.1 KB)
-│       └── tokens.css (9.7 KB)
+│       ├── fonts.css (1.5 KB)
+│       ├── index.css (16.1 KB)
+│       └── tokens.css (8.8 KB)
 ├── tsconfig.app.json (655.0 B)
 ├── tsconfig.json (119.0 B)
 ├── tsconfig.node.json (558.0 B)
@@ -51,7 +54,7 @@ dara-ui/
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 1/24: .gitignore
+FILE 1/26: .gitignore
 Language: plaintext | Size: 242 bytes
 Lines: 25 total | 16 code | 5 comments | 4 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -86,7 +89,7 @@ storybook-static/
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 2/24: .storybook\main.ts
+FILE 2/26: .storybook\main.ts
 Language: typescript | Size: 418 bytes
 Lines: 17 total | 16 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -113,7 +116,7 @@ export default config;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 3/24: .storybook\preview.tsx
+FILE 3/26: .storybook\preview.tsx
 Language: tsx | Size: 466 bytes
 Lines: 23 total | 19 code | 0 comments | 4 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -145,7 +148,7 @@ export default preview;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 4/24: dara-ui_export.txt
+FILE 4/26: dara-ui_export.txt
 Language: plaintext | Size: 0 bytes
 Lines: 1 total | 0 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -156,7 +159,7 @@ Lines: 1 total | 0 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 5/24: eslint.config.js
+FILE 5/26: eslint.config.js
 Language: javascript | Size: 764 bytes
 Lines: 23 total | 19 code | 1 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -188,7 +191,7 @@ export default defineConfig([globalIgnores(['dist']), {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 6/24: export_project.py
+FILE 6/26: export_project.py
 Language: python | Size: 16,849 bytes
 Lines: 421 total | 345 code | 1 comments | 75 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -619,7 +622,7 @@ if __name__ == "__main__":
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 7/24: index.html
+FILE 7/26: index.html
 Language: html | Size: 359 bytes
 Lines: 14 total | 13 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -642,7 +645,7 @@ Lines: 14 total | 13 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 8/24: package.json
+FILE 8/26: package.json
 Language: json | Size: 1,782 bytes
 Lines: 67 total | 66 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -718,7 +721,7 @@ Lines: 67 total | 66 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 9/24: public\favicon.svg
+FILE 9/26: public\favicon.svg
 Language: plaintext | Size: 9,522 bytes
 Lines: 1 total | 1 code | 0 comments | 0 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -729,7 +732,7 @@ Lines: 1 total | 1 code | 0 comments | 0 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 10/24: public\icons.svg
+FILE 10/26: public\icons.svg
 Language: plaintext | Size: 5,031 bytes
 Lines: 25 total | 24 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -763,7 +766,7 @@ Lines: 25 total | 24 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 11/24: README.md
+FILE 11/26: README.md
 Language: markdown | Size: 2,427 bytes
 Lines: 76 total | 57 code | 3 comments | 16 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -848,37 +851,42 @@ export default defineConfig([
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 12/24: src\App.tsx
-Language: tsx | Size: 5,297 bytes
-Lines: 136 total | 124 code | 0 comments | 12 blank
+FILE 12/26: src\App.tsx
+Language: tsx | Size: 6,303 bytes
+Lines: 162 total | 148 code | 0 comments | 14 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "./components/Button/Button";
+import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 
 type Theme = "nightfall" | "daylight" | "bloody-moon";
 
 function App() {
   const [theme, setTheme] = useState<Theme>("nightfall");
+  const { direction, toggleDirection } = useDirection("ltr");
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   const changeTheme = (newTheme: Theme) => {
     setTheme(newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
   };
 
   return (
     <div className="min-h-screen p-8 transition-theme">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
           <h1 className="text-4xl font-bold text-gradient-primary">
             Dara UI Components
           </h1>
 
           {/* Theme Switcher */}
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <Button
               size="sm"
               variant={theme === "nightfall" ? "primary" : "outline"}
@@ -898,7 +906,10 @@ function App() {
               variant={theme === "bloody-moon" ? "primary" : "outline"}
               onClick={() => changeTheme("bloody-moon")}
             >
-              🌹 Bloody Moon
+              🍷 Bloody Moon
+            </Button>
+            <Button size="sm" variant="outline" onClick={toggleDirection}>
+              {direction === "ltr" ? "🔁 RTL" : "🔁 LTR"}
             </Button>
           </div>
         </div>
@@ -912,6 +923,24 @@ function App() {
             <Button variant="outline">Outline</Button>
             <Button variant="ghost">Ghost</Button>
             <Button variant="danger">Danger</Button>
+            <Button variant="success">Success</Button>
+            <Button variant="glass">Glass</Button>
+          </div>
+        </section>
+
+        {/* Glow Showcase */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Glow Effects</h2>
+          <div className="flex flex-wrap gap-3">
+            <Button glow variant="primary">
+              Glow Primary
+            </Button>
+            <Button glow variant="success">
+              Glow Success
+            </Button>
+            <Button glow variant="danger">
+              Glow Danger
+            </Button>
           </div>
         </section>
 
@@ -975,7 +1004,7 @@ function App() {
           <h2 className="text-2xl font-semibold mb-6">Persian Support</h2>
           <div className="space-y-4">
             <p className="lang-fa text-lg">
-              این متن با قلم وزیرمتن نمایش داده می‌شود
+              این متن با فونت وزیرمتن نمایش داده می‌شود
             </p>
             <h3 className="lang-fa-heading text-xl">عنوان فارسی با قلم Kook</h3>
             <p className="lang-fa text-sm text-[var(--color-text-secondary)]">
@@ -993,30 +1022,231 @@ export default App;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 13/24: src\components\Button\Button.stories.tsx
-Language: tsx | Size: 0 bytes
-Lines: 1 total | 0 code | 0 comments | 1 blank
+FILE 13/26: src\components\Button\Button.stories.tsx
+Language: tsx | Size: 4,283 bytes
+Lines: 195 total | 183 code | 0 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { Button } from "./Button";
+import { fn } from "@storybook/test";
 
+const meta = {
+  title: "Components/Button",
+  component: Button,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+  argTypes: {
+    variant: {
+      control: "select",
+      options: [
+        "primary",
+        "secondary",
+        "outline",
+        "ghost",
+        "danger",
+        "success",
+        "glass",
+      ],
+      description: "Button visual style variant",
+    },
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg"],
+      description: "Button size",
+    },
+    fullWidth: {
+      control: "boolean",
+      description: "Button takes full width of container",
+    },
+    loading: {
+      control: "boolean",
+      description: "Shows loading spinner",
+    },
+    disabled: {
+      control: "boolean",
+      description: "Disables button interaction",
+    },
+    glow: {
+      control: "boolean",
+      description: "Adds glow effect on hover",
+    },
+    children: {
+      control: "text",
+      description: "Button content",
+    },
+  },
+  args: {
+    onClick: fn(),
+  },
+} satisfies Meta<typeof Button>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    children: "Button",
+    variant: "primary",
+    size: "md",
+  },
+};
+
+export const Variants: Story = {
+  render: () => (
+    <div className="flex items-center gap-4 flex-wrap">
+      <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="outline">Outline</Button>
+      <Button variant="ghost">Ghost</Button>
+      <Button variant="danger">Danger</Button>
+      <Button variant="success">Success</Button>
+      <Button variant="glass">Glass</Button>
+    </div>
+  ),
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex items-center gap-4 flex-wrap">
+      <Button size="sm">Small</Button>
+      <Button size="md">Medium</Button>
+      <Button size="lg">Large</Button>
+    </div>
+  ),
+};
+
+export const WithIcons: Story = {
+  render: () => (
+    <div className="flex items-center gap-4 flex-wrap">
+      <Button
+        leftIcon={
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            />
+          </svg>
+        }
+      >
+        Add Item
+      </Button>
+      <Button
+        rightIcon={
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M14 5l7 7m0 0l-7 7m7-7H3"
+            />
+          </svg>
+        }
+        variant="secondary"
+      >
+        Next
+      </Button>
+    </div>
+  ),
+};
+
+export const Loading: Story = {
+  render: () => (
+    <div className="flex items-center gap-4 flex-wrap">
+      <Button loading>Loading</Button>
+      <Button loading variant="secondary">
+        Processing
+      </Button>
+    </div>
+  ),
+};
+
+export const FullWidth: Story = {
+  render: () => (
+    <div className="w-80">
+      <Button fullWidth>Full Width Button</Button>
+    </div>
+  ),
+};
+
+export const Disabled: Story = {
+  render: () => (
+    <div className="flex items-center gap-4 flex-wrap">
+      <Button disabled>Disabled</Button>
+      <Button disabled variant="secondary">
+        Disabled Secondary
+      </Button>
+    </div>
+  ),
+};
+
+export const WithGlow: Story = {
+  render: () => (
+    <div className="flex items-center gap-4 flex-wrap">
+      <Button glow variant="primary">
+        Glow Primary
+      </Button>
+      <Button glow variant="success">
+        Glow Success
+      </Button>
+      <Button glow variant="danger">
+        Glow Danger
+      </Button>
+    </div>
+  ),
+};
+
+export const Interactive: Story = {
+  args: {
+    children: "Click me!",
+    variant: "primary",
+    size: "md",
+    fullWidth: false,
+    loading: false,
+    disabled: false,
+    glow: false,
+  },
+};
 ```
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 14/24: src\components\Button\Button.tsx
-Language: tsx | Size: 3,042 bytes
-Lines: 101 total | 92 code | 0 comments | 9 blank
+FILE 14/26: src\components\Button\Button.tsx
+Language: tsx | Size: 4,026 bytes
+Lines: 127 total | 117 code | 0 comments | 10 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
 import React from "react";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger";
+  variant?:
+    | "primary"
+    | "secondary"
+    | "outline"
+    | "ghost"
+    | "danger"
+    | "success"
+    | "glass";
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
   loading?: boolean;
+  glow?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
 }
@@ -1029,6 +1259,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       size = "md",
       fullWidth = false,
       loading = false,
+      glow = false,
       leftIcon,
       rightIcon,
       className = "",
@@ -1038,26 +1269,42 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center font-medium transition-all duration-200 rounded-[var(--radius-standard)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)] disabled:opacity-60 disabled:cursor-not-allowed";
+      "inline-flex items-center justify-center font-medium transition-all duration-[var(--transition-fast)] rounded-[var(--radius-full)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)] disabled:opacity-60 disabled:cursor-not-allowed active:scale-[0.96]";
 
     const variants = {
       primary:
-        "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary)]/90 active:bg-[var(--color-primary)]/80",
+        "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] active:bg-[var(--color-primary-active)]",
       secondary:
-        "bg-[var(--color-secondary)] text-[var(--color-bg-main)] hover:bg-[var(--color-secondary)]/90 active:bg-[var(--color-secondary)]/80",
+        "bg-[var(--color-secondary)] text-[var(--color-bg-primary)] hover:bg-[var(--color-secondary-hover)] active:bg-[var(--color-secondary-active)]",
       outline:
-        "border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 active:bg-[var(--color-primary)]/20",
+        "border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary-light)] active:bg-[var(--color-primary)]/20",
       ghost:
-        "text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 active:bg-[var(--color-primary)]/20",
+        "text-[var(--color-primary)] hover:bg-[var(--color-primary-light)] active:bg-[var(--color-primary)]/20",
       danger:
-        "bg-[var(--color-danger)] text-white hover:bg-[var(--color-danger)]/90 active:bg-[var(--color-danger)]/80",
+        "bg-[var(--color-danger)] text-white hover:bg-[var(--color-danger-hover)] active:bg-[var(--color-danger)]/80",
+      success:
+        "bg-[var(--color-success)] text-[var(--color-bg-primary)] hover:bg-[var(--color-success-hover)] active:bg-[var(--color-success)]/80",
+      glass:
+        "glass text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/50 active:bg-[var(--color-bg-elevated)]/70",
     };
 
     const sizes = {
-      sm: "px-3 py-1.5 text-sm",
-      md: "px-4 py-2.5 text-base",
-      lg: "px-6 py-3.5 text-lg",
+      sm: "px-4 py-2 text-sm",
+      md: "px-6 py-2.5 text-base",
+      lg: "px-8 py-3.5 text-lg",
     };
+
+    const glowStyles = glow
+      ? {
+          primary: "hover:shadow-[var(--shadow-glow-primary)]",
+          secondary: "hover:shadow-[var(--shadow-glow-secondary)]",
+          outline: "hover:shadow-[var(--shadow-glow-primary)]",
+          ghost: "hover:shadow-[var(--shadow-glow-primary)]",
+          danger: "hover:shadow-[var(--shadow-glow-danger)]",
+          success: "hover:shadow-[var(--shadow-glow-success)]",
+          glass: "hover:shadow-[var(--shadow-glow-primary)]",
+        }[variant]
+      : "";
 
     const classes = [
       baseStyles,
@@ -1065,6 +1312,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       sizes[size],
       fullWidth ? "w-full" : "",
       loading ? "opacity-70 cursor-wait" : "",
+      glowStyles,
       className,
     ]
       .filter(Boolean)
@@ -1114,30 +1362,82 @@ export default Button;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 15/24: src\components\Button\index.ts
-Language: typescript | Size: 103 bytes
+FILE 15/26: src\components\Button\index.ts
+Language: typescript | Size: 126 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```typescript
 export { Button } from "./Button";
 export type { ButtonProps } from "./Button";
-export default Button;
+export { Button as default } from "./Button";
 ```
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 16/24: src\main.tsx
-Language: tsx | Size: 267 bytes
-Lines: 12 total | 10 code | 0 comments | 2 blank
+FILE 16/26: src\hooks\useDirection.ts
+Language: typescript | Size: 708 bytes
+Lines: 25 total | 17 code | 0 comments | 8 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```typescript
+import { useState, useEffect, useCallback } from "react";
+
+type Direction = "ltr" | "rtl";
+
+export function useDirection(initialDirection: Direction = "ltr") {
+  const [direction, setDirection] = useState<Direction>(initialDirection);
+
+  useEffect(() => {
+    document.documentElement.dir = direction;
+    document.documentElement.lang = direction === "rtl" ? "fa" : "en";
+  }, [direction]);
+
+  const toggleDirection = useCallback(() => {
+    setDirection((prev) => (prev === "ltr" ? "rtl" : "ltr"));
+  }, []);
+
+  const setDirectionTo = useCallback((dir: Direction) => {
+    setDirection(dir);
+  }, []);
+
+  return { direction, setDirection: setDirectionTo, toggleDirection };
+}
+
+export default useDirection;
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 17/26: src\index.ts
+Language: typescript | Size: 297 bytes
+Lines: 8 total | 6 code | 0 comments | 2 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```typescript
+export { Button } from "./components/Button/Button";
+export type { ButtonProps } from "./components/Button/Button";
+export { default as useDirection } from "./hooks/useDirection";
+export type { Direction } from "./hooks/useDirection";
+export const version = "0.1.0";
+
+import "./styles/index.css";
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 18/26: src\main.tsx
+Language: tsx | Size: 305 bytes
+Lines: 13 total | 10 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles/index.css";
-import "./styles/fonts.css";
 import App from "./App";
+
+document.documentElement.setAttribute("data-theme", "nightfall");
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -1148,18 +1448,16 @@ createRoot(document.getElementById("root")!).render(
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 17/24: src\styles\fonts.css
-Language: css | Size: 1,534 bytes
-Lines: 64 total | 50 code | 6 comments | 8 blank
+FILE 19/26: src\styles\fonts.css
+Language: css | Size: 1,488 bytes
+Lines: 61 total | 49 code | 5 comments | 7 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```css
-/* src/styles/fonts.css */
-
 /* ===== Space Grotesk (Headings – English) ===== */
 @font-face {
   font-family: "Space Grotesk";
-  src: url("/src/fonts/Space-Grotesk-Variable.woff2") format("woff2-variations");
+  src: url("../fonts/Space-Grotesk-Variable.woff2") format("woff2-variations");
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
@@ -1168,7 +1466,7 @@ Lines: 64 total | 50 code | 6 comments | 8 blank
 /* ===== Inter (Body – English) ===== */
 @font-face {
   font-family: "Inter";
-  src: url("/src/fonts/Inter-Variable.woff2") format("woff2-variations");
+  src: url("../fonts/Inter-Variable.woff2") format("woff2-variations");
   font-weight: 200 600;
   font-style: normal;
   font-display: swap;
@@ -1177,7 +1475,7 @@ Lines: 64 total | 50 code | 6 comments | 8 blank
 /* ===== Kook (Headings – Persian) ===== */
 @font-face {
   font-family: "Kook";
-  src: url("/src/fonts/Kook-ExtraBold.woff2") format("woff2");
+  src: url("../fonts/Kook-ExtraBold.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -1185,7 +1483,7 @@ Lines: 64 total | 50 code | 6 comments | 8 blank
 
 @font-face {
   font-family: "Kook";
-  src: url("/src/fonts/Kook-Bold.woff2") format("woff2");
+  src: url("../fonts/Kook-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -1193,7 +1491,7 @@ Lines: 64 total | 50 code | 6 comments | 8 blank
 
 @font-face {
   font-family: "Kook";
-  src: url("/src/fonts/Kook-Medium.woff2") format("woff2");
+  src: url("../fonts/Kook-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -1202,7 +1500,7 @@ Lines: 64 total | 50 code | 6 comments | 8 blank
 /* ===== Vazirmatn (Body – Persian) ===== */
 @font-face {
   font-family: "Vazirmatn";
-  src: url("/src/fonts/Vazirmatn-RD-Variable.woff2") format("woff2-variations");
+  src: url("../fonts/Vazirmatn-RD-Variable.woff2") format("woff2-variations");
   font-weight: 200 700;
   font-style: normal;
   font-display: swap;
@@ -1211,8 +1509,7 @@ Lines: 64 total | 50 code | 6 comments | 8 blank
 /* ===== JetBrains Mono (Code – Both languages) ===== */
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("/src/fonts/JetBrains-Mono-Variable.woff2")
-    format("woff2-variations");
+  src: url("../fonts/JetBrains-Mono-Variable.woff2") format("woff2-variations");
   font-weight: 400 600;
   font-style: normal;
   font-display: swap;
@@ -1221,9 +1518,9 @@ Lines: 64 total | 50 code | 6 comments | 8 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 18/24: src\styles\index.css
-Language: css | Size: 5,129 bytes
-Lines: 250 total | 202 code | 16 comments | 32 blank
+FILE 20/26: src\styles\index.css
+Language: css | Size: 16,494 bytes
+Lines: 759 total | 614 code | 44 comments | 101 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```css
@@ -1246,7 +1543,7 @@ body {
     color var(--transition-base);
 }
 
-/* ── Headings ── */
+/* ----- Headings ----- */
 h1,
 h2,
 h3,
@@ -1257,7 +1554,7 @@ h6 {
   color: var(--color-text-primary);
 }
 
-/* ── Code ── */
+/* ----- Code ----- */
 code,
 pre,
 kbd,
@@ -1269,7 +1566,7 @@ samp {
   border-radius: var(--radius-sm);
 }
 
-/* ── Links ── */
+/* ----- Links ----- */
 a {
   color: var(--color-primary);
   text-decoration: none;
@@ -1280,13 +1577,13 @@ a:hover {
   color: var(--color-primary-hover);
 }
 
-/* ── Selection ── */
+/* ----- Selection ----- */
 ::selection {
   background-color: var(--color-primary);
   color: var(--color-text-inverse);
 }
 
-/* ── Scrollbar ── */
+/* ----- Scrollbar ----- */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -1306,10 +1603,119 @@ a:hover {
 }
 
 /* =============================================
-   UTILITY CLASSES
+   GLASS VARIANTS
    ============================================= */
 
-/* ── Gradients ── */
+/* ----- Standard Glass (blur: 20px) ----- */
+.glass {
+  background: var(--color-bg-elevated);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border-primary);
+  box-shadow: var(--shadow-glass);
+  border-radius: var(--radius-standard);
+  transition: all var(--transition-med);
+}
+
+/* ----- Heavy Glass (blur: 30px, more opaque) ----- */
+.glass-heavy {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid var(--color-border-primary);
+  box-shadow: var(--shadow-float);
+  border-radius: var(--radius-large);
+  transition: all var(--transition-med);
+}
+
+/* ----- Solid Glass (less blur, more opaque) ----- */
+.glass-solid {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--color-border-secondary);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-standard);
+  transition: all var(--transition-med);
+}
+
+/* ----- Outline Glass (transparent, border only) ----- */
+.glass-outline {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid var(--color-border-primary);
+  box-shadow: none;
+  border-radius: var(--radius-standard);
+  transition: all var(--transition-med);
+}
+
+/* ----- Glass with Glow (primary) ----- */
+.glass-glow {
+  background: var(--color-bg-elevated);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border-primary);
+  box-shadow: var(--shadow-glass), var(--shadow-glow-primary);
+  border-radius: var(--radius-standard);
+  transition: all var(--transition-med);
+}
+
+/* ----- Glass with Accent Border ----- */
+.glass-accent {
+  background: var(--color-bg-elevated);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-accent);
+  box-shadow: var(--shadow-glass), var(--shadow-glow-accent);
+  border-radius: var(--radius-standard);
+  transition: all var(--transition-med);
+}
+
+/* =============================================
+   GLASS HOVER VARIANTS
+   ============================================= */
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-glass), var(--shadow-glow-primary);
+  transform: translateY(-2px);
+}
+
+.glass-heavy-hover:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-float), var(--shadow-glow-primary);
+  transform: translateY(-4px);
+}
+
+/* =============================================
+   FLOAT / ELEVATION UTILITIES
+   ============================================= */
+
+.float {
+  box-shadow: var(--shadow-float);
+  transform: translateY(0);
+  transition:
+    transform var(--transition-med),
+    box-shadow var(--transition-med);
+}
+
+.float:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-float), var(--shadow-glow-primary);
+}
+
+.float-lg:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-float), var(--shadow-glow-primary);
+}
+
+/* =============================================
+   GRADIENT UTILITIES (Backgrounds)
+   ============================================= */
+
 .bg-gradient-primary {
   background: var(--gradient-primary);
 }
@@ -1332,7 +1738,16 @@ a:hover {
   background: var(--gradient-glass);
 }
 
-/* ── Text Gradients ── */
+/* ----- Gradient Hover ----- */
+.bg-gradient-primary-hover:hover {
+  background: var(--gradient-primary);
+  opacity: 0.9;
+}
+
+/* =============================================
+   TEXT GRADIENT UTILITIES
+   ============================================= */
+
 .text-gradient-primary {
   background: var(--gradient-primary);
   -webkit-background-clip: text;
@@ -1375,7 +1790,10 @@ a:hover {
   background-clip: text;
 }
 
-/* ── Glows ── */
+/* =============================================
+   GLOW UTILITIES
+   ============================================= */
+
 .glow-primary {
   box-shadow: var(--shadow-glow-primary);
 }
@@ -1395,30 +1813,81 @@ a:hover {
   box-shadow: var(--shadow-glow-warning);
 }
 
-/* ── Glass ── */
-.glass {
-  background: var(--gradient-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--color-border-primary);
+/* ----- Glow Hover ----- */
+.glow-hover-primary:hover {
+  box-shadow: var(--shadow-glow-primary);
+}
+.glow-hover-accent:hover {
+  box-shadow: var(--shadow-glow-accent);
+}
+
+/* =============================================
+   SHADOW UTILITIES
+   ============================================= */
+
+.shadow-glass {
   box-shadow: var(--shadow-glass);
 }
-
-/* ── Float ── */
-.float {
+.shadow-float {
   box-shadow: var(--shadow-float);
-  transform: translateY(0);
-  transition:
-    transform var(--transition-med),
-    box-shadow var(--transition-med);
+}
+.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
+.shadow-lg {
+  box-shadow: var(--shadow-lg);
 }
 
-.float:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-float), var(--shadow-glow-primary);
+/* =============================================
+   RADIUS UTILITIES
+   ============================================= */
+
+.rounded-sm {
+  border-radius: var(--radius-sm);
+}
+.rounded-md {
+  border-radius: var(--radius-md);
+}
+.rounded-standard {
+  border-radius: var(--radius-standard);
+}
+.rounded-large {
+  border-radius: var(--radius-large);
+}
+.rounded-xl {
+  border-radius: var(--radius-xl);
+}
+.rounded-full {
+  border-radius: var(--radius-full);
 }
 
-/* ── Transition Helper ── */
+/* =============================================
+   TRANSITION UTILITIES
+   ============================================= */
+
+.transition-fast {
+  transition: all var(--transition-fast);
+}
+.transition-med {
+  transition: all var(--transition-med);
+}
+.transition-base {
+  transition: all var(--transition-base);
+}
+.transition-slow {
+  transition: all var(--transition-slow);
+}
+.transition-slower {
+  transition: all var(--transition-slower);
+}
+
+/* =============================================
+   THEME TRANSITION HELPER
+   ============================================= */
+
 .transition-theme {
   transition:
     background-color var(--transition-base),
@@ -1428,10 +1897,225 @@ a:hover {
 }
 
 /* =============================================
+   SURFACE ELEVATION
+   ============================================= */
+
+.elevation-1 {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.elevation-2 {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.elevation-3 {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-primary);
+  box-shadow: var(--shadow-glass);
+}
+
+/* =============================================
+   NOISE OVERLAY
+   ============================================= */
+
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.035;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* =============================================
+   AURORA BLOBS (from your demo)
+   ============================================= */
+
+.aurora {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+  animation: drift 20s ease-in-out infinite;
+}
+
+.aurora-1 {
+  width: 500px;
+  height: 500px;
+  background: rgba(124, 92, 255, 0.25);
+  top: -150px;
+  left: -100px;
+}
+
+.aurora-2 {
+  width: 400px;
+  height: 400px;
+  background: rgba(0, 217, 255, 0.2);
+  top: 50%;
+  right: -120px;
+  animation-duration: 25s;
+  animation-direction: reverse;
+}
+
+.aurora-3 {
+  width: 350px;
+  height: 350px;
+  background: rgba(255, 77, 157, 0.18);
+  bottom: -100px;
+  left: 30%;
+  animation-duration: 22s;
+}
+
+/* ----- Aurora Keyframes ----- */
+@keyframes drift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(30px, -20px) rotate(1deg);
+  }
+  66% {
+    transform: translate(-20px, 15px) rotate(-1deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+/* =============================================
+   GRADIENT RING (from your demo)
+   ============================================= */
+
+.gradient-ring {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #7c5cff, #00d9ff, #ff4d9d, #7c5cff);
+  filter: blur(60px);
+  opacity: 0.5;
+  animation: spin 15s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =============================================
+   FLOAT ANIMATIONS
+   ============================================= */
+
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes floatMed {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulseSoft {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 8s ease-in-out infinite;
+}
+
+.animate-float-med {
+  animation: floatMed 6s ease-in-out infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulseSoft 4s ease-in-out infinite;
+}
+
+/* =============================================
+   XP BAR (from your demo)
+   ============================================= */
+
+.xp-bar-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: 4px;
+  transition: width 0.6s ease;
+  box-shadow: var(--shadow-glow-primary);
+}
+
+/* =============================================
+   STAT RING (from your demo)
+   ============================================= */
+
+.stat-ring {
+  transform: rotate(-90deg);
+}
+
+.stat-ring circle {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.8s ease;
+}
+
+/* =============================================
+   SCROLLBAR (from your demo)
+   ============================================= */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-primary);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* =============================================
    LANGUAGE SUPPORT
    ============================================= */
 
-/* ── Persian/Arabic ── */
+/* ----- Persian/Arabic ----- */
 html[lang="fa"],
 html[lang="fa-IR"],
 html[lang="ar"],
@@ -1452,7 +2136,7 @@ html[lang="ar-SA"] {
   }
 }
 
-/* ── Mixed Language Utilities ── */
+/* ----- Mixed Language Utilities ----- */
 .lang-en {
   font-family: var(--font-family-sans) !important;
   direction: ltr !important;
@@ -1476,29 +2160,209 @@ html[lang="ar-SA"] {
   direction: rtl !important;
   unicode-bidi: embed;
 }
+
+/* =============================================
+   RTL / LTR FONT-STACK SWITCHING
+   ============================================= */
+
+/* ----- RTL (Persian, Arabic, Hebrew, etc.) ----- */
+html[dir="rtl"] {
+  body {
+    font-family: var(--font-family-persian-body);
+    direction: rtl;
+    line-height: 1.8;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .font-heading {
+    font-family: var(--font-family-persian-heading) !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* Badges, labels, accent text */
+  .font-accent,
+  .badge,
+  .label,
+  .tab-btn,
+  .btn-dara,
+  .section-label {
+    font-family: var(--font-family-persian-body) !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* Code blocks stay mono */
+  code,
+  pre,
+  kbd,
+  samp,
+  .font-mono {
+    font-family: var(--font-family-mono) !important;
+    direction: ltr !important;
+    unicode-bidi: embed;
+  }
+
+  /* Override specific English-only elements */
+  .lang-en {
+    font-family: var(--font-family-sans) !important;
+    direction: ltr !important;
+    unicode-bidi: embed;
+  }
+
+  .lang-en-heading {
+    font-family: var(--font-family-heading) !important;
+    direction: ltr !important;
+    unicode-bidi: embed;
+  }
+}
+
+/* ----- LTR (Default: English, etc.) ----- */
+html[dir="ltr"] {
+  body {
+    font-family: var(--font-family-sans);
+    direction: ltr;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .font-heading {
+    font-family: var(--font-family-heading);
+    letter-spacing: -0.01em;
+  }
+
+  .font-accent,
+  .badge,
+  .label,
+  .tab-btn,
+  .btn-dara,
+  .section-label {
+    font-family: var(--font-family-sans);
+  }
+
+  /* Override specific RTL-only elements */
+  .lang-fa {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+  }
+
+  .lang-fa-heading {
+    font-family: var(--font-family-persian-heading) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+  }
+}
+
+/* ----- Legacy support (keep for backward compatibility) ----- */
+html[lang="fa"],
+html[lang="fa-IR"],
+html[lang="ar"],
+html[lang="ar-SA"] {
+  body {
+    font-family: var(--font-family-persian-body);
+    direction: rtl;
+    line-height: 1.8;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-family-persian-heading);
+  }
+}
 ```
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 19/24: src\styles\tokens.css
-Language: css | Size: 9,557 bytes
-Lines: 331 total | 249 code | 29 comments | 53 blank
+FILE 21/26: src\styles\tokens.css
+Language: css | Size: 8,767 bytes
+Lines: 292 total | 218 code | 27 comments | 47 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```css
-/* src/styles/tokens.css
- * ======================================================
- * DARA UI DESIGN TOKENS
- * Only what's unique to Dara — Tailwind handles the rest
- * ======================================================
- */
+/* ======================================================
+   DARA UI DESIGN TOKENS
+   ====================================================== */
 
-/* =============================================
-   1. DARA BRAND COLORS (Base values)
-   ============================================= */
+/* ----- DEFAULT THEME: NIGHTFALL ----- */
+:root,
+[data-theme="nightfall"] {
+  /* Backgrounds */
+  --color-bg-primary: #0a0e1a;
+  --color-bg-secondary: #111827;
+  --color-bg-tertiary: #1a2332;
+  --color-bg-elevated: #1f2a3f;
+  --color-bg-inverse: #f8fafc;
 
+  /* Text */
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-tertiary: #64748b;
+  --color-text-inverse: #0a0e1a;
+
+  /* Borders */
+  --color-border-primary: #2a3a52;
+  --color-border-secondary: #1e2d42;
+
+  /* Semantic Colors */
+  --color-primary: #7c5cff;
+  --color-primary-hover: #6b4ae8;
+  --color-primary-active: #5a3fd1;
+  --color-primary-light: rgba(124, 92, 255, 0.15);
+
+  --color-secondary: #00d9ff;
+  --color-secondary-hover: #00c4e6;
+  --color-secondary-active: #00afcc;
+  --color-secondary-light: rgba(0, 217, 255, 0.15);
+
+  --color-accent: #ff4d9d;
+  --color-accent-hover: #e63d8a;
+  --color-accent-active: #cc2d78;
+  --color-accent-light: rgba(255, 77, 157, 0.15);
+
+  --color-success: #00ff99;
+  --color-success-hover: #00e68a;
+  --color-success-light: rgba(0, 255, 153, 0.15);
+
+  --color-danger: #ff5370;
+  --color-danger-hover: #e63d5a;
+  --color-danger-light: rgba(255, 83, 112, 0.15);
+
+  --color-warning: #ffc857;
+  --color-warning-hover: #e6b44e;
+  --color-warning-light: rgba(255, 200, 87, 0.15);
+
+  --color-info: #60a5fa;
+  --color-info-light: rgba(96, 165, 250, 0.15);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #7c5cff 0%, #00d9ff 100%);
+  --gradient-accent: linear-gradient(135deg, #ff4d9d 0%, #ffc857 100%);
+  --gradient-success: linear-gradient(135deg, #00ff99 0%, #00d9ff 100%);
+  --gradient-danger: linear-gradient(135deg, #ff5370 0%, #ff4d9d 100%);
+  --gradient-warm: linear-gradient(135deg, #ffc857 0%, #ff4d9d 100%);
+  --gradient-cool: linear-gradient(135deg, #7c5cff 0%, #60a5fa 100%);
+  --gradient-glass: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+}
+
+/* ----- Brand Colors (Base) ----- */
 :root {
-  /* ── Brand Colors ── */
   --dara-primary: #7c5cff;
   --dara-primary-hover: #6b4ae8;
   --dara-primary-active: #5a3fd1;
@@ -1530,10 +2394,7 @@ Lines: 331 total | 249 code | 29 comments | 53 blank
   --dara-info-light: rgba(96, 165, 250, 0.15);
 }
 
-/* =============================================
-   2. DARA BORDER RADII
-   ============================================= */
-
+/* ----- Border Radii ----- */
 :root {
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -1543,30 +2404,19 @@ Lines: 331 total | 249 code | 29 comments | 53 blank
   --radius-full: 9999px;
 }
 
-/* =============================================
-   3. DARA SHADOWS
-   ============================================= */
-
+/* ----- Shadows ----- */
 :root {
-  /* ── Glow Shadows ── */
   --shadow-glow-primary: 0 0 40px rgba(124, 92, 255, 0.3);
   --shadow-glow-secondary: 0 0 40px rgba(0, 217, 255, 0.3);
   --shadow-glow-accent: 0 0 40px rgba(255, 77, 157, 0.3);
   --shadow-glow-success: 0 0 40px rgba(0, 255, 153, 0.3);
   --shadow-glow-danger: 0 0 40px rgba(255, 83, 112, 0.3);
   --shadow-glow-warning: 0 0 40px rgba(255, 200, 87, 0.3);
-
-  /* ── Glass Shadow ── */
   --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.2);
-
-  /* ── Float Shadow ── */
   --shadow-float: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
-/* =============================================
-   4. DARA FONT FAMILIES
-   ============================================= */
-
+/* ----- Font Families ----- */
 :root {
   --font-family-sans:
     "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -1575,113 +2425,30 @@ Lines: 331 total | 249 code | 29 comments | 53 blank
   --font-family-mono: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
   --font-family-persian-body: "Vazirmatn", var(--font-family-sans);
   --font-family-persian-heading: "Kook", var(--font-family-heading);
+
+  /* RTL-specific overrides */
+  --font-family-rtl-body: "Vazirmatn", "Inter", var(--font-family-sans);
+  --font-family-rtl-heading:
+    "Kook", "Space Grotesk", var(--font-family-heading);
 }
 
-/* =============================================
-   5. DARA MOTION TOKENS
-   ============================================= */
-
+/* ----- Motion ----- */
 :root {
-  --transition-fast: 180ms ease;
-  --transition-med: 220ms ease;
-  --transition-base: 280ms ease;
-  --transition-slow: 380ms ease;
-  --transition-slower: 500ms ease;
+  /* Easing curves */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Motion tokens with easing */
+  --transition-fast: 180ms var(--ease-in-out);
+  --transition-med: 220ms var(--ease-in-out);
+  --transition-base: 280ms var(--ease-in-out);
+  --transition-slow: 380ms var(--ease-in-out);
+  --transition-slower: 500ms var(--ease-out);
 }
 
-/* =============================================
-   6. THEMES
-   ============================================= */
-
-/* ── NIGHTFALL (Default) ── */
-[data-theme="nightfall"] {
-  /* Backgrounds */
-  --color-bg-primary: #0a0e1a;
-  --color-bg-secondary: #111827;
-  --color-bg-tertiary: #1a2332;
-  --color-bg-elevated: #1f2a3f;
-  --color-bg-inverse: #f8fafc;
-
-  /* Text */
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: #94a3b8;
-  --color-text-tertiary: #64748b;
-  --color-text-inverse: #0a0e1a;
-
-  /* Borders */
-  --color-border-primary: #2a3a52;
-  --color-border-secondary: #1e2d42;
-
-  /* Semantic Colors (using Dara brand) */
-  --color-primary: var(--dara-primary);
-  --color-primary-hover: var(--dara-primary-hover);
-  --color-primary-active: var(--dara-primary-active);
-  --color-primary-light: var(--dara-primary-light);
-
-  --color-secondary: var(--dara-secondary);
-  --color-secondary-hover: var(--dara-secondary-hover);
-  --color-secondary-active: var(--dara-secondary-active);
-  --color-secondary-light: var(--dara-secondary-light);
-
-  --color-accent: var(--dara-accent);
-  --color-accent-hover: var(--dara-accent-hover);
-  --color-accent-active: var(--dara-accent-active);
-  --color-accent-light: var(--dara-accent-light);
-
-  --color-success: var(--dara-success);
-  --color-success-hover: var(--dara-success-hover);
-  --color-success-light: var(--dara-success-light);
-
-  --color-danger: var(--dara-danger);
-  --color-danger-hover: var(--dara-danger-hover);
-  --color-danger-light: var(--dara-danger-light);
-
-  --color-warning: var(--dara-warning);
-  --color-warning-hover: var(--dara-warning-hover);
-  --color-warning-light: var(--dara-warning-light);
-
-  --color-info: var(--dara-info);
-  --color-info-light: var(--dara-info-light);
-
-  /* Gradients */
-  --gradient-primary: linear-gradient(
-    135deg,
-    var(--dara-primary) 0%,
-    var(--dara-secondary) 100%
-  );
-  --gradient-accent: linear-gradient(
-    135deg,
-    var(--dara-accent) 0%,
-    var(--dara-warning) 100%
-  );
-  --gradient-success: linear-gradient(
-    135deg,
-    var(--dara-success) 0%,
-    var(--dara-secondary) 100%
-  );
-  --gradient-danger: linear-gradient(
-    135deg,
-    var(--dara-danger) 0%,
-    var(--dara-accent) 100%
-  );
-  --gradient-warm: linear-gradient(
-    135deg,
-    var(--dara-warning) 0%,
-    var(--dara-accent) 100%
-  );
-  --gradient-cool: linear-gradient(
-    135deg,
-    var(--dara-primary) 0%,
-    var(--dara-info) 100%
-  );
-  --gradient-glass: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.03) 100%
-  );
-}
-
-/* ── DAYLIGHT ── */
+/* ----- DAYLIGHT ----- */
 [data-theme="daylight"] {
   /* Backgrounds */
   --color-bg-primary: #ffffff;
@@ -1753,7 +2520,7 @@ Lines: 331 total | 249 code | 29 comments | 53 blank
   );
 }
 
-/* ── BLOODY MOON (Dracula) ── */
+/* ----- BLOODY MOON ----- */
 [data-theme="bloody-moon"] {
   /* Backgrounds */
   --color-bg-primary: #1a1b26;
@@ -1820,7 +2587,7 @@ Lines: 331 total | 249 code | 29 comments | 53 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 20/24: tsconfig.app.json
+FILE 22/26: tsconfig.app.json
 Language: json | Size: 655 bytes
 Lines: 27 total | 24 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -1856,7 +2623,7 @@ Lines: 27 total | 24 code | 0 comments | 3 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 21/24: tsconfig.json
+FILE 23/26: tsconfig.json
 Language: json | Size: 119 bytes
 Lines: 8 total | 7 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -1873,7 +2640,7 @@ Lines: 8 total | 7 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 22/24: tsconfig.node.json
+FILE 24/26: tsconfig.node.json
 Language: json | Size: 558 bytes
 Lines: 24 total | 21 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -1906,9 +2673,9 @@ Lines: 24 total | 21 code | 0 comments | 3 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 23/24: vite.config.ts
-Language: typescript | Size: 1,799 bytes
-Lines: 73 total | 69 code | 1 comments | 3 blank
+FILE 25/26: vite.config.ts
+Language: typescript | Size: 1,834 bytes
+Lines: 74 total | 69 code | 2 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```typescript
@@ -1938,7 +2705,8 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: resolve(__dirname, "src/components/Button/index.ts"),
+      // ✅ Use dirname variable, point to library root
+      entry: resolve(dirname, "src/index.ts"),
       name: "DaraUI",
       formats: ["es", "cjs"],
       fileName: (format) => `dara-ui.${format}.js`,
@@ -1988,7 +2756,7 @@ export default defineConfig({
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 24/24: vitest.shims.d.ts
+FILE 26/26: vitest.shims.d.ts
 Language: typescript | Size: 52 bytes
 Lines: 1 total | 0 code | 1 comments | 0 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -2003,35 +2771,26 @@ Lines: 1 total | 0 code | 1 comments | 0 blank
 
 GENERAL STATISTICS
 ----------------------------------------
-Total files exported: 24
-Total size: 65,972 bytes (64.43 KB, 0.06 MB)
-Average file size: 2,749 bytes
+Total files exported: 26
+Total size: 83,875 bytes (81.91 KB, 0.08 MB)
+Average file size: 3,226 bytes
 
 LANGUAGE DISTRIBUTION
 ----------------------------------------
-tsx                5 files ( 20.8%) ██████████
-plaintext          4 files ( 16.7%) ████████
-typescript         4 files ( 16.7%) ████████
-json               4 files ( 16.7%) ████████
-css                3 files ( 12.5%) ██████
-javascript         1 files (  4.2%) ██
-python             1 files (  4.2%) ██
-html               1 files (  4.2%) ██
-markdown           1 files (  4.2%) ██
-
-DUPLICATE FILES DETECTED
-----------------------------------------
-
-Hash: e3b0c442
-  • dara-ui_export.txt
-  • src\components\Button\Button.stories.tsx
-
-Total duplicate groups: 1
+typescript         6 files ( 23.1%) ███████████
+tsx                5 files ( 19.2%) █████████
+plaintext          4 files ( 15.4%) ███████
+json               4 files ( 15.4%) ███████
+css                3 files ( 11.5%) █████
+javascript         1 files (  3.8%) █
+python             1 files (  3.8%) █
+html               1 files (  3.8%) █
+markdown           1 files (  3.8%) █
 
 EXPORT METADATA
 ----------------------------------------
 Export tool: Advanced Project Code Exporter v2.0
-Export date: 2026-07-06 17:23:24
+Export date: 2026-07-18 17:25:45
 Python version: 3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]
 Platform: win32
 
