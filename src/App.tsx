@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Button from "./components/Button/Button";
+import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 
 type Theme = "nightfall" | "daylight" | "bloody-moon";
 
 function App() {
   const [theme, setTheme] = useState<Theme>("nightfall");
+  const { direction, toggleDirection } = useDirection("ltr");
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -45,7 +47,10 @@ function App() {
               variant={theme === "bloody-moon" ? "primary" : "outline"}
               onClick={() => changeTheme("bloody-moon")}
             >
-              🌹 Bloody Moon
+              🍷 Bloody Moon
+            </Button>
+            <Button size="sm" variant="outline" onClick={toggleDirection}>
+              {direction === "ltr" ? "🔁 RTL" : "🔁 LTR"}
             </Button>
           </div>
         </div>
