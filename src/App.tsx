@@ -1,10 +1,31 @@
 import React, { useState, useEffect } from "react";
 import Button from "./components/Button/Button";
 import { Badge } from "./components/Badge/Badge";
+import { Input } from "./components/Input/Input";
 import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 
 type Theme = "nightfall" | "daylight" | "bloody-moon";
+
+const SearchIcon = () => (
+  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+    />
+  </svg>
+);
+
+const UserIcon = () => (
+  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+    />
+  </svg>
+);
 
 function App() {
   const [theme, setTheme] = useState<Theme>("nightfall");
@@ -21,7 +42,7 @@ function App() {
   return (
     <div className="min-h-screen p-8 transition-theme">
       <div className="max-w-4xl mx-auto">
-        {/* Header - same as before */}
+        {/* Header */}
         <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
           <h1 className="text-4xl font-bold text-gradient-primary">
             Dara UI Components
@@ -54,7 +75,7 @@ function App() {
           </div>
         </div>
 
-        {/* ----- BADGE SHOWCASE (NEW) ----- */}
+        {/* ----- BADGE SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Badges</h2>
 
@@ -127,8 +148,7 @@ function App() {
           </div>
         </section>
 
-        {/* ----- EXISTING SECTIONS ----- */}
-        {/* Button Showcase */}
+        {/* ----- BUTTON SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Button Variants</h2>
           <div className="flex flex-wrap gap-3">
@@ -142,7 +162,75 @@ function App() {
           </div>
         </section>
 
-        {/* Glow Showcase */}
+        {/* ----- INPUT SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Inputs</h2>
+
+          {/* Basic Inputs */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Basic Inputs
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Input placeholder="Text input" />
+              <Input type="password" placeholder="Password" />
+              <Input type="search" placeholder="Search..." />
+              <Input type="email" placeholder="Email" />
+            </div>
+          </div>
+
+          {/* With Labels */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              With Labels
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Input label="Username" placeholder="Enter username" />
+              <Input
+                label="Email"
+                type="email"
+                placeholder="Enter email"
+                helperText="We'll never share your email."
+              />
+            </div>
+          </div>
+
+          {/* With Icons */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              With Icons
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Input leftIcon={<UserIcon />} placeholder="Username" />
+              <Input
+                leftIcon={<SearchIcon />}
+                type="search"
+                placeholder="Search..."
+              />
+            </div>
+          </div>
+
+          {/* Validation States */}
+          <div>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Validation States
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Input
+                placeholder="Success"
+                validation="success"
+                successMessage="Valid input!"
+              />
+              <Input
+                placeholder="Error"
+                validation="error"
+                errorMessage="Something went wrong"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* ----- GLOW SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Glow Effects</h2>
           <div className="flex flex-wrap gap-3">
@@ -158,7 +246,7 @@ function App() {
           </div>
         </section>
 
-        {/* Gradient Showcase */}
+        {/* ----- GRADIENT SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Gradients</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -177,7 +265,7 @@ function App() {
           </div>
         </section>
 
-        {/* Glass & Glow Showcase */}
+        {/* ----- GLASS & GLOW SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Effects</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -193,7 +281,7 @@ function App() {
           </div>
         </section>
 
-        {/* Typography Showcase */}
+        {/* ----- TYPOGRAPHY SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Typography</h2>
           <div className="space-y-4">
@@ -213,7 +301,7 @@ function App() {
           </div>
         </section>
 
-        {/* Persian Text Showcase */}
+        {/* ----- PERSIAN TEXT SHOWCASE -----  */}
         <section className="p-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Persian Support</h2>
           <div className="space-y-4">
