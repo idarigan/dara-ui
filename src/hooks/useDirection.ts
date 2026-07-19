@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-type Direction = "ltr" | "rtl";
+export type Direction = "ltr" | "rtl";
 
 export function useDirection(initialDirection: Direction = "ltr") {
   const [direction, setDirection] = useState<Direction>(initialDirection);

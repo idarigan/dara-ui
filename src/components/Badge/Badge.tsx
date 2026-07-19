@@ -42,7 +42,7 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
   ) => {
     // Base styles
     const baseStyles =
-      "inline-flex items-center justify-center font-accent font-medium transition-all duration-[var(--transition-fast)]";
+      "inline-flex items-center justify-center font-sans font-medium transition-all duration-[var(--transition-fast)]";
 
     // Size styles
     const sizes = {

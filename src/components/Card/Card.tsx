@@ -92,7 +92,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
 
     // Float hover effect
     const floatStyles = float
-      ? "hover:translate-y-[-4px] hover:shadow-[var(--shadow-float)] hover:shadow-[var(--shadow-glow-primary)]"
+      ? "hover:translate-y-[-4px] hover:shadow-[var(--shadow-float),var(--shadow-glow-primary)]"
       : "";
 
     // Build className

@@ -1,6 +1,13 @@
 import React from "react";
 
+/**
+ * Props for the Button component
+ */
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /**
+   * Button visual style variant
+   * @default "primary"
+   */
   variant?:
     | "primary"
     | "secondary"
@@ -9,14 +16,45 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     | "danger"
     | "success"
     | "glass";
+  /**
+   * Button size
+   * @default "md"
+   */
   size?: "sm" | "md" | "lg";
+  /**
+   * If true, button will take full width of container
+   * @default false
+   */
   fullWidth?: boolean;
+  /**
+   * If true, button will show a loading spinner
+   * @default false
+   */
   loading?: boolean;
+  /**
+   * If true, button will have a glow effect on hover
+   * @default false
+   */
   glow?: boolean;
+  /**
+   * Icon element to display on the left side
+   */
   leftIcon?: React.ReactNode;
+  /**
+   * Icon element to display on the right side
+   */
   rightIcon?: React.ReactNode;
 }
 
+/**
+ * Dara UI Button component with multiple variants, sizes, and states.
+ *
+ * @example
+ * ```tsx
+ * <Button variant="primary" size="md">Click me</Button>
+ * <Button variant="success" glow loading>Processing</Button>
+ * ```
+ */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
@@ -34,9 +72,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
+    // ----- Base Styles -----
     const baseStyles =
       "inline-flex items-center justify-center font-medium transition-all duration-[var(--transition-fast)] rounded-[var(--radius-full)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)] disabled:opacity-60 disabled:cursor-not-allowed active:scale-[0.96]";
 
+    // ----- Variant Styles -----
     const variants = {
       primary:
         "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] active:bg-[var(--color-primary-active)]",
@@ -54,12 +94,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         "glass text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/50 active:bg-[var(--color-bg-elevated)]/70",
     };
 
+    // ----- Size Styles -----
     const sizes = {
       sm: "px-4 py-2 text-sm",
       md: "px-6 py-2.5 text-base",
       lg: "px-8 py-3.5 text-lg",
     };
 
+    // ----- Glow Styles -----
     const glowStyles = glow
       ? {
           primary: "hover:shadow-[var(--shadow-glow-primary)]",
@@ -72,6 +114,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         }[variant]
       : "";
 
+    // ----- Build ClassName -----
     const classes = [
       baseStyles,
       variants[variant],
@@ -84,6 +127,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       .filter(Boolean)
       .join(" ");
 
+    // ----- Render -----
     return (
       <button
         ref={ref}
@@ -91,6 +135,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || loading}
         {...props}
       >
+        {/* Loading Spinner */}
         {loading && (
           <svg
             className="mr-2 h-4 w-4 animate-spin"
@@ -113,8 +158,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             />
           </svg>
         )}
+
+        {/* Left Icon */}
         {leftIcon && <span className="mr-2">{leftIcon}</span>}
+
+        {/* Children */}
         {children}
+
+        {/* Right Icon */}
         {rightIcon && <span className="ml-2">{rightIcon}</span>}
       </button>
     );

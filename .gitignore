@@ -23,3 +23,7 @@ storybook-static/
 .env
 .env.local
 .env.*.local
+
+# Project Exporter
+dara-ui_export.txt
+export_project.py

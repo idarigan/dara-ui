@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useId, useState } from "react";
 
 export interface InputProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -87,7 +87,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const [isFocused, setIsFocused] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
-    const inputId = id || `input-${Math.random().toString(36).substring(2, 9)}`;
+    const generatedId = useId();
+    const inputId = id || generatedId;
 
     // Size styles
     const sizes = {
@@ -105,7 +106,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     // Base input styles
     const baseStyles =
-      "w-full font-body text-[var(--color-text-primary)] placeholder:text-[var(--color-text-tertiary)] transition-all duration-[var(--transition-fast)] outline-none disabled:opacity-60 disabled:cursor-not-allowed";
+      "w-full font-sans text-[var(--color-text-primary)] placeholder:text-[var(--color-text-tertiary)] transition-all duration-[var(--transition-fast)] outline-none disabled:opacity-60 disabled:cursor-not-allowed";
 
     // Background styles
     const bgStyles =
@@ -147,7 +148,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           ? "pl-9"
           : size === "md"
             ? "pl-11"
-            : "pl-13"
+            : "pl-14"
         : "",
       right:
         rightIcon || type === "password"
@@ -155,7 +156,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ? "pr-9"
             : size === "md"
               ? "pr-11"
-              : "pr-13"
+              : "pr-14"
           : "",
     };
 
@@ -185,7 +186,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         ? "text-[var(--color-danger)]"
         : validation === "success"
           ? "text-[var(--color-success)]"
-          : "group-focus-within:text-[var(--color-primary)]";
+          : isFocused
+            ? "text-[var(--color-primary)]"
+            : "text-[var(--color-text-tertiary)]";
 
     // Left icon position
     const leftIconPosition = {
@@ -277,12 +280,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-sm font-medium text-[var(--color-text-secondary)] font-body"
+            className={`text-sm font-medium font-sans transition-colors duration-[var(--transition-fast)] ${
+              isFocused
+                ? "text-[var(--color-primary)]"
+                : "text-[var(--color-text-secondary)]"
+            }`}
           >
             {label}
           </label>
         )}
-
         {/* Input wrapper */}
         <div className="relative group w-full">
           {/* Left Icon */}
@@ -329,10 +335,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {/* Password Toggle */}
           {type === "password" && <PasswordToggleIcon />}
         </div>
-
-        {/* Helper Text/Validation Messages */}
+        {/* Helper Text / Validation Messages */}
         {(helperText || errorMessage || successMessage) && (
-          <div className="flex items-center gap-1.5 text-xs font-body">
+          <div className="flex items-center gap-1.5 text-xs font-sans">
+            {/* Error */}
             {validation === "error" && errorMessage && (
               <>
                 <span className="text-[var(--color-danger)]">⚠️</span>
@@ -341,6 +347,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 </span>
               </>
             )}
+            {/* Success */}
             {validation === "success" && successMessage && (
               <>
                 <span className="text-[var(--color-success)]">✅</span>
@@ -349,8 +356,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 </span>
               </>
             )}
-            {!validation && helperText && (
-              <span className="text-[var(--color-text-tertiary)]">
+            {/* Warning or Neutral - show helperText */}
+            {(validation === "warning" || !validation) && helperText && (
+              <span
+                className={
+                  validation === "warning"
+                    ? "text-[var(--color-warning)]"
+                    : "text-[var(--color-text-tertiary)]"
+                }
+              >
                 {helperText}
               </span>
             )}
