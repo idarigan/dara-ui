@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "./components/Button/Button";
+import { Badge } from "./components/Badge/Badge";
 import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 
@@ -20,13 +21,11 @@ function App() {
   return (
     <div className="min-h-screen p-8 transition-theme">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
+        {/* Header - same as before */}
         <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
           <h1 className="text-4xl font-bold text-gradient-primary">
             Dara UI Components
           </h1>
-
-          {/* Theme Switcher */}
           <div className="flex gap-2 flex-wrap">
             <Button
               size="sm"
@@ -55,6 +54,80 @@ function App() {
           </div>
         </div>
 
+        {/* ----- BADGE SHOWCASE (NEW) ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Badges</h2>
+
+          {/* Variants */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Variants
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Badge variant="primary">Primary</Badge>
+              <Badge variant="secondary">Secondary</Badge>
+              <Badge variant="success">Success</Badge>
+              <Badge variant="danger">Danger</Badge>
+              <Badge variant="warning">Warning</Badge>
+            </div>
+          </div>
+
+          {/* Outline */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Outline
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Badge outline variant="primary">
+                Primary
+              </Badge>
+              <Badge outline variant="secondary">
+                Secondary
+              </Badge>
+              <Badge outline variant="success">
+                Success
+              </Badge>
+              <Badge outline variant="danger">
+                Danger
+              </Badge>
+              <Badge outline variant="warning">
+                Warning
+              </Badge>
+            </div>
+          </div>
+
+          {/* Sizes */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Sizes
+            </p>
+            <div className="flex flex-wrap gap-3 items-center">
+              <Badge size="sm">Small</Badge>
+              <Badge size="md">Medium</Badge>
+              <Badge size="lg">Large</Badge>
+            </div>
+          </div>
+
+          {/* With Glow */}
+          <div>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              With Glow
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Badge glow variant="primary">
+                Glow Primary
+              </Badge>
+              <Badge glow variant="success">
+                Glow Success
+              </Badge>
+              <Badge glow variant="danger">
+                Glow Danger
+              </Badge>
+            </div>
+          </div>
+        </section>
+
+        {/* ----- EXISTING SECTIONS ----- */}
         {/* Button Showcase */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Button Variants</h2>
