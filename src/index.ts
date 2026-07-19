@@ -12,6 +12,9 @@ export type { BadgeProps } from "./components/Badge/Badge";
 export { Input } from "./components/Input/Input";
 export type { InputProps } from "./components/Input/Input";
 
+export { Card } from "./components/Card/Card";
+export type { CardProps } from "./components/Card/Card";
+
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";
 export type { Direction } from "./hooks/useDirection";
