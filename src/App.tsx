@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import Button from "./components/Button/Button";
 import { Badge } from "./components/Badge/Badge";
 import { Input } from "./components/Input/Input";
+import { Card } from "./components/Card/Card";
 import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 
 type Theme = "nightfall" | "daylight" | "bloody-moon";
 
+// Icons
 const SearchIcon = () => (
   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
     <path
@@ -159,6 +161,88 @@ function App() {
             <Button variant="danger">Danger</Button>
             <Button variant="success">Success</Button>
             <Button variant="glass">Glass</Button>
+          </div>
+        </section>
+
+        {/* ----- CARD SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Cards</h2>
+
+          {/* Variants */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Variants
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Card variant="glass">
+                <h3 className="font-heading font-bold">Glass</h3>
+                <p className="text-[var(--color-text-secondary)] text-sm">
+                  backdrop-filter: blur(20px)
+                </p>
+              </Card>
+              <Card variant="solid">
+                <h3 className="font-heading font-bold">Solid</h3>
+                <p className="text-[var(--color-text-secondary)] text-sm">
+                  More opaque, less blur
+                </p>
+              </Card>
+              <Card variant="outline">
+                <h3 className="font-heading font-bold">Outline</h3>
+                <p className="text-[var(--color-text-secondary)] text-sm">
+                  Transparent with border
+                </p>
+              </Card>
+            </div>
+          </div>
+
+          {/* Float + Glow */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Float + Glow
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Card float glow="primary">
+                <h3 className="font-heading font-bold">Primary Glow</h3>
+                <p className="text-[var(--color-text-secondary)] text-sm">
+                  Hover to float ✨
+                </p>
+              </Card>
+              <Card float glow="secondary">
+                <h3 className="font-heading font-bold">Secondary Glow</h3>
+                <p className="text-[var(--color-text-secondary)] text-sm">
+                  Hover to float ✨
+                </p>
+              </Card>
+              <Card float glow="accent">
+                <h3 className="font-heading font-bold">Accent Glow</h3>
+                <p className="text-[var(--color-text-secondary)] text-sm">
+                  Hover to float ✨
+                </p>
+              </Card>
+            </div>
+          </div>
+
+          {/* Feature Cards */}
+          <div>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Feature Cards
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Card glow="primary" className="text-center">
+                <div className="text-4xl mb-2">🚀</div>
+                <h3 className="font-heading font-bold">Launch</h3>
+                <p className="text-[var(--color-text-secondary)] text-sm">
+                  Deploy your project with one click.
+                </p>
+              </Card>
+              <Card variant="solid" className="text-center">
+                <div className="text-4xl mb-2">📊</div>
+                <h3 className="font-heading font-bold">Analytics</h3>
+                <p className="text-[var(--color-text-secondary)] text-sm">
+                  Track your performance metrics.
+                </p>
+              </Card>
+            </div>
           </div>
         </section>
 
