@@ -6,6 +6,9 @@
 export { Button } from "./components/Button/Button";
 export type { ButtonProps } from "./components/Button/Button";
 
+export { Badge } from "./components/Badge/Badge";
+export type { BadgeProps } from "./components/Badge/Badge";
+
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";
 export type { Direction } from "./hooks/useDirection";
