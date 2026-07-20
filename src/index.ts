@@ -18,6 +18,12 @@ export type { CardProps } from "./components/Card/Card";
 export { Tabs } from "./components/Tabs/Tabs";
 export type { TabsProps, TabItem } from "./components/Tabs/Tabs";
 
+export { Accordion } from "./components/Accordion/Accordion";
+export type {
+  AccordionProps,
+  AccordionItem,
+} from "./components/Accordion/Accordion";
+
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";
 export type { Direction } from "./hooks/useDirection";
