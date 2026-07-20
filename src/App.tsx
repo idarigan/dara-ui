@@ -5,6 +5,7 @@ import { Input } from "./components/Input/Input";
 import { Card } from "./components/Card/Card";
 import { Tabs } from "./components/Tabs/Tabs";
 import { Accordion } from "./components/Accordion/Accordion";
+import { Dropdown } from "./components/Dropdown/Dropdown";
 import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 
@@ -28,6 +29,55 @@ const UserIcon = () => (
       strokeLinejoin="round"
       d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
     />
+  </svg>
+);
+
+const SettingsIcon = () => (
+  <svg
+    className="h-4 w-4"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+    />
+  </svg>
+);
+
+const StarIcon = () => (
+  <svg
+    className="h-4 w-4"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+    />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg
+    className="h-4 w-4"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
   </svg>
 );
 
@@ -213,6 +263,23 @@ const accordionItemsWithIcons = [
   },
 ];
 
+// Dropdown options
+const frameworkOptions = [
+  { value: "react", label: "React" },
+  { value: "vue", label: "Vue.js" },
+  { value: "angular", label: "Angular" },
+  { value: "svelte", label: "Svelte" },
+  { value: "solid", label: "Solid.js" },
+  { value: "qwik", label: "Qwik" },
+];
+
+const dropdownOptionsWithIcons = [
+  { value: "user", label: "User Profile", icon: <UserIcon /> },
+  { value: "settings", label: "Settings", icon: <SettingsIcon /> },
+  { value: "favorites", label: "Favorites", icon: <StarIcon /> },
+  { value: "done", label: "Completed", icon: <CheckIcon /> },
+];
+
 function App() {
   const [theme, setTheme] = useState<Theme>("nightfall");
   const { direction, toggleDirection } = useDirection("ltr");
@@ -225,6 +292,9 @@ function App() {
   const [accordionMode, setAccordionMode] = useState<"single" | "multiple">(
     "single",
   );
+
+  // Controlled Dropdown state
+  const [selectedFramework, setSelectedFramework] = useState("react");
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -368,7 +438,7 @@ function App() {
           />
         </section>
 
-        {/* ----- ACCORDION SHOWCASE (NEW) ----- */}
+        {/* ----- ACCORDION SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Accordion</h2>
 
@@ -434,6 +504,115 @@ function App() {
               defaultOpenItems={["1"]}
               multiple={false}
             />
+          </div>
+        </section>
+
+        {/* ----- DROPDOWN SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Dropdown</h2>
+
+          {/* Basic Dropdowns */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Basic
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Dropdown
+                options={frameworkOptions}
+                placeholder="Select a framework..."
+                defaultValue="react"
+              />
+              <Dropdown
+                options={frameworkOptions}
+                placeholder="With placeholder"
+              />
+            </div>
+          </div>
+
+          {/* With Icons */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              With Icons
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Dropdown
+                options={dropdownOptionsWithIcons}
+                placeholder="Select with icons..."
+                defaultValue="user"
+              />
+              <Dropdown
+                options={dropdownOptionsWithIcons}
+                placeholder="Search with icons..."
+                searchable
+                searchPlaceholder="Search options..."
+              />
+            </div>
+          </div>
+
+          {/* Searchable */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Searchable
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Dropdown
+                options={frameworkOptions}
+                placeholder="Search frameworks..."
+                searchable
+                defaultValue="react"
+                label="Framework"
+                helperText="Type to filter options"
+              />
+              <Dropdown
+                options={dropdownOptionsWithIcons}
+                placeholder="Search with icons..."
+                searchable
+                searchPlaceholder="Search..."
+                label="With Icons"
+              />
+            </div>
+          </div>
+
+          {/* Controlled */}
+          <div>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Controlled — Selected:{" "}
+              <span className="text-[var(--color-primary)] font-bold">
+                {selectedFramework}
+              </span>
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Dropdown
+                options={frameworkOptions}
+                value={selectedFramework}
+                onChange={setSelectedFramework}
+                placeholder="Select a framework..."
+                label="Controlled Dropdown"
+              />
+              <div className="flex items-center gap-2 flex-wrap">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setSelectedFramework("vue")}
+                >
+                  Set Vue
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setSelectedFramework("svelte")}
+                >
+                  Set Svelte
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setSelectedFramework("solid")}
+                >
+                  Set Solid
+                </Button>
+              </div>
+            </div>
           </div>
         </section>
 
