@@ -3,6 +3,7 @@ import Button from "./components/Button/Button";
 import { Badge } from "./components/Badge/Badge";
 import { Input } from "./components/Input/Input";
 import { Card } from "./components/Card/Card";
+import { Tabs } from "./components/Tabs/Tabs";
 import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 
@@ -29,9 +30,48 @@ const UserIcon = () => (
   </svg>
 );
 
+// Tab items
+const tabItems = [
+  {
+    label: "📁 Archive",
+    content: (
+      <div className="py-4 text-[var(--color-text-secondary)]">
+        Browse encrypted Jedi records, holocrons, and mission logs from the
+        Calgary archive.
+      </div>
+    ),
+  },
+  {
+    label: "⚔️ Quests",
+    content: (
+      <div className="py-4 text-[var(--color-text-secondary)]">
+        Active missions, bounties, and side-quests await your attention,
+        Padawan.
+      </div>
+    ),
+  },
+  {
+    label: "📊 Stats",
+    content: (
+      <div className="py-4 text-[var(--color-text-secondary)]">
+        Track your Force alignment, XP gains, and cybernetic enhancement levels.
+      </div>
+    ),
+  },
+  {
+    label: "⚙️ Settings",
+    content: (
+      <div className="py-4 text-[var(--color-text-secondary)]">
+        Configure your HUD, theme mode, and archive encryption preferences.
+      </div>
+    ),
+  },
+];
+
 function App() {
   const [theme, setTheme] = useState<Theme>("nightfall");
   const { direction, toggleDirection } = useDirection("ltr");
+  const [activeTab, setActiveTab] = useState("📁 Archive");
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -162,6 +202,17 @@ function App() {
             <Button variant="success">Success</Button>
             <Button variant="glass">Glass</Button>
           </div>
+        </section>
+
+        {/* ----- TABS SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Tabs</h2>
+          <Tabs
+            items={tabItems}
+            activeValue={activeTab}
+            onChange={setActiveTab}
+            glowColor="primary"
+          />
         </section>
 
         {/* ----- CARD SHOWCASE ----- */}
