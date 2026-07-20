@@ -15,6 +15,9 @@ export type { InputProps } from "./components/Input/Input";
 export { Card } from "./components/Card/Card";
 export type { CardProps } from "./components/Card/Card";
 
+export { Tabs } from "./components/Tabs/Tabs";
+export type { TabsProps, TabItem } from "./components/Tabs/Tabs";
+
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";
 export type { Direction } from "./hooks/useDirection";
