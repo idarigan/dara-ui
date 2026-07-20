@@ -4,6 +4,7 @@ import { Badge } from "./components/Badge/Badge";
 import { Input } from "./components/Input/Input";
 import { Card } from "./components/Card/Card";
 import { Tabs } from "./components/Tabs/Tabs";
+import { Accordion } from "./components/Accordion/Accordion";
 import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 
@@ -30,7 +31,7 @@ const UserIcon = () => (
   </svg>
 );
 
-// Tab items
+// Tab items for Tabs demo
 const tabItems = [
   {
     label: "📁 Archive",
@@ -68,10 +69,162 @@ const tabItems = [
   },
 ];
 
+// Accordion items for demo
+const accordionItems = [
+  {
+    id: "1",
+    title: "📜 What is Dara UI?",
+    content: (
+      <div>
+        Dara UI is a design system that feels like an interface discovered
+        inside a futuristic archive hidden beneath Calgary during a snowstorm.
+        It blends glassmorphism, cyberpunk, gothic aesthetics, Apple minimalism,
+        and anime HUD elements.
+      </div>
+    ),
+  },
+  {
+    id: "2",
+    title: "🎨 What themes are available?",
+    content: (
+      <div>
+        <p className="mb-2">Three themes are available:</p>
+        <ul className="list-disc list-inside space-y-1 text-[var(--color-text-tertiary)]">
+          <li>
+            <span className="text-[var(--color-primary)]">Nightfall</span> —
+            Dark, mysterious, glass-heavy
+          </li>
+          <li>
+            <span className="text-[var(--color-warning)]">Daylight</span> —
+            Light, clean, minimal
+          </li>
+          <li>
+            <span className="text-[var(--color-danger)]">Bloody Moon</span> —
+            Dark, intense, red-accented
+          </li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    id: "3",
+    title: "🔧 How do I install it?",
+    content: (
+      <div>
+        <code className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm">
+          npm install dara-ui
+          <br />
+          # or
+          <br />
+          yarn add dara-ui
+        </code>
+        <p className="mt-2">Then import components:</p>
+        <code className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm">
+          import {"{ Button, Card, Input }"} from 'dara-ui';
+        </code>
+      </div>
+    ),
+  },
+];
+
+// Accordion items with icons
+const accordionItemsWithIcons = [
+  {
+    id: "1",
+    title: "Dashboard",
+    icon: (
+      <svg
+        className="h-4 w-4"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+        />
+      </svg>
+    ),
+    content: (
+      <div className="text-[var(--color-text-secondary)]">
+        📊 Dashboard overview with key metrics and recent activity.
+      </div>
+    ),
+  },
+  {
+    id: "2",
+    title: "Projects",
+    icon: (
+      <svg
+        className="h-4 w-4"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3.75 13.5l14.25-11.25L13.5 3.75 3.75 13.5zM3.75 13.5L6.75 16.5M13.5 3.75L16.5 6.75M12 12l-3 3M9 15l-3 3"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 12l3-3M15 9l3-3"
+        />
+      </svg>
+    ),
+    content: (
+      <div className="text-[var(--color-text-secondary)]">
+        🚀 Active projects and their current status.
+      </div>
+    ),
+  },
+  {
+    id: "3",
+    title: "Settings",
+    icon: (
+      <svg
+        className="h-4 w-4"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+        />
+      </svg>
+    ),
+    content: (
+      <div className="text-[var(--color-text-secondary)]">
+        ⚙️ Configure your application preferences.
+      </div>
+    ),
+  },
+];
+
 function App() {
   const [theme, setTheme] = useState<Theme>("nightfall");
   const { direction, toggleDirection } = useDirection("ltr");
+
+  // Controlled Tabs state
   const [activeTab, setActiveTab] = useState("📁 Archive");
+
+  // Controlled Accordion state
+  const [openAccordionItems, setOpenAccordionItems] = useState<string[]>(["1"]);
+  const [accordionMode, setAccordionMode] = useState<"single" | "multiple">(
+    "single",
+  );
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -213,6 +366,75 @@ function App() {
             onChange={setActiveTab}
             glowColor="primary"
           />
+        </section>
+
+        {/* ----- ACCORDION SHOWCASE (NEW) ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Accordion</h2>
+
+          {/* Mode Switcher */}
+          <div className="flex items-center gap-4 mb-4 flex-wrap">
+            <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+              Mode:
+            </span>
+            <Button
+              size="sm"
+              variant={accordionMode === "single" ? "primary" : "outline"}
+              onClick={() => {
+                setAccordionMode("single");
+                setOpenAccordionItems(["1"]);
+              }}
+            >
+              Single
+            </Button>
+            <Button
+              size="sm"
+              variant={accordionMode === "multiple" ? "primary" : "outline"}
+              onClick={() => {
+                setAccordionMode("multiple");
+                setOpenAccordionItems(["1", "2"]);
+              }}
+            >
+              Multiple
+            </Button>
+            <span className="text-xs text-[var(--color-text-tertiary)] font-mono ml-2">
+              {accordionMode === "single"
+                ? "Only one item can be open at a time"
+                : "Multiple items can be open simultaneously"}
+            </span>
+          </div>
+
+          {/* Controlled Accordion */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Controlled — Open items:{" "}
+              <span className="text-[var(--color-primary)]">
+                {openAccordionItems.length > 0
+                  ? openAccordionItems.join(", ")
+                  : "none"}
+              </span>
+            </p>
+            <Accordion
+              items={accordionItems}
+              openItems={openAccordionItems}
+              onOpenChange={setOpenAccordionItems}
+              multiple={accordionMode === "multiple"}
+            />
+          </div>
+
+          <div className="border-t border-[var(--color-border-secondary)] my-6"></div>
+
+          {/* With Icons */}
+          <div>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              With Icons
+            </p>
+            <Accordion
+              items={accordionItemsWithIcons}
+              defaultOpenItems={["1"]}
+              multiple={false}
+            />
+          </div>
         </section>
 
         {/* ----- CARD SHOWCASE ----- */}
@@ -436,7 +658,7 @@ function App() {
           </div>
         </section>
 
-        {/* ----- PERSIAN TEXT SHOWCASE -----  */}
+        {/* ----- PERSIAN TEXT SHOWCASE ----- */}
         <section className="p-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Persian Support</h2>
           <div className="space-y-4">
