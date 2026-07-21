@@ -7,36 +7,33 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   variant?: "glass" | "solid" | "outline";
   /**
-   * Card padding size
+   * Card padding
    * @default "md"
    */
   padding?: "sm" | "md" | "lg" | "none";
   /**
-   * Card border radius
+   * Border radius
    * @default "standard"
    */
   radius?: "sm" | "md" | "standard" | "large" | "xl" | "full";
   /**
-   * Adds float hover effect (elevation + translate)
+   * Float hover effect
    * @default false
    */
   float?: boolean;
   /**
    * Glow effect color
-   * @default "none"
    */
-  glow?: "primary" | "secondary" | "accent" | "success" | "danger" | "none";
-  /**
-   * If true, card will take full width
-   * @default false
-   */
-  fullWidth?: boolean;
+  glow?: "purple" | "cyan" | "pink";
   /**
    * Card content
    */
   children: React.ReactNode;
 }
 
+/**
+ * Dara UI Card
+ */
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   (
     {
@@ -44,25 +41,20 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       padding = "md",
       radius = "standard",
       float = false,
-      glow = "none",
-      fullWidth = false,
+      glow,
       className = "",
       children,
       ...props
     },
     ref,
   ) => {
-    // Base styles
-    const baseStyles = "transition-all duration-[var(--transition-med)]";
-
-    // Variant styles
+    // Variants
     const variants = {
       glass: "glass",
       solid: "glass-solid",
       outline: "glass-outline",
     };
 
-    // Padding styles
     const paddings = {
       sm: "p-4",
       md: "p-6",
@@ -70,7 +62,6 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       none: "p-0",
     };
 
-    // Radius styles (using CSS custom properties)
     const radiusMap = {
       sm: "rounded-sm",
       md: "rounded-md",
@@ -80,30 +71,20 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       full: "rounded-full",
     };
 
-    // Glow styles
     const glowStyles = {
-      primary: "shadow-[var(--shadow-glow-primary)]",
-      secondary: "shadow-[var(--shadow-glow-secondary)]",
-      accent: "shadow-[var(--shadow-glow-accent)]",
-      success: "shadow-[var(--shadow-glow-success)]",
-      danger: "shadow-[var(--shadow-glow-danger)]",
-      none: "",
+      purple: "glow-purple",
+      cyan: "glow-cyan",
+      pink: "glow-pink",
     };
 
-    // Float hover effect
-    const floatStyles = float
-      ? "hover:translate-y-[-4px] hover:shadow-[var(--shadow-float),var(--shadow-glow-primary)]"
-      : "";
+    const floatClass = float ? "float-card" : "";
 
-    // Build className
     const classes = [
-      baseStyles,
       variants[variant],
       paddings[padding],
       radiusMap[radius],
-      glow !== "none" ? glowStyles[glow] : "",
-      floatStyles,
-      fullWidth ? "w-full" : "",
+      floatClass,
+      glow ? glowStyles[glow] : "",
       className,
     ]
       .filter(Boolean)
@@ -118,5 +99,4 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
 );
 
 Card.displayName = "Card";
-
 export default Card;
