@@ -24,6 +24,12 @@ export type {
   AccordionItem,
 } from "./components/Accordion/Accordion";
 
+export { Dropdown } from "./components/Dropdown/Dropdown";
+export type {
+  DropdownProps,
+  DropdownOption,
+} from "./components/Dropdown/Dropdown";
+
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";
 export type { Direction } from "./hooks/useDirection";
