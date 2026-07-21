@@ -6,12 +6,18 @@
    BASE STYLES
    ============================================= */
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
   font-family: var(--font-family-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  overflow-x: hidden;
   transition:
     background-color var(--transition-base),
     color var(--transition-base);
@@ -46,7 +52,6 @@ a {
   text-decoration: none;
   transition: color var(--transition-fast);
 }
-
 a:hover {
   color: var(--color-primary-hover);
 }
@@ -55,341 +60,6 @@ a:hover {
 ::selection {
   background-color: var(--color-primary);
   color: var(--color-text-inverse);
-}
-
-/* ----- Scrollbar ----- */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-bg-secondary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-border-primary);
-  border-radius: var(--radius-full);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary);
-}
-
-/* =============================================
-   GLASS VARIANTS
-   ============================================= */
-
-/* ----- Standard Glass (blur: 20px) ----- */
-.glass {
-  background: var(--color-bg-elevated);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--color-border-primary);
-  box-shadow: var(--shadow-glass);
-  border-radius: var(--radius-standard);
-  transition: all var(--transition-med);
-}
-
-/* ----- Heavy Glass (blur: 30px, more opaque) ----- */
-.glass-heavy {
-  background: var(--color-bg-elevated);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border: 1px solid var(--color-border-primary);
-  box-shadow: var(--shadow-float);
-  border-radius: var(--radius-large);
-  transition: all var(--transition-med);
-}
-
-/* ----- Solid Glass (less blur, more opaque) ----- */
-.glass-solid {
-  background: var(--color-bg-tertiary);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid var(--color-border-secondary);
-  box-shadow: var(--shadow-sm);
-  border-radius: var(--radius-standard);
-  transition: all var(--transition-med);
-}
-
-/* ----- Outline Glass (transparent, border only) ----- */
-.glass-outline {
-  background: transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border: 1px solid var(--color-border-primary);
-  box-shadow: none;
-  border-radius: var(--radius-standard);
-  transition: all var(--transition-med);
-}
-
-/* ----- Glass with Glow (primary) ----- */
-.glass-glow {
-  background: var(--color-bg-elevated);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--color-border-primary);
-  box-shadow: var(--shadow-glass), var(--shadow-glow-primary);
-  border-radius: var(--radius-standard);
-  transition: all var(--transition-med);
-}
-
-/* ----- Glass with Accent Border ----- */
-.glass-accent {
-  background: var(--color-bg-elevated);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--color-accent);
-  box-shadow: var(--shadow-glass), var(--shadow-glow-accent);
-  border-radius: var(--radius-standard);
-  transition: all var(--transition-med);
-}
-
-/* =============================================
-   GLASS HOVER VARIANTS
-   ============================================= */
-
-.glass-hover:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--color-primary);
-  box-shadow: var(--shadow-glass), var(--shadow-glow-primary);
-  transform: translateY(-2px);
-}
-
-.glass-heavy-hover:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: var(--color-primary);
-  box-shadow: var(--shadow-float), var(--shadow-glow-primary);
-  transform: translateY(-4px);
-}
-
-/* =============================================
-   FLOAT / ELEVATION UTILITIES
-   ============================================= */
-
-.float {
-  box-shadow: var(--shadow-float);
-  transform: translateY(0);
-  transition:
-    transform var(--transition-med),
-    box-shadow var(--transition-med);
-}
-
-.float:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-float), var(--shadow-glow-primary);
-}
-
-.float-lg:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: var(--shadow-float), var(--shadow-glow-primary);
-}
-
-/* =============================================
-   GRADIENT UTILITIES (Backgrounds)
-   ============================================= */
-
-.bg-gradient-primary {
-  background: var(--gradient-primary);
-}
-.bg-gradient-accent {
-  background: var(--gradient-accent);
-}
-.bg-gradient-success {
-  background: var(--gradient-success);
-}
-.bg-gradient-danger {
-  background: var(--gradient-danger);
-}
-.bg-gradient-warm {
-  background: var(--gradient-warm);
-}
-.bg-gradient-cool {
-  background: var(--gradient-cool);
-}
-.bg-gradient-glass {
-  background: var(--gradient-glass);
-}
-
-/* ----- Gradient Hover ----- */
-.bg-gradient-primary-hover:hover {
-  background: var(--gradient-primary);
-  opacity: 0.9;
-}
-
-/* =============================================
-   TEXT GRADIENT UTILITIES
-   ============================================= */
-
-.text-gradient-primary {
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-accent {
-  background: var(--gradient-accent);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-success {
-  background: var(--gradient-success);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-danger {
-  background: var(--gradient-danger);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-warm {
-  background: var(--gradient-warm);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-gradient-cool {
-  background: var(--gradient-cool);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* =============================================
-   GLOW UTILITIES
-   ============================================= */
-
-.glow-primary {
-  box-shadow: var(--shadow-glow-primary);
-}
-.glow-secondary {
-  box-shadow: var(--shadow-glow-secondary);
-}
-.glow-accent {
-  box-shadow: var(--shadow-glow-accent);
-}
-.glow-success {
-  box-shadow: var(--shadow-glow-success);
-}
-.glow-danger {
-  box-shadow: var(--shadow-glow-danger);
-}
-.glow-warning {
-  box-shadow: var(--shadow-glow-warning);
-}
-
-/* ----- Glow Hover ----- */
-.glow-hover-primary:hover {
-  box-shadow: var(--shadow-glow-primary);
-}
-.glow-hover-accent:hover {
-  box-shadow: var(--shadow-glow-accent);
-}
-
-/* =============================================
-   SHADOW UTILITIES
-   ============================================= */
-
-.shadow-glass {
-  box-shadow: var(--shadow-glass);
-}
-.shadow-float {
-  box-shadow: var(--shadow-float);
-}
-.shadow-sm {
-  box-shadow: var(--shadow-sm);
-}
-.shadow-md {
-  box-shadow: var(--shadow-md);
-}
-.shadow-lg {
-  box-shadow: var(--shadow-lg);
-}
-
-/* =============================================
-   RADIUS UTILITIES
-   ============================================= */
-
-.rounded-sm {
-  border-radius: var(--radius-sm);
-}
-.rounded-md {
-  border-radius: var(--radius-md);
-}
-.rounded-standard {
-  border-radius: var(--radius-standard);
-}
-.rounded-large {
-  border-radius: var(--radius-large);
-}
-.rounded-xl {
-  border-radius: var(--radius-xl);
-}
-.rounded-full {
-  border-radius: var(--radius-full);
-}
-
-/* =============================================
-   TRANSITION UTILITIES
-   ============================================= */
-
-.transition-fast {
-  transition: all var(--transition-fast);
-}
-.transition-med {
-  transition: all var(--transition-med);
-}
-.transition-base {
-  transition: all var(--transition-base);
-}
-.transition-slow {
-  transition: all var(--transition-slow);
-}
-.transition-slower {
-  transition: all var(--transition-slower);
-}
-
-/* =============================================
-   THEME TRANSITION HELPER
-   ============================================= */
-
-.transition-theme {
-  transition:
-    background-color var(--transition-base),
-    color var(--transition-base),
-    border-color var(--transition-base),
-    box-shadow var(--transition-base);
-}
-
-/* =============================================
-   SURFACE ELEVATION
-   ============================================= */
-
-.elevation-1 {
-  background: var(--color-bg-secondary);
-  border: 1px solid var(--color-border-secondary);
-  box-shadow: var(--shadow-sm);
-}
-
-.elevation-2 {
-  background: var(--color-bg-tertiary);
-  border: 1px solid var(--color-border-primary);
-  box-shadow: var(--shadow-md);
-}
-
-.elevation-3 {
-  background: var(--color-bg-elevated);
-  border: 1px solid var(--color-border-primary);
-  box-shadow: var(--shadow-glass);
 }
 
 /* =============================================
@@ -407,7 +77,7 @@ a:hover {
 }
 
 /* =============================================
-   AURORA BLOBS (from your demo)
+   AURORA BLOBS
    ============================================= */
 
 .aurora {
@@ -447,7 +117,6 @@ a:hover {
   animation-duration: 22s;
 }
 
-/* ----- Aurora Keyframes ----- */
 @keyframes drift {
   0% {
     transform: translate(0, 0) rotate(0deg);
@@ -464,7 +133,7 @@ a:hover {
 }
 
 /* =============================================
-   GRADIENT RING (from your demo)
+   GRADIENT RING
    ============================================= */
 
 .gradient-ring {
@@ -484,8 +153,182 @@ a:hover {
 }
 
 /* =============================================
-   FLOAT ANIMATIONS
+   GLASS VARIANTS
    ============================================= */
+
+/* ----- Standard Glass (blur: 20px) ----- */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  border-radius: var(--radius-standard);
+  transition: all var(--transition-med);
+}
+
+/* ----- Heavy Glass (blur: 30px, more opaque) ----- */
+.glass-heavy {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  border-radius: var(--radius-standard);
+  transition: all var(--transition-med);
+}
+
+/* ----- Solid Glass (less blur, more opaque) ----- */
+.glass-solid {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-standard);
+  transition: all var(--transition-med);
+}
+
+/* ----- Outline Glass (transparent, border only) ----- */
+.glass-outline {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: none;
+  border-radius: var(--radius-standard);
+  transition: all var(--transition-med);
+}
+
+/* =============================================
+   GLOW UTILITIES
+   ============================================= */
+
+.glow-purple {
+  box-shadow:
+    0 0 30px rgba(124, 92, 255, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.glow-cyan {
+  box-shadow:
+    0 0 25px rgba(0, 217, 255, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.glow-pink {
+  box-shadow:
+    0 0 25px rgba(255, 77, 157, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+/* =============================================
+   FLOAT CARDS
+   ============================================= */
+
+.float-card {
+  transition:
+    transform var(--transition-med),
+    box-shadow var(--transition-med);
+}
+
+.float-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+/* =============================================
+   TEXT GRADIENT UTILITIES
+   ============================================= */
+
+.text-gradient-primary {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-accent {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-hero {
+  background: var(--gradient-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =============================================
+   XP BAR
+   ============================================= */
+
+.xp-bar-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7c5cff, #00d9ff);
+  border-radius: 4px;
+  transition: width 0.6s ease;
+  box-shadow: 0 0 8px rgba(124, 92, 255, 0.4);
+}
+
+/* =============================================
+   STAT RING
+   ============================================= */
+
+.stat-ring {
+  transform: rotate(-90deg);
+}
+
+.stat-ring circle {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.8s ease;
+}
+
+/* =============================================
+   SCROLLBAR
+   ============================================= */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-primary);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* =============================================
+   ANIMATIONS
+   ============================================= */
+
+.animate-float-slow {
+  animation: floatSlow 8s ease-in-out infinite;
+}
+
+.animate-float-med {
+  animation: floatMed 6s ease-in-out infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulseSoft 4s ease-in-out infinite;
+}
 
 @keyframes floatSlow {
   0%,
@@ -517,50 +360,51 @@ a:hover {
   }
 }
 
-.animate-float-slow {
-  animation: floatSlow 8s ease-in-out infinite;
+/* =============================================
+   TRANSITION UTILITIES
+   ============================================= */
+
+.transition-fast {
+  transition: all var(--transition-fast);
+}
+.transition-med {
+  transition: all var(--transition-med);
+}
+.transition-base {
+  transition: all var(--transition-base);
+}
+.transition-slow {
+  transition: all var(--transition-slow);
+}
+.transition-slower {
+  transition: all var(--transition-slower);
 }
 
-.animate-float-med {
-  animation: floatMed 6s ease-in-out infinite;
-}
-
-.animate-pulse-soft {
-  animation: pulseSoft 4s ease-in-out infinite;
+.transition-theme {
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
 }
 
 /* =============================================
-   XP BAR (from your demo)
+   SECTION LABEL
    ============================================= */
 
-.xp-bar-track {
-  height: 8px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-  overflow: hidden;
+.section-label {
+  font-family: var(--font-family-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  margin-bottom: 8px;
 }
 
-.xp-bar-fill {
-  height: 100%;
-  background: var(--gradient-primary);
-  border-radius: 4px;
-  transition: width 0.6s ease;
-  box-shadow: var(--shadow-glow-primary);
-}
-
-/* =============================================
-   STAT RING (from your demo)
-   ============================================= */
-
-.stat-ring {
-  transform: rotate(-90deg);
-}
-
-.stat-ring circle {
-  fill: none;
-  stroke-width: 6;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 0.8s ease;
+html[dir="rtl"] .section-label {
+  font-family: var(--font-family-persian-body) !important;
+  letter-spacing: 0;
+  font-size: 0.75rem;
 }
 
 /* =============================================
@@ -584,9 +428,9 @@ html[dir="rtl"] {
   .font-heading {
     font-family: var(--font-family-persian-heading) !important;
     letter-spacing: 0 !important;
+    font-weight: 700 !important;
   }
 
-  /* Badges, labels, accent text */
   .font-accent,
   .badge,
   .label,
@@ -597,7 +441,6 @@ html[dir="rtl"] {
     letter-spacing: 0 !important;
   }
 
-  /* Code blocks stay mono */
   code,
   pre,
   kbd,
@@ -608,7 +451,6 @@ html[dir="rtl"] {
     unicode-bidi: embed;
   }
 
-  /* Override specific English-only elements */
   .lang-en {
     font-family: var(--font-family-sans) !important;
     direction: ltr !important;
@@ -650,7 +492,6 @@ html[dir="ltr"] {
     font-family: var(--font-family-sans);
   }
 
-  /* Override specific RTL-only elements */
   .lang-fa {
     font-family: var(--font-family-persian-body) !important;
     direction: rtl !important;
@@ -664,7 +505,7 @@ html[dir="ltr"] {
   }
 }
 
-/* ----- Legacy support (keep for backward compatibility) ----- */
+/* ----- Legacy support ----- */
 html[lang="fa"],
 html[lang="fa-IR"],
 html[lang="ar"],
@@ -674,7 +515,6 @@ html[lang="ar-SA"] {
     direction: rtl;
     line-height: 1.8;
   }
-
   h1,
   h2,
   h3,
