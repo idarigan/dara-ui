@@ -19,10 +19,6 @@ export interface AccordionProps {
   size?: "sm" | "md" | "lg";
 }
 
-/**
- * Dara UI Accordion - matching original demo styling
- * Uses simple max-height animation like the original
- */
 export const Accordion: React.FC<AccordionProps> = ({
   items,
   openItems: controlledOpenItems,
@@ -65,7 +61,7 @@ export const Accordion: React.FC<AccordionProps> = ({
     [openItems, multiple, isControlled, onOpenChange],
   );
 
-  // Size styles - from original demo
+  // Size styles
   const sizeStyles = {
     sm: "px-3 py-2 text-sm",
     md: "px-4 py-3 text-base",
@@ -91,7 +87,7 @@ export const Accordion: React.FC<AccordionProps> = ({
         else if (isFirst) radiusClass = "rounded-t-[--radius-md]";
         else if (isLast) radiusClass = "rounded-b-[--radius-md]";
 
-        // Glass styles from original demo
+        // Glass styles
         const glassStyles = glass
           ? "glass hover:bg-white/10"
           : "bg-[#1a2332] hover:bg-[#1f2a3f]";
@@ -105,7 +101,7 @@ export const Accordion: React.FC<AccordionProps> = ({
               ${radiusClass}
             `}
           >
-            {/* Trigger button - matches original demo */}
+            {/* Trigger button */}
             <button
               onClick={() => toggleItem(item.id)}
               disabled={item.disabled}
@@ -114,9 +110,8 @@ export const Accordion: React.FC<AccordionProps> = ({
                 font-heading font-semibold
                 transition-colors duration-180
                 ${sizeStyles[size]}
-                ${glassStyles}
                 ${item.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-                ${isOpen ? "text-[#7c5cff]" : "text-white"}
+                ${isOpen ? "text-[#7c5cff] " : "text-white"}
                 hover:bg-white/5
                 focus:outline-none
               `}
@@ -138,7 +133,7 @@ export const Accordion: React.FC<AccordionProps> = ({
             <div
               className={`
                 accordion-content
-                ${isOpen ? "open" : ""}
+                ${isOpen ? "open border-t border-white/5" : ""}
               `}
             >
               <div className={`${contentSizeStyles[size]} text-white/50`}>
