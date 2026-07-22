@@ -32,7 +32,7 @@ const defaultItems = [
     id: "1",
     title: "📜 What is Dara UI?",
     content:
-      "Dara UI is a design system that feels like an interface discovered inside a futuristic archive hidden beneath Calgary during a snowstorm.",
+      "Dara UI is a design system that feels like an interface discovered inside a futuristic archive hidden beneath Calgary during a snowstorm. It blends glassmorphism, cyberpunk, gothic aesthetics, Apple minimalism, and anime HUD elements.",
   },
   {
     id: "2",
@@ -43,10 +43,12 @@ const defaultItems = [
   {
     id: "3",
     title: "🔧 How do I install it?",
-    content: "npm install dara-ui # or yarn add dara-ui",
+    content:
+      "npm install dara-ui\n# or\nyarn add dara-ui\n# then\nimport { Button, Card, Glass } from 'dara-ui';",
   },
 ];
 
+// Default — matches original demo
 export const Default: Story = {
   args: {
     items: defaultItems,
@@ -144,24 +146,29 @@ export const WithIcons: Story = {
     <div className="w-[500px]">
       <Accordion
         items={[
-          {
-            id: "1",
-            title: "Dashboard",
-            icon: "📊",
-            content: "Dashboard content",
-          },
+          { id: "1", title: "📊 Dashboard", content: "Dashboard content" },
+          { id: "2", title: "🚀 Projects", content: "Projects content" },
+          { id: "3", title: "⚙️ Settings", content: "Settings content" },
+        ]}
+        defaultOpenItems={["1"]}
+      />
+    </div>
+  ),
+};
+
+export const DisabledItem: Story = {
+  render: () => (
+    <div className="w-[500px]">
+      <Accordion
+        items={[
+          { id: "1", title: "✅ Enabled", content: "This item works" },
           {
             id: "2",
-            title: "Projects",
-            icon: "🚀",
-            content: "Projects content",
+            title: "🚫 Disabled",
+            content: "This item is disabled",
+            disabled: true,
           },
-          {
-            id: "3",
-            title: "Settings",
-            icon: "⚙️",
-            content: "Settings content",
-          },
+          { id: "3", title: "✅ Enabled", content: "This item works" },
         ]}
         defaultOpenItems={["1"]}
       />

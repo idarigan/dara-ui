@@ -389,6 +389,24 @@ a:hover {
 }
 
 /* =============================================
+   ACCORDION
+   ============================================= */
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.35s ease,
+    padding 0.35s ease;
+  padding: 0 20px;
+}
+
+.accordion-content.open {
+  max-height: 300px;
+  padding: 16px 20px;
+}
+
+/* =============================================
    SECTION LABEL
    ============================================= */
 
