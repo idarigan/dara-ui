@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+// src/App.tsx
+import { useState, useEffect } from "react";
 import Button from "./components/Button/Button";
 import { Badge } from "./components/Badge/Badge";
 import { Input } from "./components/Input/Input";
@@ -340,11 +341,11 @@ function App() {
           </div>
         </div>
 
-        {/* ----- BADGE SHOWCASE ----- */}
+        {/* ----- BADGES SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Badges</h2>
 
-          {/* Variants */}
+          {/* Badge Variants */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
               Variants
@@ -358,10 +359,22 @@ function App() {
             </div>
           </div>
 
-          {/* Outline */}
+          {/* Badge Sizes */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Outline
+              Sizes
+            </p>
+            <div className="flex flex-wrap gap-3 items-center">
+              <Badge size="sm">Small</Badge>
+              <Badge size="md">Medium</Badge>
+              <Badge size="lg">Large</Badge>
+            </div>
+          </div>
+
+          {/* Outline Badges */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Outline Variants
             </p>
             <div className="flex flex-wrap gap-3">
               <Badge outline variant="primary">
@@ -382,20 +395,8 @@ function App() {
             </div>
           </div>
 
-          {/* Sizes */}
+          {/* Glow Badges */}
           <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Sizes
-            </p>
-            <div className="flex flex-wrap gap-3 items-center">
-              <Badge size="sm">Small</Badge>
-              <Badge size="md">Medium</Badge>
-              <Badge size="lg">Large</Badge>
-            </div>
-          </div>
-
-          {/* With Glow */}
-          <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
               With Glow
             </p>
@@ -411,19 +412,78 @@ function App() {
               </Badge>
             </div>
           </div>
+
+          {/* Badges with Icons */}
+          <div>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              With Icons
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Badge variant="primary">
+                <span className="mr-1">📦</span> Package
+              </Badge>
+              <Badge variant="success">
+                <span className="mr-1">✅</span> Done
+              </Badge>
+              <Badge variant="warning">
+                <span className="mr-1">⚠️</span> Pending
+              </Badge>
+              <Badge variant="danger">
+                <span className="mr-1">❌</span> Failed
+              </Badge>
+            </div>
+          </div>
         </section>
 
-        {/* ----- BUTTON SHOWCASE ----- */}
+        {/* ----- BUTTONS: VARIANTS ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Button Variants</h2>
           <div className="flex flex-wrap gap-3">
             <Button variant="primary">Primary</Button>
             <Button variant="secondary">Secondary</Button>
-            <Button variant="outline">Outline</Button>
-            <Button variant="ghost">Ghost</Button>
+            <Button variant="glass">Glass</Button>
             <Button variant="danger">Danger</Button>
             <Button variant="success">Success</Button>
-            <Button variant="glass">Glass</Button>
+            <Button variant="outline">Outline</Button>
+          </div>
+        </section>
+
+        {/* ----- BUTTONS: STATES ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Button States</h2>
+          <div className="flex flex-wrap gap-3 items-center">
+            <Button variant="primary">Normal</Button>
+            <Button
+              variant="primary"
+              className="bg-[var(--color-primary-hover)] shadow-[var(--shadow-glow-primary)]"
+            >
+              Hover
+            </Button>
+            <Button variant="primary" className="scale-95">
+              Pressed
+            </Button>
+            <Button variant="primary" disabled>
+              Disabled
+            </Button>
+            <Button variant="primary" loading>
+              Loading
+            </Button>
+          </div>
+        </section>
+
+        {/* ----- BUTTONS: SIZES ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Button Sizes</h2>
+          <div className="flex flex-wrap gap-3 items-center">
+            <Button size="sm" variant="primary">
+              Small
+            </Button>
+            <Button size="md" variant="primary">
+              Medium (default)
+            </Button>
+            <Button size="lg" variant="primary">
+              Large
+            </Button>
           </div>
         </section>
 
@@ -653,20 +713,20 @@ function App() {
               Float + Glow
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Card float glow="primary">
-                <h3 className="font-heading font-bold">Primary Glow</h3>
+              <Card float glow="purple">
+                <h3 className="font-heading font-bold">Purple Glow</h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   Hover to float ✨
                 </p>
               </Card>
-              <Card float glow="secondary">
-                <h3 className="font-heading font-bold">Secondary Glow</h3>
+              <Card float glow="cyan">
+                <h3 className="font-heading font-bold">Cyan Glow</h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   Hover to float ✨
                 </p>
               </Card>
-              <Card float glow="accent">
-                <h3 className="font-heading font-bold">Accent Glow</h3>
+              <Card float glow="pink">
+                <h3 className="font-heading font-bold">Pink Glow</h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   Hover to float ✨
                 </p>
@@ -680,7 +740,7 @@ function App() {
               Feature Cards
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Card glow="primary" className="text-center">
+              <Card glow="purple" className="text-center">
                 <div className="text-4xl mb-2">🚀</div>
                 <h3 className="font-heading font-bold">Launch</h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
@@ -770,14 +830,14 @@ function App() {
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Glow Effects</h2>
           <div className="flex flex-wrap gap-3">
-            <Button glow variant="primary">
-              Glow Primary
+            <Button glow="purple" variant="primary">
+              Glow Purple
             </Button>
-            <Button glow variant="success">
-              Glow Success
+            <Button glow="cyan" variant="success">
+              Glow Cyan
             </Button>
-            <Button glow variant="danger">
-              Glow Danger
+            <Button glow="pink" variant="danger">
+              Glow Pink
             </Button>
           </div>
         </section>
@@ -808,11 +868,11 @@ function App() {
             <div className="p-6 rounded-[var(--radius-standard)] glass text-center">
               Glass Effect
             </div>
-            <div className="p-6 rounded-[var(--radius-standard)] glow-primary text-center bg-[var(--color-bg-tertiary)]">
-              Glow Primary
+            <div className="p-6 rounded-[var(--radius-standard)] glow-purple text-center bg-[var(--color-bg-tertiary)]">
+              Glow Purple
             </div>
-            <div className="p-6 rounded-[var(--radius-standard)] glow-accent text-center bg-[var(--color-bg-tertiary)]">
-              Glow Accent
+            <div className="p-6 rounded-[var(--radius-standard)] glow-pink text-center bg-[var(--color-bg-tertiary)]">
+              Glow Pink
             </div>
           </div>
         </section>

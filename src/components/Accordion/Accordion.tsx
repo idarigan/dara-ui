@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 
 export interface AccordionItem {
   id: string;
@@ -87,16 +87,11 @@ export const Accordion: React.FC<AccordionProps> = ({
         else if (isFirst) radiusClass = "rounded-t-[--radius-md]";
         else if (isLast) radiusClass = "rounded-b-[--radius-md]";
 
-        // Glass styles
-        const glassStyles = glass
-          ? "glass hover:bg-white/10"
-          : "bg-[#1a2332] hover:bg-[#1f2a3f]";
-
         return (
           <div
             key={item.id}
             className={`
-              border-b border-white/5 last:border-b-0
+              border-b border-[var(--color-border-secondary)] last:border-b-0
               transition-colors duration-180
               ${radiusClass}
             `}
@@ -111,17 +106,22 @@ export const Accordion: React.FC<AccordionProps> = ({
                 transition-colors duration-180
                 ${sizeStyles[size]}
                 ${item.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-                ${isOpen ? "text-[#7c5cff] " : "text-white"}
-                hover:bg-white/5
+                ${isOpen ? "text-[var(--color-primary)]" : "text-[var(--color-text-primary)]"}
+                hover:bg-[var(--color-bg-elevated)]/30
                 focus:outline-none
               `}
               aria-expanded={isOpen}
               aria-disabled={item.disabled}
             >
-              <span>{item.title}</span>
+              <span className="flex items-center gap-2">
+                {item.icon && (
+                  <span className="flex-shrink-0">{item.icon}</span>
+                )}
+                {item.title}
+              </span>
               <span
                 className={`
-                  transition-transform duration-250 text-white/40
+                  transition-transform duration-250 text-[var(--color-text-tertiary)]
                   ${isOpen ? "rotate-180" : "rotate-0"}
                 `}
               >
@@ -133,10 +133,12 @@ export const Accordion: React.FC<AccordionProps> = ({
             <div
               className={`
                 accordion-content
-                ${isOpen ? "open border-t border-white/5" : ""}
+                ${isOpen ? "open border-t border-[var(--color-border-secondary)]" : ""}
               `}
             >
-              <div className={`${contentSizeStyles[size]} text-white/50`}>
+              <div
+                className={`${contentSizeStyles[size]} text-[var(--color-text-secondary)]`}
+              >
                 {item.content}
               </div>
             </div>

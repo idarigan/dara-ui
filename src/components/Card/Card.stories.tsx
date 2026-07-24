@@ -24,7 +24,7 @@ const meta = {
     float: { control: "boolean" },
     glow: {
       control: "select",
-      options: ["", "purple", "cyan", "pink"],
+      options: ["", "purple", "cyan", "pink", "primary", "secondary", "accent"],
     },
   },
   args: {
@@ -39,86 +39,120 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => (
-    <Card className="w-80">
-      <h3 className="font-heading text-xl font-bold">Default Card</h3>
-      <p className="text-white/70 text-sm">
-        Glass variant with medium padding.
-      </p>
-    </Card>
-  ),
+  args: {
+    children: (
+      <>
+        <h3 className="font-heading text-xl font-bold">Default Card</h3>
+        <p className="text-[var(--color-text-secondary)] text-sm">
+          Glass variant with medium padding.
+        </p>
+      </>
+    ),
+  },
 };
 
 export const Variants: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-4">
-      <Card variant="glass" className="w-56">
-        <h3 className="font-heading font-bold">Glass</h3>
-        <p className="text-white/50 text-sm">blur(20px)</p>
-      </Card>
-      <Card variant="solid" className="w-56">
-        <h3 className="font-heading font-bold">Solid</h3>
-        <p className="text-white/50 text-sm">More opaque</p>
-      </Card>
-      <Card variant="outline" className="w-56">
-        <h3 className="font-heading font-bold">Outline</h3>
-        <p className="text-white/50 text-sm">Border only</p>
-      </Card>
-    </div>
-  ),
+  render: function VariantsStory() {
+    return (
+      <div className="flex flex-wrap gap-4">
+        <Card variant="glass" className="w-56">
+          <h3 className="font-heading font-bold">Glass</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            blur(20px)
+          </p>
+        </Card>
+        <Card variant="solid" className="w-56">
+          <h3 className="font-heading font-bold">Solid</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            More opaque
+          </p>
+        </Card>
+        <Card variant="outline" className="w-56">
+          <h3 className="font-heading font-bold">Outline</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            Border only
+          </p>
+        </Card>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const WithGlow: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-4">
-      <Card glow="purple" className="w-56">
-        <h3 className="font-heading font-bold">Purple Glow</h3>
-        <p className="text-white/50 text-sm">Shadow glow</p>
-      </Card>
-      <Card glow="cyan" className="w-56">
-        <h3 className="font-heading font-bold">Cyan Glow</h3>
-        <p className="text-white/50 text-sm">Shadow glow</p>
-      </Card>
-      <Card glow="pink" className="w-56">
-        <h3 className="font-heading font-bold">Pink Glow</h3>
-        <p className="text-white/50 text-sm">Shadow glow</p>
-      </Card>
-    </div>
-  ),
+  render: function WithGlowStory() {
+    return (
+      <div className="flex flex-wrap gap-4">
+        <Card glow="purple" className="w-56">
+          <h3 className="font-heading font-bold">Purple Glow</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            Shadow glow
+          </p>
+        </Card>
+        <Card glow="cyan" className="w-56">
+          <h3 className="font-heading font-bold">Cyan Glow</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            Shadow glow
+          </p>
+        </Card>
+        <Card glow="pink" className="w-56">
+          <h3 className="font-heading font-bold">Pink Glow</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            Shadow glow
+          </p>
+        </Card>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const FloatCards: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-4">
-      <Card float className="w-56">
-        <h3 className="font-heading font-bold">Float Card</h3>
-        <p className="text-white/50 text-sm">Hover to float ✨</p>
-      </Card>
-      <Card float glow="purple" className="w-56">
-        <h3 className="font-heading font-bold">Float + Glow</h3>
-        <p className="text-white/50 text-sm">Hover to float ✨</p>
-      </Card>
-    </div>
-  ),
+  render: function FloatCardsStory() {
+    return (
+      <div className="flex flex-wrap gap-4">
+        <Card float className="w-56">
+          <h3 className="font-heading font-bold">Float Card</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            Hover to float ✨
+          </p>
+        </Card>
+        <Card float glow="purple" className="w-56">
+          <h3 className="font-heading font-bold">Float + Glow</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            Hover to float ✨
+          </p>
+        </Card>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const ContentExamples: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-4">
-      <Card className="w-64">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-2xl">📦</span>
-          <h3 className="font-heading font-bold">Package</h3>
-        </div>
-        <p className="text-white/50 text-sm">A simple card with content.</p>
-      </Card>
-      <Card glow="purple" className="w-64">
-        <div className="w-12 h-12 rounded-standard bg-[#7c5cff]/20 flex items-center justify-center text-2xl mb-3">
-          🎯
-        </div>
-        <h3 className="font-heading font-bold">Feature Card</h3>
-        <p className="text-white/50 text-sm">With glow effect.</p>
-      </Card>
-    </div>
-  ),
+  render: function ContentExamplesStory() {
+    return (
+      <div className="flex flex-wrap gap-4">
+        <Card className="w-64">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-2xl">📦</span>
+            <h3 className="font-heading font-bold">Package</h3>
+          </div>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            A simple card with content.
+          </p>
+        </Card>
+        <Card glow="purple" className="w-64">
+          <div className="w-12 h-12 rounded-standard bg-[var(--color-primary)]/20 flex items-center justify-center text-2xl mb-3">
+            🎯
+          </div>
+          <h3 className="font-heading font-bold">Feature Card</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            With glow effect.
+          </p>
+        </Card>
+      </div>
+    );
+  },
+  args: {},
 };

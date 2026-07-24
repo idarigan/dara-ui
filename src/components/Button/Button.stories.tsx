@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./Button";
-import { fn } from "@storybook/test";
 
 const meta = {
   title: "Components/Button",
@@ -12,7 +11,14 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "glass", "danger", "success"],
+      options: [
+        "primary",
+        "secondary",
+        "glass",
+        "danger",
+        "success",
+        "outline",
+      ],
     },
     size: {
       control: "select",
@@ -26,9 +32,7 @@ const meta = {
     loading: { control: "boolean" },
     disabled: { control: "boolean" },
   },
-  args: {
-    onClick: fn(),
-  },
+  args: {},
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -43,82 +47,104 @@ export const Default: Story = {
 };
 
 export const Variants: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Button variant="primary">Primary</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="glass">Glass</Button>
-      <Button variant="danger">Danger</Button>
-      <Button variant="success">Success</Button>
-    </div>
-  ),
+  render: function VariantsStory() {
+    return (
+      <div className="flex flex-wrap gap-3">
+        <Button variant="primary">Primary</Button>
+        <Button variant="secondary">Secondary</Button>
+        <Button variant="glass">Glass</Button>
+        <Button variant="danger">Danger</Button>
+        <Button variant="success">Success</Button>
+        <Button variant="outline">Outline</Button>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const Sizes: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-3 items-center">
-      <Button size="sm">Small</Button>
-      <Button size="md">Medium</Button>
-      <Button size="lg">Large</Button>
-    </div>
-  ),
+  render: function SizesStory() {
+    return (
+      <div className="flex flex-wrap gap-3 items-center">
+        <Button size="sm">Small</Button>
+        <Button size="md">Medium</Button>
+        <Button size="lg">Large</Button>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const WithGlow: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Button glow="purple" variant="primary">
-        Purple Glow
-      </Button>
-      <Button glow="cyan" variant="primary">
-        Cyan Glow
-      </Button>
-      <Button glow="pink" variant="primary">
-        Pink Glow
-      </Button>
-    </div>
-  ),
+  render: function WithGlowStory() {
+    return (
+      <div className="flex flex-wrap gap-3">
+        <Button glow="purple" variant="primary">
+          Purple Glow
+        </Button>
+        <Button glow="cyan" variant="primary">
+          Cyan Glow
+        </Button>
+        <Button glow="pink" variant="primary">
+          Pink Glow
+        </Button>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const Loading: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Button loading>Loading</Button>
-      <Button loading variant="success">
-        Processing
-      </Button>
-    </div>
-  ),
+  render: function LoadingStory() {
+    return (
+      <div className="flex flex-wrap gap-3">
+        <Button loading>Loading</Button>
+        <Button loading variant="success">
+          Processing
+        </Button>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const Disabled: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Button disabled>Disabled</Button>
-      <Button disabled variant="secondary">
-        Disabled Secondary
-      </Button>
-    </div>
-  ),
+  render: function DisabledStory() {
+    return (
+      <div className="flex flex-wrap gap-3">
+        <Button disabled>Disabled</Button>
+        <Button disabled variant="secondary">
+          Disabled Secondary
+        </Button>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const WithIcons: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Button leftIcon="🚀">Launch</Button>
-      <Button rightIcon="→" variant="secondary">
-        Next
-      </Button>
-    </div>
-  ),
+  render: function WithIconsStory() {
+    return (
+      <div className="flex flex-wrap gap-3">
+        <Button leftIcon="🚀">Launch</Button>
+        <Button rightIcon="→" variant="secondary">
+          Next
+        </Button>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const FullWidth: Story = {
-  render: () => (
-    <div className="w-80">
-      <Button fullWidth>Full Width Button</Button>
-    </div>
-  ),
+  render: function FullWidthStory() {
+    return (
+      <div className="w-80">
+        <Button fullWidth>Full Width Button</Button>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const Interactive: Story = {

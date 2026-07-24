@@ -5,7 +5,13 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    * Button visual style variant
    * @default "primary"
    */
-  variant?: "primary" | "secondary" | "glass" | "danger" | "success";
+  variant?:
+    | "primary"
+    | "secondary"
+    | "glass"
+    | "danger"
+    | "success"
+    | "outline";
   /**
    * Button size
    * @default "md"
@@ -22,7 +28,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    */
   loading?: boolean;
   /**
-   * Glow effect color (from original demo)
+   * Glow effect color
    */
   glow?: "purple" | "cyan" | "pink";
   /**
@@ -36,7 +42,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 /**
- * Dara UI Button — matching original demo styling exactly
+ * Dara UI Button
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -55,36 +61,38 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
-    // Base styles from original demo
+    // Base styles
     const baseStyles =
       "inline-flex items-center justify-center gap-2 font-heading font-semibold tracking-wide transition-all duration-180 rounded-full active:scale-95 disabled:opacity-45 disabled:cursor-not-allowed disabled:pointer-events-none";
 
-    // Variants from original demo
+    // Variants
     const variants = {
       primary:
-        "bg-[#7c5cff] text-white shadow-[0_0_20px_rgba(124,92,255,0.3)] hover:bg-[#6a4ae8] hover:shadow-[0_0_35px_rgba(124,92,255,0.5)]",
+        "bg-[var(--color-primary)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)] hover:shadow-[var(--shadow-glow-primary)]",
       secondary:
-        "bg-white/8 text-[#e2e8f0] border border-white/15 hover:bg-white/14 hover:border-white/25",
+        "bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] border border-[var(--color-border-primary)] hover:bg-[var(--color-bg-elevated)] hover:border-[var(--color-border-secondary)]",
       glass:
-        "bg-white/5 backdrop-blur-[12px] text-[#e2e8f0] border border-white/12 hover:bg-white/10",
+        "glass rounded-full text-[var(--color-text-primary)] hover:bg-[var(--glass-bg)]",
       danger:
-        "bg-[#ff5370] text-white shadow-[0_0_18px_rgba(255,83,112,0.25)] hover:bg-[#e84560] hover:shadow-[0_0_30px_rgba(255,83,112,0.4)]",
+        "bg-[var(--color-danger)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-danger)] hover:bg-[var(--color-danger-hover)] hover:shadow-[var(--shadow-glow-danger)]",
       success:
-        "bg-[#00ff99] text-[#0b0f19] shadow-[0_0_18px_rgba(0,255,153,0.25)] hover:bg-[#00e688] hover:shadow-[0_0_30px_rgba(0,255,153,0.4)]",
+        "bg-[var(--color-success)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-success)] hover:bg-[var(--color-success-hover)] hover:shadow-[var(--shadow-glow-success)]",
+      outline:
+        "bg-transparent text-[var(--color-text-primary)] border border-[var(--color-border-primary)] hover:bg-[var(--color-bg-elevated)] hover:border-[var(--color-border-secondary)]",
     };
 
-    // Sizes from original demo
+    // Sizes
     const sizes = {
       sm: "px-4 py-1.5 text-sm",
       md: "px-6 py-2.5 text-base",
       lg: "px-8 py-3.5 text-lg",
     };
 
-    // Glow effects from original demo
+    // Glow effects
     const glowStyles = {
-      purple: "hover:shadow-[0_0_30px_rgba(124,92,255,0.2)]",
-      cyan: "hover:shadow-[0_0_25px_rgba(0,217,255,0.15)]",
-      pink: "hover:shadow-[0_0_25px_rgba(255,77,157,0.15)]",
+      purple: "hover:shadow-[var(--shadow-glow-primary)]",
+      cyan: "hover:shadow-[var(--shadow-glow-secondary)]",
+      pink: "hover:shadow-[var(--shadow-glow-accent)]",
     };
 
     const classes = [

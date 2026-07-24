@@ -407,6 +407,101 @@ a:hover {
 }
 
 /* =============================================
+   BUTTON
+   ============================================= */
+.btn-dara {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-family: "Space Grotesk", "Vazirmatn", sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: none;
+  letter-spacing: 0.01em;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  white-space: nowrap;
+}
+.btn-dara:active {
+  transform: scale(0.96);
+}
+.btn-dara:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-primary {
+  background: #7c5cff;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(124, 92, 255, 0.3);
+}
+.btn-primary:hover {
+  background: #6a4ae8;
+  box-shadow: 0 0 35px rgba(124, 92, 255, 0.5);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-danger {
+  background: #ff5370;
+  color: #fff;
+  box-shadow: 0 0 18px rgba(255, 83, 112, 0.25);
+}
+.btn-danger:hover {
+  background: #e84560;
+  box-shadow: 0 0 30px rgba(255, 83, 112, 0.4);
+}
+
+.btn-success {
+  background: #00ff99;
+  color: #0b0f19;
+  box-shadow: 0 0 18px rgba(0, 255, 153, 0.25);
+}
+.btn-success:hover {
+  background: #00e688;
+  box-shadow: 0 0 30px rgba(0, 255, 153, 0.4);
+}
+
+.btn-loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+.btn-loading .spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+/* =============================================
    SECTION LABEL
    ============================================= */
 

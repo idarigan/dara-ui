@@ -57,33 +57,23 @@ export const Default: Story = {
 };
 
 export const SingleMode: Story = {
-  render: () => (
-    <div className="w-[500px]">
-      <p className="text-xs text-white/40 font-mono mb-2">Single open mode</p>
-      <Accordion
-        items={defaultItems}
-        defaultOpenItems={["1"]}
-        multiple={false}
-      />
-    </div>
-  ),
+  args: {
+    items: defaultItems,
+    defaultOpenItems: ["1"],
+    multiple: false,
+  },
 };
 
 export const MultipleMode: Story = {
-  render: () => (
-    <div className="w-[500px]">
-      <p className="text-xs text-white/40 font-mono mb-2">Multiple open mode</p>
-      <Accordion
-        items={defaultItems}
-        defaultOpenItems={["1", "2"]}
-        multiple={true}
-      />
-    </div>
-  ),
+  args: {
+    items: defaultItems,
+    defaultOpenItems: ["1", "2"],
+    multiple: true,
+  },
 };
 
 export const Controlled: Story = {
-  render: () => {
+  render: function ControlledStory() {
     const [openItems, setOpenItems] = useState<string[]>(["1"]);
     return (
       <div className="w-[500px]">
@@ -120,58 +110,98 @@ export const Controlled: Story = {
       </div>
     );
   },
+  args: {
+    items: defaultItems,
+  },
 };
 
 export const Sizes: Story = {
-  render: () => (
-    <div className="flex flex-col gap-6 w-[500px]">
-      <Accordion items={defaultItems} defaultOpenItems={["1"]} size="sm" />
-      <Accordion items={defaultItems} defaultOpenItems={["1"]} size="md" />
-      <Accordion items={defaultItems} defaultOpenItems={["1"]} size="lg" />
-    </div>
-  ),
+  render: function SizesStory() {
+    return (
+      <div className="flex flex-col gap-6 w-[500px]">
+        <Accordion items={defaultItems} defaultOpenItems={["1"]} size="sm" />
+        <Accordion items={defaultItems} defaultOpenItems={["1"]} size="md" />
+        <Accordion items={defaultItems} defaultOpenItems={["1"]} size="lg" />
+      </div>
+    );
+  },
+  args: {
+    items: defaultItems,
+  },
 };
 
 export const WithoutGlass: Story = {
-  render: () => (
-    <div className="w-[500px]">
-      <p className="text-xs text-white/40 font-mono mb-2">Without glass</p>
-      <Accordion items={defaultItems} defaultOpenItems={["1"]} glass={false} />
-    </div>
-  ),
+  render: function WithoutGlassStory() {
+    return (
+      <div className="w-[500px]">
+        <p className="text-xs text-white/40 font-mono mb-2">Without glass</p>
+        <Accordion
+          items={defaultItems}
+          defaultOpenItems={["1"]}
+          glass={false}
+        />
+      </div>
+    );
+  },
+  args: {
+    items: defaultItems,
+  },
 };
 
 export const WithIcons: Story = {
-  render: () => (
-    <div className="w-[500px]">
-      <Accordion
-        items={[
-          { id: "1", title: "📊 Dashboard", content: "Dashboard content" },
-          { id: "2", title: "🚀 Projects", content: "Projects content" },
-          { id: "3", title: "⚙️ Settings", content: "Settings content" },
-        ]}
-        defaultOpenItems={["1"]}
-      />
-    </div>
-  ),
+  render: function WithIconsStory() {
+    return (
+      <div className="w-[500px]">
+        <Accordion
+          items={[
+            { id: "1", title: "📊 Dashboard", content: "Dashboard content" },
+            { id: "2", title: "🚀 Projects", content: "Projects content" },
+            { id: "3", title: "⚙️ Settings", content: "Settings content" },
+          ]}
+          defaultOpenItems={["1"]}
+        />
+      </div>
+    );
+  },
+  args: {
+    items: [
+      { id: "1", title: "📊 Dashboard", content: "Dashboard content" },
+      { id: "2", title: "🚀 Projects", content: "Projects content" },
+      { id: "3", title: "⚙️ Settings", content: "Settings content" },
+    ],
+  },
 };
 
 export const DisabledItem: Story = {
-  render: () => (
-    <div className="w-[500px]">
-      <Accordion
-        items={[
-          { id: "1", title: "✅ Enabled", content: "This item works" },
-          {
-            id: "2",
-            title: "🚫 Disabled",
-            content: "This item is disabled",
-            disabled: true,
-          },
-          { id: "3", title: "✅ Enabled", content: "This item works" },
-        ]}
-        defaultOpenItems={["1"]}
-      />
-    </div>
-  ),
+  render: function DisabledItemStory() {
+    return (
+      <div className="w-[500px]">
+        <Accordion
+          items={[
+            { id: "1", title: "✅ Enabled", content: "This item works" },
+            {
+              id: "2",
+              title: "🚫 Disabled",
+              content: "This item is disabled",
+              disabled: true,
+            },
+            { id: "3", title: "✅ Enabled", content: "This item works" },
+          ]}
+          defaultOpenItems={["1"]}
+        />
+      </div>
+    );
+  },
+  args: {
+    items: [
+      { id: "1", title: "✅ Enabled", content: "This item works" },
+      {
+        id: "2",
+        title: "🚫 Disabled",
+        content: "This item is disabled",
+        disabled: true,
+      },
+      { id: "3", title: "✅ Enabled", content: "This item works" },
+    ],
+  },
 };

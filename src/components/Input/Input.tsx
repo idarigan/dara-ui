@@ -8,7 +8,15 @@ export interface InputProps extends Omit<
    * Input type
    * @default "text"
    */
-  type?: "text" | "password" | "search" | "email" | "tel" | "number" | "url";
+  type?:
+    | "text"
+    | "password"
+    | "search"
+    | "email"
+    | "tel"
+    | "number"
+    | "url"
+    | "date";
   /**
    * Input size
    * @default "md"
@@ -88,22 +96,26 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref,
   ) => {
-    const [isFocused, setIsFocused] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
     const inputId = id || `input-${Math.random().toString(36).substring(2, 9)}`;
 
     // - .input-dara styles
     const baseStyles =
-      "w-full font-body transition-all duration-180 outline-none disabled:opacity-60 disabled:cursor-not-allowed placeholder:text-white/35";
+      "w-full font-body transition-all duration-180 outline-none disabled:opacity-60 disabled:cursor-not-allowed placeholder:text-[var(--color-text-tertiary)]";
 
-    const bgStyles = "bg-white/5 hover:bg-white/10 focus:bg-white/10";
+    const bgStyles =
+      "bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] focus:bg-[var(--color-bg-elevated)]";
 
     const borderStyles = {
-      default: "border border-white/12 focus:border-[#7c5cff]",
-      success: "border border-[#00ff99] focus:border-[#00ff99]",
-      error: "border border-[#ff5370] focus:border-[#ff5370]",
-      warning: "border border-[#ffc857] focus:border-[#ffc857]",
+      default:
+        "border border-[var(--color-border-primary)] focus:border-[var(--color-primary)]",
+      success:
+        "border border-[var(--color-success)] focus:border-[var(--color-success)]",
+      error:
+        "border border-[var(--color-danger)] focus:border-[var(--color-danger)]",
+      warning:
+        "border border-[var(--color-warning)] focus:border-[var(--color-warning)]",
     };
 
     const glowStyles = glowFocus
@@ -159,12 +171,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       .join(" ");
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-      setIsFocused(true);
       onFocus?.(e);
     };
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-      setIsFocused(false);
       onBlur?.(e);
     };
 
@@ -173,14 +183,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-sm font-medium text-white/60 font-body"
+            className="text-sm font-medium text-[var(--color-text-secondary)] font-body"
           >
             {label}
           </label>
         )}
         <div className="relative group w-full">
           {leftIcon && (
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-tertiary)] pointer-events-none">
               <span className={iconSizes[size]}>{leftIcon}</span>
             </span>
           )}
@@ -201,7 +211,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/60 transition-colors cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-colors cursor-pointer"
               tabIndex={-1}
             >
               {showPassword ? (
@@ -244,13 +254,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {(helperText || errorMessage || successMessage) && (
           <div className="flex items-center gap-1.5 text-xs">
             {validation === "error" && errorMessage && (
-              <span className="text-[#ff5370]">⚠️ {errorMessage}</span>
+              <span className="text-[var(--color-danger)]">
+                ⚠️ {errorMessage}
+              </span>
             )}
             {validation === "success" && successMessage && (
-              <span className="text-[#00ff99]">✅ {successMessage}</span>
+              <span className="text-[var(--color-success)]">
+                ✅ {successMessage}
+              </span>
             )}
             {!validation && helperText && (
-              <span className="text-white/40">{helperText}</span>
+              <span className="text-[var(--color-text-tertiary)]">
+                {helperText}
+              </span>
             )}
           </div>
         )}

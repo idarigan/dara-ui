@@ -38,19 +38,35 @@ type Story = StoryObj<typeof meta>;
 const defaultItems = [
   {
     label: "Archive",
-    content: <div className="p-4 text-white/60">📁 Archive content</div>,
+    content: (
+      <div className="p-4 text-[var(--color-text-secondary)]">
+        📁 Archive content
+      </div>
+    ),
   },
   {
     label: "Quests",
-    content: <div className="p-4 text-white/60">⚔️ Quests content</div>,
+    content: (
+      <div className="p-4 text-[var(--color-text-secondary)]">
+        ⚔️ Quests content
+      </div>
+    ),
   },
   {
     label: "Stats",
-    content: <div className="p-4 text-white/60">📊 Stats content</div>,
+    content: (
+      <div className="p-4 text-[var(--color-text-secondary)]">
+        📊 Stats content
+      </div>
+    ),
   },
   {
     label: "Settings",
-    content: <div className="p-4 text-white/60">⚙️ Settings content</div>,
+    content: (
+      <div className="p-4 text-[var(--color-text-secondary)]">
+        ⚙️ Settings content
+      </div>
+    ),
   },
 ];
 
@@ -62,49 +78,71 @@ export const Default: Story = {
 };
 
 export const Variants: Story = {
-  render: () => (
-    <div className="flex flex-col gap-8 w-96">
-      <Tabs items={defaultItems} defaultValue="Archive" glowColor="primary" />
-      <Tabs items={defaultItems} defaultValue="Archive" glowColor="secondary" />
-      <Tabs items={defaultItems} defaultValue="Archive" glowColor="accent" />
-      <Tabs items={defaultItems} defaultValue="Archive" glowColor="success" />
-      <Tabs items={defaultItems} defaultValue="Archive" glowColor="danger" />
-      <Tabs items={defaultItems} defaultValue="Archive" glowColor="none" />
-    </div>
-  ),
+  render: function VariantsStory() {
+    return (
+      <div className="flex flex-col gap-8 w-96">
+        <Tabs items={defaultItems} defaultValue="Archive" glowColor="primary" />
+        <Tabs
+          items={defaultItems}
+          defaultValue="Archive"
+          glowColor="secondary"
+        />
+        <Tabs items={defaultItems} defaultValue="Archive" glowColor="accent" />
+        <Tabs items={defaultItems} defaultValue="Archive" glowColor="success" />
+        <Tabs items={defaultItems} defaultValue="Archive" glowColor="danger" />
+        <Tabs items={defaultItems} defaultValue="Archive" glowColor="none" />
+      </div>
+    );
+  },
+  args: {
+    items: defaultItems,
+  },
 };
 
 export const Sizes: Story = {
-  render: () => (
-    <div className="flex flex-col gap-6 w-80">
-      <Tabs items={defaultItems} defaultValue="Archive" size="sm" />
-      <Tabs items={defaultItems} defaultValue="Archive" size="md" />
-      <Tabs items={defaultItems} defaultValue="Archive" size="lg" />
-    </div>
-  ),
+  render: function SizesStory() {
+    return (
+      <div className="flex flex-col gap-6 w-80">
+        <Tabs items={defaultItems} defaultValue="Archive" size="sm" />
+        <Tabs items={defaultItems} defaultValue="Archive" size="md" />
+        <Tabs items={defaultItems} defaultValue="Archive" size="lg" />
+      </div>
+    );
+  },
+  args: {
+    items: defaultItems,
+  },
 };
 
 export const Alignments: Story = {
-  render: () => (
-    <div className="flex flex-col gap-8 w-96">
-      <Tabs items={defaultItems} defaultValue="Archive" align="left" />
-      <Tabs items={defaultItems} defaultValue="Archive" align="center" />
-      <Tabs items={defaultItems} defaultValue="Archive" align="right" />
-    </div>
-  ),
+  render: function AlignmentsStory() {
+    return (
+      <div className="flex flex-col gap-8 w-96">
+        <Tabs items={defaultItems} defaultValue="Archive" align="left" />
+        <Tabs items={defaultItems} defaultValue="Archive" align="center" />
+        <Tabs items={defaultItems} defaultValue="Archive" align="right" />
+      </div>
+    );
+  },
+  args: {
+    items: defaultItems,
+  },
 };
 
 export const Controlled: Story = {
-  render: () => {
+  render: function ControlledStory() {
     const [active, setActive] = useState("Archive");
     return (
       <div className="flex flex-col gap-4 w-96">
-        <p className="text-xs text-white/40 font-mono">
-          Active: <span className="text-[#7c5cff]">{active}</span>
+        <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+          Active: <span className="text-[var(--color-primary)]">{active}</span>
         </p>
         <Tabs items={defaultItems} activeValue={active} onChange={setActive} />
       </div>
     );
+  },
+  args: {
+    items: defaultItems,
   },
 };
 
@@ -114,17 +152,29 @@ export const WithIcons: Story = {
       {
         label: "Home",
         icon: "🏠",
-        content: <div className="p-4 text-white/60">Home content</div>,
+        content: (
+          <div className="p-4 text-[var(--color-text-secondary)]">
+            Home content
+          </div>
+        ),
       },
       {
         label: "Profile",
         icon: "👤",
-        content: <div className="p-4 text-white/60">Profile content</div>,
+        content: (
+          <div className="p-4 text-[var(--color-text-secondary)]">
+            Profile content
+          </div>
+        ),
       },
       {
         label: "Settings",
         icon: "⚙️",
-        content: <div className="p-4 text-white/60">Settings content</div>,
+        content: (
+          <div className="p-4 text-[var(--color-text-secondary)]">
+            Settings content
+          </div>
+        ),
       },
     ],
     defaultValue: "Home",

@@ -24,7 +24,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Glow effect color
    */
-  glow?: "purple" | "cyan" | "pink";
+  glow?: "purple" | "cyan" | "pink" | "primary" | "secondary" | "accent";
   /**
    * Card content
    */
@@ -75,6 +75,9 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       purple: "glow-purple",
       cyan: "glow-cyan",
       pink: "glow-pink",
+      primary: "glow-purple",
+      secondary: "glow-cyan",
+      accent: "glow-pink",
     };
 
     const floatClass = float ? "float-card" : "";
