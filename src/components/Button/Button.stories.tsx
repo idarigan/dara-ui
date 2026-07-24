@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Badge } from "./Badge";
+import { Button } from "./Button";
+import { fn } from "@storybook/test";
 
 const meta = {
-  title: "Components/Badge",
-  component: Badge,
+  title: "Components/Button",
+  component: Button,
   parameters: {
     layout: "centered",
   },
@@ -11,75 +12,44 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "success", "danger", "warning"],
+      options: ["primary", "secondary", "glass", "danger", "success"],
     },
     size: {
       control: "select",
       options: ["sm", "md", "lg"],
     },
-    glow: { control: "boolean" },
-    outline: { control: "boolean" },
+    glow: {
+      control: "select",
+      options: ["", "purple", "cyan", "pink"],
+    },
+    fullWidth: { control: "boolean" },
+    loading: { control: "boolean" },
+    disabled: { control: "boolean" },
   },
   args: {
-    children: "Badge",
-    variant: "primary",
-    size: "md",
-    glow: false,
-    outline: false,
+    onClick: fn(),
   },
-} satisfies Meta<typeof Badge>;
+} satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    children: "Button",
+    variant: "primary",
+    size: "md",
+  },
+};
 
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-wrap gap-3">
-      <Badge variant="primary">Primary</Badge>
-      <Badge variant="secondary">Secondary</Badge>
-      <Badge variant="success">Success</Badge>
-      <Badge variant="danger">Danger</Badge>
-      <Badge variant="warning">Warning</Badge>
-    </div>
-  ),
-};
-
-export const OutlineVariants: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Badge outline variant="primary">
-        Primary
-      </Badge>
-      <Badge outline variant="secondary">
-        Secondary
-      </Badge>
-      <Badge outline variant="success">
-        Success
-      </Badge>
-      <Badge outline variant="danger">
-        Danger
-      </Badge>
-      <Badge outline variant="warning">
-        Warning
-      </Badge>
-    </div>
-  ),
-};
-
-export const WithGlow: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Badge glow variant="primary">
-        Glow Primary
-      </Badge>
-      <Badge glow variant="success">
-        Glow Success
-      </Badge>
-      <Badge glow variant="danger">
-        Glow Danger
-      </Badge>
+      <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="glass">Glass</Button>
+      <Button variant="danger">Danger</Button>
+      <Button variant="success">Success</Button>
     </div>
   ),
 };
@@ -87,9 +57,47 @@ export const WithGlow: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-wrap gap-3 items-center">
-      <Badge size="sm">Small</Badge>
-      <Badge size="md">Medium</Badge>
-      <Badge size="lg">Large</Badge>
+      <Button size="sm">Small</Button>
+      <Button size="md">Medium</Button>
+      <Button size="lg">Large</Button>
+    </div>
+  ),
+};
+
+export const WithGlow: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-3">
+      <Button glow="purple" variant="primary">
+        Purple Glow
+      </Button>
+      <Button glow="cyan" variant="primary">
+        Cyan Glow
+      </Button>
+      <Button glow="pink" variant="primary">
+        Pink Glow
+      </Button>
+    </div>
+  ),
+};
+
+export const Loading: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-3">
+      <Button loading>Loading</Button>
+      <Button loading variant="success">
+        Processing
+      </Button>
+    </div>
+  ),
+};
+
+export const Disabled: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-3">
+      <Button disabled>Disabled</Button>
+      <Button disabled variant="secondary">
+        Disabled Secondary
+      </Button>
     </div>
   ),
 };
@@ -97,10 +105,27 @@ export const Sizes: Story = {
 export const WithIcons: Story = {
   render: () => (
     <div className="flex flex-wrap gap-3">
-      <Badge variant="primary">📦 Package</Badge>
-      <Badge variant="success">✅ Done</Badge>
-      <Badge variant="warning">⚠️ Pending</Badge>
-      <Badge variant="danger">❌ Failed</Badge>
+      <Button leftIcon="🚀">Launch</Button>
+      <Button rightIcon="→" variant="secondary">
+        Next
+      </Button>
     </div>
   ),
+};
+
+export const FullWidth: Story = {
+  render: () => (
+    <div className="w-80">
+      <Button fullWidth>Full Width Button</Button>
+    </div>
+  ),
+};
+
+export const Interactive: Story = {
+  args: {
+    children: "Click me!",
+    variant: "primary",
+    size: "md",
+    glow: "purple",
+  },
 };
