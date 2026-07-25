@@ -48,7 +48,6 @@ const defaultItems = [
   },
 ];
 
-// Default — matches original demo
 export const Default: Story = {
   args: {
     items: defaultItems,
@@ -73,7 +72,10 @@ export const MultipleMode: Story = {
 };
 
 export const Controlled: Story = {
-  render: function ControlledStory() {
+  args: {
+    items: defaultItems,
+  },
+  render: function ControlledStory(args) {
     const [openItems, setOpenItems] = useState<string[]>(["1"]);
     return (
       <div className="w-[500px]">
@@ -82,7 +84,7 @@ export const Controlled: Story = {
           <span className="text-[#7c5cff]">{openItems.join(", ")}</span>
         </p>
         <Accordion
-          items={defaultItems}
+          {...args}
           openItems={openItems}
           onOpenChange={setOpenItems}
           multiple={true}
@@ -110,59 +112,38 @@ export const Controlled: Story = {
       </div>
     );
   },
-  args: {
-    items: defaultItems,
-  },
 };
 
 export const Sizes: Story = {
-  render: function SizesStory() {
-    return (
-      <div className="flex flex-col gap-6 w-[500px]">
-        <Accordion items={defaultItems} defaultOpenItems={["1"]} size="sm" />
-        <Accordion items={defaultItems} defaultOpenItems={["1"]} size="md" />
-        <Accordion items={defaultItems} defaultOpenItems={["1"]} size="lg" />
-      </div>
-    );
-  },
   args: {
     items: defaultItems,
+  },
+  render: function SizesStory(args) {
+    return (
+      <div className="flex flex-col gap-6 w-[500px]">
+        <Accordion {...args} defaultOpenItems={["1"]} size="sm" />
+        <Accordion {...args} defaultOpenItems={["1"]} size="md" />
+        <Accordion {...args} defaultOpenItems={["1"]} size="lg" />
+      </div>
+    );
   },
 };
 
 export const WithoutGlass: Story = {
-  render: function WithoutGlassStory() {
+  args: {
+    items: defaultItems,
+  },
+  render: function WithoutGlassStory(args) {
     return (
       <div className="w-[500px]">
         <p className="text-xs text-white/40 font-mono mb-2">Without glass</p>
-        <Accordion
-          items={defaultItems}
-          defaultOpenItems={["1"]}
-          glass={false}
-        />
+        <Accordion {...args} defaultOpenItems={["1"]} glass={false} />
       </div>
     );
-  },
-  args: {
-    items: defaultItems,
   },
 };
 
 export const WithIcons: Story = {
-  render: function WithIconsStory() {
-    return (
-      <div className="w-[500px]">
-        <Accordion
-          items={[
-            { id: "1", title: "📊 Dashboard", content: "Dashboard content" },
-            { id: "2", title: "🚀 Projects", content: "Projects content" },
-            { id: "3", title: "⚙️ Settings", content: "Settings content" },
-          ]}
-          defaultOpenItems={["1"]}
-        />
-      </div>
-    );
-  },
   args: {
     items: [
       { id: "1", title: "📊 Dashboard", content: "Dashboard content" },
@@ -170,28 +151,16 @@ export const WithIcons: Story = {
       { id: "3", title: "⚙️ Settings", content: "Settings content" },
     ],
   },
-};
-
-export const DisabledItem: Story = {
-  render: function DisabledItemStory() {
+  render: function WithIconsStory(args) {
     return (
       <div className="w-[500px]">
-        <Accordion
-          items={[
-            { id: "1", title: "✅ Enabled", content: "This item works" },
-            {
-              id: "2",
-              title: "🚫 Disabled",
-              content: "This item is disabled",
-              disabled: true,
-            },
-            { id: "3", title: "✅ Enabled", content: "This item works" },
-          ]}
-          defaultOpenItems={["1"]}
-        />
+        <Accordion {...args} defaultOpenItems={["1"]} />
       </div>
     );
   },
+};
+
+export const DisabledItem: Story = {
   args: {
     items: [
       { id: "1", title: "✅ Enabled", content: "This item works" },
@@ -203,5 +172,12 @@ export const DisabledItem: Story = {
       },
       { id: "3", title: "✅ Enabled", content: "This item works" },
     ],
+  },
+  render: function DisabledItemStory(args) {
+    return (
+      <div className="w-[500px]">
+        <Accordion {...args} defaultOpenItems={["1"]} />
+      </div>
+    );
   },
 };

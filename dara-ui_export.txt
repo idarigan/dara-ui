@@ -1,6 +1,6 @@
 ================================================================================
 ADVANCED PROJECT CODE EXPORT
-Generated: 2026-07-24 12:11:59
+Generated: 2026-07-25 16:53:43
 Project: dara-ui
 Path: D:\D's\dara-ui
 ================================================================================
@@ -26,35 +26,35 @@ dara-ui/
 │   └── icons.svg (4.9 KB)
 ├── README.md (2.4 KB)
 ├── src/
-│   ├── App.tsx (29.2 KB)
+│   ├── App.tsx (32.6 KB)
 │   ├── components/
 │   │   ├── Accordion/
-│   │   │   ├── Accordion.stories.tsx (4.9 KB)
-│   │   │   ├── Accordion.tsx (4.3 KB)
+│   │   │   ├── Accordion.stories.tsx (4.8 KB)
+│   │   │   ├── Accordion.tsx (4.5 KB)
 │   │   │   └── index.ts (162.0 B)
 │   │   ├── Badge/
 │   │   │   ├── Badge.stories.tsx (6.5 KB)
 │   │   │   ├── Badge.tsx (2.7 KB)
 │   │   │   └── index.ts (123.0 B)
 │   │   ├── Button/
-│   │   │   ├── Button.stories.tsx (2.9 KB)
-│   │   │   ├── Button.tsx (3.4 KB)
+│   │   │   ├── Button.stories.tsx (3.5 KB)
+│   │   │   ├── Button.tsx (3.7 KB)
 │   │   │   └── index.ts (129.0 B)
 │   │   ├── Card/
-│   │   │   ├── Card.stories.tsx (3.7 KB)
-│   │   │   ├── Card.tsx (1.9 KB)
+│   │   │   ├── Card.stories.tsx (4.5 KB)
+│   │   │   ├── Card.tsx (2.3 KB)
 │   │   │   └── index.ts (117.0 B)
 │   │   ├── Dropdown/
 │   │   │   ├── Dropdown.stories.tsx (9.6 KB)
-│   │   │   ├── Dropdown.tsx (12.9 KB)
+│   │   │   ├── Dropdown.tsx (13.1 KB)
 │   │   │   └── index.ts (157.0 B)
 │   │   ├── Input/
 │   │   │   ├── index.ts (123.0 B)
 │   │   │   ├── Input.stories.tsx (3.8 KB)
-│   │   │   └── Input.tsx (7.3 KB)
+│   │   │   └── Input.tsx (7.7 KB)
 │   │   └── Tabs/
 │   │       ├── index.ts (126.0 B)
-│   │       ├── Tabs.stories.tsx (3.6 KB)
+│   │       ├── Tabs.stories.tsx (4.3 KB)
 │   │       └── Tabs.tsx (5.7 KB)
 │   ├── fonts/
 │   ├── hooks/
@@ -63,12 +63,12 @@ dara-ui/
 │   ├── main.tsx (305.0 B)
 │   └── styles/
 │       ├── fonts.css (1.5 KB)
-│       ├── index.css (13.7 KB)
+│       ├── index.css (14.1 KB)
 │       └── tokens.css (8.8 KB)
 ├── tsconfig.app.json (655.0 B)
 ├── tsconfig.json (119.0 B)
 ├── tsconfig.node.json (558.0 B)
-├── vite.config.ts (1.8 KB)
+├── vite.config.ts (1.7 KB)
 └── vitest.shims.d.ts (52.0 B)
 
 ================================================================================
@@ -145,11 +145,12 @@ export default config;
 
 ────────────────────────────────────────────────────────────────────────────────
 FILE 3/44: .storybook\preview.tsx
-Language: tsx | Size: 466 bytes
-Lines: 23 total | 19 code | 0 comments | 4 blank
+Language: tsx | Size: 471 bytes
+Lines: 24 total | 20 code | 0 comments | 4 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
+cls;
 import type { Preview } from "@storybook/react-vite";
 import "../src/styles/index.css";
 
@@ -880,12 +881,13 @@ export default defineConfig([
 
 ────────────────────────────────────────────────────────────────────────────────
 FILE 12/44: src\App.tsx
-Language: tsx | Size: 28,900 bytes
-Lines: 823 total | 774 code | 1 comments | 48 blank
+Language: tsx | Size: 32,255 bytes
+Lines: 919 total | 864 code | 1 comments | 54 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
-import React, { useState, useEffect } from "react";
+// src/App.tsx
+import { useState, useEffect } from "react";
 import Button from "./components/Button/Button";
 import { Badge } from "./components/Badge/Badge";
 import { Input } from "./components/Input/Input";
@@ -1227,6 +1229,100 @@ function App() {
           </div>
         </div>
 
+        {/* ----- BADGES SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Badges</h2>
+
+          {/* Badge Variants */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Variants
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Badge variant="primary">Primary</Badge>
+              <Badge variant="secondary">Secondary</Badge>
+              <Badge variant="success">Success</Badge>
+              <Badge variant="danger">Danger</Badge>
+              <Badge variant="warning">Warning</Badge>
+            </div>
+          </div>
+
+          {/* Badge Sizes */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Sizes
+            </p>
+            <div className="flex flex-wrap gap-3 items-center">
+              <Badge size="sm">Small</Badge>
+              <Badge size="md">Medium</Badge>
+              <Badge size="lg">Large</Badge>
+            </div>
+          </div>
+
+          {/* Outline Badges */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Outline Variants
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Badge outline variant="primary">
+                Primary
+              </Badge>
+              <Badge outline variant="secondary">
+                Secondary
+              </Badge>
+              <Badge outline variant="success">
+                Success
+              </Badge>
+              <Badge outline variant="danger">
+                Danger
+              </Badge>
+              <Badge outline variant="warning">
+                Warning
+              </Badge>
+            </div>
+          </div>
+
+          {/* Glow Badges */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              With Glow
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Badge glow variant="primary">
+                Glow Primary
+              </Badge>
+              <Badge glow variant="success">
+                Glow Success
+              </Badge>
+              <Badge glow variant="danger">
+                Glow Danger
+              </Badge>
+            </div>
+          </div>
+
+          {/* Badges with Icons */}
+          <div>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              With Icons
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Badge variant="primary">
+                <span className="mr-1">📦</span> Package
+              </Badge>
+              <Badge variant="success">
+                <span className="mr-1">✅</span> Done
+              </Badge>
+              <Badge variant="warning">
+                <span className="mr-1">⚠️</span> Pending
+              </Badge>
+              <Badge variant="danger">
+                <span className="mr-1">❌</span> Failed
+              </Badge>
+            </div>
+          </div>
+        </section>
+
         {/* ----- BUTTONS: VARIANTS ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Button Variants</h2>
@@ -1236,6 +1332,7 @@ function App() {
             <Button variant="glass">Glass</Button>
             <Button variant="danger">Danger</Button>
             <Button variant="success">Success</Button>
+            <Button variant="outline">Outline</Button>
           </div>
         </section>
 
@@ -1246,7 +1343,7 @@ function App() {
             <Button variant="primary">Normal</Button>
             <Button
               variant="primary"
-              className="bg-[#6a4ae8] shadow-[0_0_35px_rgba(124,92,255,0.5)]"
+              className="bg-[var(--color-primary-hover)] shadow-[var(--shadow-glow-primary)]"
             >
               Hover
             </Button>
@@ -1504,20 +1601,20 @@ function App() {
               Float + Glow
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Card float glow="primary">
-                <h3 className="font-heading font-bold">Primary Glow</h3>
+              <Card float glow="purple">
+                <h3 className="font-heading font-bold">Purple Glow</h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   Hover to float ✨
                 </p>
               </Card>
-              <Card float glow="secondary">
-                <h3 className="font-heading font-bold">Secondary Glow</h3>
+              <Card float glow="cyan">
+                <h3 className="font-heading font-bold">Cyan Glow</h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   Hover to float ✨
                 </p>
               </Card>
-              <Card float glow="accent">
-                <h3 className="font-heading font-bold">Accent Glow</h3>
+              <Card float glow="pink">
+                <h3 className="font-heading font-bold">Pink Glow</h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   Hover to float ✨
                 </p>
@@ -1531,7 +1628,7 @@ function App() {
               Feature Cards
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Card glow="primary" className="text-center">
+              <Card glow="purple" className="text-center">
                 <div className="text-4xl mb-2">🚀</div>
                 <h3 className="font-heading font-bold">Launch</h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
@@ -1621,14 +1718,14 @@ function App() {
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Glow Effects</h2>
           <div className="flex flex-wrap gap-3">
-            <Button glow variant="primary">
-              Glow Primary
+            <Button glow="purple" variant="primary">
+              Glow Purple
             </Button>
-            <Button glow variant="success">
-              Glow Success
+            <Button glow="cyan" variant="success">
+              Glow Cyan
             </Button>
-            <Button glow variant="danger">
-              Glow Danger
+            <Button glow="pink" variant="danger">
+              Glow Pink
             </Button>
           </div>
         </section>
@@ -1659,11 +1756,11 @@ function App() {
             <div className="p-6 rounded-[var(--radius-standard)] glass text-center">
               Glass Effect
             </div>
-            <div className="p-6 rounded-[var(--radius-standard)] glow-primary text-center bg-[var(--color-bg-tertiary)]">
-              Glow Primary
+            <div className="p-6 rounded-[var(--radius-standard)] glow-purple text-center bg-[var(--color-bg-tertiary)]">
+              Glow Purple
             </div>
-            <div className="p-6 rounded-[var(--radius-standard)] glow-accent text-center bg-[var(--color-bg-tertiary)]">
-              Glow Accent
+            <div className="p-6 rounded-[var(--radius-standard)] glow-pink text-center bg-[var(--color-bg-tertiary)]">
+              Glow Pink
             </div>
           </div>
         </section>
@@ -1712,8 +1809,8 @@ export default App;
 
 ────────────────────────────────────────────────────────────────────────────────
 FILE 13/44: src\components\Accordion\Accordion.stories.tsx
-Language: tsx | Size: 4,837 bytes
-Lines: 178 total | 166 code | 0 comments | 12 blank
+Language: tsx | Size: 4,724 bytes
+Lines: 184 total | 172 code | 0 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
@@ -1767,7 +1864,6 @@ const defaultItems = [
   },
 ];
 
-// Default — matches original demo
 export const Default: Story = {
   args: {
     items: defaultItems,
@@ -1776,33 +1872,26 @@ export const Default: Story = {
 };
 
 export const SingleMode: Story = {
-  render: () => (
-    <div className="w-[500px]">
-      <p className="text-xs text-white/40 font-mono mb-2">Single open mode</p>
-      <Accordion
-        items={defaultItems}
-        defaultOpenItems={["1"]}
-        multiple={false}
-      />
-    </div>
-  ),
+  args: {
+    items: defaultItems,
+    defaultOpenItems: ["1"],
+    multiple: false,
+  },
 };
 
 export const MultipleMode: Story = {
-  render: () => (
-    <div className="w-[500px]">
-      <p className="text-xs text-white/40 font-mono mb-2">Multiple open mode</p>
-      <Accordion
-        items={defaultItems}
-        defaultOpenItems={["1", "2"]}
-        multiple={true}
-      />
-    </div>
-  ),
+  args: {
+    items: defaultItems,
+    defaultOpenItems: ["1", "2"],
+    multiple: true,
+  },
 };
 
 export const Controlled: Story = {
-  render: () => {
+  args: {
+    items: defaultItems,
+  },
+  render: function ControlledStory(args) {
     const [openItems, setOpenItems] = useState<string[]>(["1"]);
     return (
       <div className="w-[500px]">
@@ -1811,7 +1900,7 @@ export const Controlled: Story = {
           <span className="text-[#7c5cff]">{openItems.join(", ")}</span>
         </p>
         <Accordion
-          items={defaultItems}
+          {...args}
           openItems={openItems}
           onOpenChange={setOpenItems}
           multiple={true}
@@ -1842,69 +1931,83 @@ export const Controlled: Story = {
 };
 
 export const Sizes: Story = {
-  render: () => (
-    <div className="flex flex-col gap-6 w-[500px]">
-      <Accordion items={defaultItems} defaultOpenItems={["1"]} size="sm" />
-      <Accordion items={defaultItems} defaultOpenItems={["1"]} size="md" />
-      <Accordion items={defaultItems} defaultOpenItems={["1"]} size="lg" />
-    </div>
-  ),
+  args: {
+    items: defaultItems,
+  },
+  render: function SizesStory(args) {
+    return (
+      <div className="flex flex-col gap-6 w-[500px]">
+        <Accordion {...args} defaultOpenItems={["1"]} size="sm" />
+        <Accordion {...args} defaultOpenItems={["1"]} size="md" />
+        <Accordion {...args} defaultOpenItems={["1"]} size="lg" />
+      </div>
+    );
+  },
 };
 
 export const WithoutGlass: Story = {
-  render: () => (
-    <div className="w-[500px]">
-      <p className="text-xs text-white/40 font-mono mb-2">Without glass</p>
-      <Accordion items={defaultItems} defaultOpenItems={["1"]} glass={false} />
-    </div>
-  ),
+  args: {
+    items: defaultItems,
+  },
+  render: function WithoutGlassStory(args) {
+    return (
+      <div className="w-[500px]">
+        <p className="text-xs text-white/40 font-mono mb-2">Without glass</p>
+        <Accordion {...args} defaultOpenItems={["1"]} glass={false} />
+      </div>
+    );
+  },
 };
 
 export const WithIcons: Story = {
-  render: () => (
-    <div className="w-[500px]">
-      <Accordion
-        items={[
-          { id: "1", title: "📊 Dashboard", content: "Dashboard content" },
-          { id: "2", title: "🚀 Projects", content: "Projects content" },
-          { id: "3", title: "⚙️ Settings", content: "Settings content" },
-        ]}
-        defaultOpenItems={["1"]}
-      />
-    </div>
-  ),
+  args: {
+    items: [
+      { id: "1", title: "📊 Dashboard", content: "Dashboard content" },
+      { id: "2", title: "🚀 Projects", content: "Projects content" },
+      { id: "3", title: "⚙️ Settings", content: "Settings content" },
+    ],
+  },
+  render: function WithIconsStory(args) {
+    return (
+      <div className="w-[500px]">
+        <Accordion {...args} defaultOpenItems={["1"]} />
+      </div>
+    );
+  },
 };
 
 export const DisabledItem: Story = {
-  render: () => (
-    <div className="w-[500px]">
-      <Accordion
-        items={[
-          { id: "1", title: "✅ Enabled", content: "This item works" },
-          {
-            id: "2",
-            title: "🚫 Disabled",
-            content: "This item is disabled",
-            disabled: true,
-          },
-          { id: "3", title: "✅ Enabled", content: "This item works" },
-        ]}
-        defaultOpenItems={["1"]}
-      />
-    </div>
-  ),
+  args: {
+    items: [
+      { id: "1", title: "✅ Enabled", content: "This item works" },
+      {
+        id: "2",
+        title: "🚫 Disabled",
+        content: "This item is disabled",
+        disabled: true,
+      },
+      { id: "3", title: "✅ Enabled", content: "This item works" },
+    ],
+  },
+  render: function DisabledItemStory(args) {
+    return (
+      <div className="w-[500px]">
+        <Accordion {...args} defaultOpenItems={["1"]} />
+      </div>
+    );
+  },
 };
 ```
 
 
 ────────────────────────────────────────────────────────────────────────────────
 FILE 14/44: src\components\Accordion\Accordion.tsx
-Language: tsx | Size: 4,211 bytes
-Lines: 152 total | 136 code | 0 comments | 16 blank
+Language: tsx | Size: 4,412 bytes
+Lines: 154 total | 139 code | 0 comments | 15 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 
 export interface AccordionItem {
   id: string;
@@ -1993,16 +2096,11 @@ export const Accordion: React.FC<AccordionProps> = ({
         else if (isFirst) radiusClass = "rounded-t-[--radius-md]";
         else if (isLast) radiusClass = "rounded-b-[--radius-md]";
 
-        // Glass styles
-        const glassStyles = glass
-          ? "glass hover:bg-white/10"
-          : "bg-[#1a2332] hover:bg-[#1f2a3f]";
-
         return (
           <div
             key={item.id}
             className={`
-              border-b border-white/5 last:border-b-0
+              border-b border-[var(--color-border-secondary)] last:border-b-0
               transition-colors duration-180
               ${radiusClass}
             `}
@@ -2017,17 +2115,22 @@ export const Accordion: React.FC<AccordionProps> = ({
                 transition-colors duration-180
                 ${sizeStyles[size]}
                 ${item.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-                ${isOpen ? "text-[#7c5cff] " : "text-white"}
-                hover:bg-white/5
+                ${isOpen ? "text-[var(--color-primary)]" : "text-[var(--color-text-primary)]"}
+                hover:bg-[var(--color-bg-elevated)]/30
                 focus:outline-none
               `}
               aria-expanded={isOpen}
               aria-disabled={item.disabled}
             >
-              <span>{item.title}</span>
+              <span className="flex items-center gap-2">
+                {item.icon && (
+                  <span className="flex-shrink-0">{item.icon}</span>
+                )}
+                {item.title}
+              </span>
               <span
                 className={`
-                  transition-transform duration-250 text-white/40
+                  transition-transform duration-250 text-[var(--color-text-tertiary)]
                   ${isOpen ? "rotate-180" : "rotate-0"}
                 `}
               >
@@ -2039,10 +2142,12 @@ export const Accordion: React.FC<AccordionProps> = ({
             <div
               className={`
                 accordion-content
-                ${isOpen ? "open border-t border-white/5" : ""}
+                ${isOpen ? "open border-t border-[var(--color-border-secondary)]" : ""}
               `}
             >
-              <div className={`${contentSizeStyles[size]} text-white/50`}>
+              <div
+                className={`${contentSizeStyles[size]} text-[var(--color-text-secondary)]`}
+              >
                 {item.content}
               </div>
             </div>
@@ -2465,14 +2570,13 @@ export { Badge as default } from "./Badge";
 
 ────────────────────────────────────────────────────────────────────────────────
 FILE 19/44: src\components\Button\Button.stories.tsx
-Language: tsx | Size: 2,876 bytes
-Lines: 132 total | 120 code | 0 comments | 12 blank
+Language: tsx | Size: 3,378 bytes
+Lines: 158 total | 146 code | 0 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./Button";
-import { fn } from "@storybook/test";
 
 const meta = {
   title: "Components/Button",
@@ -2484,7 +2588,14 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "glass", "danger", "success"],
+      options: [
+        "primary",
+        "secondary",
+        "glass",
+        "danger",
+        "success",
+        "outline",
+      ],
     },
     size: {
       control: "select",
@@ -2498,9 +2609,7 @@ const meta = {
     loading: { control: "boolean" },
     disabled: { control: "boolean" },
   },
-  args: {
-    onClick: fn(),
-  },
+  args: {},
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -2515,82 +2624,104 @@ export const Default: Story = {
 };
 
 export const Variants: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Button variant="primary">Primary</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="glass">Glass</Button>
-      <Button variant="danger">Danger</Button>
-      <Button variant="success">Success</Button>
-    </div>
-  ),
+  render: function VariantsStory() {
+    return (
+      <div className="flex flex-wrap gap-3">
+        <Button variant="primary">Primary</Button>
+        <Button variant="secondary">Secondary</Button>
+        <Button variant="glass">Glass</Button>
+        <Button variant="danger">Danger</Button>
+        <Button variant="success">Success</Button>
+        <Button variant="outline">Outline</Button>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const Sizes: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-3 items-center">
-      <Button size="sm">Small</Button>
-      <Button size="md">Medium</Button>
-      <Button size="lg">Large</Button>
-    </div>
-  ),
+  render: function SizesStory() {
+    return (
+      <div className="flex flex-wrap gap-3 items-center">
+        <Button size="sm">Small</Button>
+        <Button size="md">Medium</Button>
+        <Button size="lg">Large</Button>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const WithGlow: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Button glow="purple" variant="primary">
-        Purple Glow
-      </Button>
-      <Button glow="cyan" variant="primary">
-        Cyan Glow
-      </Button>
-      <Button glow="pink" variant="primary">
-        Pink Glow
-      </Button>
-    </div>
-  ),
+  render: function WithGlowStory() {
+    return (
+      <div className="flex flex-wrap gap-3">
+        <Button glow="purple" variant="primary">
+          Purple Glow
+        </Button>
+        <Button glow="cyan" variant="primary">
+          Cyan Glow
+        </Button>
+        <Button glow="pink" variant="primary">
+          Pink Glow
+        </Button>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const Loading: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Button loading>Loading</Button>
-      <Button loading variant="success">
-        Processing
-      </Button>
-    </div>
-  ),
+  render: function LoadingStory() {
+    return (
+      <div className="flex flex-wrap gap-3">
+        <Button loading>Loading</Button>
+        <Button loading variant="success">
+          Processing
+        </Button>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const Disabled: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Button disabled>Disabled</Button>
-      <Button disabled variant="secondary">
-        Disabled Secondary
-      </Button>
-    </div>
-  ),
+  render: function DisabledStory() {
+    return (
+      <div className="flex flex-wrap gap-3">
+        <Button disabled>Disabled</Button>
+        <Button disabled variant="secondary">
+          Disabled Secondary
+        </Button>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const WithIcons: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Button leftIcon="🚀">Launch</Button>
-      <Button rightIcon="→" variant="secondary">
-        Next
-      </Button>
-    </div>
-  ),
+  render: function WithIconsStory() {
+    return (
+      <div className="flex flex-wrap gap-3">
+        <Button leftIcon="🚀">Launch</Button>
+        <Button rightIcon="→" variant="secondary">
+          Next
+        </Button>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const FullWidth: Story = {
-  render: () => (
-    <div className="w-80">
-      <Button fullWidth>Full Width Button</Button>
-    </div>
-  ),
+  render: function FullWidthStory() {
+    return (
+      <div className="w-80">
+        <Button fullWidth>Full Width Button</Button>
+      </div>
+    );
+  },
+  args: {},
 };
 
 export const Interactive: Story = {
@@ -2606,8 +2737,8 @@ export const Interactive: Story = {
 
 ────────────────────────────────────────────────────────────────────────────────
 FILE 20/44: src\components\Button\Button.tsx
-Language: tsx | Size: 3,373 bytes
-Lines: 122 total | 113 code | 0 comments | 9 blank
+Language: tsx | Size: 3,689 bytes
+Lines: 130 total | 121 code | 0 comments | 9 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
@@ -2618,7 +2749,13 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    * Button visual style variant
    * @default "primary"
    */
-  variant?: "primary" | "secondary" | "glass" | "danger" | "success";
+  variant?:
+    | "primary"
+    | "secondary"
+    | "glass"
+    | "danger"
+    | "success"
+    | "outline";
   /**
    * Button size
    * @default "md"
@@ -2635,7 +2772,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    */
   loading?: boolean;
   /**
-   * Glow effect color (from original demo)
+   * Glow effect color
    */
   glow?: "purple" | "cyan" | "pink";
   /**
@@ -2649,7 +2786,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 /**
- * Dara UI Button — matching original demo styling exactly
+ * Dara UI Button
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -2668,36 +2805,38 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
-    // Base styles from original demo
+    // Base styles
     const baseStyles =
       "inline-flex items-center justify-center gap-2 font-heading font-semibold tracking-wide transition-all duration-180 rounded-full active:scale-95 disabled:opacity-45 disabled:cursor-not-allowed disabled:pointer-events-none";
 
-    // Variants from original demo
+    // Variants
     const variants = {
       primary:
-        "bg-[#7c5cff] text-white shadow-[0_0_20px_rgba(124,92,255,0.3)] hover:bg-[#6a4ae8] hover:shadow-[0_0_35px_rgba(124,92,255,0.5)]",
+        "bg-[var(--color-primary)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)] hover:shadow-[var(--shadow-glow-primary)]",
       secondary:
-        "bg-white/8 text-[#e2e8f0] border border-white/15 hover:bg-white/14 hover:border-white/25",
+        "bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] border border-[var(--color-border-primary)] hover:bg-[var(--color-bg-elevated)] hover:border-[var(--color-border-secondary)]",
       glass:
-        "bg-white/5 backdrop-blur-[12px] text-[#e2e8f0] border border-white/12 hover:bg-white/10",
+        "glass rounded-full text-[var(--color-text-primary)] hover:bg-[var(--glass-bg)]",
       danger:
-        "bg-[#ff5370] text-white shadow-[0_0_18px_rgba(255,83,112,0.25)] hover:bg-[#e84560] hover:shadow-[0_0_30px_rgba(255,83,112,0.4)]",
+        "bg-[var(--color-danger)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-danger)] hover:bg-[var(--color-danger-hover)] hover:shadow-[var(--shadow-glow-danger)]",
       success:
-        "bg-[#00ff99] text-[#0b0f19] shadow-[0_0_18px_rgba(0,255,153,0.25)] hover:bg-[#00e688] hover:shadow-[0_0_30px_rgba(0,255,153,0.4)]",
+        "bg-[var(--color-success)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-success)] hover:bg-[var(--color-success-hover)] hover:shadow-[var(--shadow-glow-success)]",
+      outline:
+        "bg-transparent text-[var(--color-text-primary)] border border-[var(--color-border-primary)] hover:bg-[var(--color-bg-elevated)] hover:border-[var(--color-border-secondary)]",
     };
 
-    // Sizes from original demo
+    // Sizes
     const sizes = {
       sm: "px-4 py-1.5 text-sm",
       md: "px-6 py-2.5 text-base",
       lg: "px-8 py-3.5 text-lg",
     };
 
-    // Glow effects from original demo
+    // Glow effects
     const glowStyles = {
-      purple: "hover:shadow-[0_0_30px_rgba(124,92,255,0.2)]",
-      cyan: "hover:shadow-[0_0_25px_rgba(0,217,255,0.15)]",
-      pink: "hover:shadow-[0_0_25px_rgba(255,77,157,0.15)]",
+      purple: "hover:shadow-[var(--shadow-glow-primary)]",
+      cyan: "hover:shadow-[var(--shadow-glow-secondary)]",
+      pink: "hover:shadow-[var(--shadow-glow-accent)]",
     };
 
     const classes = [
@@ -2750,8 +2889,8 @@ export { Button as default } from "./Button";
 
 ────────────────────────────────────────────────────────────────────────────────
 FILE 22/44: src\components\Card\Card.stories.tsx
-Language: tsx | Size: 3,662 bytes
-Lines: 125 total | 117 code | 0 comments | 8 blank
+Language: tsx | Size: 4,455 bytes
+Lines: 155 total | 147 code | 0 comments | 8 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
@@ -2781,7 +2920,7 @@ const meta = {
     float: { control: "boolean" },
     glow: {
       control: "select",
-      options: ["", "purple", "cyan", "pink"],
+      options: ["", "purple", "cyan", "pink", "primary", "secondary", "accent"],
     },
   },
   args: {
@@ -2796,96 +2935,126 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => (
-    <Card className="w-80">
-      <h3 className="font-heading text-xl font-bold">Default Card</h3>
-      <p className="text-white/70 text-sm">
-        Glass variant with medium padding.
-      </p>
-    </Card>
-  ),
+  args: {
+    children: (
+      <>
+        <h3 className="font-heading text-xl font-bold">Default Card</h3>
+        <p className="text-[var(--color-text-secondary)] text-sm">
+          Glass variant with medium padding.
+        </p>
+      </>
+    ),
+  },
 };
 
 export const Variants: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-4">
-      <Card variant="glass" className="w-56">
-        <h3 className="font-heading font-bold">Glass</h3>
-        <p className="text-white/50 text-sm">blur(20px)</p>
-      </Card>
-      <Card variant="solid" className="w-56">
-        <h3 className="font-heading font-bold">Solid</h3>
-        <p className="text-white/50 text-sm">More opaque</p>
-      </Card>
-      <Card variant="outline" className="w-56">
-        <h3 className="font-heading font-bold">Outline</h3>
-        <p className="text-white/50 text-sm">Border only</p>
-      </Card>
-    </div>
-  ),
+  render: function VariantsStory() {
+    return (
+      <div className="flex flex-wrap gap-4">
+        <Card variant="glass" className="w-56">
+          <h3 className="font-heading font-bold">Glass</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            blur(20px)
+          </p>
+        </Card>
+        <Card variant="solid" className="w-56">
+          <h3 className="font-heading font-bold">Solid</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            More opaque
+          </p>
+        </Card>
+        <Card variant="outline" className="w-56">
+          <h3 className="font-heading font-bold">Outline</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            Border only
+          </p>
+        </Card>
+      </div>
+    );
+  },
 };
 
 export const WithGlow: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-4">
-      <Card glow="purple" className="w-56">
-        <h3 className="font-heading font-bold">Purple Glow</h3>
-        <p className="text-white/50 text-sm">Shadow glow</p>
-      </Card>
-      <Card glow="cyan" className="w-56">
-        <h3 className="font-heading font-bold">Cyan Glow</h3>
-        <p className="text-white/50 text-sm">Shadow glow</p>
-      </Card>
-      <Card glow="pink" className="w-56">
-        <h3 className="font-heading font-bold">Pink Glow</h3>
-        <p className="text-white/50 text-sm">Shadow glow</p>
-      </Card>
-    </div>
-  ),
+  render: function WithGlowStory() {
+    return (
+      <div className="flex flex-wrap gap-4">
+        <Card glow="purple" className="w-56">
+          <h3 className="font-heading font-bold">Purple Glow</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            Shadow glow
+          </p>
+        </Card>
+        <Card glow="cyan" className="w-56">
+          <h3 className="font-heading font-bold">Cyan Glow</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            Shadow glow
+          </p>
+        </Card>
+        <Card glow="pink" className="w-56">
+          <h3 className="font-heading font-bold">Pink Glow</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            Shadow glow
+          </p>
+        </Card>
+      </div>
+    );
+  },
 };
 
 export const FloatCards: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-4">
-      <Card float className="w-56">
-        <h3 className="font-heading font-bold">Float Card</h3>
-        <p className="text-white/50 text-sm">Hover to float ✨</p>
-      </Card>
-      <Card float glow="purple" className="w-56">
-        <h3 className="font-heading font-bold">Float + Glow</h3>
-        <p className="text-white/50 text-sm">Hover to float ✨</p>
-      </Card>
-    </div>
-  ),
+  render: function FloatCardsStory() {
+    return (
+      <div className="flex flex-wrap gap-4">
+        <Card float className="w-56">
+          <h3 className="font-heading font-bold">Float Card</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            Hover to float ✨
+          </p>
+        </Card>
+        <Card float glow="purple" className="w-56">
+          <h3 className="font-heading font-bold">Float + Glow</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            Hover to float ✨
+          </p>
+        </Card>
+      </div>
+    );
+  },
 };
 
 export const ContentExamples: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-4">
-      <Card className="w-64">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-2xl">📦</span>
-          <h3 className="font-heading font-bold">Package</h3>
-        </div>
-        <p className="text-white/50 text-sm">A simple card with content.</p>
-      </Card>
-      <Card glow="purple" className="w-64">
-        <div className="w-12 h-12 rounded-standard bg-[#7c5cff]/20 flex items-center justify-center text-2xl mb-3">
-          🎯
-        </div>
-        <h3 className="font-heading font-bold">Feature Card</h3>
-        <p className="text-white/50 text-sm">With glow effect.</p>
-      </Card>
-    </div>
-  ),
+  render: function ContentExamplesStory() {
+    return (
+      <div className="flex flex-wrap gap-4">
+        <Card className="w-64">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-2xl">📦</span>
+            <h3 className="font-heading font-bold">Package</h3>
+          </div>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            A simple card with content.
+          </p>
+        </Card>
+        <Card glow="purple" className="w-64">
+          <div className="w-12 h-12 rounded-standard bg-[var(--color-primary)]/20 flex items-center justify-center text-2xl mb-3">
+            🎯
+          </div>
+          <h3 className="font-heading font-bold">Feature Card</h3>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            With glow effect.
+          </p>
+        </Card>
+      </div>
+    );
+  },
 };
 ```
 
 
 ────────────────────────────────────────────────────────────────────────────────
 FILE 23/44: src\components\Card\Card.tsx
-Language: tsx | Size: 1,875 bytes
-Lines: 103 total | 93 code | 0 comments | 10 blank
+Language: tsx | Size: 2,286 bytes
+Lines: 106 total | 96 code | 0 comments | 10 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
@@ -2915,11 +3084,11 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Glow effect color
    */
-  glow?: "purple" | "cyan" | "pink";
+  glow?: "purple" | "cyan" | "pink" | "primary" | "secondary" | "accent";
   /**
    * Card content
    */
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 /**
@@ -2963,9 +3132,12 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     };
 
     const glowStyles = {
-      purple: "glow-purple",
-      cyan: "glow-cyan",
-      pink: "glow-pink",
+      purple: "glow-purple hover:shadow-[0_16px_48px_rgba(124,92,255,0.3)]",
+      cyan: "glow-cyan hover:shadow-[0_16px_48px_rgba(0,217,255,0.3)]",
+      pink: "glow-pink hover:shadow-[0_16px_48px_rgba(255,77,157,0.3)]",
+      primary: "glow-purple hover:shadow-[0_16px_48px_rgba(124,92,255,0.3)]",
+      secondary: "glow-cyan hover:shadow-[0_16px_48px_rgba(0,217,255,0.3)]",
+      accent: "glow-pink hover:shadow-[0_16px_48px_rgba(255,77,157,0.3)]",
     };
 
     const floatClass = float ? "float-card" : "";
@@ -3394,8 +3566,8 @@ export const Interactive: Story = {
 
 ────────────────────────────────────────────────────────────────────────────────
 FILE 26/44: src\components\Dropdown\Dropdown.tsx
-Language: tsx | Size: 12,767 bytes
-Lines: 424 total | 400 code | 0 comments | 24 blank
+Language: tsx | Size: 12,977 bytes
+Lines: 428 total | 405 code | 0 comments | 23 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
@@ -3647,6 +3819,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               }
               focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20
               ${isOpen ? "border-[var(--color-primary)]" : ""}
+              transition-all duration-[var(--transition-fast)]
             `}
             aria-haspopup="listbox"
             aria-expanded={isOpen}
@@ -3685,7 +3858,6 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               </svg>
             </span>
           </button>
-
           {/* Dropdown Menu */}
           {isOpen && (
             <div
@@ -3695,8 +3867,12 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                 rounded-[var(--radius-md)]
                 py-1
                 shadow-[var(--shadow-float)]
-                animate-in fade-in-0 zoom-in-95 slide-in-from-top-2
-                duration-[var(--transition-fast)]
+                transition-all duration-[var(--transition-fast)]
+                ${
+                  isOpen
+                    ? "opacity-100 translate-y-0 pointer-events-auto"
+                    : "opacity-0 -translate-y-2 pointer-events-none"
+                }
               `}
               role="listbox"
               aria-label="Dropdown options"
@@ -4010,8 +4186,8 @@ export const Disabled: Story = {
 
 ────────────────────────────────────────────────────────────────────────────────
 FILE 30/44: src\components\Input\Input.tsx
-Language: tsx | Size: 7,231 bytes
-Lines: 264 total | 248 code | 0 comments | 16 blank
+Language: tsx | Size: 7,610 bytes
+Lines: 280 total | 264 code | 0 comments | 16 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
@@ -4025,7 +4201,15 @@ export interface InputProps extends Omit<
    * Input type
    * @default "text"
    */
-  type?: "text" | "password" | "search" | "email" | "tel" | "number" | "url";
+  type?:
+    | "text"
+    | "password"
+    | "search"
+    | "email"
+    | "tel"
+    | "number"
+    | "url"
+    | "date";
   /**
    * Input size
    * @default "md"
@@ -4105,22 +4289,26 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref,
   ) => {
-    const [isFocused, setIsFocused] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
     const inputId = id || `input-${Math.random().toString(36).substring(2, 9)}`;
 
     // - .input-dara styles
     const baseStyles =
-      "w-full font-body transition-all duration-180 outline-none disabled:opacity-60 disabled:cursor-not-allowed placeholder:text-white/35";
+      "w-full font-body transition-all duration-180 outline-none disabled:opacity-60 disabled:cursor-not-allowed placeholder:text-[var(--color-text-tertiary)]";
 
-    const bgStyles = "bg-white/5 hover:bg-white/10 focus:bg-white/10";
+    const bgStyles =
+      "bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] focus:bg-[var(--color-bg-elevated)]";
 
     const borderStyles = {
-      default: "border border-white/12 focus:border-[#7c5cff]",
-      success: "border border-[#00ff99] focus:border-[#00ff99]",
-      error: "border border-[#ff5370] focus:border-[#ff5370]",
-      warning: "border border-[#ffc857] focus:border-[#ffc857]",
+      default:
+        "border border-[var(--color-border-primary)] focus:border-[var(--color-primary)]",
+      success:
+        "border border-[var(--color-success)] focus:border-[var(--color-success)]",
+      error:
+        "border border-[var(--color-danger)] focus:border-[var(--color-danger)]",
+      warning:
+        "border border-[var(--color-warning)] focus:border-[var(--color-warning)]",
     };
 
     const glowStyles = glowFocus
@@ -4176,12 +4364,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       .join(" ");
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-      setIsFocused(true);
       onFocus?.(e);
     };
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-      setIsFocused(false);
       onBlur?.(e);
     };
 
@@ -4190,14 +4376,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-sm font-medium text-white/60 font-body"
+            className="text-sm font-medium text-[var(--color-text-secondary)] font-body"
           >
             {label}
           </label>
         )}
         <div className="relative group w-full">
           {leftIcon && (
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-tertiary)] pointer-events-none">
               <span className={iconSizes[size]}>{leftIcon}</span>
             </span>
           )}
@@ -4218,7 +4404,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/60 transition-colors cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-colors cursor-pointer"
               tabIndex={-1}
             >
               {showPassword ? (
@@ -4261,13 +4447,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {(helperText || errorMessage || successMessage) && (
           <div className="flex items-center gap-1.5 text-xs">
             {validation === "error" && errorMessage && (
-              <span className="text-[#ff5370]">⚠️ {errorMessage}</span>
+              <span className="text-[var(--color-danger)]">
+                ⚠️ {errorMessage}
+              </span>
             )}
             {validation === "success" && successMessage && (
-              <span className="text-[#00ff99]">✅ {successMessage}</span>
+              <span className="text-[var(--color-success)]">
+                ✅ {successMessage}
+              </span>
             )}
             {!validation && helperText && (
-              <span className="text-white/40">{helperText}</span>
+              <span className="text-[var(--color-text-tertiary)]">
+                {helperText}
+              </span>
             )}
           </div>
         )}
@@ -4296,8 +4488,8 @@ export { Tabs as default } from "./Tabs";
 
 ────────────────────────────────────────────────────────────────────────────────
 FILE 32/44: src\components\Tabs\Tabs.stories.tsx
-Language: tsx | Size: 3,509 bytes
-Lines: 133 total | 123 code | 0 comments | 10 blank
+Language: tsx | Size: 4,153 bytes
+Lines: 179 total | 169 code | 0 comments | 10 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
@@ -4341,19 +4533,35 @@ type Story = StoryObj<typeof meta>;
 const defaultItems = [
   {
     label: "Archive",
-    content: <div className="p-4 text-white/60">📁 Archive content</div>,
+    content: (
+      <div className="p-4 text-[var(--color-text-secondary)]">
+        📁 Archive content
+      </div>
+    ),
   },
   {
     label: "Quests",
-    content: <div className="p-4 text-white/60">⚔️ Quests content</div>,
+    content: (
+      <div className="p-4 text-[var(--color-text-secondary)]">
+        ⚔️ Quests content
+      </div>
+    ),
   },
   {
     label: "Stats",
-    content: <div className="p-4 text-white/60">📊 Stats content</div>,
+    content: (
+      <div className="p-4 text-[var(--color-text-secondary)]">
+        📊 Stats content
+      </div>
+    ),
   },
   {
     label: "Settings",
-    content: <div className="p-4 text-white/60">⚙️ Settings content</div>,
+    content: (
+      <div className="p-4 text-[var(--color-text-secondary)]">
+        ⚙️ Settings content
+      </div>
+    ),
   },
 ];
 
@@ -4365,47 +4573,65 @@ export const Default: Story = {
 };
 
 export const Variants: Story = {
-  render: () => (
-    <div className="flex flex-col gap-8 w-96">
-      <Tabs items={defaultItems} defaultValue="Archive" glowColor="primary" />
-      <Tabs items={defaultItems} defaultValue="Archive" glowColor="secondary" />
-      <Tabs items={defaultItems} defaultValue="Archive" glowColor="accent" />
-      <Tabs items={defaultItems} defaultValue="Archive" glowColor="success" />
-      <Tabs items={defaultItems} defaultValue="Archive" glowColor="danger" />
-      <Tabs items={defaultItems} defaultValue="Archive" glowColor="none" />
-    </div>
-  ),
+  args: {
+    items: defaultItems,
+  },
+  render: function VariantsStory(args) {
+    return (
+      <div className="flex flex-col gap-8 w-96">
+        <Tabs {...args} defaultValue="Archive" glowColor="primary" />
+        <Tabs {...args} defaultValue="Archive" glowColor="secondary" />
+        <Tabs {...args} defaultValue="Archive" glowColor="accent" />
+        <Tabs {...args} defaultValue="Archive" glowColor="success" />
+        <Tabs {...args} defaultValue="Archive" glowColor="danger" />
+        <Tabs {...args} defaultValue="Archive" glowColor="none" />
+      </div>
+    );
+  },
 };
 
 export const Sizes: Story = {
-  render: () => (
-    <div className="flex flex-col gap-6 w-80">
-      <Tabs items={defaultItems} defaultValue="Archive" size="sm" />
-      <Tabs items={defaultItems} defaultValue="Archive" size="md" />
-      <Tabs items={defaultItems} defaultValue="Archive" size="lg" />
-    </div>
-  ),
+  args: {
+    items: defaultItems,
+  },
+  render: function SizesStory(args) {
+    return (
+      <div className="flex flex-col gap-6 w-80">
+        <Tabs {...args} defaultValue="Archive" size="sm" />
+        <Tabs {...args} defaultValue="Archive" size="md" />
+        <Tabs {...args} defaultValue="Archive" size="lg" />
+      </div>
+    );
+  },
 };
 
 export const Alignments: Story = {
-  render: () => (
-    <div className="flex flex-col gap-8 w-96">
-      <Tabs items={defaultItems} defaultValue="Archive" align="left" />
-      <Tabs items={defaultItems} defaultValue="Archive" align="center" />
-      <Tabs items={defaultItems} defaultValue="Archive" align="right" />
-    </div>
-  ),
+  args: {
+    items: defaultItems,
+  },
+  render: function AlignmentsStory(args) {
+    return (
+      <div className="flex flex-col gap-8 w-96">
+        <Tabs {...args} defaultValue="Archive" align="left" />
+        <Tabs {...args} defaultValue="Archive" align="center" />
+        <Tabs {...args} defaultValue="Archive" align="right" />
+      </div>
+    );
+  },
 };
 
 export const Controlled: Story = {
-  render: () => {
+  args: {
+    items: defaultItems,
+  },
+  render: function ControlledStory(args) {
     const [active, setActive] = useState("Archive");
     return (
       <div className="flex flex-col gap-4 w-96">
-        <p className="text-xs text-white/40 font-mono">
-          Active: <span className="text-[#7c5cff]">{active}</span>
+        <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+          Active: <span className="text-[var(--color-primary)]">{active}</span>
         </p>
-        <Tabs items={defaultItems} activeValue={active} onChange={setActive} />
+        <Tabs {...args} activeValue={active} onChange={setActive} />
       </div>
     );
   },
@@ -4417,17 +4643,29 @@ export const WithIcons: Story = {
       {
         label: "Home",
         icon: "🏠",
-        content: <div className="p-4 text-white/60">Home content</div>,
+        content: (
+          <div className="p-4 text-[var(--color-text-secondary)]">
+            Home content
+          </div>
+        ),
       },
       {
         label: "Profile",
         icon: "👤",
-        content: <div className="p-4 text-white/60">Profile content</div>,
+        content: (
+          <div className="p-4 text-[var(--color-text-secondary)]">
+            Profile content
+          </div>
+        ),
       },
       {
         label: "Settings",
         icon: "⚙️",
-        content: <div className="p-4 text-white/60">Settings content</div>,
+        content: (
+          <div className="p-4 text-[var(--color-text-secondary)]">
+            Settings content
+          </div>
+        ),
       },
     ],
     defaultValue: "Home",
@@ -4817,8 +5055,8 @@ Lines: 61 total | 49 code | 5 comments | 7 blank
 
 ────────────────────────────────────────────────────────────────────────────────
 FILE 38/44: src\styles\index.css
-Language: css | Size: 13,987 bytes
-Lines: 665 total | 553 code | 29 comments | 83 blank
+Language: css | Size: 14,416 bytes
+Lines: 688 total | 570 code | 30 comments | 88 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```css
@@ -4878,6 +5116,12 @@ a {
 }
 a:hover {
   color: var(--color-primary-hover);
+}
+
+/* ----- Inputs (Password Eye button in Edge/IE) ----- */
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
 }
 
 /* ----- Selection ----- */
@@ -4991,6 +5235,11 @@ a:hover {
   transition: all var(--transition-med);
 }
 
+button.glass,
+.btn-dara.glass {
+  border-radius: 9999px;
+}
+
 /* ----- Heavy Glass (blur: 30px, more opaque) ----- */
 .glass-heavy {
   background: rgba(255, 255, 255, 0.08);
@@ -5059,6 +5308,18 @@ a:hover {
 .float-card:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+.glow-purple.float-card:hover {
+  box-shadow: 0 16px 48px rgba(124, 92, 255, 0.3);
+}
+
+.glow-cyan.float-card:hover {
+  box-shadow: 0 16px 48px rgba(0, 217, 255, 0.3);
+}
+
+.glow-pink.float-card:hover {
+  box-shadow: 0 16px 48px rgba(255, 77, 157, 0.3);
 }
 
 /* =============================================
@@ -5867,8 +6128,8 @@ Lines: 24 total | 21 code | 0 comments | 3 blank
 
 ────────────────────────────────────────────────────────────────────────────────
 FILE 43/44: vite.config.ts
-Language: typescript | Size: 1,834 bytes
-Lines: 74 total | 69 code | 2 comments | 3 blank
+Language: typescript | Size: 1,720 bytes
+Lines: 71 total | 66 code | 2 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```typescript
@@ -5911,10 +6172,7 @@ export default defineConfig({
           react: "React",
           "react-dom": "ReactDOM",
         },
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name === "style.css") return "style.css";
-          return assetInfo.name;
-        },
+        assetFileNames: "style.css",
       },
     },
     cssCodeSplit: false,
@@ -5965,8 +6223,8 @@ Lines: 1 total | 0 code | 1 comments | 0 blank
 GENERAL STATISTICS
 ----------------------------------------
 Total files exported: 44
-Total size: 169,589 bytes (165.61 KB, 0.16 MB)
-Average file size: 3,854 bytes
+Total size: 176,607 bytes (172.47 KB, 0.17 MB)
+Average file size: 4,014 bytes
 
 LANGUAGE DISTRIBUTION
 ----------------------------------------
@@ -5983,7 +6241,7 @@ markdown           1 files (  2.3%) █
 EXPORT METADATA
 ----------------------------------------
 Export tool: Advanced Project Code Exporter v2.0
-Export date: 2026-07-24 12:12:01
+Export date: 2026-07-25 16:53:43
 Python version: 3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]
 Platform: win32
 

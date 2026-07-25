@@ -76,7 +76,6 @@ export const Variants: Story = {
       </div>
     );
   },
-  args: {},
 };
 
 export const WithGlow: Story = {
@@ -104,7 +103,6 @@ export const WithGlow: Story = {
       </div>
     );
   },
-  args: {},
 };
 
 export const FloatCards: Story = {
@@ -126,7 +124,6 @@ export const FloatCards: Story = {
       </div>
     );
   },
-  args: {},
 };
 
 export const ContentExamples: Story = {
@@ -154,5 +151,4 @@ export const ContentExamples: Story = {
       </div>
     );
   },
-  args: {},
 };

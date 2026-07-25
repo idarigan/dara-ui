@@ -55,29 +55,34 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
 
     // Solid variants
     const solidVariants = {
-      primary: "bg-[#7c5cff] text-white",
-      secondary: "bg-[#00d9ff] text-[#0b0f19]",
-      success: "bg-[#00ff99] text-[#0b0f19]",
-      danger: "bg-[#ff5370] text-white",
-      warning: "bg-[#ffc857] text-[#0b0f19]",
+      primary: "bg-[var(--color-primary)] text-[var(--color-text-inverse)]",
+      secondary: "bg-[var(--color-secondary)] text-[var(--color-text-inverse)]",
+      success: "bg-[var(--color-success)] text-[var(--color-text-inverse)]",
+      danger: "bg-[var(--color-danger)] text-[var(--color-text-inverse)]",
+      warning: "bg-[var(--color-warning)] text-[var(--color-text-inverse)]",
     };
 
     // Outline variants
     const outlineVariants = {
-      primary: "border-2 border-[#7c5cff] text-[#7c5cff] bg-transparent",
-      secondary: "border-2 border-[#00d9ff] text-[#00d9ff] bg-transparent",
-      success: "border-2 border-[#00ff99] text-[#00ff99] bg-transparent",
-      danger: "border-2 border-[#ff5370] text-[#ff5370] bg-transparent",
-      warning: "border-2 border-[#ffc857] text-[#ffc857] bg-transparent",
+      primary:
+        "border-2 border-[var(--color-primary)] text-[var(--color-primary)] bg-transparent",
+      secondary:
+        "border-2 border-[var(--color-secondary)] text-[var(--color-secondary)] bg-transparent",
+      success:
+        "border-2 border-[var(--color-success)] text-[var(--color-success)] bg-transparent",
+      danger:
+        "border-2 border-[var(--color-danger)] text-[var(--color-danger)] bg-transparent",
+      warning:
+        "border-2 border-[var(--color-warning)] text-[var(--color-warning)] bg-transparent",
     };
 
     // Glow styles
     const glowStyles = {
-      primary: "shadow-[0_0_30px_rgba(124,92,255,0.2)]",
-      secondary: "shadow-[0_0_25px_rgba(0,217,255,0.15)]",
-      success: "shadow-[0_0_25px_rgba(0,255,153,0.15)]",
-      danger: "shadow-[0_0_25px_rgba(255,83,112,0.15)]",
-      warning: "shadow-[0_0_25px_rgba(255,200,87,0.15)]",
+      primary: "shadow-[var(--shadow-glow-primary)]",
+      secondary: "shadow-[var(--shadow-glow-secondary)]",
+      success: "shadow-[var(--shadow-glow-success)]",
+      danger: "shadow-[var(--shadow-glow-danger)]",
+      warning: "shadow-[var(--shadow-glow-warning)]",
     };
 
     const variantStyle = outline

@@ -1,3 +1,4 @@
+// src/components/Dropdown/Dropdown.tsx
 import React, { useState, useRef, useEffect, useCallback } from "react";
 
 export interface DropdownOption {
@@ -231,7 +232,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             className={`
               w-full flex items-center justify-between
               font-body text-[var(--color-text-primary)]
-              transition-all duration-[var(--transition-fast)]
+              transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
               rounded-[var(--radius-md)]
               ${sizeStyles[size].trigger}
               ${
@@ -261,9 +262,10 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               )}
               {displayLabel}
             </span>
+            {/* Chevron / Arrow with smooth rotation */}
             <span
               className={`
-                transition-transform duration-[var(--transition-med)] ease-[var(--ease-in-out)]
+                transition-all duration-[var(--transition-med)] ease-[var(--ease-in-out)]
                 ${isOpen ? "rotate-180" : "rotate-0"}
                 text-[var(--color-text-tertiary)]
                 flex-shrink-0
@@ -285,114 +287,116 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             </span>
           </button>
 
-          {/* Dropdown Menu */}
-          {isOpen && (
-            <div
-              className={`
-                absolute z-50 w-full mt-1.5
-                glass max-h-60 overflow-auto
-                rounded-[var(--radius-md)]
-                py-1
-                shadow-[var(--shadow-float)]
-                animate-in fade-in-0 zoom-in-95 slide-in-from-top-2
-                duration-[var(--transition-fast)]
-              `}
-              role="listbox"
-              aria-label="Dropdown options"
-            >
-              {/* Search Input */}
-              {searchable && (
-                <div className="px-2 pb-1.5 border-b border-[var(--color-border-secondary)]">
-                  <input
-                    ref={searchInputRef}
-                    type="text"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder={searchPlaceholder}
-                    className={`
-                      w-full font-body text-[var(--color-text-primary)]
-                      placeholder:text-[var(--color-text-tertiary)]
-                      bg-[var(--color-bg-tertiary)]
-                      border border-[var(--color-border-secondary)]
-                      rounded-[var(--radius-sm)]
-                      outline-none
-                      transition-all duration-[var(--transition-fast)]
-                      focus:border-[var(--color-primary)]
-                      focus:ring-1 focus:ring-[var(--color-primary)]/20
-                      ${sizeStyles[size].search}
-                    `}
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                </div>
-              )}
-
-              {/* Options */}
-              {filteredOptions.length === 0 ? (
-                <div
+          {/* Dropdown Menu - with smooth appearance/disappearance */}
+          <div
+            className={`
+              absolute z-50 w-full mt-1.5
+              glass max-h-60 overflow-auto
+              rounded-[var(--radius-md)]
+              py-1
+              shadow-[var(--shadow-float)]
+              transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
+              ${
+                isOpen
+                  ? "opacity-100 translate-y-0 pointer-events-auto"
+                  : "opacity-0 -translate-y-2 pointer-events-none"
+              }
+            `}
+            role="listbox"
+            aria-label="Dropdown options"
+          >
+            {/* Search Input */}
+            {searchable && (
+              <div className="px-2 pb-1.5 border-b border-[var(--color-border-secondary)]">
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder={searchPlaceholder}
                   className={`
-                    text-[var(--color-text-tertiary)] text-center
-                    ${sizeStyles[size].option}
+                    w-full font-body text-[var(--color-text-primary)]
+                    placeholder:text-[var(--color-text-tertiary)]
+                    bg-[var(--color-bg-tertiary)]
+                    border border-[var(--color-border-secondary)]
+                    rounded-[var(--radius-md)]
+                    outline-none
+                    transition-all duration-[var(--transition-fast)]
+                    focus:border-[var(--color-primary)]
+                    focus:ring-1 focus:ring-[var(--color-primary)]/20
+                    ${sizeStyles[size].search}
                   `}
-                >
-                  No options found
-                </div>
-              ) : (
-                filteredOptions.map((option) => {
-                  const isSelected = option.value === selectedValue;
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </div>
+            )}
 
-                  return (
-                    <button
-                      key={option.value}
-                      onClick={() => selectOption(option.value)}
-                      disabled={option.disabled}
-                      className={`
-                        w-full flex items-center gap-2
-                        text-left
-                        transition-colors duration-[var(--transition-fast)]
-                        ${sizeStyles[size].option}
-                        ${
-                          option.disabled
-                            ? "opacity-40 cursor-not-allowed"
-                            : "cursor-pointer hover:bg-[var(--color-bg-elevated)]/50"
-                        }
-                        ${
-                          isSelected
-                            ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
-                            : "text-[var(--color-text-primary)]"
-                        }
-                        focus:outline-none focus:bg-[var(--color-bg-elevated)]/30
-                      `}
-                      role="option"
-                      aria-selected={isSelected}
-                      aria-disabled={option.disabled}
-                    >
-                      {option.icon && (
-                        <span className="flex-shrink-0">{option.icon}</span>
-                      )}
-                      <span className="truncate">{option.label}</span>
-                      {isSelected && (
-                        <span className="ml-auto text-[var(--color-primary)] flex-shrink-0">
-                          <svg
-                            className={`${iconSizes[size]} opacity-80`}
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2.5}
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
-                        </span>
-                      )}
-                    </button>
-                  );
-                })
-              )}
-            </div>
-          )}
+            {/* Options */}
+            {filteredOptions.length === 0 ? (
+              <div
+                className={`
+                  text-[var(--color-text-tertiary)] text-center
+                  ${sizeStyles[size].option}
+                `}
+              >
+                No options found
+              </div>
+            ) : (
+              filteredOptions.map((option) => {
+                const isSelected = option.value === selectedValue;
+
+                return (
+                  <button
+                    key={option.value}
+                    onClick={() => selectOption(option.value)}
+                    disabled={option.disabled}
+                    className={`
+                      w-full flex items-center gap-2
+                      text-left
+                      transition-colors duration-[var(--transition-fast)]
+                      ${sizeStyles[size].option}
+                      ${
+                        option.disabled
+                          ? "opacity-40 cursor-not-allowed"
+                          : "cursor-pointer hover:bg-[var(--color-bg-elevated)]/50"
+                      }
+                      ${
+                        isSelected
+                          ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
+                          : "text-[var(--color-text-primary)]"
+                      }
+                      focus:outline-none focus:bg-[var(--color-bg-elevated)]/30
+                    `}
+                    role="option"
+                    aria-selected={isSelected}
+                    aria-disabled={option.disabled}
+                  >
+                    {option.icon && (
+                      <span className="flex-shrink-0">{option.icon}</span>
+                    )}
+                    <span className="truncate">{option.label}</span>
+                    {isSelected && (
+                      <span className="ml-auto text-[var(--color-primary)] flex-shrink-0">
+                        <svg
+                          className={`${iconSizes[size]} opacity-80`}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2.5}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </span>
+                    )}
+                  </button>
+                );
+              })
+            )}
+          </div>
         </div>
 
         {/* Helper Text / Error Message */}

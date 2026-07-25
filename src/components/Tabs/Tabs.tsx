@@ -91,12 +91,13 @@ export const Tabs: React.FC<TabsProps> = ({
 
   // Glow styles
   const glowStyles = {
-    primary: "bg-[#7c5cff] shadow-[0_0_12px_rgba(124,92,255,0.6)]",
-    secondary: "bg-[#00d9ff] shadow-[0_0_12px_rgba(0,217,255,0.6)]",
-    accent: "bg-[#ff4d9d] shadow-[0_0_12px_rgba(255,77,157,0.6)]",
-    success: "bg-[#00ff99] shadow-[0_0_12px_rgba(0,255,153,0.6)]",
-    danger: "bg-[#ff5370] shadow-[0_0_12px_rgba(255,83,112,0.6)]",
-    none: "bg-[#2a3a52]",
+    primary: "bg-[var(--color-primary)] shadow-[0_0_12px_rgba(124,92,255,0.6)]",
+    secondary:
+      "bg-[var(--color-secondary)] shadow-[0_0_12px_rgba(0,217,255,0.6)]",
+    accent: "bg-[var(--color-accent)] shadow-[0_0_12px_rgba(255,77,157,0.6)]",
+    success: "bg-[var(--color-success)] shadow-[0_0_12px_rgba(0,255,153,0.6)]",
+    danger: "bg-[var(--color-danger)] shadow-[0_0_12px_rgba(255,83,112,0.6)]",
+    none: "bg-[var(--color-border-primary)]",
   };
 
   const alignStyles = {
