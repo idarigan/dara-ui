@@ -30,9 +30,28 @@ export type {
   DropdownOption,
 } from "./components/Dropdown/Dropdown";
 
-// ----- New: Modal -----
 export { Modal } from "./components/Modal/Modal";
 export type { ModalProps } from "./components/Modal/Modal";
+
+// ----- Toast -----
+export {
+  Toast,
+  ToastContainer,
+  ToastProvider,
+  useToast,
+} from "./components/Toast";
+export type { ToastProps, ToastType, ToastOptions } from "./components/Toast";
+
+// ----- Avatar -----
+export { Avatar } from "./components/Avatar/Avatar";
+export type { AvatarProps } from "./components/Avatar/Avatar";
+
+// ----- Tooltip -----
+export { Tooltip } from "./components/Tooltip/Tooltip";
+export type {
+  TooltipProps,
+  TooltipPlacement,
+} from "./components/Tooltip/Tooltip";
 
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";
