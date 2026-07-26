@@ -1,4 +1,3 @@
-// src/components/Dropdown/Dropdown.tsx
 import React, { useState, useRef, useEffect, useCallback } from "react";
 
 export interface DropdownOption {
@@ -232,7 +231,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             className={`
               w-full flex items-center justify-between
               font-body text-[var(--color-text-primary)]
-              transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
+              transition-all duration-[var(--transition-fast)]
               rounded-[var(--radius-md)]
               ${sizeStyles[size].trigger}
               ${
@@ -247,6 +246,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               }
               focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20
               ${isOpen ? "border-[var(--color-primary)]" : ""}
+              transition-all duration-[var(--transition-fast)]
             `}
             aria-haspopup="listbox"
             aria-expanded={isOpen}
@@ -262,14 +262,13 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               )}
               {displayLabel}
             </span>
-            {/* Chevron / Arrow with smooth rotation */}
             <span
               className={`
-                transition-all duration-[var(--transition-med)] ease-[var(--ease-in-out)]
-                ${isOpen ? "rotate-180" : "rotate-0"}
-                text-[var(--color-text-tertiary)]
-                flex-shrink-0
-              `}
+              transition-transform duration-[var(--transition-med)] ease-[var(--ease-in-out)]
+              ${isOpen ? "rotate-180" : "rotate-0"}
+              text-[var(--color-text-tertiary)]
+              flex-shrink-0
+            `}
             >
               <svg
                 className={`${iconSizes[size]}`}
@@ -286,8 +285,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               </svg>
             </span>
           </button>
-
-          {/* Dropdown Menu - with smooth appearance/disappearance */}
+          {/* Dropdown Menu */}
           <div
             className={`
               absolute z-50 w-full mt-1.5
@@ -319,7 +317,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                     placeholder:text-[var(--color-text-tertiary)]
                     bg-[var(--color-bg-tertiary)]
                     border border-[var(--color-border-secondary)]
-                    rounded-[var(--radius-md)]
+                    rounded-[var(--radius-standard)]
                     outline-none
                     transition-all duration-[var(--transition-fast)]
                     focus:border-[var(--color-primary)]

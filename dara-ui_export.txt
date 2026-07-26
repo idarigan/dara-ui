@@ -1,6 +1,6 @@
 ================================================================================
 ADVANCED PROJECT CODE EXPORT
-Generated: 2026-07-25 16:53:43
+Generated: 2026-07-26 08:57:59
 Project: dara-ui
 Path: D:\D's\dara-ui
 ================================================================================
@@ -26,7 +26,7 @@ dara-ui/
 │   └── icons.svg (4.9 KB)
 ├── README.md (2.4 KB)
 ├── src/
-│   ├── App.tsx (32.6 KB)
+│   ├── App.tsx (33.7 KB)
 │   ├── components/
 │   │   ├── Accordion/
 │   │   │   ├── Accordion.stories.tsx (4.8 KB)
@@ -34,7 +34,7 @@ dara-ui/
 │   │   │   └── index.ts (162.0 B)
 │   │   ├── Badge/
 │   │   │   ├── Badge.stories.tsx (6.5 KB)
-│   │   │   ├── Badge.tsx (2.7 KB)
+│   │   │   ├── Badge.tsx (3.0 KB)
 │   │   │   └── index.ts (123.0 B)
 │   │   ├── Button/
 │   │   │   ├── Button.stories.tsx (3.5 KB)
@@ -42,28 +42,32 @@ dara-ui/
 │   │   │   └── index.ts (129.0 B)
 │   │   ├── Card/
 │   │   │   ├── Card.stories.tsx (4.5 KB)
-│   │   │   ├── Card.tsx (2.3 KB)
+│   │   │   ├── Card.tsx (2.1 KB)
 │   │   │   └── index.ts (117.0 B)
 │   │   ├── Dropdown/
 │   │   │   ├── Dropdown.stories.tsx (9.6 KB)
-│   │   │   ├── Dropdown.tsx (13.1 KB)
+│   │   │   ├── Dropdown.tsx (12.9 KB)
 │   │   │   └── index.ts (157.0 B)
 │   │   ├── Input/
 │   │   │   ├── index.ts (123.0 B)
 │   │   │   ├── Input.stories.tsx (3.8 KB)
 │   │   │   └── Input.tsx (7.7 KB)
+│   │   ├── Modal/
+│   │   │   ├── index.ts (123.0 B)
+│   │   │   ├── Moda.tsx (5.5 KB)
+│   │   │   └── Modal.stories.tsx (7.4 KB)
 │   │   └── Tabs/
 │   │       ├── index.ts (126.0 B)
 │   │       ├── Tabs.stories.tsx (4.3 KB)
-│   │       └── Tabs.tsx (5.7 KB)
+│   │       └── Tabs.tsx (5.8 KB)
 │   ├── fonts/
 │   ├── hooks/
 │   │   └── useDirection.ts (739.0 B)
-│   ├── index.ts (1.3 KB)
+│   ├── index.ts (1.4 KB)
 │   ├── main.tsx (305.0 B)
 │   └── styles/
 │       ├── fonts.css (1.5 KB)
-│       ├── index.css (14.1 KB)
+│       ├── index.css (14.3 KB)
 │       └── tokens.css (8.8 KB)
 ├── tsconfig.app.json (655.0 B)
 ├── tsconfig.json (119.0 B)
@@ -78,7 +82,7 @@ dara-ui/
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 1/44: .gitignore
+FILE 1/47: .gitignore
 Language: plaintext | Size: 299 bytes
 Lines: 29 total | 18 code | 6 comments | 5 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -117,7 +121,7 @@ export_project.py
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 2/44: .storybook\main.ts
+FILE 2/47: .storybook\main.ts
 Language: typescript | Size: 418 bytes
 Lines: 17 total | 16 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -144,7 +148,7 @@ export default config;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 3/44: .storybook\preview.tsx
+FILE 3/47: .storybook\preview.tsx
 Language: tsx | Size: 471 bytes
 Lines: 24 total | 20 code | 0 comments | 4 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -177,7 +181,7 @@ export default preview;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 4/44: dara-ui_export.txt
+FILE 4/47: dara-ui_export.txt
 Language: plaintext | Size: 0 bytes
 Lines: 1 total | 0 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -188,7 +192,7 @@ Lines: 1 total | 0 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 5/44: eslint.config.js
+FILE 5/47: eslint.config.js
 Language: javascript | Size: 764 bytes
 Lines: 23 total | 19 code | 1 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -220,7 +224,7 @@ export default defineConfig([globalIgnores(['dist']), {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 6/44: export_project.py
+FILE 6/47: export_project.py
 Language: python | Size: 16,849 bytes
 Lines: 421 total | 345 code | 1 comments | 75 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -651,7 +655,7 @@ if __name__ == "__main__":
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 7/44: index.html
+FILE 7/47: index.html
 Language: html | Size: 359 bytes
 Lines: 14 total | 13 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -674,7 +678,7 @@ Lines: 14 total | 13 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 8/44: package.json
+FILE 8/47: package.json
 Language: json | Size: 1,782 bytes
 Lines: 67 total | 66 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -750,7 +754,7 @@ Lines: 67 total | 66 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 9/44: public\favicon.svg
+FILE 9/47: public\favicon.svg
 Language: plaintext | Size: 9,522 bytes
 Lines: 1 total | 1 code | 0 comments | 0 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -761,7 +765,7 @@ Lines: 1 total | 1 code | 0 comments | 0 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 10/44: public\icons.svg
+FILE 10/47: public\icons.svg
 Language: plaintext | Size: 5,031 bytes
 Lines: 25 total | 24 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -795,7 +799,7 @@ Lines: 25 total | 24 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 11/44: README.md
+FILE 11/47: README.md
 Language: markdown | Size: 2,427 bytes
 Lines: 76 total | 57 code | 3 comments | 16 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -880,13 +884,12 @@ export default defineConfig([
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 12/44: src\App.tsx
-Language: tsx | Size: 32,255 bytes
-Lines: 919 total | 864 code | 1 comments | 54 blank
+FILE 12/47: src\App.tsx
+Language: tsx | Size: 33,403 bytes
+Lines: 943 total | 890 code | 1 comments | 52 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
-// src/App.tsx
 import { useState, useEffect } from "react";
 import Button from "./components/Button/Button";
 import { Badge } from "./components/Badge/Badge";
@@ -895,6 +898,7 @@ import { Card } from "./components/Card/Card";
 import { Tabs } from "./components/Tabs/Tabs";
 import { Accordion } from "./components/Accordion/Accordion";
 import { Dropdown } from "./components/Dropdown/Dropdown";
+import { Modal } from "./components/Modal/Modal";
 import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 
@@ -1172,18 +1176,13 @@ const dropdownOptionsWithIcons = [
 function App() {
   const [theme, setTheme] = useState<Theme>("nightfall");
   const { direction, toggleDirection } = useDirection("ltr");
-
-  // Controlled Tabs state
   const [activeTab, setActiveTab] = useState("📁 Archive");
-
-  // Controlled Accordion state
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>(["1"]);
   const [accordionMode, setAccordionMode] = useState<"single" | "multiple">(
     "single",
   );
-
-  // Controlled Dropdown state
   const [selectedFramework, setSelectedFramework] = useState("react");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -1323,7 +1322,8 @@ function App() {
           </div>
         </section>
 
-        {/* ----- BUTTONS: VARIANTS ----- */}
+        {/* ----- BUTTONS SHOWCASE ----- */}
+        {/* Buttons: variants */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Button Variants</h2>
           <div className="flex flex-wrap gap-3">
@@ -1336,7 +1336,7 @@ function App() {
           </div>
         </section>
 
-        {/* ----- BUTTONS: STATES ----- */}
+        {/* Buttons: stats */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Button States</h2>
           <div className="flex flex-wrap gap-3 items-center">
@@ -1359,7 +1359,7 @@ function App() {
           </div>
         </section>
 
-        {/* ----- BUTTONS: SIZES ----- */}
+        {/* Buttons: sizes */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Button Sizes</h2>
           <div className="flex flex-wrap gap-3 items-center">
@@ -1798,6 +1798,34 @@ function App() {
             </p>
           </div>
         </section>
+
+        {/* ----- MODAL SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Modal</h2>
+          <div className="flex gap-3 flex-wrap">
+            <Button variant="primary" onClick={() => setIsModalOpen(true)}>
+              🔮 Open Modal
+            </Button>
+            <Button variant="glass" onClick={() => setIsModalOpen(true)}>
+              📜 View Content
+            </Button>
+          </div>
+          <Modal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            title="🗂️ Archive Access"
+            confirmText="Accept Mission"
+            cancelText="Decline"
+            onConfirm={() => {
+              console.log("Mission accepted!");
+              setIsModalOpen(false);
+            }}
+          >
+            You've discovered a sealed Jedi archive fragment. This modal uses
+            glass-heavy styling with blur(30px) backdrop, scale-in animation,
+            and is rendered via React Portal outside the DOM tree.
+          </Modal>
+        </section>
       </div>
     </div>
   );
@@ -1808,7 +1836,7 @@ export default App;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 13/44: src\components\Accordion\Accordion.stories.tsx
+FILE 13/47: src\components\Accordion\Accordion.stories.tsx
 Language: tsx | Size: 4,724 bytes
 Lines: 184 total | 172 code | 0 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -2001,7 +2029,7 @@ export const DisabledItem: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 14/44: src\components\Accordion\Accordion.tsx
+FILE 14/47: src\components\Accordion\Accordion.tsx
 Language: tsx | Size: 4,412 bytes
 Lines: 154 total | 139 code | 0 comments | 15 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -2164,7 +2192,7 @@ export default Accordion;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 15/44: src\components\Accordion\index.ts
+FILE 15/47: src\components\Accordion\index.ts
 Language: typescript | Size: 159 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -2177,7 +2205,7 @@ export { Accordion as default } from "./Accordion";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 16/44: src\components\Badge\Badge.stories.tsx
+FILE 16/47: src\components\Badge\Badge.stories.tsx
 Language: tsx | Size: 6,357 bytes
 Lines: 253 total | 240 code | 0 comments | 13 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -2439,9 +2467,9 @@ export const AllVariants: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 17/44: src\components\Badge\Badge.tsx
-Language: tsx | Size: 2,639 bytes
-Lines: 108 total | 97 code | 0 comments | 11 blank
+FILE 17/47: src\components\Badge\Badge.tsx
+Language: tsx | Size: 2,959 bytes
+Lines: 113 total | 102 code | 0 comments | 11 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
@@ -2502,29 +2530,34 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
 
     // Solid variants
     const solidVariants = {
-      primary: "bg-[#7c5cff] text-white",
-      secondary: "bg-[#00d9ff] text-[#0b0f19]",
-      success: "bg-[#00ff99] text-[#0b0f19]",
-      danger: "bg-[#ff5370] text-white",
-      warning: "bg-[#ffc857] text-[#0b0f19]",
+      primary: "bg-[var(--color-primary)] text-[var(--color-text-inverse)]",
+      secondary: "bg-[var(--color-secondary)] text-[var(--color-text-inverse)]",
+      success: "bg-[var(--color-success)] text-[var(--color-text-inverse)]",
+      danger: "bg-[var(--color-danger)] text-[var(--color-text-inverse)]",
+      warning: "bg-[var(--color-warning)] text-[var(--color-text-inverse)]",
     };
 
     // Outline variants
     const outlineVariants = {
-      primary: "border-2 border-[#7c5cff] text-[#7c5cff] bg-transparent",
-      secondary: "border-2 border-[#00d9ff] text-[#00d9ff] bg-transparent",
-      success: "border-2 border-[#00ff99] text-[#00ff99] bg-transparent",
-      danger: "border-2 border-[#ff5370] text-[#ff5370] bg-transparent",
-      warning: "border-2 border-[#ffc857] text-[#ffc857] bg-transparent",
+      primary:
+        "border-2 border-[var(--color-primary)] text-[var(--color-primary)] bg-transparent",
+      secondary:
+        "border-2 border-[var(--color-secondary)] text-[var(--color-secondary)] bg-transparent",
+      success:
+        "border-2 border-[var(--color-success)] text-[var(--color-success)] bg-transparent",
+      danger:
+        "border-2 border-[var(--color-danger)] text-[var(--color-danger)] bg-transparent",
+      warning:
+        "border-2 border-[var(--color-warning)] text-[var(--color-warning)] bg-transparent",
     };
 
     // Glow styles
     const glowStyles = {
-      primary: "shadow-[0_0_30px_rgba(124,92,255,0.2)]",
-      secondary: "shadow-[0_0_25px_rgba(0,217,255,0.15)]",
-      success: "shadow-[0_0_25px_rgba(0,255,153,0.15)]",
-      danger: "shadow-[0_0_25px_rgba(255,83,112,0.15)]",
-      warning: "shadow-[0_0_25px_rgba(255,200,87,0.15)]",
+      primary: "shadow-[var(--shadow-glow-primary)]",
+      secondary: "shadow-[var(--shadow-glow-secondary)]",
+      success: "shadow-[var(--shadow-glow-success)]",
+      danger: "shadow-[var(--shadow-glow-danger)]",
+      warning: "shadow-[var(--shadow-glow-warning)]",
     };
 
     const variantStyle = outline
@@ -2556,7 +2589,7 @@ export default Badge;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 18/44: src\components\Badge\index.ts
+FILE 18/47: src\components\Badge\index.ts
 Language: typescript | Size: 120 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -2569,7 +2602,7 @@ export { Badge as default } from "./Badge";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 19/44: src\components\Button\Button.stories.tsx
+FILE 19/47: src\components\Button\Button.stories.tsx
 Language: tsx | Size: 3,378 bytes
 Lines: 158 total | 146 code | 0 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -2736,7 +2769,7 @@ export const Interactive: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 20/44: src\components\Button\Button.tsx
+FILE 20/47: src\components\Button\Button.tsx
 Language: tsx | Size: 3,689 bytes
 Lines: 130 total | 121 code | 0 comments | 9 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -2875,7 +2908,7 @@ export default Button;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 21/44: src\components\Button\index.ts
+FILE 21/47: src\components\Button\index.ts
 Language: typescript | Size: 126 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -2888,7 +2921,7 @@ export { Button as default } from "./Button";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 22/44: src\components\Card\Card.stories.tsx
+FILE 22/47: src\components\Card\Card.stories.tsx
 Language: tsx | Size: 4,455 bytes
 Lines: 155 total | 147 code | 0 comments | 8 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3052,8 +3085,8 @@ export const ContentExamples: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 23/44: src\components\Card\Card.tsx
-Language: tsx | Size: 2,286 bytes
+FILE 23/47: src\components\Card\Card.tsx
+Language: tsx | Size: 2,000 bytes
 Lines: 106 total | 96 code | 0 comments | 10 blank
 ────────────────────────────────────────────────────────────────────────────────
 
@@ -3132,12 +3165,12 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     };
 
     const glowStyles = {
-      purple: "glow-purple hover:shadow-[0_16px_48px_rgba(124,92,255,0.3)]",
-      cyan: "glow-cyan hover:shadow-[0_16px_48px_rgba(0,217,255,0.3)]",
-      pink: "glow-pink hover:shadow-[0_16px_48px_rgba(255,77,157,0.3)]",
-      primary: "glow-purple hover:shadow-[0_16px_48px_rgba(124,92,255,0.3)]",
-      secondary: "glow-cyan hover:shadow-[0_16px_48px_rgba(0,217,255,0.3)]",
-      accent: "glow-pink hover:shadow-[0_16px_48px_rgba(255,77,157,0.3)]",
+      purple: "glow-purple",
+      cyan: "glow-cyan",
+      pink: "glow-pink",
+      primary: "glow-purple",
+      secondary: "glow-cyan",
+      accent: "glow-pink",
     };
 
     const floatClass = float ? "float-card" : "";
@@ -3167,7 +3200,7 @@ export default Card;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 24/44: src\components\Card\index.ts
+FILE 24/47: src\components\Card\index.ts
 Language: typescript | Size: 114 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3180,7 +3213,7 @@ export { Card as default } from "./Card";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 25/44: src\components\Dropdown\Dropdown.stories.tsx
+FILE 25/47: src\components\Dropdown\Dropdown.stories.tsx
 Language: tsx | Size: 9,485 bytes
 Lines: 376 total | 350 code | 0 comments | 26 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3565,9 +3598,9 @@ export const Interactive: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 26/44: src\components\Dropdown\Dropdown.tsx
-Language: tsx | Size: 12,977 bytes
-Lines: 428 total | 405 code | 0 comments | 23 blank
+FILE 26/47: src\components\Dropdown\Dropdown.tsx
+Language: tsx | Size: 12,788 bytes
+Lines: 426 total | 403 code | 0 comments | 23 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
@@ -3837,11 +3870,11 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             </span>
             <span
               className={`
-                transition-transform duration-[var(--transition-med)] ease-[var(--ease-in-out)]
-                ${isOpen ? "rotate-180" : "rotate-0"}
-                text-[var(--color-text-tertiary)]
-                flex-shrink-0
-              `}
+              transition-transform duration-[var(--transition-med)] ease-[var(--ease-in-out)]
+              ${isOpen ? "rotate-180" : "rotate-0"}
+              text-[var(--color-text-tertiary)]
+              flex-shrink-0
+            `}
             >
               <svg
                 className={`${iconSizes[size]}`}
@@ -3858,118 +3891,116 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               </svg>
             </span>
           </button>
-          {/* Dropdown Menu */}
-          {isOpen && (
-            <div
-              className={`
-                absolute z-50 w-full mt-1.5
-                glass max-h-60 overflow-auto
-                rounded-[var(--radius-md)]
-                py-1
-                shadow-[var(--shadow-float)]
-                transition-all duration-[var(--transition-fast)]
-                ${
-                  isOpen
-                    ? "opacity-100 translate-y-0 pointer-events-auto"
-                    : "opacity-0 -translate-y-2 pointer-events-none"
-                }
-              `}
-              role="listbox"
-              aria-label="Dropdown options"
-            >
-              {/* Search Input */}
-              {searchable && (
-                <div className="px-2 pb-1.5 border-b border-[var(--color-border-secondary)]">
-                  <input
-                    ref={searchInputRef}
-                    type="text"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder={searchPlaceholder}
-                    className={`
-                      w-full font-body text-[var(--color-text-primary)]
-                      placeholder:text-[var(--color-text-tertiary)]
-                      bg-[var(--color-bg-tertiary)]
-                      border border-[var(--color-border-secondary)]
-                      rounded-[var(--radius-sm)]
-                      outline-none
-                      transition-all duration-[var(--transition-fast)]
-                      focus:border-[var(--color-primary)]
-                      focus:ring-1 focus:ring-[var(--color-primary)]/20
-                      ${sizeStyles[size].search}
-                    `}
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                </div>
-              )}
-
-              {/* Options */}
-              {filteredOptions.length === 0 ? (
-                <div
+          {/* Dropdown Menu - with smooth appearance/disappearance */}
+          <div
+            className={`
+              absolute z-50 w-full mt-1.5
+              glass max-h-60 overflow-auto
+              rounded-[var(--radius-md)]
+              py-1
+              shadow-[var(--shadow-float)]
+              transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
+              ${
+                isOpen
+                  ? "opacity-100 translate-y-0 pointer-events-auto"
+                  : "opacity-0 -translate-y-2 pointer-events-none"
+              }
+            `}
+            role="listbox"
+            aria-label="Dropdown options"
+          >
+            {/* Search Input */}
+            {searchable && (
+              <div className="px-2 pb-1.5 border-b border-[var(--color-border-secondary)]">
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder={searchPlaceholder}
                   className={`
-                    text-[var(--color-text-tertiary)] text-center
-                    ${sizeStyles[size].option}
+                    w-full font-body text-[var(--color-text-primary)]
+                    placeholder:text-[var(--color-text-tertiary)]
+                    bg-[var(--color-bg-tertiary)]
+                    border border-[var(--color-border-secondary)]
+                    rounded-[var(--radius-standard)]
+                    outline-none
+                    transition-all duration-[var(--transition-fast)]
+                    focus:border-[var(--color-primary)]
+                    focus:ring-1 focus:ring-[var(--color-primary)]/20
+                    ${sizeStyles[size].search}
                   `}
-                >
-                  No options found
-                </div>
-              ) : (
-                filteredOptions.map((option) => {
-                  const isSelected = option.value === selectedValue;
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </div>
+            )}
 
-                  return (
-                    <button
-                      key={option.value}
-                      onClick={() => selectOption(option.value)}
-                      disabled={option.disabled}
-                      className={`
-                        w-full flex items-center gap-2
-                        text-left
-                        transition-colors duration-[var(--transition-fast)]
-                        ${sizeStyles[size].option}
-                        ${
-                          option.disabled
-                            ? "opacity-40 cursor-not-allowed"
-                            : "cursor-pointer hover:bg-[var(--color-bg-elevated)]/50"
-                        }
-                        ${
-                          isSelected
-                            ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
-                            : "text-[var(--color-text-primary)]"
-                        }
-                        focus:outline-none focus:bg-[var(--color-bg-elevated)]/30
-                      `}
-                      role="option"
-                      aria-selected={isSelected}
-                      aria-disabled={option.disabled}
-                    >
-                      {option.icon && (
-                        <span className="flex-shrink-0">{option.icon}</span>
-                      )}
-                      <span className="truncate">{option.label}</span>
-                      {isSelected && (
-                        <span className="ml-auto text-[var(--color-primary)] flex-shrink-0">
-                          <svg
-                            className={`${iconSizes[size]} opacity-80`}
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2.5}
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
-                        </span>
-                      )}
-                    </button>
-                  );
-                })
-              )}
-            </div>
-          )}
+            {/* Options */}
+            {filteredOptions.length === 0 ? (
+              <div
+                className={`
+                  text-[var(--color-text-tertiary)] text-center
+                  ${sizeStyles[size].option}
+                `}
+              >
+                No options found
+              </div>
+            ) : (
+              filteredOptions.map((option) => {
+                const isSelected = option.value === selectedValue;
+
+                return (
+                  <button
+                    key={option.value}
+                    onClick={() => selectOption(option.value)}
+                    disabled={option.disabled}
+                    className={`
+                      w-full flex items-center gap-2
+                      text-left
+                      transition-colors duration-[var(--transition-fast)]
+                      ${sizeStyles[size].option}
+                      ${
+                        option.disabled
+                          ? "opacity-40 cursor-not-allowed"
+                          : "cursor-pointer hover:bg-[var(--color-bg-elevated)]/50"
+                      }
+                      ${
+                        isSelected
+                          ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
+                          : "text-[var(--color-text-primary)]"
+                      }
+                      focus:outline-none focus:bg-[var(--color-bg-elevated)]/30
+                    `}
+                    role="option"
+                    aria-selected={isSelected}
+                    aria-disabled={option.disabled}
+                  >
+                    {option.icon && (
+                      <span className="flex-shrink-0">{option.icon}</span>
+                    )}
+                    <span className="truncate">{option.label}</span>
+                    {isSelected && (
+                      <span className="ml-auto text-[var(--color-primary)] flex-shrink-0">
+                        <svg
+                          className={`${iconSizes[size]} opacity-80`}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2.5}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </span>
+                    )}
+                  </button>
+                );
+              })
+            )}
+          </div>
         </div>
 
         {/* Helper Text / Error Message */}
@@ -4002,7 +4033,7 @@ export default Dropdown;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 27/44: src\components\Dropdown\index.ts
+FILE 27/47: src\components\Dropdown\index.ts
 Language: typescript | Size: 154 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -4015,7 +4046,7 @@ export { Dropdown as default } from "./Dropdown";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 28/44: src\components\Input\index.ts
+FILE 28/47: src\components\Input\index.ts
 Language: typescript | Size: 120 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -4028,7 +4059,7 @@ export { Input as default } from "./Input";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 29/44: src\components\Input\Input.stories.tsx
+FILE 29/47: src\components\Input\Input.stories.tsx
 Language: tsx | Size: 3,723 bytes
 Lines: 148 total | 135 code | 0 comments | 13 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -4185,7 +4216,7 @@ export const Disabled: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 30/44: src\components\Input\Input.tsx
+FILE 30/47: src\components\Input\Input.tsx
 Language: tsx | Size: 7,610 bytes
 Lines: 280 total | 264 code | 0 comments | 16 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -4474,7 +4505,503 @@ export default Input;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 31/44: src\components\Tabs\index.ts
+FILE 31/47: src\components\Modal\index.ts
+Language: typescript | Size: 120 bytes
+Lines: 4 total | 3 code | 0 comments | 1 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```typescript
+export { Modal } from "./Modal";
+export type { ModalProps } from "./Modal";
+export { Modal as default } from "./Modal";
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 32/47: src\components\Modal\Moda.tsx
+Language: tsx | Size: 5,386 bytes
+Lines: 223 total | 206 code | 0 comments | 17 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import React, { useEffect, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
+
+export interface ModalProps {
+  /**
+   * Whether the modal is open
+   * @default false
+   */
+  isOpen: boolean;
+  /**
+   * Callback when modal closes
+   */
+  onClose: () => void;
+  /**
+   * Modal title
+   */
+  title?: React.ReactNode;
+  /**
+   * Modal content
+   */
+  children: React.ReactNode;
+  /**
+   * Modal size
+   * @default "md"
+   */
+  size?: "sm" | "md" | "lg" | "xl";
+  /**
+   * Close on backdrop click
+   * @default true
+   */
+  closeOnBackdropClick?: boolean;
+  /**
+   * Close on Escape key
+   * @default true
+   */
+  closeOnEscape?: boolean;
+  /**
+   * Confirm button text
+   */
+  confirmText?: string;
+  /**
+   * Cancel button text
+   */
+  cancelText?: string;
+  /**
+   * Callback when confirm is clicked
+   */
+  onConfirm?: () => void;
+  /**
+   * Additional className for modal content
+   */
+  className?: string;
+}
+
+/**
+ * Dara UI Modal - Glass-heavy with blur(30px) backdrop
+ */
+export const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  title,
+  children,
+  size = "md",
+  closeOnBackdropClick = true,
+  closeOnEscape = true,
+  confirmText,
+  cancelText,
+  onConfirm,
+  className = "",
+}) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
+  // Size styles
+  const sizeStyles = {
+    sm: "max-w-sm",
+    md: "max-w-md",
+    lg: "max-w-lg",
+    xl: "max-w-xl",
+  };
+
+  // Handle escape key
+  useEffect(() => {
+    if (!isOpen || !closeOnEscape) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, closeOnEscape, onClose]);
+
+  // Focus management
+  useEffect(() => {
+    if (isOpen) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+      // Focus the modal container
+      setTimeout(() => {
+        modalRef.current?.focus();
+      }, 50);
+    } else {
+      // Restore focus
+      if (previousFocusRef.current) {
+        previousFocusRef.current.focus();
+      }
+    }
+  }, [isOpen]);
+
+  // Lock body scroll
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = "var(--scrollbar-width, 0px)";
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    };
+  }, [isOpen]);
+
+  // Handle backdrop click
+  const handleBackdropClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      if (closeOnBackdropClick && event.target === event.currentTarget) {
+        onClose();
+      }
+    },
+    [closeOnBackdropClick, onClose],
+  );
+
+  // Handle confirm
+  const handleConfirm = useCallback(() => {
+    if (onConfirm) {
+      onConfirm();
+    }
+    onClose();
+  }, [onConfirm, onClose]);
+
+  // If not open, don't render anything
+  if (!isOpen) return null;
+
+  // Portal rendering
+  return createPortal(
+    <div
+      ref={modalRef}
+      className={`
+        fixed inset-0 z-[10001]
+        flex items-center justify-center
+        bg-black/60 backdrop-blur-[6px]
+        transition-all duration-[var(--transition-med)] ease-[var(--ease-in-out)]
+        ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+      `}
+      onClick={handleBackdropClick}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={title ? "modal-title" : undefined}
+      tabIndex={-1}
+    >
+      <div
+        className={`
+          glass-heavy p-8
+          w-[90%] ${sizeStyles[size]}
+          transition-all duration-[var(--transition-med)] ease-[var(--ease-in-out)]
+          ${isOpen ? "scale-100" : "scale-90"}
+          ${className}
+        `}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          {title && (
+            <h3
+              id="modal-title"
+              className="font-heading text-xl font-bold text-[var(--color-text-primary)]"
+            >
+              {title}
+            </h3>
+          )}
+          <button
+            onClick={onClose}
+            className="text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] text-2xl leading-none transition-colors duration-180"
+            aria-label="Close modal"
+          >
+            &times;
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="text-[var(--color-text-secondary)] mb-4 font-body text-sm leading-relaxed">
+          {children}
+        </div>
+
+        {/* Footer with actions */}
+        {(confirmText || cancelText) && (
+          <div className="flex gap-3 mt-6">
+            {confirmText && (
+              <button className="btn-dara btn-primary" onClick={handleConfirm}>
+                {confirmText}
+              </button>
+            )}
+            {cancelText && (
+              <button className="btn-dara btn-glass" onClick={onClose}>
+                {cancelText}
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    </div>,
+    document.body,
+  );
+};
+
+Modal.displayName = "Modal";
+export default Modal;
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 33/47: src\components\Modal\Modal.stories.tsx
+Language: tsx | Size: 7,350 bytes
+Lines: 242 total | 228 code | 0 comments | 14 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { Modal } from "./Modal";
+import { useState } from "react";
+import Button from "../Button/Button";
+
+const meta = {
+  title: "Components/Modal",
+  component: Modal,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+  argTypes: {
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg", "xl"],
+      description: "Modal size",
+    },
+    closeOnBackdropClick: {
+      control: "boolean",
+      description: "Close on backdrop click",
+    },
+    closeOnEscape: {
+      control: "boolean",
+      description: "Close on Escape key",
+    },
+  },
+  args: {
+    size: "md",
+    closeOnBackdropClick: true,
+    closeOnEscape: true,
+  },
+} satisfies Meta<typeof Modal>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  render: function DefaultStory(args) {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+      <>
+        <Button variant="primary" onClick={() => setIsOpen(true)}>
+          🔮 Open Modal
+        </Button>
+        <Modal
+          {...args}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          title="🗂️ Archive Access"
+          confirmText="Accept Mission"
+          cancelText="Decline"
+        >
+          You've discovered a sealed Jedi archive fragment. This modal uses
+          glass-heavy styling with blur(30px) backdrop.
+        </Modal>
+      </>
+    );
+  },
+};
+
+export const WithCustomContent: Story = {
+  render: function WithCustomContentStory(args) {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+      <>
+        <Button variant="primary" onClick={() => setIsOpen(true)}>
+          📦 Open Modal
+        </Button>
+        <Modal
+          {...args}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          title="📦 Package Details"
+          confirmText="Install"
+          cancelText="Cancel"
+          size="lg"
+        >
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
+              <span className="text-2xl">📦</span>
+              <div>
+                <p className="font-heading font-semibold text-[var(--color-text-primary)]">
+                  dara-ui@0.1.0
+                </p>
+                <p className="text-xs text-[var(--color-text-tertiary)]">
+                  A design system with glassmorphism and cyberpunk vibes
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col gap-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-[var(--color-text-tertiary)]">
+                  Version
+                </span>
+                <span className="text-[var(--color-text-primary)]">0.1.0</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-[var(--color-text-tertiary)]">
+                  License
+                </span>
+                <span className="text-[var(--color-text-primary)]">MIT</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-[var(--color-text-tertiary)]">Size</span>
+                <span className="text-[var(--color-text-primary)]">
+                  23.95 KB
+                </span>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      </>
+    );
+  },
+};
+
+export const WithoutActions: Story = {
+  render: function WithoutActionsStory(args) {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+      <>
+        <Button variant="glass" onClick={() => setIsOpen(true)}>
+          👁️ View Only
+        </Button>
+        <Modal
+          {...args}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          title="📋 Information"
+          size="sm"
+        >
+          <p className="text-[var(--color-text-secondary)]">
+            This modal has no action buttons. Click the backdrop or press Escape
+            to close.
+          </p>
+          <div className="mt-4 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] text-xs font-mono text-[var(--color-text-tertiary)]">
+            <span className="text-[var(--color-primary)]">//</span> No actions
+            attached
+          </div>
+        </Modal>
+      </>
+    );
+  },
+};
+
+export const WithLongContent: Story = {
+  render: function WithLongContentStory(args) {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+      <>
+        <Button variant="primary" onClick={() => setIsOpen(true)}>
+          📜 Read More
+        </Button>
+        <Modal
+          {...args}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          title="📜 The Dara Archive"
+          confirmText="Close"
+          size="lg"
+        >
+          <div className="space-y-4 text-[var(--color-text-secondary)]">
+            <p>
+              Dara UI is a design system that feels like an interface discovered
+              inside a futuristic archive hidden beneath Calgary during a
+              snowstorm.
+            </p>
+            <p>
+              It blends glassmorphism, cyberpunk, gothic aesthetics, Apple
+              minimalism, and anime HUD elements to create a unique, immersive
+              experience.
+            </p>
+            <div className="p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
+              <p className="text-xs font-mono text-[var(--color-text-tertiary)]">
+                <span className="text-[var(--color-primary)]">const</span> dara
+                = {"{"}
+                <br />
+                &nbsp;&nbsp;vibe:{" "}
+                <span className="text-[var(--color-success)]">'cyberpunk'</span>
+                ,
+                <br />
+                &nbsp;&nbsp;style:{" "}
+                <span className="text-[var(--color-secondary)]">
+                  'glassmorphism'
+                </span>
+                ,
+                <br />
+                &nbsp;&nbsp;mood:{" "}
+                <span className="text-[var(--color-accent)]">'gothic'</span>
+                <br />
+                {"}"};
+              </p>
+            </div>
+          </div>
+        </Modal>
+      </>
+    );
+  },
+};
+
+// Size variants showcase
+export const Sizes: Story = {
+  render: function SizesStory() {
+    const [openModal, setOpenModal] = useState<string | null>(null);
+
+    const sizes = [
+      { key: "sm", label: "Small" },
+      { key: "md", label: "Medium" },
+      { key: "lg", label: "Large" },
+      { key: "xl", label: "Extra Large" },
+    ] as const;
+
+    return (
+      <div className="flex flex-wrap gap-4">
+        {sizes.map(({ key, label }) => (
+          <Button key={key} variant="outline" onClick={() => setOpenModal(key)}>
+            {label}
+          </Button>
+        ))}
+        {sizes.map(({ key, label }) => (
+          <Modal
+            key={key}
+            isOpen={openModal === key}
+            onClose={() => setOpenModal(null)}
+            title={`${label} Modal`}
+            size={key}
+            confirmText="Close"
+          >
+            This is a <strong>{label}</strong> modal. Size:{" "}
+            <code className="text-[var(--color-primary)]">{key}</code>
+          </Modal>
+        ))}
+      </div>
+    );
+  },
+};
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 34/47: src\components\Tabs\index.ts
 Language: typescript | Size: 123 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -4487,7 +5014,7 @@ export { Tabs as default } from "./Tabs";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 32/44: src\components\Tabs\Tabs.stories.tsx
+FILE 35/47: src\components\Tabs\Tabs.stories.tsx
 Language: tsx | Size: 4,153 bytes
 Lines: 179 total | 169 code | 0 comments | 10 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -4675,9 +5202,9 @@ export const WithIcons: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 33/44: src\components\Tabs\Tabs.tsx
-Language: tsx | Size: 5,629 bytes
-Lines: 193 total | 175 code | 0 comments | 18 blank
+FILE 36/47: src\components\Tabs\Tabs.tsx
+Language: tsx | Size: 5,720 bytes
+Lines: 194 total | 176 code | 0 comments | 18 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
@@ -4774,12 +5301,13 @@ export const Tabs: React.FC<TabsProps> = ({
 
   // Glow styles
   const glowStyles = {
-    primary: "bg-[#7c5cff] shadow-[0_0_12px_rgba(124,92,255,0.6)]",
-    secondary: "bg-[#00d9ff] shadow-[0_0_12px_rgba(0,217,255,0.6)]",
-    accent: "bg-[#ff4d9d] shadow-[0_0_12px_rgba(255,77,157,0.6)]",
-    success: "bg-[#00ff99] shadow-[0_0_12px_rgba(0,255,153,0.6)]",
-    danger: "bg-[#ff5370] shadow-[0_0_12px_rgba(255,83,112,0.6)]",
-    none: "bg-[#2a3a52]",
+    primary: "bg-[var(--color-primary)] shadow-[0_0_12px_rgba(124,92,255,0.6)]",
+    secondary:
+      "bg-[var(--color-secondary)] shadow-[0_0_12px_rgba(0,217,255,0.6)]",
+    accent: "bg-[var(--color-accent)] shadow-[0_0_12px_rgba(255,77,157,0.6)]",
+    success: "bg-[var(--color-success)] shadow-[0_0_12px_rgba(0,255,153,0.6)]",
+    danger: "bg-[var(--color-danger)] shadow-[0_0_12px_rgba(255,83,112,0.6)]",
+    none: "bg-[var(--color-border-primary)]",
   };
 
   const alignStyles = {
@@ -4877,7 +5405,7 @@ export default Tabs;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 34/44: src\hooks\useDirection.ts
+FILE 37/47: src\hooks\useDirection.ts
 Language: typescript | Size: 715 bytes
 Lines: 25 total | 17 code | 0 comments | 8 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -4911,9 +5439,9 @@ export default useDirection;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 35/44: src\index.ts
-Language: typescript | Size: 1,297 bytes
-Lines: 42 total | 24 code | 7 comments | 11 blank
+FILE 38/47: src\index.ts
+Language: typescript | Size: 1,434 bytes
+Lines: 46 total | 26 code | 8 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```typescript
@@ -4949,6 +5477,10 @@ export type {
   DropdownOption,
 } from "./components/Dropdown/Dropdown";
 
+// ----- New: Modal -----
+export { Modal } from "./components/Modal/Modal";
+export type { ModalProps } from "./components/Modal/Modal";
+
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";
 export type { Direction } from "./hooks/useDirection";
@@ -4962,7 +5494,7 @@ import "./styles/index.css";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 36/44: src\main.tsx
+FILE 39/47: src\main.tsx
 Language: tsx | Size: 305 bytes
 Lines: 13 total | 10 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -4984,7 +5516,7 @@ createRoot(document.getElementById("root")!).render(
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 37/44: src\styles\fonts.css
+FILE 40/47: src\styles\fonts.css
 Language: css | Size: 1,488 bytes
 Lines: 61 total | 49 code | 5 comments | 7 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5054,9 +5586,9 @@ Lines: 61 total | 49 code | 5 comments | 7 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 38/44: src\styles\index.css
-Language: css | Size: 14,416 bytes
-Lines: 688 total | 570 code | 30 comments | 88 blank
+FILE 41/47: src\styles\index.css
+Language: css | Size: 14,622 bytes
+Lines: 700 total | 579 code | 30 comments | 91 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```css
@@ -5278,21 +5810,33 @@ button.glass,
    ============================================= */
 
 .glow-purple {
+  box-shadow: var(--shadow-glow-primary);
+}
+
+.glow-purple.float-card:hover {
   box-shadow:
-    0 0 30px rgba(124, 92, 255, 0.2),
-    0 8px 32px rgba(0, 0, 0, 0.25);
+    var(--shadow-glow-primary),
+    0 16px 48px rgba(0, 0, 0, 0.4);
 }
 
 .glow-cyan {
+  box-shadow: var(--shadow-glow-secondary);
+}
+
+.glow-cyan.float-card:hover {
   box-shadow:
-    0 0 25px rgba(0, 217, 255, 0.15),
-    0 8px 32px rgba(0, 0, 0, 0.25);
+    var(--shadow-glow-secondary),
+    0 16px 48px rgba(0, 0, 0, 0.4);
 }
 
 .glow-pink {
+  box-shadow: var(--shadow-glow-accent);
+}
+
+.glow-pink.float-card:hover {
   box-shadow:
-    0 0 25px rgba(255, 77, 157, 0.15),
-    0 8px 32px rgba(0, 0, 0, 0.25);
+    var(--shadow-glow-accent),
+    0 16px 48px rgba(0, 0, 0, 0.4);
 }
 
 /* =============================================
@@ -5307,19 +5851,19 @@ button.glass,
 
 .float-card:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 52px rgba(0, 0, 0, 0.4);
 }
 
 .glow-purple.float-card:hover {
-  box-shadow: 0 16px 48px rgba(124, 92, 255, 0.3);
+  box-shadow: 0 6px 52px rgba(124, 92, 255, 0.3);
 }
 
 .glow-cyan.float-card:hover {
-  box-shadow: 0 16px 48px rgba(0, 217, 255, 0.3);
+  box-shadow: 0 6px 52px rgba(0, 217, 255, 0.3);
 }
 
 .glow-pink.float-card:hover {
-  box-shadow: 0 16px 48px rgba(255, 77, 157, 0.3);
+  box-shadow: 0 6px 52px rgba(255, 77, 157, 0.3);
 }
 
 /* =============================================
@@ -5751,7 +6295,7 @@ html[lang="ar-SA"] {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 39/44: src\styles\tokens.css
+FILE 42/47: src\styles\tokens.css
 Language: css | Size: 8,672 bytes
 Lines: 281 total | 217 code | 16 comments | 48 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6041,7 +6585,7 @@ Lines: 281 total | 217 code | 16 comments | 48 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 40/44: tsconfig.app.json
+FILE 43/47: tsconfig.app.json
 Language: json | Size: 655 bytes
 Lines: 27 total | 24 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6077,7 +6621,7 @@ Lines: 27 total | 24 code | 0 comments | 3 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 41/44: tsconfig.json
+FILE 44/47: tsconfig.json
 Language: json | Size: 119 bytes
 Lines: 8 total | 7 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6094,7 +6638,7 @@ Lines: 8 total | 7 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 42/44: tsconfig.node.json
+FILE 45/47: tsconfig.node.json
 Language: json | Size: 558 bytes
 Lines: 24 total | 21 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6127,7 +6671,7 @@ Lines: 24 total | 21 code | 0 comments | 3 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 43/44: vite.config.ts
+FILE 46/47: vite.config.ts
 Language: typescript | Size: 1,720 bytes
 Lines: 71 total | 66 code | 2 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6207,7 +6751,7 @@ export default defineConfig({
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 44/44: vitest.shims.d.ts
+FILE 47/47: vitest.shims.d.ts
 Language: typescript | Size: 52 bytes
 Lines: 1 total | 0 code | 1 comments | 0 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6222,26 +6766,26 @@ Lines: 1 total | 0 code | 1 comments | 0 blank
 
 GENERAL STATISTICS
 ----------------------------------------
-Total files exported: 44
-Total size: 176,607 bytes (172.47 KB, 0.17 MB)
-Average file size: 4,014 bytes
+Total files exported: 47
+Total size: 190,890 bytes (186.42 KB, 0.18 MB)
+Average file size: 4,061 bytes
 
 LANGUAGE DISTRIBUTION
 ----------------------------------------
-tsx               17 files ( 38.6%) ███████████████████
-typescript        12 files ( 27.3%) █████████████
-plaintext          4 files (  9.1%) ████
-json               4 files (  9.1%) ████
-css                3 files (  6.8%) ███
-javascript         1 files (  2.3%) █
-python             1 files (  2.3%) █
-html               1 files (  2.3%) █
-markdown           1 files (  2.3%) █
+tsx               19 files ( 40.4%) ████████████████████
+typescript        13 files ( 27.7%) █████████████
+plaintext          4 files (  8.5%) ████
+json               4 files (  8.5%) ████
+css                3 files (  6.4%) ███
+javascript         1 files (  2.1%) █
+python             1 files (  2.1%) █
+html               1 files (  2.1%) █
+markdown           1 files (  2.1%) █
 
 EXPORT METADATA
 ----------------------------------------
 Export tool: Advanced Project Code Exporter v2.0
-Export date: 2026-07-25 16:53:43
+Export date: 2026-07-26 08:57:59
 Python version: 3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]
 Platform: win32
 

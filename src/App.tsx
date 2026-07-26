@@ -1,4 +1,3 @@
-// src/App.tsx
 import { useState, useEffect } from "react";
 import Button from "./components/Button/Button";
 import { Badge } from "./components/Badge/Badge";
@@ -7,6 +6,7 @@ import { Card } from "./components/Card/Card";
 import { Tabs } from "./components/Tabs/Tabs";
 import { Accordion } from "./components/Accordion/Accordion";
 import { Dropdown } from "./components/Dropdown/Dropdown";
+import { Modal } from "./components/Modal/Modal";
 import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 
@@ -284,18 +284,13 @@ const dropdownOptionsWithIcons = [
 function App() {
   const [theme, setTheme] = useState<Theme>("nightfall");
   const { direction, toggleDirection } = useDirection("ltr");
-
-  // Controlled Tabs state
   const [activeTab, setActiveTab] = useState("📁 Archive");
-
-  // Controlled Accordion state
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>(["1"]);
   const [accordionMode, setAccordionMode] = useState<"single" | "multiple">(
     "single",
   );
-
-  // Controlled Dropdown state
   const [selectedFramework, setSelectedFramework] = useState("react");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -435,7 +430,8 @@ function App() {
           </div>
         </section>
 
-        {/* ----- BUTTONS: VARIANTS ----- */}
+        {/* ----- BUTTONS SHOWCASE ----- */}
+        {/* Buttons: variants */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Button Variants</h2>
           <div className="flex flex-wrap gap-3">
@@ -448,7 +444,7 @@ function App() {
           </div>
         </section>
 
-        {/* ----- BUTTONS: STATES ----- */}
+        {/* Buttons: stats */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Button States</h2>
           <div className="flex flex-wrap gap-3 items-center">
@@ -471,7 +467,7 @@ function App() {
           </div>
         </section>
 
-        {/* ----- BUTTONS: SIZES ----- */}
+        {/* Buttons: sizes */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Button Sizes</h2>
           <div className="flex flex-wrap gap-3 items-center">
@@ -824,6 +820,34 @@ function App() {
               />
             </div>
           </div>
+        </section>
+
+        {/* ----- MODAL SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Modal</h2>
+          <div className="flex gap-3 flex-wrap">
+            <Button variant="primary" onClick={() => setIsModalOpen(true)}>
+              🔮 Open Modal
+            </Button>
+            <Button variant="glass" onClick={() => setIsModalOpen(true)}>
+              📜 View Content
+            </Button>
+          </div>
+          <Modal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            title="🗂️ Archive Access"
+            confirmText="Accept Mission"
+            cancelText="Decline"
+            onConfirm={() => {
+              console.log("Mission accepted!");
+              setIsModalOpen(false);
+            }}
+          >
+            You've discovered a sealed Jedi archive fragment. This modal uses
+            glass-heavy styling with blur(30px) backdrop, scale-in animation,
+            and is rendered via React Portal outside the DOM tree.
+          </Modal>
         </section>
 
         {/* ----- GLOW SHOWCASE ----- */}

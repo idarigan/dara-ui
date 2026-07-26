@@ -30,6 +30,10 @@ export type {
   DropdownOption,
 } from "./components/Dropdown/Dropdown";
 
+// ----- New: Modal -----
+export { Modal } from "./components/Modal/Modal";
+export type { ModalProps } from "./components/Modal/Modal";
+
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";
 export type { Direction } from "./hooks/useDirection";
