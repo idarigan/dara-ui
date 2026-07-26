@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 
 export interface ModalProps {
@@ -53,7 +53,7 @@ export interface ModalProps {
 }
 
 /**
- * Dara UI Modal - Glass-heavy with blur(30px) backdrop
+ * Dara UI Modal
  */
 export const Modal: React.FC<ModalProps> = ({
   isOpen,
@@ -70,6 +70,8 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+  const [shouldRender, setShouldRender] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   // Size styles
   const sizeStyles = {
@@ -78,6 +80,25 @@ export const Modal: React.FC<ModalProps> = ({
     lg: "max-w-lg",
     xl: "max-w-xl",
   };
+
+  // Handle open/close animation
+  useEffect(() => {
+    if (isOpen) {
+      setShouldRender(true);
+      // Trigger enter animation after a tiny delay
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+      }, 10);
+      return () => clearTimeout(timer);
+    } else {
+      setIsVisible(false);
+      // Wait for exit animation to complete before removing from DOM
+      const timer = setTimeout(() => {
+        setShouldRender(false);
+      }, 250); // Match transition duration
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
 
   // Handle escape key
   useEffect(() => {
@@ -143,8 +164,8 @@ export const Modal: React.FC<ModalProps> = ({
     onClose();
   }, [onConfirm, onClose]);
 
-  // If not open, don't render anything
-  if (!isOpen) return null;
+  // Don't render anything if shouldRender is false
+  if (!shouldRender) return null;
 
   // Portal rendering
   return createPortal(
@@ -155,7 +176,7 @@ export const Modal: React.FC<ModalProps> = ({
         flex items-center justify-center
         bg-black/60 backdrop-blur-[6px]
         transition-all duration-[var(--transition-med)] ease-[var(--ease-in-out)]
-        ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+        ${isVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
       `}
       onClick={handleBackdropClick}
       role="dialog"
@@ -168,7 +189,7 @@ export const Modal: React.FC<ModalProps> = ({
           glass-heavy p-8
           w-[90%] ${sizeStyles[size]}
           transition-all duration-[var(--transition-med)] ease-[var(--ease-in-out)]
-          ${isOpen ? "scale-100" : "scale-90"}
+          ${isVisible ? "scale-100 opacity-100" : "scale-90 opacity-0"}
           ${className}
         `}
         onClick={(e) => e.stopPropagation()}
