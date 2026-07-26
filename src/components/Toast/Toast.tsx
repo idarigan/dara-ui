@@ -89,6 +89,9 @@ const InfoIcon = () => (
   </svg>
 );
 
+/**
+ * ToastIcon - Renders the appropriate icon based on toast type
+ */
 const ToastIcon: React.FC<{ type: ToastType }> = ({ type }) => {
   switch (type) {
     case "success":
@@ -104,6 +107,13 @@ const ToastIcon: React.FC<{ type: ToastType }> = ({ type }) => {
 
 /**
  * Individual Toast Component
+ *
+ * Features:
+ * - Glass-heavy styling with blur(30px) backdrop
+ * - Slide-in animation from the right edge
+ * - Auto-dismiss after duration
+ * - Manual dismiss with close button
+ * - Color-coded for different types
  */
 export const Toast: React.FC<ToastProps> = ({
   message,
@@ -111,10 +121,11 @@ export const Toast: React.FC<ToastProps> = ({
   duration = 3000,
   onDismiss,
 }) => {
+  // State for controlling enter/exit animations
   const [isVisible, setIsVisible] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
 
-  // Color mapping for toast types
+  // Color mapping for toast types - determines background, border, and text color
   const typeColors = {
     success: {
       bg: "bg-[rgba(0,255,153,0.12)]",
@@ -138,7 +149,7 @@ export const Toast: React.FC<ToastProps> = ({
     },
   };
 
-  // Enter animation
+  // Enter animation - trigger after mount so CSS transition works
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
@@ -146,7 +157,7 @@ export const Toast: React.FC<ToastProps> = ({
     return () => clearTimeout(timer);
   }, []);
 
-  // Auto-dismiss
+  // Auto-dismiss - remove toast after duration
   useEffect(() => {
     if (duration <= 0) return;
     const timer = setTimeout(() => {
@@ -155,6 +166,10 @@ export const Toast: React.FC<ToastProps> = ({
     return () => clearTimeout(timer);
   }, [duration]);
 
+  /**
+   * handleDismiss - Triggers exit animation then calls onDismiss
+   * Uses two-phase animation: first scale down, then remove from DOM
+   */
   const handleDismiss = useCallback(() => {
     setIsExiting(true);
     setIsVisible(false);
@@ -185,10 +200,13 @@ export const Toast: React.FC<ToastProps> = ({
       role="alert"
       aria-live="polite"
     >
+      {/* Icon */}
       <span className={`${colors.text} flex-shrink-0`}>
         <ToastIcon type={type} />
       </span>
+      {/* Message */}
       <span className="text-[var(--color-text-primary)] flex-1">{message}</span>
+      {/* Dismiss button */}
       <button
         onClick={handleDismiss}
         className="text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 flex-shrink-0 ml-2"
@@ -220,6 +238,15 @@ export interface ToastContainerProps {
   onRemove: (id: string) => void;
 }
 
+/**
+ * ToastContainer - Renders all active toasts via React Portal
+ *
+ * Features:
+ * - Renders toasts in a fixed position at top-right of the viewport
+ * - Uses React Portal to avoid z-index and stacking context issues
+ * - Each toast has its own width independent of others
+ * - FIFO ordering: newest toasts appear at the top
+ */
 export const ToastContainer: React.FC<ToastContainerProps> = ({
   toasts,
   onRemove,
@@ -227,7 +254,7 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
   if (toasts.length === 0) return null;
 
   return createPortal(
-    <div className="fixed top-6 right-6 z-[10000] flex flex-col gap-3 pointer-events-none">
+    <div className="fixed top-6 right-6 z-[10000] flex flex-col-reverse gap-3 pointer-events-none">
       {toasts.map((toast) => (
         <div key={toast.id} className="pointer-events-auto">
           <Toast {...toast} onDismiss={() => onRemove(toast.id)} />

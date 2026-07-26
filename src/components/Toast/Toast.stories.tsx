@@ -151,7 +151,7 @@ export const Info: Story = {
   },
 };
 
-// ----- Stacked -----
+// ----- Stacked (shows multiple toasts stacked vertically) -----
 export const Stacked: Story = {
   render: function StackedStory() {
     const [toasts, setToasts] = useState<
@@ -167,7 +167,14 @@ export const Stacked: Story = {
       message: string,
     ) => {
       const id = Date.now().toString();
-      setToasts((prev) => [...prev, { id, type, message }]);
+      setToasts((prev) => {
+        const newToasts = [...prev, { id, type, message }];
+        // Keep max 5 toasts (FIFO)
+        if (newToasts.length > 5) {
+          return newToasts.slice(1);
+        }
+        return newToasts;
+      });
       setTimeout(() => {
         setToasts((prev) => prev.filter((t) => t.id !== id));
       }, 3500);
@@ -209,12 +216,14 @@ export const Stacked: Story = {
                 () => addToast("warning", "Task 3 needs review"),
                 1000,
               );
+              setTimeout(() => addToast("success", "Task 4 done"), 1500);
+              setTimeout(() => addToast("error", "Task 5 failed"), 2000);
             }}
           >
-            Stack 3
+            Stack 5
           </Button>
         </div>
-        <div className="absolute top-0 right-0 flex flex-col gap-3 pointer-events-none">
+        <div className="absolute top-0 right-0 flex flex-col-reverse gap-3 pointer-events-none">
           {toasts.map((toast) => (
             <div key={toast.id} className="pointer-events-auto">
               <Toast
