@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -78,10 +78,14 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
       group = false,
       onClick,
       className = "",
+      children,
       ...props
     },
     ref,
   ) => {
+    // State to track if image failed to load
+    const [imageError, setImageError] = useState(false);
+
     // Size mapping
     const sizes = {
       xs: "w-6 h-6 text-[10px]",
@@ -165,19 +169,19 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
       </svg>
     );
 
+    // Determine if we should show image
+    const showImage = src && !fallback && !imageError;
+
     // Render content
     const renderContent = () => {
-      // If we have an image and not forcing fallback
-      if (src && !fallback) {
+      // If we have an image and not forcing fallback and no error
+      if (showImage) {
         return (
           <img
             src={src}
             alt={alt}
             className="w-full h-full object-cover"
-            onError={(e) => {
-              // If image fails, show fallback
-              (e.target as HTMLImageElement).style.display = "none";
-            }}
+            onError={() => setImageError(true)}
           />
         );
       }
@@ -199,7 +203,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
     if (group) {
       return (
         <div ref={ref} className={`flex -space-x-2 ${className}`} {...props}>
-          {React.Children.map(props.children, (child) => {
+          {React.Children.map(children, (child) => {
             if (React.isValidElement(child)) {
               return React.cloneElement(
                 child as React.ReactElement<AvatarProps>,
@@ -207,7 +211,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
                   size: size,
                   shape: shape,
                   bordered: true,
-                  className: "ring-2 ring-[var(--color-bg-primary)]",
+                  className: `${shapes[shape]} ring-2 ring-[var(--color-bg-primary)] ${(child.props as AvatarProps).className || ""}`,
                 },
               );
             }
@@ -223,22 +227,30 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
         className={`
           relative inline-flex items-center justify-center
           flex-shrink-0
-          bg-[var(--color-bg-tertiary)]
-          text-[var(--color-text-secondary)]
-          transition-all duration-[var(--transition-fast)]
-          ${sizes[size]}
-          ${shapes[shape]}
-          ${borderClass}
-          ${glowClass}
           ${onClick ? "cursor-pointer hover:opacity-80" : ""}
           ${className}
         `}
         onClick={handleClick}
         {...props}
       >
-        {renderContent()}
+        {/* Avatar content with overflow hidden */}
+        <div
+          className={`
+            flex items-center justify-center
+            bg-[var(--color-bg-tertiary)]
+            text-[var(--color-text-secondary)]
+            transition-all duration-[var(--transition-fast)]
+            ${sizes[size]}
+            ${shapes[shape]}
+            ${borderClass}
+            ${glowClass}
+            overflow-hidden
+          `}
+        >
+          {renderContent()}
+        </div>
 
-        {/* Status indicator */}
+        {/* Status indicator - placed OUTSIDE the overflow-hidden container */}
         {status && (
           <span
             className={`
