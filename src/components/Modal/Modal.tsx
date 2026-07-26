@@ -1,3 +1,4 @@
+// src/components/Modal/Modal.tsx
 import React, { useEffect, useRef, useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -53,7 +54,8 @@ export interface ModalProps {
 }
 
 /**
- * Dara UI Modal
+ * Dara UI Modal - Glass-heavy with blur(30px) backdrop
+ * Features scale-in/out animation matching the original demo
  */
 export const Modal: React.FC<ModalProps> = ({
   isOpen,
@@ -70,8 +72,8 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
 
   // Size styles
   const sizeStyles = {
@@ -84,21 +86,20 @@ export const Modal: React.FC<ModalProps> = ({
   // Handle open/close animation
   useEffect(() => {
     if (isOpen) {
+      // Opening: render and animate in
       setShouldRender(true);
-      // Trigger enter animation after a tiny delay
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 10);
-      return () => clearTimeout(timer);
-    } else {
-      setIsVisible(false);
-      // Wait for exit animation to complete before removing from DOM
+      setIsAnimatingOut(false);
+    } else if (shouldRender && !isAnimatingOut) {
+      // Closing: start exit animation
+      setIsAnimatingOut(true);
+      // Wait for animation to complete before removing from DOM
       const timer = setTimeout(() => {
         setShouldRender(false);
-      }, 250); // Match transition duration
+        setIsAnimatingOut(false);
+      }, 300); // Match transition duration
       return () => clearTimeout(timer);
     }
-  }, [isOpen]);
+  }, [isOpen, shouldRender, isAnimatingOut]);
 
   // Handle escape key
   useEffect(() => {
@@ -118,32 +119,14 @@ export const Modal: React.FC<ModalProps> = ({
   useEffect(() => {
     if (isOpen) {
       previousFocusRef.current = document.activeElement as HTMLElement;
-      // Focus the modal container
       setTimeout(() => {
         modalRef.current?.focus();
       }, 50);
     } else {
-      // Restore focus
       if (previousFocusRef.current) {
         previousFocusRef.current.focus();
       }
     }
-  }, [isOpen]);
-
-  // Lock body scroll
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = "var(--scrollbar-width, 0px)";
-    } else {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-    };
   }, [isOpen]);
 
   // Handle backdrop click
@@ -166,6 +149,9 @@ export const Modal: React.FC<ModalProps> = ({
 
   // Don't render anything if shouldRender is false
   if (!shouldRender) return null;
+
+  // Determine visibility state for animation
+  const isVisible = isOpen && !isAnimatingOut;
 
   // Portal rendering
   return createPortal(
