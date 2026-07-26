@@ -1,222 +1,181 @@
-import React, { useEffect, useRef, useCallback } from "react";
-import { createPortal } from "react-dom";
+import type { Meta, StoryObj } from "@storybook/react";
+import { Modal } from "./Modal";
+import { useState } from "react";
+import Button from "../Button/Button";
 
-export interface ModalProps {
-  /**
-   * Whether the modal is open
-   * @default false
-   */
-  isOpen: boolean;
-  /**
-   * Callback when modal closes
-   */
-  onClose: () => void;
-  /**
-   * Modal title
-   */
-  title?: React.ReactNode;
-  /**
-   * Modal content
-   */
-  children: React.ReactNode;
-  /**
-   * Modal size
-   * @default "md"
-   */
-  size?: "sm" | "md" | "lg" | "xl";
-  /**
-   * Close on backdrop click
-   * @default true
-   */
-  closeOnBackdropClick?: boolean;
-  /**
-   * Close on Escape key
-   * @default true
-   */
-  closeOnEscape?: boolean;
-  /**
-   * Confirm button text
-   */
-  confirmText?: string;
-  /**
-   * Cancel button text
-   */
-  cancelText?: string;
-  /**
-   * Callback when confirm is clicked
-   */
-  onConfirm?: () => void;
-  /**
-   * Additional className for modal content
-   */
-  className?: string;
-}
-
-/**
- * Dara UI Modal - Glass-heavy with blur(30px) backdrop
- */
-export const Modal: React.FC<ModalProps> = ({
-  isOpen,
-  onClose,
-  title,
-  children,
-  size = "md",
-  closeOnBackdropClick = true,
-  closeOnEscape = true,
-  confirmText,
-  cancelText,
-  onConfirm,
-  className = "",
-}) => {
-  const modalRef = useRef<HTMLDivElement>(null);
-  const previousFocusRef = useRef<HTMLElement | null>(null);
-
-  // Size styles
-  const sizeStyles = {
-    sm: "max-w-sm",
-    md: "max-w-md",
-    lg: "max-w-lg",
-    xl: "max-w-xl",
-  };
-
-  // Handle escape key
-  useEffect(() => {
-    if (!isOpen || !closeOnEscape) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, closeOnEscape, onClose]);
-
-  // Focus management
-  useEffect(() => {
-    if (isOpen) {
-      previousFocusRef.current = document.activeElement as HTMLElement;
-      // Focus the modal container
-      setTimeout(() => {
-        modalRef.current?.focus();
-      }, 50);
-    } else {
-      // Restore focus
-      if (previousFocusRef.current) {
-        previousFocusRef.current.focus();
-      }
-    }
-  }, [isOpen]);
-
-  // Lock body scroll
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = "var(--scrollbar-width, 0px)";
-    } else {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-    };
-  }, [isOpen]);
-
-  // Handle backdrop click
-  const handleBackdropClick = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>) => {
-      if (closeOnBackdropClick && event.target === event.currentTarget) {
-        onClose();
-      }
+const meta = {
+  title: "Components/Modal",
+  component: Modal,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+  argTypes: {
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg", "xl"],
     },
-    [closeOnBackdropClick, onClose],
-  );
+    closeOnBackdropClick: { control: "boolean" },
+    closeOnEscape: { control: "boolean" },
+    title: { control: "text" },
+    children: { control: "text" },
+    confirmText: { control: "text" },
+    cancelText: { control: "text" },
+  },
+  args: {
+    size: "md",
+    closeOnBackdropClick: true,
+    closeOnEscape: true,
+  },
+} satisfies Meta<typeof Modal>;
 
-  // Handle confirm
-  const handleConfirm = useCallback(() => {
-    if (onConfirm) {
-      onConfirm();
-    }
-    onClose();
-  }, [onConfirm, onClose]);
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-  // If not open, don't render anything
-  if (!isOpen) return null;
+// ----- Default -----
+export const Default: Story = {
+  args: {
+    title: "🗂️ Archive Access",
+    children:
+      "You've discovered a sealed Jedi archive fragment. This modal uses glass-heavy styling with blur(30px) backdrop, scale-in animation, and is rendered via React Portal.",
+    confirmText: "Accept Mission",
+    cancelText: "Decline",
+  },
+  render: function DefaultStory(args) {
+    const [isOpen, setIsOpen] = useState(false);
 
-  // Portal rendering
-  return createPortal(
-    <div
-      ref={modalRef}
-      className={`
-        fixed inset-0 z-[10001]
-        flex items-center justify-center
-        bg-black/60 backdrop-blur-[6px]
-        transition-all duration-[var(--transition-med)] ease-[var(--ease-in-out)]
-        ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
-      `}
-      onClick={handleBackdropClick}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby={title ? "modal-title" : undefined}
-      tabIndex={-1}
-    >
-      <div
-        className={`
-          glass-heavy p-8
-          w-[90%] ${sizeStyles[size]}
-          transition-all duration-[var(--transition-med)] ease-[var(--ease-in-out)]
-          ${isOpen ? "scale-100" : "scale-90"}
-          ${className}
-        `}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          {title && (
-            <h3
-              id="modal-title"
-              className="font-heading text-xl font-bold text-[var(--color-text-primary)]"
-            >
-              {title}
-            </h3>
-          )}
-          <button
-            onClick={onClose}
-            className="text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] text-2xl leading-none transition-colors duration-180"
-            aria-label="Close modal"
-          >
-            &times;
-          </button>
-        </div>
-
-        {/* Body */}
-        <div className="text-[var(--color-text-secondary)] mb-4 font-body text-sm leading-relaxed">
-          {children}
-        </div>
-
-        {/* Footer with actions */}
-        {(confirmText || cancelText) && (
-          <div className="flex gap-3 mt-6">
-            {confirmText && (
-              <button className="btn-dara btn-primary" onClick={handleConfirm}>
-                {confirmText}
-              </button>
-            )}
-            {cancelText && (
-              <button className="btn-dara btn-glass" onClick={onClose}>
-                {cancelText}
-              </button>
-            )}
-          </div>
-        )}
+    return (
+      <div>
+        <Button variant="primary" onClick={() => setIsOpen(true)}>
+          🔮 Open Modal
+        </Button>
+        <Modal {...args} isOpen={isOpen} onClose={() => setIsOpen(false)} />
       </div>
-    </div>,
-    document.body,
-  );
+    );
+  },
 };
 
-Modal.displayName = "Modal";
-export default Modal;
+// ----- Sizes -----
+export const Sizes: Story = {
+  render: function SizesStory() {
+    const [isOpenSm, setIsOpenSm] = useState(false);
+    const [isOpenMd, setIsOpenMd] = useState(false);
+    const [isOpenLg, setIsOpenLg] = useState(false);
+    const [isOpenXl, setIsOpenXl] = useState(false);
+
+    return (
+      <div className="flex flex-col gap-4">
+        <div className="flex gap-3 flex-wrap">
+          <Button size="sm" variant="primary" onClick={() => setIsOpenSm(true)}>
+            Small
+          </Button>
+          <Button variant="primary" onClick={() => setIsOpenMd(true)}>
+            Medium
+          </Button>
+          <Button size="lg" variant="primary" onClick={() => setIsOpenLg(true)}>
+            Large
+          </Button>
+          <Button variant="secondary" onClick={() => setIsOpenXl(true)}>
+            X-Large
+          </Button>
+        </div>
+
+        <Modal
+          isOpen={isOpenSm}
+          onClose={() => setIsOpenSm(false)}
+          title="Small Modal"
+          size="sm"
+          confirmText="OK"
+        >
+          This is a small modal.
+        </Modal>
+
+        <Modal
+          isOpen={isOpenMd}
+          onClose={() => setIsOpenMd(false)}
+          title="Medium Modal"
+          size="md"
+          confirmText="OK"
+        >
+          This is a medium modal - the default size.
+        </Modal>
+
+        <Modal
+          isOpen={isOpenLg}
+          onClose={() => setIsOpenLg(false)}
+          title="Large Modal"
+          size="lg"
+          confirmText="OK"
+        >
+          This is a large modal with more space for content.
+        </Modal>
+
+        <Modal
+          isOpen={isOpenXl}
+          onClose={() => setIsOpenXl(false)}
+          title="X-Large Modal"
+          size="xl"
+          confirmText="OK"
+        >
+          This is the extra large modal variant.
+        </Modal>
+      </div>
+    );
+  },
+};
+
+// ----- Without Actions -----
+export const WithoutActions: Story = {
+  render: function WithoutActionsStory() {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+      <div>
+        <Button variant="glass" onClick={() => setIsOpen(true)}>
+          📜 View Content Only
+        </Button>
+        <Modal
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          title="📜 Just Content"
+        >
+          This modal has no action buttons. Click the X or backdrop to close.
+        </Modal>
+      </div>
+    );
+  },
+};
+
+// ----- Interactive Playground -----
+export const Interactive: Story = {
+  args: {
+    title: "🗂️ Archive Access",
+    children:
+      "You've discovered a sealed Jedi archive fragment. This modal uses glass-heavy styling with blur(30px) backdrop.",
+    confirmText: "Accept Mission",
+    cancelText: "Decline",
+    size: "md",
+    closeOnBackdropClick: true,
+    closeOnEscape: true,
+  },
+  render: function InteractiveStory(args) {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+      <div>
+        <Button variant="primary" onClick={() => setIsOpen(true)}>
+          🔮 Open Modal
+        </Button>
+        <Modal
+          {...args}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          onConfirm={() => {
+            console.log("Mission accepted!");
+            setIsOpen(false);
+          }}
+        />
+      </div>
+    );
+  },
+};
