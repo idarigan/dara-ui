@@ -1,4 +1,3 @@
-// src/components/Modal/Modal.tsx
 import React, { useEffect, useRef, useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -17,7 +16,8 @@ export interface ModalProps {
    */
   title?: React.ReactNode;
   /**
-   * Modal content
+   * Modal size
+   * @default "md"
    */
   children: React.ReactNode;
   /**
@@ -54,9 +54,11 @@ export interface ModalProps {
 }
 
 /**
- * Dara UI Modal - Glass-heavy with blur(30px) backdrop
- * Features scale-in/out animation matching the original demo
+ * Dara UI Modal
  */
+
+const ANIMATION_DURATION = 300;
+
 export const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
@@ -72,8 +74,9 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
-  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
-  const [shouldRender, setShouldRender] = useState(false);
+
+  const [mounted, setMounted] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   // Size styles
   const sizeStyles = {
@@ -85,30 +88,36 @@ export const Modal: React.FC<ModalProps> = ({
 
   // Handle open/close animation
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+
     if (isOpen) {
-      // Opening: render and animate in
-      setShouldRender(true);
-      setIsAnimatingOut(false);
-    } else if (shouldRender && !isAnimatingOut) {
-      // Closing: start exit animation
-      setIsAnimatingOut(true);
-      // Wait for animation to complete before removing from DOM
-      const timer = setTimeout(() => {
-        setShouldRender(false);
-        setIsAnimatingOut(false);
-      }, 300); // Match transition duration
-      return () => clearTimeout(timer);
+      // Always start from the "closed" visual state
+      setMounted(true);
+      setVisible(false);
+
+      // Tiny delay so the browser paints scale-90 / opacity-0 first
+      timer = setTimeout(() => {
+        setVisible(true);
+      }, 20);
+    } else {
+      // Start exit animation
+      setVisible(false);
+
+      // After CSS transition → remove from DOM
+      timer = setTimeout(() => {
+        setMounted(false);
+      }, ANIMATION_DURATION);
     }
-  }, [isOpen, shouldRender, isAnimatingOut]);
+
+    return () => clearTimeout(timer);
+  }, [isOpen]);
 
   // Handle escape key
   useEffect(() => {
     if (!isOpen || !closeOnEscape) return;
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
     };
 
     document.addEventListener("keydown", handleKeyDown);
@@ -119,20 +128,16 @@ export const Modal: React.FC<ModalProps> = ({
   useEffect(() => {
     if (isOpen) {
       previousFocusRef.current = document.activeElement as HTMLElement;
-      setTimeout(() => {
-        modalRef.current?.focus();
-      }, 50);
-    } else {
-      if (previousFocusRef.current) {
-        previousFocusRef.current.focus();
-      }
+      const t = setTimeout(() => modalRef.current?.focus(), 30);
+      return () => clearTimeout(t);
     }
+    previousFocusRef.current?.focus();
   }, [isOpen]);
 
   // Handle backdrop click
   const handleBackdropClick = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>) => {
-      if (closeOnBackdropClick && event.target === event.currentTarget) {
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (closeOnBackdropClick && e.target === e.currentTarget) {
         onClose();
       }
     },
@@ -141,17 +146,12 @@ export const Modal: React.FC<ModalProps> = ({
 
   // Handle confirm
   const handleConfirm = useCallback(() => {
-    if (onConfirm) {
-      onConfirm();
-    }
+    onConfirm?.();
     onClose();
   }, [onConfirm, onClose]);
 
   // Don't render anything if shouldRender is false
-  if (!shouldRender) return null;
-
-  // Determine visibility state for animation
-  const isVisible = isOpen && !isAnimatingOut;
+  if (!mounted) return null;
 
   // Portal rendering
   return createPortal(
@@ -161,8 +161,8 @@ export const Modal: React.FC<ModalProps> = ({
         fixed inset-0 z-[10001]
         flex items-center justify-center
         bg-black/60 backdrop-blur-[6px]
-        transition-all duration-[var(--transition-med)] ease-[var(--ease-in-out)]
-        ${isVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+        transition-all duration-300 ease-[var(--ease-in-out,cubic-bezier(0.4,0,0.2,1))]
+        ${visible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
       `}
       onClick={handleBackdropClick}
       role="dialog"
@@ -174,8 +174,8 @@ export const Modal: React.FC<ModalProps> = ({
         className={`
           glass-heavy p-8
           w-[90%] ${sizeStyles[size]}
-          transition-all duration-[var(--transition-med)] ease-[var(--ease-in-out)]
-          ${isVisible ? "scale-100 opacity-100" : "scale-90 opacity-0"}
+          transition-all duration-300 ease-[var(--ease-in-out,cubic-bezier(0.4,0,0.2,1))]
+          ${visible ? "scale-100 opacity-100" : "scale-90 opacity-0"}
           ${className}
         `}
         onClick={(e) => e.stopPropagation()}
@@ -204,7 +204,7 @@ export const Modal: React.FC<ModalProps> = ({
           {children}
         </div>
 
-        {/* Footer with actions */}
+        {/* Footer */}
         {(confirmText || cancelText) && (
           <div className="flex gap-3 mt-6">
             {confirmText && (
