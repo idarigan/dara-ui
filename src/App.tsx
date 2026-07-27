@@ -1091,12 +1091,104 @@ function AppContent() {
               Horizontal
             </p>
             <div className="flex flex-col gap-4 max-w-md">
-              <Progress value={75} color="primary" labelPosition="right" />
-              <Progress value={60} color="secondary" labelPosition="right" />
-              <Progress value={45} color="accent" labelPosition="right" />
-              <Progress value={80} color="success" labelPosition="right" />
-              <Progress value={30} color="danger" labelPosition="right" />
-              <Progress value={55} color="gradient" labelPosition="right" />
+              <Progress
+                value={75}
+                color="primary"
+                labelPosition="right"
+                showLabel
+              />
+              <Progress
+                value={60}
+                color="secondary"
+                labelPosition="right"
+                showLabel
+              />
+              <Progress
+                value={45}
+                color="accent"
+                labelPosition="right"
+                showLabel
+              />
+              <Progress
+                value={80}
+                color="success"
+                labelPosition="right"
+                showLabel
+              />
+              <Progress
+                value={30}
+                color="danger"
+                labelPosition="right"
+                showLabel
+              />
+              <Progress
+                value={55}
+                color="gradient"
+                labelPosition="right"
+                showLabel
+              />
+            </div>
+          </div>
+
+          {/* Label Inside */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Label Inside Bar
+            </p>
+            <div className="flex flex-col gap-4 max-w-md">
+              <Progress
+                value={75}
+                color="primary"
+                labelPosition="inside"
+                showLabel
+              />
+              <Progress
+                value={45}
+                color="secondary"
+                labelPosition="inside"
+                showLabel
+              />
+              <Progress
+                value={30}
+                color="danger"
+                labelPosition="inside"
+                showLabel
+              />
+              <Progress
+                value={55}
+                color="gradient"
+                labelPosition="inside"
+                showLabel
+              />
+            </div>
+          </div>
+
+          {/* Display Types */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Display Types
+            </p>
+            <div className="flex flex-col gap-4 max-w-md">
+              <Progress
+                value={75}
+                displayType="percentage"
+                labelPosition="right"
+                showLabel
+              />
+              <Progress
+                value={3}
+                max={5}
+                displayType="ratio"
+                labelPosition="right"
+                showLabel
+              />
+              <Progress
+                value={75}
+                displayType="custom"
+                label="Almost done!"
+                labelPosition="right"
+                showLabel
+              />
             </div>
           </div>
 
@@ -1106,9 +1198,9 @@ function AppContent() {
               Sizes
             </p>
             <div className="flex flex-col gap-4 max-w-md">
-              <Progress value={50} size="sm" labelPosition="right" />
-              <Progress value={65} size="md" labelPosition="right" />
-              <Progress value={80} size="lg" labelPosition="right" />
+              <Progress value={50} size="sm" labelPosition="right" showLabel />
+              <Progress value={65} size="md" labelPosition="right" showLabel />
+              <Progress value={80} size="lg" labelPosition="right" showLabel />
             </div>
           </div>
 
@@ -1118,13 +1210,54 @@ function AppContent() {
               Radial
             </p>
             <div className="flex flex-wrap gap-6">
-              <Progress variant="radial" value={75} color="primary" />
-              <Progress variant="radial" value={60} color="secondary" />
-              <Progress variant="radial" value={45} color="accent" />
-              <Progress variant="radial" value={80} color="success" />
-              <Progress variant="radial" value={30} color="danger" />
-              <Progress variant="radial" value={90} color="warning" />
-              <Progress variant="radial" value={55} color="gradient" />
+              <Progress variant="radial" value={75} color="primary" showLabel />
+              <Progress
+                variant="radial"
+                value={60}
+                color="secondary"
+                showLabel
+              />
+              <Progress variant="radial" value={45} color="accent" showLabel />
+              <Progress variant="radial" value={80} color="success" showLabel />
+              <Progress variant="radial" value={30} color="danger" showLabel />
+              <Progress variant="radial" value={90} color="warning" showLabel />
+              <Progress
+                variant="radial"
+                value={55}
+                color="gradient"
+                showLabel
+              />
+            </div>
+          </div>
+
+          {/* Radial with Custom Label */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Radial with Custom Label
+            </p>
+            <div className="flex flex-wrap gap-6">
+              <Progress
+                variant="radial"
+                value={3}
+                max={5}
+                displayType="ratio"
+                showLabel
+              />
+              <Progress
+                variant="radial"
+                value={75}
+                displayType="custom"
+                label="Done!"
+                showLabel
+                color="success"
+              />
+              <Progress
+                variant="radial"
+                value={45}
+                label="Loading..."
+                showLabel
+                color="warning"
+              />
             </div>
           </div>
 
@@ -1134,9 +1267,9 @@ function AppContent() {
               Radial Sizes
             </p>
             <div className="flex flex-wrap gap-6 items-end">
-              <Progress variant="radial" value={50} size="sm" />
-              <Progress variant="radial" value={65} size="md" />
-              <Progress variant="radial" value={80} size="lg" />
+              <Progress variant="radial" value={50} size="sm" showLabel />
+              <Progress variant="radial" value={65} size="md" showLabel />
+              <Progress variant="radial" value={80} size="lg" showLabel />
             </div>
           </div>
         </section>

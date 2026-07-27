@@ -39,13 +39,18 @@ export interface ProgressProps {
   showLabel?: boolean;
   /**
    * Label format function
+   * @default (value, max) => `${Math.round((value/max)*100)}%`
    */
   labelFormat?: (value: number, max: number) => string;
   /**
-   * Label position (horizontal only)
-   * @default "right"
+   * Custom label text (overrides value formatting)
    */
-  labelPosition?: "left" | "right" | "top" | "bottom";
+  label?: string;
+  /**
+   * Label position (horizontal only)
+   * @default "inside"
+   */
+  labelPosition?: "left" | "right" | "top" | "bottom" | "inside";
   /**
    * Animate progress changes
    * @default true
@@ -62,6 +67,11 @@ export interface ProgressProps {
    */
   radialSize?: number;
   /**
+   * Show percentage, ratio, or custom
+   * @default "percentage"
+   */
+  displayType?: "percentage" | "ratio" | "custom";
+  /**
    * Additional className
    */
   className?: string;
@@ -74,7 +84,8 @@ export interface ProgressProps {
  * - Horizontal and radial variants
  * - Multiple color variants including gradient
  * - Animated transitions
- * - Label formatting
+ * - Label formatting with percentage, ratio, or custom text
+ * - Label inside the bar with proper positioning
  * - Theme-aware colors
  */
 export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
@@ -87,10 +98,12 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
       color = "primary",
       showLabel = false,
       labelFormat,
-      labelPosition = "right",
+      label,
+      labelPosition = "inside",
       animated = true,
       thickness = 8,
       radialSize = 80,
+      displayType = "percentage",
       className = "",
       ...props
     },
@@ -134,7 +147,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
       success: "stroke-[var(--color-success)]",
       danger: "stroke-[var(--color-danger)]",
       warning: "stroke-[var(--color-warning)]",
-      gradient: "stroke-[var(--color-primary)]", // gradient doesn't work well on stroke, use primary
+      gradient: "stroke-[var(--color-primary)]",
     };
 
     // Color mapping for radial glow
@@ -148,19 +161,35 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
       gradient: "rgba(124,92,255,0.3)",
     };
 
-    // Default label format
-    const defaultLabelFormat = (val: number, maxVal: number) => {
-      return `${Math.round((val / maxVal) * 100)}%`;
+    // Generate label text based on displayType
+    const getLabelText = (): string => {
+      // If custom label is provided, use it
+      if (label) return label;
+
+      // If custom format function is provided, use it
+      if (labelFormat) return labelFormat(clampedValue, max);
+
+      // Default formatting based on displayType
+      switch (displayType) {
+        case "ratio":
+          return `${Math.round(clampedValue)} / ${max}`;
+        case "custom":
+          return label || `${Math.round(clampedValue)}`;
+        case "percentage":
+        default:
+          return `${Math.round(percentage)}%`;
+      }
     };
 
-    const formatLabel = labelFormat || defaultLabelFormat;
-    const labelText = formatLabel(clampedValue, max);
+    const labelText = getLabelText();
 
-    // Horizontal variant
+    // --- Horizontal Variant ---
     if (variant === "horizontal") {
       const barClass = animated
         ? "transition-all duration-[var(--transition-base)] ease-[var(--ease-in-out)]"
         : "";
+
+      const actualThickness = thickness || 8;
 
       // Get label position classes
       const labelPosClasses = {
@@ -168,6 +197,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
         right: "flex-row items-center gap-3",
         top: "flex-col items-start gap-1.5",
         bottom: "flex-col items-start gap-1.5",
+        inside: "flex-row items-center gap-3",
       };
 
       const labelOrder = {
@@ -175,13 +205,24 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
         right: "order-last",
         top: "order-first",
         bottom: "order-last",
+        inside: "order-last",
       };
 
-      const containerClass = labelPosClasses[labelPosition];
-      const labelOrderClass = labelOrder[labelPosition];
+      const containerClass =
+        labelPosClasses[labelPosition as keyof typeof labelPosClasses] ||
+        labelPosClasses.right;
+      const labelOrderClass =
+        labelOrder[labelPosition as keyof typeof labelOrder] ||
+        labelOrder.right;
 
       // Determine if label should be before or after bar
       const isLabelBefore = labelPosition === "left" || labelPosition === "top";
+      const isLabelInside = labelPosition === "inside";
+
+      // Size classes for the bar
+      const sizeClass =
+        horizontalSizes[size as keyof typeof horizontalSizes] ||
+        horizontalSizes.md;
 
       return (
         <div
@@ -191,21 +232,29 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
         >
           {showLabel && isLabelBefore && (
             <span
-              className={`font-mono text-xs font-medium text-[var(--color-text-secondary)] ${labelOrderClass}`}
+              className={`
+                font-mono text-xs font-medium text-[var(--color-text-secondary)]
+                flex-shrink-0
+                ${labelOrderClass}
+              `}
             >
               {labelText}
             </span>
           )}
 
-          <div className="flex-1 w-full">
+          <div className="flex-1 w-full relative">
             {/* Track */}
             <div
               className={`
                 w-full rounded-full
                 bg-[var(--color-bg-tertiary)]
-                ${horizontalSizes[size]}
+                ${sizeClass}
                 overflow-hidden
+                relative
               `}
+              style={{
+                height: `${actualThickness}px`,
+              }}
             >
               {/* Fill */}
               <div
@@ -213,6 +262,9 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                   h-full rounded-full
                   ${colorMap[color]}
                   ${barClass}
+                  relative
+                  flex items-center justify-end
+                  pr-2
                 `}
                 style={{
                   width: `${percentage}%`,
@@ -223,19 +275,62 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                 aria-valuemin={0}
                 aria-valuemax={max}
               >
-                {/* Optional: show label inside bar for small values */}
-                {showLabel && percentage > 15 && labelPosition === "right" && (
-                  <span className="px-2 text-xs font-medium text-[var(--color-text-inverse)]">
+                {/* Label inside the bar - only show if there's enough space */}
+                {showLabel && isLabelInside && percentage > 15 && (
+                  <span
+                    className={`
+                      font-mono font-medium text-[var(--color-text-inverse)]
+                      text-[10px] sm:text-xs
+                      truncate
+                      ml-auto
+                      px-1.5
+                    `}
+                    style={{
+                      fontSize:
+                        size === "lg"
+                          ? "0.75rem"
+                          : size === "sm"
+                            ? "0.6rem"
+                            : "0.65rem",
+                      textShadow: "0 1px 2px rgba(0,0,0,0.2)",
+                      maxWidth: "100%",
+                      position: "relative",
+                      zIndex: 1,
+                    }}
+                  >
                     {labelText}
                   </span>
                 )}
               </div>
             </div>
+
+            {/* Label inside but positioned absolutely outside the fill */}
+            {showLabel && isLabelInside && percentage <= 15 && (
+              <span
+                className={`
+                  absolute top-1/2 -translate-y-1/2
+                  font-mono font-medium text-[var(--color-text-secondary)]
+                  text-[10px] sm:text-xs
+                  truncate
+                  left-2
+                  pointer-events-none
+                `}
+                style={{
+                  left: `${Math.max(percentage, 2)}%`,
+                }}
+              >
+                {labelText}
+              </span>
+            )}
           </div>
 
-          {showLabel && !isLabelBefore && (
+          {showLabel && !isLabelBefore && !isLabelInside && (
             <span
-              className={`font-mono text-xs font-medium text-[var(--color-text-secondary)] ${labelOrderClass}`}
+              className={`
+                font-mono text-xs font-medium text-[var(--color-text-secondary)]
+                flex-shrink-0
+                ${labelOrderClass}
+              `}
             >
               {labelText}
             </span>
@@ -244,15 +339,21 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
       );
     }
 
-    // Radial variant
-    const actualSize = radialSize || radialSizes[size];
+    // --- Radial Variant ---
+    const actualSize =
+      radialSize || radialSizes[size as keyof typeof radialSizes] || 80;
     const center = actualSize / 2;
     const radius = (actualSize - thickness) / 2;
     const circumference = 2 * Math.PI * radius;
     const offset = circumference - (percentage / 100) * circumference;
 
     // Glow effect for radial
-    const glowColor = radialGlowColor[color];
+    const glowColor =
+      radialGlowColor[color as keyof typeof radialGlowColor] ||
+      radialGlowColor.primary;
+
+    // Determine if label should be centered (always for radial)
+    const displayLabel = showLabel ? labelText : "";
 
     return (
       <div
@@ -315,7 +416,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
               r={radius}
               fill="none"
               className={`
-                ${radialColorMap[color]}
+                ${radialColorMap[color as keyof typeof radialColorMap] || radialColorMap.primary}
                 transition-all duration-[var(--transition-base)] ease-[var(--ease-in-out)]
               `}
               strokeWidth={thickness}
@@ -337,7 +438,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
           {showLabel && (
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="font-heading font-bold text-base text-[var(--color-text-primary)]">
-                {labelText}
+                {displayLabel}
               </span>
             </div>
           )}
