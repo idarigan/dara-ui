@@ -126,7 +126,7 @@ export const Tabs: React.FC<TabsProps> = ({
               key={value}
               ref={isActive ? activeTabRef : null}
               className={`
-                relative flex items-center gap-2 font-medium font-body
+                relative flex items-center gap-2 font-medium font-sans
                 transition-all duration-180
                 rounded-t-[--radius-md]
                 ${sizeStyles[size]}

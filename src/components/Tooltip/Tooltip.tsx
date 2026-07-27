@@ -330,7 +330,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
           ref={tooltipRef}
           className={`
             fixed z-[10002]
-            font-body text-[var(--color-text-primary)]
+            font-sans text-[var(--color-text-primary)]
             transition-opacity duration-150 ease-out
             ${visible ? "opacity-100" : "opacity-0 pointer-events-none"}
             ${variantStyles[variant]}

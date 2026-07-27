@@ -196,7 +196,7 @@ export const Modal: React.FC<ModalProps> = ({
         </div>
 
         {/* Body */}
-        <div className="text-[var(--color-text-secondary)] mb-4 font-body text-sm leading-relaxed">
+        <div className="text-[var(--color-text-secondary)] mb-4 font-sans text-sm leading-relaxed">
           {children}
         </div>
 

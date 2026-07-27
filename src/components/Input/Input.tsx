@@ -1,5 +1,5 @@
 // src/components/Input/Input.tsx
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useState, useId } from "react";
 
 export interface InputProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -99,12 +99,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const [showPassword, setShowPassword] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
-
-    const inputId = id || `input-${Math.random().toString(36).substring(2, 9)}`;
+    const generatedId = useId();
+    const inputId = id || generatedId;
 
     // - .input-dara styles
     const baseStyles =
-      "w-full font-body transition-all duration-180 outline-none disabled:opacity-60 disabled:cursor-not-allowed placeholder:text-[var(--color-text-tertiary)]";
+      "w-full font-sans transition-all duration-180 outline-none disabled:opacity-60 disabled:cursor-not-allowed placeholder:text-[var(--color-text-tertiary)]";
 
     const bgStyles =
       "bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] focus:bg-[var(--color-bg-elevated)]";
@@ -207,7 +207,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className={`text-sm font-medium font-body transition-colors duration-180 ${getLabelColor()}`}
+            className={`text-sm font-medium font-sans transition-colors duration-180 ${getLabelColor()}`}
           >
             {label}
           </label>

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 
 export interface AccordionItem {
   id: string;
@@ -35,6 +35,12 @@ export const Accordion: React.FC<AccordionProps> = ({
 
   const openItems = isControlled ? controlledOpenItems : internalOpenItems;
 
+  // Store refs for each content panel to measure height
+  const contentRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const [contentHeights, setContentHeights] = useState<Record<string, number>>(
+    {},
+  );
+
   const toggleItem = useCallback(
     (id: string) => {
       let newOpenItems: string[];
@@ -61,6 +67,22 @@ export const Accordion: React.FC<AccordionProps> = ({
     [openItems, multiple, isControlled, onOpenChange],
   );
 
+  // Measure content heights when items change or open state changes
+  useEffect(() => {
+    const heights: Record<string, number> = {};
+    items.forEach((item) => {
+      const el = contentRefs.current.get(item.id);
+      if (el) {
+        // Force a reflow to get accurate scrollHeight
+        el.style.maxHeight = "none";
+        heights[item.id] = el.scrollHeight;
+        // Reset max-height so the transition works
+        el.style.maxHeight = "0px";
+      }
+    });
+    setContentHeights(heights);
+  }, [items]);
+
   // Size styles
   const sizeStyles = {
     sm: "px-3 py-2 text-sm",
@@ -81,6 +103,7 @@ export const Accordion: React.FC<AccordionProps> = ({
         const isFirst = index === 0;
         const isLast = index === items.length - 1;
         const isOnly = items.length === 1;
+        const contentHeight = contentHeights[item.id] || 0;
 
         let radiusClass = "";
         if (isOnly) radiusClass = "rounded-[--radius-md]";
@@ -131,10 +154,23 @@ export const Accordion: React.FC<AccordionProps> = ({
 
             {/* Content */}
             <div
+              ref={(el) => {
+                if (el) {
+                  contentRefs.current.set(item.id, el);
+                } else {
+                  contentRefs.current.delete(item.id);
+                }
+              }}
               className={`
-                accordion-content
-                ${isOpen ? "open border-t border-[var(--color-border-secondary)]" : ""}
+                overflow-hidden
+                transition-[max-height,padding] duration-350 ease-[var(--ease-in-out)]
+                ${isOpen ? "border-t border-[var(--color-border-secondary)]" : ""}
               `}
+              style={{
+                maxHeight: isOpen ? `${contentHeight}px` : "0px",
+                paddingTop: isOpen ? "0" : "0",
+                paddingBottom: isOpen ? "0" : "0",
+              }}
             >
               <div
                 className={`${contentSizeStyles[size]} text-[var(--color-text-secondary)]`}

@@ -217,7 +217,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
       >
         {/* Label */}
         {label && (
-          <label className="text-sm font-medium text-[var(--color-text-secondary)] font-body">
+          <label className="text-sm font-medium text-[var(--color-text-secondary)] font-sans">
             {label}
           </label>
         )}
@@ -230,7 +230,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             disabled={disabled}
             className={`
               w-full flex items-center justify-between
-              font-body text-[var(--color-text-primary)]
+              font-sans text-[var(--color-text-primary)]
               transition-all duration-[var(--transition-fast)]
               rounded-[var(--radius-md)]
               ${sizeStyles[size].trigger}
@@ -313,7 +313,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder={searchPlaceholder}
                   className={`
-                    w-full font-body text-[var(--color-text-primary)]
+                    w-full font-sans text-[var(--color-text-primary)]
                     placeholder:text-[var(--color-text-tertiary)]
                     bg-[var(--color-bg-tertiary)]
                     border border-[var(--color-border-secondary)]
@@ -399,7 +399,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
 
         {/* Helper Text / Error Message */}
         {(helperText || errorMessage) && (
-          <div className="flex items-center gap-1.5 text-xs font-body">
+          <div className="flex items-center gap-1.5 text-xs font-sans">
             {error && errorMessage && (
               <>
                 <span className="text-[var(--color-danger)]">⚠️</span>

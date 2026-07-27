@@ -1075,7 +1075,7 @@ function AppContent() {
         {/* ----- TOAST SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Toast Notifications</h2>
-          <p className="text-[var(--color-text-secondary)] text-sm mb-6 font-body">
+          <p className="text-[var(--color-text-secondary)] text-sm mb-6 font-sans">
             Top-right · Minimal · 220ms slide-in · Auto-dismiss
           </p>
           <ToastDemo />
