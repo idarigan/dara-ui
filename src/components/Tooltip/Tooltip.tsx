@@ -1,3 +1,4 @@
+// src/components/Tooltip/Tooltip.tsx
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 
@@ -88,7 +89,7 @@ export interface TooltipProps {
  * - Delay controls
  * - Controlled/Uncontrolled modes
  * - Portal rendering for correct z-index
- * - Smart positioning with collision detection
+ * - Proper fade + position (no corner jump)
  */
 export const Tooltip: React.FC<TooltipProps> = ({
   content,
@@ -107,77 +108,42 @@ export const Tooltip: React.FC<TooltipProps> = ({
   className = "",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [position, setPosition] = useState({ top: 0, left: 0 });
+  const [mounted, setMounted] = useState(false);
+  const [visible, setVisible] = useState(false);
+  // Start way off-screen so the first paint is never visible
+  const [coords, setCoords] = useState({ top: -9999, left: -9999 });
+
   const triggerRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
-  const showTimeout = useRef<NodeJS.Timeout | null>(null);
-  const hideTimeout = useRef<NodeJS.Timeout | null>(null);
+  const showTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hideTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const isControlled = controlledOpen !== undefined;
   const isVisible = isControlled ? controlledOpen : isOpen;
 
-  // Size styles
   const sizeStyles = {
     sm: "px-2.5 py-1.5 text-xs",
     md: "px-3.5 py-2 text-sm",
     lg: "px-4.5 py-2.5 text-base",
   };
 
-  // Variant styles
   const variantStyles = {
     glass: "glass",
     solid: "glass-solid",
     outline: "glass-outline",
   };
 
-  // Arrow placement classes
-  const arrowPlacement = {
-    top: "bottom-[-6px] left-1/2 -translate-x-1/2 border-t-[var(--glass-border)]",
-    bottom:
-      "top-[-6px] left-1/2 -translate-x-1/2 border-b-[var(--glass-border)]",
-    left: "right-[-6px] top-1/2 -translate-y-1/2 border-l-[var(--glass-border)]",
-    right:
-      "left-[-6px] top-1/2 -translate-y-1/2 border-r-[var(--glass-border)]",
-    "top-left": "bottom-[-6px] left-3",
-    "top-right": "bottom-[-6px] right-3",
-    "bottom-left": "top-[-6px] left-3",
-    "bottom-right": "top-[-6px] right-3",
-  };
+  const ANIMATION_DURATION = 150; // keep in sync with CSS
 
-  // Arrow transform for different placements
-  const arrowTransform = {
-    top: "rotate-45",
-    bottom: "rotate-45",
-    left: "rotate-45",
-    right: "rotate-45",
-    "top-left": "rotate-45",
-    "top-right": "rotate-45",
-    "bottom-left": "rotate-45",
-    "bottom-right": "rotate-45",
-  };
-
-  /**
-   * calculatePosition - Determines the position of the tooltip relative to the trigger
-   */
+  // Calculate position relative to trigger
   const calculatePosition = useCallback(() => {
-    if (!triggerRef.current) return;
+    if (!triggerRef.current || !tooltipRef.current) return;
 
     const triggerRect = triggerRef.current.getBoundingClientRect();
-    const scrollX = window.scrollX;
-    const scrollY = window.scrollY;
+    const tooltipWidth = tooltipRef.current.offsetWidth;
+    const tooltipHeight = tooltipRef.current.offsetHeight;
+    const gap = 8;
 
-    // Get tooltip dimensions if rendered
-    let tooltipWidth = 0;
-    let tooltipHeight = 0;
-    if (tooltipRef.current) {
-      tooltipWidth = tooltipRef.current.offsetWidth;
-      tooltipHeight = tooltipRef.current.offsetHeight;
-    }
-
-    // Default padding between trigger and tooltip
-    const padding = 10;
-
-    // Calculate position based on placement
     let top = 0;
     let left = 0;
 
@@ -186,48 +152,92 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
     switch (placement) {
       case "top":
-        top = triggerRect.top + scrollY - tooltipHeight - padding;
-        left = triggerCenterX + scrollX - tooltipWidth / 2;
+        top = triggerRect.top - tooltipHeight - gap;
+        left = triggerCenterX - tooltipWidth / 2;
         break;
       case "bottom":
-        top = triggerRect.bottom + scrollY + padding;
-        left = triggerCenterX + scrollX - tooltipWidth / 2;
+        top = triggerRect.bottom + gap;
+        left = triggerCenterX - tooltipWidth / 2;
         break;
       case "left":
-        top = triggerCenterY + scrollY - tooltipHeight / 2;
-        left = triggerRect.left + scrollX - tooltipWidth - padding;
+        top = triggerCenterY - tooltipHeight / 2;
+        left = triggerRect.left - tooltipWidth - gap;
         break;
       case "right":
-        top = triggerCenterY + scrollY - tooltipHeight / 2;
-        left = triggerRect.right + scrollX + padding;
+        top = triggerCenterY - tooltipHeight / 2;
+        left = triggerRect.right + gap;
         break;
       case "top-left":
-        top = triggerRect.top + scrollY - tooltipHeight - padding;
-        left = triggerRect.left + scrollX;
+        top = triggerRect.top - tooltipHeight - gap;
+        left = triggerRect.left;
         break;
       case "top-right":
-        top = triggerRect.top + scrollY - tooltipHeight - padding;
-        left = triggerRect.right + scrollX - tooltipWidth;
+        top = triggerRect.top - tooltipHeight - gap;
+        left = triggerRect.right - tooltipWidth;
         break;
       case "bottom-left":
-        top = triggerRect.bottom + scrollY + padding;
-        left = triggerRect.left + scrollX;
+        top = triggerRect.bottom + gap;
+        left = triggerRect.left;
         break;
       case "bottom-right":
-        top = triggerRect.bottom + scrollY + padding;
-        left = triggerRect.right + scrollX - tooltipWidth;
+        top = triggerRect.bottom + gap;
+        left = triggerRect.right - tooltipWidth;
         break;
       default:
-        top = triggerRect.top + scrollY - tooltipHeight - padding;
-        left = triggerCenterX + scrollX - tooltipWidth / 2;
+        top = triggerRect.top - tooltipHeight - gap;
+        left = triggerCenterX - tooltipWidth / 2;
     }
 
-    setPosition({ top, left });
+    // Keep inside viewport
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    if (left < 10) left = 10;
+    if (left + tooltipWidth > viewportWidth - 10) {
+      left = viewportWidth - tooltipWidth - 10;
+    }
+    if (top < 10) top = 10;
+    if (top + tooltipHeight > viewportHeight - 10) {
+      top = viewportHeight - tooltipHeight - 10;
+    }
+
+    setCoords({ top, left });
   }, [placement]);
 
-  /**
-   * showTooltip - Shows the tooltip with optional delay
-   */
+  // Animation lifecycle
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    let raf1: number;
+    let raf2: number;
+
+    if (isVisible) {
+      setMounted(true);
+      setVisible(false);
+
+      // Double rAF = wait until the portal is in the DOM *and* laid out
+      raf1 = requestAnimationFrame(() => {
+        raf2 = requestAnimationFrame(() => {
+          calculatePosition();
+          setVisible(true);
+        });
+      });
+    } else {
+      setVisible(false);
+      timer = setTimeout(() => {
+        setMounted(false);
+        // Reset so the next open never starts at a previous position
+        setCoords({ top: -9999, left: -9999 });
+      }, ANIMATION_DURATION);
+    }
+
+    return () => {
+      clearTimeout(timer);
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+    };
+  }, [isVisible, calculatePosition]);
+
+  // Show / hide helpers
   const showTooltip = useCallback(() => {
     if (disabled) return;
 
@@ -235,27 +245,17 @@ export const Tooltip: React.FC<TooltipProps> = ({
       clearTimeout(showTimeout.current);
       showTimeout.current = null;
     }
-
     if (hideTimeout.current) {
       clearTimeout(hideTimeout.current);
       hideTimeout.current = null;
     }
 
     showTimeout.current = setTimeout(() => {
-      if (!isControlled) {
-        setIsOpen(true);
-      }
+      if (!isControlled) setIsOpen(true);
       onOpen?.();
-      // Calculate position after tooltip renders
-      requestAnimationFrame(() => {
-        calculatePosition();
-      });
     }, delay);
-  }, [disabled, delay, isControlled, onOpen, calculatePosition]);
+  }, [disabled, delay, isControlled, onOpen]);
 
-  /**
-   * hideTooltip - Hides the tooltip with optional delay
-   */
   const hideTooltip = useCallback(() => {
     if (showTimeout.current) {
       clearTimeout(showTimeout.current);
@@ -263,57 +263,22 @@ export const Tooltip: React.FC<TooltipProps> = ({
     }
 
     hideTimeout.current = setTimeout(() => {
-      if (!isControlled) {
-        setIsOpen(false);
-      }
+      if (!isControlled) setIsOpen(false);
       onClose?.();
     }, hideDelay);
   }, [hideDelay, isControlled, onClose]);
 
-  /**
-   * mouseEnter - Trigger show on hover
-   */
-  const handleMouseEnter = useCallback(() => {
-    showTooltip();
-  }, [showTooltip]);
+  // Mouse + focus events
+  const handleMouseEnter = useCallback(() => showTooltip(), [showTooltip]);
+  const handleMouseLeave = useCallback(() => hideTooltip(), [hideTooltip]);
+  const handleFocus = useCallback(() => showTooltip(), [showTooltip]);
+  const handleBlur = useCallback(() => hideTooltip(), [hideTooltip]);
 
-  /**
-   * mouseLeave - Trigger hide on hover leave
-   */
-  const handleMouseLeave = useCallback(() => {
-    hideTooltip();
-  }, [hideTooltip]);
-
-  /**
-   * focus - Show on focus for accessibility
-   */
-  const handleFocus = useCallback(() => {
-    showTooltip();
-  }, [showTooltip]);
-
-  /**
-   * blur - Hide on blur for accessibility
-   */
-  const handleBlur = useCallback(() => {
-    hideTooltip();
-  }, [hideTooltip]);
-
-  // Update position when tooltip opens or window resizes
-  useEffect(() => {
-    if (isVisible) {
-      const timeout = setTimeout(calculatePosition, 50);
-      return () => clearTimeout(timeout);
-    }
-  }, [isVisible, calculatePosition]);
-
-  // Recalculate on window resize and scroll
+  // Recalculate on resize / scroll
   useEffect(() => {
     if (!isVisible) return;
 
-    const handleUpdate = () => {
-      calculatePosition();
-    };
-
+    const handleUpdate = () => calculatePosition();
     window.addEventListener("resize", handleUpdate);
     window.addEventListener("scroll", handleUpdate, true);
 
@@ -323,7 +288,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
     };
   }, [isVisible, calculatePosition]);
 
-  // Cleanup timeouts on unmount
+  // Cleanup
   useEffect(() => {
     return () => {
       if (showTimeout.current) clearTimeout(showTimeout.current);
@@ -331,53 +296,21 @@ export const Tooltip: React.FC<TooltipProps> = ({
     };
   }, []);
 
-  // Render tooltip in portal
-  const renderTooltip = () => {
-    if (!isVisible || !content) return null;
-
-    return createPortal(
+  // Don't keep anything in the tree when closed
+  if (!mounted) {
+    return (
       <div
-        ref={tooltipRef}
-        className={`
-          fixed z-[10002]
-          font-body text-[var(--color-text-primary)]
-          transition-opacity duration-[var(--transition-fast)]
-          ${isVisible ? "opacity-100" : "opacity-0 pointer-events-none"}
-          ${variantStyles[variant]}
-          ${sizeStyles[size]}
-          ${className}
-        `}
-        style={{
-          top: position.top,
-          left: position.left,
-          maxWidth: maxWidth,
-        }}
-        role="tooltip"
-        aria-hidden={!isVisible}
+        ref={triggerRef}
+        className="inline-flex"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       >
-        {content}
-
-        {/* Arrow */}
-        {arrow && (
-          <div
-            className={`
-              absolute w-3 h-3
-              bg-inherit
-              border-inherit
-              transform ${arrowTransform[placement]}
-              ${arrowPlacement[placement]}
-            `}
-            style={{
-              borderWidth: "1px",
-              borderStyle: "solid",
-              borderColor: "inherit",
-            }}
-          />
-        )}
-      </div>,
-      document.body,
+        {children}
+      </div>
     );
-  };
+  }
 
   return (
     <>
@@ -391,11 +324,58 @@ export const Tooltip: React.FC<TooltipProps> = ({
       >
         {children}
       </div>
-      {renderTooltip()}
+
+      {createPortal(
+        <div
+          ref={tooltipRef}
+          className={`
+            fixed z-[10002]
+            font-body text-[var(--color-text-primary)]
+            transition-opacity duration-150 ease-out
+            ${visible ? "opacity-100" : "opacity-0 pointer-events-none"}
+            ${variantStyles[variant]}
+            ${sizeStyles[size]}
+            ${className}
+          `}
+          style={{
+            top: coords.top,
+            left: coords.left,
+            maxWidth,
+          }}
+          role="tooltip"
+          aria-hidden={!visible}
+        >
+          {content}
+
+          {/* Arrow */}
+          {arrow && (
+            <div
+              className={`
+                absolute w-2.5 h-2.5
+                bg-inherit
+                transform rotate-45
+                ${placement === "top" ? "bottom-[-5px] left-1/2 -translate-x-1/2 border-t border-l" : ""}
+                ${placement === "bottom" ? "top-[-5px] left-1/2 -translate-x-1/2 border-b border-r" : ""}
+                ${placement === "left" ? "right-[-5px] top-1/2 -translate-y-1/2 border-t border-r" : ""}
+                ${placement === "right" ? "left-[-5px] top-1/2 -translate-y-1/2 border-b border-l" : ""}
+                ${placement === "top-left" ? "bottom-[-5px] left-3 border-t border-l" : ""}
+                ${placement === "top-right" ? "bottom-[-5px] right-3 border-t border-r" : ""}
+                ${placement === "bottom-left" ? "top-[-5px] left-3 border-b border-l" : ""}
+                ${placement === "bottom-right" ? "top-[-5px] right-3 border-b border-r" : ""}
+              `}
+              style={{
+                borderWidth: "1px",
+                borderStyle: "solid",
+                borderColor: "var(--glass-border, rgba(255,255,255,0.1))",
+              }}
+            />
+          )}
+        </div>,
+        document.body,
+      )}
     </>
   );
 };
 
 Tooltip.displayName = "Tooltip";
-
 export default Tooltip;
