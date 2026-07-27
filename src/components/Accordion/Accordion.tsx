@@ -19,6 +19,9 @@ export interface AccordionProps {
   size?: "sm" | "md" | "lg";
 }
 
+/**
+ * Dara UI Accordion
+ */
 export const Accordion: React.FC<AccordionProps> = ({
   items,
   openItems: controlledOpenItems,
@@ -41,6 +44,7 @@ export const Accordion: React.FC<AccordionProps> = ({
     {},
   );
 
+  // Toggle accordion item
   const toggleItem = useCallback(
     (id: string) => {
       let newOpenItems: string[];
@@ -67,7 +71,7 @@ export const Accordion: React.FC<AccordionProps> = ({
     [openItems, multiple, isControlled, onOpenChange],
   );
 
-  // Measure content heights when items change or open state changes
+  // Measure content heights when items change
   useEffect(() => {
     const heights: Record<string, number> = {};
     items.forEach((item) => {
@@ -91,9 +95,9 @@ export const Accordion: React.FC<AccordionProps> = ({
   };
 
   const contentSizeStyles = {
-    sm: "px-3 pb-3 text-sm",
-    md: "px-4 pb-4 text-base",
-    lg: "px-6 pb-6 text-lg",
+    sm: "px-5 py-3 text-sm",
+    md: "px-6 py-4 text-base",
+    lg: "px-8 py-6 text-lg",
   };
 
   return (
@@ -152,7 +156,7 @@ export const Accordion: React.FC<AccordionProps> = ({
               </span>
             </button>
 
-            {/* Content */}
+            {/* Content - dynamic max-height based on actual content */}
             <div
               ref={(el) => {
                 if (el) {
