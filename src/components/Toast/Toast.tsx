@@ -128,23 +128,23 @@ export const Toast: React.FC<ToastProps> = ({
   // Color mapping for toast types - determines background, border, and text color
   const typeColors = {
     success: {
-      bg: "bg-[rgba(0,255,153,0.12)]",
-      border: "border-[rgba(0,255,153,0.3)]",
+      bg: "bg-[var(--color-success-light)]",
+      border: "border-[var(--color-success)]",
       text: "text-[var(--color-success)]",
     },
     error: {
-      bg: "bg-[rgba(255,83,112,0.12)]",
-      border: "border-[rgba(255,83,112,0.3)]",
+      bg: "bg-[var(--color-danger-light)]",
+      border: "border-[var(--color-danger)]",
       text: "text-[var(--color-danger)]",
     },
     warning: {
-      bg: "bg-[rgba(255,200,87,0.12)]",
-      border: "border-[rgba(255,200,87,0.3)]",
+      bg: "bg-[var(--color-warning-light)]",
+      border: "border-[var(--color-warning)]",
       text: "text-[var(--color-warning)]",
     },
     info: {
-      bg: "bg-[rgba(96,165,250,0.12)]",
-      border: "border-[rgba(96,165,250,0.3)]",
+      bg: "bg-[var(--color-info-light)]",
+      border: "border-[var(--color-info)]",
       text: "text-[var(--color-info)]",
     },
   };
@@ -186,7 +186,7 @@ export const Toast: React.FC<ToastProps> = ({
         glass-heavy
         px-5 py-3.5
         rounded-[14px]
-        font-accent text-sm font-medium
+        font-sans text-sm font-medium
         border
         shadow-[0_8px_32px_rgba(0,0,0,0.35)]
         flex items-center gap-3

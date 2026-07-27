@@ -1,5 +1,7 @@
+// src/components/Modal/Modal.tsx
 import React, { useEffect, useRef, useCallback, useState } from "react";
 import { createPortal } from "react-dom";
+import Button from "../Button/Button";
 
 export interface ModalProps {
   /**
@@ -16,8 +18,7 @@ export interface ModalProps {
    */
   title?: React.ReactNode;
   /**
-   * Modal size
-   * @default "md"
+   * Modal content
    */
   children: React.ReactNode;
   /**
@@ -56,7 +57,6 @@ export interface ModalProps {
 /**
  * Dara UI Modal
  */
-
 const ANIMATION_DURATION = 300;
 
 export const Modal: React.FC<ModalProps> = ({
@@ -91,19 +91,15 @@ export const Modal: React.FC<ModalProps> = ({
     let timer: ReturnType<typeof setTimeout>;
 
     if (isOpen) {
-      // Always start from the "closed" visual state
       setMounted(true);
       setVisible(false);
 
-      // Tiny delay so the browser paints scale-90 / opacity-0 first
       timer = setTimeout(() => {
         setVisible(true);
       }, 20);
     } else {
-      // Start exit animation
       setVisible(false);
 
-      // After CSS transition → remove from DOM
       timer = setTimeout(() => {
         setMounted(false);
       }, ANIMATION_DURATION);
@@ -204,18 +200,18 @@ export const Modal: React.FC<ModalProps> = ({
           {children}
         </div>
 
-        {/* Footer */}
+        {/* Footer - using Button component */}
         {(confirmText || cancelText) && (
           <div className="flex gap-3 mt-6">
             {confirmText && (
-              <button className="btn-dara btn-primary" onClick={handleConfirm}>
+              <Button variant="primary" onClick={handleConfirm}>
                 {confirmText}
-              </button>
+              </Button>
             )}
             {cancelText && (
-              <button className="btn-dara btn-glass" onClick={onClose}>
+              <Button variant="glass" onClick={onClose}>
                 {cancelText}
-              </button>
+              </Button>
             )}
           </div>
         )}

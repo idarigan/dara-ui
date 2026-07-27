@@ -91,12 +91,12 @@ export const Tabs: React.FC<TabsProps> = ({
 
   // Glow styles
   const glowStyles = {
-    primary: "bg-[var(--color-primary)] shadow-[0_0_12px_rgba(124,92,255,0.6)]",
+    primary: "bg-[var(--color-primary)] shadow-[var(--shadow-glow-primary)]",
     secondary:
-      "bg-[var(--color-secondary)] shadow-[0_0_12px_rgba(0,217,255,0.6)]",
-    accent: "bg-[var(--color-accent)] shadow-[0_0_12px_rgba(255,77,157,0.6)]",
-    success: "bg-[var(--color-success)] shadow-[0_0_12px_rgba(0,255,153,0.6)]",
-    danger: "bg-[var(--color-danger)] shadow-[0_0_12px_rgba(255,83,112,0.6)]",
+      "bg-[var(--color-secondary)] shadow-[var(--shadow-glow-secondary)]",
+    accent: "bg-[var(--color-accent)] shadow-[var(--shadow-glow-accent)]",
+    success: "bg-[var(--color-success)] shadow-[var(--shadow-glow-success)]",
+    danger: "bg-[var(--color-danger)] shadow-[var(--shadow-glow-danger)]",
     none: "bg-[var(--color-border-primary)]",
   };
 

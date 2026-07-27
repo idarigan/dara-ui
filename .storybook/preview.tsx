@@ -1,4 +1,3 @@
-cls;
 import type { Preview } from "@storybook/react-vite";
 import "../src/styles/index.css";
 
@@ -18,6 +17,13 @@ const preview: Preview = {
       test: "todo",
     },
   },
+
+  decorators: [
+    (Story) => {
+      document.documentElement.setAttribute("data-theme", "nightfall");
+      return <Story />;
+    },
+  ],
 };
 
 export default preview;

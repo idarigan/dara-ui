@@ -1,3 +1,4 @@
+// src/components/Input/Input.tsx
 import React, { forwardRef, useState } from "react";
 
 export interface InputProps extends Omit<
@@ -97,6 +98,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ref,
   ) => {
     const [showPassword, setShowPassword] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
 
     const inputId = id || `input-${Math.random().toString(36).substring(2, 9)}`;
 
@@ -121,10 +123,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const glowStyles = glowFocus
       ? {
           default:
-            "focus:shadow-[0_0_25px_rgba(124,92,255,0.1)] focus:shadow-[0_0_0_3px_rgba(124,92,255,0.15)]",
-          success: "focus:shadow-[0_0_25px_rgba(0,255,153,0.1)]",
-          error: "focus:shadow-[0_0_25px_rgba(255,83,112,0.1)]",
-          warning: "focus:shadow-[0_0_25px_rgba(255,200,87,0.1)]",
+            "focus:shadow-[var(--shadow-glow-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20",
+          success: "focus:shadow-[var(--shadow-glow-success)]",
+          error: "focus:shadow-[var(--shadow-glow-danger)]",
+          warning: "focus:shadow-[var(--shadow-glow-warning)]",
         }[validation || "default"]
       : "";
 
@@ -171,11 +173,33 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       .join(" ");
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+      setIsFocused(true);
       onFocus?.(e);
     };
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+      setIsFocused(false);
       onBlur?.(e);
+    };
+
+    // Determine label color based on focus and validation state
+    const getLabelColor = () => {
+      if (disabled) return "text-[var(--color-text-tertiary)]";
+      if (validation === "error") return "text-[var(--color-danger)]";
+      if (validation === "success") return "text-[var(--color-success)]";
+      if (validation === "warning") return "text-[var(--color-warning)]";
+      if (isFocused) return "text-[var(--color-primary)]";
+      return "text-[var(--color-text-secondary)]";
+    };
+
+    // Determine icon color based on focus and validation state
+    const getIconColor = () => {
+      if (disabled) return "text-[var(--color-text-tertiary)]";
+      if (validation === "error") return "text-[var(--color-danger)]";
+      if (validation === "success") return "text-[var(--color-success)]";
+      if (validation === "warning") return "text-[var(--color-warning)]";
+      if (isFocused) return "text-[var(--color-primary)]";
+      return "text-[var(--color-text-tertiary)]";
     };
 
     return (
@@ -183,14 +207,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-sm font-medium text-[var(--color-text-secondary)] font-body"
+            className={`text-sm font-medium font-body transition-colors duration-180 ${getLabelColor()}`}
           >
             {label}
           </label>
         )}
         <div className="relative group w-full">
           {leftIcon && (
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-tertiary)] pointer-events-none">
+            <span
+              className={`absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none transition-colors duration-180 ${getIconColor()}`}
+            >
               <span className={iconSizes[size]}>{leftIcon}</span>
             </span>
           )}

@@ -124,7 +124,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   const sizeStyles = {
     sm: "px-2.5 py-1.5 text-xs",
     md: "px-3.5 py-2 text-sm",
-    lg: "px-4.5 py-2.5 text-base",
+    lg: "px-[18px] py-2.5 text-base",
   };
 
   const variantStyles = {
