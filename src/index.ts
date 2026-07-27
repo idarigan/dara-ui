@@ -1,6 +1,6 @@
-// ============================================================
+// ========================================
 // DARA UI - Main Entry Point
-// ============================================================
+// ========================================
 
 // ----- Components -----
 export { Button } from "./components/Button/Button";
@@ -52,6 +52,10 @@ export type {
   TooltipProps,
   TooltipPlacement,
 } from "./components/Tooltip/Tooltip";
+
+// ----- Progress -----
+export { Progress } from "./components/Progress/Progress";
+export type { ProgressProps } from "./components/Progress/Progress";
 
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";

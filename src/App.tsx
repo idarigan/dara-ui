@@ -7,6 +7,10 @@ import { Tabs } from "./components/Tabs/Tabs";
 import { Accordion } from "./components/Accordion/Accordion";
 import { Dropdown } from "./components/Dropdown/Dropdown";
 import { Modal } from "./components/Modal/Modal";
+import { ToastProvider, useToast } from "./components/Toast";
+import { Avatar } from "./components/Avatar/Avatar";
+import { Tooltip } from "./components/Tooltip/Tooltip";
+import { Progress } from "./components/Progress/Progress";
 import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 
@@ -85,7 +89,8 @@ const CheckIcon = () => (
 // Tab items for Tabs demo
 const tabItems = [
   {
-    label: "📁 Archive",
+    label: "Archive",
+    value: "archive",
     content: (
       <div className="py-4 text-[var(--color-text-secondary)]">
         Browse encrypted Jedi records, holocrons, and mission logs from the
@@ -94,7 +99,8 @@ const tabItems = [
     ),
   },
   {
-    label: "⚔️ Quests",
+    label: "Quests",
+    value: "quests",
     content: (
       <div className="py-4 text-[var(--color-text-secondary)]">
         Active missions, bounties, and side-quests await your attention,
@@ -103,7 +109,8 @@ const tabItems = [
     ),
   },
   {
-    label: "📊 Stats",
+    label: "Stats",
+    value: "stats",
     content: (
       <div className="py-4 text-[var(--color-text-secondary)]">
         Track your Force alignment, XP gains, and cybernetic enhancement levels.
@@ -111,7 +118,8 @@ const tabItems = [
     ),
   },
   {
-    label: "⚙️ Settings",
+    label: "Settings",
+    value: "settings",
     content: (
       <div className="py-4 text-[var(--color-text-secondary)]">
         Configure your HUD, theme mode, and archive encryption preferences.
@@ -281,10 +289,43 @@ const dropdownOptionsWithIcons = [
   { value: "done", label: "Completed", icon: <CheckIcon /> },
 ];
 
-function App() {
+function ToastDemo() {
+  const toast = useToast();
+
+  return (
+    <div className="flex gap-3 flex-wrap">
+      <Button
+        variant="success"
+        onClick={() => toast.success("Mission complete! +300 XP earned.")}
+      >
+        Success Toast
+      </Button>
+      <Button
+        variant="danger"
+        onClick={() => toast.error("Connection lost. Retrying...")}
+      >
+        Error Toast
+      </Button>
+      <Button
+        variant="outline"
+        onClick={() => toast.warning("Please check your connection")}
+      >
+        Warning Toast
+      </Button>
+      <Button
+        variant="glass"
+        onClick={() => toast.info("Archives are being indexed")}
+      >
+        Info Toast
+      </Button>
+    </div>
+  );
+}
+
+function AppContent() {
   const [theme, setTheme] = useState<Theme>("nightfall");
   const { direction, toggleDirection } = useDirection("ltr");
-  const [activeTab, setActiveTab] = useState("📁 Archive");
+  const [activeTab, setActiveTab] = useState("archive");
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>(["1"]);
   const [accordionMode, setAccordionMode] = useState<"single" | "multiple">(
     "single",
@@ -480,6 +521,187 @@ function App() {
             <Button size="lg" variant="primary">
               Large
             </Button>
+          </div>
+        </section>
+
+        {/* ----- AVATAR SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Avatar</h2>
+
+          {/* Sizes */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Sizes
+            </p>
+            <div className="flex items-center gap-4">
+              <Avatar size="xs" fallbackText="JD" />
+              <Avatar size="sm" fallbackText="JD" />
+              <Avatar size="md" fallbackText="JD" />
+              <Avatar size="lg" fallbackText="JD" />
+              <Avatar size="xl" fallbackText="JD" />
+            </div>
+          </div>
+
+          {/* Shapes */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Shapes
+            </p>
+            <div className="flex items-center gap-4">
+              <Avatar shape="circle" fallbackText="JD" />
+              <Avatar shape="rounded" fallbackText="JD" />
+              <Avatar shape="square" fallbackText="JD" />
+            </div>
+          </div>
+
+          {/* With Status */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Status Indicators
+            </p>
+            <div className="flex items-center gap-4">
+              <Avatar status="online" fallbackText="JD" />
+              <Avatar status="away" fallbackText="JD" />
+              <Avatar status="busy" fallbackText="JD" />
+              <Avatar status="offline" fallbackText="JD" />
+            </div>
+          </div>
+
+          {/* With Glow */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Glow Effects
+            </p>
+            <div className="flex items-center gap-4">
+              <Avatar glow="purple" fallbackText="JD" />
+              <Avatar glow="cyan" fallbackText="JD" />
+              <Avatar glow="pink" fallbackText="JD" />
+            </div>
+          </div>
+
+          {/* With Image */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              With Image
+            </p>
+            <div className="flex items-center gap-4">
+              <Avatar
+                src="https://i.pravatar.cc/150?img=5"
+                alt="User avatar"
+                size="md"
+              />
+              <Avatar
+                src="https://i.pravatar.cc/150?img=9"
+                alt="User avatar"
+                size="md"
+                glow="purple"
+              />
+              <Avatar
+                src="https://i.pravatar.cc/150?img=12"
+                alt="User avatar"
+                size="md"
+                status="online"
+              />
+            </div>
+          </div>
+
+          {/* Group */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Group
+            </p>
+            <Avatar group size="md">
+              <Avatar fallbackText="JD" />
+              <Avatar fallbackText="JS" />
+              <Avatar fallbackText="AK" />
+              <Avatar fallbackText="MR" />
+            </Avatar>
+          </div>
+
+          {/* Clickable */}
+          <div>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Clickable
+            </p>
+            <Avatar
+              fallbackText="JD"
+              onClick={() => alert("Avatar clicked!")}
+              glow="purple"
+            />
+          </div>
+        </section>
+
+        {/* ----- TOOLTIP SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Tooltip</h2>
+
+          {/* Placements */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Placements
+            </p>
+            <div className="grid grid-cols-4 gap-4">
+              <Tooltip content="Top" placement="top">
+                <Button size="sm" variant="glass" className="w-full">
+                  Top
+                </Button>
+              </Tooltip>
+              <Tooltip content="Bottom" placement="bottom">
+                <Button size="sm" variant="glass" className="w-full">
+                  Bottom
+                </Button>
+              </Tooltip>
+              <Tooltip content="Left" placement="left">
+                <Button size="sm" variant="glass" className="w-full">
+                  Left
+                </Button>
+              </Tooltip>
+              <Tooltip content="Right" placement="right">
+                <Button size="sm" variant="glass" className="w-full">
+                  Right
+                </Button>
+              </Tooltip>
+            </div>
+          </div>
+
+          {/* Variants */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Variants
+            </p>
+            <div className="flex items-center gap-4">
+              <Tooltip content="Glass tooltip" variant="glass">
+                <Button variant="glass">Glass</Button>
+              </Tooltip>
+              <Tooltip content="Solid tooltip" variant="solid">
+                <Button variant="secondary">Solid</Button>
+              </Tooltip>
+              <Tooltip content="Outline tooltip" variant="outline">
+                <Button variant="outline">Outline</Button>
+              </Tooltip>
+            </div>
+          </div>
+
+          {/* With Badge */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              With Badge
+            </p>
+            <Tooltip content="You have 42 unread messages">
+              <Badge variant="primary" glow className="cursor-pointer">
+                42
+              </Badge>
+            </Tooltip>
+          </div>
+
+          {/* Long Content */}
+          <div>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Long Content
+            </p>
+            <Tooltip content="This is a longer tooltip with more detailed information about the element you're hovering over.">
+              <Button variant="primary">Hover for details</Button>
+            </Tooltip>
           </div>
         </section>
 
@@ -850,6 +1072,75 @@ function App() {
           </Modal>
         </section>
 
+        {/* ----- TOAST SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Toast Notifications</h2>
+          <p className="text-[var(--color-text-secondary)] text-sm mb-6 font-body">
+            Top-right · Minimal · 220ms slide-in · Auto-dismiss
+          </p>
+          <ToastDemo />
+        </section>
+
+        {/* ----- PROGRESS SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Progress</h2>
+
+          {/* Horizontal */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Horizontal
+            </p>
+            <div className="flex flex-col gap-4 max-w-md">
+              <Progress value={75} color="primary" labelPosition="right" />
+              <Progress value={60} color="secondary" labelPosition="right" />
+              <Progress value={45} color="accent" labelPosition="right" />
+              <Progress value={80} color="success" labelPosition="right" />
+              <Progress value={30} color="danger" labelPosition="right" />
+              <Progress value={55} color="gradient" labelPosition="right" />
+            </div>
+          </div>
+
+          {/* Sizes */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Sizes
+            </p>
+            <div className="flex flex-col gap-4 max-w-md">
+              <Progress value={50} size="sm" labelPosition="right" />
+              <Progress value={65} size="md" labelPosition="right" />
+              <Progress value={80} size="lg" labelPosition="right" />
+            </div>
+          </div>
+
+          {/* Radial */}
+          <div className="mb-6">
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Radial
+            </p>
+            <div className="flex flex-wrap gap-6">
+              <Progress variant="radial" value={75} color="primary" />
+              <Progress variant="radial" value={60} color="secondary" />
+              <Progress variant="radial" value={45} color="accent" />
+              <Progress variant="radial" value={80} color="success" />
+              <Progress variant="radial" value={30} color="danger" />
+              <Progress variant="radial" value={90} color="warning" />
+              <Progress variant="radial" value={55} color="gradient" />
+            </div>
+          </div>
+
+          {/* Radial Sizes */}
+          <div>
+            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              Radial Sizes
+            </p>
+            <div className="flex flex-wrap gap-6 items-end">
+              <Progress variant="radial" value={50} size="sm" />
+              <Progress variant="radial" value={65} size="md" />
+              <Progress variant="radial" value={80} size="lg" />
+            </div>
+          </div>
+        </section>
+
         {/* ----- GLOW SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Glow Effects</h2>
@@ -936,6 +1227,14 @@ function App() {
         </section>
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <ToastProvider>
+      <AppContent />
+    </ToastProvider>
   );
 }
 
