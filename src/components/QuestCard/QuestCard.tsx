@@ -59,7 +59,7 @@ export interface QuestCardProps {
  * - Glow variants (purple, cyan, pink)
  * - Smart deadline display (tomorrow, tonight, X days)
  * - Requirements list
- * - Completion modal with dust animation effect
+ * - Completion modal with sparkle drop effect
  * - Theme-aware colors
  */
 export const QuestCard: React.FC<QuestCardProps> = ({
@@ -77,7 +77,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
 }) => {
   const [isDone, setIsDone] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [isDusting, setIsDusting] = useState(false);
+  const [showSparkles, setShowSparkles] = useState(false);
 
   const isControlled = controlledDone !== undefined;
   const completed = isControlled ? controlledDone : isDone;
@@ -89,7 +89,6 @@ export const QuestCard: React.FC<QuestCardProps> = ({
     const now = new Date();
     const deadlineDate = new Date(deadline);
 
-    // Check if it's a special keyword
     const lowerDeadline = deadline.toLowerCase();
     if (lowerDeadline === "tomorrow") {
       return "⏰ Deadline: Tomorrow";
@@ -98,7 +97,6 @@ export const QuestCard: React.FC<QuestCardProps> = ({
       return "⏰ Deadline: Tonight";
     }
 
-    // Check if it's a valid date
     if (isNaN(deadlineDate.getTime())) {
       return `⏰ ${deadline}`;
     }
@@ -119,7 +117,6 @@ export const QuestCard: React.FC<QuestCardProps> = ({
     return `⏰ Deadline: ${Math.floor(diffDays / 365)} years`;
   };
 
-  // Get rank color
   const getRankColor = (): string => {
     if (!rank) return "";
     const upperRank = rank.toUpperCase();
@@ -134,14 +131,12 @@ export const QuestCard: React.FC<QuestCardProps> = ({
     return "text-[var(--color-text-secondary)]";
   };
 
-  // Handle card click to start completion flow
   const handleCardClick = () => {
     if (!completed) {
       setShowModal(true);
     }
   };
 
-  // Handle confirm completion
   const handleConfirmComplete = () => {
     setShowModal(false);
     if (!isControlled) {
@@ -149,14 +144,13 @@ export const QuestCard: React.FC<QuestCardProps> = ({
     }
     onComplete?.();
 
-    // Start dust animation
-    setIsDusting(true);
+    // Trigger sparkle drop effect
+    setShowSparkles(true);
     setTimeout(() => {
-      setIsDusting(false);
-    }, 1000);
+      setShowSparkles(false);
+    }, 1500);
   };
 
-  // Glow styles
   const glowStyles = {
     purple: "glow-purple",
     cyan: "glow-cyan",
@@ -166,15 +160,61 @@ export const QuestCard: React.FC<QuestCardProps> = ({
 
   const glowClass = glowStyles[glow] || "";
 
+  // Generate random sparkle drops
+  const generateSparkles = () => {
+    const sparkles = [];
+    const colors = [
+      "#ffd700",
+      "#ff6b35",
+      "#ff4d9d",
+      "#7c5cff",
+      "#00d9ff",
+      "#00ff99",
+      "#ffffff",
+    ];
+    const total = 20;
+
+    for (let i = 0; i < total; i++) {
+      const angle = Math.random() * 360;
+      const distance = 40 + Math.random() * 120;
+      const size = 3 + Math.random() * 5;
+      const delay = Math.random() * 0.3;
+      const duration = 0.6 + Math.random() * 0.6;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      sparkles.push(
+        <div
+          key={i}
+          className="sparkle-drop"
+          style={
+            {
+              left: `${30 + Math.random() * 40}%`,
+              top: `${30 + Math.random() * 40}%`,
+              width: `${size}px`,
+              height: `${size}px`,
+              backgroundColor: color,
+              boxShadow: `0 0 ${size * 2}px ${color}`,
+              animationDelay: `${delay}s`,
+              animationDuration: `${duration}s`,
+              "--tx": `${Math.cos((angle * Math.PI) / 180) * distance}px`,
+              "--ty": `${Math.sin((angle * Math.PI) / 180) * distance}px`,
+            } as React.CSSProperties
+          }
+        />,
+      );
+    }
+    return sparkles;
+  };
+
   return (
     <>
       <div
         className={`
-          glass p-6 float-card cursor-pointer
+          glass p-6 float-card cursor-pointer relative
+          h-full flex flex-col
           ${glowClass}
           ${completed ? "opacity-60 pointer-events-none" : ""}
-          ${isDusting ? "animate-dust" : ""}
-          transition-all duration-500
+          transition-all duration-300
           ${className}
         `}
         onClick={handleCardClick}
@@ -182,6 +222,13 @@ export const QuestCard: React.FC<QuestCardProps> = ({
         tabIndex={0}
         aria-label={`Quest: ${title}`}
       >
+        {/* Sparkle Drop Effect */}
+        {showSparkles && (
+          <div className="absolute inset-0 pointer-events-none overflow-visible z-10">
+            {generateSparkles()}
+          </div>
+        )}
+
         {/* Mission Label */}
         <p className="font-mono text-xs text-[var(--color-cyan)] uppercase tracking-wider mb-3">
           🗡️ MISSION
@@ -193,7 +240,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
         </h4>
 
         {/* Description */}
-        <p className="text-[var(--color-text-secondary)] text-sm mb-3">
+        <p className="text-[var(--color-text-secondary)] text-sm mb-3 flex-grow">
           {description}
         </p>
 
@@ -248,7 +295,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
 
         {/* Done overlay */}
         {completed && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-[var(--radius-standard)] backdrop-blur-sm">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-[var(--radius-standard)] backdrop-blur-sm z-20">
             <span className="font-heading text-2xl font-bold text-[var(--color-success)]">
               ✓ COMPLETE
             </span>
@@ -298,29 +345,25 @@ export const QuestCard: React.FC<QuestCardProps> = ({
         )}
       </Modal>
 
-      {/* Dust animation styles */}
+      {/* Sparkle drop styles */}
       <style>{`
-        @keyframes dustOut {
-          0% {
-            transform: scale(1);
-            opacity: 1;
-          }
-          30% {
-            transform: scale(0.95);
-            opacity: 0.9;
-          }
-          60% {
-            transform: scale(0.8) rotate(-2deg);
-            opacity: 0.6;
-          }
-          100% {
-            transform: scale(0.3) rotate(5deg) translateY(-20px);
-            opacity: 0;
-          }
+        .sparkle-drop {
+          position: absolute;
+          border-radius: 50%;
+          pointer-events: none;
+          animation: sparkleDrop 0.8s ease-out forwards;
+          z-index: 30;
         }
 
-        .animate-dust {
-          animation: dustOut 0.8s ease-out forwards;
+        @keyframes sparkleDrop {
+          0% {
+            transform: translate(0, 0) scale(1);
+            opacity: 1;
+          }
+          100% {
+            transform: translate(var(--tx), var(--ty)) scale(0);
+            opacity: 0;
+          }
         }
       `}</style>
     </>
