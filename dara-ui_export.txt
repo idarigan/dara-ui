@@ -1,6 +1,6 @@
 ================================================================================
 ADVANCED PROJECT CODE EXPORT
-Generated: 2026-07-27 17:23:53
+Generated: 2026-07-28 15:41:30
 Project: dara-ui
 Path: D:\D's\dara-ui
 ================================================================================
@@ -27,11 +27,11 @@ dara-ui/
 │   └── icons.svg (4.9 KB)
 ├── README.md (2.4 KB)
 ├── src/
-│   ├── App.tsx (48.2 KB)
+│   ├── App.tsx (50.4 KB)
 │   ├── components/
 │   │   ├── Accordion/
 │   │   │   ├── Accordion.stories.tsx (4.8 KB)
-│   │   │   ├── Accordion.tsx (4.5 KB)
+│   │   │   ├── Accordion.tsx (5.9 KB)
 │   │   │   └── index.ts (162.0 B)
 │   │   ├── Avatar/
 │   │   │   ├── Avatar.stories.tsx (3.6 KB)
@@ -74,10 +74,14 @@ dara-ui/
 │   │   │   ├── Toast.stories.tsx (6.7 KB)
 │   │   │   ├── Toast.tsx (6.8 KB)
 │   │   │   └── ToastProvider.tsx (4.8 KB)
-│   │   └── Tooltip/
-│   │       ├── index.ts (153.0 B)
-│   │       ├── Tooltip.stories.tsx (5.1 KB)
-│   │       └── Tooltip.tsx (10.5 KB)
+│   │   ├── Tooltip/
+│   │   │   ├── index.ts (153.0 B)
+│   │   │   ├── Tooltip.stories.tsx (5.1 KB)
+│   │   │   └── Tooltip.tsx (10.5 KB)
+│   │   └── XPBar/
+│   │       ├── index.ts (133.0 B)
+│   │       ├── XPBar.stories.tsx (5.6 KB)
+│   │       └── XPBar.tsx (4.8 KB)
 │   ├── fonts/
 │   ├── hooks/
 │   │   └── useDirection.ts (739.0 B)
@@ -100,7 +104,7 @@ dara-ui/
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 1/61: .gitignore
+FILE 1/64: .gitignore
 Language: plaintext | Size: 319 bytes
 Lines: 31 total | 19 code | 6 comments | 6 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -141,7 +145,7 @@ original-dmeo.html
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 2/61: .storybook\main.ts
+FILE 2/64: .storybook\main.ts
 Language: typescript | Size: 418 bytes
 Lines: 17 total | 16 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -168,7 +172,7 @@ export default config;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 3/61: .storybook\preview.tsx
+FILE 3/64: .storybook\preview.tsx
 Language: tsx | Size: 608 bytes
 Lines: 30 total | 25 code | 0 comments | 5 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -207,7 +211,7 @@ export default preview;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 4/61: dara-ui_export.txt
+FILE 4/64: dara-ui_export.txt
 Language: plaintext | Size: 0 bytes
 Lines: 1 total | 0 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -218,7 +222,7 @@ Lines: 1 total | 0 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 5/61: eslint.config.js
+FILE 5/64: eslint.config.js
 Language: javascript | Size: 764 bytes
 Lines: 23 total | 19 code | 1 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -250,7 +254,7 @@ export default defineConfig([globalIgnores(['dist']), {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 6/61: export_project.py
+FILE 6/64: export_project.py
 Language: python | Size: 16,849 bytes
 Lines: 421 total | 345 code | 1 comments | 75 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -681,7 +685,7 @@ if __name__ == "__main__":
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 7/61: index.html
+FILE 7/64: index.html
 Language: html | Size: 359 bytes
 Lines: 14 total | 13 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -704,7 +708,7 @@ Lines: 14 total | 13 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 8/61: original-dmeo.html
+FILE 8/64: original-dmeo.html
 Language: html | Size: 79,593 bytes
 Lines: 2321 total | 2232 code | 25 comments | 64 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3034,7 +3038,7 @@ Lines: 2321 total | 2232 code | 25 comments | 64 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 9/61: package.json
+FILE 9/64: package.json
 Language: json | Size: 1,782 bytes
 Lines: 67 total | 66 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3110,7 +3114,7 @@ Lines: 67 total | 66 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 10/61: public\favicon.svg
+FILE 10/64: public\favicon.svg
 Language: plaintext | Size: 9,522 bytes
 Lines: 1 total | 1 code | 0 comments | 0 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3121,7 +3125,7 @@ Lines: 1 total | 1 code | 0 comments | 0 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 11/61: public\icons.svg
+FILE 11/64: public\icons.svg
 Language: plaintext | Size: 5,031 bytes
 Lines: 25 total | 24 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3155,7 +3159,7 @@ Lines: 25 total | 24 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 12/61: README.md
+FILE 12/64: README.md
 Language: markdown | Size: 2,427 bytes
 Lines: 76 total | 57 code | 3 comments | 16 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3240,9 +3244,9 @@ export default defineConfig([
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 13/61: src\App.tsx
-Language: tsx | Size: 47,838 bytes
-Lines: 1375 total | 1297 code | 1 comments | 77 blank
+FILE 13/64: src\App.tsx
+Language: tsx | Size: 49,954 bytes
+Lines: 1438 total | 1354 code | 1 comments | 83 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
@@ -3259,6 +3263,7 @@ import { ToastProvider, useToast } from "./components/Toast";
 import { Avatar } from "./components/Avatar/Avatar";
 import { Tooltip } from "./components/Tooltip/Tooltip";
 import { Progress } from "./components/Progress/Progress";
+import { XPBar } from "./components/XPBar";
 import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 
@@ -4323,7 +4328,7 @@ function AppContent() {
         {/* ----- TOAST SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Toast Notifications</h2>
-          <p className="text-[var(--color-text-secondary)] text-sm mb-6 font-body">
+          <p className="text-[var(--color-text-secondary)] text-sm mb-6 font-sans">
             Top-right · Minimal · 220ms slide-in · Auto-dismiss
           </p>
           <ToastDemo />
@@ -4522,6 +4527,68 @@ function AppContent() {
           </div>
         </section>
 
+        {/* ----- XPBAR SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">XPBar, RankTier</h2>
+
+          {/* Basic XP Bar */}
+          <div className="glass mb-5 p-6 float-card">
+            <XPBar value={3400} max={5000} level={14} />
+          </div>
+
+          {/* With custom labels */}
+          <div className="glass mb-5 p-6 float-card glow-cyan">
+            <XPBar
+              value={3400}
+              max={5000}
+              level={14}
+              customLabel="★ RANK PROGRESS"
+              levelLabel="Rank"
+              xpLabel="EXP"
+            />
+          </div>
+
+          {/* With rank tiers */}
+          <div className="glass mb-5 p-6 float-card glow-purple">
+            <XPBar
+              value={3400}
+              max={5000}
+              level={14}
+              levelLabel="Tier"
+              xpLabel="Points"
+              customLabel="🏆 RANK PROGRESS"
+              ranks={[
+                { label: "Common", requiredXP: 0 },
+                { label: "Uncommon", requiredXP: 1000 },
+                { label: "Rare", requiredXP: 2500 },
+                { label: "Epic", requiredXP: 4000 },
+                { label: "Legendary", requiredXP: 6000 },
+              ]}
+            />
+          </div>
+
+          {/* Game style with custom rank labels */}
+          <div className="glass mb-5 p-6 float-card">
+            <XPBar
+              value={750}
+              max={1200}
+              level={3}
+              levelLabel="Prestige"
+              xpLabel="Score"
+              customLabel="⚔️ MISSION PROGRESS"
+              ranks={[
+                { label: "Recruit", requiredXP: 0 },
+                { label: "Soldier", requiredXP: 300 },
+                { label: "Veteran", requiredXP: 600 },
+                { label: "Elite", requiredXP: 900 },
+                { label: "Commander", requiredXP: 1200 },
+              ]}
+            />
+          </div>
+
+          {/* QuestCard */}
+        </section>
+
         {/* ----- GLOW SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Glow Effects</h2>
@@ -4624,7 +4691,7 @@ export default App;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 14/61: src\components\Accordion\Accordion.stories.tsx
+FILE 14/64: src\components\Accordion\Accordion.stories.tsx
 Language: tsx | Size: 4,724 bytes
 Lines: 184 total | 172 code | 0 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -4817,13 +4884,13 @@ export const DisabledItem: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 15/61: src\components\Accordion\Accordion.tsx
-Language: tsx | Size: 4,412 bytes
-Lines: 154 total | 139 code | 0 comments | 15 blank
+FILE 15/64: src\components\Accordion\Accordion.tsx
+Language: tsx | Size: 5,824 bytes
+Lines: 194 total | 177 code | 0 comments | 17 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 
 export interface AccordionItem {
   id: string;
@@ -4844,6 +4911,9 @@ export interface AccordionProps {
   size?: "sm" | "md" | "lg";
 }
 
+/**
+ * Dara UI Accordion
+ */
 export const Accordion: React.FC<AccordionProps> = ({
   items,
   openItems: controlledOpenItems,
@@ -4860,6 +4930,13 @@ export const Accordion: React.FC<AccordionProps> = ({
 
   const openItems = isControlled ? controlledOpenItems : internalOpenItems;
 
+  // Store refs for each content panel to measure height
+  const contentRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const [contentHeights, setContentHeights] = useState<Record<string, number>>(
+    {},
+  );
+
+  // Toggle accordion item
   const toggleItem = useCallback(
     (id: string) => {
       let newOpenItems: string[];
@@ -4886,6 +4963,22 @@ export const Accordion: React.FC<AccordionProps> = ({
     [openItems, multiple, isControlled, onOpenChange],
   );
 
+  // Measure content heights when items change
+  useEffect(() => {
+    const heights: Record<string, number> = {};
+    items.forEach((item) => {
+      const el = contentRefs.current.get(item.id);
+      if (el) {
+        // Force a reflow to get accurate scrollHeight
+        el.style.maxHeight = "none";
+        heights[item.id] = el.scrollHeight;
+        // Reset max-height so the transition works
+        el.style.maxHeight = "0px";
+      }
+    });
+    setContentHeights(heights);
+  }, [items]);
+
   // Size styles
   const sizeStyles = {
     sm: "px-3 py-2 text-sm",
@@ -4894,9 +4987,9 @@ export const Accordion: React.FC<AccordionProps> = ({
   };
 
   const contentSizeStyles = {
-    sm: "px-3 pb-3 text-sm",
-    md: "px-4 pb-4 text-base",
-    lg: "px-6 pb-6 text-lg",
+    sm: "px-5 py-3 text-sm",
+    md: "px-6 py-4 text-base",
+    lg: "px-8 py-6 text-lg",
   };
 
   return (
@@ -4906,6 +4999,7 @@ export const Accordion: React.FC<AccordionProps> = ({
         const isFirst = index === 0;
         const isLast = index === items.length - 1;
         const isOnly = items.length === 1;
+        const contentHeight = contentHeights[item.id] || 0;
 
         let radiusClass = "";
         if (isOnly) radiusClass = "rounded-[--radius-md]";
@@ -4954,12 +5048,25 @@ export const Accordion: React.FC<AccordionProps> = ({
               </span>
             </button>
 
-            {/* Content */}
+            {/* Content - dynamic max-height based on actual content */}
             <div
+              ref={(el) => {
+                if (el) {
+                  contentRefs.current.set(item.id, el);
+                } else {
+                  contentRefs.current.delete(item.id);
+                }
+              }}
               className={`
-                accordion-content
-                ${isOpen ? "open border-t border-[var(--color-border-secondary)]" : ""}
+                overflow-hidden
+                transition-[max-height,padding] duration-350 ease-[var(--ease-in-out)]
+                ${isOpen ? "border-t border-[var(--color-border-secondary)]" : ""}
               `}
+              style={{
+                maxHeight: isOpen ? `${contentHeight}px` : "0px",
+                paddingTop: isOpen ? "0" : "0",
+                paddingBottom: isOpen ? "0" : "0",
+              }}
             >
               <div
                 className={`${contentSizeStyles[size]} text-[var(--color-text-secondary)]`}
@@ -4980,7 +5087,7 @@ export default Accordion;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 16/61: src\components\Accordion\index.ts
+FILE 16/64: src\components\Accordion\index.ts
 Language: typescript | Size: 159 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -4993,7 +5100,7 @@ export { Accordion as default } from "./Accordion";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 17/61: src\components\Avatar\Avatar.stories.tsx
+FILE 17/64: src\components\Avatar\Avatar.stories.tsx
 Language: tsx | Size: 3,498 bytes
 Lines: 150 total | 137 code | 0 comments | 13 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5152,7 +5259,7 @@ export const Group: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 18/61: src\components\Avatar\Avatar.tsx
+FILE 18/64: src\components\Avatar\Avatar.tsx
 Language: tsx | Size: 6,829 bytes
 Lines: 273 total | 251 code | 0 comments | 22 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5434,7 +5541,7 @@ export default Avatar;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 19/61: src\components\Avatar\index.ts
+FILE 19/64: src\components\Avatar\index.ts
 Language: typescript | Size: 126 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5447,7 +5554,7 @@ export { Avatar as default } from "./Avatar";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 20/61: src\components\Badge\Badge.stories.tsx
+FILE 20/64: src\components\Badge\Badge.stories.tsx
 Language: tsx | Size: 6,357 bytes
 Lines: 253 total | 240 code | 0 comments | 13 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5709,7 +5816,7 @@ export const AllVariants: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 21/61: src\components\Badge\Badge.tsx
+FILE 21/64: src\components\Badge\Badge.tsx
 Language: tsx | Size: 2,959 bytes
 Lines: 113 total | 102 code | 0 comments | 11 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5831,7 +5938,7 @@ export default Badge;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 22/61: src\components\Badge\index.ts
+FILE 22/64: src\components\Badge\index.ts
 Language: typescript | Size: 120 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5844,7 +5951,7 @@ export { Badge as default } from "./Badge";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 23/61: src\components\Button\Button.stories.tsx
+FILE 23/64: src\components\Button\Button.stories.tsx
 Language: tsx | Size: 3,378 bytes
 Lines: 158 total | 146 code | 0 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6011,7 +6118,7 @@ export const Interactive: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 24/61: src\components\Button\Button.tsx
+FILE 24/64: src\components\Button\Button.tsx
 Language: tsx | Size: 3,689 bytes
 Lines: 130 total | 121 code | 0 comments | 9 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6150,7 +6257,7 @@ export default Button;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 25/61: src\components\Button\index.ts
+FILE 25/64: src\components\Button\index.ts
 Language: typescript | Size: 126 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6163,7 +6270,7 @@ export { Button as default } from "./Button";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 26/61: src\components\Card\Card.stories.tsx
+FILE 26/64: src\components\Card\Card.stories.tsx
 Language: tsx | Size: 4,455 bytes
 Lines: 155 total | 147 code | 0 comments | 8 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6327,7 +6434,7 @@ export const ContentExamples: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 27/61: src\components\Card\Card.tsx
+FILE 27/64: src\components\Card\Card.tsx
 Language: tsx | Size: 2,000 bytes
 Lines: 106 total | 96 code | 0 comments | 10 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6442,7 +6549,7 @@ export default Card;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 28/61: src\components\Card\index.ts
+FILE 28/64: src\components\Card\index.ts
 Language: typescript | Size: 114 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6455,7 +6562,7 @@ export { Card as default } from "./Card";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 29/61: src\components\Dropdown\Dropdown.stories.tsx
+FILE 29/64: src\components\Dropdown\Dropdown.stories.tsx
 Language: tsx | Size: 9,485 bytes
 Lines: 376 total | 350 code | 0 comments | 26 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6840,7 +6947,7 @@ export const Interactive: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 30/61: src\components\Dropdown\Dropdown.tsx
+FILE 30/64: src\components\Dropdown\Dropdown.tsx
 Language: tsx | Size: 12,749 bytes
 Lines: 426 total | 403 code | 0 comments | 23 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7065,7 +7172,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
       >
         {/* Label */}
         {label && (
-          <label className="text-sm font-medium text-[var(--color-text-secondary)] font-body">
+          <label className="text-sm font-medium text-[var(--color-text-secondary)] font-sans">
             {label}
           </label>
         )}
@@ -7078,7 +7185,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             disabled={disabled}
             className={`
               w-full flex items-center justify-between
-              font-body text-[var(--color-text-primary)]
+              font-sans text-[var(--color-text-primary)]
               transition-all duration-[var(--transition-fast)]
               rounded-[var(--radius-md)]
               ${sizeStyles[size].trigger}
@@ -7161,7 +7268,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder={searchPlaceholder}
                   className={`
-                    w-full font-body text-[var(--color-text-primary)]
+                    w-full font-sans text-[var(--color-text-primary)]
                     placeholder:text-[var(--color-text-tertiary)]
                     bg-[var(--color-bg-tertiary)]
                     border border-[var(--color-border-secondary)]
@@ -7247,7 +7354,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
 
         {/* Helper Text / Error Message */}
         {(helperText || errorMessage) && (
-          <div className="flex items-center gap-1.5 text-xs font-body">
+          <div className="flex items-center gap-1.5 text-xs font-sans">
             {error && errorMessage && (
               <>
                 <span className="text-[var(--color-danger)]">⚠️</span>
@@ -7275,7 +7382,7 @@ export default Dropdown;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 31/61: src\components\Dropdown\index.ts
+FILE 31/64: src\components\Dropdown\index.ts
 Language: typescript | Size: 154 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7288,7 +7395,7 @@ export { Dropdown as default } from "./Dropdown";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 32/61: src\components\Input\index.ts
+FILE 32/64: src\components\Input\index.ts
 Language: typescript | Size: 120 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7301,7 +7408,7 @@ export { Input as default } from "./Input";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 33/61: src\components\Input\Input.stories.tsx
+FILE 33/64: src\components\Input\Input.stories.tsx
 Language: tsx | Size: 3,723 bytes
 Lines: 148 total | 135 code | 0 comments | 13 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7458,14 +7565,14 @@ export const Disabled: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 34/61: src\components\Input\Input.tsx
-Language: tsx | Size: 8,801 bytes
-Lines: 306 total | 288 code | 0 comments | 18 blank
+FILE 34/64: src\components\Input\Input.tsx
+Language: tsx | Size: 8,798 bytes
+Lines: 306 total | 289 code | 0 comments | 17 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
 // src/components/Input/Input.tsx
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useState, useId } from "react";
 
 export interface InputProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -7565,12 +7672,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const [showPassword, setShowPassword] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
-
-    const inputId = id || `input-${Math.random().toString(36).substring(2, 9)}`;
+    const generatedId = useId();
+    const inputId = id || generatedId;
 
     // - .input-dara styles
     const baseStyles =
-      "w-full font-body transition-all duration-180 outline-none disabled:opacity-60 disabled:cursor-not-allowed placeholder:text-[var(--color-text-tertiary)]";
+      "w-full font-sans transition-all duration-180 outline-none disabled:opacity-60 disabled:cursor-not-allowed placeholder:text-[var(--color-text-tertiary)]";
 
     const bgStyles =
       "bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] focus:bg-[var(--color-bg-elevated)]";
@@ -7673,7 +7780,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className={`text-sm font-medium font-body transition-colors duration-180 ${getLabelColor()}`}
+            className={`text-sm font-medium font-sans transition-colors duration-180 ${getLabelColor()}`}
           >
             {label}
           </label>
@@ -7773,7 +7880,7 @@ export default Input;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 35/61: src\components\Modal\index.ts
+FILE 35/64: src\components\Modal\index.ts
 Language: typescript | Size: 120 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7786,7 +7893,7 @@ export { Modal as default } from "./Modal";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 36/61: src\components\Modal\Modal.stories.tsx
+FILE 36/64: src\components\Modal\Modal.stories.tsx
 Language: tsx | Size: 4,803 bytes
 Lines: 182 total | 167 code | 0 comments | 15 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7977,7 +8084,7 @@ export const Interactive: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 37/61: src\components\Modal\Modal.tsx
+FILE 37/64: src\components\Modal\Modal.tsx
 Language: tsx | Size: 5,453 bytes
 Lines: 226 total | 204 code | 0 comments | 22 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -8181,7 +8288,7 @@ export const Modal: React.FC<ModalProps> = ({
         </div>
 
         {/* Body */}
-        <div className="text-[var(--color-text-secondary)] mb-4 font-body text-sm leading-relaxed">
+        <div className="text-[var(--color-text-secondary)] mb-4 font-sans text-sm leading-relaxed">
           {children}
         </div>
 
@@ -8212,7 +8319,7 @@ export default Modal;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 38/61: src\components\Progress\index.ts
+FILE 38/64: src\components\Progress\index.ts
 Language: typescript | Size: 138 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -8225,7 +8332,7 @@ export { Progress as default } from "./Progress";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 39/61: src\components\Progress\Progress.stories.tsx
+FILE 39/64: src\components\Progress\Progress.stories.tsx
 Language: tsx | Size: 6,195 bytes
 Lines: 221 total | 204 code | 0 comments | 17 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -8455,7 +8562,7 @@ export const WithoutAnimation: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 40/61: src\components\Progress\Progress.tsx
+FILE 40/64: src\components\Progress\Progress.tsx
 Language: tsx | Size: 12,847 bytes
 Lines: 454 total | 422 code | 0 comments | 32 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -8918,7 +9025,7 @@ export default Progress;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 41/61: src\components\Tabs\index.ts
+FILE 41/64: src\components\Tabs\index.ts
 Language: typescript | Size: 123 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -8931,7 +9038,7 @@ export { Tabs as default } from "./Tabs";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 42/61: src\components\Tabs\Tabs.stories.tsx
+FILE 42/64: src\components\Tabs\Tabs.stories.tsx
 Language: tsx | Size: 4,153 bytes
 Lines: 179 total | 169 code | 0 comments | 10 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9119,7 +9226,7 @@ export const WithIcons: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 43/61: src\components\Tabs\Tabs.tsx
+FILE 43/64: src\components\Tabs\Tabs.tsx
 Language: tsx | Size: 5,707 bytes
 Lines: 194 total | 176 code | 0 comments | 18 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9253,7 +9360,7 @@ export const Tabs: React.FC<TabsProps> = ({
               key={value}
               ref={isActive ? activeTabRef : null}
               className={`
-                relative flex items-center gap-2 font-medium font-body
+                relative flex items-center gap-2 font-medium font-sans
                 transition-all duration-180
                 rounded-t-[--radius-md]
                 ${sizeStyles[size]}
@@ -9322,7 +9429,7 @@ export default Tabs;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 44/61: src\components\Toast\index.ts
+FILE 44/64: src\components\Toast\index.ts
 Language: typescript | Size: 259 bytes
 Lines: 6 total | 5 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9337,7 +9444,7 @@ export { Toast as default } from "./Toast";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 45/61: src\components\Toast\Toast.stories.tsx
+FILE 45/64: src\components\Toast\Toast.stories.tsx
 Language: tsx | Size: 6,622 bytes
 Lines: 244 total | 228 code | 0 comments | 16 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9590,7 +9697,7 @@ export const Stacked: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 46/61: src\components\Toast\Toast.tsx
+FILE 46/64: src\components\Toast\Toast.tsx
 Language: tsx | Size: 6,720 bytes
 Lines: 271 total | 250 code | 0 comments | 21 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9870,7 +9977,7 @@ export default Toast;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 47/61: src\components\Toast\ToastProvider.tsx
+FILE 47/64: src\components\Toast\ToastProvider.tsx
 Language: tsx | Size: 4,666 bytes
 Lines: 205 total | 186 code | 0 comments | 19 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10084,7 +10191,7 @@ export default useToast;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 48/61: src\components\Tooltip\index.ts
+FILE 48/64: src\components\Tooltip\index.ts
 Language: typescript | Size: 150 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10097,7 +10204,7 @@ export { Tooltip as default } from "./Tooltip";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 49/61: src\components\Tooltip\Tooltip.stories.tsx
+FILE 49/64: src\components\Tooltip\Tooltip.stories.tsx
 Language: tsx | Size: 4,973 bytes
 Lines: 201 total | 189 code | 0 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10307,7 +10414,7 @@ export const Interactive: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 50/61: src\components\Tooltip\Tooltip.tsx
+FILE 50/64: src\components\Tooltip\Tooltip.tsx
 Language: tsx | Size: 10,382 bytes
 Lines: 382 total | 346 code | 0 comments | 36 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10645,7 +10752,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
           ref={tooltipRef}
           className={`
             fixed z-[10002]
-            font-body text-[var(--color-text-primary)]
+            font-sans text-[var(--color-text-primary)]
             transition-opacity duration-150 ease-out
             ${visible ? "opacity-100" : "opacity-0 pointer-events-none"}
             ${variantStyles[variant]}
@@ -10698,7 +10805,457 @@ export default Tooltip;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 51/61: src\hooks\useDirection.ts
+FILE 51/64: src\components\XPBar\index.ts
+Language: typescript | Size: 130 bytes
+Lines: 4 total | 3 code | 0 comments | 1 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```typescript
+export { XPBar } from "./XPBar";
+export type { XPBarProps, RankTier } from "./XPBar";
+export { XPBar as default } from "./XPBar";
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 52/64: src\components\XPBar\XPBar.stories.tsx
+Language: tsx | Size: 5,522 bytes
+Lines: 226 total | 207 code | 0 comments | 19 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { XPBar } from "./XPBar";
+import { useState } from "react";
+import Button from "../Button/Button";
+
+const meta = {
+  title: "Components/XPBar",
+  component: XPBar,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+  argTypes: {
+    value: {
+      control: "number",
+      description: "Current XP value",
+    },
+    max: {
+      control: "number",
+      description: "Maximum XP for current level",
+    },
+    level: {
+      control: "number",
+      description: "Current level number",
+    },
+    showLabel: {
+      control: "boolean",
+      description: "Show 'X XP to next level' label",
+    },
+    customLabel: {
+      control: "text",
+      description: "Custom label for the progress bar header",
+    },
+    levelLabel: {
+      control: "text",
+      description: "Custom word for 'Level'",
+    },
+    xpLabel: {
+      control: "text",
+      description: "Custom word for 'XP'",
+    },
+  },
+  args: {
+    value: 3400,
+    max: 5000,
+    level: 14,
+    showLabel: true,
+  },
+} satisfies Meta<typeof XPBar>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// ----- Default -----
+export const Default: Story = {};
+
+// ----- Different Levels -----
+export const DifferentLevels: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4 w-80">
+      <XPBar value={1200} max={3000} level={5} />
+      <XPBar value={3400} max={5000} level={14} />
+      <XPBar value={7800} max={10000} level={27} />
+      <XPBar value={150} max={1000} level={2} />
+    </div>
+  ),
+};
+
+// ----- With Custom Labels -----
+export const CustomLabels: Story = {
+  args: {
+    customLabel: "★ PROGRESS",
+    levelLabel: "Rank",
+    xpLabel: "EXP",
+  },
+};
+
+// ----- With Ranks (Tiers) -----
+export const WithRanks: Story = {
+  args: {
+    value: 3400,
+    max: 5000,
+    level: 14,
+    ranks: [
+      { label: "Common", requiredXP: 0 },
+      { label: "Uncommon", requiredXP: 1000 },
+      { label: "Rare", requiredXP: 2500 },
+      { label: "Epic", requiredXP: 4000 },
+      { label: "Legendary", requiredXP: 6000 },
+    ],
+  },
+};
+
+// ----- Various Ranks -----
+export const VariousRanks: Story = {
+  render: () => {
+    const rankTiers = [
+      { label: "Common", requiredXP: 0 },
+      { label: "Uncommon", requiredXP: 1000 },
+      { label: "Rare", requiredXP: 2500 },
+      { label: "Epic", requiredXP: 4000 },
+      { label: "Legendary", requiredXP: 6000 },
+    ];
+
+    return (
+      <div className="flex flex-col gap-4 w-80">
+        <XPBar value={500} max={5000} level={5} ranks={rankTiers} />
+        <XPBar value={1500} max={5000} level={8} ranks={rankTiers} />
+        <XPBar value={3000} max={5000} level={12} ranks={rankTiers} />
+        <XPBar value={4500} max={5000} level={16} ranks={rankTiers} />
+        <XPBar value={5500} max={5000} level={20} ranks={rankTiers} />
+      </div>
+    );
+  },
+};
+
+// ----- Custom Rank Labels -----
+export const CustomRankLabels: Story = {
+  args: {
+    value: 1250,
+    max: 3000,
+    level: 5,
+    levelLabel: "Tier",
+    xpLabel: "Points",
+    customLabel: "🏆 RANK PROGRESS",
+    ranks: [
+      { label: "Bronze", requiredXP: 0 },
+      { label: "Silver", requiredXP: 500 },
+      { label: "Gold", requiredXP: 1200 },
+      { label: "Platinum", requiredXP: 2000 },
+      { label: "Diamond", requiredXP: 3000 },
+    ],
+  },
+};
+
+// ----- Game Style -----
+export const GameStyle: Story = {
+  args: {
+    value: 750,
+    max: 1200,
+    level: 3,
+    levelLabel: "Prestige",
+    xpLabel: "Score",
+    customLabel: "⚔️ MISSION PROGRESS",
+    ranks: [
+      { label: "Recruit", requiredXP: 0 },
+      { label: "Soldier", requiredXP: 300 },
+      { label: "Veteran", requiredXP: 600 },
+      { label: "Elite", requiredXP: 900 },
+      { label: "Commander", requiredXP: 1200 },
+    ],
+  },
+};
+
+// ----- Without Label -----
+export const WithoutLabel: Story = {
+  args: {
+    showLabel: false,
+  },
+};
+
+// ----- Interactive -----
+export const Interactive: Story = {
+  render: () => {
+    const [value, setValue] = useState(3400);
+    const [level, setLevel] = useState(14);
+    const max = 5000;
+
+    const rankTiers = [
+      { label: "Common", requiredXP: 0 },
+      { label: "Uncommon", requiredXP: 1000 },
+      { label: "Rare", requiredXP: 2500 },
+      { label: "Epic", requiredXP: 4000 },
+      { label: "Legendary", requiredXP: 6000 },
+    ];
+
+    const addXP = (amount: number) => {
+      let newValue = value + amount;
+      let newLevel = level;
+
+      while (newValue >= max) {
+        newValue -= max;
+        newLevel++;
+      }
+
+      setValue(newValue);
+      setLevel(newLevel);
+    };
+
+    return (
+      <div className="flex flex-col items-center gap-6 w-80">
+        <XPBar
+          value={value}
+          max={max}
+          level={level}
+          ranks={rankTiers}
+          levelLabel="Rank"
+          xpLabel="EXP"
+        />
+
+        <div className="flex gap-2 flex-wrap justify-center">
+          <Button size="sm" onClick={() => addXP(50)}>
+            +50 EXP
+          </Button>
+          <Button size="sm" variant="secondary" onClick={() => addXP(200)}>
+            +200 EXP
+          </Button>
+          <Button size="sm" variant="success" onClick={() => addXP(500)}>
+            +500 EXP
+          </Button>
+          <Button
+            size="sm"
+            variant="danger"
+            onClick={() => {
+              setValue(0);
+              setLevel(1);
+            }}
+          >
+            Reset
+          </Button>
+        </div>
+      </div>
+    );
+  },
+};
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 53/64: src\components\XPBar\XPBar.tsx
+Language: tsx | Size: 4,755 bytes
+Lines: 193 total | 175 code | 0 comments | 18 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import React from "react";
+
+export interface RankTier {
+  /**
+   * Display label for the rank (e.g., "Common", "Plat", "Hero")
+   */
+  label: string;
+  /**
+   * XP required to achieve this rank
+   */
+  requiredXP: number;
+}
+
+export interface XPBarProps {
+  /**
+   * Current XP value
+   * @default 0
+   */
+  value?: number;
+  /**
+   * Maximum XP for current level
+   * @default 5000
+   */
+  max?: number;
+  /**
+   * Current level number
+   * @default 1
+   */
+  level?: number;
+  /**
+   * Show label text
+   * @default true
+   */
+  showLabel?: boolean;
+  /**
+   * Custom label for the progress bar header (replaces "XP Progress")
+   */
+  customLabel?: string;
+  /**
+   * Custom word for "Level" (e.g., "Rank", "Tier")
+   * @default "Level"
+   */
+  levelLabel?: string;
+  /**
+   * Custom word for "XP" (e.g., "EXP", "Points", "Score")
+   * @default "XP"
+   */
+  xpLabel?: string;
+  /**
+   * Rank tiers array - each tier has a label and required XP
+   * When provided, displays the current rank badge
+   */
+  ranks?: RankTier[];
+  /**
+   * Additional className
+   */
+  className?: string;
+}
+
+/**
+ * Dara UI XPBar - RPG-style experience progress bar
+ *
+ * Features:
+ * - Gradient fill animation (purple to cyan)
+ * - Level display with customizable labels
+ * - "X XP to next level" helper text
+ * - Rank tier system with badge display
+ * - Glow effect on fill
+ * - Theme-aware colors
+ * - RTL support
+ */
+export const XPBar: React.FC<XPBarProps> = ({
+  value = 0,
+  max = 5000,
+  level = 1,
+  showLabel = true,
+  customLabel,
+  levelLabel = "Level",
+  xpLabel = "XP",
+  ranks,
+  className = "",
+}) => {
+  // Clamp value between 0 and max
+  const clampedValue = Math.max(0, Math.min(value, max));
+  const percentage = (clampedValue / max) * 100;
+  const xpToNext = max - clampedValue;
+
+  // Determine current rank based on XP value
+  const getCurrentRank = (): RankTier | null => {
+    if (!ranks || ranks.length === 0) return null;
+
+    let currentRank = ranks[0];
+    for (const rank of ranks) {
+      if (clampedValue >= rank.requiredXP) {
+        currentRank = rank;
+      }
+    }
+    return currentRank;
+  };
+
+  const currentRank = getCurrentRank();
+
+  // Get the next rank
+  const getNextRank = (): RankTier | null => {
+    if (!ranks || ranks.length === 0) return null;
+
+    for (const rank of ranks) {
+      if (clampedValue < rank.requiredXP) {
+        return rank;
+      }
+    }
+    return null;
+  };
+
+  const nextRank = getNextRank();
+
+  // Calculate XP needed for next rank
+  const xpToNextRank = nextRank ? nextRank.requiredXP - clampedValue : null;
+
+  // Format number with commas
+  const formatNumber = (num: number): string => {
+    return num.toLocaleString();
+  };
+
+  // Determine bar label text
+  const getBarLabel = (): string => {
+    if (ranks && nextRank) {
+      return `${formatNumber(xpToNextRank || 0)} ${xpLabel} to ${nextRank.label}`;
+    }
+    return `${formatNumber(xpToNext)} ${xpLabel} to next ${levelLabel}`;
+  };
+
+  return (
+    <div className={`glass p-6 float-card ${className}`}>
+      {/* XP Progress label */}
+      <p className="font-mono text-xs text-[var(--color-primary)] uppercase tracking-wider mb-4">
+        {customLabel || "XP Progress"}
+      </p>
+
+      {/* Level/Rank and XP display */}
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center gap-2">
+          <span className="font-accent text-sm text-[var(--color-text-primary)]/80">
+            {ranks && currentRank ? (
+              <>
+                {levelLabel} {level} · {currentRank.label}
+              </>
+            ) : (
+              <>
+                {levelLabel} {level}
+              </>
+            )}
+          </span>
+        </div>
+        <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
+          {formatNumber(clampedValue)} /{" "}
+          {ranks && nextRank
+            ? formatNumber(nextRank.requiredXP)
+            : formatNumber(max)}{" "}
+          {xpLabel}
+        </span>
+      </div>
+
+      {/* Progress bar track */}
+      <div className="xp-bar-track" dir="ltr">
+        <div
+          className="xp-bar-fill"
+          style={{
+            width:
+              ranks && nextRank
+                ? `${(clampedValue / nextRank.requiredXP) * 100}%`
+                : `${percentage}%`,
+          }}
+          role="progressbar"
+          aria-valuenow={clampedValue}
+          aria-valuemin={0}
+          aria-valuemax={ranks && nextRank ? nextRank.requiredXP : max}
+        />
+      </div>
+
+      {/* XP to next level/rank */}
+      {showLabel && (
+        <p className="font-mono text-xs text-[var(--color-text-tertiary)] mt-2">
+          {getBarLabel()}
+        </p>
+      )}
+    </div>
+  );
+};
+
+XPBar.displayName = "XPBar";
+export default XPBar;
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 54/64: src\hooks\useDirection.ts
 Language: typescript | Size: 715 bytes
 Lines: 25 total | 17 code | 0 comments | 8 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10732,7 +11289,7 @@ export default useDirection;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 52/61: src\index.ts
+FILE 55/64: src\index.ts
 Language: typescript | Size: 2,024 bytes
 Lines: 69 total | 42 code | 11 comments | 16 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10810,7 +11367,7 @@ import "./styles/index.css";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 53/61: src\main.tsx
+FILE 56/64: src\main.tsx
 Language: tsx | Size: 305 bytes
 Lines: 13 total | 10 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10832,7 +11389,7 @@ createRoot(document.getElementById("root")!).render(
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 54/61: src\styles\fonts.css
+FILE 57/64: src\styles\fonts.css
 Language: css | Size: 1,488 bytes
 Lines: 61 total | 49 code | 5 comments | 7 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10902,9 +11459,9 @@ Lines: 61 total | 49 code | 5 comments | 7 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 55/61: src\styles\index.css
-Language: css | Size: 14,512 bytes
-Lines: 690 total | 570 code | 30 comments | 90 blank
+FILE 58/64: src\styles\index.css
+Language: css | Size: 14,543 bytes
+Lines: 691 total | 571 code | 30 comments | 90 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```css
@@ -11213,17 +11770,17 @@ button.glass,
 
 .xp-bar-track {
   height: 8px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--color-border-secondary);
   border-radius: 4px;
   overflow: hidden;
 }
 
 .xp-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, #7c5cff, #00d9ff);
+  background: var(--gradient-primary);
   border-radius: 4px;
   transition: width 0.6s ease;
-  box-shadow: 0 0 8px rgba(124, 92, 255, 0.4);
+  box-shadow: var(--shadow-glow-primary);
 }
 
 /* =============================================
@@ -11369,6 +11926,7 @@ button.glass,
   letter-spacing: 0.01em;
   position: relative;
   overflow: hidden;
+  -webkit-user-select: none;
   user-select: none;
   white-space: nowrap;
 }
@@ -11415,8 +11973,8 @@ button.glass,
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  color: #e2e8f0;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-primary);
 }
 .btn-glass:hover {
   background: rgba(255, 255, 255, 0.1);
@@ -11601,7 +12159,7 @@ html[lang="ar-SA"] {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 56/61: src\styles\tokens.css
+FILE 59/64: src\styles\tokens.css
 Language: css | Size: 8,672 bytes
 Lines: 281 total | 217 code | 16 comments | 48 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -11891,7 +12449,7 @@ Lines: 281 total | 217 code | 16 comments | 48 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 57/61: tsconfig.app.json
+FILE 60/64: tsconfig.app.json
 Language: json | Size: 655 bytes
 Lines: 27 total | 24 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -11927,7 +12485,7 @@ Lines: 27 total | 24 code | 0 comments | 3 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 58/61: tsconfig.json
+FILE 61/64: tsconfig.json
 Language: json | Size: 119 bytes
 Lines: 8 total | 7 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -11944,7 +12502,7 @@ Lines: 8 total | 7 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 59/61: tsconfig.node.json
+FILE 62/64: tsconfig.node.json
 Language: json | Size: 558 bytes
 Lines: 24 total | 21 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -11977,7 +12535,7 @@ Lines: 24 total | 21 code | 0 comments | 3 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 60/61: vite.config.ts
+FILE 63/64: vite.config.ts
 Language: typescript | Size: 1,720 bytes
 Lines: 71 total | 66 code | 2 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -12057,7 +12615,7 @@ export default defineConfig({
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 61/61: vitest.shims.d.ts
+FILE 64/64: vitest.shims.d.ts
 Language: typescript | Size: 52 bytes
 Lines: 1 total | 0 code | 1 comments | 0 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -12072,18 +12630,18 @@ Lines: 1 total | 0 code | 1 comments | 0 blank
 
 GENERAL STATISTICS
 ----------------------------------------
-Total files exported: 61
-Total size: 347,619 bytes (339.47 KB, 0.33 MB)
-Average file size: 5,699 bytes
+Total files exported: 64
+Total size: 361,582 bytes (353.11 KB, 0.34 MB)
+Average file size: 5,650 bytes
 
 LANGUAGE DISTRIBUTION
 ----------------------------------------
-tsx               28 files ( 45.9%) ██████████████████████
-typescript        17 files ( 27.9%) █████████████
-plaintext          4 files (  6.6%) ███
-json               4 files (  6.6%) ███
-css                3 files (  4.9%) ██
-html               2 files (  3.3%) █
+tsx               30 files ( 46.9%) ███████████████████████
+typescript        18 files ( 28.1%) ██████████████
+plaintext          4 files (  6.2%) ███
+json               4 files (  6.2%) ███
+css                3 files (  4.7%) ██
+html               2 files (  3.1%) █
 javascript         1 files (  1.6%) 
 python             1 files (  1.6%) 
 markdown           1 files (  1.6%) 
@@ -12091,7 +12649,7 @@ markdown           1 files (  1.6%)
 EXPORT METADATA
 ----------------------------------------
 Export tool: Advanced Project Code Exporter v2.0
-Export date: 2026-07-27 17:23:53
+Export date: 2026-07-28 15:41:30
 Python version: 3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]
 Platform: win32
 

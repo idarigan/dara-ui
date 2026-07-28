@@ -459,6 +459,7 @@ button.glass,
   letter-spacing: 0.01em;
   position: relative;
   overflow: hidden;
+  -webkit-user-select: none;
   user-select: none;
   white-space: nowrap;
 }
