@@ -11,6 +11,7 @@ import { ToastProvider, useToast } from "./components/Toast";
 import { Avatar } from "./components/Avatar/Avatar";
 import { Tooltip } from "./components/Tooltip/Tooltip";
 import { Progress } from "./components/Progress/Progress";
+import { XPBar } from "./components/XPBar";
 import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 
@@ -1271,6 +1272,17 @@ function AppContent() {
               <Progress variant="radial" value={65} size="md" showLabel />
               <Progress variant="radial" value={80} size="lg" showLabel />
             </div>
+          </div>
+        </section>
+
+        {/* ----- PROGRESS SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">
+            Special / RPG Elements
+          </h2>
+
+          <div className="glass p-6 float-card">
+            <XPBar value={3400} max={5000} level={14} />
           </div>
         </section>
 
