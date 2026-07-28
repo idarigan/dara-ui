@@ -1423,9 +1423,11 @@ function AppContent() {
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Character Cards</h2>
 
-          {/* Character Card Vertical */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Dara - Jedi Archivist */}
+          {/* Vertical Layout */}
+          <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
+            Vertical Layout (default)
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <CharacterCard
               name="Dara"
               subtitle="Jedi Archivist"
@@ -1434,9 +1436,9 @@ function AppContent() {
               mbti="INTJ"
               species="Human/Cyborg"
               affiliation="Jedi Order"
-              traits={["MBTI: INTJ", "Species: Human/Cyborg"]}
+              traits={["MBTI: INTJ", "Human/Cyborg"]}
               stats={[
-                { label: "Force Alignment", value: 73, color: "primary" },
+                { label: "Force", value: 73, color: "primary" },
                 { label: "Combat", value: 85, color: "secondary" },
                 { label: "Intelligence", value: 92, color: "accent" },
                 { label: "Wisdom", value: 68, color: "warning" },
@@ -1444,16 +1446,15 @@ function AppContent() {
               glow="purple"
             />
 
-            {/* Cipher - Netrunner */}
             <CharacterCard
               name="Cipher"
               subtitle="Netrunner"
               quote="The code is the key to everything."
-              icon="🔮"
+              portrait="https://i.pravatar.cc/150?img=11"
               mbti="INTP"
               species="Cyborg"
               affiliation="Netwatch"
-              traits={["MBTI: INTP", "Species: Cyborg"]}
+              traits={["MBTI: INTP", "Cyborg"]}
               stats={[
                 { label: "Hacking", value: 95, color: "secondary" },
                 { label: "Stealth", value: 78, color: "accent" },
@@ -1463,7 +1464,6 @@ function AppContent() {
               glow="cyan"
             />
 
-            {/* Shadow - Night Hunter */}
             <CharacterCard
               name="Shadow"
               subtitle="Night Hunter"
@@ -1472,7 +1472,7 @@ function AppContent() {
               mbti="ISTP"
               species="Vampire"
               affiliation="Night Council"
-              traits={["MBTI: ISTP", "Species: Vampire"]}
+              traits={["MBTI: ISTP", "Vampire"]}
               stats={[
                 { label: "Agility", value: 92, color: "accent" },
                 { label: "Stealth", value: 88, color: "danger" },
@@ -1482,17 +1482,14 @@ function AppContent() {
               glow="pink"
             />
           </div>
-        </section>
 
-        {/* Character Card Showcase */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">
-            Character Card (Horizontal)
-          </h2>
-
-          <div className="space-y-4">
+          {/* Horizontal Layout */}
+          <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
+            Horizontal Layout
+          </p>
+          <div className="flex flex-col gap-6">
             <CharacterCard
-              variant="horizontal"
+              layout="horizontal"
               name="Dara"
               subtitle="Jedi Archivist"
               quote="The dark is not to be feared — it is to be archived."
@@ -1500,37 +1497,37 @@ function AppContent() {
               mbti="INTJ"
               species="Human/Cyborg"
               affiliation="Jedi Order"
-              traits={["MBTI: INTJ", "Species: Human/Cyborg"]}
+              traits={["MBTI: INTJ", "Human/Cyborg"]}
               stats={[
                 { label: "Force", value: 73, color: "primary" },
                 { label: "Combat", value: 85, color: "secondary" },
-                { label: "Intel", value: 92, color: "accent" },
+                { label: "Intelligence", value: 92, color: "accent" },
                 { label: "Wisdom", value: 68, color: "warning" },
               ]}
               glow="purple"
             />
 
             <CharacterCard
-              variant="horizontal"
+              layout="horizontal"
               name="Cipher"
               subtitle="Netrunner"
               quote="The code is the key to everything."
-              icon="🔮"
+              portrait="https://i.pravatar.cc/150?img=11"
               mbti="INTP"
               species="Cyborg"
               affiliation="Netwatch"
-              traits={["MBTI: INTP", "Species: Cyborg"]}
+              traits={["MBTI: INTP", "Cyborg"]}
               stats={[
                 { label: "Hacking", value: 95, color: "secondary" },
                 { label: "Stealth", value: 78, color: "accent" },
-                { label: "Intel", value: 88, color: "primary" },
+                { label: "Intelligence", value: 88, color: "primary" },
                 { label: "Combat", value: 45, color: "danger" },
               ]}
               glow="cyan"
             />
 
             <CharacterCard
-              variant="horizontal"
+              layout="horizontal"
               name="Shadow"
               subtitle="Night Hunter"
               quote="I move in the darkness where they cannot see."
@@ -1538,7 +1535,7 @@ function AppContent() {
               mbti="ISTP"
               species="Vampire"
               affiliation="Night Council"
-              traits={["MBTI: ISTP", "Species: Vampire"]}
+              traits={["MBTI: ISTP", "Vampire"]}
               stats={[
                 { label: "Agility", value: 92, color: "accent" },
                 { label: "Stealth", value: 88, color: "danger" },

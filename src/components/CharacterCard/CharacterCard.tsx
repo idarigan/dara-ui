@@ -1,4 +1,6 @@
 import React, { useState, useRef } from "react";
+import { Avatar } from "../Avatar/Avatar";
+import { Badge } from "../Badge/Badge";
 
 export interface CharacterStat {
   /**
@@ -49,7 +51,7 @@ export interface CharacterCardProps {
    */
   affiliation?: string;
   /**
-   * Array of custom traits/props (e.g., ["INTJ", "Human/Cyborg"])
+   * Array of custom traits/props
    */
   traits?: string[];
   /**
@@ -57,15 +59,15 @@ export interface CharacterCardProps {
    */
   stats?: CharacterStat[];
   /**
-   * Layout variant
-   * @default "vertical"
-   */
-  variant?: "vertical" | "horizontal";
-  /**
    * Glow variant color
    * @default "purple"
    */
   glow?: "purple" | "cyan" | "pink" | "none";
+  /**
+   * Layout mode
+   * @default "vertical"
+   */
+  layout?: "vertical" | "horizontal";
   /**
    * Additional className
    */
@@ -76,13 +78,14 @@ export interface CharacterCardProps {
  * Dara UI CharacterCard - RPG-style character profile card
  *
  * Features:
+ * - Vertical and horizontal layouts
  * - Portrait with fallback to initials
  * - Name, subtitle, quote
  * - Stats with radial progress rings
  * - 3D tilt effect on hover
- * - Vertical and horizontal layouts
  * - Glow variants
  * - Theme-aware colors
+ * - Uses Avatar, Badge components
  */
 export const CharacterCard: React.FC<CharacterCardProps> = ({
   name,
@@ -95,8 +98,8 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
   affiliation,
   traits = [],
   stats = [],
-  variant = "vertical",
   glow = "purple",
+  layout = "vertical",
   className = "",
 }) => {
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
@@ -128,15 +131,6 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
     setRotation({ x: 0, y: 0 });
   };
 
-  // Get initials from name
-  const getInitials = (): string => {
-    const parts = name.trim().split(" ");
-    if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
-    return (
-      parts[0].charAt(0) + parts[parts.length - 1].charAt(0)
-    ).toUpperCase();
-  };
-
   // Glow styles
   const glowStyles = {
     purple: "glow-purple",
@@ -147,7 +141,10 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
 
   const glowClass = glowStyles[glow] || "";
 
-  // Stat color mapping
+  // Determine if horizontal
+  const isHorizontal = layout === "horizontal";
+
+  // Stat color mapping for radial rings
   const statColors = {
     primary: "stroke-[var(--color-primary)]",
     secondary: "stroke-[var(--color-secondary)]",
@@ -157,7 +154,6 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
     warning: "stroke-[var(--color-warning)]",
   };
 
-  // Get stat color
   const getStatColor = (color?: string) => {
     if (color && color in statColors) {
       return statColors[color as keyof typeof statColors];
@@ -165,219 +161,72 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
     return "stroke-[var(--color-primary)]";
   };
 
-  // Horizontal layout
-  if (variant === "horizontal") {
+  // Render radial stat ring
+  const renderStatRing = (stat: CharacterStat, index: number) => {
+    const percentage = Math.min(100, Math.max(0, stat.value));
+    const size = isHorizontal ? 56 : 64;
+    const strokeWidth = 4;
+    const radius = (size - strokeWidth) / 2;
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - (percentage / 100) * circumference;
+
     return (
-      <div
-        ref={cardRef}
-        className={`
-          glass p-6 float-card
-          relative flex flex-col md:flex-row gap-6
-          transition-all duration-300
-          ${glowClass}
-          ${className}
-        `}
-        style={{
-          transform: isHovering
-            ? `perspective(800px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(1.02)`
-            : "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)",
-          transformStyle: "preserve-3d",
-          transition: "transform 0.2s ease-out",
-        }}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        {/* Left Column - Portrait + Name + Subtitle */}
-        <div
-          className="flex flex-row md:flex-col items-center md:items-start gap-4 md:gap-3 flex-shrink-0"
-          style={{
-            transform: "translateZ(20px)",
-          }}
-        >
-          {/* Portrait / Avatar */}
-          <div
-            className={`
-              w-16 h-16 rounded-full flex items-center justify-center
-              flex-shrink-0 text-2xl
-              bg-[var(--color-bg-tertiary)]
-              border-2 border-[var(--color-border-secondary)]
-              overflow-hidden
-              ${glow !== "none" ? `ring-2 ring-[var(--color-primary)]/30` : ""}
-            `}
+      <div key={index} className="text-center flex-shrink-0">
+        <div className="relative inline-flex">
+          <svg
+            width={size}
+            height={size}
+            className="stat-ring"
+            viewBox={`0 0 ${size} ${size}`}
           >
-            {portrait ? (
-              <img
-                src={portrait}
-                alt={name}
-                className="w-full h-full object-cover"
-              />
-            ) : icon ? (
-              <span>{icon}</span>
-            ) : (
-              <span className="font-heading font-bold text-xl text-[var(--color-text-primary)]">
-                {getInitials()}
-              </span>
-            )}
-          </div>
-
-          {/* Name and subtitle */}
-          <div className="text-center md:text-left">
-            <h4 className="font-heading font-bold text-lg text-[var(--color-text-primary)]">
-              {name}
-            </h4>
-            {subtitle && (
-              <p className="text-[var(--color-text-tertiary)] text-xs font-mono">
-                {subtitle}
-              </p>
-            )}
-          </div>
+            {/* Background ring */}
+            <circle
+              cx={size / 2}
+              cy={size / 2}
+              r={radius}
+              stroke="var(--color-border-secondary)"
+              strokeWidth={strokeWidth}
+              fill="none"
+            />
+            {/* Progress ring */}
+            <circle
+              cx={size / 2}
+              cy={size / 2}
+              r={radius}
+              className={getStatColor(stat.color)}
+              strokeWidth={strokeWidth}
+              fill="none"
+              strokeDasharray={circumference}
+              strokeDashoffset={offset}
+              strokeLinecap="round"
+              style={{
+                transition: "stroke-dashoffset 0.8s ease",
+              }}
+            />
+          </svg>
+          <span className="absolute inset-0 flex items-center justify-center font-heading font-bold text-sm text-[var(--color-text-primary)]">
+            {stat.value}
+            <span className="text-[10px] text-[var(--color-text-tertiary)]">
+              %
+            </span>
+          </span>
         </div>
-
-        {/* Right Column - Quote + Details + Stats */}
-        <div className="flex-1 min-w-0">
-          {/* Quote */}
-          {quote && (
-            <p
-              className="text-[var(--color-text-secondary)] text-sm italic mb-3 leading-relaxed"
-              style={{
-                transform: "translateZ(10px)",
-              }}
-            >
-              "{quote}"
-            </p>
-          )}
-
-          {/* Details Grid - horizontal layout with fixed widths */}
-          <div
-            className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-1 mb-3"
-            style={{
-              transform: "translateZ(8px)",
-            }}
-          >
-            {mbti && (
-              <div>
-                <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono">
-                  MBTI
-                </p>
-                <p className="text-sm font-medium text-[var(--color-text-secondary)] truncate">
-                  {mbti}
-                </p>
-              </div>
-            )}
-            {species && (
-              <div>
-                <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono">
-                  Species
-                </p>
-                <p className="text-sm font-medium text-[var(--color-text-secondary)] truncate">
-                  {species}
-                </p>
-              </div>
-            )}
-            {affiliation && (
-              <div className="col-span-2">
-                <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono">
-                  Affiliation
-                </p>
-                <p className="text-sm font-medium text-[var(--color-text-secondary)] truncate">
-                  {affiliation}
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* Traits */}
-          {traits.length > 0 && (
-            <div
-              className="flex flex-wrap gap-2 mb-3"
-              style={{
-                transform: "translateZ(5px)",
-              }}
-            >
-              {traits.map((trait, index) => (
-                <span
-                  key={index}
-                  className="text-xs px-2.5 py-1 rounded-full bg-[var(--color-bg-tertiary)] border border-[var(--color-border-secondary)] text-[var(--color-text-secondary)] whitespace-nowrap"
-                >
-                  {trait}
-                </span>
-              ))}
-            </div>
-          )}
-
-          {/* Stats - horizontal layout with consistent spacing */}
-          {stats.length > 0 && (
-            <div
-              className="flex flex-wrap gap-4 justify-start pt-3 border-t border-[var(--color-border-secondary)]"
-              style={{
-                transform: "translateZ(5px)",
-              }}
-            >
-              {stats.map((stat, index) => {
-                const percentage = Math.min(100, Math.max(0, stat.value));
-                const circumference = 2 * Math.PI * 24;
-                const offset =
-                  circumference - (percentage / 100) * circumference;
-
-                return (
-                  <div key={index} className="text-center flex-shrink-0">
-                    <div className="relative inline-flex">
-                      <svg width="56" height="56" className="stat-ring">
-                        {/* Background ring */}
-                        <circle
-                          cx="28"
-                          cy="28"
-                          r="24"
-                          stroke="var(--color-border-secondary)"
-                          strokeWidth="4"
-                          fill="none"
-                        />
-                        {/* Progress ring */}
-                        <circle
-                          cx="28"
-                          cy="28"
-                          r="24"
-                          className={getStatColor(stat.color)}
-                          strokeWidth="4"
-                          fill="none"
-                          strokeDasharray={circumference}
-                          strokeDashoffset={offset}
-                          strokeLinecap="round"
-                          style={{
-                            transition: "stroke-dashoffset 0.8s ease",
-                          }}
-                        />
-                      </svg>
-                      <span className="absolute inset-0 flex items-center justify-center font-heading font-bold text-xs text-[var(--color-text-primary)]">
-                        {stat.value}
-                        <span className="text-[8px] text-[var(--color-text-tertiary)]">
-                          %
-                        </span>
-                      </span>
-                    </div>
-                    <p className="text-[9px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-0.5 max-w-[56px] truncate">
-                      {stat.label}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
+        <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-1">
+          {stat.label}
+        </p>
       </div>
     );
-  }
+  };
 
-  // Vertical layout (default)
   return (
     <div
       ref={cardRef}
       className={`
         glass p-6 float-card
-        relative flex flex-col
+        relative
         transition-all duration-300
         ${glowClass}
+        ${isHorizontal ? "flex flex-col md:flex-row gap-6" : "flex flex-col"}
         ${className}
       `}
       style={{
@@ -391,181 +240,149 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Character Info Section */}
-      <div className="flex items-center gap-4 mb-4">
-        {/* Portrait / Avatar */}
-        <div
-          className={`
-            w-16 h-16 rounded-full flex items-center justify-center
-            flex-shrink-0 text-2xl
-            bg-[var(--color-bg-tertiary)]
-            border-2 border-[var(--color-border-secondary)]
-            overflow-hidden
-            ${glow !== "none" ? `ring-2 ring-[var(--color-primary)]/30` : ""}
-          `}
-          style={{
-            transform: "translateZ(20px)",
-          }}
-        >
-          {portrait ? (
-            <img
-              src={portrait}
-              alt={name}
-              className="w-full h-full object-cover"
-            />
-          ) : icon ? (
-            <span>{icon}</span>
-          ) : (
-            <span className="font-heading font-bold text-xl text-[var(--color-text-primary)]">
-              {getInitials()}
-            </span>
-          )}
-        </div>
-
-        {/* Name and subtitle */}
-        <div
-          style={{
-            transform: "translateZ(15px)",
-          }}
-        >
-          <h4 className="font-heading font-bold text-lg text-[var(--color-text-primary)]">
-            {name}
-          </h4>
-          {subtitle && (
-            <p className="text-[var(--color-text-tertiary)] text-xs font-mono">
-              {subtitle}
-            </p>
-          )}
-        </div>
-      </div>
-
-      {/* Quote */}
-      {quote && (
-        <p
-          className="text-[var(--color-text-secondary)] text-sm italic mb-4 leading-relaxed"
-          style={{
-            transform: "translateZ(10px)",
-          }}
-        >
-          "{quote}"
-        </p>
-      )}
-
-      {/* Details Grid */}
+      {/* Left/Header Section */}
       <div
-        className="grid grid-cols-2 gap-2 mb-4"
+        className={`
+          ${isHorizontal ? "flex-shrink-0 md:w-48" : "w-full"}
+          flex flex-col
+        `}
         style={{
-          transform: "translateZ(8px)",
+          transform: "translateZ(20px)",
         }}
       >
-        {mbti && (
+        {/* Portrait and Name */}
+        <div className="flex items-center gap-4">
+          <Avatar
+            src={portrait}
+            fallbackText={name}
+            fallback={!portrait && !icon}
+            size="lg"
+            glow={glow !== "none" ? "purple" : undefined}
+            bordered
+          />
           <div>
-            <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono">
-              MBTI
-            </p>
-            <p className="text-sm font-medium text-[var(--color-text-secondary)]">
-              {mbti}
-            </p>
+            <h4 className="font-heading font-bold text-lg text-[var(--color-text-primary)]">
+              {name}
+            </h4>
+            {subtitle && (
+              <p className="text-[var(--color-text-tertiary)] text-xs font-mono">
+                {subtitle}
+              </p>
+            )}
           </div>
-        )}
-        {species && (
-          <div>
-            <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono">
-              Species
-            </p>
-            <p className="text-sm font-medium text-[var(--color-text-secondary)]">
-              {species}
-            </p>
-          </div>
-        )}
-        {affiliation && (
-          <div className="col-span-2">
-            <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono">
-              Affiliation
-            </p>
-            <p className="text-sm font-medium text-[var(--color-text-secondary)]">
-              {affiliation}
-            </p>
-          </div>
+        </div>
+
+        {/* Quote - only show in vertical mode */}
+        {quote && !isHorizontal && (
+          <p
+            className="text-[var(--color-text-secondary)] text-sm italic mt-3 leading-relaxed"
+            style={{
+              transform: "translateZ(10px)",
+            }}
+          >
+            "{quote}"
+          </p>
         )}
       </div>
 
-      {/* Traits */}
-      {traits.length > 0 && (
+      {/* Right/Content Section */}
+      <div
+        className={`
+          ${isHorizontal ? "flex-1 min-w-0" : "w-full"}
+          flex flex-col
+        `}
+        style={{
+          transform: "translateZ(15px)",
+        }}
+      >
+        {/* Quote - only show in horizontal mode */}
+        {quote && isHorizontal && (
+          <p
+            className="text-[var(--color-text-secondary)] text-sm italic mb-3 leading-relaxed"
+            style={{
+              transform: "translateZ(10px)",
+            }}
+          >
+            "{quote}"
+          </p>
+        )}
+
+        {/* Details - flex wrap for horizontal, grid for vertical */}
         <div
-          className="flex flex-wrap gap-2 mb-4"
+          className={`
+            ${isHorizontal ? "flex flex-wrap gap-x-4 gap-y-1 mb-3" : "grid grid-cols-2 gap-2 mb-4"}
+          `}
           style={{
-            transform: "translateZ(5px)",
+            transform: "translateZ(8px)",
           }}
         >
-          {traits.map((trait, index) => (
-            <span
-              key={index}
-              className="text-xs px-2.5 py-1 rounded-full bg-[var(--color-bg-tertiary)] border border-[var(--color-border-secondary)] text-[var(--color-text-secondary)]"
+          {mbti && (
+            <div className={isHorizontal ? "flex items-center gap-1.5" : ""}>
+              <span className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono">
+                MBTI:
+              </span>
+              <span className="text-sm font-medium text-[var(--color-text-secondary)]">
+                {mbti}
+              </span>
+            </div>
+          )}
+          {species && (
+            <div className={isHorizontal ? "flex items-center gap-1.5" : ""}>
+              <span className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono">
+                Species:
+              </span>
+              <span className="text-sm font-medium text-[var(--color-text-secondary)]">
+                {species}
+              </span>
+            </div>
+          )}
+          {affiliation && (
+            <div
+              className={`
+                ${isHorizontal ? "flex items-center gap-1.5" : "col-span-2"}
+              `}
             >
-              {trait}
-            </span>
-          ))}
+              <span className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono">
+                Affiliation:
+              </span>
+              <span className="text-sm font-medium text-[var(--color-text-secondary)]">
+                {affiliation}
+              </span>
+            </div>
+          )}
         </div>
-      )}
 
-      {/* Stats - vertical layout with proper label alignment */}
-      {stats.length > 0 && (
-        <div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 justify-items-center pt-3 border-t border-[var(--color-border-secondary)]"
-          style={{
-            transform: "translateZ(5px)",
-          }}
-        >
-          {stats.map((stat, index) => {
-            const percentage = Math.min(100, Math.max(0, stat.value));
-            const circumference = 2 * Math.PI * 28;
-            const offset = circumference - (percentage / 100) * circumference;
+        {/* Traits - using Badge component */}
+        {traits.length > 0 && (
+          <div
+            className="flex flex-wrap gap-2 mb-3"
+            style={{
+              transform: "translateZ(5px)",
+            }}
+          >
+            {traits.map((trait, index) => (
+              <Badge key={index} variant="secondary" size="sm" outline>
+                {trait}
+              </Badge>
+            ))}
+          </div>
+        )}
 
-            return (
-              <div key={index} className="text-center w-full">
-                <div className="relative inline-flex">
-                  <svg width="64" height="64" className="stat-ring">
-                    {/* Background ring */}
-                    <circle
-                      cx="32"
-                      cy="32"
-                      r="28"
-                      stroke="var(--color-border-secondary)"
-                      strokeWidth="4"
-                      fill="none"
-                    />
-                    {/* Progress ring */}
-                    <circle
-                      cx="32"
-                      cy="32"
-                      r="28"
-                      className={getStatColor(stat.color)}
-                      strokeWidth="4"
-                      fill="none"
-                      strokeDasharray={circumference}
-                      strokeDashoffset={offset}
-                      strokeLinecap="round"
-                      style={{
-                        transition: "stroke-dashoffset 0.8s ease",
-                      }}
-                    />
-                  </svg>
-                  <span className="absolute inset-0 flex items-center justify-center font-heading font-bold text-sm text-[var(--color-text-primary)]">
-                    {stat.value}
-                    <span className="text-[10px] text-[var(--color-text-tertiary)]">
-                      %
-                    </span>
-                  </span>
-                </div>
-                <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-1 truncate max-w-[70px] mx-auto">
-                  {stat.label}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      )}
+        {/* Stats - using radial progress rings */}
+        {stats.length > 0 && (
+          <div
+            className={`
+              ${isHorizontal ? "flex flex-wrap gap-3 justify-start" : "flex flex-wrap gap-4 justify-center"}
+              pt-3 border-t border-[var(--color-border-secondary)]
+            `}
+            style={{
+              transform: "translateZ(5px)",
+            }}
+          >
+            {stats.map((stat, index) => renderStatRing(stat, index))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
