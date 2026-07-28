@@ -12,6 +12,7 @@ import { Avatar } from "./components/Avatar/Avatar";
 import { Tooltip } from "./components/Tooltip/Tooltip";
 import { Progress } from "./components/Progress/Progress";
 import { XPBar } from "./components/XPBar";
+import { QuestCard } from "./components/QuestCard/QuestCard";
 import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 
@@ -1350,6 +1351,70 @@ function AppContent() {
             <Button glow="pink" variant="danger">
               Glow Pink
             </Button>
+          </div>
+        </section>
+
+        {/* ----- QUEST CARD SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Quest Cards</h2>
+
+          {/* Basic Quest Card */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <QuestCard
+              title="Build CMS"
+              description="Deploy the encrypted Jedi archive interface before the snow melts."
+              xp={300}
+              deadline="tomorrow"
+              rank="S"
+              glow="cyan"
+            />
+
+            <QuestCard
+              title="Secure Archives"
+              description="Implement end-to-end encryption for all stored data in the archive."
+              xp={200}
+              deadline="3 days"
+              rank="A"
+              glow="purple"
+              requirements={[
+                "Complete 3 code reviews",
+                "Write 5 unit tests",
+                "Deploy to staging",
+              ]}
+            />
+          </div>
+
+          {/* Full Featured Quest Card */}
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <QuestCard
+              title="Legendary Quest: The Lost Archive"
+              description="Journey into the depths of the forgotten vault and retrieve the ancient holocron."
+              xp={1000}
+              xpLabel="EXP"
+              deadline="2024-12-25"
+              rank="S+"
+              glow="purple"
+              requirements={[
+                "Reach level 25",
+                "Defeat the Shadow Guardian",
+                "Collect 3 ancient artifacts",
+                "Solve the sphinx riddle",
+              ]}
+            />
+
+            <QuestCard
+              title="Map Night City"
+              description="Create a comprehensive map of the cyberpunk district before the data purge."
+              xp={150}
+              deadline="tonight"
+              rank="B"
+              glow="pink"
+              requirements={[
+                "Scan 10 locations",
+                "Interview 5 NPCs",
+                "Upload to the archive",
+              ]}
+            />
           </div>
         </section>
 
