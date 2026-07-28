@@ -27,6 +27,18 @@ const meta = {
       control: "boolean",
       description: "Show 'X XP to next level' label",
     },
+    customLabel: {
+      control: "text",
+      description: "Custom label for the progress bar header",
+    },
+    levelLabel: {
+      control: "text",
+      description: "Custom word for 'Level'",
+    },
+    xpLabel: {
+      control: "text",
+      description: "Custom word for 'XP'",
+    },
   },
   args: {
     value: 3400,
@@ -54,17 +66,90 @@ export const DifferentLevels: Story = {
   ),
 };
 
-// ----- Various Progress States -----
-export const VariousProgress: Story = {
-  render: () => (
-    <div className="flex flex-col gap-4 w-80">
-      <XPBar value={0} max={5000} level={14} />
-      <XPBar value={1250} max={5000} level={14} />
-      <XPBar value={3400} max={5000} level={14} />
-      <XPBar value={4800} max={5000} level={14} />
-      <XPBar value={5000} max={5000} level={14} />
-    </div>
-  ),
+// ----- With Custom Labels -----
+export const CustomLabels: Story = {
+  args: {
+    customLabel: "★ PROGRESS",
+    levelLabel: "Rank",
+    xpLabel: "EXP",
+  },
+};
+
+// ----- With Ranks (Tiers) -----
+export const WithRanks: Story = {
+  args: {
+    value: 3400,
+    max: 5000,
+    level: 14,
+    ranks: [
+      { label: "Common", requiredXP: 0 },
+      { label: "Uncommon", requiredXP: 1000 },
+      { label: "Rare", requiredXP: 2500 },
+      { label: "Epic", requiredXP: 4000 },
+      { label: "Legendary", requiredXP: 6000 },
+    ],
+  },
+};
+
+// ----- Various Ranks -----
+export const VariousRanks: Story = {
+  render: () => {
+    const rankTiers = [
+      { label: "Common", requiredXP: 0 },
+      { label: "Uncommon", requiredXP: 1000 },
+      { label: "Rare", requiredXP: 2500 },
+      { label: "Epic", requiredXP: 4000 },
+      { label: "Legendary", requiredXP: 6000 },
+    ];
+
+    return (
+      <div className="flex flex-col gap-4 w-80">
+        <XPBar value={500} max={5000} level={5} ranks={rankTiers} />
+        <XPBar value={1500} max={5000} level={8} ranks={rankTiers} />
+        <XPBar value={3000} max={5000} level={12} ranks={rankTiers} />
+        <XPBar value={4500} max={5000} level={16} ranks={rankTiers} />
+        <XPBar value={5500} max={5000} level={20} ranks={rankTiers} />
+      </div>
+    );
+  },
+};
+
+// ----- Custom Rank Labels -----
+export const CustomRankLabels: Story = {
+  args: {
+    value: 1250,
+    max: 3000,
+    level: 5,
+    levelLabel: "Tier",
+    xpLabel: "Points",
+    customLabel: "🏆 RANK PROGRESS",
+    ranks: [
+      { label: "Bronze", requiredXP: 0 },
+      { label: "Silver", requiredXP: 500 },
+      { label: "Gold", requiredXP: 1200 },
+      { label: "Platinum", requiredXP: 2000 },
+      { label: "Diamond", requiredXP: 3000 },
+    ],
+  },
+};
+
+// ----- Game Style -----
+export const GameStyle: Story = {
+  args: {
+    value: 750,
+    max: 1200,
+    level: 3,
+    levelLabel: "Prestige",
+    xpLabel: "Score",
+    customLabel: "⚔️ MISSION PROGRESS",
+    ranks: [
+      { label: "Recruit", requiredXP: 0 },
+      { label: "Soldier", requiredXP: 300 },
+      { label: "Veteran", requiredXP: 600 },
+      { label: "Elite", requiredXP: 900 },
+      { label: "Commander", requiredXP: 1200 },
+    ],
+  },
 };
 
 // ----- Without Label -----
@@ -81,11 +166,18 @@ export const Interactive: Story = {
     const [level, setLevel] = useState(14);
     const max = 5000;
 
+    const rankTiers = [
+      { label: "Common", requiredXP: 0 },
+      { label: "Uncommon", requiredXP: 1000 },
+      { label: "Rare", requiredXP: 2500 },
+      { label: "Epic", requiredXP: 4000 },
+      { label: "Legendary", requiredXP: 6000 },
+    ];
+
     const addXP = (amount: number) => {
       let newValue = value + amount;
       let newLevel = level;
 
-      // Level up logic
       while (newValue >= max) {
         newValue -= max;
         newLevel++;
@@ -97,17 +189,24 @@ export const Interactive: Story = {
 
     return (
       <div className="flex flex-col items-center gap-6 w-80">
-        <XPBar value={value} max={max} level={level} />
+        <XPBar
+          value={value}
+          max={max}
+          level={level}
+          ranks={rankTiers}
+          levelLabel="Rank"
+          xpLabel="EXP"
+        />
 
         <div className="flex gap-2 flex-wrap justify-center">
           <Button size="sm" onClick={() => addXP(50)}>
-            +50 XP
+            +50 EXP
           </Button>
           <Button size="sm" variant="secondary" onClick={() => addXP(200)}>
-            +200 XP
+            +200 EXP
           </Button>
           <Button size="sm" variant="success" onClick={() => addXP(500)}>
-            +500 XP
+            +500 EXP
           </Button>
           <Button
             size="sm"
@@ -122,23 +221,5 @@ export const Interactive: Story = {
         </div>
       </div>
     );
-  },
-};
-
-// ----- With Custom Max -----
-export const CustomMax: Story = {
-  args: {
-    value: 750,
-    max: 1000,
-    level: 3,
-  },
-};
-
-// ----- Large Numbers -----
-export const LargeNumbers: Story = {
-  args: {
-    value: 12450,
-    max: 20000,
-    level: 42,
   },
 };

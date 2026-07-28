@@ -1275,15 +1275,66 @@ function AppContent() {
           </div>
         </section>
 
-        {/* ----- PROGRESS SHOWCASE ----- */}
+        {/* ----- XPBAR SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">
-            Special / RPG Elements
-          </h2>
+          <h2 className="text-2xl font-semibold mb-6">XPBar, RankTier</h2>
 
-          <div className="glass p-6 float-card">
+          {/* Basic XP Bar */}
+          <div className="glass mb-5 p-6 float-card">
             <XPBar value={3400} max={5000} level={14} />
           </div>
+
+          {/* With custom labels */}
+          <div className="glass mb-5 p-6 float-card glow-cyan">
+            <XPBar
+              value={3400}
+              max={5000}
+              level={14}
+              customLabel="★ RANK PROGRESS"
+              levelLabel="Rank"
+              xpLabel="EXP"
+            />
+          </div>
+
+          {/* With rank tiers */}
+          <div className="glass mb-5 p-6 float-card glow-purple">
+            <XPBar
+              value={3400}
+              max={5000}
+              level={14}
+              levelLabel="Tier"
+              xpLabel="Points"
+              customLabel="🏆 RANK PROGRESS"
+              ranks={[
+                { label: "Common", requiredXP: 0 },
+                { label: "Uncommon", requiredXP: 1000 },
+                { label: "Rare", requiredXP: 2500 },
+                { label: "Epic", requiredXP: 4000 },
+                { label: "Legendary", requiredXP: 6000 },
+              ]}
+            />
+          </div>
+
+          {/* Game style with custom rank labels */}
+          <div className="glass mb-5 p-6 float-card">
+            <XPBar
+              value={750}
+              max={1200}
+              level={3}
+              levelLabel="Prestige"
+              xpLabel="Score"
+              customLabel="⚔️ MISSION PROGRESS"
+              ranks={[
+                { label: "Recruit", requiredXP: 0 },
+                { label: "Soldier", requiredXP: 300 },
+                { label: "Veteran", requiredXP: 600 },
+                { label: "Elite", requiredXP: 900 },
+                { label: "Commander", requiredXP: 1200 },
+              ]}
+            />
+          </div>
+
+          {/* QuestCard */}
         </section>
 
         {/* ----- GLOW SHOWCASE ----- */}
