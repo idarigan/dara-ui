@@ -13,6 +13,7 @@ import { Tooltip } from "./components/Tooltip/Tooltip";
 import { Progress } from "./components/Progress/Progress";
 import { XPBar } from "./components/XPBar";
 import { QuestCard } from "./components/QuestCard/QuestCard";
+import { CharacterCard } from "./components/CharacterCard/CharacterCard";
 import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 
@@ -1414,6 +1415,137 @@ function AppContent() {
                 "Interview 5 NPCs",
                 "Upload to the archive",
               ]}
+            />
+          </div>
+        </section>
+
+        {/* ----- CHARACTER CARD SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Character Cards</h2>
+
+          {/* Character Card Vertical */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Dara - Jedi Archivist */}
+            <CharacterCard
+              name="Dara"
+              subtitle="Jedi Archivist"
+              quote="The dark is not to be feared — it is to be archived."
+              icon="🦇"
+              mbti="INTJ"
+              species="Human/Cyborg"
+              affiliation="Jedi Order"
+              traits={["MBTI: INTJ", "Species: Human/Cyborg"]}
+              stats={[
+                { label: "Force Alignment", value: 73, color: "primary" },
+                { label: "Combat", value: 85, color: "secondary" },
+                { label: "Intelligence", value: 92, color: "accent" },
+                { label: "Wisdom", value: 68, color: "warning" },
+              ]}
+              glow="purple"
+            />
+
+            {/* Cipher - Netrunner */}
+            <CharacterCard
+              name="Cipher"
+              subtitle="Netrunner"
+              quote="The code is the key to everything."
+              icon="🔮"
+              mbti="INTP"
+              species="Cyborg"
+              affiliation="Netwatch"
+              traits={["MBTI: INTP", "Species: Cyborg"]}
+              stats={[
+                { label: "Hacking", value: 95, color: "secondary" },
+                { label: "Stealth", value: 78, color: "accent" },
+                { label: "Intelligence", value: 88, color: "primary" },
+                { label: "Combat", value: 45, color: "danger" },
+              ]}
+              glow="cyan"
+            />
+
+            {/* Shadow - Night Hunter */}
+            <CharacterCard
+              name="Shadow"
+              subtitle="Night Hunter"
+              quote="I move in the darkness where they cannot see."
+              icon="🌙"
+              mbti="ISTP"
+              species="Vampire"
+              affiliation="Night Council"
+              traits={["MBTI: ISTP", "Species: Vampire"]}
+              stats={[
+                { label: "Agility", value: 92, color: "accent" },
+                { label: "Stealth", value: 88, color: "danger" },
+                { label: "Strength", value: 76, color: "warning" },
+                { label: "Wisdom", value: 82, color: "primary" },
+              ]}
+              glow="pink"
+            />
+          </div>
+        </section>
+
+        {/* Character Card Showcase */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">
+            Character Card (Horizontal)
+          </h2>
+
+          <div className="space-y-4">
+            <CharacterCard
+              variant="horizontal"
+              name="Dara"
+              subtitle="Jedi Archivist"
+              quote="The dark is not to be feared — it is to be archived."
+              icon="🦇"
+              mbti="INTJ"
+              species="Human/Cyborg"
+              affiliation="Jedi Order"
+              traits={["MBTI: INTJ", "Species: Human/Cyborg"]}
+              stats={[
+                { label: "Force", value: 73, color: "primary" },
+                { label: "Combat", value: 85, color: "secondary" },
+                { label: "Intel", value: 92, color: "accent" },
+                { label: "Wisdom", value: 68, color: "warning" },
+              ]}
+              glow="purple"
+            />
+
+            <CharacterCard
+              variant="horizontal"
+              name="Cipher"
+              subtitle="Netrunner"
+              quote="The code is the key to everything."
+              icon="🔮"
+              mbti="INTP"
+              species="Cyborg"
+              affiliation="Netwatch"
+              traits={["MBTI: INTP", "Species: Cyborg"]}
+              stats={[
+                { label: "Hacking", value: 95, color: "secondary" },
+                { label: "Stealth", value: 78, color: "accent" },
+                { label: "Intel", value: 88, color: "primary" },
+                { label: "Combat", value: 45, color: "danger" },
+              ]}
+              glow="cyan"
+            />
+
+            <CharacterCard
+              variant="horizontal"
+              name="Shadow"
+              subtitle="Night Hunter"
+              quote="I move in the darkness where they cannot see."
+              icon="🌙"
+              mbti="ISTP"
+              species="Vampire"
+              affiliation="Night Council"
+              traits={["MBTI: ISTP", "Species: Vampire"]}
+              stats={[
+                { label: "Agility", value: 92, color: "accent" },
+                { label: "Stealth", value: 88, color: "danger" },
+                { label: "Strength", value: 76, color: "warning" },
+                { label: "Wisdom", value: 82, color: "primary" },
+              ]}
+              glow="pink"
             />
           </div>
         </section>
