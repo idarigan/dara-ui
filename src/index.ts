@@ -58,11 +58,23 @@ export { Progress } from "./components/Progress/Progress";
 export type { ProgressProps } from "./components/Progress/Progress";
 
 // ----- Theme & Language Changers -----
-export { ThemeChanger } from "./components/ThemeChanger/ThemeChanger";
-export type { ThemeChangerProps } from "./components/ThemeChanger/ThemeChanger";
+export {
+  ThemeChanger,
+  DARA_THEMES,
+} from "./components/ThemeChanger/ThemeChanger";
+export type {
+  ThemeChangerProps,
+  ThemeOption,
+} from "./components/ThemeChanger/ThemeChanger";
 
-export { LanguageChanger } from "./components/LanguageChanger/LanguageChanger";
-export type { LanguageChangerProps } from "./components/LanguageChanger/LanguageChanger";
+export {
+  LanguageChanger,
+  DARA_LANGUAGES,
+} from "./components/LanguageChanger/LanguageChanger";
+export type {
+  LanguageChangerProps,
+  LanguageOption,
+} from "./components/LanguageChanger/LanguageChanger";
 
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";

@@ -1668,7 +1668,7 @@ function AppContent() {
             />
           </div>
         </section>
-        {/* ----- THEME & LANGUAGE CHANGERS SHOWCASE ----- */}
+
         {/* ----- THEME & LANGUAGE CHANGERS SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Theme & Language</h2>
@@ -1676,12 +1676,22 @@ function AppContent() {
           <div className="flex flex-wrap gap-6 items-end">
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Theme Changer
+                Theme (all)
+              </span>
+              <ThemeChanger defaultValue="nightfall" size="md" />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Theme (subset)
               </span>
               <ThemeChanger
+                themes={[
+                  { value: "nightfall", label: "Nightfall" },
+                  { value: "daylight", label: "Daylight" },
+                ]}
                 defaultValue="nightfall"
                 size="md"
-                onChange={(theme) => console.log("Theme changed to:", theme)}
               />
             </div>
 
@@ -1689,34 +1699,32 @@ function AppContent() {
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
                 Language (Dropdown)
               </span>
-              <LanguageChanger
-                defaultValue="en"
-                size="md"
-                onChange={(lang) => console.log("Language changed to:", lang)}
-              />
+              <LanguageChanger defaultValue="en" size="md" />
             </div>
 
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
                 Language (Toggle)
               </span>
-              <LanguageChanger
-                variant="toggle"
-                defaultValue="en"
-                size="md"
-                onChange={(lang) => console.log("Language toggled to:", lang)}
-              />
+              <LanguageChanger variant="toggle" defaultValue="en" size="md" />
             </div>
 
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Small (navbar style)
+                Small (navbar)
               </span>
               <div className="flex gap-2">
                 <ThemeChanger defaultValue="nightfall" size="sm" />
                 <LanguageChanger defaultValue="en" size="sm" />
                 <LanguageChanger variant="toggle" defaultValue="fa" size="sm" />
               </div>
+            </div>
+
+            <div className="flex flex-col gap-2 w-64">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Full width of parent
+              </span>
+              <ThemeChanger defaultValue="nightfall" size="md" fullWidth />
             </div>
           </div>
 
@@ -1725,14 +1733,12 @@ function AppContent() {
               <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
                 Demo:
               </span>{" "}
-              These changers reuse the Dropdown component in compact size (or a
-              simple cycle pill for language). They update{" "}
-              <code className="text-[var(--color-primary)]">data-theme</code> /{" "}
-              <code className="text-[var(--color-primary)]">lang</code> +{" "}
-              <code className="text-[var(--color-primary)]">dir</code> on{" "}
-              <code className="text-[var(--color-primary)]">&lt;html&gt;</code>.
-              Pass your own <code>themes</code> / <code>languages</code> arrays
-              — icons optional.
+              Dropdown width is fixed per size (or 100% with fullWidth). Pass a
+              custom <code className="text-[var(--color-primary)]">themes</code>{" "}
+              / <code className="text-[var(--color-primary)]">languages</code>{" "}
+              array to control which options appear. Override{" "}
+              <code className="text-[var(--color-primary)]">applyTheme</code> if
+              you drive themes via classes instead of data-theme.
             </p>
           </div>
         </section>

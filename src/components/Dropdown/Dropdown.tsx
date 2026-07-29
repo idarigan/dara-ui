@@ -57,7 +57,8 @@ export interface DropdownProps {
    */
   disabled?: boolean;
   /**
-   * If true, dropdown will take full width
+   * If true, dropdown takes 100% of parent width
+   * When false, uses a fixed width per size (does not grow with label text)
    * @default false
    */
   fullWidth?: boolean;
@@ -167,17 +168,19 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
         }
       };
 
-      document.addEventListener("mousedown", handleClickOutside);
-      return () =>
-        document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
+      if (isOpen) {
+        document.addEventListener("mousedown", handleClickOutside);
+      }
 
-    // Focus search input when dropdown opens
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [isOpen]);
+
+    // Focus search input when opened
     useEffect(() => {
       if (isOpen && searchable && searchInputRef.current) {
-        setTimeout(() => {
-          searchInputRef.current?.focus();
-        }, 50);
+        searchInputRef.current.focus();
       }
     }, [isOpen, searchable]);
 
@@ -200,6 +203,13 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
       },
     };
 
+    // Fixed widths when not fullWidth — label length never resizes the trigger
+    const fixedWidths = {
+      sm: "w-36",
+      md: "w-44",
+      lg: "w-52",
+    };
+
     // Icon size mapping
     const iconSizes = {
       sm: "h-4 w-4",
@@ -213,7 +223,11 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
     return (
       <div
         ref={ref}
-        className={`${fullWidth ? "w-full" : ""} flex flex-col gap-1.5 ${className}`}
+        className={`
+          flex flex-col gap-1.5
+          ${fullWidth ? "w-full" : fixedWidths[size]}
+          ${className}
+        `}
       >
         {/* Label */}
         {label && (
@@ -226,10 +240,11 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
         <div ref={dropdownRef} className="relative w-full">
           {/* Trigger Button */}
           <button
+            type="button"
             onClick={toggleDropdown}
             disabled={disabled}
             className={`
-              w-full flex items-center justify-between
+              w-full flex items-center justify-between gap-2
               font-sans text-[var(--color-text-primary)]
               transition-all duration-[var(--transition-fast)]
               rounded-[var(--radius-md)]
@@ -246,32 +261,34 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               }
               focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20
               ${isOpen ? "border-[var(--color-primary)]" : ""}
-              transition-all duration-[var(--transition-fast)]
             `}
             aria-haspopup="listbox"
             aria-expanded={isOpen}
             aria-disabled={disabled}
           >
             <span
-              className={`truncate ${
-                !selectedOption ? "text-[var(--color-text-tertiary)]" : ""
-              }`}
+              className={`
+                flex items-center gap-2 min-w-0 truncate
+                ${!selectedOption ? "text-[var(--color-text-tertiary)]" : ""}
+              `}
             >
               {selectedOption?.icon && (
-                <span className="mr-2 inline-flex">{selectedOption.icon}</span>
+                <span className="flex-shrink-0 inline-flex">
+                  {selectedOption.icon}
+                </span>
               )}
-              {displayLabel}
+              <span className="truncate">{displayLabel}</span>
             </span>
             <span
               className={`
-              transition-transform duration-[var(--transition-med)] ease-[var(--ease-in-out)]
-              ${isOpen ? "rotate-180" : "rotate-0"}
-              text-[var(--color-text-tertiary)]
-              flex-shrink-0
-            `}
+                transition-transform duration-[var(--transition-med)] ease-[var(--ease-in-out)]
+                ${isOpen ? "rotate-180" : "rotate-0"}
+                text-[var(--color-text-tertiary)]
+                flex-shrink-0
+              `}
             >
               <svg
-                className={`${iconSizes[size]}`}
+                className={iconSizes[size]}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -285,6 +302,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               </svg>
             </span>
           </button>
+
           {/* Dropdown Menu */}
           <div
             className={`
@@ -313,15 +331,13 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder={searchPlaceholder}
                   className={`
-                    w-full font-sans text-[var(--color-text-primary)]
-                    placeholder:text-[var(--color-text-tertiary)]
-                    bg-[var(--color-bg-tertiary)]
-                    border border-[var(--color-border-secondary)]
-                    rounded-[var(--radius-standard)]
+                    w-full font-sans
+                    bg-[var(--color-bg-secondary)]
+                    text-[var(--color-text-primary)]
+                    border border-[var(--color-border-primary)]
+                    rounded-[var(--radius-sm)]
                     outline-none
-                    transition-all duration-[var(--transition-fast)]
                     focus:border-[var(--color-primary)]
-                    focus:ring-1 focus:ring-[var(--color-primary)]/20
                     ${sizeStyles[size].search}
                   `}
                   onClick={(e) => e.stopPropagation()}
@@ -330,70 +346,72 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             )}
 
             {/* Options */}
-            {filteredOptions.length === 0 ? (
-              <div
-                className={`
-                  text-[var(--color-text-tertiary)] text-center
-                  ${sizeStyles[size].option}
-                `}
-              >
-                No options found
-              </div>
-            ) : (
-              filteredOptions.map((option) => {
-                const isSelected = option.value === selectedValue;
+            <div className="py-1">
+              {filteredOptions.length === 0 ? (
+                <div
+                  className={`${sizeStyles[size].option} text-[var(--color-text-tertiary)] text-center`}
+                >
+                  No options found
+                </div>
+              ) : (
+                filteredOptions.map((option) => {
+                  const isSelected = option.value === selectedValue;
 
-                return (
-                  <button
-                    key={option.value}
-                    onClick={() => selectOption(option.value)}
-                    disabled={option.disabled}
-                    className={`
-                      w-full flex items-center gap-2
-                      text-left
-                      transition-colors duration-[var(--transition-fast)]
-                      ${sizeStyles[size].option}
-                      ${
-                        option.disabled
-                          ? "opacity-40 cursor-not-allowed"
-                          : "cursor-pointer hover:bg-[var(--color-bg-elevated)]/50"
-                      }
-                      ${
-                        isSelected
-                          ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
-                          : "text-[var(--color-text-primary)]"
-                      }
-                      focus:outline-none focus:bg-[var(--color-bg-elevated)]/30
-                    `}
-                    role="option"
-                    aria-selected={isSelected}
-                    aria-disabled={option.disabled}
-                  >
-                    {option.icon && (
-                      <span className="flex-shrink-0">{option.icon}</span>
-                    )}
-                    <span className="truncate">{option.label}</span>
-                    {isSelected && (
-                      <span className="ml-auto text-[var(--color-primary)] flex-shrink-0">
-                        <svg
-                          className={`${iconSizes[size]} opacity-80`}
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2.5}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                      </span>
-                    )}
-                  </button>
-                );
-              })
-            )}
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => {
+                        if (!option.disabled) {
+                          selectOption(option.value);
+                        }
+                      }}
+                      disabled={option.disabled}
+                      className={`
+                        w-full flex items-center gap-2 text-left
+                        ${sizeStyles[size].option}
+                        ${
+                          option.disabled
+                            ? "opacity-40 cursor-not-allowed"
+                            : "cursor-pointer hover:bg-[var(--color-bg-elevated)]/50"
+                        }
+                        ${
+                          isSelected
+                            ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
+                            : "text-[var(--color-text-primary)]"
+                        }
+                        focus:outline-none focus:bg-[var(--color-bg-elevated)]/30
+                      `}
+                      role="option"
+                      aria-selected={isSelected}
+                      aria-disabled={option.disabled}
+                    >
+                      {option.icon && (
+                        <span className="flex-shrink-0">{option.icon}</span>
+                      )}
+                      <span className="truncate">{option.label}</span>
+                      {isSelected && (
+                        <span className="ml-auto text-[var(--color-primary)] flex-shrink-0">
+                          <svg
+                            className={`${iconSizes[size]} opacity-80`}
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2.5}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                        </span>
+                      )}
+                    </button>
+                  );
+                })
+              )}
+            </div>
           </div>
         </div>
 
@@ -402,7 +420,19 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
           <div className="flex items-center gap-1.5 text-xs font-sans">
             {error && errorMessage && (
               <>
-                <span className="text-[var(--color-danger)]">⚠️</span>
+                <svg
+                  className="h-3.5 w-3.5 text-[var(--color-danger)] flex-shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+                  />
+                </svg>
                 <span className="text-[var(--color-danger)]">
                   {errorMessage}
                 </span>
