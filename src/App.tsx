@@ -16,6 +16,7 @@ import { QuestCard } from "./components/QuestCard/QuestCard";
 import { CharacterCard } from "./components/CharacterCard/CharacterCard";
 import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
+import StatsWidget from "./components/StatsWidget";
 
 type Theme = "nightfall" | "daylight" | "bloody-moon";
 
@@ -1543,6 +1544,143 @@ function AppContent() {
                 { label: "Wisdom", value: 82, color: "primary" },
               ]}
               glow="pink"
+            />
+          </div>
+        </section>
+
+        {/* ----- STATS WIDGET SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Stats Widget</h2>
+
+          {/* Radial Variant */}
+          <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
+            Radial Variant
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <StatsWidget
+              title="FORCE STATS"
+              glow="purple"
+              stats={[
+                { label: "Force", value: 73, color: "primary", trend: 12 },
+                { label: "Combat", value: 85, color: "secondary", trend: 8 },
+                {
+                  label: "Intelligence",
+                  value: 92,
+                  color: "accent",
+                  trend: -3,
+                },
+                { label: "Wisdom", value: 68, color: "warning", trend: 5 },
+              ]}
+            />
+
+            <StatsWidget
+              title="CHARACTER STATS"
+              glow="cyan"
+              stats={[
+                {
+                  label: "Health",
+                  value: 85,
+                  max: 100,
+                  unit: "HP",
+                  color: "danger",
+                  trend: -5,
+                },
+                {
+                  label: "Mana",
+                  value: 62,
+                  max: 100,
+                  unit: "MP",
+                  color: "secondary",
+                  trend: 15,
+                },
+                {
+                  label: "Stamina",
+                  value: 45,
+                  max: 100,
+                  unit: "SP",
+                  color: "warning",
+                  trend: 3,
+                },
+                {
+                  label: "Level",
+                  value: 14,
+                  max: 20,
+                  unit: "",
+                  color: "primary",
+                  trend: 0,
+                },
+              ]}
+            />
+          </div>
+
+          {/* Bar Variant */}
+          <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
+            Bar Variant
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <StatsWidget
+              variant="bar"
+              title="📈 PROGRESS"
+              glow="pink"
+              stats={[
+                { label: "Strength", value: 78, color: "danger", trend: 22 },
+                { label: "Agility", value: 92, color: "accent", trend: 8 },
+                { label: "Endurance", value: 65, color: "warning", trend: -4 },
+                { label: "Luck", value: 45, color: "success", trend: 12 },
+              ]}
+            />
+
+            <StatsWidget
+              variant="bar"
+              title="SKILLS"
+              glow="purple"
+              stats={[
+                { label: "Hacking", value: 95, color: "secondary", trend: 5 },
+                { label: "Stealth", value: 78, color: "accent", trend: 18 },
+                { label: "Combat", value: 45, color: "danger", trend: -7 },
+                {
+                  label: "Intelligence",
+                  value: 88,
+                  color: "primary",
+                  trend: 3,
+                },
+              ]}
+            />
+          </div>
+
+          {/* Horizontal Layout */}
+          <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
+            Horizontal Layout
+          </p>
+          <div className="flex flex-col gap-6">
+            <StatsWidget
+              layout="horizontal"
+              title="⚔️ BATTLE STATS"
+              glow="cyan"
+              stats={[
+                { label: "Strength", value: 78, color: "danger", trend: 22 },
+                { label: "Agility", value: 92, color: "accent", trend: 8 },
+                { label: "Endurance", value: 65, color: "warning", trend: -4 },
+                { label: "Luck", value: 45, color: "success", trend: 12 },
+              ]}
+            />
+
+            <StatsWidget
+              variant="bar"
+              layout="horizontal"
+              title="📊 SKILL PROGRESS"
+              glow="purple"
+              stats={[
+                { label: "Hacking", value: 95, color: "secondary", trend: 5 },
+                { label: "Stealth", value: 78, color: "accent", trend: 18 },
+                { label: "Combat", value: 45, color: "danger", trend: -7 },
+                {
+                  label: "Intelligence",
+                  value: 88,
+                  color: "primary",
+                  trend: 3,
+                },
+              ]}
             />
           </div>
         </section>
