@@ -15,6 +15,9 @@ import { XPBar } from "./components/XPBar";
 import { QuestCard } from "./components/QuestCard/QuestCard";
 import { CharacterCard } from "./components/CharacterCard/CharacterCard";
 import useDirection from "./hooks/useDirection";
+import { ThemeChanger } from "./components/ThemeChanger";
+import { LanguageChanger } from "./components/LanguageChanger";
+
 import "./styles/index.css";
 import StatsWidget from "./components/StatsWidget";
 
@@ -380,7 +383,6 @@ function AppContent() {
             </Button>
           </div>
         </div>
-
         {/* ----- BADGES SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Badges</h2>
@@ -474,7 +476,6 @@ function AppContent() {
             </div>
           </div>
         </section>
-
         {/* ----- BUTTONS SHOWCASE ----- */}
         {/* Buttons: variants */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
@@ -488,7 +489,6 @@ function AppContent() {
             <Button variant="outline">Outline</Button>
           </div>
         </section>
-
         {/* Buttons: stats */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Button States</h2>
@@ -511,7 +511,6 @@ function AppContent() {
             </Button>
           </div>
         </section>
-
         {/* Buttons: sizes */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Button Sizes</h2>
@@ -527,7 +526,6 @@ function AppContent() {
             </Button>
           </div>
         </section>
-
         {/* ----- AVATAR SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Avatar</h2>
@@ -634,7 +632,6 @@ function AppContent() {
             />
           </div>
         </section>
-
         {/* ----- TOOLTIP SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Tooltip</h2>
@@ -708,7 +705,6 @@ function AppContent() {
             </Tooltip>
           </div>
         </section>
-
         {/* ----- TABS SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Tabs</h2>
@@ -719,7 +715,6 @@ function AppContent() {
             glowColor="primary"
           />
         </section>
-
         {/* ----- ACCORDION SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Accordion</h2>
@@ -788,7 +783,6 @@ function AppContent() {
             />
           </div>
         </section>
-
         {/* ----- DROPDOWN SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Dropdown</h2>
@@ -897,7 +891,6 @@ function AppContent() {
             </div>
           </div>
         </section>
-
         {/* ----- CARD SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Cards</h2>
@@ -979,7 +972,6 @@ function AppContent() {
             </div>
           </div>
         </section>
-
         {/* ----- INPUT SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Inputs</h2>
@@ -1047,7 +1039,6 @@ function AppContent() {
             </div>
           </div>
         </section>
-
         {/* ----- MODAL SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Modal</h2>
@@ -1075,7 +1066,6 @@ function AppContent() {
             and is rendered via React Portal outside the DOM tree.
           </Modal>
         </section>
-
         {/* ----- TOAST SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Toast Notifications</h2>
@@ -1084,7 +1074,6 @@ function AppContent() {
           </p>
           <ToastDemo />
         </section>
-
         {/* ----- PROGRESS SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Progress</h2>
@@ -1277,7 +1266,6 @@ function AppContent() {
             </div>
           </div>
         </section>
-
         {/* ----- XPBAR SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">XPBar, RankTier</h2>
@@ -1339,7 +1327,6 @@ function AppContent() {
 
           {/* QuestCard */}
         </section>
-
         {/* ----- GLOW SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Glow Effects</h2>
@@ -1355,7 +1342,6 @@ function AppContent() {
             </Button>
           </div>
         </section>
-
         {/* ----- QUEST CARD SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Quest Cards</h2>
@@ -1419,7 +1405,6 @@ function AppContent() {
             />
           </div>
         </section>
-
         {/* ----- CHARACTER CARD SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Character Cards</h2>
@@ -1547,7 +1532,6 @@ function AppContent() {
             />
           </div>
         </section>
-
         {/* ----- STATS WIDGET SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Stats Widget</h2>
@@ -1684,6 +1668,74 @@ function AppContent() {
             />
           </div>
         </section>
+        {/* ----- THEME & LANGUAGE CHANGERS SHOWCASE ----- */}
+        {/* ----- THEME & LANGUAGE CHANGERS SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Theme & Language</h2>
+
+          <div className="flex flex-wrap gap-6 items-end">
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Theme Changer
+              </span>
+              <ThemeChanger
+                defaultValue="nightfall"
+                size="md"
+                onChange={(theme) => console.log("Theme changed to:", theme)}
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Language (Dropdown)
+              </span>
+              <LanguageChanger
+                defaultValue="en"
+                size="md"
+                onChange={(lang) => console.log("Language changed to:", lang)}
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Language (Toggle)
+              </span>
+              <LanguageChanger
+                variant="toggle"
+                defaultValue="en"
+                size="md"
+                onChange={(lang) => console.log("Language toggled to:", lang)}
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Small (navbar style)
+              </span>
+              <div className="flex gap-2">
+                <ThemeChanger defaultValue="nightfall" size="sm" />
+                <LanguageChanger defaultValue="en" size="sm" />
+                <LanguageChanger variant="toggle" defaultValue="fa" size="sm" />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
+                Demo:
+              </span>{" "}
+              These changers reuse the Dropdown component in compact size (or a
+              simple cycle pill for language). They update{" "}
+              <code className="text-[var(--color-primary)]">data-theme</code> /{" "}
+              <code className="text-[var(--color-primary)]">lang</code> +{" "}
+              <code className="text-[var(--color-primary)]">dir</code> on{" "}
+              <code className="text-[var(--color-primary)]">&lt;html&gt;</code>.
+              Pass your own <code>themes</code> / <code>languages</code> arrays
+              — icons optional.
+            </p>
+          </div>
+        </section>
 
         {/* ----- GRADIENT SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
@@ -1703,7 +1755,6 @@ function AppContent() {
             </div>
           </div>
         </section>
-
         {/* ----- GLASS & GLOW SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Effects</h2>
@@ -1719,7 +1770,6 @@ function AppContent() {
             </div>
           </div>
         </section>
-
         {/* ----- TYPOGRAPHY SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Typography</h2>
@@ -1739,7 +1789,6 @@ function AppContent() {
             </code>
           </div>
         </section>
-
         {/* ----- PERSIAN TEXT SHOWCASE ----- */}
         <section className="p-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Persian Support</h2>
