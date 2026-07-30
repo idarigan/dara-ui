@@ -1,6 +1,6 @@
 ================================================================================
 ADVANCED PROJECT CODE EXPORT
-Generated: 2026-07-28 15:41:30
+Generated: 2026-07-30 17:50:32
 Project: dara-ui
 Path: D:\D's\dara-ui
 ================================================================================
@@ -27,7 +27,7 @@ dara-ui/
 │   └── icons.svg (4.9 KB)
 ├── README.md (2.4 KB)
 ├── src/
-│   ├── App.tsx (50.4 KB)
+│   ├── App.tsx (65.7 KB)
 │   ├── components/
 │   │   ├── Accordion/
 │   │   │   ├── Accordion.stories.tsx (4.8 KB)
@@ -49,9 +49,13 @@ dara-ui/
 │   │   │   ├── Card.stories.tsx (4.5 KB)
 │   │   │   ├── Card.tsx (2.1 KB)
 │   │   │   └── index.ts (117.0 B)
+│   │   ├── CharacterCard/
+│   │   │   ├── CharacterCard.stories.tsx (5.2 KB)
+│   │   │   ├── CharacterCard.tsx (12.2 KB)
+│   │   │   └── index.tsx (186.0 B)
 │   │   ├── Dropdown/
 │   │   │   ├── Dropdown.stories.tsx (9.6 KB)
-│   │   │   ├── Dropdown.tsx (12.9 KB)
+│   │   │   ├── Dropdown.tsx (13.7 KB)
 │   │   │   └── index.ts (157.0 B)
 │   │   ├── Input/
 │   │   │   ├── index.ts (123.0 B)
@@ -65,10 +69,22 @@ dara-ui/
 │   │   │   ├── index.ts (141.0 B)
 │   │   │   ├── Progress.stories.tsx (6.3 KB)
 │   │   │   └── Progress.tsx (13.0 KB)
+│   │   ├── QuestCard/
+│   │   │   ├── index.ts (147.0 B)
+│   │   │   ├── QuestCard.stories.tsx (4.7 KB)
+│   │   │   └── QuestCard.tsx (10.8 KB)
+│   │   ├── StatsWidget/
+│   │   │   ├── index.ts (176.0 B)
+│   │   │   ├── StatsWidget.stories.tsx (4.8 KB)
+│   │   │   └── StatsWidget.tsx (7.5 KB)
 │   │   ├── Tabs/
 │   │   │   ├── index.ts (126.0 B)
 │   │   │   ├── Tabs.stories.tsx (4.3 KB)
 │   │   │   └── Tabs.tsx (5.8 KB)
+│   │   ├── ThemeChanger/
+│   │   │   ├── index.ts (178.0 B)
+│   │   │   ├── ThemeChanger.stories.tsx (6.2 KB)
+│   │   │   └── ThemeChanger.tsx (14.1 KB)
 │   │   ├── Toast/
 │   │   │   ├── index.ts (264.0 B)
 │   │   │   ├── Toast.stories.tsx (6.7 KB)
@@ -85,12 +101,12 @@ dara-ui/
 │   ├── fonts/
 │   ├── hooks/
 │   │   └── useDirection.ts (739.0 B)
-│   ├── index.ts (2.0 KB)
+│   ├── index.ts (2.2 KB)
 │   ├── main.tsx (305.0 B)
 │   └── styles/
 │       ├── fonts.css (1.5 KB)
 │       ├── index.css (14.2 KB)
-│       └── tokens.css (8.8 KB)
+│       └── tokens.css (8.7 KB)
 ├── tsconfig.app.json (655.0 B)
 ├── tsconfig.json (119.0 B)
 ├── tsconfig.node.json (558.0 B)
@@ -104,7 +120,7 @@ dara-ui/
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 1/64: .gitignore
+FILE 1/76: .gitignore
 Language: plaintext | Size: 319 bytes
 Lines: 31 total | 19 code | 6 comments | 6 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -145,7 +161,7 @@ original-dmeo.html
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 2/64: .storybook\main.ts
+FILE 2/76: .storybook\main.ts
 Language: typescript | Size: 418 bytes
 Lines: 17 total | 16 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -172,7 +188,7 @@ export default config;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 3/64: .storybook\preview.tsx
+FILE 3/76: .storybook\preview.tsx
 Language: tsx | Size: 608 bytes
 Lines: 30 total | 25 code | 0 comments | 5 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -211,18 +227,242 @@ export default preview;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 4/64: dara-ui_export.txt
-Language: plaintext | Size: 0 bytes
-Lines: 1 total | 0 code | 0 comments | 1 blank
+FILE 4/76: dara-ui_export.txt
+Language: plaintext | Size: 6,081 bytes
+Lines: 226 total | 194 code | 6 comments | 26 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```plaintext
+================================================================================
+ADVANCED PROJECT CODE EXPORT
+Generated: 2026-07-30 17:50:32
+Project: dara-ui
+Path: D:\D's\dara-ui
+================================================================================
 
+TABLE OF CONTENTS
+================================================================================
+1. Project Structure
+2. File Contents
+3. Statistics & Analysis
+
+1. PROJECT STRUCTURE
+================================================================================
+
+dara-ui/
+├── .gitignore (319.0 B)
+├── dara-ui_export.txt (0.0 B)
+├── eslint.config.js (786.0 B)
+├── export_project.py (16.9 KB)
+├── index.html (359.0 B)
+├── original-dmeo.html (83.3 KB)
+├── package.json (1.7 KB)
+├── public/
+│   ├── favicon.svg (9.3 KB)
+│   └── icons.svg (4.9 KB)
+├── README.md (2.4 KB)
+├── src/
+│   ├── App.tsx (65.7 KB)
+│   ├── components/
+│   │   ├── Accordion/
+│   │   │   ├── Accordion.stories.tsx (4.8 KB)
+│   │   │   ├── Accordion.tsx (5.9 KB)
+│   │   │   └── index.ts (162.0 B)
+│   │   ├── Avatar/
+│   │   │   ├── Avatar.stories.tsx (3.6 KB)
+│   │   │   ├── Avatar.tsx (6.9 KB)
+│   │   │   └── index.ts (129.0 B)
+│   │   ├── Badge/
+│   │   │   ├── Badge.stories.tsx (6.5 KB)
+│   │   │   ├── Badge.tsx (3.0 KB)
+│   │   │   └── index.ts (123.0 B)
+│   │   ├── Button/
+│   │   │   ├── Button.stories.tsx (3.5 KB)
+│   │   │   ├── Button.tsx (3.7 KB)
+│   │   │   └── index.ts (129.0 B)
+│   │   ├── Card/
+│   │   │   ├── Card.stories.tsx (4.5 KB)
+│   │   │   ├── Card.tsx (2.1 KB)
+│   │   │   └── index.ts (117.0 B)
+│   │   ├── CharacterCard/
+│   │   │   ├── CharacterCard.stories.tsx (5.2 KB)
+│   │   │   ├── CharacterCard.tsx (12.2 KB)
+│   │   │   └── index.tsx (186.0 B)
+│   │   ├── Dropdown/
+│   │   │   ├── Dropdown.stories.tsx (9.6 KB)
+│   │   │   ├── Dropdown.tsx (13.7 KB)
+│   │   │   └── index.ts (157.0 B)
+│   │   ├── Input/
+│   │   │   ├── index.ts (123.0 B)
+│   │   │   ├── Input.stories.tsx (3.8 KB)
+│   │   │   └── Input.tsx (8.9 KB)
+│   │   ├── Modal/
+│   │   │   ├── index.ts (123.0 B)
+│   │   │   ├── Modal.stories.tsx (4.9 KB)
+│   │   │   └── Modal.tsx (5.5 KB)
+│   │   ├── Progress/
+│   │   │   ├── index.ts (141.0 B)
+│   │   │   ├── Progress.stories.tsx (6.3 KB)
+│   │   │   └── Progress.tsx (13.0 KB)
+│   │   ├── QuestCard/
+│   │   │   ├── index.ts (147.0 B)
+│   │   │   ├── QuestCard.stories.tsx (4.7 KB)
+│   │   │   └── QuestCard.tsx (10.8 KB)
+│   │   ├── StatsWidget/
+│   │   │   ├── index.ts (176.0 B)
+│   │   │   ├── StatsWidget.stories.tsx (4.8 KB)
+│   │   │   └── StatsWidget.tsx (7.5 KB)
+│   │   ├── Tabs/
+│   │   │   ├── index.ts (126.0 B)
+│   │   │   ├── Tabs.stories.tsx (4.3 KB)
+│   │   │   └── Tabs.tsx (5.8 KB)
+│   │   ├── ThemeChanger/
+│   │   │   ├── index.ts (178.0 B)
+│   │   │   ├── ThemeChanger.stories.tsx (6.2 KB)
+│   │   │   └── ThemeChanger.tsx (14.1 KB)
+│   │   ├── Toast/
+│   │   │   ├── index.ts (264.0 B)
+│   │   │   ├── Toast.stories.tsx (6.7 KB)
+│   │   │   ├── Toast.tsx (6.8 KB)
+│   │   │   └── ToastProvider.tsx (4.8 KB)
+│   │   ├── Tooltip/
+│   │   │   ├── index.ts (153.0 B)
+│   │   │   ├── Tooltip.stories.tsx (5.1 KB)
+│   │   │   └── Tooltip.tsx (10.5 KB)
+│   │   └── XPBar/
+│   │       ├── index.ts (133.0 B)
+│   │       ├── XPBar.stories.tsx (5.6 KB)
+│   │       └── XPBar.tsx (4.8 KB)
+│   ├── fonts/
+│   ├── hooks/
+│   │   └── useDirection.ts (739.0 B)
+│   ├── index.ts (2.2 KB)
+│   ├── main.tsx (305.0 B)
+│   └── styles/
+│       ├── fonts.css (1.5 KB)
+│       ├── index.css (14.2 KB)
+│       └── tokens.css (8.7 KB)
+├── tsconfig.app.json (655.0 B)
+├── tsconfig.json (119.0 B)
+├── tsconfig.node.json (558.0 B)
+├── vite.config.ts (1.7 KB)
+└── vitest.shims.d.ts (52.0 B)
+
+================================================================================
+
+2. FILE CONTENTS
+================================================================================
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 1/76: .gitignore
+Language: plaintext | Size: 319 bytes
+Lines: 31 total | 19 code | 6 comments | 6 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```plaintext
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+dist-ssr/
+*.local
+
+# Storybook
+storybook-static/
+*.storybook.log
+
+# IDE
+.vscode/
+.idea/
+*.sw?
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Project Exporter
+dara-ui_export.txt
+export_project.py
+
+original-dmeo.html
 ```
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 5/64: eslint.config.js
+FILE 2/76: .storybook\main.ts
+Language: typescript | Size: 418 bytes
+Lines: 17 total | 16 code | 0 comments | 1 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```typescript
+import type { StorybookConfig } from '@storybook/react-vite';
+
+const config: StorybookConfig = {
+  "stories": [
+    "../src/**/*.mdx",
+    "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
+  ],
+  "addons": [
+    "@chromatic-com/storybook",
+    "@storybook/addon-vitest",
+    "@storybook/addon-a11y",
+    "@storybook/addon-docs",
+    "@storybook/addon-mcp"
+  ],
+  "framework": "@storybook/react-vite"
+};
+export default config;
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 3/76: .storybook\preview.tsx
+Language: tsx | Size: 608 bytes
+Lines: 30 total | 25 code | 0 comments | 5 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import type { Preview } from "@storybook/react-vite";
+import "../src/styles/index.css";
+
+const preview: Preview = {
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+
+    a11y: {
+      // 'todo' - show a11y violations in the test UI only
+      // 'error' - fail CI on a11y violations
+      // 'off' - skip a11y checks entirely
+      test: "todo",
+    },
+  },
+
+  decorators: [
+    (Story) => {
+      document.documentElement.setAttribute("data-theme", "nightfall");
+      return <Story />;
+    },
+  ],
+};
+
+export default preview;
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 5/76: eslint.config.js
 Language: javascript | Size: 764 bytes
 Lines: 23 total | 19 code | 1 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -254,7 +494,7 @@ export default defineConfig([globalIgnores(['dist']), {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 6/64: export_project.py
+FILE 6/76: export_project.py
 Language: python | Size: 16,849 bytes
 Lines: 421 total | 345 code | 1 comments | 75 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -685,7 +925,7 @@ if __name__ == "__main__":
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 7/64: index.html
+FILE 7/76: index.html
 Language: html | Size: 359 bytes
 Lines: 14 total | 13 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -708,7 +948,7 @@ Lines: 14 total | 13 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 8/64: original-dmeo.html
+FILE 8/76: original-dmeo.html
 Language: html | Size: 79,593 bytes
 Lines: 2321 total | 2232 code | 25 comments | 64 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3038,7 +3278,7 @@ Lines: 2321 total | 2232 code | 25 comments | 64 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 9/64: package.json
+FILE 9/76: package.json
 Language: json | Size: 1,782 bytes
 Lines: 67 total | 66 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3114,7 +3354,7 @@ Lines: 67 total | 66 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 10/64: public\favicon.svg
+FILE 10/76: public\favicon.svg
 Language: plaintext | Size: 9,522 bytes
 Lines: 1 total | 1 code | 0 comments | 0 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3125,7 +3365,7 @@ Lines: 1 total | 1 code | 0 comments | 0 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 11/64: public\icons.svg
+FILE 11/76: public\icons.svg
 Language: plaintext | Size: 5,031 bytes
 Lines: 25 total | 24 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3159,7 +3399,7 @@ Lines: 25 total | 24 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 12/64: README.md
+FILE 12/76: README.md
 Language: markdown | Size: 2,427 bytes
 Lines: 76 total | 57 code | 3 comments | 16 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3244,9 +3484,9 @@ export default defineConfig([
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 13/64: src\App.tsx
-Language: tsx | Size: 49,954 bytes
-Lines: 1438 total | 1354 code | 1 comments | 83 blank
+FILE 13/76: src\App.tsx
+Language: tsx | Size: 65,193 bytes
+Lines: 1828 total | 1738 code | 1 comments | 89 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
@@ -3264,10 +3504,15 @@ import { Avatar } from "./components/Avatar/Avatar";
 import { Tooltip } from "./components/Tooltip/Tooltip";
 import { Progress } from "./components/Progress/Progress";
 import { XPBar } from "./components/XPBar";
+import { QuestCard } from "./components/QuestCard/QuestCard";
+import { CharacterCard } from "./components/CharacterCard/CharacterCard";
+import { ThemeChanger } from "./components/ThemeChanger";
 import useDirection from "./hooks/useDirection";
-import "./styles/index.css";
 
-type Theme = "nightfall" | "daylight" | "bloody-moon";
+import "./styles/index.css";
+import StatsWidget from "./components/StatsWidget";
+
+type Theme = "nightfall" | "daylight" | "dracula";
 
 // Icons
 const SearchIcon = () => (
@@ -3411,8 +3656,8 @@ const accordionItems = [
             Light, clean, minimal
           </li>
           <li>
-            <span className="text-[var(--color-danger)]">Bloody Moon</span> —
-            Dark, intense, red-accented
+            <span className="text-[var(--color-danger)]">Dracula</span> — Dark,
+            intense, red-accented
           </li>
         </ul>
       </div>
@@ -3619,17 +3864,16 @@ function AppContent() {
             </Button>
             <Button
               size="sm"
-              variant={theme === "bloody-moon" ? "primary" : "outline"}
-              onClick={() => changeTheme("bloody-moon")}
+              variant={theme === "dracula" ? "primary" : "outline"}
+              onClick={() => changeTheme("dracula")}
             >
-              🍷 Bloody Moon
+              🍷 Dracula
             </Button>
             <Button size="sm" variant="outline" onClick={toggleDirection}>
               {direction === "ltr" ? "🔁 RTL" : "🔁 LTR"}
             </Button>
           </div>
         </div>
-
         {/* ----- BADGES SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Badges</h2>
@@ -3723,7 +3967,6 @@ function AppContent() {
             </div>
           </div>
         </section>
-
         {/* ----- BUTTONS SHOWCASE ----- */}
         {/* Buttons: variants */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
@@ -3737,7 +3980,6 @@ function AppContent() {
             <Button variant="outline">Outline</Button>
           </div>
         </section>
-
         {/* Buttons: stats */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Button States</h2>
@@ -3760,7 +4002,6 @@ function AppContent() {
             </Button>
           </div>
         </section>
-
         {/* Buttons: sizes */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Button Sizes</h2>
@@ -3776,7 +4017,6 @@ function AppContent() {
             </Button>
           </div>
         </section>
-
         {/* ----- AVATAR SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Avatar</h2>
@@ -3883,7 +4123,6 @@ function AppContent() {
             />
           </div>
         </section>
-
         {/* ----- TOOLTIP SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Tooltip</h2>
@@ -3957,7 +4196,6 @@ function AppContent() {
             </Tooltip>
           </div>
         </section>
-
         {/* ----- TABS SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Tabs</h2>
@@ -3968,7 +4206,6 @@ function AppContent() {
             glowColor="primary"
           />
         </section>
-
         {/* ----- ACCORDION SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Accordion</h2>
@@ -4037,7 +4274,6 @@ function AppContent() {
             />
           </div>
         </section>
-
         {/* ----- DROPDOWN SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Dropdown</h2>
@@ -4146,7 +4382,6 @@ function AppContent() {
             </div>
           </div>
         </section>
-
         {/* ----- CARD SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Cards</h2>
@@ -4228,7 +4463,6 @@ function AppContent() {
             </div>
           </div>
         </section>
-
         {/* ----- INPUT SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Inputs</h2>
@@ -4296,7 +4530,6 @@ function AppContent() {
             </div>
           </div>
         </section>
-
         {/* ----- MODAL SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Modal</h2>
@@ -4324,7 +4557,6 @@ function AppContent() {
             and is rendered via React Portal outside the DOM tree.
           </Modal>
         </section>
-
         {/* ----- TOAST SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Toast Notifications</h2>
@@ -4333,7 +4565,6 @@ function AppContent() {
           </p>
           <ToastDemo />
         </section>
-
         {/* ----- PROGRESS SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Progress</h2>
@@ -4526,7 +4757,6 @@ function AppContent() {
             </div>
           </div>
         </section>
-
         {/* ----- XPBAR SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">XPBar, RankTier</h2>
@@ -4588,7 +4818,6 @@ function AppContent() {
 
           {/* QuestCard */}
         </section>
-
         {/* ----- GLOW SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Glow Effects</h2>
@@ -4602,6 +4831,410 @@ function AppContent() {
             <Button glow="pink" variant="danger">
               Glow Pink
             </Button>
+          </div>
+        </section>
+        {/* ----- QUEST CARD SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Quest Cards</h2>
+
+          {/* Basic Quest Card */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <QuestCard
+              title="Build CMS"
+              description="Deploy the encrypted Jedi archive interface before the snow melts."
+              xp={300}
+              deadline="tomorrow"
+              rank="S"
+              glow="cyan"
+            />
+
+            <QuestCard
+              title="Secure Archives"
+              description="Implement end-to-end encryption for all stored data in the archive."
+              xp={200}
+              deadline="3 days"
+              rank="A"
+              glow="purple"
+              requirements={[
+                "Complete 3 code reviews",
+                "Write 5 unit tests",
+                "Deploy to staging",
+              ]}
+            />
+          </div>
+
+          {/* Full Featured Quest Card */}
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <QuestCard
+              title="Legendary Quest: The Lost Archive"
+              description="Journey into the depths of the forgotten vault and retrieve the ancient holocron."
+              xp={1000}
+              xpLabel="EXP"
+              deadline="2024-12-25"
+              rank="S+"
+              glow="purple"
+              requirements={[
+                "Reach level 25",
+                "Defeat the Shadow Guardian",
+                "Collect 3 ancient artifacts",
+                "Solve the sphinx riddle",
+              ]}
+            />
+
+            <QuestCard
+              title="Map Night City"
+              description="Create a comprehensive map of the cyberpunk district before the data purge."
+              xp={150}
+              deadline="tonight"
+              rank="B"
+              glow="pink"
+              requirements={[
+                "Scan 10 locations",
+                "Interview 5 NPCs",
+                "Upload to the archive",
+              ]}
+            />
+          </div>
+        </section>
+        {/* ----- CHARACTER CARD SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Character Cards</h2>
+
+          {/* Vertical Layout */}
+          <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
+            Vertical Layout (default)
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <CharacterCard
+              name="Dara"
+              subtitle="Jedi Archivist"
+              quote="The dark is not to be feared — it is to be archived."
+              icon="🦇"
+              mbti="INTJ"
+              species="Human/Cyborg"
+              affiliation="Jedi Order"
+              traits={["MBTI: INTJ", "Human/Cyborg"]}
+              stats={[
+                { label: "Force", value: 73, color: "primary" },
+                { label: "Combat", value: 85, color: "secondary" },
+                { label: "Intelligence", value: 92, color: "accent" },
+                { label: "Wisdom", value: 68, color: "warning" },
+              ]}
+              glow="purple"
+            />
+
+            <CharacterCard
+              name="Cipher"
+              subtitle="Netrunner"
+              quote="The code is the key to everything."
+              portrait="https://i.pravatar.cc/150?img=11"
+              mbti="INTP"
+              species="Cyborg"
+              affiliation="Netwatch"
+              traits={["MBTI: INTP", "Cyborg"]}
+              stats={[
+                { label: "Hacking", value: 95, color: "secondary" },
+                { label: "Stealth", value: 78, color: "accent" },
+                { label: "Intelligence", value: 88, color: "primary" },
+                { label: "Combat", value: 45, color: "danger" },
+              ]}
+              glow="cyan"
+            />
+
+            <CharacterCard
+              name="Shadow"
+              subtitle="Night Hunter"
+              quote="I move in the darkness where they cannot see."
+              icon="🌙"
+              mbti="ISTP"
+              species="Vampire"
+              affiliation="Night Council"
+              traits={["MBTI: ISTP", "Vampire"]}
+              stats={[
+                { label: "Agility", value: 92, color: "accent" },
+                { label: "Stealth", value: 88, color: "danger" },
+                { label: "Strength", value: 76, color: "warning" },
+                { label: "Wisdom", value: 82, color: "primary" },
+              ]}
+              glow="pink"
+            />
+          </div>
+
+          {/* Horizontal Layout */}
+          <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
+            Horizontal Layout
+          </p>
+          <div className="flex flex-col gap-6">
+            <CharacterCard
+              layout="horizontal"
+              name="Dara"
+              subtitle="Jedi Archivist"
+              quote="The dark is not to be feared — it is to be archived."
+              icon="🦇"
+              mbti="INTJ"
+              species="Human/Cyborg"
+              affiliation="Jedi Order"
+              traits={["MBTI: INTJ", "Human/Cyborg"]}
+              stats={[
+                { label: "Force", value: 73, color: "primary" },
+                { label: "Combat", value: 85, color: "secondary" },
+                { label: "Intelligence", value: 92, color: "accent" },
+                { label: "Wisdom", value: 68, color: "warning" },
+              ]}
+              glow="purple"
+            />
+
+            <CharacterCard
+              layout="horizontal"
+              name="Cipher"
+              subtitle="Netrunner"
+              quote="The code is the key to everything."
+              portrait="https://i.pravatar.cc/150?img=11"
+              mbti="INTP"
+              species="Cyborg"
+              affiliation="Netwatch"
+              traits={["MBTI: INTP", "Cyborg"]}
+              stats={[
+                { label: "Hacking", value: 95, color: "secondary" },
+                { label: "Stealth", value: 78, color: "accent" },
+                { label: "Intelligence", value: 88, color: "primary" },
+                { label: "Combat", value: 45, color: "danger" },
+              ]}
+              glow="cyan"
+            />
+
+            <CharacterCard
+              layout="horizontal"
+              name="Shadow"
+              subtitle="Night Hunter"
+              quote="I move in the darkness where they cannot see."
+              icon="🌙"
+              mbti="ISTP"
+              species="Vampire"
+              affiliation="Night Council"
+              traits={["MBTI: ISTP", "Vampire"]}
+              stats={[
+                { label: "Agility", value: 92, color: "accent" },
+                { label: "Stealth", value: 88, color: "danger" },
+                { label: "Strength", value: 76, color: "warning" },
+                { label: "Wisdom", value: 82, color: "primary" },
+              ]}
+              glow="pink"
+            />
+          </div>
+        </section>
+        {/* ----- STATS WIDGET SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Stats Widget</h2>
+
+          {/* Radial Variant */}
+          <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
+            Radial Variant
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <StatsWidget
+              title="FORCE STATS"
+              glow="purple"
+              stats={[
+                { label: "Force", value: 73, color: "primary", trend: 12 },
+                { label: "Combat", value: 85, color: "secondary", trend: 8 },
+                {
+                  label: "Intelligence",
+                  value: 92,
+                  color: "accent",
+                  trend: -3,
+                },
+                { label: "Wisdom", value: 68, color: "warning", trend: 5 },
+              ]}
+            />
+
+            <StatsWidget
+              title="CHARACTER STATS"
+              glow="cyan"
+              stats={[
+                {
+                  label: "Health",
+                  value: 85,
+                  max: 100,
+                  unit: "HP",
+                  color: "danger",
+                  trend: -5,
+                },
+                {
+                  label: "Mana",
+                  value: 62,
+                  max: 100,
+                  unit: "MP",
+                  color: "secondary",
+                  trend: 15,
+                },
+                {
+                  label: "Stamina",
+                  value: 45,
+                  max: 100,
+                  unit: "SP",
+                  color: "warning",
+                  trend: 3,
+                },
+                {
+                  label: "Level",
+                  value: 14,
+                  max: 20,
+                  unit: "",
+                  color: "primary",
+                  trend: 0,
+                },
+              ]}
+            />
+          </div>
+
+          {/* Bar Variant */}
+          <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
+            Bar Variant
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <StatsWidget
+              variant="bar"
+              title="📈 PROGRESS"
+              glow="pink"
+              stats={[
+                { label: "Strength", value: 78, color: "danger", trend: 22 },
+                { label: "Agility", value: 92, color: "accent", trend: 8 },
+                { label: "Endurance", value: 65, color: "warning", trend: -4 },
+                { label: "Luck", value: 45, color: "success", trend: 12 },
+              ]}
+            />
+
+            <StatsWidget
+              variant="bar"
+              title="SKILLS"
+              glow="purple"
+              stats={[
+                { label: "Hacking", value: 95, color: "secondary", trend: 5 },
+                { label: "Stealth", value: 78, color: "accent", trend: 18 },
+                { label: "Combat", value: 45, color: "danger", trend: -7 },
+                {
+                  label: "Intelligence",
+                  value: 88,
+                  color: "primary",
+                  trend: 3,
+                },
+              ]}
+            />
+          </div>
+
+          {/* Horizontal Layout */}
+          <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
+            Horizontal Layout
+          </p>
+          <div className="flex flex-col gap-6">
+            <StatsWidget
+              layout="horizontal"
+              title="⚔️ BATTLE STATS"
+              glow="cyan"
+              stats={[
+                { label: "Strength", value: 78, color: "danger", trend: 22 },
+                { label: "Agility", value: 92, color: "accent", trend: 8 },
+                { label: "Endurance", value: 65, color: "warning", trend: -4 },
+                { label: "Luck", value: 45, color: "success", trend: 12 },
+              ]}
+            />
+
+            <StatsWidget
+              variant="bar"
+              layout="horizontal"
+              title="📊 SKILL PROGRESS"
+              glow="purple"
+              stats={[
+                { label: "Hacking", value: 95, color: "secondary", trend: 5 },
+                { label: "Stealth", value: 78, color: "accent", trend: 18 },
+                { label: "Combat", value: 45, color: "danger", trend: -7 },
+                {
+                  label: "Intelligence",
+                  value: 88,
+                  color: "primary",
+                  trend: 3,
+                },
+              ]}
+            />
+          </div>
+        </section>
+
+        {/* ----- THEME & LANGUAGE CHANGERS SHOWCASE ----- */}
+        {/* ----- THEME CHANGER SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Theme Changer</h2>
+
+          <div className="flex flex-wrap gap-6 items-end">
+            {/* Default */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Default
+              </span>
+              <ThemeChanger size="md" />
+            </div>
+
+            {/* Icon Only */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Icon Only
+              </span>
+              <ThemeChanger iconOnly size="md" />
+            </div>
+
+            {/* Fixed Width */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Fixed Width (160px)
+              </span>
+              <ThemeChanger fixedWidth="160px" size="md" />
+            </div>
+
+            {/* Small */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Small
+              </span>
+              <ThemeChanger size="sm" />
+            </div>
+
+            {/* Small Icon Only */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Small Icon Only
+              </span>
+              <ThemeChanger iconOnly size="sm" />
+            </div>
+
+            {/* Custom Themes */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Custom Themes
+              </span>
+              <ThemeChanger
+                availableThemes={[
+                  { value: "nightfall", label: "Nightfall", icon: "🌙" },
+                  { value: "daylight", label: "Daylight", icon: "☀️" },
+                  { value: "bloody-moon", label: "Bloody Moon", icon: "🌕" },
+                ]}
+                autoDetect={false}
+                size="md"
+              />
+            </div>
+          </div>
+
+          <div className="mt-6 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
+                Demo:
+              </span>{" "}
+              Theme changer with auto-detection, icon-only mode, and fixed width
+              support. Pass{" "}
+              <code className="text-[var(--color-primary)]">iconOnly</code> for
+              compact navbar usage, or{" "}
+              <code className="text-[var(--color-primary)]">fixedWidth</code>{" "}
+              for consistent sizing.
+            </p>
           </div>
         </section>
 
@@ -4623,7 +5256,6 @@ function AppContent() {
             </div>
           </div>
         </section>
-
         {/* ----- GLASS & GLOW SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Effects</h2>
@@ -4639,7 +5271,6 @@ function AppContent() {
             </div>
           </div>
         </section>
-
         {/* ----- TYPOGRAPHY SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Typography</h2>
@@ -4659,7 +5290,6 @@ function AppContent() {
             </code>
           </div>
         </section>
-
         {/* ----- PERSIAN TEXT SHOWCASE ----- */}
         <section className="p-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Persian Support</h2>
@@ -4691,7 +5321,7 @@ export default App;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 14/64: src\components\Accordion\Accordion.stories.tsx
+FILE 14/76: src\components\Accordion\Accordion.stories.tsx
 Language: tsx | Size: 4,724 bytes
 Lines: 184 total | 172 code | 0 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -4884,7 +5514,7 @@ export const DisabledItem: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 15/64: src\components\Accordion\Accordion.tsx
+FILE 15/76: src\components\Accordion\Accordion.tsx
 Language: tsx | Size: 5,824 bytes
 Lines: 194 total | 177 code | 0 comments | 17 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5087,7 +5717,7 @@ export default Accordion;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 16/64: src\components\Accordion\index.ts
+FILE 16/76: src\components\Accordion\index.ts
 Language: typescript | Size: 159 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5100,7 +5730,7 @@ export { Accordion as default } from "./Accordion";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 17/64: src\components\Avatar\Avatar.stories.tsx
+FILE 17/76: src\components\Avatar\Avatar.stories.tsx
 Language: tsx | Size: 3,498 bytes
 Lines: 150 total | 137 code | 0 comments | 13 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5259,7 +5889,7 @@ export const Group: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 18/64: src\components\Avatar\Avatar.tsx
+FILE 18/76: src\components\Avatar\Avatar.tsx
 Language: tsx | Size: 6,829 bytes
 Lines: 273 total | 251 code | 0 comments | 22 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5541,7 +6171,7 @@ export default Avatar;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 19/64: src\components\Avatar\index.ts
+FILE 19/76: src\components\Avatar\index.ts
 Language: typescript | Size: 126 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5554,7 +6184,7 @@ export { Avatar as default } from "./Avatar";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 20/64: src\components\Badge\Badge.stories.tsx
+FILE 20/76: src\components\Badge\Badge.stories.tsx
 Language: tsx | Size: 6,357 bytes
 Lines: 253 total | 240 code | 0 comments | 13 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5816,7 +6446,7 @@ export const AllVariants: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 21/64: src\components\Badge\Badge.tsx
+FILE 21/76: src\components\Badge\Badge.tsx
 Language: tsx | Size: 2,959 bytes
 Lines: 113 total | 102 code | 0 comments | 11 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5938,7 +6568,7 @@ export default Badge;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 22/64: src\components\Badge\index.ts
+FILE 22/76: src\components\Badge\index.ts
 Language: typescript | Size: 120 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5951,7 +6581,7 @@ export { Badge as default } from "./Badge";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 23/64: src\components\Button\Button.stories.tsx
+FILE 23/76: src\components\Button\Button.stories.tsx
 Language: tsx | Size: 3,378 bytes
 Lines: 158 total | 146 code | 0 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6118,7 +6748,7 @@ export const Interactive: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 24/64: src\components\Button\Button.tsx
+FILE 24/76: src\components\Button\Button.tsx
 Language: tsx | Size: 3,689 bytes
 Lines: 130 total | 121 code | 0 comments | 9 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6257,7 +6887,7 @@ export default Button;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 25/64: src\components\Button\index.ts
+FILE 25/76: src\components\Button\index.ts
 Language: typescript | Size: 126 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6270,7 +6900,7 @@ export { Button as default } from "./Button";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 26/64: src\components\Card\Card.stories.tsx
+FILE 26/76: src\components\Card\Card.stories.tsx
 Language: tsx | Size: 4,455 bytes
 Lines: 155 total | 147 code | 0 comments | 8 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6434,7 +7064,7 @@ export const ContentExamples: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 27/64: src\components\Card\Card.tsx
+FILE 27/76: src\components\Card\Card.tsx
 Language: tsx | Size: 2,000 bytes
 Lines: 106 total | 96 code | 0 comments | 10 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6549,7 +7179,7 @@ export default Card;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 28/64: src\components\Card\index.ts
+FILE 28/76: src\components\Card\index.ts
 Language: typescript | Size: 114 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6562,7 +7192,634 @@ export { Card as default } from "./Card";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 29/64: src\components\Dropdown\Dropdown.stories.tsx
+FILE 29/76: src\components\CharacterCard\CharacterCard.stories.tsx
+Language: tsx | Size: 5,119 bytes
+Lines: 183 total | 174 code | 0 comments | 9 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { CharacterCard } from "./CharacterCard";
+
+const meta = {
+  title: "Components/CharacterCard",
+  component: CharacterCard,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+  argTypes: {
+    name: { control: "text" },
+    subtitle: { control: "text" },
+    quote: { control: "text" },
+    mbti: { control: "text" },
+    species: { control: "text" },
+    affiliation: { control: "text" },
+    glow: {
+      control: "select",
+      options: ["none", "purple", "cyan", "pink"],
+    },
+  },
+  args: {
+    name: "Dara",
+    subtitle: "Jedi Archivist",
+    quote: "The dark is not to be feared — it is to be archived.",
+    mbti: "INTJ",
+    species: "Human/Cyborg",
+    affiliation: "Jedi Order",
+    glow: "purple",
+  },
+} satisfies Meta<typeof CharacterCard>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// ----- Default -----
+export const Default: Story = {
+  args: {
+    icon: "🦇",
+    traits: ["MBTI: INTJ", "Species: Human/Cyborg"],
+    stats: [
+      { label: "Force Alignment", value: 73, color: "primary" },
+      { label: "Combat", value: 85, color: "secondary" },
+      { label: "Intelligence", value: 92, color: "accent" },
+      { label: "Wisdom", value: 68, color: "warning" },
+    ],
+  },
+};
+
+// ----- With Portrait -----
+export const WithPortrait: Story = {
+  args: {
+    portrait: "https://i.pravatar.cc/150?img=5",
+    icon: undefined,
+    traits: ["MBTI: ENFP", "Species: Human"],
+    stats: [
+      { label: "Charisma", value: 88, color: "primary" },
+      { label: "Intelligence", value: 76, color: "secondary" },
+      { label: "Strength", value: 62, color: "accent" },
+    ],
+  },
+};
+
+// ----- With Emoji Icon -----
+export const WithEmojiIcon: Story = {
+  args: {
+    icon: "🧙",
+    name: "Merlin",
+    subtitle: "Archmage",
+    quote: "Magic is just science we don't understand yet.",
+    mbti: "INTP",
+    species: "Human",
+    affiliation: "Camelot",
+    traits: ["MBTI: INTP", "Species: Human", "Archmage"],
+    stats: [
+      { label: "Arcane Power", value: 95, color: "primary" },
+      { label: "Wisdom", value: 90, color: "secondary" },
+      { label: "Combat", value: 45, color: "danger" },
+    ],
+    glow: "pink",
+  },
+};
+
+// ----- Different Glows -----
+export const DifferentGlows: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-6">
+      <div className="w-72">
+        <CharacterCard
+          name="Dara"
+          subtitle="Jedi Archivist"
+          quote="The dark is not to be feared — it is to be archived."
+          icon="🦇"
+          mbti="INTJ"
+          species="Human/Cyborg"
+          affiliation="Jedi Order"
+          traits={["MBTI: INTJ", "Human/Cyborg"]}
+          stats={[
+            { label: "Force", value: 73, color: "primary" },
+            { label: "Combat", value: 85, color: "secondary" },
+          ]}
+          glow="purple"
+        />
+      </div>
+      <div className="w-72">
+        <CharacterCard
+          name="Cipher"
+          subtitle="Netrunner"
+          quote="The code is the key to everything."
+          icon="🔮"
+          mbti="INTP"
+          species="Cyborg"
+          affiliation="Netwatch"
+          traits={["MBTI: INTP", "Cyborg"]}
+          stats={[
+            { label: "Hacking", value: 95, color: "secondary" },
+            { label: "Stealth", value: 78, color: "accent" },
+          ]}
+          glow="cyan"
+        />
+      </div>
+      <div className="w-72">
+        <CharacterCard
+          name="Shadow"
+          subtitle="Night Hunter"
+          quote="I move in the darkness where they cannot see."
+          icon="🌙"
+          mbti="ISTP"
+          species="Vampire"
+          affiliation="Night Council"
+          traits={["MBTI: ISTP", "Vampire"]}
+          stats={[
+            { label: "Agility", value: 92, color: "accent" },
+            { label: "Stealth", value: 88, color: "danger" },
+          ]}
+          glow="pink"
+        />
+      </div>
+    </div>
+  ),
+};
+
+// ----- With Full Stats -----
+export const FullStats: Story = {
+  args: {
+    icon: "⚔️",
+    name: "Aric Voss",
+    subtitle: "Battle Master",
+    quote:
+      "A warrior's strength is measured not by their blade, but by their will.",
+    mbti: "ESTJ",
+    species: "Human",
+    affiliation: "Imperial Guard",
+    traits: ["MBTI: ESTJ", "Human", "Master-at-Arms"],
+    stats: [
+      { label: "Strength", value: 92, color: "danger" },
+      { label: "Agility", value: 78, color: "accent" },
+      { label: "Endurance", value: 85, color: "warning" },
+      { label: "Combat", value: 96, color: "primary" },
+      { label: "Leadership", value: 82, color: "secondary" },
+      { label: "Wisdom", value: 65, color: "success" },
+    ],
+    glow: "cyan",
+  },
+};
+
+// ----- Simple -----
+export const Simple: Story = {
+  args: {
+    icon: "👤",
+    name: "John Doe",
+    subtitle: "Adventurer",
+    quote: "Every journey begins with a single step.",
+    traits: ["Explorer", "Curious"],
+    stats: [
+      { label: "Courage", value: 75, color: "primary" },
+      { label: "Luck", value: 60, color: "warning" },
+    ],
+    glow: "none",
+  },
+};
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 30/76: src\components\CharacterCard\CharacterCard.tsx
+Language: tsx | Size: 12,063 bytes
+Lines: 413 total | 389 code | 0 comments | 24 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import React, { useState, useRef } from "react";
+import { Avatar } from "../Avatar/Avatar";
+import { Badge } from "../Badge/Badge";
+
+export interface CharacterStat {
+  /**
+   * Stat label (e.g., "Force Alignment", "Combat", "Intelligence")
+   */
+  label: string;
+  /**
+   * Stat value (0-100)
+   */
+  value: number;
+  /**
+   * Color variant for the stat ring
+   */
+  color?: "primary" | "secondary" | "accent" | "success" | "danger" | "warning";
+}
+
+export interface CharacterCardProps {
+  /**
+   * Character name
+   */
+  name: string;
+  /**
+   * Character subtitle (e.g., "Jedi Archivist")
+   */
+  subtitle?: string;
+  /**
+   * Character quote
+   */
+  quote?: string;
+  /**
+   * Portrait image URL
+   */
+  portrait?: string;
+  /**
+   * Custom emoji/icon instead of portrait
+   */
+  icon?: string;
+  /**
+   * MBTI personality type
+   */
+  mbti?: string;
+  /**
+   * Species
+   */
+  species?: string;
+  /**
+   * Affiliation (e.g., "Jedi Order", "Rebel Alliance")
+   */
+  affiliation?: string;
+  /**
+   * Array of custom traits/props
+   */
+  traits?: string[];
+  /**
+   * Array of stats to display
+   */
+  stats?: CharacterStat[];
+  /**
+   * Glow variant color
+   * @default "purple"
+   */
+  glow?: "purple" | "cyan" | "pink" | "none";
+  /**
+   * Layout mode
+   * @default "vertical"
+   */
+  layout?: "vertical" | "horizontal";
+  /**
+   * Additional className
+   */
+  className?: string;
+}
+
+/**
+ * Dara UI CharacterCard - RPG-style character profile card
+ *
+ * Features:
+ * - Vertical and horizontal layouts
+ * - Portrait with fallback to initials
+ * - Name, subtitle, quote
+ * - Stats with radial progress rings
+ * - 3D tilt effect on hover
+ * - Glow variants
+ * - Theme-aware colors
+ * - Uses Avatar and Badge components
+ */
+export const CharacterCard: React.FC<CharacterCardProps> = ({
+  name,
+  subtitle,
+  quote,
+  portrait,
+  icon,
+  mbti,
+  species,
+  affiliation,
+  traits = [],
+  stats = [],
+  glow = "purple",
+  layout = "vertical",
+  className = "",
+}) => {
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Handle 3D tilt on mouse move
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -8;
+    const rotateY = ((x - centerX) / centerX) * 8;
+    setRotation({ x: rotateX, y: rotateY });
+  };
+
+  const handleMouseEnter = () => setIsHovering(true);
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    setRotation({ x: 0, y: 0 });
+  };
+
+  // Glow styles
+  const glowStyles = {
+    purple: "glow-purple",
+    cyan: "glow-cyan",
+    pink: "glow-pink",
+    none: "",
+  };
+  const glowClass = glowStyles[glow] || "";
+  const isHorizontal = layout === "horizontal";
+
+  // Stat color mapping for radial rings
+  const statColors = {
+    primary: "stroke-[var(--color-primary)]",
+    secondary: "stroke-[var(--color-secondary)]",
+    accent: "stroke-[var(--color-accent)]",
+    success: "stroke-[var(--color-success)]",
+    danger: "stroke-[var(--color-danger)]",
+    warning: "stroke-[var(--color-warning)]",
+  };
+
+  const getStatColor = (color?: string) => {
+    if (color && color in statColors) {
+      return statColors[color as keyof typeof statColors];
+    }
+    return "stroke-[var(--color-primary)]";
+  };
+
+  // Render radial stat ring
+  const renderStatRing = (stat: CharacterStat) => {
+    const percentage = Math.min(100, Math.max(0, stat.value));
+    const size = isHorizontal ? 48 : 56;
+    const strokeWidth = 3.5;
+    const radius = (size - strokeWidth) / 2;
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - (percentage / 100) * circumference;
+    const colorClass = getStatColor(stat.color);
+
+    // Fixed width so every item is identical → perfect equal spacing between ring centers
+    const itemWidth = isHorizontal ? 60 : 68;
+
+    return (
+      <div
+        className="flex flex-col items-center flex-shrink-0"
+        style={{ width: itemWidth }}
+      >
+        <div className="relative" style={{ width: size, height: size }}>
+          {/* Glow ring behind */}
+          {percentage > 0 && (
+            <svg
+              className="absolute inset-0"
+              width={size}
+              height={size}
+              style={{ filter: "blur(6px)", opacity: 0.25 }}
+              viewBox={`0 0 ${size} ${size}`}
+            >
+              <circle
+                cx={size / 2}
+                cy={size / 2}
+                r={radius}
+                fill="none"
+                className={colorClass}
+                strokeWidth={strokeWidth}
+                strokeDasharray={circumference}
+                strokeDashoffset={offset}
+                strokeLinecap="round"
+                transform={`rotate(-90 ${size / 2} ${size / 2})`}
+              />
+            </svg>
+          )}
+
+          {/* Main ring */}
+          <svg
+            className="relative"
+            width={size}
+            height={size}
+            viewBox={`0 0 ${size} ${size}`}
+          >
+            {/* Background track */}
+            <circle
+              cx={size / 2}
+              cy={size / 2}
+              r={radius}
+              fill="none"
+              stroke="var(--color-border-secondary)"
+              strokeWidth={strokeWidth}
+            />
+            {/* Progress arc */}
+            <circle
+              cx={size / 2}
+              cy={size / 2}
+              r={radius}
+              fill="none"
+              className={colorClass}
+              strokeWidth={strokeWidth}
+              strokeDasharray={circumference}
+              strokeDashoffset={offset}
+              strokeLinecap="round"
+              transform={`rotate(-90 ${size / 2} ${size / 2})`}
+              style={{ transition: "stroke-dashoffset 0.8s ease" }}
+            />
+          </svg>
+
+          {/* Center value */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="font-heading font-bold text-xs text-[var(--color-text-primary)]">
+              {stat.value}
+              <span className="text-[8px] text-[var(--color-text-tertiary)]">
+                %
+              </span>
+            </span>
+          </div>
+        </div>
+
+        {/* Label – perfectly centered under the ring, still has max-width */}
+        <p className="text-[9px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-1.5 text-center leading-tight max-w-full">
+          {stat.label}
+        </p>
+      </div>
+    );
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      className={`
+        glass p-6 float-card
+        relative
+        transition-all duration-300
+        ${glowClass}
+        ${isHorizontal ? "flex flex-col md:flex-row gap-6" : "flex flex-col"}
+        ${className}
+      `}
+      style={{
+        transform: isHovering
+          ? `perspective(800px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(1.02)`
+          : "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)",
+        transformStyle: "preserve-3d",
+        transition: "transform 0.2s ease-out",
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Left/Header Section */}
+      <div
+        className={`
+          ${isHorizontal ? "flex-shrink-0 md:w-48" : "w-full"}
+          flex flex-col
+        `}
+        style={{ transform: "translateZ(20px)" }}
+      >
+        {/* Portrait and Name */}
+        <div className="flex items-center gap-4">
+          <Avatar
+            src={portrait}
+            fallbackText={name}
+            fallback={!portrait && !icon}
+            size="lg"
+            glow={glow !== "none" ? "purple" : undefined}
+            bordered
+          />
+          <div className="min-w-0 flex-1">
+            <h4 className="font-heading font-bold text-lg text-[var(--color-text-primary)] truncate">
+              {name}
+            </h4>
+            {subtitle && (
+              <p className="text-[var(--color-text-tertiary)] text-xs font-mono truncate">
+                {subtitle}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Quote - only show in vertical mode */}
+        {quote && !isHorizontal && (
+          <p
+            className="text-[var(--color-text-secondary)] text-sm italic mt-3 leading-relaxed"
+            style={{ transform: "translateZ(10px)" }}
+          >
+            "{quote}"
+          </p>
+        )}
+      </div>
+
+      {/* Right/Content Section */}
+      <div
+        className={`
+          ${isHorizontal ? "flex-1 min-w-0" : "w-full"}
+          flex flex-col
+        `}
+        style={{ transform: "translateZ(15px)" }}
+      >
+        {/* Quote - only show in horizontal mode */}
+        {quote && isHorizontal && (
+          <p
+            className="text-[var(--color-text-secondary)] text-sm italic mb-3 leading-relaxed line-clamp-2"
+            style={{ transform: "translateZ(10px)" }}
+          >
+            "{quote}"
+          </p>
+        )}
+
+        {/* Details */}
+        <div
+          className={`
+    ${isHorizontal ? "flex flex-wrap gap-x-2 gap-y-1 mb-3" : "grid grid-cols-2 gap-y-2 mb-4"}
+  `}
+          style={{ transform: "translateZ(8px)" }}
+        >
+          {mbti && (
+            <div
+              className={`flex items-center gap-0.5 min-w-0 ${isHorizontal ? "max-w-[calc(50%-0.5rem)]" : ""}`}
+            >
+              <span className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono flex-shrink-0">
+                MBTI:
+              </span>
+              <span className="text-xs font-medium text-[var(--color-text-secondary)] truncate min-w-0">
+                {mbti}
+              </span>
+            </div>
+          )}
+
+          {species && (
+            <div
+              className={`flex items-center gap-0.5 min-w-0 ${isHorizontal ? "max-w-[calc(50%-0.5rem)]" : ""}`}
+            >
+              <span className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono flex-shrink-0">
+                Species:
+              </span>
+              <span className="text-xs font-medium text-[var(--color-text-secondary)] truncate min-w-0">
+                {species}
+              </span>
+            </div>
+          )}
+
+          {affiliation && (
+            <div
+              className={`
+      flex items-center gap-1.5 min-w-0
+      ${isHorizontal ? "max-w-full" : "col-span-2"}
+    `}
+            >
+              <span className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono flex-shrink-0">
+                Affiliation:
+              </span>
+              <span className="text-sm font-medium text-[var(--color-text-secondary)] truncate min-w-0">
+                {affiliation}
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Traits */}
+        {traits.length > 0 && (
+          <div
+            className="flex flex-wrap gap-2 mb-3"
+            style={{ transform: "translateZ(5px)" }}
+          >
+            {traits.map((trait, index) => (
+              <Badge key={index} variant="secondary" size="sm" outline>
+                {trait}
+              </Badge>
+            ))}
+          </div>
+        )}
+
+        {/* Stats – equal spacing + perfectly centered labels */}
+        {stats.length > 0 && (
+          <div
+            className={`
+              ${isHorizontal ? "flex flex-wrap gap-3 justify-start" : "flex flex-wrap gap-3 justify-center"}
+              pt-3 border-t border-[var(--color-border-secondary)]
+            `}
+            style={{ transform: "translateZ(5px)" }}
+          >
+            {stats.map((stat) => renderStatRing(stat))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+CharacterCard.displayName = "CharacterCard";
+export default CharacterCard;
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 31/76: src\components\CharacterCard\index.tsx
+Language: tsx | Size: 183 bytes
+Lines: 4 total | 3 code | 0 comments | 1 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+export { CharacterCard } from "./CharacterCard";
+export type { CharacterCardProps, CharacterStat } from "./CharacterCard";
+export { CharacterCard as default } from "./CharacterCard";
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 32/76: src\components\Dropdown\Dropdown.stories.tsx
 Language: tsx | Size: 9,485 bytes
 Lines: 376 total | 350 code | 0 comments | 26 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6947,9 +8204,9 @@ export const Interactive: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 30/64: src\components\Dropdown\Dropdown.tsx
-Language: tsx | Size: 12,749 bytes
-Lines: 426 total | 403 code | 0 comments | 23 blank
+FILE 33/76: src\components\Dropdown\Dropdown.tsx
+Language: tsx | Size: 13,611 bytes
+Lines: 456 total | 430 code | 0 comments | 26 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
@@ -7012,7 +8269,8 @@ export interface DropdownProps {
    */
   disabled?: boolean;
   /**
-   * If true, dropdown will take full width
+   * If true, dropdown takes 100% of parent width
+   * When false, uses a fixed width per size (does not grow with label text)
    * @default false
    */
   fullWidth?: boolean;
@@ -7122,17 +8380,19 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
         }
       };
 
-      document.addEventListener("mousedown", handleClickOutside);
-      return () =>
-        document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
+      if (isOpen) {
+        document.addEventListener("mousedown", handleClickOutside);
+      }
 
-    // Focus search input when dropdown opens
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [isOpen]);
+
+    // Focus search input when opened
     useEffect(() => {
       if (isOpen && searchable && searchInputRef.current) {
-        setTimeout(() => {
-          searchInputRef.current?.focus();
-        }, 50);
+        searchInputRef.current.focus();
       }
     }, [isOpen, searchable]);
 
@@ -7155,6 +8415,13 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
       },
     };
 
+    // Fixed widths when not fullWidth — label length never resizes the trigger
+    const fixedWidths = {
+      sm: "w-36",
+      md: "w-44",
+      lg: "w-52",
+    };
+
     // Icon size mapping
     const iconSizes = {
       sm: "h-4 w-4",
@@ -7168,7 +8435,11 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
     return (
       <div
         ref={ref}
-        className={`${fullWidth ? "w-full" : ""} flex flex-col gap-1.5 ${className}`}
+        className={`
+          flex flex-col gap-1.5
+          ${fullWidth ? "w-full" : fixedWidths[size]}
+          ${className}
+        `}
       >
         {/* Label */}
         {label && (
@@ -7181,10 +8452,11 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
         <div ref={dropdownRef} className="relative w-full">
           {/* Trigger Button */}
           <button
+            type="button"
             onClick={toggleDropdown}
             disabled={disabled}
             className={`
-              w-full flex items-center justify-between
+              w-full flex items-center justify-between gap-2
               font-sans text-[var(--color-text-primary)]
               transition-all duration-[var(--transition-fast)]
               rounded-[var(--radius-md)]
@@ -7201,32 +8473,34 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               }
               focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20
               ${isOpen ? "border-[var(--color-primary)]" : ""}
-              transition-all duration-[var(--transition-fast)]
             `}
             aria-haspopup="listbox"
             aria-expanded={isOpen}
             aria-disabled={disabled}
           >
             <span
-              className={`truncate ${
-                !selectedOption ? "text-[var(--color-text-tertiary)]" : ""
-              }`}
+              className={`
+                flex items-center gap-2 min-w-0 truncate
+                ${!selectedOption ? "text-[var(--color-text-tertiary)]" : ""}
+              `}
             >
               {selectedOption?.icon && (
-                <span className="mr-2 inline-flex">{selectedOption.icon}</span>
+                <span className="flex-shrink-0 inline-flex">
+                  {selectedOption.icon}
+                </span>
               )}
-              {displayLabel}
+              <span className="truncate">{displayLabel}</span>
             </span>
             <span
               className={`
-              transition-transform duration-[var(--transition-med)] ease-[var(--ease-in-out)]
-              ${isOpen ? "rotate-180" : "rotate-0"}
-              text-[var(--color-text-tertiary)]
-              flex-shrink-0
-            `}
+                transition-transform duration-[var(--transition-med)] ease-[var(--ease-in-out)]
+                ${isOpen ? "rotate-180" : "rotate-0"}
+                text-[var(--color-text-tertiary)]
+                flex-shrink-0
+              `}
             >
               <svg
-                className={`${iconSizes[size]}`}
+                className={iconSizes[size]}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -7240,6 +8514,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               </svg>
             </span>
           </button>
+
           {/* Dropdown Menu */}
           <div
             className={`
@@ -7268,15 +8543,13 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder={searchPlaceholder}
                   className={`
-                    w-full font-sans text-[var(--color-text-primary)]
-                    placeholder:text-[var(--color-text-tertiary)]
-                    bg-[var(--color-bg-tertiary)]
-                    border border-[var(--color-border-secondary)]
-                    rounded-[var(--radius-standard)]
+                    w-full font-sans
+                    bg-[var(--color-bg-secondary)]
+                    text-[var(--color-text-primary)]
+                    border border-[var(--color-border-primary)]
+                    rounded-[var(--radius-sm)]
                     outline-none
-                    transition-all duration-[var(--transition-fast)]
                     focus:border-[var(--color-primary)]
-                    focus:ring-1 focus:ring-[var(--color-primary)]/20
                     ${sizeStyles[size].search}
                   `}
                   onClick={(e) => e.stopPropagation()}
@@ -7285,70 +8558,72 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             )}
 
             {/* Options */}
-            {filteredOptions.length === 0 ? (
-              <div
-                className={`
-                  text-[var(--color-text-tertiary)] text-center
-                  ${sizeStyles[size].option}
-                `}
-              >
-                No options found
-              </div>
-            ) : (
-              filteredOptions.map((option) => {
-                const isSelected = option.value === selectedValue;
+            <div className="py-1">
+              {filteredOptions.length === 0 ? (
+                <div
+                  className={`${sizeStyles[size].option} text-[var(--color-text-tertiary)] text-center`}
+                >
+                  No options found
+                </div>
+              ) : (
+                filteredOptions.map((option) => {
+                  const isSelected = option.value === selectedValue;
 
-                return (
-                  <button
-                    key={option.value}
-                    onClick={() => selectOption(option.value)}
-                    disabled={option.disabled}
-                    className={`
-                      w-full flex items-center gap-2
-                      text-left
-                      transition-colors duration-[var(--transition-fast)]
-                      ${sizeStyles[size].option}
-                      ${
-                        option.disabled
-                          ? "opacity-40 cursor-not-allowed"
-                          : "cursor-pointer hover:bg-[var(--color-bg-elevated)]/50"
-                      }
-                      ${
-                        isSelected
-                          ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
-                          : "text-[var(--color-text-primary)]"
-                      }
-                      focus:outline-none focus:bg-[var(--color-bg-elevated)]/30
-                    `}
-                    role="option"
-                    aria-selected={isSelected}
-                    aria-disabled={option.disabled}
-                  >
-                    {option.icon && (
-                      <span className="flex-shrink-0">{option.icon}</span>
-                    )}
-                    <span className="truncate">{option.label}</span>
-                    {isSelected && (
-                      <span className="ml-auto text-[var(--color-primary)] flex-shrink-0">
-                        <svg
-                          className={`${iconSizes[size]} opacity-80`}
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2.5}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                      </span>
-                    )}
-                  </button>
-                );
-              })
-            )}
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => {
+                        if (!option.disabled) {
+                          selectOption(option.value);
+                        }
+                      }}
+                      disabled={option.disabled}
+                      className={`
+                        w-full flex items-center gap-2 text-left
+                        ${sizeStyles[size].option}
+                        ${
+                          option.disabled
+                            ? "opacity-40 cursor-not-allowed"
+                            : "cursor-pointer hover:bg-[var(--color-bg-elevated)]/50"
+                        }
+                        ${
+                          isSelected
+                            ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
+                            : "text-[var(--color-text-primary)]"
+                        }
+                        focus:outline-none focus:bg-[var(--color-bg-elevated)]/30
+                      `}
+                      role="option"
+                      aria-selected={isSelected}
+                      aria-disabled={option.disabled}
+                    >
+                      {option.icon && (
+                        <span className="flex-shrink-0">{option.icon}</span>
+                      )}
+                      <span className="truncate">{option.label}</span>
+                      {isSelected && (
+                        <span className="ml-auto text-[var(--color-primary)] flex-shrink-0">
+                          <svg
+                            className={`${iconSizes[size]} opacity-80`}
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2.5}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                        </span>
+                      )}
+                    </button>
+                  );
+                })
+              )}
+            </div>
           </div>
         </div>
 
@@ -7357,7 +8632,19 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
           <div className="flex items-center gap-1.5 text-xs font-sans">
             {error && errorMessage && (
               <>
-                <span className="text-[var(--color-danger)]">⚠️</span>
+                <svg
+                  className="h-3.5 w-3.5 text-[var(--color-danger)] flex-shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+                  />
+                </svg>
                 <span className="text-[var(--color-danger)]">
                   {errorMessage}
                 </span>
@@ -7382,7 +8669,7 @@ export default Dropdown;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 31/64: src\components\Dropdown\index.ts
+FILE 34/76: src\components\Dropdown\index.ts
 Language: typescript | Size: 154 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7395,7 +8682,7 @@ export { Dropdown as default } from "./Dropdown";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 32/64: src\components\Input\index.ts
+FILE 35/76: src\components\Input\index.ts
 Language: typescript | Size: 120 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7408,7 +8695,7 @@ export { Input as default } from "./Input";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 33/64: src\components\Input\Input.stories.tsx
+FILE 36/76: src\components\Input\Input.stories.tsx
 Language: tsx | Size: 3,723 bytes
 Lines: 148 total | 135 code | 0 comments | 13 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7565,7 +8852,7 @@ export const Disabled: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 34/64: src\components\Input\Input.tsx
+FILE 37/76: src\components\Input\Input.tsx
 Language: tsx | Size: 8,798 bytes
 Lines: 306 total | 289 code | 0 comments | 17 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7880,7 +9167,7 @@ export default Input;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 35/64: src\components\Modal\index.ts
+FILE 38/76: src\components\Modal\index.ts
 Language: typescript | Size: 120 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7893,7 +9180,7 @@ export { Modal as default } from "./Modal";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 36/64: src\components\Modal\Modal.stories.tsx
+FILE 39/76: src\components\Modal\Modal.stories.tsx
 Language: tsx | Size: 4,803 bytes
 Lines: 182 total | 167 code | 0 comments | 15 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -8084,7 +9371,7 @@ export const Interactive: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 37/64: src\components\Modal\Modal.tsx
+FILE 40/76: src\components\Modal\Modal.tsx
 Language: tsx | Size: 5,453 bytes
 Lines: 226 total | 204 code | 0 comments | 22 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -8319,7 +9606,7 @@ export default Modal;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 38/64: src\components\Progress\index.ts
+FILE 41/76: src\components\Progress\index.ts
 Language: typescript | Size: 138 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -8332,7 +9619,7 @@ export { Progress as default } from "./Progress";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 39/64: src\components\Progress\Progress.stories.tsx
+FILE 42/76: src\components\Progress\Progress.stories.tsx
 Language: tsx | Size: 6,195 bytes
 Lines: 221 total | 204 code | 0 comments | 17 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -8562,7 +9849,7 @@ export const WithoutAnimation: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 40/64: src\components\Progress\Progress.tsx
+FILE 43/76: src\components\Progress\Progress.tsx
 Language: tsx | Size: 12,847 bytes
 Lines: 454 total | 422 code | 0 comments | 32 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9025,7 +10312,1111 @@ export default Progress;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 41/64: src\components\Tabs\index.ts
+FILE 44/76: src\components\QuestCard\index.ts
+Language: typescript | Size: 144 bytes
+Lines: 4 total | 3 code | 0 comments | 1 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```typescript
+export { QuestCard } from "./QuestCard";
+export type { QuestCardProps } from "./QuestCard";
+export { QuestCard as default } from "./QuestCard";
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 45/76: src\components\QuestCard\QuestCard.stories.tsx
+Language: tsx | Size: 4,590 bytes
+Lines: 192 total | 181 code | 0 comments | 11 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { QuestCard } from "./QuestCard";
+import { useState } from "react";
+import Button from "../Button/Button";
+
+const meta = {
+  title: "Components/QuestCard",
+  component: QuestCard,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+  argTypes: {
+    title: { control: "text" },
+    description: { control: "text" },
+    xp: { control: "number" },
+    xpLabel: { control: "text" },
+    deadline: { control: "text" },
+    rank: { control: "text" },
+    glow: {
+      control: "select",
+      options: ["none", "purple", "cyan", "pink"],
+    },
+    done: { control: "boolean" },
+  },
+  args: {
+    title: "Build CMS",
+    description:
+      "Deploy the encrypted Jedi archive interface before the snow melts.",
+    xp: 300,
+    xpLabel: "XP",
+    deadline: "tomorrow",
+    rank: "S",
+    glow: "none",
+    done: false,
+  },
+} satisfies Meta<typeof QuestCard>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// ----- Default -----
+export const Default: Story = {};
+
+// ----- With Requirements -----
+export const WithRequirements: Story = {
+  args: {
+    requirements: [
+      "Complete 3 code reviews",
+      "Write 5 unit tests",
+      "Deploy to staging",
+    ],
+  },
+};
+
+// ----- Various Ranks -----
+export const VariousRanks: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      <QuestCard
+        title="Build CMS"
+        description="Deploy the encrypted Jedi archive interface"
+        xp={300}
+        deadline="tomorrow"
+        rank="S"
+        glow="cyan"
+      />
+      <QuestCard
+        title="Secure Archives"
+        description="Implement end-to-end encryption for all stored data"
+        xp={200}
+        deadline="3 days"
+        rank="A"
+        glow="purple"
+      />
+      <QuestCard
+        title="Map Night City"
+        description="Create a comprehensive map of the cyberpunk district"
+        xp={150}
+        deadline="1 week"
+        rank="B"
+        glow="pink"
+      />
+      <QuestCard
+        title="Fix Bugs"
+        description="Resolve all critical issues before the next release"
+        xp={75}
+        deadline="tonight"
+        rank="C"
+        glow="none"
+      />
+    </div>
+  ),
+};
+
+// ----- Different Glows -----
+export const DifferentGlows: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      <QuestCard
+        title="No Glow"
+        description="Standard card without glow effect"
+        xp={100}
+        deadline="tomorrow"
+        rank="B"
+      />
+      <QuestCard
+        title="Purple Glow"
+        description="Mysterious purple aura"
+        xp={150}
+        deadline="3 days"
+        rank="A"
+        glow="purple"
+      />
+      <QuestCard
+        title="Cyan Glow"
+        description="Cyberpunk cyan aura"
+        xp={200}
+        deadline="1 week"
+        rank="S"
+        glow="cyan"
+      />
+      <QuestCard
+        title="Pink Glow"
+        description="Neon pink aura"
+        xp={120}
+        deadline="tonight"
+        rank="A"
+        glow="pink"
+      />
+    </div>
+  ),
+};
+
+// ----- With Custom XP Label -----
+export const CustomXPLabel: Story = {
+  args: {
+    xpLabel: "EXP",
+    xp: 500,
+    title: "Complete Training",
+    description: "Finish the mandatory Jedi training program",
+    deadline: "2 days",
+    rank: "A",
+    glow: "cyan",
+  },
+};
+
+// ----- Interactive -----
+export const Interactive: Story = {
+  render: function InteractiveStory() {
+    const [completed, setCompleted] = useState(false);
+
+    return (
+      <div className="flex flex-col items-center gap-4 w-80">
+        <QuestCard
+          title="Build CMS"
+          description="Deploy the encrypted Jedi archive interface before the snow melts."
+          xp={300}
+          deadline="tomorrow"
+          rank="S"
+          glow="cyan"
+          done={completed}
+          onComplete={() => setCompleted(true)}
+        />
+        <Button variant="outline" size="sm" onClick={() => setCompleted(false)}>
+          Reset Quest
+        </Button>
+      </div>
+    );
+  },
+};
+
+// ----- Full Featured -----
+export const FullFeatured: Story = {
+  args: {
+    title: "Legendary Quest: The Lost Archive",
+    description:
+      "Journey into the depths of the forgotten vault and retrieve the ancient holocron before it falls into the wrong hands.",
+    xp: 1000,
+    xpLabel: "EXP",
+    deadline: "2024-12-25",
+    rank: "S+",
+    glow: "purple",
+    requirements: [
+      "Reach level 25",
+      "Defeat the Shadow Guardian",
+      "Collect 3 ancient artifacts",
+      "Solve the sphinx riddle",
+    ],
+  },
+};
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 46/76: src\components\QuestCard\QuestCard.tsx
+Language: tsx | Size: 10,595 bytes
+Lines: 375 total | 344 code | 0 comments | 31 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import React, { useState } from "react";
+import { Modal } from "../Modal/Modal";
+
+export interface QuestCardProps {
+  /**
+   * Quest title
+   */
+  title: string;
+  /**
+   * Quest description
+   */
+  description: string;
+  /**
+   * XP reward value
+   * @default 0
+   */
+  xp?: number;
+  /**
+   * Custom label for XP (e.g., "EXP", "Points", "Score")
+   * @default "XP"
+   */
+  xpLabel?: string;
+  /**
+   * Deadline date string (e.g., "2024-12-25", "tomorrow", "tonight")
+   */
+  deadline?: string;
+  /**
+   * Rank label (e.g., "S", "A", "B")
+   */
+  rank?: string;
+  /**
+   * Array of requirement strings
+   */
+  requirements?: string[];
+  /**
+   * Glow variant color
+   * @default "none"
+   */
+  glow?: "purple" | "cyan" | "pink" | "none";
+  /**
+   * Optional done state (controlled)
+   */
+  done?: boolean;
+  /**
+   * Callback when quest is completed
+   */
+  onComplete?: () => void;
+  /**
+   * Additional className
+   */
+  className?: string;
+}
+
+/**
+ * Dara UI QuestCard - RPG-style mission/quest card
+ *
+ * Features:
+ * - Title, description, XP reward, deadline, rank
+ * - Glow variants (purple, cyan, pink)
+ * - Smart deadline display (tomorrow, tonight, X days)
+ * - Requirements list
+ * - Completion modal with sparkle drop effect
+ * - Theme-aware colors
+ */
+export const QuestCard: React.FC<QuestCardProps> = ({
+  title,
+  description,
+  xp = 0,
+  xpLabel = "XP",
+  deadline,
+  rank,
+  requirements = [],
+  glow = "none",
+  done: controlledDone,
+  onComplete,
+  className = "",
+}) => {
+  const [isDone, setIsDone] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showSparkles, setShowSparkles] = useState(false);
+
+  const isControlled = controlledDone !== undefined;
+  const completed = isControlled ? controlledDone : isDone;
+
+  // Format deadline with smart display
+  const getDeadlineDisplay = (): string => {
+    if (!deadline) return "";
+
+    const now = new Date();
+    const deadlineDate = new Date(deadline);
+
+    const lowerDeadline = deadline.toLowerCase();
+    if (lowerDeadline === "tomorrow") {
+      return "⏰ Deadline: Tomorrow";
+    }
+    if (lowerDeadline === "tonight") {
+      return "⏰ Deadline: Tonight";
+    }
+
+    if (isNaN(deadlineDate.getTime())) {
+      return `⏰ ${deadline}`;
+    }
+
+    const diffTime = deadlineDate.getTime() - now.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) return "⏰ Deadline: Today";
+    if (diffDays === 1) return "⏰ Deadline: Tomorrow";
+    if (diffDays === -1) return "⏰ Deadline: Yesterday";
+    if (diffDays < 0) return `⏰ ${Math.abs(diffDays)} days ago`;
+    if (diffDays < 7) return `⏰ Deadline: ${diffDays} days`;
+    if (diffDays < 14) return "⏰ Deadline: 1 week";
+    if (diffDays < 30) return `⏰ Deadline: ${Math.floor(diffDays / 7)} weeks`;
+    if (diffDays < 60) return "⏰ Deadline: 1 month";
+    if (diffDays < 365)
+      return `⏰ Deadline: ${Math.floor(diffDays / 30)} months`;
+    return `⏰ Deadline: ${Math.floor(diffDays / 365)} years`;
+  };
+
+  const getRankColor = (): string => {
+    if (!rank) return "";
+    const upperRank = rank.toUpperCase();
+    if (upperRank === "S" || upperRank === "S+")
+      return "text-[var(--color-cyan)]";
+    if (upperRank === "A" || upperRank === "A+")
+      return "text-[var(--color-primary)]";
+    if (upperRank === "B" || upperRank === "B+")
+      return "text-[var(--color-accent)]";
+    if (upperRank === "C" || upperRank === "C+")
+      return "text-[var(--color-warning)]";
+    return "text-[var(--color-text-secondary)]";
+  };
+
+  const handleCardClick = () => {
+    if (!completed) {
+      setShowModal(true);
+    }
+  };
+
+  const handleConfirmComplete = () => {
+    setShowModal(false);
+    if (!isControlled) {
+      setIsDone(true);
+    }
+    onComplete?.();
+
+    // Trigger sparkle drop effect
+    setShowSparkles(true);
+    setTimeout(() => {
+      setShowSparkles(false);
+    }, 1500);
+  };
+
+  const glowStyles = {
+    purple: "glow-purple",
+    cyan: "glow-cyan",
+    pink: "glow-pink",
+    none: "",
+  };
+
+  const glowClass = glowStyles[glow] || "";
+
+  // Generate random sparkle drops
+  const generateSparkles = () => {
+    const sparkles = [];
+    const colors = [
+      "#ffd700",
+      "#ff6b35",
+      "#ff4d9d",
+      "#7c5cff",
+      "#00d9ff",
+      "#00ff99",
+      "#ffffff",
+    ];
+    const total = 20;
+
+    for (let i = 0; i < total; i++) {
+      const angle = Math.random() * 360;
+      const distance = 40 + Math.random() * 120;
+      const size = 3 + Math.random() * 5;
+      const delay = Math.random() * 0.3;
+      const duration = 0.6 + Math.random() * 0.6;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      sparkles.push(
+        <div
+          key={i}
+          className="sparkle-drop"
+          style={
+            {
+              left: `${30 + Math.random() * 40}%`,
+              top: `${30 + Math.random() * 40}%`,
+              width: `${size}px`,
+              height: `${size}px`,
+              backgroundColor: color,
+              boxShadow: `0 0 ${size * 2}px ${color}`,
+              animationDelay: `${delay}s`,
+              animationDuration: `${duration}s`,
+              "--tx": `${Math.cos((angle * Math.PI) / 180) * distance}px`,
+              "--ty": `${Math.sin((angle * Math.PI) / 180) * distance}px`,
+            } as React.CSSProperties
+          }
+        />,
+      );
+    }
+    return sparkles;
+  };
+
+  return (
+    <>
+      <div
+        className={`
+          glass p-6 float-card cursor-pointer relative
+          h-full flex flex-col
+          ${glowClass}
+          ${completed ? "opacity-60 pointer-events-none" : ""}
+          transition-all duration-300
+          ${className}
+        `}
+        onClick={handleCardClick}
+        role="button"
+        tabIndex={0}
+        aria-label={`Quest: ${title}`}
+      >
+        {/* Sparkle Drop Effect */}
+        {showSparkles && (
+          <div className="absolute inset-0 pointer-events-none overflow-visible z-10">
+            {generateSparkles()}
+          </div>
+        )}
+
+        {/* Mission Label */}
+        <p className="font-mono text-xs text-[var(--color-cyan)] uppercase tracking-wider mb-3">
+          🗡️ MISSION
+        </p>
+
+        {/* Title */}
+        <h4 className="font-heading text-xl font-bold mb-2 text-[var(--color-text-primary)]">
+          {title}
+        </h4>
+
+        {/* Description */}
+        <p className="text-[var(--color-text-secondary)] text-sm mb-3 flex-grow">
+          {description}
+        </p>
+
+        {/* XP and Deadline */}
+        <div className="flex items-center gap-4 flex-wrap">
+          <span className="font-accent text-sm text-[var(--color-success)]">
+            +{xp} {xpLabel}
+          </span>
+          {deadline && (
+            <span className="font-mono text-xs text-[var(--color-danger)]">
+              {getDeadlineDisplay()}
+            </span>
+          )}
+        </div>
+
+        {/* Requirements */}
+        {requirements.length > 0 && (
+          <div className="mt-3 pt-3 border-t border-[var(--color-border-secondary)]">
+            <p className="text-xs text-[var(--color-text-tertiary)] font-mono mb-1.5">
+              Requirements:
+            </p>
+            <ul className="space-y-1">
+              {requirements.map((req, index) => (
+                <li
+                  key={index}
+                  className="text-xs text-[var(--color-text-secondary)] flex items-center gap-1.5"
+                >
+                  <span className="text-[var(--color-primary)]">•</span>
+                  {req}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Rank Badge */}
+        {rank && (
+          <div className="absolute top-4 right-4">
+            <span
+              className={`
+                font-accent text-xs font-bold tracking-wider
+                px-2.5 py-1 rounded-full
+                bg-[var(--color-bg-tertiary)]/50
+                border border-[var(--color-border-primary)]
+                ${getRankColor()}
+              `}
+            >
+              {rank.toUpperCase()}
+            </span>
+          </div>
+        )}
+
+        {/* Done overlay */}
+        {completed && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-[var(--radius-standard)] backdrop-blur-sm z-20">
+            <span className="font-heading text-2xl font-bold text-[var(--color-success)]">
+              ✓ COMPLETE
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Completion Modal */}
+      <Modal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        title="🗡️ Complete Mission"
+        confirmText="✔️ Complete"
+        cancelText="Cancel"
+        onConfirm={handleConfirmComplete}
+      >
+        <p className="text-[var(--color-text-secondary)] mb-2">
+          Are you sure you want to complete the mission:
+        </p>
+        <p className="font-heading font-bold text-lg text-[var(--color-text-primary)] mb-3">
+          "{title}"
+        </p>
+        <p className="text-[var(--color-text-secondary)] text-sm">
+          You will earn{" "}
+          <span className="text-[var(--color-success)] font-bold">
+            +{xp} {xpLabel}
+          </span>{" "}
+          upon completion.
+        </p>
+        {requirements.length > 0 && (
+          <div className="mt-3 p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
+            <p className="text-xs text-[var(--color-text-tertiary)] font-mono mb-1">
+              Requirements:
+            </p>
+            <ul className="space-y-1">
+              {requirements.map((req, index) => (
+                <li
+                  key={index}
+                  className="text-xs text-[var(--color-text-secondary)] flex items-center gap-1.5"
+                >
+                  <span className="text-[var(--color-success)]">✓</span>
+                  {req}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </Modal>
+
+      {/* Sparkle drop styles */}
+      <style>{`
+        .sparkle-drop {
+          position: absolute;
+          border-radius: 50%;
+          pointer-events: none;
+          animation: sparkleDrop 0.8s ease-out forwards;
+          z-index: 30;
+        }
+
+        @keyframes sparkleDrop {
+          0% {
+            transform: translate(0, 0) scale(1);
+            opacity: 1;
+          }
+          100% {
+            transform: translate(var(--tx), var(--ty)) scale(0);
+            opacity: 0;
+          }
+        }
+      `}</style>
+    </>
+  );
+};
+
+QuestCard.displayName = "QuestCard";
+export default QuestCard;
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 47/76: src\components\StatsWidget\index.ts
+Language: typescript | Size: 173 bytes
+Lines: 4 total | 3 code | 0 comments | 1 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```typescript
+export { StatsWidget } from "./StatsWidget";
+export type { StatsWidgetProps, StatsWidgetData } from "./StatsWidget";
+export { StatsWidget as default } from "./StatsWidget";
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 48/76: src\components\StatsWidget\StatsWidget.stories.tsx
+Language: tsx | Size: 4,693 bytes
+Lines: 184 total | 172 code | 0 comments | 12 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { StatsWidget } from "./StatsWidget";
+
+const meta = {
+  title: "Components/StatsWidget",
+  component: StatsWidget,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+  argTypes: {
+    variant: {
+      control: "select",
+      options: ["radial", "bar"],
+    },
+    layout: {
+      control: "select",
+      options: ["vertical", "horizontal"],
+    },
+    glow: {
+      control: "select",
+      options: ["none", "purple", "cyan", "pink"],
+    },
+    title: { control: "text" },
+  },
+  args: {
+    title: "Stats Widget",
+    variant: "radial",
+    layout: "vertical",
+    glow: "none",
+  },
+} satisfies Meta<typeof StatsWidget>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// ----- Default (Radial) -----
+export const Default: Story = {
+  args: {
+    stats: [
+      { label: "Force", value: 73, color: "primary", trend: 12 },
+      { label: "Combat", value: 85, color: "secondary", trend: 8 },
+      { label: "Intelligence", value: 92, color: "accent", trend: -3 },
+      { label: "Wisdom", value: 68, color: "warning", trend: 5 },
+    ],
+  },
+};
+
+// ----- Bar Variant -----
+export const BarVariant: Story = {
+  args: {
+    variant: "bar",
+    stats: [
+      { label: "Force", value: 73, color: "primary", trend: 12 },
+      { label: "Combat", value: 85, color: "secondary", trend: 8 },
+      { label: "Intelligence", value: 92, color: "accent", trend: -3 },
+      { label: "Wisdom", value: 68, color: "warning", trend: 5 },
+    ],
+  },
+};
+
+// ----- Horizontal Layout -----
+export const HorizontalLayout: Story = {
+  args: {
+    layout: "horizontal",
+    stats: [
+      { label: "Force", value: 73, color: "primary", trend: 12 },
+      { label: "Combat", value: 85, color: "secondary", trend: 8 },
+      { label: "Intelligence", value: 92, color: "accent", trend: -3 },
+      { label: "Wisdom", value: 68, color: "warning", trend: 5 },
+    ],
+  },
+};
+
+// ----- With Glow -----
+export const WithGlow: Story = {
+  args: {
+    glow: "purple",
+    stats: [
+      { label: "Force", value: 73, color: "primary", trend: 12 },
+      { label: "Combat", value: 85, color: "secondary", trend: 8 },
+      { label: "Intelligence", value: 92, color: "accent", trend: -3 },
+      { label: "Wisdom", value: 68, color: "warning", trend: 5 },
+    ],
+  },
+};
+
+// ----- With Custom Units -----
+export const CustomUnits: Story = {
+  args: {
+    title: "Character Stats",
+    stats: [
+      {
+        label: "Health",
+        value: 85,
+        max: 100,
+        unit: "HP",
+        color: "danger",
+        trend: -5,
+      },
+      {
+        label: "Mana",
+        value: 62,
+        max: 100,
+        unit: "MP",
+        color: "secondary",
+        trend: 15,
+      },
+      {
+        label: "Stamina",
+        value: 45,
+        max: 100,
+        unit: "SP",
+        color: "warning",
+        trend: 3,
+      },
+      {
+        label: "Level",
+        value: 14,
+        max: 20,
+        unit: "",
+        color: "primary",
+        trend: 0,
+      },
+    ],
+  },
+};
+
+// ----- Game Stats -----
+export const GameStats: Story = {
+  args: {
+    title: "⚔️ STATS",
+    glow: "cyan",
+    stats: [
+      { label: "Strength", value: 78, color: "danger", trend: 22 },
+      { label: "Agility", value: 92, color: "accent", trend: 8 },
+      { label: "Endurance", value: 65, color: "warning", trend: -4 },
+      { label: "Luck", value: 45, color: "success", trend: 12 },
+    ],
+  },
+};
+
+// ----- Mixed Stats (with different colors) -----
+export const MixedColors: Story = {
+  args: {
+    title: "📊 STATS",
+    glow: "pink",
+    stats: [
+      { label: "Hacking", value: 95, color: "secondary", trend: 5 },
+      { label: "Stealth", value: 78, color: "accent", trend: 18 },
+      { label: "Combat", value: 45, color: "danger", trend: -7 },
+      { label: "Intelligence", value: 88, color: "primary", trend: 3 },
+    ],
+  },
+};
+
+// ----- Bar with Horizontal -----
+export const BarHorizontal: Story = {
+  args: {
+    variant: "bar",
+    layout: "horizontal",
+    title: "📈 PROGRESS",
+    glow: "purple",
+    stats: [
+      { label: "Strength", value: 78, color: "danger", trend: 22 },
+      { label: "Agility", value: 92, color: "accent", trend: 8 },
+      { label: "Endurance", value: 65, color: "warning", trend: -4 },
+      { label: "Luck", value: 45, color: "success", trend: 12 },
+    ],
+  },
+};
+
+// ----- Simple (no trends) -----
+export const Simple: Story = {
+  args: {
+    title: "Simple Stats",
+    stats: [
+      { label: "Health", value: 85, unit: "%", color: "danger" },
+      { label: "Energy", value: 62, unit: "%", color: "secondary" },
+      { label: "Focus", value: 45, unit: "%", color: "warning" },
+    ],
+  },
+};
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 49/76: src\components\StatsWidget\StatsWidget.tsx
+Language: tsx | Size: 7,380 bytes
+Lines: 291 total | 268 code | 0 comments | 23 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import React, { useState, useRef } from "react";
+import { Progress } from "../Progress/Progress";
+
+export interface StatsWidgetData {
+  /**
+   * Stat label (e.g., "Force Alignment", "Combat")
+   */
+  label: string;
+  /**
+   * Current value
+   */
+  value: number;
+  /**
+   * Maximum value (for percentage calculation)
+   * @default 100
+   */
+  max?: number;
+  /**
+   * Unit display (e.g., "%", "XP", "pts")
+   * @default "%"
+   */
+  unit?: string;
+  /**
+   * Trend change (e.g., +12, -5)
+   */
+  trend?: number;
+  /**
+   * Color variant for the progress
+   */
+  color?:
+    | "primary"
+    | "secondary"
+    | "accent"
+    | "success"
+    | "danger"
+    | "warning"
+    | "gradient";
+}
+
+export interface StatsWidgetProps {
+  /**
+   * Stats data array
+   */
+  stats: StatsWidgetData[];
+  /**
+   * Display variant
+   * @default "radial"
+   */
+  variant?: "radial" | "bar";
+  /**
+   * Title of the widget
+   */
+  title?: string;
+  /**
+   * Glow variant color
+   * @default "none"
+   */
+  glow?: "purple" | "cyan" | "pink" | "none";
+  /**
+   * Layout mode
+   * @default "vertical"
+   */
+  layout?: "vertical" | "horizontal";
+  /**
+   * Additional className
+   */
+  className?: string;
+}
+
+/**
+ * Dara UI StatsWidget - RPG-style stats display
+ *
+ * Features:
+ * - Radial and bar progress variants
+ * - Custom labels, units, and colors
+ * - Mini trend indicators
+ * - 3D tilt effect on hover
+ * - Theme-aware colors
+ * - Uses Progress component
+ */
+export const StatsWidget: React.FC<StatsWidgetProps> = ({
+  stats,
+  variant = "radial",
+  title,
+  glow = "none",
+  layout = "vertical",
+  className = "",
+}) => {
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Handle 3D tilt on mouse move
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
+
+    setRotation({ x: rotateX, y: rotateY });
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    setRotation({ x: 0, y: 0 });
+  };
+
+  // Glow styles
+  const glowStyles = {
+    purple: "glow-purple",
+    cyan: "glow-cyan",
+    pink: "glow-pink",
+    none: "",
+  };
+
+  const glowClass = glowStyles[glow] || "";
+  const isHorizontal = layout === "horizontal";
+
+  // Render trend indicator
+  const renderTrend = (trend?: number) => {
+    if (trend === undefined || trend === 0) return null;
+
+    const isPositive = trend > 0;
+    const color = isPositive ? "var(--color-success)" : "var(--color-danger)";
+    const arrow = isPositive ? "▲" : "▼";
+
+    return (
+      <span
+        className="text-xs font-mono font-medium flex-shrink-0"
+        style={{ color }}
+      >
+        {arrow} {Math.abs(trend)}%
+      </span>
+    );
+  };
+
+  // Render a single stat
+  const renderStat = (stat: StatsWidgetData, index: number) => {
+    const percentage = stat.max ? (stat.value / stat.max) * 100 : stat.value;
+    const displayValue = stat.max
+      ? `${Math.round(stat.value)} / ${stat.max}`
+      : `${Math.round(stat.value)}`;
+    const unit = stat.unit || "%";
+
+    if (variant === "radial") {
+      const size = isHorizontal ? 56 : 64;
+      const color = stat.color || "primary";
+
+      return (
+        <div
+          key={index}
+          className="flex flex-col items-center flex-shrink-0"
+          style={{
+            width: isHorizontal ? 80 : 84,
+          }}
+        >
+          <Progress
+            variant="radial"
+            value={percentage}
+            color={color}
+            size={size <= 56 ? "sm" : size <= 64 ? "md" : "lg"}
+            radialSize={size}
+            showLabel
+          />
+          <div className="flex items-center gap-1.5 mt-1.5">
+            <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono text-center leading-tight">
+              {stat.label}
+            </p>
+            {renderTrend(stat.trend)}
+          </div>
+        </div>
+      );
+    }
+
+    // Bar variant
+    const color = stat.color || "primary";
+
+    return (
+      <div
+        key={index}
+        className="flex flex-col gap-0.5 w-full"
+        style={{
+          transform: "translateZ(5px)",
+        }}
+      >
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-mono text-[var(--color-text-secondary)] truncate">
+            {stat.label}
+          </span>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <span className="text-xs font-mono font-medium text-[var(--color-text-primary)]">
+              {displayValue}
+              <span className="text-[10px] text-[var(--color-text-tertiary)]">
+                {unit}
+              </span>
+            </span>
+            {renderTrend(stat.trend)}
+          </div>
+        </div>
+        <Progress
+          variant="horizontal"
+          value={percentage}
+          color={color}
+          size="sm"
+          showLabel={false}
+          animated
+        />
+      </div>
+    );
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      className={`
+        glass p-6 float-card
+        relative
+        transition-all duration-300
+        ${glowClass}
+        ${isHorizontal ? "flex flex-col md:flex-row gap-6" : "flex flex-col"}
+        ${className}
+      `}
+      style={{
+        transform: isHovering
+          ? `perspective(800px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(1.02)`
+          : "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)",
+        transformStyle: "preserve-3d",
+        transition: "transform 0.2s ease-out",
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Title */}
+      {title && (
+        <div
+          className={`
+            ${isHorizontal ? "flex-shrink-0 md:w-48" : "w-full"}
+            flex items-center justify-between
+            ${isHorizontal ? "md:flex-col md:items-start md:justify-start" : "mb-4"}
+          `}
+          style={{
+            transform: "translateZ(20px)",
+          }}
+        >
+          <p className="font-mono text-xs text-[var(--color-primary)] uppercase tracking-wider">
+            {title}
+          </p>
+          {isHorizontal && (
+            <span className="text-[10px] text-[var(--color-text-tertiary)] font-mono md:mt-1">
+              {stats.length} stats
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* Stats */}
+      <div
+        className={`
+          ${isHorizontal ? "flex-1 min-w-0" : "w-full"}
+          ${
+            variant === "radial"
+              ? isHorizontal
+                ? "flex flex-wrap gap-4 justify-start"
+                : "flex flex-wrap gap-4 justify-center"
+              : "flex flex-col gap-4"
+          }
+        `}
+        style={{
+          transform: "translateZ(10px)",
+        }}
+      >
+        {stats.map((stat, index) => renderStat(stat, index))}
+      </div>
+    </div>
+  );
+};
+
+StatsWidget.displayName = "StatsWidget";
+export default StatsWidget;
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 50/76: src\components\Tabs\index.ts
 Language: typescript | Size: 123 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9038,7 +11429,7 @@ export { Tabs as default } from "./Tabs";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 42/64: src\components\Tabs\Tabs.stories.tsx
+FILE 51/76: src\components\Tabs\Tabs.stories.tsx
 Language: tsx | Size: 4,153 bytes
 Lines: 179 total | 169 code | 0 comments | 10 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9226,7 +11617,7 @@ export const WithIcons: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 43/64: src\components\Tabs\Tabs.tsx
+FILE 52/76: src\components\Tabs\Tabs.tsx
 Language: tsx | Size: 5,707 bytes
 Lines: 194 total | 176 code | 0 comments | 18 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9429,7 +11820,706 @@ export default Tabs;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 44/64: src\components\Toast\index.ts
+FILE 53/76: src\components\ThemeChanger\index.ts
+Language: typescript | Size: 175 bytes
+Lines: 4 total | 3 code | 0 comments | 1 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```typescript
+export { ThemeChanger } from "./ThemeChanger";
+export type { ThemeChangerProps, ThemeOption } from "./ThemeChanger";
+export { ThemeChanger as default } from "./ThemeChanger";
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 54/76: src\components\ThemeChanger\ThemeChanger.stories.tsx
+Language: tsx | Size: 6,159 bytes
+Lines: 194 total | 183 code | 0 comments | 11 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import type { Meta, StoryObj } from "@storybook/react";
+import { ThemeChanger } from "./ThemeChanger";
+
+const meta = {
+  title: "Components/ThemeChanger",
+  component: ThemeChanger,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+  argTypes: {
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg"],
+      description: "Component size",
+    },
+    autoDetect: {
+      control: "boolean",
+      description: "Auto-detect themes from CSS",
+    },
+    iconOnly: {
+      control: "boolean",
+      description: "Show only the icon in a fixed circle",
+    },
+    fixedWidth: {
+      control: "text",
+      description: "Fixed width for the trigger button",
+    },
+  },
+  args: {
+    size: "md",
+    autoDetect: true,
+    iconOnly: false,
+  },
+} satisfies Meta<typeof ThemeChanger>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+/**
+ * Default ThemeChanger with full label + icon + chevron
+ */
+export const Default: Story = {
+  render: (args) => (
+    <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+      <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+        Current theme is applied via data-theme attribute
+      </p>
+      <ThemeChanger {...args} />
+    </div>
+  ),
+};
+
+/**
+ * Icon-only mode - perfect for navigation bars
+ * Fixed size circle with just the theme icon
+ */
+export const IconOnly: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+      <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+        Icon-only mode - fixed size circle with only the icon
+      </p>
+      <div className="flex items-center gap-4">
+        <ThemeChanger iconOnly size="sm" />
+        <ThemeChanger iconOnly size="md" />
+        <ThemeChanger iconOnly size="lg" />
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Fixed width ensures the dropdown stays consistent
+ * regardless of selected theme label length
+ */
+export const FixedWidth: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+      <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+        Fixed width keeps the dropdown consistent regardless of selected label
+      </p>
+      <div className="flex items-center gap-4">
+        <ThemeChanger fixedWidth="120px" size="sm" />
+        <ThemeChanger fixedWidth="160px" size="md" />
+        <ThemeChanger fixedWidth="200px" size="lg" />
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Different size variants for various UI contexts
+ */
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+      <div className="flex items-center gap-4">
+        <span className="text-xs text-[var(--color-text-tertiary)] font-mono w-12">
+          sm
+        </span>
+        <ThemeChanger size="sm" />
+      </div>
+      <div className="flex items-center gap-4">
+        <span className="text-xs text-[var(--color-text-tertiary)] font-mono w-12">
+          md
+        </span>
+        <ThemeChanger size="md" />
+      </div>
+      <div className="flex items-center gap-4">
+        <span className="text-xs text-[var(--color-text-tertiary)] font-mono w-12">
+          lg
+        </span>
+        <ThemeChanger size="lg" />
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Custom themes with custom icons and labels
+ */
+export const CustomThemes: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+      <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+        Custom theme list with custom icons
+      </p>
+      <ThemeChanger
+        availableThemes={[
+          { value: "nightfall", label: "Night", icon: "🌙" },
+          { value: "daylight", label: "Day", icon: "☀️" },
+          { value: "bloody-moon", label: "Blood", icon: "🔴" },
+        ]}
+        autoDetect={false}
+      />
+    </div>
+  ),
+};
+
+/**
+ * Controlled mode with external state management
+ */
+export const Controlled: Story = {
+  render: () => {
+    const [theme, setTheme] = React.useState("nightfall");
+
+    return (
+      <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+        <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+          Controlled mode:{" "}
+          <span className="text-[var(--color-primary)] font-bold">{theme}</span>
+        </p>
+        <div className="flex gap-2">
+          <button
+            className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)]"
+            onClick={() => setTheme("nightfall")}
+          >
+            Set Nightfall
+          </button>
+          <button
+            className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)]"
+            onClick={() => setTheme("daylight")}
+          >
+            Set Daylight
+          </button>
+        </div>
+        <ThemeChanger value={theme} onChange={setTheme} />
+      </div>
+    );
+  },
+};
+
+/**
+ * Icon-only with consistent sizing for navbar use
+ */
+export const IconOnlyNavbar: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+      <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+        Perfect for compact navigation bars
+      </p>
+      <div className="flex items-center gap-4 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-secondary)]">
+        <span className="text-sm font-heading font-bold text-[var(--color-text-primary)]">
+          Logo
+        </span>
+        <ThemeChanger iconOnly size="sm" />
+        <ThemeChanger iconOnly size="md" />
+        <ThemeChanger iconOnly size="lg" />
+      </div>
+    </div>
+  ),
+};
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 55/76: src\components\ThemeChanger\ThemeChanger.tsx
+Language: tsx | Size: 13,970 bytes
+Lines: 474 total | 447 code | 0 comments | 27 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import React, { useState, useEffect, useRef } from "react";
+
+export interface ThemeOption {
+  /**
+   * Theme identifier (matches data-theme attribute value)
+   */
+  value: string;
+  /**
+   * Display label for the theme
+   */
+  label: string;
+  /**
+   * Optional icon (can be string emoji or SVG element)
+   */
+  icon?: React.ReactNode;
+}
+
+export interface ThemeChangerProps {
+  /**
+   * Controlled: current theme value
+   */
+  value?: string;
+  /**
+   * Default theme value (uncontrolled mode)
+   * @default first theme in availableThemes or "nightfall"
+   */
+  defaultValue?: string;
+  /**
+   * Callback when theme changes
+   */
+  onChange?: (theme: string) => void;
+  /**
+   * Custom list of available themes
+   * If not provided, auto-detects from DOM or uses default themes
+   */
+  availableThemes?: ThemeOption[];
+  /**
+   * Whether to auto-detect themes from CSS
+   * @default true
+   */
+  autoDetect?: boolean;
+  /**
+   * Component size
+   * @default "md"
+   */
+  size?: "sm" | "md" | "lg";
+  /**
+   * If true, shows only the icon in a fixed-size circular button
+   * @default false
+   */
+  iconOnly?: boolean;
+  /**
+   * Fixed width for the dropdown trigger (in px or rem)
+   * When set, the trigger maintains consistent width
+   * @example "140px" or "10rem"
+   */
+  fixedWidth?: string;
+  /**
+   * Additional className
+   */
+  className?: string;
+}
+
+/**
+ * Default Dara UI themes
+ */
+const DEFAULT_THEMES: ThemeOption[] = [
+  { value: "nightfall", label: "Nightfall", icon: "🌙" },
+  { value: "daylight", label: "Daylight", icon: "☀️" },
+  { value: "bloody-moon", label: "Bloody Moon", icon: "🌕" },
+];
+
+/**
+ * Dara UI ThemeChanger - Dropdown for switching between themes
+ *
+ * Features:
+ * - Auto-detects available themes from CSS [data-theme] attributes
+ * - Supports custom theme lists
+ * - Clean dropdown with icon support
+ * - Icon-only mode for compact navigation bars
+ * - Fixed width option for consistent sizing
+ * - Controlled or uncontrolled modes
+ * - Applies theme via data-theme attribute on html element
+ * - Size variants (sm, md, lg)
+ */
+export const ThemeChanger: React.FC<ThemeChangerProps> = ({
+  value: controlledValue,
+  defaultValue,
+  onChange,
+  availableThemes,
+  autoDetect = true,
+  size = "md",
+  iconOnly = false,
+  fixedWidth,
+  className = "",
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [themes, setThemes] = useState<ThemeOption[]>(DEFAULT_THEMES);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Determine if controlled or uncontrolled
+  const isControlled = controlledValue !== undefined;
+  const [internalValue, setInternalValue] = useState<string>(
+    defaultValue || DEFAULT_THEMES[0]?.value || "nightfall",
+  );
+
+  const currentTheme = isControlled ? controlledValue : internalValue;
+
+  // Auto-detect themes from DOM
+  useEffect(() => {
+    if (!autoDetect && availableThemes) {
+      setThemes(availableThemes);
+      return;
+    }
+
+    if (availableThemes) {
+      setThemes(availableThemes);
+      return;
+    }
+
+    // Try to detect themes from CSS
+    const detectedThemes: ThemeOption[] = [];
+    const styleSheets = document.styleSheets;
+
+    try {
+      for (const sheet of styleSheets) {
+        try {
+          const rules = sheet.cssRules || sheet.rules;
+          for (const rule of rules) {
+            if (rule instanceof CSSStyleRule) {
+              const match = rule.selectorText?.match(
+                /\[data-theme="([^"]+)"\]/,
+              );
+              if (match && match[1]) {
+                const themeValue = match[1];
+                // Generate a nice label from the value
+                const label = themeValue
+                  .split("-")
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(" ");
+                if (!detectedThemes.some((t) => t.value === themeValue)) {
+                  detectedThemes.push({
+                    value: themeValue,
+                    label: label,
+                    icon: getDefaultIcon(themeValue),
+                  });
+                }
+              }
+            }
+          }
+        } catch {
+          // Cross-origin stylesheets may throw errors, skip them
+          continue;
+        }
+      }
+    } catch {
+      // If detection fails, fall back to default themes
+    }
+
+    if (detectedThemes.length > 0) {
+      setThemes(detectedThemes);
+      // Update internal value if current theme not in detected list
+      if (!detectedThemes.some((t) => t.value === currentTheme)) {
+        const newValue = detectedThemes[0]?.value || "nightfall";
+        if (!isControlled) {
+          setInternalValue(newValue);
+        }
+        applyTheme(newValue);
+      }
+    } else if (availableThemes) {
+      setThemes(availableThemes);
+    }
+  }, [autoDetect, availableThemes]);
+
+  // Apply theme to document
+  const applyTheme = (theme: string) => {
+    document.documentElement.setAttribute("data-theme", theme);
+  };
+
+  // Apply on mount and when theme changes
+  useEffect(() => {
+    applyTheme(currentTheme);
+  }, [currentTheme]);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  // Handle theme selection
+  const handleSelect = (themeValue: string) => {
+    if (!isControlled) {
+      setInternalValue(themeValue);
+    }
+    applyTheme(themeValue);
+    onChange?.(themeValue);
+    setIsOpen(false);
+  };
+
+  // Get default icon for theme
+  const getDefaultIcon = (value: string): string => {
+    const iconMap: Record<string, string> = {
+      nightfall: "🌙",
+      daylight: "☀️",
+      "bloody-moon": "🌕",
+      dark: "🌙",
+      light: "☀️",
+      dracula: "🧛",
+      wine: "🍷",
+      gothic: "🖤",
+      cyber: "💜",
+    };
+    return iconMap[value] || "🎨";
+  };
+
+  // Size styles
+  const sizeStyles = {
+    sm: {
+      trigger: "px-3 py-1.5 text-xs",
+      option: "px-3 py-1.5 text-xs",
+      icon: "h-3 w-3",
+      iconOnlySize: "w-8 h-8",
+      chevronSize: "h-3 w-3",
+    },
+    md: {
+      trigger: "px-4 py-2 text-sm",
+      option: "px-4 py-2 text-sm",
+      icon: "h-4 w-4",
+      iconOnlySize: "w-10 h-10",
+      chevronSize: "h-4 w-4",
+    },
+    lg: {
+      trigger: "px-5 py-2.5 text-base",
+      option: "px-5 py-2.5 text-base",
+      icon: "h-5 w-5",
+      iconOnlySize: "w-12 h-12",
+      chevronSize: "h-5 w-5",
+    },
+  };
+
+  // Find current theme option
+  const currentOption = themes.find((t) => t.value === currentTheme);
+
+  // Icon-only mode - fixed size circle with only the icon
+  if (iconOnly) {
+    return (
+      <div ref={dropdownRef} className={`relative inline-block ${className}`}>
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          className={`
+            flex items-center justify-center
+            bg-[var(--color-bg-tertiary)]
+            text-[var(--color-text-primary)]
+            border border-[var(--color-border-primary)]
+            rounded-full
+            hover:bg-[var(--color-bg-elevated)]
+            hover:border-[var(--color-border-secondary)]
+            transition-all duration-180
+            active:scale-95
+            ${sizeStyles[size].iconOnlySize}
+          `}
+          aria-expanded={isOpen}
+          aria-haspopup="listbox"
+          title={currentOption?.label || "Theme"}
+        >
+          {currentOption?.icon && (
+            <span className="text-base">{currentOption.icon}</span>
+          )}
+        </button>
+
+        {/* Dropdown Menu - centered under the icon */}
+        <div
+          className={`
+            absolute z-50 mt-1.5
+            left-1/2 -translate-x-1/2
+            min-w-[140px]
+            glass
+            rounded-[var(--radius-md)]
+            py-1
+            shadow-[var(--shadow-float)]
+            transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
+            ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}
+          `}
+          role="listbox"
+        >
+          {themes.map((theme) => {
+            const isActive = theme.value === currentTheme;
+            return (
+              <button
+                key={theme.value}
+                type="button"
+                onClick={() => handleSelect(theme.value)}
+                className={`
+                  w-full flex items-center gap-2 text-left
+                  ${sizeStyles[size].option}
+                  ${
+                    isActive
+                      ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
+                      : "text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/50"
+                  }
+                  transition-colors duration-150
+                `}
+                role="option"
+                aria-selected={isActive}
+              >
+                {theme.icon && (
+                  <span className="flex-shrink-0 text-base">{theme.icon}</span>
+                )}
+                <span className="truncate">{theme.label}</span>
+                {isActive && (
+                  <svg
+                    className="ml-auto h-4 w-4 flex-shrink-0 text-[var(--color-primary)]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  // Full dropdown mode with label + icon + chevron
+  return (
+    <div ref={dropdownRef} className={`relative inline-block ${className}`}>
+      {/* Trigger Button */}
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className={`
+          inline-flex items-center
+          bg-[var(--color-bg-tertiary)]
+          text-[var(--color-text-primary)]
+          border border-[var(--color-border-primary)]
+          rounded-full
+          hover:bg-[var(--color-bg-elevated)]
+          hover:border-[var(--color-border-secondary)]
+          transition-all duration-180
+          active:scale-95
+          ${sizeStyles[size].trigger}
+        `}
+        style={{
+          width: fixedWidth || "auto",
+          minWidth: fixedWidth || "auto",
+        }}
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
+      >
+        {/* Left side: icon + label */}
+        <span className="flex items-center gap-2 flex-1 min-w-0">
+          {currentOption?.icon && (
+            <span className="flex-shrink-0 text-base">
+              {currentOption.icon}
+            </span>
+          )}
+          <span className="font-mono tracking-wide truncate">
+            {currentOption?.label || "Theme"}
+          </span>
+        </span>
+
+        {/* Right side: chevron */}
+        <svg
+          className={`
+            flex-shrink-0 ml-2
+            transition-transform duration-[var(--transition-med)] ease-[var(--ease-in-out)]
+            ${isOpen ? "rotate-180" : "rotate-0"}
+            ${sizeStyles[size].chevronSize}
+          `}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
+
+      {/* Dropdown Menu */}
+      <div
+        className={`
+          absolute z-50 mt-1.5 min-w-[140px]
+          glass
+          rounded-[var(--radius-md)]
+          py-1
+          shadow-[var(--shadow-float)]
+          transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
+          overflow-hidden
+          ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}
+        `}
+        style={{
+          minWidth: fixedWidth || "140px",
+        }}
+        role="listbox"
+      >
+        {themes.map((theme) => {
+          const isActive = theme.value === currentTheme;
+          return (
+            <button
+              key={theme.value}
+              type="button"
+              onClick={() => handleSelect(theme.value)}
+              className={`
+                w-full flex items-center gap-2 text-left
+                ${sizeStyles[size].option}
+                ${
+                  isActive
+                    ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
+                    : "text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/50"
+                }
+                transition-colors duration-150
+              `}
+              role="option"
+              aria-selected={isActive}
+            >
+              {theme.icon && (
+                <span className="flex-shrink-0 text-base">{theme.icon}</span>
+              )}
+              <span className="truncate">{theme.label}</span>
+              {isActive && (
+                <svg
+                  className="ml-auto h-4 w-4 flex-shrink-0 text-[var(--color-primary)]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+ThemeChanger.displayName = "ThemeChanger";
+export default ThemeChanger;
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 56/76: src\components\Toast\index.ts
 Language: typescript | Size: 259 bytes
 Lines: 6 total | 5 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9444,7 +12534,7 @@ export { Toast as default } from "./Toast";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 45/64: src\components\Toast\Toast.stories.tsx
+FILE 57/76: src\components\Toast\Toast.stories.tsx
 Language: tsx | Size: 6,622 bytes
 Lines: 244 total | 228 code | 0 comments | 16 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9697,7 +12787,7 @@ export const Stacked: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 46/64: src\components\Toast\Toast.tsx
+FILE 58/76: src\components\Toast\Toast.tsx
 Language: tsx | Size: 6,720 bytes
 Lines: 271 total | 250 code | 0 comments | 21 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9977,7 +13067,7 @@ export default Toast;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 47/64: src\components\Toast\ToastProvider.tsx
+FILE 59/76: src\components\Toast\ToastProvider.tsx
 Language: tsx | Size: 4,666 bytes
 Lines: 205 total | 186 code | 0 comments | 19 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10191,7 +13281,7 @@ export default useToast;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 48/64: src\components\Tooltip\index.ts
+FILE 60/76: src\components\Tooltip\index.ts
 Language: typescript | Size: 150 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10204,7 +13294,7 @@ export { Tooltip as default } from "./Tooltip";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 49/64: src\components\Tooltip\Tooltip.stories.tsx
+FILE 61/76: src\components\Tooltip\Tooltip.stories.tsx
 Language: tsx | Size: 4,973 bytes
 Lines: 201 total | 189 code | 0 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10414,7 +13504,7 @@ export const Interactive: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 50/64: src\components\Tooltip\Tooltip.tsx
+FILE 62/76: src\components\Tooltip\Tooltip.tsx
 Language: tsx | Size: 10,382 bytes
 Lines: 382 total | 346 code | 0 comments | 36 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10805,7 +13895,7 @@ export default Tooltip;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 51/64: src\components\XPBar\index.ts
+FILE 63/76: src\components\XPBar\index.ts
 Language: typescript | Size: 130 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10818,7 +13908,7 @@ export { XPBar as default } from "./XPBar";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 52/64: src\components\XPBar\XPBar.stories.tsx
+FILE 64/76: src\components\XPBar\XPBar.stories.tsx
 Language: tsx | Size: 5,522 bytes
 Lines: 226 total | 207 code | 0 comments | 19 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -11053,7 +14143,7 @@ export const Interactive: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 53/64: src\components\XPBar\XPBar.tsx
+FILE 65/76: src\components\XPBar\XPBar.tsx
 Language: tsx | Size: 4,755 bytes
 Lines: 193 total | 175 code | 0 comments | 18 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -11255,7 +14345,7 @@ export default XPBar;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 54/64: src\hooks\useDirection.ts
+FILE 66/76: src\hooks\useDirection.ts
 Language: typescript | Size: 715 bytes
 Lines: 25 total | 17 code | 0 comments | 8 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -11289,9 +14379,9 @@ export default useDirection;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 55/64: src\index.ts
-Language: typescript | Size: 2,024 bytes
-Lines: 69 total | 42 code | 11 comments | 16 blank
+FILE 67/76: src\index.ts
+Language: typescript | Size: 2,205 bytes
+Lines: 73 total | 44 code | 12 comments | 17 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```typescript
@@ -11354,6 +14444,10 @@ export type {
 export { Progress } from "./components/Progress/Progress";
 export type { ProgressProps } from "./components/Progress/Progress";
 
+// ----- Theme & Language Changers -----
+export { ThemeChanger } from "./components/ThemeChanger";
+export type { ThemeChangerProps, ThemeOption } from "./components/ThemeChanger";
+
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";
 export type { Direction } from "./hooks/useDirection";
@@ -11367,7 +14461,7 @@ import "./styles/index.css";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 56/64: src\main.tsx
+FILE 68/76: src\main.tsx
 Language: tsx | Size: 305 bytes
 Lines: 13 total | 10 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -11389,7 +14483,7 @@ createRoot(document.getElementById("root")!).render(
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 57/64: src\styles\fonts.css
+FILE 69/76: src\styles\fonts.css
 Language: css | Size: 1,488 bytes
 Lines: 61 total | 49 code | 5 comments | 7 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -11459,7 +14553,7 @@ Lines: 61 total | 49 code | 5 comments | 7 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 58/64: src\styles\index.css
+FILE 70/76: src\styles\index.css
 Language: css | Size: 14,543 bytes
 Lines: 691 total | 571 code | 30 comments | 90 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -12159,8 +15253,8 @@ html[lang="ar-SA"] {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 59/64: src\styles\tokens.css
-Language: css | Size: 8,672 bytes
+FILE 71/76: src\styles\tokens.css
+Language: css | Size: 8,664 bytes
 Lines: 281 total | 217 code | 16 comments | 48 blank
 ────────────────────────────────────────────────────────────────────────────────
 
@@ -12387,8 +15481,8 @@ Lines: 281 total | 217 code | 16 comments | 48 blank
   );
 }
 
-/* ----- BLOODY MOON ----- */
-[data-theme="bloody-moon"] {
+/* ----- DRACULA ----- */
+[data-theme="dracula"] {
   --color-bg-primary: #1a1b26;
   --color-bg-secondary: #24283b;
   --color-bg-tertiary: #2d3142;
@@ -12449,7 +15543,7 @@ Lines: 281 total | 217 code | 16 comments | 48 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 60/64: tsconfig.app.json
+FILE 72/76: tsconfig.app.json
 Language: json | Size: 655 bytes
 Lines: 27 total | 24 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -12485,7 +15579,7 @@ Lines: 27 total | 24 code | 0 comments | 3 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 61/64: tsconfig.json
+FILE 73/76: tsconfig.json
 Language: json | Size: 119 bytes
 Lines: 8 total | 7 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -12502,7 +15596,7 @@ Lines: 8 total | 7 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 62/64: tsconfig.node.json
+FILE 74/76: tsconfig.node.json
 Language: json | Size: 558 bytes
 Lines: 24 total | 21 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -12535,7 +15629,7 @@ Lines: 24 total | 21 code | 0 comments | 3 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 63/64: vite.config.ts
+FILE 75/76: vite.config.ts
 Language: typescript | Size: 1,720 bytes
 Lines: 71 total | 66 code | 2 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -12615,7 +15709,7 @@ export default defineConfig({
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 64/64: vitest.shims.d.ts
+FILE 76/76: vitest.shims.d.ts
 Language: typescript | Size: 52 bytes
 Lines: 1 total | 0 code | 1 comments | 0 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -12630,26 +15724,26 @@ Lines: 1 total | 0 code | 1 comments | 0 blank
 
 GENERAL STATISTICS
 ----------------------------------------
-Total files exported: 64
-Total size: 361,582 bytes (353.11 KB, 0.34 MB)
-Average file size: 5,650 bytes
+Total files exported: 76
+Total size: 449,181 bytes (438.65 KB, 0.43 MB)
+Average file size: 5,910 bytes
 
 LANGUAGE DISTRIBUTION
 ----------------------------------------
-tsx               30 files ( 46.9%) ███████████████████████
-typescript        18 files ( 28.1%) ██████████████
-plaintext          4 files (  6.2%) ███
-json               4 files (  6.2%) ███
-css                3 files (  4.7%) ██
-html               2 files (  3.1%) █
-javascript         1 files (  1.6%) 
-python             1 files (  1.6%) 
-markdown           1 files (  1.6%) 
+tsx               39 files ( 51.3%) █████████████████████████
+typescript        21 files ( 27.6%) █████████████
+plaintext          4 files (  5.3%) ██
+json               4 files (  5.3%) ██
+css                3 files (  3.9%) █
+html               2 files (  2.6%) █
+javascript         1 files (  1.3%) 
+python             1 files (  1.3%) 
+markdown           1 files (  1.3%) 
 
 EXPORT METADATA
 ----------------------------------------
 Export tool: Advanced Project Code Exporter v2.0
-Export date: 2026-07-28 15:41:30
+Export date: 2026-07-30 17:50:33
 Python version: 3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]
 Platform: win32
 

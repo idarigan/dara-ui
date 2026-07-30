@@ -1,28 +1,28 @@
-import React, { useState, useEffect, useRef } from "react";
+// src/components/ThemeChanger/ThemeChanger.tsx
+import React, { useState, useRef, useEffect } from "react";
 
 export interface ThemeOption {
   /**
-   * Theme identifier (matches data-theme attribute value)
+   * Theme value (used as data-theme attribute)
    */
   value: string;
   /**
-   * Display label for the theme
+   * Display label
    */
   label: string;
   /**
-   * Optional icon (can be string emoji or SVG element)
+   * Optional icon (emoji or React node)
    */
   icon?: React.ReactNode;
 }
 
 export interface ThemeChangerProps {
   /**
-   * Controlled: current theme value
+   * Controlled value
    */
   value?: string;
   /**
-   * Default theme value (uncontrolled mode)
-   * @default first theme in availableThemes or "nightfall"
+   * Default value (uncontrolled)
    */
   defaultValue?: string;
   /**
@@ -30,8 +30,7 @@ export interface ThemeChangerProps {
    */
   onChange?: (theme: string) => void;
   /**
-   * Custom list of available themes
-   * If not provided, auto-detects from DOM or uses default themes
+   * Available themes (overrides auto-detect)
    */
   availableThemes?: ThemeOption[];
   /**
@@ -82,6 +81,8 @@ const DEFAULT_THEMES: ThemeOption[] = [
  * - Controlled or uncontrolled modes
  * - Applies theme via data-theme attribute on html element
  * - Size variants (sm, md, lg)
+ * - Dropdown is always centered under the trigger
+ * - Menu width matches the button when iconOnly or fixedWidth is used
  */
 export const ThemeChanger: React.FC<ThemeChangerProps> = ({
   value: controlledValue,
@@ -236,6 +237,8 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
       icon: "h-3 w-3",
       iconOnlySize: "w-8 h-8",
       chevronSize: "h-3 w-3",
+      // matching width for icon-only menu
+      iconOnlyWidth: "32px",
     },
     md: {
       trigger: "px-4 py-2 text-sm",
@@ -243,6 +246,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
       icon: "h-4 w-4",
       iconOnlySize: "w-10 h-10",
       chevronSize: "h-4 w-4",
+      iconOnlyWidth: "40px",
     },
     lg: {
       trigger: "px-5 py-2.5 text-base",
@@ -250,11 +254,20 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
       icon: "h-5 w-5",
       iconOnlySize: "w-12 h-12",
       chevronSize: "h-5 w-5",
+      iconOnlyWidth: "48px",
     },
   };
 
   // Find current theme option
   const currentOption = themes.find((t) => t.value === currentTheme);
+
+  // Determine menu width
+  // - iconOnly → exact same size as the circular button
+  // - fixedWidth → exact same width as the trigger
+  // - otherwise → sensible min width
+  const menuWidth = iconOnly
+    ? sizeStyles[size].iconOnlyWidth
+    : fixedWidth || "140px";
 
   // Icon-only mode - fixed size circle with only the icon
   if (iconOnly) {
@@ -284,17 +297,23 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
           )}
         </button>
 
-        {/* Dropdown Menu */}
+        {/* Dropdown Menu - perfectly centered under the icon button + same width */}
         <div
           className={`
-            absolute z-50 mt-1.5 min-w-[140px] right-0
+            absolute z-50 mt-1.5
+            left-0 right-0
             glass
             rounded-[var(--radius-md)]
             py-1
             shadow-[var(--shadow-float)]
             transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
+            overflow-hidden
             ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}
           `}
+          style={{
+            width: menuWidth,
+            minWidth: menuWidth,
+          }}
           role="listbox"
         >
           {themes.map((theme) => {
@@ -305,7 +324,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
                 type="button"
                 onClick={() => handleSelect(theme.value)}
                 className={`
-                  w-full flex items-center gap-2 text-left
+                  w-full flex items-center justify-center gap-2
                   ${sizeStyles[size].option}
                   ${
                     isActive
@@ -316,25 +335,10 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
                 `}
                 role="option"
                 aria-selected={isActive}
+                title={theme.label}
               >
                 {theme.icon && (
                   <span className="flex-shrink-0 text-base">{theme.icon}</span>
-                )}
-                <span className="truncate">{theme.label}</span>
-                {isActive && (
-                  <svg
-                    className="ml-auto h-4 w-4 flex-shrink-0 text-[var(--color-primary)]"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2.5}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
                 )}
               </button>
             );
@@ -403,19 +407,22 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
         </svg>
       </button>
 
-      {/* Dropdown Menu */}
+      {/* Dropdown Menu - perfectly centered under the button + matching width when fixedWidth is set */}
       <div
         className={`
-          absolute z-50 mt-1.5 min-w-[140px]
+          absolute z-50 mt-1.5
+          left-1/2 -translate-x-1/2
           glass
           rounded-[var(--radius-md)]
           py-1
           shadow-[var(--shadow-float)]
           transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
+          overflow-hidden
           ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}
         `}
         style={{
-          minWidth: fixedWidth || "140px",
+          width: menuWidth,
+          minWidth: menuWidth,
         }}
         role="listbox"
       >

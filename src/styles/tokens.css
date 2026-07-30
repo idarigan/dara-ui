@@ -220,8 +220,8 @@
   );
 }
 
-/* ----- BLOODY MOON ----- */
-[data-theme="bloody-moon"] {
+/* ----- DRACULA ----- */
+[data-theme="dracula"] {
   --color-bg-primary: #1a1b26;
   --color-bg-secondary: #24283b;
   --color-bg-tertiary: #2d3142;
