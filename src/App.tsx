@@ -20,7 +20,7 @@ import useDirection from "./hooks/useDirection";
 import "./styles/index.css";
 import StatsWidget from "./components/StatsWidget";
 
-type Theme = "nightfall" | "daylight" | "bloody-moon";
+type Theme = "nightfall" | "daylight" | "dracula";
 
 // Icons
 const SearchIcon = () => (
@@ -164,8 +164,8 @@ const accordionItems = [
             Light, clean, minimal
           </li>
           <li>
-            <span className="text-[var(--color-danger)]">Bloody Moon</span> —
-            Dark, intense, red-accented
+            <span className="text-[var(--color-danger)]">Dracula</span> — Dark,
+            intense, red-accented
           </li>
         </ul>
       </div>
@@ -372,10 +372,10 @@ function AppContent() {
             </Button>
             <Button
               size="sm"
-              variant={theme === "bloody-moon" ? "primary" : "outline"}
-              onClick={() => changeTheme("bloody-moon")}
+              variant={theme === "dracula" ? "primary" : "outline"}
+              onClick={() => changeTheme("dracula")}
             >
-              🍷 Bloody Moon
+              🍷 Dracula
             </Button>
             <Button size="sm" variant="outline" onClick={toggleDirection}>
               {direction === "ltr" ? "🔁 RTL" : "🔁 LTR"}
@@ -1669,19 +1669,80 @@ function AppContent() {
         </section>
 
         {/* ----- THEME & LANGUAGE CHANGERS SHOWCASE ----- */}
+        {/* ----- THEME CHANGER SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Theme & Language</h2>
+          <h2 className="text-2xl font-semibold mb-6">Theme Changer</h2>
 
-          <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
-            <h1 className="text-4xl font-bold text-gradient-primary">
-              Dara UI Components
-            </h1>
-            <div className="flex gap-2 flex-wrap items-center">
-              <ThemeChanger size="sm" />
-              <Button size="sm" variant="outline" onClick={toggleDirection}>
-                {direction === "ltr" ? "🔁 RTL" : "🔁 LTR"}
-              </Button>
+          <div className="flex flex-wrap gap-6 items-end">
+            {/* Default */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Default
+              </span>
+              <ThemeChanger size="md" />
             </div>
+
+            {/* Icon Only */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Icon Only
+              </span>
+              <ThemeChanger iconOnly size="md" />
+            </div>
+
+            {/* Fixed Width */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Fixed Width (160px)
+              </span>
+              <ThemeChanger fixedWidth="160px" size="md" />
+            </div>
+
+            {/* Small */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Small
+              </span>
+              <ThemeChanger size="sm" />
+            </div>
+
+            {/* Small Icon Only */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Small Icon Only
+              </span>
+              <ThemeChanger iconOnly size="sm" />
+            </div>
+
+            {/* Custom Themes */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Custom Themes
+              </span>
+              <ThemeChanger
+                availableThemes={[
+                  { value: "nightfall", label: "Nightfall", icon: "🌙" },
+                  { value: "daylight", label: "Daylight", icon: "☀️" },
+                  { value: "bloody-moon", label: "Bloody Moon", icon: "🌕" },
+                ]}
+                autoDetect={false}
+                size="md"
+              />
+            </div>
+          </div>
+
+          <div className="mt-6 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
+                Demo:
+              </span>{" "}
+              Theme changer with auto-detection, icon-only mode, and fixed width
+              support. Pass{" "}
+              <code className="text-[var(--color-primary)]">iconOnly</code> for
+              compact navbar usage, or{" "}
+              <code className="text-[var(--color-primary)]">fixedWidth</code>{" "}
+              for consistent sizing.
+            </p>
           </div>
         </section>
 

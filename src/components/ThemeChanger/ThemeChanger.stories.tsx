@@ -12,14 +12,25 @@ const meta = {
     size: {
       control: "select",
       options: ["sm", "md", "lg"],
+      description: "Component size",
     },
     autoDetect: {
       control: "boolean",
+      description: "Auto-detect themes from CSS",
+    },
+    iconOnly: {
+      control: "boolean",
+      description: "Show only the icon in a fixed circle",
+    },
+    fixedWidth: {
+      control: "text",
+      description: "Fixed width for the trigger button",
     },
   },
   args: {
     size: "md",
     autoDetect: true,
+    iconOnly: false,
   },
 } satisfies Meta<typeof ThemeChanger>;
 
@@ -27,7 +38,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * Default ThemeChanger with auto-detection
+ * Default ThemeChanger with full label + icon + chevron
  */
 export const Default: Story = {
   render: (args) => (
@@ -41,7 +52,45 @@ export const Default: Story = {
 };
 
 /**
- * Different sizes
+ * Icon-only mode - perfect for navigation bars
+ * Fixed size circle with just the theme icon
+ */
+export const IconOnly: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+      <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+        Icon-only mode - fixed size circle with only the icon
+      </p>
+      <div className="flex items-center gap-4">
+        <ThemeChanger iconOnly size="sm" />
+        <ThemeChanger iconOnly size="md" />
+        <ThemeChanger iconOnly size="lg" />
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Fixed width ensures the dropdown stays consistent
+ * regardless of selected theme label length
+ */
+export const FixedWidth: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+      <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+        Fixed width keeps the dropdown consistent regardless of selected label
+      </p>
+      <div className="flex items-center gap-4">
+        <ThemeChanger fixedWidth="120px" size="sm" />
+        <ThemeChanger fixedWidth="160px" size="md" />
+        <ThemeChanger fixedWidth="200px" size="lg" />
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Different size variants for various UI contexts
  */
 export const Sizes: Story = {
   render: () => (
@@ -69,13 +118,13 @@ export const Sizes: Story = {
 };
 
 /**
- * Custom themes
+ * Custom themes with custom icons and labels
  */
 export const CustomThemes: Story = {
   render: () => (
     <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
       <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
-        Custom theme list with SVG icons
+        Custom theme list with custom icons
       </p>
       <ThemeChanger
         availableThemes={[
@@ -90,7 +139,7 @@ export const CustomThemes: Story = {
 };
 
 /**
- * Controlled
+ * Controlled mode with external state management
  */
 export const Controlled: Story = {
   render: () => {
@@ -120,4 +169,25 @@ export const Controlled: Story = {
       </div>
     );
   },
+};
+
+/**
+ * Icon-only with consistent sizing for navbar use
+ */
+export const IconOnlyNavbar: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+      <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+        Perfect for compact navigation bars
+      </p>
+      <div className="flex items-center gap-4 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-secondary)]">
+        <span className="text-sm font-heading font-bold text-[var(--color-text-primary)]">
+          Logo
+        </span>
+        <ThemeChanger iconOnly size="sm" />
+        <ThemeChanger iconOnly size="md" />
+        <ThemeChanger iconOnly size="lg" />
+      </div>
+    </div>
+  ),
 };
