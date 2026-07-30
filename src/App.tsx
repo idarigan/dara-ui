@@ -14,9 +14,8 @@ import { Progress } from "./components/Progress/Progress";
 import { XPBar } from "./components/XPBar";
 import { QuestCard } from "./components/QuestCard/QuestCard";
 import { CharacterCard } from "./components/CharacterCard/CharacterCard";
-import useDirection from "./hooks/useDirection";
 import { ThemeChanger } from "./components/ThemeChanger";
-import { LanguageChanger } from "./components/LanguageChanger";
+import useDirection from "./hooks/useDirection";
 
 import "./styles/index.css";
 import StatsWidget from "./components/StatsWidget";
@@ -1673,73 +1672,16 @@ function AppContent() {
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Theme & Language</h2>
 
-          <div className="flex flex-wrap gap-6 items-end">
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Theme (all)
-              </span>
-              <ThemeChanger defaultValue="nightfall" size="md" />
+          <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
+            <h1 className="text-4xl font-bold text-gradient-primary">
+              Dara UI Components
+            </h1>
+            <div className="flex gap-2 flex-wrap items-center">
+              <ThemeChanger size="sm" />
+              <Button size="sm" variant="outline" onClick={toggleDirection}>
+                {direction === "ltr" ? "🔁 RTL" : "🔁 LTR"}
+              </Button>
             </div>
-
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Theme (subset)
-              </span>
-              <ThemeChanger
-                themes={[
-                  { value: "nightfall", label: "Nightfall" },
-                  { value: "daylight", label: "Daylight" },
-                ]}
-                defaultValue="nightfall"
-                size="md"
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Language (Dropdown)
-              </span>
-              <LanguageChanger defaultValue="en" size="md" />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Language (Toggle)
-              </span>
-              <LanguageChanger variant="toggle" defaultValue="en" size="md" />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Small (navbar)
-              </span>
-              <div className="flex gap-2">
-                <ThemeChanger defaultValue="nightfall" size="sm" />
-                <LanguageChanger defaultValue="en" size="sm" />
-                <LanguageChanger variant="toggle" defaultValue="fa" size="sm" />
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-2 w-64">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Full width of parent
-              </span>
-              <ThemeChanger defaultValue="nightfall" size="md" fullWidth />
-            </div>
-          </div>
-
-          <div className="mt-6 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
-            <p className="text-sm text-[var(--color-text-secondary)]">
-              <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
-                Demo:
-              </span>{" "}
-              Dropdown width is fixed per size (or 100% with fullWidth). Pass a
-              custom <code className="text-[var(--color-primary)]">themes</code>{" "}
-              / <code className="text-[var(--color-primary)]">languages</code>{" "}
-              array to control which options appear. Override{" "}
-              <code className="text-[var(--color-primary)]">applyTheme</code> if
-              you drive themes via classes instead of data-theme.
-            </p>
           </div>
         </section>
 
