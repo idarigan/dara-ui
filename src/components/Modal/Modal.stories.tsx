@@ -23,6 +23,8 @@ const meta = {
     cancelText: { control: "text" },
   },
   args: {
+    isOpen: false,
+    onClose: () => {},
     size: "md",
     closeOnBackdropClick: true,
     closeOnEscape: true,
@@ -122,6 +124,10 @@ export const Sizes: Story = {
       </div>
     );
   },
+  args: {
+    isOpen: false,
+    onClose: () => {},
+  },
 };
 
 // ----- Without Actions -----
@@ -143,6 +149,10 @@ export const WithoutActions: Story = {
         </Modal>
       </div>
     );
+  },
+  args: {
+    isOpen: false,
+    onClose: () => {},
   },
 };
 

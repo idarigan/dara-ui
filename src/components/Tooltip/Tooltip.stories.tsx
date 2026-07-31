@@ -39,6 +39,7 @@ const meta = {
   },
   args: {
     content: "This is a tooltip",
+    children: <Button variant="primary">Hover me</Button>,
     placement: "top",
     variant: "glass",
     size: "md",
@@ -54,11 +55,10 @@ type Story = StoryObj<typeof meta>;
 
 // ----- Default -----
 export const Default: Story = {
-  render: (args) => (
-    <Tooltip {...args}>
-      <Button variant="primary">Hover me</Button>
-    </Tooltip>
-  ),
+  args: {
+    content: "This is a tooltip",
+    children: <Button variant="primary">Hover me</Button>,
+  },
 };
 
 // ----- Placements -----
@@ -107,6 +107,13 @@ export const Placements: Story = {
       </Tooltip>
     </div>
   ),
+  args: {
+    children: (
+      <Button size="sm" variant="glass">
+        Placement
+      </Button>
+    ),
+  },
 };
 
 // ----- Variants -----
@@ -124,6 +131,9 @@ export const Variants: Story = {
       </Tooltip>
     </div>
   ),
+  args: {
+    children: <Button>Variant</Button>,
+  },
 };
 
 // ----- Sizes -----
@@ -141,6 +151,9 @@ export const Sizes: Story = {
       </Tooltip>
     </div>
   ),
+  args: {
+    children: <Button>Size</Button>,
+  },
 };
 
 // ----- Long Content -----
@@ -150,6 +163,9 @@ export const LongContent: Story = {
       <Button variant="primary">Hover for details</Button>
     </Tooltip>
   ),
+  args: {
+    children: <Button variant="primary">Long</Button>,
+  },
 };
 
 // ----- With Badge -----
@@ -161,6 +177,13 @@ export const WithBadge: Story = {
       </Badge>
     </Tooltip>
   ),
+  args: {
+    children: (
+      <Badge variant="primary" glow>
+        42
+      </Badge>
+    ),
+  },
 };
 
 // ----- Disabled -----
@@ -170,6 +193,9 @@ export const Disabled: Story = {
       <Button variant="secondary">Disabled Tooltip</Button>
     </Tooltip>
   ),
+  args: {
+    children: <Button variant="secondary">Disabled</Button>,
+  },
 };
 
 // ----- No Arrow -----
@@ -179,12 +205,16 @@ export const NoArrow: Story = {
       <Button variant="glass">No Arrow</Button>
     </Tooltip>
   ),
+  args: {
+    children: <Button variant="glass">No Arrow</Button>,
+  },
 };
 
 // ----- Interactive Playground -----
 export const Interactive: Story = {
   args: {
     content: "Interactive tooltip",
+    children: <Button variant="primary">Hover me</Button>,
     placement: "top",
     variant: "glass",
     size: "md",
@@ -192,9 +222,4 @@ export const Interactive: Story = {
     hideDelay: 0,
     arrow: true,
   },
-  render: (args) => (
-    <Tooltip {...args}>
-      <Button variant="primary">Hover me</Button>
-    </Tooltip>
-  ),
 };
