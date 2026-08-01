@@ -61,6 +61,16 @@ export type { ProgressProps } from "./components/Progress/Progress";
 export { ThemeChanger } from "./components/ThemeChanger";
 export type { ThemeChangerProps, ThemeOption } from "./components/ThemeChanger";
 
+export {
+  LanguageChanger,
+  I18nProvider,
+  useI18n,
+} from "./components/LanguageChanger";
+export type {
+  LanguageChangerProps,
+  LanguageOption,
+} from "./components/LanguageChanger";
+
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";
 export type { Direction } from "./hooks/useDirection";

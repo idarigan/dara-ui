@@ -15,7 +15,15 @@ import { XPBar } from "./components/XPBar";
 import { QuestCard } from "./components/QuestCard/QuestCard";
 import { CharacterCard } from "./components/CharacterCard/CharacterCard";
 import { ThemeChanger } from "./components/ThemeChanger";
+import { LanguageChanger } from "./components/LanguageChanger";
 import useDirection from "./hooks/useDirection";
+
+import {
+  I18nProvider,
+  useI18n,
+  LanguageChanger,
+} from "./components/LanguageChanger";
+import { translations } from "./translations";
 
 import "./styles/index.css";
 import StatsWidget from "./components/StatsWidget";
@@ -1668,7 +1676,6 @@ function AppContent() {
           </div>
         </section>
 
-        {/* ----- THEME & LANGUAGE CHANGERS SHOWCASE ----- */}
         {/* ----- THEME CHANGER SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Theme Changer</h2>
@@ -1746,6 +1753,86 @@ function AppContent() {
           </div>
         </section>
 
+        {/* ----- LANGUAGE CHANGERS SHOWCASE ----- */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">Language Changer</h2>
+
+          <div className="flex flex-wrap gap-6 items-end">
+            {/* Default */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Default
+              </span>
+              <LanguageChanger size="md" />
+            </div>
+
+            {/* Icon Only */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Icon Only
+              </span>
+              <LanguageChanger iconOnly size="md" />
+            </div>
+
+            {/* Fixed Width */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Fixed Width (160px)
+              </span>
+              <LanguageChanger fixedWidth="160px" size="md" />
+            </div>
+
+            {/* Small */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Small
+              </span>
+              <LanguageChanger size="sm" />
+            </div>
+
+            {/* Small Icon Only */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Small Icon Only
+              </span>
+              <LanguageChanger iconOnly size="sm" />
+            </div>
+
+            {/* Custom Languages */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                Custom Languages
+              </span>
+              <LanguageChanger
+                availableLanguages={[
+                  { value: "en", label: "English", icon: "🇬🇧", dir: "ltr" },
+                  { value: "fa", label: "فارسی", icon: "🇮🇷", dir: "rtl" },
+                  { value: "fr", label: "Français", icon: "🇫🇷", dir: "ltr" },
+                ]}
+                size="md"
+              />
+            </div>
+          </div>
+
+          <div className="mt-6 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
+                Demo:
+              </span>{" "}
+              Language changer with localStorage persistence, icon-only mode,
+              and fixed width support. Pass{" "}
+              <code className="text-[var(--color-primary)]">iconOnly</code> for
+              compact navbar usage, or{" "}
+              <code className="text-[var(--color-primary)]">fixedWidth</code>{" "}
+              for consistent sizing. The language is persisted via localStorage
+              and updates the{" "}
+              <code className="text-[var(--color-primary)]">lang</code> and{" "}
+              <code className="text-[var(--color-primary)]">dir</code>{" "}
+              attributes on the html element.
+            </p>
+          </div>
+        </section>
+
         {/* ----- GRADIENT SHOWCASE ----- */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
           <h2 className="text-2xl font-semibold mb-6">Gradients</h2>
@@ -1819,7 +1906,9 @@ function AppContent() {
 function App() {
   return (
     <ToastProvider>
-      <AppContent />
+      <I18nProvider translations={translations} defaultLanguage="en">
+        <AppContent />
+      </I18nProvider>
     </ToastProvider>
   );
 }
