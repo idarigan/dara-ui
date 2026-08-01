@@ -1,5 +1,3 @@
-// src/components/QuestCard/QuestCard.tsx
-
 import React, { useState, useRef } from "react";
 import { Modal } from "../Modal/Modal";
 

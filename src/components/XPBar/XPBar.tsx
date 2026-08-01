@@ -1,5 +1,3 @@
-// src/components/XPBar/XPBar.tsx
-
 import React, { useState, useRef } from "react";
 
 export interface RankTier {

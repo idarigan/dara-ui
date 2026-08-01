@@ -1,4 +1,3 @@
-// src/components/Input/Input.tsx
 import React, { forwardRef, useState, useId } from "react";
 
 export interface InputProps extends Omit<

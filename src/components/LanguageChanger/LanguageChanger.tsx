@@ -1,5 +1,3 @@
-// src/components/LanguageChanger/LanguageChanger.tsx
-
 import React, {
   useState,
   useRef,

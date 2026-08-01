@@ -1,6 +1,6 @@
 ================================================================================
 ADVANCED PROJECT CODE EXPORT
-Generated: 2026-07-30 17:50:32
+Generated: 2026-08-01 18:04:17
 Project: dara-ui
 Path: D:\D's\dara-ui
 ================================================================================
@@ -27,7 +27,7 @@ dara-ui/
 │   └── icons.svg (4.9 KB)
 ├── README.md (2.4 KB)
 ├── src/
-│   ├── App.tsx (65.7 KB)
+│   ├── App.tsx (77.5 KB)
 │   ├── components/
 │   │   ├── Accordion/
 │   │   │   ├── Accordion.stories.tsx (4.8 KB)
@@ -61,9 +61,13 @@ dara-ui/
 │   │   │   ├── index.ts (123.0 B)
 │   │   │   ├── Input.stories.tsx (3.8 KB)
 │   │   │   └── Input.tsx (8.9 KB)
+│   │   ├── LanguageChanger/
+│   │   │   ├── index.ts (329.0 B)
+│   │   │   ├── LanguageChanger.stories.tsx (9.3 KB)
+│   │   │   └── LanguageChanger.tsx (18.3 KB)
 │   │   ├── Modal/
 │   │   │   ├── index.ts (123.0 B)
-│   │   │   ├── Modal.stories.tsx (4.9 KB)
+│   │   │   ├── Modal.stories.tsx (5.1 KB)
 │   │   │   └── Modal.tsx (5.5 KB)
 │   │   ├── Progress/
 │   │   │   ├── index.ts (141.0 B)
@@ -84,7 +88,7 @@ dara-ui/
 │   │   ├── ThemeChanger/
 │   │   │   ├── index.ts (178.0 B)
 │   │   │   ├── ThemeChanger.stories.tsx (6.2 KB)
-│   │   │   └── ThemeChanger.tsx (14.1 KB)
+│   │   │   └── ThemeChanger.tsx (14.2 KB)
 │   │   ├── Toast/
 │   │   │   ├── index.ts (264.0 B)
 │   │   │   ├── Toast.stories.tsx (6.7 KB)
@@ -92,7 +96,7 @@ dara-ui/
 │   │   │   └── ToastProvider.tsx (4.8 KB)
 │   │   ├── Tooltip/
 │   │   │   ├── index.ts (153.0 B)
-│   │   │   ├── Tooltip.stories.tsx (5.1 KB)
+│   │   │   ├── Tooltip.stories.tsx (5.6 KB)
 │   │   │   └── Tooltip.tsx (10.5 KB)
 │   │   └── XPBar/
 │   │       ├── index.ts (133.0 B)
@@ -100,13 +104,19 @@ dara-ui/
 │   │       └── XPBar.tsx (4.8 KB)
 │   ├── fonts/
 │   ├── hooks/
+│   │   ├── useAppTranslation.ts (278.0 B)
 │   │   └── useDirection.ts (739.0 B)
-│   ├── index.ts (2.2 KB)
+│   ├── index.ts (2.4 KB)
 │   ├── main.tsx (305.0 B)
-│   └── styles/
-│       ├── fonts.css (1.5 KB)
-│       ├── index.css (14.2 KB)
-│       └── tokens.css (8.7 KB)
+│   ├── styles/
+│   │   ├── fonts.css (1.5 KB)
+│   │   ├── index.css (14.2 KB)
+│   │   └── tokens.css (8.7 KB)
+│   └── translations/
+│       ├── en.ts (11.2 KB)
+│       ├── fa.ts (14.7 KB)
+│       ├── fr.ts (12.2 KB)
+│       └── index.ts (252.0 B)
 ├── tsconfig.app.json (655.0 B)
 ├── tsconfig.json (119.0 B)
 ├── tsconfig.node.json (558.0 B)
@@ -120,7 +130,7 @@ dara-ui/
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 1/76: .gitignore
+FILE 1/84: .gitignore
 Language: plaintext | Size: 319 bytes
 Lines: 31 total | 19 code | 6 comments | 6 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -161,7 +171,7 @@ original-dmeo.html
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 2/76: .storybook\main.ts
+FILE 2/84: .storybook\main.ts
 Language: typescript | Size: 418 bytes
 Lines: 17 total | 16 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -188,7 +198,7 @@ export default config;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 3/76: .storybook\preview.tsx
+FILE 3/84: .storybook\preview.tsx
 Language: tsx | Size: 608 bytes
 Lines: 30 total | 25 code | 0 comments | 5 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -227,15 +237,15 @@ export default preview;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 4/76: dara-ui_export.txt
-Language: plaintext | Size: 6,081 bytes
-Lines: 226 total | 194 code | 6 comments | 26 blank
+FILE 4/84: dara-ui_export.txt
+Language: plaintext | Size: 6,424 bytes
+Lines: 236 total | 204 code | 6 comments | 26 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```plaintext
 ================================================================================
 ADVANCED PROJECT CODE EXPORT
-Generated: 2026-07-30 17:50:32
+Generated: 2026-08-01 18:04:17
 Project: dara-ui
 Path: D:\D's\dara-ui
 ================================================================================
@@ -262,7 +272,7 @@ dara-ui/
 │   └── icons.svg (4.9 KB)
 ├── README.md (2.4 KB)
 ├── src/
-│   ├── App.tsx (65.7 KB)
+│   ├── App.tsx (77.5 KB)
 │   ├── components/
 │   │   ├── Accordion/
 │   │   │   ├── Accordion.stories.tsx (4.8 KB)
@@ -296,9 +306,13 @@ dara-ui/
 │   │   │   ├── index.ts (123.0 B)
 │   │   │   ├── Input.stories.tsx (3.8 KB)
 │   │   │   └── Input.tsx (8.9 KB)
+│   │   ├── LanguageChanger/
+│   │   │   ├── index.ts (329.0 B)
+│   │   │   ├── LanguageChanger.stories.tsx (9.3 KB)
+│   │   │   └── LanguageChanger.tsx (18.3 KB)
 │   │   ├── Modal/
 │   │   │   ├── index.ts (123.0 B)
-│   │   │   ├── Modal.stories.tsx (4.9 KB)
+│   │   │   ├── Modal.stories.tsx (5.1 KB)
 │   │   │   └── Modal.tsx (5.5 KB)
 │   │   ├── Progress/
 │   │   │   ├── index.ts (141.0 B)
@@ -319,7 +333,7 @@ dara-ui/
 │   │   ├── ThemeChanger/
 │   │   │   ├── index.ts (178.0 B)
 │   │   │   ├── ThemeChanger.stories.tsx (6.2 KB)
-│   │   │   └── ThemeChanger.tsx (14.1 KB)
+│   │   │   └── ThemeChanger.tsx (14.2 KB)
 │   │   ├── Toast/
 │   │   │   ├── index.ts (264.0 B)
 │   │   │   ├── Toast.stories.tsx (6.7 KB)
@@ -327,7 +341,7 @@ dara-ui/
 │   │   │   └── ToastProvider.tsx (4.8 KB)
 │   │   ├── Tooltip/
 │   │   │   ├── index.ts (153.0 B)
-│   │   │   ├── Tooltip.stories.tsx (5.1 KB)
+│   │   │   ├── Tooltip.stories.tsx (5.6 KB)
 │   │   │   └── Tooltip.tsx (10.5 KB)
 │   │   └── XPBar/
 │   │       ├── index.ts (133.0 B)
@@ -335,13 +349,19 @@ dara-ui/
 │   │       └── XPBar.tsx (4.8 KB)
 │   ├── fonts/
 │   ├── hooks/
+│   │   ├── useAppTranslation.ts (278.0 B)
 │   │   └── useDirection.ts (739.0 B)
-│   ├── index.ts (2.2 KB)
+│   ├── index.ts (2.4 KB)
 │   ├── main.tsx (305.0 B)
-│   └── styles/
-│       ├── fonts.css (1.5 KB)
-│       ├── index.css (14.2 KB)
-│       └── tokens.css (8.7 KB)
+│   ├── styles/
+│   │   ├── fonts.css (1.5 KB)
+│   │   ├── index.css (14.2 KB)
+│   │   └── tokens.css (8.7 KB)
+│   └── translations/
+│       ├── en.ts (11.2 KB)
+│       ├── fa.ts (14.7 KB)
+│       ├── fr.ts (12.2 KB)
+│       └── index.ts (252.0 B)
 ├── tsconfig.app.json (655.0 B)
 ├── tsconfig.json (119.0 B)
 ├── tsconfig.node.json (558.0 B)
@@ -355,7 +375,7 @@ dara-ui/
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 1/76: .gitignore
+FILE 1/84: .gitignore
 Language: plaintext | Size: 319 bytes
 Lines: 31 total | 19 code | 6 comments | 6 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -396,7 +416,7 @@ original-dmeo.html
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 2/76: .storybook\main.ts
+FILE 2/84: .storybook\main.ts
 Language: typescript | Size: 418 bytes
 Lines: 17 total | 16 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -423,7 +443,7 @@ export default config;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 3/76: .storybook\preview.tsx
+FILE 3/84: .storybook\preview.tsx
 Language: tsx | Size: 608 bytes
 Lines: 30 total | 25 code | 0 comments | 5 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -462,7 +482,7 @@ export default preview;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 5/76: eslint.config.js
+FILE 5/84: eslint.config.js
 Language: javascript | Size: 764 bytes
 Lines: 23 total | 19 code | 1 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -494,7 +514,7 @@ export default defineConfig([globalIgnores(['dist']), {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 6/76: export_project.py
+FILE 6/84: export_project.py
 Language: python | Size: 16,849 bytes
 Lines: 421 total | 345 code | 1 comments | 75 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -925,7 +945,7 @@ if __name__ == "__main__":
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 7/76: index.html
+FILE 7/84: index.html
 Language: html | Size: 359 bytes
 Lines: 14 total | 13 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -948,7 +968,7 @@ Lines: 14 total | 13 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 8/76: original-dmeo.html
+FILE 8/84: original-dmeo.html
 Language: html | Size: 79,593 bytes
 Lines: 2321 total | 2232 code | 25 comments | 64 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3278,7 +3298,7 @@ Lines: 2321 total | 2232 code | 25 comments | 64 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 9/76: package.json
+FILE 9/84: package.json
 Language: json | Size: 1,782 bytes
 Lines: 67 total | 66 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3354,7 +3374,7 @@ Lines: 67 total | 66 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 10/76: public\favicon.svg
+FILE 10/84: public\favicon.svg
 Language: plaintext | Size: 9,522 bytes
 Lines: 1 total | 1 code | 0 comments | 0 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3365,7 +3385,7 @@ Lines: 1 total | 1 code | 0 comments | 0 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 11/76: public\icons.svg
+FILE 11/84: public\icons.svg
 Language: plaintext | Size: 5,031 bytes
 Lines: 25 total | 24 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3399,7 +3419,7 @@ Lines: 25 total | 24 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 12/76: README.md
+FILE 12/84: README.md
 Language: markdown | Size: 2,427 bytes
 Lines: 76 total | 57 code | 3 comments | 16 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -3484,12 +3504,23 @@ export default defineConfig([
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 13/76: src\App.tsx
-Language: tsx | Size: 65,193 bytes
-Lines: 1828 total | 1738 code | 1 comments | 89 blank
+FILE 13/84: src\App.tsx
+Language: tsx | Size: 77,114 bytes
+Lines: 2154 total | 2025 code | 1 comments | 128 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
+/**
+ * Dara UI - Main Demo Application
+ *
+ * This file serves as the primary showcase for all Dara UI components.
+ * It demonstrates the complete component library with interactive examples
+ * and full multilingual support (English, Persian, French).
+ *
+ * The app uses the I18nProvider to handle translations, allowing all UI text
+ * to switch dynamically between languages while maintaining RTL support.
+ */
+
 import { useState, useEffect } from "react";
 import Button from "./components/Button/Button";
 import { Badge } from "./components/Badge/Badge";
@@ -3509,12 +3540,22 @@ import { CharacterCard } from "./components/CharacterCard/CharacterCard";
 import { ThemeChanger } from "./components/ThemeChanger";
 import useDirection from "./hooks/useDirection";
 
+import {
+  I18nProvider,
+  useI18n,
+  LanguageChanger,
+} from "./components/LanguageChanger";
+import { translations } from "./translations";
+
 import "./styles/index.css";
 import StatsWidget from "./components/StatsWidget";
 
 type Theme = "nightfall" | "daylight" | "dracula";
 
+// ============================================
 // Icons
+// ============================================
+
 const SearchIcon = () => (
   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
     <path
@@ -3584,7 +3625,10 @@ const CheckIcon = () => (
   </svg>
 );
 
+// ============================================
 // Tab items for Tabs demo
+// ============================================
+
 const tabItems = [
   {
     label: "Archive",
@@ -3626,7 +3670,10 @@ const tabItems = [
   },
 ];
 
+// ============================================
 // Accordion items for demo
+// ============================================
+
 const accordionItems = [
   {
     id: "1",
@@ -3770,7 +3817,10 @@ const accordionItemsWithIcons = [
   },
 ];
 
+// ============================================
 // Dropdown options
+// ============================================
+
 const frameworkOptions = [
   { value: "react", label: "React" },
   { value: "vue", label: "Vue.js" },
@@ -3786,6 +3836,10 @@ const dropdownOptionsWithIcons = [
   { value: "favorites", label: "Favorites", icon: <StarIcon /> },
   { value: "done", label: "Completed", icon: <CheckIcon /> },
 ];
+
+// ============================================
+// Toast Demo Component
+// ============================================
 
 function ToastDemo() {
   const toast = useToast();
@@ -3820,7 +3874,14 @@ function ToastDemo() {
   );
 }
 
+// ============================================
+// Main App Content
+// ============================================
+
 function AppContent() {
+  // ----- Get translation function from i18n context -----
+  const { t } = useI18n();
+
   const [theme, setTheme] = useState<Theme>("nightfall");
   const { direction, toggleDirection } = useDirection("ltr");
   const [activeTab, setActiveTab] = useState("archive");
@@ -3831,6 +3892,7 @@ function AppContent() {
   const [selectedFramework, setSelectedFramework] = useState("react");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Apply theme to document
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
@@ -3842,88 +3904,95 @@ function AppContent() {
   return (
     <div className="min-h-screen p-8 transition-theme">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
+        {/* ============================================
+            HEADER
+            ============================================ */}
         <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
           <h1 className="text-4xl font-bold text-gradient-primary">
-            Dara UI Components
+            {t("app.title")}
           </h1>
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-2 flex-wrap items-center">
             <Button
               size="sm"
               variant={theme === "nightfall" ? "primary" : "outline"}
               onClick={() => changeTheme("nightfall")}
             >
-              🌙 Nightfall
+              🌙 {t("header.nightfall")}
             </Button>
             <Button
               size="sm"
               variant={theme === "daylight" ? "primary" : "outline"}
               onClick={() => changeTheme("daylight")}
             >
-              ☀️ Daylight
+              ☀️ {t("header.daylight")}
             </Button>
             <Button
               size="sm"
               variant={theme === "dracula" ? "primary" : "outline"}
               onClick={() => changeTheme("dracula")}
             >
-              🍷 Dracula
+              🍷 {t("header.dracula")}
             </Button>
             <Button size="sm" variant="outline" onClick={toggleDirection}>
-              {direction === "ltr" ? "🔁 RTL" : "🔁 LTR"}
+              {direction === "ltr"
+                ? `🔁 ${t("header.rtl")}`
+                : `🔁 ${t("header.ltr")}`}
             </Button>
           </div>
         </div>
-        {/* ----- BADGES SHOWCASE ----- */}
+
+        {/* ============================================
+            BADGES SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Badges</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("badges.title")}</h2>
 
           {/* Badge Variants */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Variants
+              {t("badges.variants")}
             </p>
             <div className="flex flex-wrap gap-3">
-              <Badge variant="primary">Primary</Badge>
-              <Badge variant="secondary">Secondary</Badge>
-              <Badge variant="success">Success</Badge>
-              <Badge variant="danger">Danger</Badge>
-              <Badge variant="warning">Warning</Badge>
+              <Badge variant="primary">{t("badges.primary")}</Badge>
+              <Badge variant="secondary">{t("badges.secondary")}</Badge>
+              <Badge variant="success">{t("badges.success")}</Badge>
+              <Badge variant="danger">{t("badges.danger")}</Badge>
+              <Badge variant="warning">{t("badges.warning")}</Badge>
             </div>
           </div>
 
           {/* Badge Sizes */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Sizes
+              {t("badges.sizes")}
             </p>
             <div className="flex flex-wrap gap-3 items-center">
-              <Badge size="sm">Small</Badge>
-              <Badge size="md">Medium</Badge>
-              <Badge size="lg">Large</Badge>
+              <Badge size="sm">{t("badges.small")}</Badge>
+              <Badge size="md">{t("badges.medium")}</Badge>
+              <Badge size="lg">{t("badges.large")}</Badge>
             </div>
           </div>
 
           {/* Outline Badges */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Outline Variants
+              {t("badges.outline")}
             </p>
             <div className="flex flex-wrap gap-3">
               <Badge outline variant="primary">
-                Primary
+                {t("badges.primary")}
               </Badge>
               <Badge outline variant="secondary">
-                Secondary
+                {t("badges.secondary")}
               </Badge>
               <Badge outline variant="success">
-                Success
+                {t("badges.success")}
               </Badge>
               <Badge outline variant="danger">
-                Danger
+                {t("badges.danger")}
               </Badge>
               <Badge outline variant="warning">
-                Warning
+                {t("badges.warning")}
               </Badge>
             </div>
           </div>
@@ -3931,17 +4000,17 @@ function AppContent() {
           {/* Glow Badges */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Glow
+              {t("badges.withGlow")}
             </p>
             <div className="flex flex-wrap gap-3">
               <Badge glow variant="primary">
-                Glow Primary
+                {t("badges.glowPrimary")}
               </Badge>
               <Badge glow variant="success">
-                Glow Success
+                {t("badges.glowSuccess")}
               </Badge>
               <Badge glow variant="danger">
-                Glow Danger
+                {t("badges.glowDanger")}
               </Badge>
             </div>
           </div>
@@ -3949,82 +4018,92 @@ function AppContent() {
           {/* Badges with Icons */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Icons
+              {t("badges.withIcons")}
             </p>
             <div className="flex flex-wrap gap-3">
               <Badge variant="primary">
-                <span className="mr-1">📦</span> Package
+                <span className="mr-1">📦</span> {t("badges.package")}
               </Badge>
               <Badge variant="success">
-                <span className="mr-1">✅</span> Done
+                <span className="mr-1">✅</span> {t("badges.done")}
               </Badge>
               <Badge variant="warning">
-                <span className="mr-1">⚠️</span> Pending
+                <span className="mr-1">⚠️</span> {t("badges.warning")}
               </Badge>
               <Badge variant="danger">
-                <span className="mr-1">❌</span> Failed
+                <span className="mr-1">❌</span> {t("badges.failed")}
               </Badge>
             </div>
           </div>
         </section>
-        {/* ----- BUTTONS SHOWCASE ----- */}
+
+        {/* ============================================
+            BUTTONS SHOWCASE
+            ============================================ */}
         {/* Buttons: variants */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Button Variants</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("buttons.title")}</h2>
           <div className="flex flex-wrap gap-3">
-            <Button variant="primary">Primary</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="glass">Glass</Button>
-            <Button variant="danger">Danger</Button>
-            <Button variant="success">Success</Button>
-            <Button variant="outline">Outline</Button>
+            <Button variant="primary">{t("buttons.primary")}</Button>
+            <Button variant="secondary">{t("buttons.secondary")}</Button>
+            <Button variant="glass">{t("buttons.glass")}</Button>
+            <Button variant="danger">{t("buttons.danger")}</Button>
+            <Button variant="success">{t("buttons.success")}</Button>
+            <Button variant="outline">{t("buttons.outline")}</Button>
           </div>
         </section>
-        {/* Buttons: stats */}
+
+        {/* Buttons: states */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Button States</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("buttons.states")}</h2>
           <div className="flex flex-wrap gap-3 items-center">
-            <Button variant="primary">Normal</Button>
+            <Button variant="primary">{t("buttons.normal")}</Button>
             <Button
               variant="primary"
               className="bg-[var(--color-primary-hover)] shadow-[var(--shadow-glow-primary)]"
             >
-              Hover
+              {t("buttons.hover")}
             </Button>
             <Button variant="primary" className="scale-95">
-              Pressed
+              {t("buttons.pressed")}
             </Button>
             <Button variant="primary" disabled>
-              Disabled
+              {t("buttons.disabled")}
             </Button>
             <Button variant="primary" loading>
-              Loading
+              {t("buttons.loading")}
             </Button>
           </div>
         </section>
+
         {/* Buttons: sizes */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Button Sizes</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("buttons.sizesTitle")}
+          </h2>
           <div className="flex flex-wrap gap-3 items-center">
             <Button size="sm" variant="primary">
-              Small
+              {t("buttons.small")}
             </Button>
             <Button size="md" variant="primary">
-              Medium (default)
+              {t("buttons.medium")}
             </Button>
             <Button size="lg" variant="primary">
-              Large
+              {t("buttons.large")}
             </Button>
           </div>
         </section>
-        {/* ----- AVATAR SHOWCASE ----- */}
+
+        {/* ============================================
+            AVATAR SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Avatar</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("avatar.title")}</h2>
 
           {/* Sizes */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Sizes
+              {t("avatar.sizes")}
             </p>
             <div className="flex items-center gap-4">
               <Avatar size="xs" fallbackText="JD" />
@@ -4038,7 +4117,7 @@ function AppContent() {
           {/* Shapes */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Shapes
+              {t("avatar.shapes")}
             </p>
             <div className="flex items-center gap-4">
               <Avatar shape="circle" fallbackText="JD" />
@@ -4050,7 +4129,7 @@ function AppContent() {
           {/* With Status */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Status Indicators
+              {t("avatar.status")}
             </p>
             <div className="flex items-center gap-4">
               <Avatar status="online" fallbackText="JD" />
@@ -4063,7 +4142,7 @@ function AppContent() {
           {/* With Glow */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Glow Effects
+              {t("avatar.glowEffects")}
             </p>
             <div className="flex items-center gap-4">
               <Avatar glow="purple" fallbackText="JD" />
@@ -4075,7 +4154,7 @@ function AppContent() {
           {/* With Image */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Image
+              {t("avatar.withImage")}
             </p>
             <div className="flex items-center gap-4">
               <Avatar
@@ -4101,7 +4180,7 @@ function AppContent() {
           {/* Group */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Group
+              {t("avatar.group")}
             </p>
             <Avatar group size="md">
               <Avatar fallbackText="JD" />
@@ -4114,7 +4193,7 @@ function AppContent() {
           {/* Clickable */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Clickable
+              {t("avatar.clickable")}
             </p>
             <Avatar
               fallbackText="JD"
@@ -4123,34 +4202,37 @@ function AppContent() {
             />
           </div>
         </section>
-        {/* ----- TOOLTIP SHOWCASE ----- */}
+
+        {/* ============================================
+            TOOLTIP SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Tooltip</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("tooltip.title")}</h2>
 
           {/* Placements */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Placements
+              {t("tooltip.placements")}
             </p>
             <div className="grid grid-cols-4 gap-4">
-              <Tooltip content="Top" placement="top">
+              <Tooltip content={t("tooltip.top")} placement="top">
                 <Button size="sm" variant="glass" className="w-full">
-                  Top
+                  {t("tooltip.top")}
                 </Button>
               </Tooltip>
-              <Tooltip content="Bottom" placement="bottom">
+              <Tooltip content={t("tooltip.bottom")} placement="bottom">
                 <Button size="sm" variant="glass" className="w-full">
-                  Bottom
+                  {t("tooltip.bottom")}
                 </Button>
               </Tooltip>
-              <Tooltip content="Left" placement="left">
+              <Tooltip content={t("tooltip.left")} placement="left">
                 <Button size="sm" variant="glass" className="w-full">
-                  Left
+                  {t("tooltip.left")}
                 </Button>
               </Tooltip>
-              <Tooltip content="Right" placement="right">
+              <Tooltip content={t("tooltip.right")} placement="right">
                 <Button size="sm" variant="glass" className="w-full">
-                  Right
+                  {t("tooltip.right")}
                 </Button>
               </Tooltip>
             </div>
@@ -4159,17 +4241,17 @@ function AppContent() {
           {/* Variants */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Variants
+              {t("tooltip.variants")}
             </p>
             <div className="flex items-center gap-4">
-              <Tooltip content="Glass tooltip" variant="glass">
-                <Button variant="glass">Glass</Button>
+              <Tooltip content={t("tooltip.glassTooltip")} variant="glass">
+                <Button variant="glass">{t("buttons.glass")}</Button>
               </Tooltip>
-              <Tooltip content="Solid tooltip" variant="solid">
-                <Button variant="secondary">Solid</Button>
+              <Tooltip content={t("tooltip.solidTooltip")} variant="solid">
+                <Button variant="secondary">{t("buttons.secondary")}</Button>
               </Tooltip>
-              <Tooltip content="Outline tooltip" variant="outline">
-                <Button variant="outline">Outline</Button>
+              <Tooltip content={t("tooltip.outlineTooltip")} variant="outline">
+                <Button variant="outline">{t("buttons.outline")}</Button>
               </Tooltip>
             </div>
           </div>
@@ -4177,9 +4259,9 @@ function AppContent() {
           {/* With Badge */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Badge
+              {t("tooltip.withBadge")}
             </p>
-            <Tooltip content="You have 42 unread messages">
+            <Tooltip content={t("tooltip.unreadMessages", { count: 42 })}>
               <Badge variant="primary" glow className="cursor-pointer">
                 42
               </Badge>
@@ -4189,16 +4271,19 @@ function AppContent() {
           {/* Long Content */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Long Content
+              {t("tooltip.longContent")}
             </p>
-            <Tooltip content="This is a longer tooltip with more detailed information about the element you're hovering over.">
-              <Button variant="primary">Hover for details</Button>
+            <Tooltip content={t("tooltip.longTooltip")}>
+              <Button variant="primary">{t("tooltip.hoverDetails")}</Button>
             </Tooltip>
           </div>
         </section>
-        {/* ----- TABS SHOWCASE ----- */}
+
+        {/* ============================================
+            TABS SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Tabs</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("tabs.title")}</h2>
           <Tabs
             items={tabItems}
             activeValue={activeTab}
@@ -4206,14 +4291,19 @@ function AppContent() {
             glowColor="primary"
           />
         </section>
-        {/* ----- ACCORDION SHOWCASE ----- */}
+
+        {/* ============================================
+            ACCORDION SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Accordion</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("accordion.title")}
+          </h2>
 
           {/* Mode Switcher */}
           <div className="flex items-center gap-4 mb-4 flex-wrap">
             <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-              Mode:
+              {t("accordion.mode")}:
             </span>
             <Button
               size="sm"
@@ -4223,7 +4313,7 @@ function AppContent() {
                 setOpenAccordionItems(["1"]);
               }}
             >
-              Single
+              {t("accordion.single")}
             </Button>
             <Button
               size="sm"
@@ -4233,19 +4323,19 @@ function AppContent() {
                 setOpenAccordionItems(["1", "2"]);
               }}
             >
-              Multiple
+              {t("accordion.multiple")}
             </Button>
             <span className="text-xs text-[var(--color-text-tertiary)] font-mono ml-2">
               {accordionMode === "single"
-                ? "Only one item can be open at a time"
-                : "Multiple items can be open simultaneously"}
+                ? t("accordion.singleDesc")
+                : t("accordion.multipleDesc")}
             </span>
           </div>
 
           {/* Controlled Accordion */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Controlled — Open items:{" "}
+              {t("accordion.controlled")}{" "}
               <span className="text-[var(--color-primary)]">
                 {openAccordionItems.length > 0
                   ? openAccordionItems.join(", ")
@@ -4265,7 +4355,7 @@ function AppContent() {
           {/* With Icons */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Icons
+              {t("accordion.withIcons")}
             </p>
             <Accordion
               items={accordionItemsWithIcons}
@@ -4274,24 +4364,27 @@ function AppContent() {
             />
           </div>
         </section>
-        {/* ----- DROPDOWN SHOWCASE ----- */}
+
+        {/* ============================================
+            DROPDOWN SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Dropdown</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("dropdown.title")}</h2>
 
           {/* Basic Dropdowns */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Basic
+              {t("dropdown.basic")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Dropdown
                 options={frameworkOptions}
-                placeholder="Select a framework..."
+                placeholder={t("dropdown.selectFramework")}
                 defaultValue="react"
               />
               <Dropdown
                 options={frameworkOptions}
-                placeholder="With placeholder"
+                placeholder={t("dropdown.withPlaceholder")}
               />
             </div>
           </div>
@@ -4299,19 +4392,19 @@ function AppContent() {
           {/* With Icons */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Icons
+              {t("dropdown.withIcons")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Dropdown
                 options={dropdownOptionsWithIcons}
-                placeholder="Select with icons..."
+                placeholder={t("dropdown.selectWithIcons")}
                 defaultValue="user"
               />
               <Dropdown
                 options={dropdownOptionsWithIcons}
-                placeholder="Search with icons..."
+                placeholder={t("dropdown.searchWithIcons")}
                 searchable
-                searchPlaceholder="Search options..."
+                searchPlaceholder={t("dropdown.searchOptions")}
               />
             </div>
           </div>
@@ -4319,23 +4412,23 @@ function AppContent() {
           {/* Searchable */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Searchable
+              {t("dropdown.searchable")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Dropdown
                 options={frameworkOptions}
-                placeholder="Search frameworks..."
+                placeholder={t("dropdown.searchFrameworks")}
                 searchable
                 defaultValue="react"
-                label="Framework"
-                helperText="Type to filter options"
+                label={t("dropdown.framework")}
+                helperText={t("dropdown.typeToFilter")}
               />
               <Dropdown
                 options={dropdownOptionsWithIcons}
-                placeholder="Search with icons..."
+                placeholder={t("dropdown.searchWithIcons")}
                 searchable
-                searchPlaceholder="Search..."
-                label="With Icons"
+                searchPlaceholder={t("dropdown.searchOptions")}
+                label={t("dropdown.withIcons")}
               />
             </div>
           </div>
@@ -4343,7 +4436,7 @@ function AppContent() {
           {/* Controlled */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Controlled — Selected:{" "}
+              {t("dropdown.controlled")}{" "}
               <span className="text-[var(--color-primary)] font-bold">
                 {selectedFramework}
               </span>
@@ -4353,8 +4446,8 @@ function AppContent() {
                 options={frameworkOptions}
                 value={selectedFramework}
                 onChange={setSelectedFramework}
-                placeholder="Select a framework..."
-                label="Controlled Dropdown"
+                placeholder={t("dropdown.selectFramework")}
+                label={t("dropdown.framework")}
               />
               <div className="flex items-center gap-2 flex-wrap">
                 <Button
@@ -4362,50 +4455,59 @@ function AppContent() {
                   variant="outline"
                   onClick={() => setSelectedFramework("vue")}
                 >
-                  Set Vue
+                  {t("dropdown.setVue")}
                 </Button>
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={() => setSelectedFramework("svelte")}
                 >
-                  Set Svelte
+                  {t("dropdown.setSvelte")}
                 </Button>
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={() => setSelectedFramework("solid")}
                 >
-                  Set Solid
+                  {t("dropdown.setSolid")}
                 </Button>
               </div>
             </div>
           </div>
         </section>
-        {/* ----- CARD SHOWCASE ----- */}
+
+        {/* ============================================
+            CARDS SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Cards</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("cards.title")}</h2>
 
           {/* Variants */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Variants
+              {t("cards.variants")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Card variant="glass">
-                <h3 className="font-heading font-bold">Glass</h3>
+                <h3 className="font-heading font-bold">
+                  {t("cards.glassCard")}
+                </h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   backdrop-filter: blur(20px)
                 </p>
               </Card>
               <Card variant="solid">
-                <h3 className="font-heading font-bold">Solid</h3>
+                <h3 className="font-heading font-bold">
+                  {t("cards.solidCard")}
+                </h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   More opaque, less blur
                 </p>
               </Card>
               <Card variant="outline">
-                <h3 className="font-heading font-bold">Outline</h3>
+                <h3 className="font-heading font-bold">
+                  {t("cards.outlineCard")}
+                </h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   Transparent with border
                 </p>
@@ -4416,23 +4518,29 @@ function AppContent() {
           {/* Float + Glow */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Float + Glow
+              {t("cards.floatGlow")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Card float glow="purple">
-                <h3 className="font-heading font-bold">Purple Glow</h3>
+                <h3 className="font-heading font-bold">
+                  {t("cards.purpleGlow")}
+                </h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   Hover to float ✨
                 </p>
               </Card>
               <Card float glow="cyan">
-                <h3 className="font-heading font-bold">Cyan Glow</h3>
+                <h3 className="font-heading font-bold">
+                  {t("cards.cyanGlow")}
+                </h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   Hover to float ✨
                 </p>
               </Card>
               <Card float glow="pink">
-                <h3 className="font-heading font-bold">Pink Glow</h3>
+                <h3 className="font-heading font-bold">
+                  {t("cards.pinkGlow")}
+                </h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   Hover to float ✨
                 </p>
@@ -4443,55 +4551,63 @@ function AppContent() {
           {/* Feature Cards */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Feature Cards
+              {t("cards.featureCards")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card glow="purple" className="text-center">
                 <div className="text-4xl mb-2">🚀</div>
-                <h3 className="font-heading font-bold">Launch</h3>
+                <h3 className="font-heading font-bold">{t("cards.launch")}</h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
-                  Deploy your project with one click.
+                  {t("cards.deployProject")}
                 </p>
               </Card>
               <Card variant="solid" className="text-center">
                 <div className="text-4xl mb-2">📊</div>
-                <h3 className="font-heading font-bold">Analytics</h3>
+                <h3 className="font-heading font-bold">
+                  {t("cards.analytics")}
+                </h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
-                  Track your performance metrics.
+                  {t("cards.trackPerformance")}
                 </p>
               </Card>
             </div>
           </div>
         </section>
-        {/* ----- INPUT SHOWCASE ----- */}
+
+        {/* ============================================
+            INPUT SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Inputs</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("inputs.title")}</h2>
 
           {/* Basic Inputs */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Basic Inputs
+              {t("inputs.basic")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input placeholder="Text input" />
-              <Input type="password" placeholder="Password" />
-              <Input type="search" placeholder="Search..." />
-              <Input type="email" placeholder="Email" />
+              <Input placeholder={t("inputs.textInput")} />
+              <Input type="password" placeholder={t("inputs.password")} />
+              <Input type="search" placeholder={t("inputs.search")} />
+              <Input type="email" placeholder={t("inputs.email")} />
             </div>
           </div>
 
           {/* With Labels */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Labels
+              {t("inputs.withLabels")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input label="Username" placeholder="Enter username" />
               <Input
-                label="Email"
+                label={t("inputs.username")}
+                placeholder={t("inputs.enterUsername")}
+              />
+              <Input
+                label={t("inputs.email")}
                 type="email"
-                placeholder="Enter email"
-                helperText="We'll never share your email."
+                placeholder={t("inputs.enterEmail")}
+                helperText={t("inputs.emailHelper")}
               />
             </div>
           </div>
@@ -4499,14 +4615,17 @@ function AppContent() {
           {/* With Icons */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Icons
+              {t("inputs.withIconsTitle")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input leftIcon={<UserIcon />} placeholder="Username" />
+              <Input
+                leftIcon={<UserIcon />}
+                placeholder={t("inputs.username")}
+              />
               <Input
                 leftIcon={<SearchIcon />}
                 type="search"
-                placeholder="Search..."
+                placeholder={t("inputs.search")}
               />
             </div>
           </div>
@@ -4514,65 +4633,72 @@ function AppContent() {
           {/* Validation States */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Validation States
+              {t("inputs.validation")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Input
-                placeholder="Success"
+                placeholder={t("inputs.success")}
                 validation="success"
-                successMessage="Valid input!"
+                successMessage={t("inputs.validInput")}
               />
               <Input
-                placeholder="Error"
+                placeholder={t("inputs.error")}
                 validation="error"
-                errorMessage="Something went wrong"
+                errorMessage={t("inputs.somethingWrong")}
               />
             </div>
           </div>
         </section>
-        {/* ----- MODAL SHOWCASE ----- */}
+
+        {/* ============================================
+            MODAL SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Modal</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("modal.title")}</h2>
           <div className="flex gap-3 flex-wrap">
             <Button variant="primary" onClick={() => setIsModalOpen(true)}>
-              🔮 Open Modal
+              🔮 {t("modal.openModal")}
             </Button>
             <Button variant="glass" onClick={() => setIsModalOpen(true)}>
-              📜 View Content
+              📜 {t("modal.viewContent")}
             </Button>
           </div>
           <Modal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
-            title="🗂️ Archive Access"
-            confirmText="Accept Mission"
-            cancelText="Decline"
+            title={`🗂️ ${t("modal.archiveAccess")}`}
+            confirmText={t("modal.acceptMission")}
+            cancelText={t("modal.decline")}
             onConfirm={() => {
               console.log("Mission accepted!");
               setIsModalOpen(false);
             }}
           >
-            You've discovered a sealed Jedi archive fragment. This modal uses
-            glass-heavy styling with blur(30px) backdrop, scale-in animation,
-            and is rendered via React Portal outside the DOM tree.
+            {t("modal.modalDescription")}
           </Modal>
         </section>
-        {/* ----- TOAST SHOWCASE ----- */}
+
+        {/* ============================================
+            TOAST SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Toast Notifications</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("toast.title")}</h2>
           <p className="text-[var(--color-text-secondary)] text-sm mb-6 font-sans">
-            Top-right · Minimal · 220ms slide-in · Auto-dismiss
+            {t("toast.subtitle")}
           </p>
           <ToastDemo />
         </section>
-        {/* ----- PROGRESS SHOWCASE ----- */}
+
+        {/* ============================================
+            PROGRESS SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Progress</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("progress.title")}</h2>
 
           {/* Horizontal */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Horizontal
+              {t("progress.horizontal")}
             </p>
             <div className="flex flex-col gap-4 max-w-md">
               <Progress
@@ -4617,7 +4743,7 @@ function AppContent() {
           {/* Label Inside */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Label Inside Bar
+              {t("progress.labelInside")}
             </p>
             <div className="flex flex-col gap-4 max-w-md">
               <Progress
@@ -4650,7 +4776,7 @@ function AppContent() {
           {/* Display Types */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Display Types
+              {t("progress.displayTypes")}
             </p>
             <div className="flex flex-col gap-4 max-w-md">
               <Progress
@@ -4669,7 +4795,7 @@ function AppContent() {
               <Progress
                 value={75}
                 displayType="custom"
-                label="Almost done!"
+                label={t("progress.almostDone")}
                 labelPosition="right"
                 showLabel
               />
@@ -4679,7 +4805,7 @@ function AppContent() {
           {/* Sizes */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Sizes
+              {t("progress.sizes")}
             </p>
             <div className="flex flex-col gap-4 max-w-md">
               <Progress value={50} size="sm" labelPosition="right" showLabel />
@@ -4691,7 +4817,7 @@ function AppContent() {
           {/* Radial */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Radial
+              {t("progress.radial")}
             </p>
             <div className="flex flex-wrap gap-6">
               <Progress variant="radial" value={75} color="primary" showLabel />
@@ -4717,7 +4843,7 @@ function AppContent() {
           {/* Radial with Custom Label */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Radial with Custom Label
+              {t("progress.radialCustom")}
             </p>
             <div className="flex flex-wrap gap-6">
               <Progress
@@ -4731,14 +4857,14 @@ function AppContent() {
                 variant="radial"
                 value={75}
                 displayType="custom"
-                label="Done!"
+                label={t("progress.done")}
                 showLabel
                 color="success"
               />
               <Progress
                 variant="radial"
                 value={45}
-                label="Loading..."
+                label={t("progress.loading")}
                 showLabel
                 color="warning"
               />
@@ -4748,7 +4874,7 @@ function AppContent() {
           {/* Radial Sizes */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Radial Sizes
+              {t("progress.radialSizes")}
             </p>
             <div className="flex flex-wrap gap-6 items-end">
               <Progress variant="radial" value={50} size="sm" showLabel />
@@ -4757,9 +4883,12 @@ function AppContent() {
             </div>
           </div>
         </section>
-        {/* ----- XPBAR SHOWCASE ----- */}
+
+        {/* ============================================
+            XPBAR SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">XPBar, RankTier</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("xpbar.title")}</h2>
 
           {/* Basic XP Bar */}
           <div className="glass mb-5 p-6 float-card">
@@ -4772,9 +4901,9 @@ function AppContent() {
               value={3400}
               max={5000}
               level={14}
-              customLabel="★ RANK PROGRESS"
+              customLabel={`★ ${t("xpbar.rankProgress")}`}
               levelLabel="Rank"
-              xpLabel="EXP"
+              xpLabel={t("xpbar.exp")}
             />
           </div>
 
@@ -4784,9 +4913,9 @@ function AppContent() {
               value={3400}
               max={5000}
               level={14}
-              levelLabel="Tier"
-              xpLabel="Points"
-              customLabel="🏆 RANK PROGRESS"
+              levelLabel={t("xpbar.tier")}
+              xpLabel={t("xpbar.points")}
+              customLabel={`🏆 ${t("xpbar.rankProgress")}`}
               ranks={[
                 { label: "Common", requiredXP: 0 },
                 { label: "Uncommon", requiredXP: 1000 },
@@ -4803,9 +4932,9 @@ function AppContent() {
               value={750}
               max={1200}
               level={3}
-              levelLabel="Prestige"
-              xpLabel="Score"
-              customLabel="⚔️ MISSION PROGRESS"
+              levelLabel={t("xpbar.prestige")}
+              xpLabel={t("xpbar.score")}
+              customLabel={`⚔️ ${t("xpbar.missionProgress")}`}
               ranks={[
                 { label: "Recruit", requiredXP: 0 },
                 { label: "Soldier", requiredXP: 300 },
@@ -4815,33 +4944,37 @@ function AppContent() {
               ]}
             />
           </div>
-
-          {/* QuestCard */}
         </section>
-        {/* ----- GLOW SHOWCASE ----- */}
+
+        {/* ============================================
+            GLOW SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Glow Effects</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("glow.title")}</h2>
           <div className="flex flex-wrap gap-3">
             <Button glow="purple" variant="primary">
-              Glow Purple
+              {t("glow.glowPurple")}
             </Button>
             <Button glow="cyan" variant="success">
-              Glow Cyan
+              {t("glow.glowCyan")}
             </Button>
             <Button glow="pink" variant="danger">
-              Glow Pink
+              {t("glow.glowPink")}
             </Button>
           </div>
         </section>
-        {/* ----- QUEST CARD SHOWCASE ----- */}
+
+        {/* ============================================
+            QUEST CARD SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Quest Cards</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("quest.title")}</h2>
 
           {/* Basic Quest Card */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <QuestCard
-              title="Build CMS"
-              description="Deploy the encrypted Jedi archive interface before the snow melts."
+              title={t("quest.buildCMS")}
+              description={t("quest.buildCMSDesc")}
               xp={300}
               deadline="tomorrow"
               rank="S"
@@ -4849,16 +4982,16 @@ function AppContent() {
             />
 
             <QuestCard
-              title="Secure Archives"
-              description="Implement end-to-end encryption for all stored data in the archive."
+              title={t("quest.secureArchives")}
+              description={t("quest.secureArchivesDesc")}
               xp={200}
               deadline="3 days"
               rank="A"
               glow="purple"
               requirements={[
-                "Complete 3 code reviews",
-                "Write 5 unit tests",
-                "Deploy to staging",
+                t("quest.completeReviews"),
+                t("quest.writeTests"),
+                t("quest.deployStaging"),
               ]}
             />
           </div>
@@ -4866,95 +4999,112 @@ function AppContent() {
           {/* Full Featured Quest Card */}
           <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
             <QuestCard
-              title="Legendary Quest: The Lost Archive"
-              description="Journey into the depths of the forgotten vault and retrieve the ancient holocron."
+              title={t("quest.legendaryQuest")}
+              description={t("quest.legendaryQuestDesc")}
               xp={1000}
-              xpLabel="EXP"
+              xpLabel={t("xpbar.exp")}
               deadline="2024-12-25"
               rank="S+"
               glow="purple"
               requirements={[
-                "Reach level 25",
-                "Defeat the Shadow Guardian",
-                "Collect 3 ancient artifacts",
-                "Solve the sphinx riddle",
+                t("quest.reachLevel"),
+                t("quest.defeatGuardian"),
+                t("quest.collectArtifacts"),
+                t("quest.solveRiddle"),
               ]}
             />
 
             <QuestCard
-              title="Map Night City"
-              description="Create a comprehensive map of the cyberpunk district before the data purge."
+              title={t("quest.mapNightCity")}
+              description={t("quest.mapNightCityDesc")}
               xp={150}
               deadline="tonight"
               rank="B"
               glow="pink"
               requirements={[
-                "Scan 10 locations",
-                "Interview 5 NPCs",
-                "Upload to the archive",
+                t("quest.scanLocations"),
+                t("quest.interviewNPCs"),
+                t("quest.uploadArchive"),
               ]}
             />
           </div>
         </section>
-        {/* ----- CHARACTER CARD SHOWCASE ----- */}
+
+        {/* ============================================
+            CHARACTER CARD SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Character Cards</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("character.title")}
+          </h2>
 
           {/* Vertical Layout */}
           <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
-            Vertical Layout (default)
+            {t("character.vertical")}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <CharacterCard
-              name="Dara"
-              subtitle="Jedi Archivist"
-              quote="The dark is not to be feared — it is to be archived."
+              name={t("character.daraName")}
+              subtitle={t("character.daraSubtitle")}
+              quote={t("character.daraQuote")}
               icon="🦇"
               mbti="INTJ"
               species="Human/Cyborg"
               affiliation="Jedi Order"
               traits={["MBTI: INTJ", "Human/Cyborg"]}
               stats={[
-                { label: "Force", value: 73, color: "primary" },
-                { label: "Combat", value: 85, color: "secondary" },
-                { label: "Intelligence", value: 92, color: "accent" },
-                { label: "Wisdom", value: 68, color: "warning" },
+                { label: t("character.force"), value: 73, color: "primary" },
+                { label: t("character.combat"), value: 85, color: "secondary" },
+                {
+                  label: t("character.intelligence"),
+                  value: 92,
+                  color: "accent",
+                },
+                { label: t("character.wisdom"), value: 68, color: "warning" },
               ]}
               glow="purple"
             />
 
             <CharacterCard
-              name="Cipher"
-              subtitle="Netrunner"
-              quote="The code is the key to everything."
+              name={t("character.cipherName")}
+              subtitle={t("character.cipherSubtitle")}
+              quote={t("character.cipherQuote")}
               portrait="https://i.pravatar.cc/150?img=11"
               mbti="INTP"
               species="Cyborg"
               affiliation="Netwatch"
               traits={["MBTI: INTP", "Cyborg"]}
               stats={[
-                { label: "Hacking", value: 95, color: "secondary" },
-                { label: "Stealth", value: 78, color: "accent" },
-                { label: "Intelligence", value: 88, color: "primary" },
-                { label: "Combat", value: 45, color: "danger" },
+                {
+                  label: t("character.hacking"),
+                  value: 95,
+                  color: "secondary",
+                },
+                { label: t("character.stealth"), value: 78, color: "accent" },
+                {
+                  label: t("character.intelligence"),
+                  value: 88,
+                  color: "primary",
+                },
+                { label: t("character.combat"), value: 45, color: "danger" },
               ]}
               glow="cyan"
             />
 
             <CharacterCard
-              name="Shadow"
-              subtitle="Night Hunter"
-              quote="I move in the darkness where they cannot see."
+              name={t("character.shadowName")}
+              subtitle={t("character.shadowSubtitle")}
+              quote={t("character.shadowQuote")}
               icon="🌙"
               mbti="ISTP"
               species="Vampire"
               affiliation="Night Council"
               traits={["MBTI: ISTP", "Vampire"]}
               stats={[
-                { label: "Agility", value: 92, color: "accent" },
-                { label: "Stealth", value: 88, color: "danger" },
-                { label: "Strength", value: 76, color: "warning" },
-                { label: "Wisdom", value: 82, color: "primary" },
+                { label: t("character.agility"), value: 92, color: "accent" },
+                { label: t("character.stealth"), value: 88, color: "danger" },
+                { label: t("character.strength"), value: 76, color: "warning" },
+                { label: t("character.wisdom"), value: 82, color: "primary" },
               ]}
               glow="pink"
             />
@@ -4962,98 +5112,130 @@ function AppContent() {
 
           {/* Horizontal Layout */}
           <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
-            Horizontal Layout
+            {t("character.horizontal")}
           </p>
           <div className="flex flex-col gap-6">
             <CharacterCard
               layout="horizontal"
-              name="Dara"
-              subtitle="Jedi Archivist"
-              quote="The dark is not to be feared — it is to be archived."
+              name={t("character.daraName")}
+              subtitle={t("character.daraSubtitle")}
+              quote={t("character.daraQuote")}
               icon="🦇"
               mbti="INTJ"
               species="Human/Cyborg"
               affiliation="Jedi Order"
               traits={["MBTI: INTJ", "Human/Cyborg"]}
               stats={[
-                { label: "Force", value: 73, color: "primary" },
-                { label: "Combat", value: 85, color: "secondary" },
-                { label: "Intelligence", value: 92, color: "accent" },
-                { label: "Wisdom", value: 68, color: "warning" },
+                { label: t("character.force"), value: 73, color: "primary" },
+                { label: t("character.combat"), value: 85, color: "secondary" },
+                {
+                  label: t("character.intelligence"),
+                  value: 92,
+                  color: "accent",
+                },
+                { label: t("character.wisdom"), value: 68, color: "warning" },
               ]}
               glow="purple"
             />
 
             <CharacterCard
               layout="horizontal"
-              name="Cipher"
-              subtitle="Netrunner"
-              quote="The code is the key to everything."
+              name={t("character.cipherName")}
+              subtitle={t("character.cipherSubtitle")}
+              quote={t("character.cipherQuote")}
               portrait="https://i.pravatar.cc/150?img=11"
               mbti="INTP"
               species="Cyborg"
               affiliation="Netwatch"
               traits={["MBTI: INTP", "Cyborg"]}
               stats={[
-                { label: "Hacking", value: 95, color: "secondary" },
-                { label: "Stealth", value: 78, color: "accent" },
-                { label: "Intelligence", value: 88, color: "primary" },
-                { label: "Combat", value: 45, color: "danger" },
+                {
+                  label: t("character.hacking"),
+                  value: 95,
+                  color: "secondary",
+                },
+                { label: t("character.stealth"), value: 78, color: "accent" },
+                {
+                  label: t("character.intelligence"),
+                  value: 88,
+                  color: "primary",
+                },
+                { label: t("character.combat"), value: 45, color: "danger" },
               ]}
               glow="cyan"
             />
 
             <CharacterCard
               layout="horizontal"
-              name="Shadow"
-              subtitle="Night Hunter"
-              quote="I move in the darkness where they cannot see."
+              name={t("character.shadowName")}
+              subtitle={t("character.shadowSubtitle")}
+              quote={t("character.shadowQuote")}
               icon="🌙"
               mbti="ISTP"
               species="Vampire"
               affiliation="Night Council"
               traits={["MBTI: ISTP", "Vampire"]}
               stats={[
-                { label: "Agility", value: 92, color: "accent" },
-                { label: "Stealth", value: 88, color: "danger" },
-                { label: "Strength", value: 76, color: "warning" },
-                { label: "Wisdom", value: 82, color: "primary" },
+                { label: t("character.agility"), value: 92, color: "accent" },
+                { label: t("character.stealth"), value: 88, color: "danger" },
+                { label: t("character.strength"), value: 76, color: "warning" },
+                { label: t("character.wisdom"), value: 82, color: "primary" },
               ]}
               glow="pink"
             />
           </div>
         </section>
-        {/* ----- STATS WIDGET SHOWCASE ----- */}
+
+        {/* ============================================
+            STATS WIDGET SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Stats Widget</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("statsWidget.title")}
+          </h2>
 
           {/* Radial Variant */}
           <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
-            Radial Variant
+            {t("statsWidget.radialVariant")}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <StatsWidget
-              title="FORCE STATS"
+              title={t("statsWidget.forceStats")}
               glow="purple"
               stats={[
-                { label: "Force", value: 73, color: "primary", trend: 12 },
-                { label: "Combat", value: 85, color: "secondary", trend: 8 },
                 {
-                  label: "Intelligence",
+                  label: t("character.force"),
+                  value: 73,
+                  color: "primary",
+                  trend: 12,
+                },
+                {
+                  label: t("character.combat"),
+                  value: 85,
+                  color: "secondary",
+                  trend: 8,
+                },
+                {
+                  label: t("character.intelligence"),
                   value: 92,
                   color: "accent",
                   trend: -3,
                 },
-                { label: "Wisdom", value: 68, color: "warning", trend: 5 },
+                {
+                  label: t("character.wisdom"),
+                  value: 68,
+                  color: "warning",
+                  trend: 5,
+                },
               ]}
             />
 
             <StatsWidget
-              title="CHARACTER STATS"
+              title={t("statsWidget.characterStats")}
               glow="cyan"
               stats={[
                 {
-                  label: "Health",
+                  label: t("statsWidget.health"),
                   value: 85,
                   max: 100,
                   unit: "HP",
@@ -5061,7 +5243,7 @@ function AppContent() {
                   trend: -5,
                 },
                 {
-                  label: "Mana",
+                  label: t("statsWidget.mana"),
                   value: 62,
                   max: 100,
                   unit: "MP",
@@ -5069,7 +5251,7 @@ function AppContent() {
                   trend: 15,
                 },
                 {
-                  label: "Stamina",
+                  label: t("statsWidget.stamina"),
                   value: 45,
                   max: 100,
                   unit: "SP",
@@ -5077,7 +5259,7 @@ function AppContent() {
                   trend: 3,
                 },
                 {
-                  label: "Level",
+                  label: t("statsWidget.level"),
                   value: 14,
                   max: 20,
                   unit: "",
@@ -5090,31 +5272,66 @@ function AppContent() {
 
           {/* Bar Variant */}
           <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
-            Bar Variant
+            {t("statsWidget.barVariant")}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <StatsWidget
               variant="bar"
-              title="📈 PROGRESS"
+              title={`📈 ${t("statsWidget.progress")}`}
               glow="pink"
               stats={[
-                { label: "Strength", value: 78, color: "danger", trend: 22 },
-                { label: "Agility", value: 92, color: "accent", trend: 8 },
-                { label: "Endurance", value: 65, color: "warning", trend: -4 },
-                { label: "Luck", value: 45, color: "success", trend: 12 },
+                {
+                  label: t("character.strength"),
+                  value: 78,
+                  color: "danger",
+                  trend: 22,
+                },
+                {
+                  label: t("character.agility"),
+                  value: 92,
+                  color: "accent",
+                  trend: 8,
+                },
+                {
+                  label: t("statsWidget.endurance"),
+                  value: 65,
+                  color: "warning",
+                  trend: -4,
+                },
+                {
+                  label: t("statsWidget.luck"),
+                  value: 45,
+                  color: "success",
+                  trend: 12,
+                },
               ]}
             />
 
             <StatsWidget
               variant="bar"
-              title="SKILLS"
+              title={t("statsWidget.skills")}
               glow="purple"
               stats={[
-                { label: "Hacking", value: 95, color: "secondary", trend: 5 },
-                { label: "Stealth", value: 78, color: "accent", trend: 18 },
-                { label: "Combat", value: 45, color: "danger", trend: -7 },
                 {
-                  label: "Intelligence",
+                  label: t("character.hacking"),
+                  value: 95,
+                  color: "secondary",
+                  trend: 5,
+                },
+                {
+                  label: t("character.stealth"),
+                  value: 78,
+                  color: "accent",
+                  trend: 18,
+                },
+                {
+                  label: t("character.combat"),
+                  value: 45,
+                  color: "danger",
+                  trend: -7,
+                },
+                {
+                  label: t("character.intelligence"),
                   value: 88,
                   color: "primary",
                   trend: 3,
@@ -5125,32 +5342,67 @@ function AppContent() {
 
           {/* Horizontal Layout */}
           <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
-            Horizontal Layout
+            {t("statsWidget.horizontalLayout")}
           </p>
           <div className="flex flex-col gap-6">
             <StatsWidget
               layout="horizontal"
-              title="⚔️ BATTLE STATS"
+              title={`⚔️ ${t("statsWidget.battleStats")}`}
               glow="cyan"
               stats={[
-                { label: "Strength", value: 78, color: "danger", trend: 22 },
-                { label: "Agility", value: 92, color: "accent", trend: 8 },
-                { label: "Endurance", value: 65, color: "warning", trend: -4 },
-                { label: "Luck", value: 45, color: "success", trend: 12 },
+                {
+                  label: t("character.strength"),
+                  value: 78,
+                  color: "danger",
+                  trend: 22,
+                },
+                {
+                  label: t("character.agility"),
+                  value: 92,
+                  color: "accent",
+                  trend: 8,
+                },
+                {
+                  label: t("statsWidget.endurance"),
+                  value: 65,
+                  color: "warning",
+                  trend: -4,
+                },
+                {
+                  label: t("statsWidget.luck"),
+                  value: 45,
+                  color: "success",
+                  trend: 12,
+                },
               ]}
             />
 
             <StatsWidget
               variant="bar"
               layout="horizontal"
-              title="📊 SKILL PROGRESS"
+              title={`📊 ${t("statsWidget.skillProgress")}`}
               glow="purple"
               stats={[
-                { label: "Hacking", value: 95, color: "secondary", trend: 5 },
-                { label: "Stealth", value: 78, color: "accent", trend: 18 },
-                { label: "Combat", value: 45, color: "danger", trend: -7 },
                 {
-                  label: "Intelligence",
+                  label: t("character.hacking"),
+                  value: 95,
+                  color: "secondary",
+                  trend: 5,
+                },
+                {
+                  label: t("character.stealth"),
+                  value: 78,
+                  color: "accent",
+                  trend: 18,
+                },
+                {
+                  label: t("character.combat"),
+                  value: 45,
+                  color: "danger",
+                  trend: -7,
+                },
+                {
+                  label: t("character.intelligence"),
                   value: 88,
                   color: "primary",
                   trend: 3,
@@ -5160,16 +5412,19 @@ function AppContent() {
           </div>
         </section>
 
-        {/* ----- THEME & LANGUAGE CHANGERS SHOWCASE ----- */}
-        {/* ----- THEME CHANGER SHOWCASE ----- */}
+        {/* ============================================
+            THEME CHANGER SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Theme Changer</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("themeChanger.title")}
+          </h2>
 
           <div className="flex flex-wrap gap-6 items-end">
             {/* Default */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Default
+                {t("themeChanger.default")}
               </span>
               <ThemeChanger size="md" />
             </div>
@@ -5177,7 +5432,7 @@ function AppContent() {
             {/* Icon Only */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Icon Only
+                {t("themeChanger.iconOnly")}
               </span>
               <ThemeChanger iconOnly size="md" />
             </div>
@@ -5185,7 +5440,7 @@ function AppContent() {
             {/* Fixed Width */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Fixed Width (160px)
+                {t("themeChanger.fixedWidth")}
               </span>
               <ThemeChanger fixedWidth="160px" size="md" />
             </div>
@@ -5193,7 +5448,7 @@ function AppContent() {
             {/* Small */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Small
+                {t("themeChanger.small")}
               </span>
               <ThemeChanger size="sm" />
             </div>
@@ -5201,7 +5456,7 @@ function AppContent() {
             {/* Small Icon Only */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Small Icon Only
+                {t("themeChanger.smallIconOnly")}
               </span>
               <ThemeChanger iconOnly size="sm" />
             </div>
@@ -5209,7 +5464,7 @@ function AppContent() {
             {/* Custom Themes */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Custom Themes
+                {t("themeChanger.customThemes")}
               </span>
               <ThemeChanger
                 availableThemes={[
@@ -5226,80 +5481,165 @@ function AppContent() {
           <div className="mt-6 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
             <p className="text-sm text-[var(--color-text-secondary)]">
               <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
-                Demo:
+                {t("themeChanger.demo")}:
               </span>{" "}
-              Theme changer with auto-detection, icon-only mode, and fixed width
-              support. Pass{" "}
-              <code className="text-[var(--color-primary)]">iconOnly</code> for
-              compact navbar usage, or{" "}
-              <code className="text-[var(--color-primary)]">fixedWidth</code>{" "}
-              for consistent sizing.
+              {t("themeChanger.themeChangerDesc")}
             </p>
           </div>
         </section>
 
-        {/* ----- GRADIENT SHOWCASE ----- */}
+        {/* ============================================
+            LANGUAGE CHANGER SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Gradients</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("languageChanger.title")}
+          </h2>
+
+          <div className="flex flex-wrap gap-6 items-end">
+            {/* Default */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                {t("languageChanger.default")}
+              </span>
+              <LanguageChanger size="md" />
+            </div>
+
+            {/* Icon Only */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                {t("languageChanger.iconOnly")}
+              </span>
+              <LanguageChanger iconOnly size="md" />
+            </div>
+
+            {/* Fixed Width */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                {t("languageChanger.fixedWidth")}
+              </span>
+              <LanguageChanger fixedWidth="160px" size="md" />
+            </div>
+
+            {/* Small */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                {t("languageChanger.small")}
+              </span>
+              <LanguageChanger size="sm" />
+            </div>
+
+            {/* Small Icon Only */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                {t("languageChanger.smallIconOnly")}
+              </span>
+              <LanguageChanger iconOnly size="sm" />
+            </div>
+
+            {/* Custom Languages */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                {t("languageChanger.customLanguages")}
+              </span>
+              <LanguageChanger
+                availableLanguages={[
+                  { value: "en", label: "English", icon: "🇬🇧", dir: "ltr" },
+                  { value: "fa", label: "فارسی", icon: "🇮🇷", dir: "rtl" },
+                  { value: "fr", label: "Français", icon: "🇫🇷", dir: "ltr" },
+                ]}
+                size="md"
+              />
+            </div>
+          </div>
+
+          <div className="mt-6 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
+                {t("languageChanger.demo")}:
+              </span>{" "}
+              {t("languageChanger.languageChangerDesc")}
+            </p>
+          </div>
+        </section>
+
+        {/* ============================================
+            GRADIENT SHOWCASE
+            ============================================ */}
+        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("gradients.title")}
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-primary text-white text-center">
-              Primary
+              {t("gradients.primary")}
             </div>
             <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-accent text-white text-center">
-              Accent
+              {t("gradients.accent")}
             </div>
             <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-success text-white text-center">
-              Success
+              {t("gradients.success")}
             </div>
             <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-danger text-white text-center">
-              Danger
+              {t("gradients.danger")}
             </div>
           </div>
         </section>
-        {/* ----- GLASS & GLOW SHOWCASE ----- */}
+
+        {/* ============================================
+            EFFECTS SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Effects</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("effects.title")}</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <div className="p-6 rounded-[var(--radius-standard)] glass text-center">
-              Glass Effect
+              {t("effects.glassEffect")}
             </div>
             <div className="p-6 rounded-[var(--radius-standard)] glow-purple text-center bg-[var(--color-bg-tertiary)]">
-              Glow Purple
+              {t("effects.glowPurple")}
             </div>
             <div className="p-6 rounded-[var(--radius-standard)] glow-pink text-center bg-[var(--color-bg-tertiary)]">
-              Glow Pink
+              {t("effects.glowPink")}
             </div>
           </div>
         </section>
-        {/* ----- TYPOGRAPHY SHOWCASE ----- */}
+
+        {/* ============================================
+            TYPOGRAPHY SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Typography</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("typography.title")}
+          </h2>
           <div className="space-y-4">
             <p className="text-sm text-[var(--color-text-secondary)]">
-              Text Secondary
+              {t("typography.textSecondary")}
             </p>
-            <p className="text-base">Regular body text with Inter font</p>
+            <p className="text-base">{t("typography.regularBody")}</p>
             <p className="text-xl font-bold text-gradient-primary">
-              Gradient Heading
+              {t("typography.gradientHeading")}
             </p>
             <p className="text-lg font-medium text-[var(--color-accent)]">
-              Accent colored text
+              {t("typography.accentText")}
             </p>
             <code className="px-3 py-1 rounded-[var(--radius-sm)] block">
-              console.log("Code with JetBrains Mono");
+              {t("typography.codeExample")}
             </code>
           </div>
         </section>
-        {/* ----- PERSIAN TEXT SHOWCASE ----- */}
+
+        {/* ============================================
+            PERSIAN TEXT SHOWCASE
+            ============================================ */}
         <section className="p-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Persian Support</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("persian.title")}</h2>
           <div className="space-y-4">
-            <p className="lang-fa text-lg">
-              این متن با فونت وزیرمتن نمایش داده می‌شود
-            </p>
-            <h3 className="lang-fa-heading text-xl">عنوان فارسی با قلم Kook</h3>
+            <p className="lang-fa text-lg">{t("persian.persianText")}</p>
+            <h3 className="lang-fa-heading text-xl">
+              {t("persian.persianHeading")}
+            </h3>
             <p className="lang-fa text-sm text-[var(--color-text-secondary)]">
-              متن فارسی با اندازه کوچک و رنگ ثانویه
+              {t("persian.persianDesc")}
             </p>
           </div>
         </section>
@@ -5308,10 +5648,16 @@ function AppContent() {
   );
 }
 
+// ============================================
+// App Component with Providers
+// ============================================
+
 function App() {
   return (
     <ToastProvider>
-      <AppContent />
+      <I18nProvider translations={translations} defaultLanguage="en">
+        <AppContent />
+      </I18nProvider>
     </ToastProvider>
   );
 }
@@ -5321,7 +5667,7 @@ export default App;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 14/76: src\components\Accordion\Accordion.stories.tsx
+FILE 14/84: src\components\Accordion\Accordion.stories.tsx
 Language: tsx | Size: 4,724 bytes
 Lines: 184 total | 172 code | 0 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5514,7 +5860,7 @@ export const DisabledItem: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 15/76: src\components\Accordion\Accordion.tsx
+FILE 15/84: src\components\Accordion\Accordion.tsx
 Language: tsx | Size: 5,824 bytes
 Lines: 194 total | 177 code | 0 comments | 17 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5717,7 +6063,7 @@ export default Accordion;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 16/76: src\components\Accordion\index.ts
+FILE 16/84: src\components\Accordion\index.ts
 Language: typescript | Size: 159 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5730,7 +6076,7 @@ export { Accordion as default } from "./Accordion";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 17/76: src\components\Avatar\Avatar.stories.tsx
+FILE 17/84: src\components\Avatar\Avatar.stories.tsx
 Language: tsx | Size: 3,498 bytes
 Lines: 150 total | 137 code | 0 comments | 13 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -5889,7 +6235,7 @@ export const Group: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 18/76: src\components\Avatar\Avatar.tsx
+FILE 18/84: src\components\Avatar\Avatar.tsx
 Language: tsx | Size: 6,829 bytes
 Lines: 273 total | 251 code | 0 comments | 22 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6171,7 +6517,7 @@ export default Avatar;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 19/76: src\components\Avatar\index.ts
+FILE 19/84: src\components\Avatar\index.ts
 Language: typescript | Size: 126 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6184,7 +6530,7 @@ export { Avatar as default } from "./Avatar";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 20/76: src\components\Badge\Badge.stories.tsx
+FILE 20/84: src\components\Badge\Badge.stories.tsx
 Language: tsx | Size: 6,357 bytes
 Lines: 253 total | 240 code | 0 comments | 13 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6446,7 +6792,7 @@ export const AllVariants: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 21/76: src\components\Badge\Badge.tsx
+FILE 21/84: src\components\Badge\Badge.tsx
 Language: tsx | Size: 2,959 bytes
 Lines: 113 total | 102 code | 0 comments | 11 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6568,7 +6914,7 @@ export default Badge;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 22/76: src\components\Badge\index.ts
+FILE 22/84: src\components\Badge\index.ts
 Language: typescript | Size: 120 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6581,7 +6927,7 @@ export { Badge as default } from "./Badge";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 23/76: src\components\Button\Button.stories.tsx
+FILE 23/84: src\components\Button\Button.stories.tsx
 Language: tsx | Size: 3,378 bytes
 Lines: 158 total | 146 code | 0 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6748,7 +7094,7 @@ export const Interactive: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 24/76: src\components\Button\Button.tsx
+FILE 24/84: src\components\Button\Button.tsx
 Language: tsx | Size: 3,689 bytes
 Lines: 130 total | 121 code | 0 comments | 9 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6887,7 +7233,7 @@ export default Button;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 25/76: src\components\Button\index.ts
+FILE 25/84: src\components\Button\index.ts
 Language: typescript | Size: 126 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -6900,7 +7246,7 @@ export { Button as default } from "./Button";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 26/76: src\components\Card\Card.stories.tsx
+FILE 26/84: src\components\Card\Card.stories.tsx
 Language: tsx | Size: 4,455 bytes
 Lines: 155 total | 147 code | 0 comments | 8 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7064,7 +7410,7 @@ export const ContentExamples: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 27/76: src\components\Card\Card.tsx
+FILE 27/84: src\components\Card\Card.tsx
 Language: tsx | Size: 2,000 bytes
 Lines: 106 total | 96 code | 0 comments | 10 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7179,7 +7525,7 @@ export default Card;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 28/76: src\components\Card\index.ts
+FILE 28/84: src\components\Card\index.ts
 Language: typescript | Size: 114 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7192,7 +7538,7 @@ export { Card as default } from "./Card";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 29/76: src\components\CharacterCard\CharacterCard.stories.tsx
+FILE 29/84: src\components\CharacterCard\CharacterCard.stories.tsx
 Language: tsx | Size: 5,119 bytes
 Lines: 183 total | 174 code | 0 comments | 9 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7384,7 +7730,7 @@ export const Simple: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 30/76: src\components\CharacterCard\CharacterCard.tsx
+FILE 30/84: src\components\CharacterCard\CharacterCard.tsx
 Language: tsx | Size: 12,063 bytes
 Lines: 413 total | 389 code | 0 comments | 24 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7806,7 +8152,7 @@ export default CharacterCard;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 31/76: src\components\CharacterCard\index.tsx
+FILE 31/84: src\components\CharacterCard\index.tsx
 Language: tsx | Size: 183 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -7819,7 +8165,7 @@ export { CharacterCard as default } from "./CharacterCard";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 32/76: src\components\Dropdown\Dropdown.stories.tsx
+FILE 32/84: src\components\Dropdown\Dropdown.stories.tsx
 Language: tsx | Size: 9,485 bytes
 Lines: 376 total | 350 code | 0 comments | 26 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -8204,7 +8550,7 @@ export const Interactive: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 33/76: src\components\Dropdown\Dropdown.tsx
+FILE 33/84: src\components\Dropdown\Dropdown.tsx
 Language: tsx | Size: 13,611 bytes
 Lines: 456 total | 430 code | 0 comments | 26 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -8669,7 +9015,7 @@ export default Dropdown;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 34/76: src\components\Dropdown\index.ts
+FILE 34/84: src\components\Dropdown\index.ts
 Language: typescript | Size: 154 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -8682,7 +9028,7 @@ export { Dropdown as default } from "./Dropdown";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 35/76: src\components\Input\index.ts
+FILE 35/84: src\components\Input\index.ts
 Language: typescript | Size: 120 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -8695,7 +9041,7 @@ export { Input as default } from "./Input";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 36/76: src\components\Input\Input.stories.tsx
+FILE 36/84: src\components\Input\Input.stories.tsx
 Language: tsx | Size: 3,723 bytes
 Lines: 148 total | 135 code | 0 comments | 13 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -8852,7 +9198,7 @@ export const Disabled: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 37/76: src\components\Input\Input.tsx
+FILE 37/84: src\components\Input\Input.tsx
 Language: tsx | Size: 8,798 bytes
 Lines: 306 total | 289 code | 0 comments | 17 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9167,7 +9513,978 @@ export default Input;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 38/76: src\components\Modal\index.ts
+FILE 38/84: src\components\LanguageChanger\index.ts
+Language: typescript | Size: 320 bytes
+Lines: 10 total | 9 code | 0 comments | 1 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```typescript
+export { LanguageChanger, I18nProvider, useI18n } from "./LanguageChanger";
+export type {
+  LanguageChangerProps,
+  LanguageOption,
+  I18nContextValue,
+  I18nProviderProps,
+} from "./LanguageChanger";
+export { DEFAULT_LANGUAGES } from "./LanguageChanger";
+export { LanguageChanger as default } from "./LanguageChanger";
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 39/84: src\components\LanguageChanger\LanguageChanger.stories.tsx
+Language: tsx | Size: 9,154 bytes
+Lines: 293 total | 275 code | 0 comments | 18 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
+import { LanguageChanger, I18nProvider, useI18n } from "./LanguageChanger";
+
+const meta = {
+  title: "Components/LanguageChanger",
+  component: LanguageChanger,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+  argTypes: {
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg"],
+      description: "Component size",
+    },
+    iconOnly: {
+      control: "boolean",
+      description: "Show only the icon in a fixed circle",
+    },
+    fixedWidth: {
+      control: "text",
+      description: "Fixed width for the trigger button",
+    },
+  },
+  args: {
+    size: "md",
+    iconOnly: false,
+  },
+} satisfies Meta<typeof LanguageChanger>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// Sample translations for demo
+const sampleTranslations = {
+  en: {
+    welcome: {
+      title: "Welcome to Dara UI",
+      subtitle: "A design system for the future",
+    },
+    greeting: "Hello {{name}}!",
+    theme: "Theme",
+    language: "Language",
+  },
+  fa: {
+    welcome: {
+      title: "به دارا UI خوش آمدید",
+      subtitle: "یک سیستم طراحی برای آینده",
+    },
+    greeting: "سلام {{name}}!",
+    theme: "تم",
+    language: "زبان",
+  },
+  fr: {
+    welcome: {
+      title: "Bienvenue sur Dara UI",
+      subtitle: "Un système de design pour le futur",
+    },
+    greeting: "Bonjour {{name}}!",
+    theme: "Thème",
+    language: "Langue",
+  },
+  de: {
+    welcome: {
+      title: "Willkommen bei Dara UI",
+      subtitle: "Ein Designsystem für die Zukunft",
+    },
+    greeting: "Hallo {{name}}!",
+    theme: "Thema",
+    language: "Sprache",
+  },
+};
+
+/**
+ * Default LanguageChanger with full label + icon + chevron
+ */
+export const Default: Story = {
+  render: (args) => (
+    <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+      <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+        Current language is applied via lang and dir attributes
+      </p>
+      <LanguageChanger {...args} />
+    </div>
+  ),
+};
+
+/**
+ * Icon-only mode - perfect for navigation bars
+ */
+export const IconOnly: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+      <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+        Icon-only mode - fixed size circle with only the icon
+      </p>
+      <div className="flex items-center gap-4">
+        <LanguageChanger iconOnly size="sm" />
+        <LanguageChanger iconOnly size="md" />
+        <LanguageChanger iconOnly size="lg" />
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Fixed width ensures the dropdown stays consistent
+ */
+export const FixedWidth: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+      <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+        Fixed width keeps the dropdown consistent regardless of selected label
+      </p>
+      <div className="flex items-center gap-4">
+        <LanguageChanger fixedWidth="120px" size="sm" />
+        <LanguageChanger fixedWidth="160px" size="md" />
+        <LanguageChanger fixedWidth="200px" size="lg" />
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Different size variants
+ */
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+      <div className="flex items-center gap-4">
+        <span className="text-xs text-[var(--color-text-tertiary)] font-mono w-12">
+          sm
+        </span>
+        <LanguageChanger size="sm" />
+      </div>
+      <div className="flex items-center gap-4">
+        <span className="text-xs text-[var(--color-text-tertiary)] font-mono w-12">
+          md
+        </span>
+        <LanguageChanger size="md" />
+      </div>
+      <div className="flex items-center gap-4">
+        <span className="text-xs text-[var(--color-text-tertiary)] font-mono w-12">
+          lg
+        </span>
+        <LanguageChanger size="lg" />
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Custom languages with custom icons
+ */
+export const CustomLanguages: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+      <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+        Custom language list with custom icons
+      </p>
+      <LanguageChanger
+        availableLanguages={[
+          { value: "en", label: "English", icon: "🇬🇧", dir: "ltr" },
+          { value: "fa", label: "فارسی", icon: "🇮🇷", dir: "rtl" },
+          { value: "fr", label: "Français", icon: "🇫🇷", dir: "ltr" },
+        ]}
+      />
+    </div>
+  ),
+};
+
+/**
+ * With I18nProvider - shows translation in action
+ */
+export const WithTranslations: Story = {
+  render: () => {
+    const DemoContent = () => {
+      const { t, language, setLanguage } = useI18n();
+
+      return (
+        <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)] w-96">
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+              Current language:
+            </span>
+            <span className="text-xs text-[var(--color-primary)] font-bold">
+              {language}
+            </span>
+          </div>
+
+          <div className="text-center">
+            <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)]">
+              {t("welcome.title")}
+            </h2>
+            <p className="text-[var(--color-text-secondary)] text-sm">
+              {t("welcome.subtitle")}
+            </p>
+            <p className="text-[var(--color-text-secondary)] text-sm mt-2">
+              {t("greeting", { name: "Developer" })}
+            </p>
+          </div>
+
+          <div className="flex gap-2 flex-wrap justify-center">
+            {["en", "fa", "fr", "de"].map((lang) => (
+              <button
+                key={lang}
+                className={`px-3 py-1 text-xs rounded-[var(--radius-md)] transition-colors ${
+                  language === lang
+                    ? "bg-[var(--color-primary)] text-white"
+                    : "bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)]"
+                }`}
+                onClick={() => setLanguage(lang)}
+              >
+                {lang.toUpperCase()}
+              </button>
+            ))}
+          </div>
+
+          <LanguageChanger />
+        </div>
+      );
+    };
+
+    return (
+      <I18nProvider translations={sampleTranslations} defaultLanguage="en">
+        <DemoContent />
+      </I18nProvider>
+    );
+  },
+};
+
+/**
+ * Controlled mode
+ */
+export const Controlled: Story = {
+  render: () => {
+    const [lang, setLang] = React.useState("en");
+
+    return (
+      <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+        <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+          Controlled mode:{" "}
+          <span className="text-[var(--color-primary)] font-bold">{lang}</span>
+        </p>
+        <div className="flex gap-2">
+          <button
+            className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)]"
+            onClick={() => setLang("en")}
+          >
+            Set English
+          </button>
+          <button
+            className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)]"
+            onClick={() => setLang("fa")}
+          >
+            Set فارسی
+          </button>
+          <button
+            className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)]"
+            onClick={() => setLang("fr")}
+          >
+            Set Français
+          </button>
+        </div>
+        <LanguageChanger value={lang} onChange={setLang} />
+      </div>
+    );
+  },
+};
+
+/**
+ * Icon-only with consistent sizing for navbar use
+ */
+export const IconOnlyNavbar: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+      <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+        Perfect for compact navigation bars
+      </p>
+      <div className="flex items-center gap-4 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-secondary)]">
+        <span className="text-sm font-heading font-bold text-[var(--color-text-primary)]">
+          Logo
+        </span>
+        <LanguageChanger iconOnly size="sm" />
+        <LanguageChanger iconOnly size="md" />
+        <LanguageChanger iconOnly size="lg" />
+      </div>
+    </div>
+  ),
+};
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 40/84: src\components\LanguageChanger\LanguageChanger.tsx
+Language: tsx | Size: 18,011 bytes
+Lines: 641 total | 593 code | 0 comments | 48 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```tsx
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  createContext,
+  useContext,
+} from "react";
+
+export interface LanguageOption {
+  /**
+   * Language code (e.g., "en", "fa", "fr")
+   */
+  value: string;
+  /**
+   * Display label
+   */
+  label: string;
+  /**
+   * Optional icon (emoji or React node)
+   */
+  icon?: React.ReactNode;
+  /**
+   * Direction for this language
+   * @default "ltr"
+   */
+  dir?: "ltr" | "rtl";
+}
+
+export interface LanguageChangerProps {
+  /**
+   * Controlled value
+   */
+  value?: string;
+  /**
+   * Default value (uncontrolled)
+   */
+  defaultValue?: string;
+  /**
+   * Callback when language changes
+   */
+  onChange?: (lang: string) => void;
+  /**
+   * Available languages (overrides default)
+   */
+  availableLanguages?: LanguageOption[];
+  /**
+   * Component size
+   * @default "md"
+   */
+  size?: "sm" | "md" | "lg";
+  /**
+   * If true, shows only the icon in a fixed-size circular button
+   * @default false
+   */
+  iconOnly?: boolean;
+  /**
+   * Fixed width for the dropdown trigger (in px or rem)
+   * @example "140px" or "10rem"
+   */
+  fixedWidth?: string;
+  /**
+   * Additional className
+   */
+  className?: string;
+}
+
+/**
+ * Default Dara UI languages
+ */
+export const DEFAULT_LANGUAGES: LanguageOption[] = [
+  { value: "en", label: "English", icon: "🇺🇸", dir: "ltr" },
+  { value: "fa", label: "فارسی", icon: "🇮🇷", dir: "rtl" },
+  { value: "fr", label: "Français", icon: "🇫🇷", dir: "ltr" },
+];
+
+/**
+ * Dara UI LanguageChanger - Dropdown for switching between languages
+ *
+ * Features:
+ * - Auto-detects available languages from default list
+ * - Supports custom language lists
+ * - Clean dropdown with icon support
+ * - Icon-only mode for compact navigation bars
+ * - Fixed width option for consistent sizing
+ * - Controlled or uncontrolled modes
+ * - Applies language via lang and dir attributes on html element
+ * - Persists language preference in localStorage
+ * - Size variants (sm, md, lg)
+ * - Dropdown is always centered under the trigger
+ * - Menu width matches the button when iconOnly or fixedWidth is used
+ */
+export const LanguageChanger: React.FC<LanguageChangerProps> = ({
+  value: controlledValue,
+  defaultValue,
+  onChange,
+  availableLanguages,
+  size = "md",
+  iconOnly = false,
+  fixedWidth,
+  className = "",
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [languages, setLanguages] =
+    useState<LanguageOption[]>(DEFAULT_LANGUAGES);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const STORAGE_KEY = "dara-ui-language";
+
+  // Determine if controlled or uncontrolled
+  const isControlled = controlledValue !== undefined;
+  const [internalValue, setInternalValue] = useState<string>(() => {
+    // Try to load from localStorage
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      const lang = DEFAULT_LANGUAGES.find((l) => l.value === stored);
+      if (lang) return stored;
+    }
+    return defaultValue || DEFAULT_LANGUAGES[0]?.value || "en";
+  });
+
+  const currentLang = isControlled ? controlledValue : internalValue;
+
+  // Set languages from props or defaults
+  useEffect(() => {
+    if (availableLanguages) {
+      setLanguages(availableLanguages);
+    }
+  }, [availableLanguages]);
+
+  // Apply language to document
+  const applyLanguage = (lang: string) => {
+    const langOption = languages.find((l) => l.value === lang);
+    document.documentElement.lang = lang;
+    document.documentElement.dir = langOption?.dir || "ltr";
+
+    // Persist to localStorage
+    localStorage.setItem(STORAGE_KEY, lang);
+
+    // Dispatch custom event for components using useI18n
+    window.dispatchEvent(
+      new CustomEvent("dara-language-change", { detail: { lang } }),
+    );
+  };
+
+  // Apply on mount and when language changes
+  useEffect(() => {
+    applyLanguage(currentLang);
+  }, [currentLang, languages]);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  // Handle language selection
+  const handleSelect = (lang: string) => {
+    if (!isControlled) {
+      setInternalValue(lang);
+    }
+    applyLanguage(lang);
+    onChange?.(lang);
+    setIsOpen(false);
+  };
+
+  // Get default icon for language
+  const getDefaultIcon = (value: string): string => {
+    const iconMap: Record<string, string> = {
+      en: "🇺🇸",
+      fa: "🇮🇷",
+      fr: "🇫🇷",
+      de: "🇩🇪",
+      es: "🇪🇸",
+      ar: "🇸🇦",
+      it: "🇮🇹",
+      pt: "🇵🇹",
+      ru: "🇷🇺",
+      ja: "🇯🇵",
+      ko: "🇰🇷",
+      zh: "🇨🇳",
+    };
+    return iconMap[value] || "🌐";
+  };
+
+  // Ensure languages have icons
+  const displayLanguages = languages.map((lang) => ({
+    ...lang,
+    icon: lang.icon || getDefaultIcon(lang.value),
+  }));
+
+  // Size styles
+  const sizeStyles = {
+    sm: {
+      trigger: "px-3 py-1.5 text-xs",
+      option: "px-3 py-1.5 text-xs",
+      icon: "h-3 w-3",
+      iconOnlySize: "w-8 h-8",
+      chevronSize: "h-3 w-3",
+      iconOnlyWidth: "32px",
+    },
+    md: {
+      trigger: "px-4 py-2 text-sm",
+      option: "px-4 py-2 text-sm",
+      icon: "h-4 w-4",
+      iconOnlySize: "w-10 h-10",
+      chevronSize: "h-4 w-4",
+      iconOnlyWidth: "40px",
+    },
+    lg: {
+      trigger: "px-5 py-2.5 text-base",
+      option: "px-5 py-2.5 text-base",
+      icon: "h-5 w-5",
+      iconOnlySize: "w-12 h-12",
+      chevronSize: "h-5 w-5",
+      iconOnlyWidth: "48px",
+    },
+  };
+
+  // Find current language option
+  const currentOption = displayLanguages.find((l) => l.value === currentLang);
+
+  // Determine menu width
+  const menuWidth = iconOnly
+    ? sizeStyles[size].iconOnlyWidth
+    : fixedWidth || "140px";
+
+  // Icon-only mode - fixed size circle with only the icon
+  if (iconOnly) {
+    return (
+      <div ref={dropdownRef} className={`relative inline-block ${className}`}>
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          className={`
+            flex items-center justify-center
+            bg-[var(--color-bg-tertiary)]
+            text-[var(--color-text-primary)]
+            border border-[var(--color-border-primary)]
+            rounded-full
+            hover:bg-[var(--color-bg-elevated)]
+            hover:border-[var(--color-border-secondary)]
+            transition-all duration-180
+            active:scale-95
+            ${sizeStyles[size].iconOnlySize}
+          `}
+          aria-expanded={isOpen}
+          aria-haspopup="listbox"
+          title={currentOption?.label || "Language"}
+        >
+          {currentOption?.icon && (
+            <span className="text-base">{currentOption.icon}</span>
+          )}
+        </button>
+
+        {/* Dropdown Menu */}
+        <div
+          className={`
+            absolute z-50 mt-1.5
+            left-0 right-0
+            glass
+            rounded-[var(--radius-md)]
+            py-1
+            shadow-[var(--shadow-float)]
+            transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
+            overflow-hidden
+            ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}
+          `}
+          style={{
+            width: menuWidth,
+            minWidth: menuWidth,
+          }}
+          role="listbox"
+        >
+          {displayLanguages.map((lang) => {
+            const isActive = lang.value === currentLang;
+            return (
+              <button
+                key={lang.value}
+                type="button"
+                onClick={() => handleSelect(lang.value)}
+                className={`
+                  w-full flex items-center justify-center gap-2
+                  ${sizeStyles[size].option}
+                  ${
+                    isActive
+                      ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
+                      : "text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/50"
+                  }
+                  transition-colors duration-150
+                `}
+                role="option"
+                aria-selected={isActive}
+                title={lang.label}
+              >
+                {lang.icon && (
+                  <span className="flex-shrink-0 text-base">{lang.icon}</span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  // Full dropdown mode with label + icon + chevron
+  return (
+    <div ref={dropdownRef} className={`relative inline-block ${className}`}>
+      {/* Trigger Button */}
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className={`
+          inline-flex items-center
+          bg-[var(--color-bg-tertiary)]
+          text-[var(--color-text-primary)]
+          border border-[var(--color-border-primary)]
+          rounded-full
+          hover:bg-[var(--color-bg-elevated)]
+          hover:border-[var(--color-border-secondary)]
+          transition-all duration-180
+          active:scale-95
+          ${sizeStyles[size].trigger}
+        `}
+        style={{
+          width: fixedWidth || "auto",
+          minWidth: fixedWidth || "auto",
+        }}
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
+      >
+        {/* Left side: icon + label */}
+        <span className="flex items-center gap-2 flex-1 min-w-0">
+          {currentOption?.icon && (
+            <span className="flex-shrink-0 text-base">
+              {currentOption.icon}
+            </span>
+          )}
+          <span className="font-mono tracking-wide truncate">
+            {currentOption?.label || "Language"}
+          </span>
+        </span>
+
+        {/* Right side: chevron */}
+        <svg
+          className={`
+            flex-shrink-0 ml-2
+            transition-transform duration-[var(--transition-med)] ease-[var(--ease-in-out)]
+            ${isOpen ? "rotate-180" : "rotate-0"}
+            ${sizeStyles[size].chevronSize}
+          `}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
+
+      {/* Dropdown Menu */}
+      <div
+        className={`
+          absolute z-50 mt-1.5
+          left-1/2 -translate-x-1/2
+          glass
+          rounded-[var(--radius-md)]
+          py-1
+          shadow-[var(--shadow-float)]
+          transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
+          overflow-hidden
+          ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}
+        `}
+        style={{
+          width: menuWidth,
+          minWidth: menuWidth,
+        }}
+        role="listbox"
+      >
+        {displayLanguages.map((lang) => {
+          const isActive = lang.value === currentLang;
+          return (
+            <button
+              key={lang.value}
+              type="button"
+              onClick={() => handleSelect(lang.value)}
+              className={`
+                w-full flex items-center gap-2 text-left
+                ${sizeStyles[size].option}
+                ${
+                  isActive
+                    ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
+                    : "text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/50"
+                }
+                transition-colors duration-150
+              `}
+              role="option"
+              aria-selected={isActive}
+            >
+              {lang.icon && (
+                <span className="flex-shrink-0 text-base">{lang.icon}</span>
+              )}
+              <span className="truncate">{lang.label}</span>
+              {isActive && (
+                <svg
+                  className="ml-auto h-4 w-4 flex-shrink-0 text-[var(--color-primary)]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+LanguageChanger.displayName = "LanguageChanger";
+export default LanguageChanger;
+
+// ============================================
+// I18n Context & Provider
+// ============================================
+
+export interface I18nContextValue {
+  /**
+   * Current language code
+   */
+  language: string;
+  /**
+   * Set the current language
+   */
+  setLanguage: (lang: string) => void;
+  /**
+   * Translation function - resolves nested keys
+   * @example t('welcome.title') => "Welcome"
+   * @example t('greeting', { name: "John" }) => "Hello John"
+   */
+  t: (key: string, params?: Record<string, string | number>) => string;
+  /**
+   * Available languages
+   */
+  languages: LanguageOption[];
+  /**
+   * Direction for current language
+   */
+  dir: "ltr" | "rtl";
+}
+
+export interface I18nProviderProps {
+  /**
+   * Initial language
+   */
+  defaultLanguage?: string;
+  /**
+   * Translations object - keyed by language code
+   * @example { en: { welcome: "Welcome" }, fa: { welcome: "خوش آمدید" } }
+   */
+  translations: Record<string, Record<string, any>>;
+  /**
+   * Available languages (overrides default)
+   */
+  languages?: LanguageOption[];
+  /**
+   * Children
+   */
+  children: React.ReactNode;
+}
+
+const I18nContext = createContext<I18nContextValue | undefined>(undefined);
+
+/**
+ * I18nProvider - Provides translation context to children
+ *
+ * Features:
+ * - Self-contained i18n system, no external dependencies
+ * - Nested key resolution (e.g., 'welcome.title')
+ * - Parameter interpolation (e.g., 'Hello {{name}}')
+ * - Language persistence in localStorage
+ * - Auto-updates dir attribute on html
+ * - Triggers re-render of all consuming components on language change
+ */
+export const I18nProvider: React.FC<I18nProviderProps> = ({
+  defaultLanguage,
+  translations,
+  languages: customLanguages,
+  children,
+}) => {
+  const STORAGE_KEY = "dara-ui-language";
+
+  // Determine default languages
+  const defaultLanguages: LanguageOption[] =
+    customLanguages || DEFAULT_LANGUAGES;
+
+  // Get initial language from localStorage or default
+  const getInitialLang = (): string => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored && defaultLanguages.some((l) => l.value === stored)) {
+      return stored;
+    }
+    return defaultLanguage || defaultLanguages[0]?.value || "en";
+  };
+
+  const [language, setLanguageState] = useState<string>(getInitialLang);
+
+  // Translation function with nested key resolution and parameter interpolation
+  const t = (key: string, params?: Record<string, string | number>): string => {
+    const currentTranslations = translations[language] || translations.en || {};
+
+    // Resolve nested keys (e.g., 'welcome.title')
+    const keys = key.split(".");
+    let value: any = currentTranslations;
+    for (const k of keys) {
+      if (value && typeof value === "object" && k in value) {
+        value = value[k];
+      } else {
+        // Fallback to English if available
+        const fallback = translations.en || {};
+        let fallbackValue: any = fallback;
+        for (const fk of keys) {
+          if (
+            fallbackValue &&
+            typeof fallbackValue === "object" &&
+            fk in fallbackValue
+          ) {
+            fallbackValue = fallbackValue[fk];
+          } else {
+            return key; // Return the key if not found anywhere
+          }
+        }
+        value = fallbackValue;
+        break;
+      }
+    }
+
+    if (typeof value !== "string") {
+      return key;
+    }
+
+    // Parameter interpolation
+    if (params) {
+      return value.replace(/\{\{(\w+)\}\}/g, (_, paramName) => {
+        return String(params[paramName] ?? `{{${paramName}}}`);
+      });
+    }
+
+    return value;
+  };
+
+  // Set language and apply to document
+  const setLanguage = (lang: string) => {
+    const langOption = defaultLanguages.find((l) => l.value === lang);
+    if (!langOption) return;
+
+    setLanguageState(lang);
+    document.documentElement.lang = lang;
+    document.documentElement.dir = langOption.dir || "ltr";
+    localStorage.setItem(STORAGE_KEY, lang);
+
+    // Dispatch event for other components
+    window.dispatchEvent(
+      new CustomEvent("dara-language-change", { detail: { lang } }),
+    );
+  };
+
+  // Apply initial language on mount
+  useEffect(() => {
+    const initialLang = getInitialLang();
+    const langOption = defaultLanguages.find((l) => l.value === initialLang);
+    if (langOption) {
+      document.documentElement.lang = initialLang;
+      document.documentElement.dir = langOption.dir || "ltr";
+    }
+  }, []);
+
+  // Get current language direction
+  const currentDir =
+    defaultLanguages.find((l) => l.value === language)?.dir || "ltr";
+
+  const value: I18nContextValue = {
+    language,
+    setLanguage,
+    t,
+    languages: defaultLanguages,
+    dir: currentDir,
+  };
+
+  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
+};
+
+/**
+ * useI18n - Hook for accessing i18n context
+ *
+ * @example
+ * ```tsx
+ * const { t, language, setLanguage } = useI18n();
+ *
+ * // Translate a key
+ * <h1>{t('welcome.title')}</h1>
+ *
+ * // With parameters
+ * <p>{t('greeting', { name: user.name })}</p>
+ *
+ * // Change language
+ * <button onClick={() => setLanguage('fa')}>فارسی</button>
+ * ```
+ */
+export const useI18n = (): I18nContextValue => {
+  const context = useContext(I18nContext);
+  if (!context) {
+    throw new Error("useI18n must be used within an I18nProvider");
+  }
+  return context;
+};
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 41/84: src\components\Modal\index.ts
 Language: typescript | Size: 120 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9180,9 +10497,9 @@ export { Modal as default } from "./Modal";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 39/76: src\components\Modal\Modal.stories.tsx
-Language: tsx | Size: 4,803 bytes
-Lines: 182 total | 167 code | 0 comments | 15 blank
+FILE 42/84: src\components\Modal\Modal.stories.tsx
+Language: tsx | Size: 4,959 bytes
+Lines: 192 total | 177 code | 0 comments | 15 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
@@ -9211,6 +10528,8 @@ const meta = {
     cancelText: { control: "text" },
   },
   args: {
+    isOpen: false,
+    onClose: () => {},
     size: "md",
     closeOnBackdropClick: true,
     closeOnEscape: true,
@@ -9310,6 +10629,10 @@ export const Sizes: Story = {
       </div>
     );
   },
+  args: {
+    isOpen: false,
+    onClose: () => {},
+  },
 };
 
 // ----- Without Actions -----
@@ -9331,6 +10654,10 @@ export const WithoutActions: Story = {
         </Modal>
       </div>
     );
+  },
+  args: {
+    isOpen: false,
+    onClose: () => {},
   },
 };
 
@@ -9371,7 +10698,7 @@ export const Interactive: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 40/76: src\components\Modal\Modal.tsx
+FILE 43/84: src\components\Modal\Modal.tsx
 Language: tsx | Size: 5,453 bytes
 Lines: 226 total | 204 code | 0 comments | 22 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9606,7 +10933,7 @@ export default Modal;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 41/76: src\components\Progress\index.ts
+FILE 44/84: src\components\Progress\index.ts
 Language: typescript | Size: 138 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9619,7 +10946,7 @@ export { Progress as default } from "./Progress";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 42/76: src\components\Progress\Progress.stories.tsx
+FILE 45/84: src\components\Progress\Progress.stories.tsx
 Language: tsx | Size: 6,195 bytes
 Lines: 221 total | 204 code | 0 comments | 17 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -9849,7 +11176,7 @@ export const WithoutAnimation: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 43/76: src\components\Progress\Progress.tsx
+FILE 46/84: src\components\Progress\Progress.tsx
 Language: tsx | Size: 12,847 bytes
 Lines: 454 total | 422 code | 0 comments | 32 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10312,7 +11639,7 @@ export default Progress;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 44/76: src\components\QuestCard\index.ts
+FILE 47/84: src\components\QuestCard\index.ts
 Language: typescript | Size: 144 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10325,7 +11652,7 @@ export { QuestCard as default } from "./QuestCard";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 45/76: src\components\QuestCard\QuestCard.stories.tsx
+FILE 48/84: src\components\QuestCard\QuestCard.stories.tsx
 Language: tsx | Size: 4,590 bytes
 Lines: 192 total | 181 code | 0 comments | 11 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10526,7 +11853,7 @@ export const FullFeatured: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 46/76: src\components\QuestCard\QuestCard.tsx
+FILE 49/84: src\components\QuestCard\QuestCard.tsx
 Language: tsx | Size: 10,595 bytes
 Lines: 375 total | 344 code | 0 comments | 31 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10910,7 +12237,7 @@ export default QuestCard;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 47/76: src\components\StatsWidget\index.ts
+FILE 50/84: src\components\StatsWidget\index.ts
 Language: typescript | Size: 173 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -10923,7 +12250,7 @@ export { StatsWidget as default } from "./StatsWidget";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 48/76: src\components\StatsWidget\StatsWidget.stories.tsx
+FILE 51/84: src\components\StatsWidget\StatsWidget.stories.tsx
 Language: tsx | Size: 4,693 bytes
 Lines: 184 total | 172 code | 0 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -11116,7 +12443,7 @@ export const Simple: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 49/76: src\components\StatsWidget\StatsWidget.tsx
+FILE 52/84: src\components\StatsWidget\StatsWidget.tsx
 Language: tsx | Size: 7,380 bytes
 Lines: 291 total | 268 code | 0 comments | 23 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -11416,7 +12743,7 @@ export default StatsWidget;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 50/76: src\components\Tabs\index.ts
+FILE 53/84: src\components\Tabs\index.ts
 Language: typescript | Size: 123 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -11429,7 +12756,7 @@ export { Tabs as default } from "./Tabs";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 51/76: src\components\Tabs\Tabs.stories.tsx
+FILE 54/84: src\components\Tabs\Tabs.stories.tsx
 Language: tsx | Size: 4,153 bytes
 Lines: 179 total | 169 code | 0 comments | 10 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -11617,7 +12944,7 @@ export const WithIcons: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 52/76: src\components\Tabs\Tabs.tsx
+FILE 55/84: src\components\Tabs\Tabs.tsx
 Language: tsx | Size: 5,707 bytes
 Lines: 194 total | 176 code | 0 comments | 18 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -11820,7 +13147,7 @@ export default Tabs;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 53/76: src\components\ThemeChanger\index.ts
+FILE 56/84: src\components\ThemeChanger\index.ts
 Language: typescript | Size: 175 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -11833,12 +13160,13 @@ export { ThemeChanger as default } from "./ThemeChanger";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 54/76: src\components\ThemeChanger\ThemeChanger.stories.tsx
-Language: tsx | Size: 6,159 bytes
-Lines: 194 total | 183 code | 0 comments | 11 blank
+FILE 57/84: src\components\ThemeChanger\ThemeChanger.stories.tsx
+Language: tsx | Size: 6,186 bytes
+Lines: 195 total | 184 code | 0 comments | 11 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { ThemeChanger } from "./ThemeChanger";
 
@@ -12036,37 +13364,36 @@ export const IconOnlyNavbar: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 55/76: src\components\ThemeChanger\ThemeChanger.tsx
-Language: tsx | Size: 13,970 bytes
-Lines: 474 total | 447 code | 0 comments | 27 blank
+FILE 58/84: src\components\ThemeChanger\ThemeChanger.tsx
+Language: tsx | Size: 13,977 bytes
+Lines: 477 total | 449 code | 0 comments | 28 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 export interface ThemeOption {
   /**
-   * Theme identifier (matches data-theme attribute value)
+   * Theme value (used as data-theme attribute)
    */
   value: string;
   /**
-   * Display label for the theme
+   * Display label
    */
   label: string;
   /**
-   * Optional icon (can be string emoji or SVG element)
+   * Optional icon (emoji or React node)
    */
   icon?: React.ReactNode;
 }
 
 export interface ThemeChangerProps {
   /**
-   * Controlled: current theme value
+   * Controlled value
    */
   value?: string;
   /**
-   * Default theme value (uncontrolled mode)
-   * @default first theme in availableThemes or "nightfall"
+   * Default value (uncontrolled)
    */
   defaultValue?: string;
   /**
@@ -12074,8 +13401,7 @@ export interface ThemeChangerProps {
    */
   onChange?: (theme: string) => void;
   /**
-   * Custom list of available themes
-   * If not provided, auto-detects from DOM or uses default themes
+   * Available themes (overrides auto-detect)
    */
   availableThemes?: ThemeOption[];
   /**
@@ -12126,6 +13452,8 @@ const DEFAULT_THEMES: ThemeOption[] = [
  * - Controlled or uncontrolled modes
  * - Applies theme via data-theme attribute on html element
  * - Size variants (sm, md, lg)
+ * - Dropdown is always centered under the trigger
+ * - Menu width matches the button when iconOnly or fixedWidth is used
  */
 export const ThemeChanger: React.FC<ThemeChangerProps> = ({
   value: controlledValue,
@@ -12280,6 +13608,8 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
       icon: "h-3 w-3",
       iconOnlySize: "w-8 h-8",
       chevronSize: "h-3 w-3",
+      // matching width for icon-only menu
+      iconOnlyWidth: "32px",
     },
     md: {
       trigger: "px-4 py-2 text-sm",
@@ -12287,6 +13617,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
       icon: "h-4 w-4",
       iconOnlySize: "w-10 h-10",
       chevronSize: "h-4 w-4",
+      iconOnlyWidth: "40px",
     },
     lg: {
       trigger: "px-5 py-2.5 text-base",
@@ -12294,11 +13625,20 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
       icon: "h-5 w-5",
       iconOnlySize: "w-12 h-12",
       chevronSize: "h-5 w-5",
+      iconOnlyWidth: "48px",
     },
   };
 
   // Find current theme option
   const currentOption = themes.find((t) => t.value === currentTheme);
+
+  // Determine menu width
+  // - iconOnly → exact same size as the circular button
+  // - fixedWidth → exact same width as the trigger
+  // - otherwise → sensible min width
+  const menuWidth = iconOnly
+    ? sizeStyles[size].iconOnlyWidth
+    : fixedWidth || "140px";
 
   // Icon-only mode - fixed size circle with only the icon
   if (iconOnly) {
@@ -12328,19 +13668,23 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
           )}
         </button>
 
-        {/* Dropdown Menu - centered under the icon */}
+        {/* Dropdown Menu - perfectly centered under the icon button + same width */}
         <div
           className={`
             absolute z-50 mt-1.5
-            left-1/2 -translate-x-1/2
-            min-w-[140px]
+            left-0 right-0
             glass
             rounded-[var(--radius-md)]
             py-1
             shadow-[var(--shadow-float)]
             transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
+            overflow-hidden
             ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}
           `}
+          style={{
+            width: menuWidth,
+            minWidth: menuWidth,
+          }}
           role="listbox"
         >
           {themes.map((theme) => {
@@ -12351,7 +13695,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
                 type="button"
                 onClick={() => handleSelect(theme.value)}
                 className={`
-                  w-full flex items-center gap-2 text-left
+                  w-full flex items-center justify-center gap-2
                   ${sizeStyles[size].option}
                   ${
                     isActive
@@ -12362,25 +13706,10 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
                 `}
                 role="option"
                 aria-selected={isActive}
+                title={theme.label}
               >
                 {theme.icon && (
                   <span className="flex-shrink-0 text-base">{theme.icon}</span>
-                )}
-                <span className="truncate">{theme.label}</span>
-                {isActive && (
-                  <svg
-                    className="ml-auto h-4 w-4 flex-shrink-0 text-[var(--color-primary)]"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2.5}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
                 )}
               </button>
             );
@@ -12449,10 +13778,11 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
         </svg>
       </button>
 
-      {/* Dropdown Menu */}
+      {/* Dropdown Menu - perfectly centered under the button + matching width when fixedWidth is set */}
       <div
         className={`
-          absolute z-50 mt-1.5 min-w-[140px]
+          absolute z-50 mt-1.5
+          left-1/2 -translate-x-1/2
           glass
           rounded-[var(--radius-md)]
           py-1
@@ -12462,7 +13792,8 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
           ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}
         `}
         style={{
-          minWidth: fixedWidth || "140px",
+          width: menuWidth,
+          minWidth: menuWidth,
         }}
         role="listbox"
       >
@@ -12519,7 +13850,7 @@ export default ThemeChanger;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 56/76: src\components\Toast\index.ts
+FILE 59/84: src\components\Toast\index.ts
 Language: typescript | Size: 259 bytes
 Lines: 6 total | 5 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -12534,14 +13865,14 @@ export { Toast as default } from "./Toast";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 57/76: src\components\Toast\Toast.stories.tsx
-Language: tsx | Size: 6,622 bytes
+FILE 60/84: src\components\Toast\Toast.stories.tsx
+Language: tsx | Size: 6,606 bytes
 Lines: 244 total | 228 code | 0 comments | 16 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
 import type { Meta, StoryObj } from "@storybook/react";
-import { Toast, ToastContainer } from "./Toast";
+import { Toast } from "./Toast";
 import { useState } from "react";
 import Button from "../Button/Button";
 
@@ -12787,7 +14118,7 @@ export const Stacked: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 58/76: src\components\Toast\Toast.tsx
+FILE 61/84: src\components\Toast\Toast.tsx
 Language: tsx | Size: 6,720 bytes
 Lines: 271 total | 250 code | 0 comments | 21 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -13067,19 +14398,14 @@ export default Toast;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 59/76: src\components\Toast\ToastProvider.tsx
-Language: tsx | Size: 4,666 bytes
-Lines: 205 total | 186 code | 0 comments | 19 blank
+FILE 62/84: src\components\Toast\ToastProvider.tsx
+Language: tsx | Size: 4,684 bytes
+Lines: 200 total | 181 code | 0 comments | 19 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  ReactNode,
-} from "react";
+import React, { createContext, useContext, useState, useCallback } from "react";
+import type { ReactNode } from "react";
 import { ToastContainer } from "./Toast";
 import type { ToastType } from "./Toast";
 
@@ -13281,7 +14607,7 @@ export default useToast;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 60/76: src\components\Tooltip\index.ts
+FILE 63/84: src\components\Tooltip\index.ts
 Language: typescript | Size: 150 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -13294,9 +14620,9 @@ export { Tooltip as default } from "./Tooltip";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 61/76: src\components\Tooltip\Tooltip.stories.tsx
-Language: tsx | Size: 4,973 bytes
-Lines: 201 total | 189 code | 0 comments | 12 blank
+FILE 64/84: src\components\Tooltip\Tooltip.stories.tsx
+Language: tsx | Size: 5,506 bytes
+Lines: 226 total | 214 code | 0 comments | 12 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```tsx
@@ -13341,6 +14667,7 @@ const meta = {
   },
   args: {
     content: "This is a tooltip",
+    children: <Button variant="primary">Hover me</Button>,
     placement: "top",
     variant: "glass",
     size: "md",
@@ -13356,11 +14683,10 @@ type Story = StoryObj<typeof meta>;
 
 // ----- Default -----
 export const Default: Story = {
-  render: (args) => (
-    <Tooltip {...args}>
-      <Button variant="primary">Hover me</Button>
-    </Tooltip>
-  ),
+  args: {
+    content: "This is a tooltip",
+    children: <Button variant="primary">Hover me</Button>,
+  },
 };
 
 // ----- Placements -----
@@ -13409,6 +14735,13 @@ export const Placements: Story = {
       </Tooltip>
     </div>
   ),
+  args: {
+    children: (
+      <Button size="sm" variant="glass">
+        Placement
+      </Button>
+    ),
+  },
 };
 
 // ----- Variants -----
@@ -13426,6 +14759,9 @@ export const Variants: Story = {
       </Tooltip>
     </div>
   ),
+  args: {
+    children: <Button>Variant</Button>,
+  },
 };
 
 // ----- Sizes -----
@@ -13443,6 +14779,9 @@ export const Sizes: Story = {
       </Tooltip>
     </div>
   ),
+  args: {
+    children: <Button>Size</Button>,
+  },
 };
 
 // ----- Long Content -----
@@ -13452,6 +14791,9 @@ export const LongContent: Story = {
       <Button variant="primary">Hover for details</Button>
     </Tooltip>
   ),
+  args: {
+    children: <Button variant="primary">Long</Button>,
+  },
 };
 
 // ----- With Badge -----
@@ -13463,6 +14805,13 @@ export const WithBadge: Story = {
       </Badge>
     </Tooltip>
   ),
+  args: {
+    children: (
+      <Badge variant="primary" glow>
+        42
+      </Badge>
+    ),
+  },
 };
 
 // ----- Disabled -----
@@ -13472,6 +14821,9 @@ export const Disabled: Story = {
       <Button variant="secondary">Disabled Tooltip</Button>
     </Tooltip>
   ),
+  args: {
+    children: <Button variant="secondary">Disabled</Button>,
+  },
 };
 
 // ----- No Arrow -----
@@ -13481,12 +14833,16 @@ export const NoArrow: Story = {
       <Button variant="glass">No Arrow</Button>
     </Tooltip>
   ),
+  args: {
+    children: <Button variant="glass">No Arrow</Button>,
+  },
 };
 
 // ----- Interactive Playground -----
 export const Interactive: Story = {
   args: {
     content: "Interactive tooltip",
+    children: <Button variant="primary">Hover me</Button>,
     placement: "top",
     variant: "glass",
     size: "md",
@@ -13494,17 +14850,12 @@ export const Interactive: Story = {
     hideDelay: 0,
     arrow: true,
   },
-  render: (args) => (
-    <Tooltip {...args}>
-      <Button variant="primary">Hover me</Button>
-    </Tooltip>
-  ),
 };
 ```
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 62/76: src\components\Tooltip\Tooltip.tsx
+FILE 65/84: src\components\Tooltip\Tooltip.tsx
 Language: tsx | Size: 10,382 bytes
 Lines: 382 total | 346 code | 0 comments | 36 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -13895,7 +15246,7 @@ export default Tooltip;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 63/76: src\components\XPBar\index.ts
+FILE 66/84: src\components\XPBar\index.ts
 Language: typescript | Size: 130 bytes
 Lines: 4 total | 3 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -13908,7 +15259,7 @@ export { XPBar as default } from "./XPBar";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 64/76: src\components\XPBar\XPBar.stories.tsx
+FILE 67/84: src\components\XPBar\XPBar.stories.tsx
 Language: tsx | Size: 5,522 bytes
 Lines: 226 total | 207 code | 0 comments | 19 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -14143,7 +15494,7 @@ export const Interactive: Story = {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 65/76: src\components\XPBar\XPBar.tsx
+FILE 68/84: src\components\XPBar\XPBar.tsx
 Language: tsx | Size: 4,755 bytes
 Lines: 193 total | 175 code | 0 comments | 18 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -14345,7 +15696,24 @@ export default XPBar;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 66/76: src\hooks\useDirection.ts
+FILE 69/84: src\hooks\useAppTranslation.ts
+Language: typescript | Size: 271 bytes
+Lines: 8 total | 6 code | 0 comments | 2 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```typescript
+import { useI18n } from "../components/LanguageChanger";
+import { translations } from "../translations";
+
+export const useAppTranslation = () => {
+  const { t, language, setLanguage, dir, languages } = useI18n();
+  return { t, language, setLanguage, dir, languages };
+};
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 70/84: src\hooks\useDirection.ts
 Language: typescript | Size: 715 bytes
 Lines: 25 total | 17 code | 0 comments | 8 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -14379,9 +15747,9 @@ export default useDirection;
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 67/76: src\index.ts
-Language: typescript | Size: 2,205 bytes
-Lines: 73 total | 44 code | 12 comments | 17 blank
+FILE 71/84: src\index.ts
+Language: typescript | Size: 2,395 bytes
+Lines: 83 total | 53 code | 12 comments | 18 blank
 ────────────────────────────────────────────────────────────────────────────────
 
 ```typescript
@@ -14448,6 +15816,16 @@ export type { ProgressProps } from "./components/Progress/Progress";
 export { ThemeChanger } from "./components/ThemeChanger";
 export type { ThemeChangerProps, ThemeOption } from "./components/ThemeChanger";
 
+export {
+  LanguageChanger,
+  I18nProvider,
+  useI18n,
+} from "./components/LanguageChanger";
+export type {
+  LanguageChangerProps,
+  LanguageOption,
+} from "./components/LanguageChanger";
+
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";
 export type { Direction } from "./hooks/useDirection";
@@ -14461,7 +15839,7 @@ import "./styles/index.css";
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 68/76: src\main.tsx
+FILE 72/84: src\main.tsx
 Language: tsx | Size: 305 bytes
 Lines: 13 total | 10 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -14483,7 +15861,7 @@ createRoot(document.getElementById("root")!).render(
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 69/76: src\styles\fonts.css
+FILE 73/84: src\styles\fonts.css
 Language: css | Size: 1,488 bytes
 Lines: 61 total | 49 code | 5 comments | 7 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -14553,7 +15931,7 @@ Lines: 61 total | 49 code | 5 comments | 7 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 70/76: src\styles\index.css
+FILE 74/84: src\styles\index.css
 Language: css | Size: 14,543 bytes
 Lines: 691 total | 571 code | 30 comments | 90 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -15253,7 +16631,7 @@ html[lang="ar-SA"] {
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 71/76: src\styles\tokens.css
+FILE 75/84: src\styles\tokens.css
 Language: css | Size: 8,664 bytes
 Lines: 281 total | 217 code | 16 comments | 48 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -15543,7 +16921,1099 @@ Lines: 281 total | 217 code | 16 comments | 48 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 72/76: tsconfig.app.json
+FILE 76/84: src\translations\en.ts
+Language: typescript | Size: 11,019 bytes
+Lines: 348 total | 347 code | 0 comments | 1 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```typescript
+export const en = {
+  app: {
+    title: "Dara UI Components",
+  },
+  header: {
+    nightfall: "Nightfall",
+    daylight: "Daylight",
+    dracula: "Dracula",
+    rtl: "RTL",
+    ltr: "LTR",
+  },
+  badges: {
+    title: "Badges",
+    variants: "Variants",
+    sizes: "Sizes",
+    outline: "Outline Variants",
+    withGlow: "With Glow",
+    withIcons: "With Icons",
+    primary: "Primary",
+    secondary: "Secondary",
+    success: "Success",
+    danger: "Danger",
+    warning: "Warning",
+    small: "Small",
+    medium: "Medium",
+    large: "Large",
+    glowPrimary: "Glow Primary",
+    glowSuccess: "Glow Success",
+    glowDanger: "Glow Danger",
+    package: "Package",
+    done: "Done",
+    pending: "Pending",
+    failed: "Failed",
+  },
+  buttons: {
+    title: "Button Variants",
+    states: "Button States",
+    sizesTitle: "Button Sizes",
+    primary: "Primary",
+    secondary: "Secondary",
+    glass: "Glass",
+    danger: "Danger",
+    success: "Success",
+    outline: "Outline",
+    normal: "Normal",
+    hover: "Hover",
+    pressed: "Pressed",
+    disabled: "Disabled",
+    loading: "Loading",
+    small: "Small",
+    medium: "Medium (default)",
+    large: "Large",
+  },
+  avatar: {
+    title: "Avatar",
+    sizes: "Sizes",
+    shapes: "Shapes",
+    status: "Status Indicators",
+    glowEffects: "Glow Effects",
+    withImage: "With Image",
+    group: "Group",
+    clickable: "Clickable",
+  },
+  tooltip: {
+    title: "Tooltip",
+    placements: "Placements",
+    variants: "Variants",
+    withBadge: "With Badge",
+    longContent: "Long Content",
+    top: "Top",
+    bottom: "Bottom",
+    left: "Left",
+    right: "Right",
+    topLeft: "Top Left",
+    topRight: "Top Right",
+    bottomLeft: "Bottom Left",
+    bottomRight: "Bottom Right",
+    glassTooltip: "Glass tooltip",
+    solidTooltip: "Solid tooltip",
+    outlineTooltip: "Outline tooltip",
+    unreadMessages: "You have {{count}} unread messages",
+    longTooltip:
+      "This is a longer tooltip with more detailed information about the element you're hovering over.",
+    hoverDetails: "Hover for details",
+    disabledTooltip: "This tooltip is disabled",
+    noArrow: "No arrow on this tooltip",
+  },
+  tabs: {
+    title: "Tabs",
+    archive: "Archive",
+    quests: "Quests",
+    stats: "Stats",
+    settings: "Settings",
+    archiveContent:
+      "Browse encrypted Jedi records, holocrons, and mission logs from the Calgary archive.",
+    questsContent:
+      "Active missions, bounties, and side-quests await your attention, Padawan.",
+    statsContent:
+      "Track your Force alignment, XP gains, and cybernetic enhancement levels.",
+    settingsContent:
+      "Configure your HUD, theme mode, and archive encryption preferences.",
+  },
+  accordion: {
+    title: "Accordion",
+    mode: "Mode",
+    single: "Single",
+    multiple: "Multiple",
+    singleDesc: "Only one item can be open at a time",
+    multipleDesc: "Multiple items can be open simultaneously",
+    controlled: "Controlled — Open items:",
+    withIcons: "With Icons",
+    q1: "What is Dara UI?",
+    a1: "Dara UI is a design system that feels like an interface discovered inside a futuristic archive hidden beneath Calgary during a snowstorm. It blends glassmorphism, cyberpunk, gothic aesthetics, Apple minimalism, and anime HUD elements.",
+    q2: "What themes are available?",
+    a2: "Night Archive (default), Snow Calgary (light), Sith Mode (black + red), Jedi Temple (white + blue), Dracula (purple), and Wine (deep reds).",
+    q3: "How do I install it?",
+    dashboard: "Dashboard",
+    projects: "Projects",
+    settingsAccordion: "Settings",
+    dashboardContent:
+      "Dashboard overview with key metrics and recent activity.",
+    projectsContent: "Active projects and their current status.",
+    settingsContentAccordion: "Configure your application preferences.",
+  },
+  dropdown: {
+    title: "Dropdown",
+    basic: "Basic",
+    withIcons: "With Icons",
+    searchable: "Searchable",
+    controlled: "Controlled — Selected:",
+    selectFramework: "Select a framework...",
+    withPlaceholder: "With placeholder",
+    selectWithIcons: "Select with icons...",
+    searchWithIcons: "Search with icons...",
+    searchOptions: "Search options...",
+    searchFrameworks: "Search frameworks...",
+    typeToFilter: "Type to filter options",
+    framework: "Framework",
+    chooseFramework: "Choose your preferred framework",
+    setVue: "Set Vue",
+    setSvelte: "Set Svelte",
+    setSolid: "Set Solid",
+  },
+  cards: {
+    title: "Cards",
+    variants: "Variants",
+    floatGlow: "Float + Glow",
+    featureCards: "Feature Cards",
+    glassCard: "Glass Card",
+    solidCard: "Solid Card",
+    outlineCard: "Outline Card",
+    purpleGlow: "Purple Glow",
+    cyanGlow: "Cyan Glow",
+    pinkGlow: "Pink Glow",
+    launch: "Launch",
+    analytics: "Analytics",
+    deployProject: "Deploy your project with one click.",
+    trackPerformance: "Track your performance metrics.",
+  },
+  inputs: {
+    title: "Inputs",
+    basic: "Basic Inputs",
+    withLabels: "With Labels",
+    withIconsTitle: "With Icons",
+    validation: "Validation States",
+    textInput: "Text input",
+    password: "Password",
+    search: "Search",
+    email: "Email",
+    username: "Username",
+    enterUsername: "Enter username",
+    enterEmail: "Enter email",
+    emailHelper: "We'll never share your email.",
+    success: "Success",
+    error: "Error",
+    validInput: "Valid input!",
+    somethingWrong: "Something went wrong",
+  },
+  modal: {
+    title: "Modal",
+    openModal: "Open Modal",
+    viewContent: "View Content",
+    archiveAccess: "Archive Access",
+    acceptMission: "Accept Mission",
+    decline: "Decline",
+    modalDescription:
+      "You've discovered a sealed Jedi archive fragment. This modal uses glass-heavy styling with blur(30px) backdrop, scale-in animation, and is rendered via React Portal outside the DOM tree.",
+  },
+  toast: {
+    title: "Toast Notifications",
+    subtitle: "Top-right · Minimal · 220ms slide-in · Auto-dismiss",
+    successToast: "Success Toast",
+    errorToast: "Error Toast",
+    warningToast: "Warning Toast",
+    infoToast: "Info Toast",
+    successMsg: "Mission complete! +300 XP earned.",
+    errorMsg: "Connection lost. Retrying...",
+    warningMsg: "Please check your connection",
+    infoMsg: "Archives are being indexed",
+  },
+  progress: {
+    title: "Progress",
+    horizontal: "Horizontal",
+    labelInside: "Label Inside Bar",
+    displayTypes: "Display Types",
+    sizes: "Sizes",
+    radial: "Radial",
+    radialCustom: "Radial with Custom Label",
+    radialSizes: "Radial Sizes",
+    almostDone: "Almost done!",
+    loading: "Loading...",
+    done: "Done!",
+  },
+  xpbar: {
+    title: "XPBar, RankTier",
+    rankProgress: "RANK PROGRESS",
+    missionProgress: "MISSION PROGRESS",
+    tier: "Tier",
+    points: "Points",
+    exp: "EXP",
+    score: "Score",
+    prestige: "Prestige",
+  },
+  glow: {
+    title: "Glow Effects",
+    glowPurple: "Glow Purple",
+    glowCyan: "Glow Cyan",
+    glowPink: "Glow Pink",
+  },
+  quest: {
+    title: "Quest Cards",
+    buildCMS: "Build CMS",
+    buildCMSDesc:
+      "Deploy the encrypted Jedi archive interface before the snow melts.",
+    secureArchives: "Secure Archives",
+    secureArchivesDesc:
+      "Implement end-to-end encryption for all stored data in the archive.",
+    legendaryQuest: "Legendary Quest: The Lost Archive",
+    legendaryQuestDesc:
+      "Journey into the depths of the forgotten vault and retrieve the ancient holocron.",
+    mapNightCity: "Map Night City",
+    mapNightCityDesc:
+      "Create a comprehensive map of the cyberpunk district before the data purge.",
+    requirements: "Requirements",
+    completeReviews: "Complete 3 code reviews",
+    writeTests: "Write 5 unit tests",
+    deployStaging: "Deploy to staging",
+    reachLevel: "Reach level 25",
+    defeatGuardian: "Defeat the Shadow Guardian",
+    collectArtifacts: "Collect 3 ancient artifacts",
+    solveRiddle: "Solve the sphinx riddle",
+    scanLocations: "Scan 10 locations",
+    interviewNPCs: "Interview 5 NPCs",
+    uploadArchive: "Upload to the archive",
+  },
+  character: {
+    title: "Character Cards",
+    vertical: "Vertical Layout (default)",
+    horizontal: "Horizontal Layout",
+    daraName: "Dara",
+    daraSubtitle: "Jedi Archivist",
+    daraQuote: "The dark is not to be feared — it is to be archived.",
+    cipherName: "Cipher",
+    cipherSubtitle: "Netrunner",
+    cipherQuote: "The code is the key to everything.",
+    shadowName: "Shadow",
+    shadowSubtitle: "Night Hunter",
+    shadowQuote: "I move in the darkness where they cannot see.",
+    force: "Force",
+    combat: "Combat",
+    intelligence: "Intelligence",
+    wisdom: "Wisdom",
+    hacking: "Hacking",
+    stealth: "Stealth",
+    agility: "Agility",
+    strength: "Strength",
+  },
+  statsWidget: {
+    title: "Stats Widget",
+    radialVariant: "Radial Variant",
+    barVariant: "Bar Variant",
+    horizontalLayout: "Horizontal Layout",
+    forceStats: "FORCE STATS",
+    characterStats: "CHARACTER STATS",
+    progress: "PROGRESS",
+    skills: "SKILLS",
+    battleStats: "BATTLE STATS",
+    skillProgress: "SKILL PROGRESS",
+    health: "Health",
+    mana: "Mana",
+    stamina: "Stamina",
+    level: "Level",
+    endurance: "Endurance",
+    luck: "Luck",
+  },
+  themeChanger: {
+    title: "Theme Changer",
+    default: "Default",
+    iconOnly: "Icon Only",
+    fixedWidth: "Fixed Width (160px)",
+    small: "Small",
+    smallIconOnly: "Small Icon Only",
+    customThemes: "Custom Themes",
+    demo: "Demo",
+    themeChangerDesc:
+      "Theme changer with auto-detection, icon-only mode, and fixed width support. Pass iconOnly for compact navbar usage, or fixedWidth for consistent sizing.",
+  },
+  languageChanger: {
+    title: "Language Changer",
+    default: "Default",
+    iconOnly: "Icon Only",
+    fixedWidth: "Fixed Width (160px)",
+    small: "Small",
+    smallIconOnly: "Small Icon Only",
+    customLanguages: "Custom Languages",
+    demo: "Demo",
+    languageChangerDesc:
+      "Language changer with localStorage persistence, icon-only mode, and fixed width support. Pass iconOnly for compact navbar usage, or fixedWidth for consistent sizing. The language is persisted via localStorage and updates the lang and dir attributes on the html element.",
+  },
+  gradients: {
+    title: "Gradients",
+    primary: "Primary",
+    accent: "Accent",
+    success: "Success",
+    danger: "Danger",
+  },
+  effects: {
+    title: "Effects",
+    glassEffect: "Glass Effect",
+    glowPurple: "Glow Purple",
+    glowPink: "Glow Pink",
+  },
+  typography: {
+    title: "Typography",
+    textSecondary: "Text Secondary",
+    regularBody: "Regular body text with Inter font",
+    gradientHeading: "Gradient Heading",
+    accentText: "Accent colored text",
+    codeExample: 'console.log("Code with JetBrains Mono");',
+  },
+  persian: {
+    title: "Persian Support",
+    persianText: "این متن با فونت وزیرمتن نمایش داده می‌شود",
+    persianHeading: "عنوان فارسی با قلم Kook",
+    persianDesc: "متن فارسی با اندازه کوچک و رنگ ثانویه",
+  },
+};
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 77/84: src\translations\fa.ts
+Language: typescript | Size: 10,659 bytes
+Lines: 345 total | 344 code | 0 comments | 1 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```typescript
+export const fa = {
+  app: {
+    title: "کامپوننت‌های دارا UI",
+  },
+  header: {
+    nightfall: "شب",
+    daylight: "روز",
+    dracula: "دراکولا",
+    rtl: "راست‌چین",
+    ltr: "چپ‌چین",
+  },
+  badges: {
+    title: "نشان‌ها",
+    variants: "واریانت‌ها",
+    sizes: "اندازه‌ها",
+    outline: "واریانت‌های خطی",
+    withGlow: "با درخشش",
+    withIcons: "با آیکون‌ها",
+    primary: "اصلی",
+    secondary: "ثانویه",
+    success: "موفقیت",
+    danger: "خطر",
+    warning: "اخطار",
+    small: "کوچک",
+    medium: "متوسط",
+    large: "بزرگ",
+    glowPrimary: "درخشش اصلی",
+    glowSuccess: "درخشش موفقیت",
+    glowDanger: "درخشش خطر",
+    package: "بسته",
+    done: "انجام شد",
+    pending: "در انتظار",
+    failed: "ناموفق",
+  },
+  buttons: {
+    title: "واریانت‌های دکمه",
+    states: "وضعیت‌های دکمه",
+    sizesTitle: "اندازه‌های دکمه",
+    primary: "اصلی",
+    secondary: "ثانویه",
+    glass: "شیشه‌ای",
+    danger: "خطر",
+    success: "موفقیت",
+    outline: "خطی",
+    normal: "عادی",
+    hover: "هاور",
+    pressed: "فشرده",
+    disabled: "غیرفعال",
+    loading: "در حال بارگذاری",
+    small: "کوچک",
+    medium: "متوسط (پیش‌فرض)",
+    large: "بزرگ",
+  },
+  avatar: {
+    title: "آواتار",
+    sizes: "اندازه‌ها",
+    shapes: "اشکال",
+    status: "وضعیت‌ها",
+    glowEffects: "جلوه‌های درخشش",
+    withImage: "با تصویر",
+    group: "گروه",
+    clickable: "قابل کلیک",
+  },
+  tooltip: {
+    title: "راهنما",
+    placements: "موقعیت‌ها",
+    variants: "واریانت‌ها",
+    withBadge: "با نشان",
+    longContent: "متن بلند",
+    top: "بالا",
+    bottom: "پایین",
+    left: "چپ",
+    right: "راست",
+    topLeft: "بالا چپ",
+    topRight: "بالا راست",
+    bottomLeft: "پایین چپ",
+    bottomRight: "پایین راست",
+    glassTooltip: "راهنمای شیشه‌ای",
+    solidTooltip: "راهنمای توپر",
+    outlineTooltip: "راهنمای خطی",
+    unreadMessages: "شما {{count}} پیام خوانده‌نشده دارید",
+    longTooltip:
+      "این یک راهنمای بلندتر با اطلاعات دقیق‌تر درباره المان مورد نظر است.",
+    hoverDetails: "هاور برای جزئیات",
+    disabledTooltip: "این راهنما غیرفعال است",
+    noArrow: "بدون پیکان در این راهنما",
+  },
+  tabs: {
+    title: "تب‌ها",
+    archive: "آرشیو",
+    quests: "ماموریت‌ها",
+    stats: "آمار",
+    settings: "تنظیمات",
+    archiveContent:
+      "مرور سوابق رمزنگاری‌شده جدای، هولوکرون‌ها و گزارش ماموریت‌ها از آرشیو کلگری.",
+    questsContent:
+      "ماموریت‌های فعال، جایزه‌ها و ماموریت‌های جانبی منتظر توجه شما هستند، پادوان.",
+    statsContent:
+      "هم‌ترازی نیرو، افزایش XP و سطوح ارتقای سایبرنتیک خود را پیگیری کنید.",
+    settingsContent: "هاد، تم و تنظیمات رمزنگاری آرشیو را پیکربندی کنید.",
+  },
+  accordion: {
+    title: "آکاردئون",
+    mode: "حالت",
+    single: "تکی",
+    multiple: "چندگانه",
+    singleDesc: "فقط یک آیتم می‌تواند در هر زمان باز باشد",
+    multipleDesc: "چندین آیتم می‌توانند همزمان باز باشند",
+    controlled: "کنترل‌شده — آیتم‌های باز:",
+    withIcons: "با آیکون‌ها",
+    q1: "دارا UI چیست؟",
+    a1: "دارا UI یک سیستم طراحی است که حس یک رابط کشف‌شده در آرشیوی آینده‌نگرانه در زیر کلگری در طوفان برف را دارد. ترکیبی از شیشه‌ای، سایبرپانک، گوتیک، مینیمالیسم اپل و عناصر هاد انیمه‌ای.",
+    q2: "چه تم‌هایی موجود است؟",
+    a2: "آرشیو شب (پیش‌فرض)، کلگری برفی (روشن)، حالت سیت (سیاه + قرمز)، معبد جدای (سفید + آبی)، دراکولا (بنفش) و شراب (قرمز تیره).",
+    q3: "چگونه نصب کنم؟",
+    dashboard: "داشبورد",
+    projects: "پروژه‌ها",
+    settingsAccordion: "تنظیمات",
+    dashboardContent: "نمای کلی داشبورد با معیارهای کلیدی و فعالیت‌های اخیر.",
+    projectsContent: "پروژه‌های فعال و وضعیت فعلی آنها.",
+    settingsContentAccordion: "تنظیمات برنامه خود را پیکربندی کنید.",
+  },
+  dropdown: {
+    title: "دراپ‌داون",
+    basic: "پایه",
+    withIcons: "با آیکون‌ها",
+    searchable: "قابل جستجو",
+    controlled: "کنترل‌شده — انتخاب‌شده:",
+    selectFramework: "یک فریم‌ورک انتخاب کنید...",
+    withPlaceholder: "با جای‌گذاری",
+    selectWithIcons: "با آیکون انتخاب کنید...",
+    searchWithIcons: "با آیکون جستجو کنید...",
+    searchOptions: "جستجوی گزینه‌ها...",
+    searchFrameworks: "جستجوی فریم‌ورک‌ها...",
+    typeToFilter: "برای فیلتر کردن تایپ کنید",
+    framework: "فریم‌ورک",
+    chooseFramework: "فریم‌ورک مورد نظر خود را انتخاب کنید",
+    setVue: "تنظیم Vue",
+    setSvelte: "تنظیم Svelte",
+    setSolid: "تنظیم Solid",
+  },
+  cards: {
+    title: "کارت‌ها",
+    variants: "واریانت‌ها",
+    floatGlow: "شناور + درخشش",
+    featureCards: "کارت‌های ویژه",
+    glassCard: "کارت شیشه‌ای",
+    solidCard: "کارت توپر",
+    outlineCard: "کارت خطی",
+    purpleGlow: "درخشش بنفش",
+    cyanGlow: "درخشش فیروزه‌ای",
+    pinkGlow: "درخشش صورتی",
+    launch: "پرتاب",
+    analytics: "تحلیل",
+    deployProject: "پروژه خود را با یک کلیک مستقر کنید.",
+    trackPerformance: "معیارهای عملکرد خود را پیگیری کنید.",
+  },
+  inputs: {
+    title: "ورودی‌ها",
+    basic: "ورودی‌های پایه",
+    withLabels: "با برچسب‌ها",
+    withIconsTitle: "با آیکون‌ها",
+    validation: "وضعیت‌های اعتبارسنجی",
+    textInput: "ورودی متن",
+    password: "رمز عبور",
+    search: "جستجو",
+    email: "ایمیل",
+    username: "نام کاربری",
+    enterUsername: "نام کاربری را وارد کنید",
+    enterEmail: "ایمیل را وارد کنید",
+    emailHelper: "ما هرگز ایمیل شما را به اشتراک نمی‌گذاریم.",
+    success: "موفقیت",
+    error: "خطا",
+    validInput: "ورودی معتبر!",
+    somethingWrong: "مشکلی پیش آمده است",
+  },
+  modal: {
+    title: "مودال",
+    openModal: "باز کردن مودال",
+    viewContent: "مشاهده محتوا",
+    archiveAccess: "دسترسی به آرشیو",
+    acceptMission: "پذیرش ماموریت",
+    decline: "رد کردن",
+    modalDescription:
+      "شما یک قطعه آرشیو جدای مهر و موم شده را کشف کردید. این مودال از استایل glass-heavy با blur(30px) استفاده می‌کند.",
+  },
+  toast: {
+    title: "اعلان‌های توست",
+    subtitle: "بالا-راست · مینیمال · اسلاید ۲۲۰ms · خودکار حذف",
+    successToast: "توست موفقیت",
+    errorToast: "توست خطا",
+    warningToast: "توست اخطار",
+    infoToast: "توست اطلاعات",
+    successMsg: "ماموریت انجام شد! +۳۰۰ XP دریافت شد.",
+    errorMsg: "اتصال قطع شد. تلاش مجدد...",
+    warningMsg: "لطفا اتصال خود را بررسی کنید",
+    infoMsg: "آرشیوها در حال ایندکس شدن هستند",
+  },
+  progress: {
+    title: "پیشرفت",
+    horizontal: "افقی",
+    labelInside: "برچسب داخل نوار",
+    displayTypes: "انواع نمایش",
+    sizes: "اندازه‌ها",
+    radial: "دایره‌ای",
+    radialCustom: "دایره‌ای با برچسب سفارشی",
+    radialSizes: "اندازه‌های دایره‌ای",
+    almostDone: "تقریبا تمام شد!",
+    loading: "در حال بارگذاری...",
+    done: "انجام شد!",
+  },
+  xpbar: {
+    title: "نوار تجربه، سطح",
+    rankProgress: "پیشرفت رتبه",
+    missionProgress: "پیشرفت ماموریت",
+    tier: "سطح",
+    points: "امتیاز",
+    exp: "تجربه",
+    score: "امتیاز",
+    prestige: "اعتبار",
+  },
+  glow: {
+    title: "جلوه‌های درخشش",
+    glowPurple: "درخشش بنفش",
+    glowCyan: "درخشش فیروزه‌ای",
+    glowPink: "درخشش صورتی",
+  },
+  quest: {
+    title: "کارت‌های ماموریت",
+    buildCMS: "ساخت CMS",
+    buildCMSDesc: "رابط آرشیو جدای را پیش از آب شدن برف‌ها مستقر کنید.",
+    secureArchives: "ایمن‌سازی آرشیو",
+    secureArchivesDesc:
+      "رمزنگاری سرتاسری برای تمام داده‌های ذخیره‌شده در آرشیو پیاده‌سازی کنید.",
+    legendaryQuest: "ماموریت افسانه‌ای: آرشیو گمشده",
+    legendaryQuestDesc:
+      "به اعماق طاق فراموش‌شده سفر کنید و هولوکرون باستانی را بازیابی کنید.",
+    mapNightCity: "نقشه‌برداری شب‌شهر",
+    mapNightCityDesc:
+      "نقشه جامعی از منطقه سایبرپانکی قبل از پاکسازی داده ایجاد کنید.",
+    requirements: "نیازمندی‌ها",
+    completeReviews: "تکمیل ۳ بازبینی کد",
+    writeTests: "نوشتن ۵ تست واحد",
+    deployStaging: "استقرار در محیط تست",
+    reachLevel: "رسیدن به سطح ۲۵",
+    defeatGuardian: "شکست دادن نگهبان سایه",
+    collectArtifacts: "جمع‌آوری ۳ اثر باستانی",
+    solveRiddle: "حل معما",
+    scanLocations: "اسکن ۱۰ مکان",
+    interviewNPCs: "مصاحبه با ۵ شخصیت",
+    uploadArchive: "آپلود در آرشیو",
+  },
+  character: {
+    title: "کارت‌های شخصیت",
+    vertical: "چیدمان عمودی (پیش‌فرض)",
+    horizontal: "چیدمان افقی",
+    daraName: "دارا",
+    daraSubtitle: "بایگان جدای",
+    daraQuote: "تاریکی ترسناک نیست — باید بایگانی شود.",
+    cipherName: "سایفر",
+    cipherSubtitle: "نت‌رانر",
+    cipherQuote: "کد کلید همه چیز است.",
+    shadowName: "سایه",
+    shadowSubtitle: "شکارچی شب",
+    shadowQuote: "من در تاریکی حرکت می‌کنم جایی که آنها نمی‌توانند ببینند.",
+    force: "نیرو",
+    combat: "رزمی",
+    intelligence: "هوش",
+    wisdom: "خرد",
+    hacking: "هک",
+    stealth: "مخفی‌کاری",
+    agility: "چابکی",
+    strength: "قدرت",
+  },
+  statsWidget: {
+    title: "ویجت آمار",
+    radialVariant: "واریانت دایره‌ای",
+    barVariant: "واریانت نواری",
+    horizontalLayout: "چیدمان افقی",
+    forceStats: "آمار نیرو",
+    characterStats: "آمار شخصیت",
+    progress: "پیشرفت",
+    skills: "مهارت‌ها",
+    battleStats: "آمار نبرد",
+    skillProgress: "پیشرفت مهارت",
+    health: "سلامت",
+    mana: "مانا",
+    stamina: "استقامت",
+    level: "سطح",
+    endurance: "استقامت",
+    luck: "شانس",
+  },
+  themeChanger: {
+    title: "تغییر دهنده تم",
+    default: "پیش‌فرض",
+    iconOnly: "فقط آیکون",
+    fixedWidth: "عرض ثابت (۱۶۰px)",
+    small: "کوچک",
+    smallIconOnly: "کوچک فقط آیکون",
+    customThemes: "تم‌های سفارشی",
+    demo: "نمایش",
+    themeChangerDesc:
+      "تغییر دهنده تم با تشخیص خودکار، حالت فقط آیکون و پشتیبانی از عرض ثابت. برای استفاده فشرده در نوار ناوبری از iconOnly استفاده کنید، یا برای اندازه‌گیری ثابت از fixedWidth استفاده کنید.",
+  },
+  languageChanger: {
+    title: "تغییر دهنده زبان",
+    default: "پیش‌فرض",
+    iconOnly: "فقط آیکون",
+    fixedWidth: "عرض ثابت (۱۶۰px)",
+    small: "کوچک",
+    smallIconOnly: "کوچک فقط آیکون",
+    customLanguages: "زبان‌های سفارشی",
+    demo: "نمایش",
+    languageChangerDesc:
+      "تغییر دهنده زبان با ذخیره‌سازی در localStorage، حالت فقط آیکون و پشتیبانی از عرض ثابت. برای استفاده فشرده در نوار ناوبری از iconOnly استفاده کنید، یا برای اندازه‌گیری ثابت از fixedWidth استفاده کنید. زبان در localStorage ذخیره شده و ویژگی‌های lang و dir روی عنصر html به‌روز می‌شوند.",
+  },
+  gradients: {
+    title: "گرادیان‌ها",
+    primary: "اصلی",
+    accent: "متضاد",
+    success: "موفقیت",
+    danger: "خطر",
+  },
+  effects: {
+    title: "جلوه‌ها",
+    glassEffect: "جلوه شیشه‌ای",
+    glowPurple: "درخشش بنفش",
+    glowPink: "درخشش صورتی",
+  },
+  typography: {
+    title: "تایپوگرافی",
+    textSecondary: "متن ثانویه",
+    regularBody: "متن معمولی با فونت Inter",
+    gradientHeading: "عنوان گرادیان",
+    accentText: "متن با رنگ متضاد",
+    codeExample: 'console.log("کد با فونت JetBrains Mono");',
+  },
+  persian: {
+    title: "پشتیبانی از فارسی",
+    persianText: "این متن با فونت وزیرمتن نمایش داده می‌شود",
+    persianHeading: "عنوان فارسی با قلم Kook",
+    persianDesc: "متن فارسی با اندازه کوچک و رنگ ثانویه",
+  },
+};
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 78/84: src\translations\fr.ts
+Language: typescript | Size: 11,983 bytes
+Lines: 350 total | 349 code | 0 comments | 1 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```typescript
+export const fr = {
+  app: {
+    title: "Composants Dara UI",
+  },
+  header: {
+    nightfall: "Nuit",
+    daylight: "Jour",
+    dracula: "Dracula",
+    rtl: "RTL",
+    ltr: "LTR",
+  },
+  badges: {
+    title: "Badges",
+    variants: "Variantes",
+    sizes: "Tailles",
+    outline: "Variantes contour",
+    withGlow: "Avec lueur",
+    withIcons: "Avec icônes",
+    primary: "Primaire",
+    secondary: "Secondaire",
+    success: "Succès",
+    danger: "Danger",
+    warning: "Avertissement",
+    small: "Petit",
+    medium: "Moyen",
+    large: "Grand",
+    glowPrimary: "Lueur Primaire",
+    glowSuccess: "Lueur Succès",
+    glowDanger: "Lueur Danger",
+    package: "Paquet",
+    done: "Terminé",
+    pending: "En attente",
+    failed: "Échoué",
+  },
+  buttons: {
+    title: "Variantes de boutons",
+    states: "États des boutons",
+    sizesTitle: "Tailles des boutons",
+    primary: "Primaire",
+    secondary: "Secondaire",
+    glass: "Verre",
+    danger: "Danger",
+    success: "Succès",
+    outline: "Contour",
+    normal: "Normal",
+    hover: "Survol",
+    pressed: "Appuyé",
+    disabled: "Désactivé",
+    loading: "Chargement",
+    small: "Petit",
+    medium: "Moyen (défaut)",
+    large: "Grand",
+  },
+  avatar: {
+    title: "Avatar",
+    sizes: "Tailles",
+    shapes: "Formes",
+    status: "Indicateurs de statut",
+    glowEffects: "Effets de lueur",
+    withImage: "Avec image",
+    group: "Groupe",
+    clickable: "Cliquable",
+  },
+  tooltip: {
+    title: "Infobulle",
+    placements: "Placements",
+    variants: "Variantes",
+    withBadge: "Avec badge",
+    longContent: "Contenu long",
+    top: "Haut",
+    bottom: "Bas",
+    left: "Gauche",
+    right: "Droite",
+    topLeft: "Haut gauche",
+    topRight: "Haut droite",
+    bottomLeft: "Bas gauche",
+    bottomRight: "Bas droite",
+    glassTooltip: "Infobulle en verre",
+    solidTooltip: "Infobulle solide",
+    outlineTooltip: "Infobulle contour",
+    unreadMessages: "Vous avez {{count}} messages non lus",
+    longTooltip:
+      "Ceci est une infobulle plus longue avec des informations plus détaillées sur l'élément que vous survolez.",
+    hoverDetails: "Survolez pour plus de détails",
+    disabledTooltip: "Cette infobulle est désactivée",
+    noArrow: "Pas de flèche sur cette infobulle",
+  },
+  tabs: {
+    title: "Onglets",
+    archive: "Archives",
+    quests: "Quêtes",
+    stats: "Statistiques",
+    settings: "Paramètres",
+    archiveContent:
+      "Parcourez les enregistrements Jedi cryptés, les holocrons et les journaux de mission des archives de Calgary.",
+    questsContent:
+      "Des missions actives, des primes et des quêtes secondaires vous attendent, Padawan.",
+    statsContent:
+      "Suivez votre alignement de la Force, vos gains d'XP et vos niveaux d'amélioration cybernétique.",
+    settingsContent:
+      "Configurez votre HUD, votre mode thème et vos préférences de cryptage d'archives.",
+  },
+  accordion: {
+    title: "Accordéon",
+    mode: "Mode",
+    single: "Unique",
+    multiple: "Multiple",
+    singleDesc: "Un seul élément peut être ouvert à la fois",
+    multipleDesc: "Plusieurs éléments peuvent être ouverts simultanément",
+    controlled: "Contrôlé — Éléments ouverts :",
+    withIcons: "Avec icônes",
+    q1: "Qu'est-ce que Dara UI ?",
+    a1: "Dara UI est un système de design qui ressemble à une interface découverte dans une archive futuriste cachée sous Calgary lors d'une tempête de neige. Il mélange le glassmorphisme, le cyberpunk, l'esthétique gothique, le minimalisme d'Apple et des éléments d'interface anime.",
+    q2: "Quels thèmes sont disponibles ?",
+    a2: "Archive Nocturne (défaut), Calgary Enneigée (clair), Mode Sith (noir + rouge), Temple Jedi (blanc + bleu), Dracula (violet) et Vin (rouges profonds).",
+    q3: "Comment l'installer ?",
+    dashboard: "Tableau de bord",
+    projects: "Projets",
+    settingsAccordion: "Paramètres",
+    dashboardContent:
+      "Aperçu du tableau de bord avec les indicateurs clés et l'activité récente.",
+    projectsContent: "Projets actifs et leur statut actuel.",
+    settingsContentAccordion:
+      "Configurez les préférences de votre application.",
+  },
+  dropdown: {
+    title: "Liste déroulante",
+    basic: "Basique",
+    withIcons: "Avec icônes",
+    searchable: "Recherchable",
+    controlled: "Contrôlé — Sélectionné :",
+    selectFramework: "Sélectionnez un framework...",
+    withPlaceholder: "Avec espace réservé",
+    selectWithIcons: "Sélectionnez avec icônes...",
+    searchWithIcons: "Recherchez avec icônes...",
+    searchOptions: "Rechercher des options...",
+    searchFrameworks: "Rechercher des frameworks...",
+    typeToFilter: "Tapez pour filtrer les options",
+    framework: "Framework",
+    chooseFramework: "Choisissez votre framework préféré",
+    setVue: "Définir Vue",
+    setSvelte: "Définir Svelte",
+    setSolid: "Définir Solid",
+  },
+  cards: {
+    title: "Cartes",
+    variants: "Variantes",
+    floatGlow: "Flottant + Lueur",
+    featureCards: "Cartes de fonctionnalités",
+    glassCard: "Carte en verre",
+    solidCard: "Carte solide",
+    outlineCard: "Carte contour",
+    purpleGlow: "Lueur violette",
+    cyanGlow: "Lueur cyan",
+    pinkGlow: "Lueur rose",
+    launch: "Lancer",
+    analytics: "Analyses",
+    deployProject: "Déployez votre projet en un clic.",
+    trackPerformance: "Suivez vos métriques de performance.",
+  },
+  inputs: {
+    title: "Champs de saisie",
+    basic: "Champs de saisie basiques",
+    withLabels: "Avec étiquettes",
+    withIconsTitle: "Avec icônes",
+    validation: "États de validation",
+    textInput: "Saisie de texte",
+    password: "Mot de passe",
+    search: "Recherche",
+    email: "Email",
+    username: "Nom d'utilisateur",
+    enterUsername: "Entrez le nom d'utilisateur",
+    enterEmail: "Entrez l'email",
+    emailHelper: "Nous ne partagerons jamais votre email.",
+    success: "Succès",
+    error: "Erreur",
+    validInput: "Saisie valide !",
+    somethingWrong: "Une erreur s'est produite",
+  },
+  modal: {
+    title: "Modale",
+    openModal: "Ouvrir la modale",
+    viewContent: "Voir le contenu",
+    archiveAccess: "Accès aux archives",
+    acceptMission: "Accepter la mission",
+    decline: "Refuser",
+    modalDescription:
+      "Vous avez découvert un fragment d'archive Jedi scellé. Cette modale utilise un style glass-heavy avec un arrière-plan flou à 30px.",
+  },
+  toast: {
+    title: "Notifications Toast",
+    subtitle: "En haut à droite · Minimal · Glissement 220ms · Auto-fermeture",
+    successToast: "Toast Succès",
+    errorToast: "Toast Erreur",
+    warningToast: "Toast Avertissement",
+    infoToast: "Toast Info",
+    successMsg: "Mission terminée ! +300 XP gagnés.",
+    errorMsg: "Connexion perdue. Nouvel essai...",
+    warningMsg: "Veuillez vérifier votre connexion",
+    infoMsg: "Les archives sont en cours d'indexation",
+  },
+  progress: {
+    title: "Progression",
+    horizontal: "Horizontal",
+    labelInside: "Étiquette à l'intérieur",
+    displayTypes: "Types d'affichage",
+    sizes: "Tailles",
+    radial: "Radial",
+    radialCustom: "Radial avec étiquette personnalisée",
+    radialSizes: "Tailles radiales",
+    almostDone: "Presque terminé !",
+    loading: "Chargement...",
+    done: "Terminé !",
+  },
+  xpbar: {
+    title: "Barre d'XP, Niveau",
+    rankProgress: "PROGRESSION DE RANG",
+    missionProgress: "PROGRESSION DE MISSION",
+    tier: "Niveau",
+    points: "Points",
+    exp: "EXP",
+    score: "Score",
+    prestige: "Prestige",
+  },
+  glow: {
+    title: "Effets de lueur",
+    glowPurple: "Lueur violette",
+    glowCyan: "Lueur cyan",
+    glowPink: "Lueur rose",
+  },
+  quest: {
+    title: "Cartes de quêtes",
+    buildCMS: "Construire CMS",
+    buildCMSDesc:
+      "Déployez l'interface d'archives Jedi cryptée avant que la neige ne fonde.",
+    secureArchives: "Sécuriser les archives",
+    secureArchivesDesc:
+      "Implémentez le chiffrement de bout en bout pour toutes les données stockées dans les archives.",
+    legendaryQuest: "Quête légendaire : Les archives perdues",
+    legendaryQuestDesc:
+      "Voyagez dans les profondeurs du caveau oublié et récupérez l'ancien holocron.",
+    mapNightCity: "Cartographier Night City",
+    mapNightCityDesc:
+      "Créez une carte complète du quartier cyberpunk avant la purge des données.",
+    requirements: "Prérequis",
+    completeReviews: "Compléter 3 revues de code",
+    writeTests: "Écrire 5 tests unitaires",
+    deployStaging: "Déployer en pré-production",
+    reachLevel: "Atteindre le niveau 25",
+    defeatGuardian: "Vaincre le Gardien de l'Ombre",
+    collectArtifacts: "Collecter 3 artefacts anciens",
+    solveRiddle: "Résoudre l'énigme du sphinx",
+    scanLocations: "Scanner 10 emplacements",
+    interviewNPCs: "Interviewer 5 PNJ",
+    uploadArchive: "Téléverser vers l'archive",
+  },
+  character: {
+    title: "Cartes de personnage",
+    vertical: "Disposition verticale (défaut)",
+    horizontal: "Disposition horizontale",
+    daraName: "Dara",
+    daraSubtitle: "Archiviste Jedi",
+    daraQuote: "L'obscurité n'est pas à craindre — elle doit être archivée.",
+    cipherName: "Cipher",
+    cipherSubtitle: "Netrunner",
+    cipherQuote: "Le code est la clé de tout.",
+    shadowName: "Ombre",
+    shadowSubtitle: "Chasseur nocturne",
+    shadowQuote:
+      "Je me déplace dans l'obscurité là où ils ne peuvent pas voir.",
+    force: "Force",
+    combat: "Combat",
+    intelligence: "Intelligence",
+    wisdom: "Sagesse",
+    hacking: "Piratage",
+    stealth: "Furtivité",
+    agility: "Agilité",
+    strength: "Force",
+  },
+  statsWidget: {
+    title: "Widget de statistiques",
+    radialVariant: "Variante radiale",
+    barVariant: "Variante à barres",
+    horizontalLayout: "Disposition horizontale",
+    forceStats: "STATS DE LA FORCE",
+    characterStats: "STATS DU PERSONNAGE",
+    progress: "PROGRÈS",
+    skills: "COMPÉTENCES",
+    battleStats: "STATS DE COMBAT",
+    skillProgress: "PROGRÈS DES COMPÉTENCES",
+    health: "Santé",
+    mana: "Mana",
+    stamina: "Endurance",
+    level: "Niveau",
+    endurance: "Endurance",
+    luck: "Chance",
+  },
+  themeChanger: {
+    title: "Changeur de thème",
+    default: "Défaut",
+    iconOnly: "Icône uniquement",
+    fixedWidth: "Largeur fixe (160px)",
+    small: "Petit",
+    smallIconOnly: "Petit icône uniquement",
+    customThemes: "Thèmes personnalisés",
+    demo: "Démo",
+    themeChangerDesc:
+      "Changeur de thème avec détection automatique, mode icône uniquement et support de largeur fixe. Passez iconOnly pour une utilisation compacte dans la barre de navigation, ou fixedWidth pour une taille cohérente.",
+  },
+  languageChanger: {
+    title: "Changeur de langue",
+    default: "Défaut",
+    iconOnly: "Icône uniquement",
+    fixedWidth: "Largeur fixe (160px)",
+    small: "Petit",
+    smallIconOnly: "Petit icône uniquement",
+    customLanguages: "Langues personnalisées",
+    demo: "Démo",
+    languageChangerDesc:
+      "Changeur de langue avec persistance localStorage, mode icône uniquement et support de largeur fixe. Passez iconOnly pour une utilisation compacte dans la barre de navigation, ou fixedWidth pour une taille cohérente. La langue est persistée via localStorage et met à jour les attributs lang et dir sur l'élément html.",
+  },
+  gradients: {
+    title: "Dégradés",
+    primary: "Primaire",
+    accent: "Accent",
+    success: "Succès",
+    danger: "Danger",
+  },
+  effects: {
+    title: "Effets",
+    glassEffect: "Effet verre",
+    glowPurple: "Lueur violette",
+    glowPink: "Lueur rose",
+  },
+  typography: {
+    title: "Typographie",
+    textSecondary: "Texte secondaire",
+    regularBody: "Texte corporel régulier avec la police Inter",
+    gradientHeading: "Titre dégradé",
+    accentText: "Texte coloré accentué",
+    codeExample: 'console.log("Code avec JetBrains Mono");',
+  },
+  persian: {
+    title: "Support persan",
+    persianText: "Ce texte est affiché avec la police Vazirmatn",
+    persianHeading: "Titre persan avec la police Kook",
+    persianDesc: "Texte persan en petit format et couleur secondaire",
+  },
+};
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 79/84: src\translations\index.ts
+Language: typescript | Size: 240 bytes
+Lines: 13 total | 10 code | 0 comments | 3 blank
+────────────────────────────────────────────────────────────────────────────────
+
+```typescript
+import { en } from "./en";
+import { fa } from "./fa";
+import { fr } from "./fr";
+
+export const translations = {
+  en,
+  fa,
+  fr,
+};
+
+export type TranslationKey = keyof typeof en;
+export type AvailableLanguages = keyof typeof translations;
+```
+
+
+────────────────────────────────────────────────────────────────────────────────
+FILE 80/84: tsconfig.app.json
 Language: json | Size: 655 bytes
 Lines: 27 total | 24 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -15579,7 +18049,7 @@ Lines: 27 total | 24 code | 0 comments | 3 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 73/76: tsconfig.json
+FILE 81/84: tsconfig.json
 Language: json | Size: 119 bytes
 Lines: 8 total | 7 code | 0 comments | 1 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -15596,7 +18066,7 @@ Lines: 8 total | 7 code | 0 comments | 1 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 74/76: tsconfig.node.json
+FILE 82/84: tsconfig.node.json
 Language: json | Size: 558 bytes
 Lines: 24 total | 21 code | 0 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -15629,7 +18099,7 @@ Lines: 24 total | 21 code | 0 comments | 3 blank
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 75/76: vite.config.ts
+FILE 83/84: vite.config.ts
 Language: typescript | Size: 1,720 bytes
 Lines: 71 total | 66 code | 2 comments | 3 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -15709,7 +18179,7 @@ export default defineConfig({
 
 
 ────────────────────────────────────────────────────────────────────────────────
-FILE 76/76: vitest.shims.d.ts
+FILE 84/84: vitest.shims.d.ts
 Language: typescript | Size: 52 bytes
 Lines: 1 total | 0 code | 1 comments | 0 blank
 ────────────────────────────────────────────────────────────────────────────────
@@ -15724,26 +18194,26 @@ Lines: 1 total | 0 code | 1 comments | 0 blank
 
 GENERAL STATISTICS
 ----------------------------------------
-Total files exported: 76
-Total size: 449,181 bytes (438.65 KB, 0.43 MB)
-Average file size: 5,910 bytes
+Total files exported: 84
+Total size: 524,017 bytes (511.74 KB, 0.50 MB)
+Average file size: 6,238 bytes
 
 LANGUAGE DISTRIBUTION
 ----------------------------------------
-tsx               39 files ( 51.3%) █████████████████████████
-typescript        21 files ( 27.6%) █████████████
-plaintext          4 files (  5.3%) ██
-json               4 files (  5.3%) ██
-css                3 files (  3.9%) █
-html               2 files (  2.6%) █
-javascript         1 files (  1.3%) 
-python             1 files (  1.3%) 
-markdown           1 files (  1.3%) 
+tsx               41 files ( 48.8%) ████████████████████████
+typescript        27 files ( 32.1%) ████████████████
+plaintext          4 files (  4.8%) ██
+json               4 files (  4.8%) ██
+css                3 files (  3.6%) █
+html               2 files (  2.4%) █
+javascript         1 files (  1.2%) 
+python             1 files (  1.2%) 
+markdown           1 files (  1.2%) 
 
 EXPORT METADATA
 ----------------------------------------
 Export tool: Advanced Project Code Exporter v2.0
-Export date: 2026-07-30 17:50:33
+Export date: 2026-08-01 18:04:20
 Python version: 3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]
 Platform: win32
 

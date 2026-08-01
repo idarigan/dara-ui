@@ -1,4 +1,3 @@
-// src/components/Modal/Modal.tsx
 import React, { useEffect, useRef, useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 import Button from "../Button/Button";

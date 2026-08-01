@@ -235,7 +235,7 @@ export const StatsWidget: React.FC<StatsWidgetProps> = ({
           ? `perspective(800px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(1.02)`
           : "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)",
         transformStyle: "preserve-3d",
-        transition: "transform 0.2s ease-out",
+        transition: "transform 0.2s ease-out, box-shadow 0.4s ease",
       }}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
