@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -17,7 +17,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   radius?: "sm" | "md" | "standard" | "large" | "xl" | "full";
   /**
-   * Float hover effect
+   * Float hover effect with 3D tilt
    * @default false
    */
   float?: boolean;
@@ -33,6 +33,12 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /**
  * Dara UI Card
+ *
+ * Features:
+ * - Glass, solid, and outline variants
+ * - 3D tilt effect on hover when float is enabled
+ * - Smooth animated glow transitions
+ * - Theme-aware colors
  */
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   (
@@ -48,6 +54,33 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     },
     ref,
   ) => {
+    // 3D tilt state
+    const [rotation, setRotation] = useState({ x: 0, y: 0 });
+    const [isHovering, setIsHovering] = useState(false);
+    const cardRef = useRef<HTMLDivElement>(null);
+
+    // Handle 3D tilt on mouse move
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!cardRef.current || !float) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -6;
+      const rotateY = ((x - centerX) / centerX) * 6;
+      setRotation({ x: rotateX, y: rotateY });
+    };
+
+    const handleMouseEnter = () => {
+      if (float) setIsHovering(true);
+    };
+
+    const handleMouseLeave = () => {
+      setIsHovering(false);
+      setRotation({ x: 0, y: 0 });
+    };
+
     // Variants
     const variants = {
       glass: "glass",
@@ -81,20 +114,49 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     };
 
     const floatClass = float ? "float-card" : "";
+    const glowClass = glow ? glowStyles[glow] : "";
 
     const classes = [
       variants[variant],
       paddings[padding],
       radiusMap[radius],
       floatClass,
-      glow ? glowStyles[glow] : "",
+      glowClass,
       className,
     ]
       .filter(Boolean)
       .join(" ");
 
     return (
-      <div ref={ref} className={classes} {...props}>
+      <div
+        ref={(node) => {
+          // Forward the ref
+          if (typeof ref === "function") {
+            ref(node);
+          } else if (ref) {
+            (ref as React.MutableRefObject<HTMLDivElement | null>).current =
+              node;
+          }
+          // Store in our local ref
+          (cardRef as React.MutableRefObject<HTMLDivElement | null>).current =
+            node;
+        }}
+        className={classes}
+        style={{
+          transform:
+            float && isHovering
+              ? `perspective(800px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(1.02)`
+              : "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)",
+          transformStyle: float ? "preserve-3d" : "flat",
+          transition: float
+            ? "transform 0.2s ease-out, box-shadow 0.4s ease"
+            : "none",
+        }}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        {...props}
+      >
         {children}
       </div>
     );
