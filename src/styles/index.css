@@ -212,11 +212,12 @@ button.glass,
 }
 
 /* =============================================
-   GLOW UTILITIES
+   GLOW UTILITIES - with smooth transitions
    ============================================= */
 
 .glow-purple {
   box-shadow: var(--shadow-glow-primary);
+  transition: box-shadow 0.4s ease;
 }
 
 .glow-purple.float-card:hover {
@@ -227,6 +228,7 @@ button.glass,
 
 .glow-cyan {
   box-shadow: var(--shadow-glow-secondary);
+  transition: box-shadow 0.4s ease;
 }
 
 .glow-cyan.float-card:hover {
@@ -237,6 +239,7 @@ button.glass,
 
 .glow-pink {
   box-shadow: var(--shadow-glow-accent);
+  transition: box-shadow 0.4s ease;
 }
 
 .glow-pink.float-card:hover {
