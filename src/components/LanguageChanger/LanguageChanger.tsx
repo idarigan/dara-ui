@@ -1,9 +1,13 @@
+// src/components/LanguageChanger/LanguageChanger.tsx
+
 import React, {
   useState,
   useRef,
   useEffect,
   createContext,
   useContext,
+  useCallback,
+  useMemo,
 } from "react";
 
 export interface LanguageOption {
@@ -71,9 +75,6 @@ export const DEFAULT_LANGUAGES: LanguageOption[] = [
   { value: "en", label: "English", icon: "🇺🇸", dir: "ltr" },
   { value: "fa", label: "فارسی", icon: "🇮🇷", dir: "rtl" },
   { value: "fr", label: "Français", icon: "🇫🇷", dir: "ltr" },
-  { value: "de", label: "Deutsch", icon: "🇩🇪", dir: "ltr" },
-  { value: "es", label: "Español", icon: "🇪🇸", dir: "ltr" },
-  { value: "ar", label: "العربية", icon: "🇸🇦", dir: "rtl" },
 ];
 
 /**
@@ -130,24 +131,27 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   }, [availableLanguages]);
 
   // Apply language to document
-  const applyLanguage = (lang: string) => {
-    const langOption = languages.find((l) => l.value === lang);
-    document.documentElement.lang = lang;
-    document.documentElement.dir = langOption?.dir || "ltr";
+  const applyLanguage = useCallback(
+    (lang: string) => {
+      const langOption = languages.find((l) => l.value === lang);
+      document.documentElement.lang = lang;
+      document.documentElement.dir = langOption?.dir || "ltr";
 
-    // Persist to localStorage
-    localStorage.setItem(STORAGE_KEY, lang);
+      // Persist to localStorage
+      localStorage.setItem(STORAGE_KEY, lang);
 
-    // Dispatch custom event for components using useI18n
-    window.dispatchEvent(
-      new CustomEvent("dara-language-change", { detail: { lang } }),
-    );
-  };
+      // Dispatch custom event for components using useI18n
+      window.dispatchEvent(
+        new CustomEvent("dara-language-change", { detail: { lang } }),
+      );
+    },
+    [languages],
+  );
 
   // Apply on mount and when language changes
   useEffect(() => {
     applyLanguage(currentLang);
-  }, [currentLang, languages]);
+  }, [currentLang, applyLanguage]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -170,14 +174,17 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   }, [isOpen]);
 
   // Handle language selection
-  const handleSelect = (lang: string) => {
-    if (!isControlled) {
-      setInternalValue(lang);
-    }
-    applyLanguage(lang);
-    onChange?.(lang);
-    setIsOpen(false);
-  };
+  const handleSelect = useCallback(
+    (lang: string) => {
+      if (!isControlled) {
+        setInternalValue(lang);
+      }
+      applyLanguage(lang);
+      onChange?.(lang);
+      setIsOpen(false);
+    },
+    [isControlled, onChange, applyLanguage],
+  );
 
   // Get default icon for language
   const getDefaultIcon = (value: string): string => {
@@ -199,10 +206,14 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   };
 
   // Ensure languages have icons
-  const displayLanguages = languages.map((lang) => ({
-    ...lang,
-    icon: lang.icon || getDefaultIcon(lang.value),
-  }));
+  const displayLanguages = useMemo(
+    () =>
+      languages.map((lang) => ({
+        ...lang,
+        icon: lang.icon || getDefaultIcon(lang.value),
+      })),
+    [languages],
+  );
 
   // Size styles
   const sizeStyles = {
@@ -533,64 +544,71 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
   const [language, setLanguageState] = useState<string>(getInitialLang);
 
   // Translation function with nested key resolution and parameter interpolation
-  const t = (key: string, params?: Record<string, string | number>): string => {
-    const currentTranslations = translations[language] || translations.en || {};
+  const t = useCallback(
+    (key: string, params?: Record<string, string | number>): string => {
+      const currentTranslations =
+        translations[language] || translations.en || {};
 
-    // Resolve nested keys (e.g., 'welcome.title')
-    const keys = key.split(".");
-    let value: any = currentTranslations;
-    for (const k of keys) {
-      if (value && typeof value === "object" && k in value) {
-        value = value[k];
-      } else {
-        // Fallback to English if available
-        const fallback = translations.en || {};
-        let fallbackValue: any = fallback;
-        for (const fk of keys) {
-          if (
-            fallbackValue &&
-            typeof fallbackValue === "object" &&
-            fk in fallbackValue
-          ) {
-            fallbackValue = fallbackValue[fk];
-          } else {
-            return key; // Return the key if not found anywhere
+      // Resolve nested keys (e.g., 'welcome.title')
+      const keys = key.split(".");
+      let value: any = currentTranslations;
+      for (const k of keys) {
+        if (value && typeof value === "object" && k in value) {
+          value = value[k];
+        } else {
+          // Fallback to English if available
+          const fallback = translations.en || {};
+          let fallbackValue: any = fallback;
+          for (const fk of keys) {
+            if (
+              fallbackValue &&
+              typeof fallbackValue === "object" &&
+              fk in fallbackValue
+            ) {
+              fallbackValue = fallbackValue[fk];
+            } else {
+              return key; // Return the key if not found anywhere
+            }
           }
+          value = fallbackValue;
+          break;
         }
-        value = fallbackValue;
-        break;
       }
-    }
 
-    if (typeof value !== "string") {
-      return key;
-    }
+      if (typeof value !== "string") {
+        return key;
+      }
 
-    // Parameter interpolation
-    if (params) {
-      return value.replace(/\{\{(\w+)\}\}/g, (_, paramName) => {
-        return String(params[paramName] ?? `{{${paramName}}}`);
-      });
-    }
+      // Parameter interpolation
+      if (params) {
+        return value.replace(/\{\{(\w+)\}\}/g, (_, paramName) => {
+          return String(params[paramName] ?? `{{${paramName}}}`);
+        });
+      }
 
-    return value;
-  };
+      return value;
+    },
+    [language, translations],
+  );
 
   // Set language and apply to document
-  const setLanguage = (lang: string) => {
-    const langOption = defaultLanguages.find((l) => l.value === lang);
-    if (!langOption) return;
+  const setLanguage = useCallback(
+    (lang: string) => {
+      const langOption = defaultLanguages.find((l) => l.value === lang);
+      if (!langOption) return;
 
-    setLanguageState(lang);
-    document.documentElement.lang = lang;
-    document.documentElement.dir = langOption.dir || "ltr";
-    localStorage.setItem(STORAGE_KEY, lang);
+      setLanguageState(lang);
+      document.documentElement.lang = lang;
+      document.documentElement.dir = langOption.dir || "ltr";
+      localStorage.setItem(STORAGE_KEY, lang);
 
-    // Dispatch event for other components
-    window.dispatchEvent(
-      new CustomEvent("dara-language-change", { detail: { lang } }),
-    );
-  };
+      // Dispatch event for other components
+      window.dispatchEvent(
+        new CustomEvent("dara-language-change", { detail: { lang } }),
+      );
+    },
+    [defaultLanguages],
+  );
 
   // Apply initial language on mount
   useEffect(() => {
@@ -600,19 +618,44 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
       document.documentElement.lang = initialLang;
       document.documentElement.dir = langOption.dir || "ltr";
     }
-  }, []);
+  }, [defaultLanguages]);
+
+  // Listen for language changes from other components (e.g., LanguageChanger)
+  useEffect(() => {
+    const handleLanguageChange = (event: CustomEvent) => {
+      const { lang } = event.detail;
+      if (lang && lang !== language) {
+        setLanguageState(lang);
+      }
+    };
+
+    window.addEventListener(
+      "dara-language-change",
+      handleLanguageChange as EventListener,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "dara-language-change",
+        handleLanguageChange as EventListener,
+      );
+    };
+  }, [language]);
 
   // Get current language direction
   const currentDir =
     defaultLanguages.find((l) => l.value === language)?.dir || "ltr";
 
-  const value: I18nContextValue = {
-    language,
-    setLanguage,
-    t,
-    languages: defaultLanguages,
-    dir: currentDir,
-  };
+  const value: I18nContextValue = useMemo(
+    () => ({
+      language,
+      setLanguage,
+      t,
+      languages: defaultLanguages,
+      dir: currentDir,
+    }),
+    [language, setLanguage, t, defaultLanguages, currentDir],
+  );
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 };
