@@ -66,6 +66,11 @@ export interface LanguageChangerProps {
    * Additional className
    */
   className?: string;
+  /**
+   * Whether to use the I18n context
+   * @default true
+   */
+  useContext?: boolean;
 }
 
 /**
@@ -92,6 +97,7 @@ export const DEFAULT_LANGUAGES: LanguageOption[] = [
  * - Size variants (sm, md, lg)
  * - Dropdown is always centered under the trigger
  * - Menu width matches the button when iconOnly or fixedWidth is used
+ * - All LanguageChanger instances sync through I18n context
  */
 export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   value: controlledValue,
@@ -102,6 +108,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   iconOnly = false,
   fixedWidth,
   className = "",
+  useContext: useI18nContext = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [languages, setLanguages] =
@@ -109,8 +116,20 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const STORAGE_KEY = "dara-ui-language";
 
+  // Try to get context if available
+  let contextValue: I18nContextValue | null = null;
+  try {
+    contextValue = useI18n();
+  } catch {
+    // Not inside I18nProvider
+  }
+
+  const isInContext = useI18nContext && contextValue !== null;
+
   // Determine if controlled or uncontrolled
   const isControlled = controlledValue !== undefined;
+
+  // For internal state - only used when not in context or controlled
   const [internalValue, setInternalValue] = useState<string>(() => {
     // Try to load from localStorage
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -121,7 +140,15 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
     return defaultValue || DEFAULT_LANGUAGES[0]?.value || "en";
   });
 
-  const currentLang = isControlled ? controlledValue : internalValue;
+  // Current language: priority: controlled > context > internal
+  let currentLang: string;
+  if (isControlled) {
+    currentLang = controlledValue;
+  } else if (isInContext) {
+    currentLang = contextValue.language;
+  } else {
+    currentLang = internalValue;
+  }
 
   // Set languages from props or defaults
   useEffect(() => {
@@ -176,14 +203,18 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   // Handle language selection
   const handleSelect = useCallback(
     (lang: string) => {
-      if (!isControlled) {
+      // If we're in context, use context's setLanguage
+      if (isInContext) {
+        contextValue.setLanguage(lang);
+      } else if (!isControlled) {
         setInternalValue(lang);
       }
+
       applyLanguage(lang);
       onChange?.(lang);
       setIsOpen(false);
     },
-    [isControlled, onChange, applyLanguage],
+    [isInContext, contextValue, isControlled, onChange, applyLanguage],
   );
 
   // Get default icon for language
