@@ -1,3 +1,14 @@
+/**
+ * Dara UI - Main Demo Application
+ *
+ * This file serves as the primary showcase for all Dara UI components.
+ * It demonstrates the complete component library with interactive examples
+ * and full multilingual support (English, Persian, French).
+ *
+ * The app uses the I18nProvider to handle translations, allowing all UI text
+ * to switch dynamically between languages while maintaining RTL support.
+ */
+
 import { useState, useEffect } from "react";
 import Button from "./components/Button/Button";
 import { Badge } from "./components/Badge/Badge";
@@ -15,7 +26,6 @@ import { XPBar } from "./components/XPBar";
 import { QuestCard } from "./components/QuestCard/QuestCard";
 import { CharacterCard } from "./components/CharacterCard/CharacterCard";
 import { ThemeChanger } from "./components/ThemeChanger";
-import { LanguageChanger } from "./components/LanguageChanger";
 import useDirection from "./hooks/useDirection";
 
 import {
@@ -30,7 +40,10 @@ import StatsWidget from "./components/StatsWidget";
 
 type Theme = "nightfall" | "daylight" | "dracula";
 
+// ============================================
 // Icons
+// ============================================
+
 const SearchIcon = () => (
   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
     <path
@@ -100,7 +113,10 @@ const CheckIcon = () => (
   </svg>
 );
 
+// ============================================
 // Tab items for Tabs demo
+// ============================================
+
 const tabItems = [
   {
     label: "Archive",
@@ -142,7 +158,10 @@ const tabItems = [
   },
 ];
 
+// ============================================
 // Accordion items for demo
+// ============================================
+
 const accordionItems = [
   {
     id: "1",
@@ -286,7 +305,10 @@ const accordionItemsWithIcons = [
   },
 ];
 
+// ============================================
 // Dropdown options
+// ============================================
+
 const frameworkOptions = [
   { value: "react", label: "React" },
   { value: "vue", label: "Vue.js" },
@@ -302,6 +324,10 @@ const dropdownOptionsWithIcons = [
   { value: "favorites", label: "Favorites", icon: <StarIcon /> },
   { value: "done", label: "Completed", icon: <CheckIcon /> },
 ];
+
+// ============================================
+// Toast Demo Component
+// ============================================
 
 function ToastDemo() {
   const toast = useToast();
@@ -336,7 +362,14 @@ function ToastDemo() {
   );
 }
 
+// ============================================
+// Main App Content
+// ============================================
+
 function AppContent() {
+  // ----- Get translation function from i18n context -----
+  const { t } = useI18n();
+
   const [theme, setTheme] = useState<Theme>("nightfall");
   const { direction, toggleDirection } = useDirection("ltr");
   const [activeTab, setActiveTab] = useState("archive");
@@ -347,6 +380,7 @@ function AppContent() {
   const [selectedFramework, setSelectedFramework] = useState("react");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Apply theme to document
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
@@ -358,88 +392,95 @@ function AppContent() {
   return (
     <div className="min-h-screen p-8 transition-theme">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
+        {/* ============================================
+            HEADER
+            ============================================ */}
         <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
           <h1 className="text-4xl font-bold text-gradient-primary">
-            Dara UI Components
+            {t("app.title")}
           </h1>
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-2 flex-wrap items-center">
             <Button
               size="sm"
               variant={theme === "nightfall" ? "primary" : "outline"}
               onClick={() => changeTheme("nightfall")}
             >
-              🌙 Nightfall
+              🌙 {t("header.nightfall")}
             </Button>
             <Button
               size="sm"
               variant={theme === "daylight" ? "primary" : "outline"}
               onClick={() => changeTheme("daylight")}
             >
-              ☀️ Daylight
+              ☀️ {t("header.daylight")}
             </Button>
             <Button
               size="sm"
               variant={theme === "dracula" ? "primary" : "outline"}
               onClick={() => changeTheme("dracula")}
             >
-              🍷 Dracula
+              🍷 {t("header.dracula")}
             </Button>
             <Button size="sm" variant="outline" onClick={toggleDirection}>
-              {direction === "ltr" ? "🔁 RTL" : "🔁 LTR"}
+              {direction === "ltr"
+                ? `🔁 ${t("header.rtl")}`
+                : `🔁 ${t("header.ltr")}`}
             </Button>
           </div>
         </div>
-        {/* ----- BADGES SHOWCASE ----- */}
+
+        {/* ============================================
+            BADGES SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Badges</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("badges.title")}</h2>
 
           {/* Badge Variants */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Variants
+              {t("badges.variants")}
             </p>
             <div className="flex flex-wrap gap-3">
-              <Badge variant="primary">Primary</Badge>
-              <Badge variant="secondary">Secondary</Badge>
-              <Badge variant="success">Success</Badge>
-              <Badge variant="danger">Danger</Badge>
-              <Badge variant="warning">Warning</Badge>
+              <Badge variant="primary">{t("badges.primary")}</Badge>
+              <Badge variant="secondary">{t("badges.secondary")}</Badge>
+              <Badge variant="success">{t("badges.success")}</Badge>
+              <Badge variant="danger">{t("badges.danger")}</Badge>
+              <Badge variant="warning">{t("badges.warning")}</Badge>
             </div>
           </div>
 
           {/* Badge Sizes */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Sizes
+              {t("badges.sizes")}
             </p>
             <div className="flex flex-wrap gap-3 items-center">
-              <Badge size="sm">Small</Badge>
-              <Badge size="md">Medium</Badge>
-              <Badge size="lg">Large</Badge>
+              <Badge size="sm">{t("badges.small")}</Badge>
+              <Badge size="md">{t("badges.medium")}</Badge>
+              <Badge size="lg">{t("badges.large")}</Badge>
             </div>
           </div>
 
           {/* Outline Badges */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Outline Variants
+              {t("badges.outline")}
             </p>
             <div className="flex flex-wrap gap-3">
               <Badge outline variant="primary">
-                Primary
+                {t("badges.primary")}
               </Badge>
               <Badge outline variant="secondary">
-                Secondary
+                {t("badges.secondary")}
               </Badge>
               <Badge outline variant="success">
-                Success
+                {t("badges.success")}
               </Badge>
               <Badge outline variant="danger">
-                Danger
+                {t("badges.danger")}
               </Badge>
               <Badge outline variant="warning">
-                Warning
+                {t("badges.warning")}
               </Badge>
             </div>
           </div>
@@ -447,17 +488,17 @@ function AppContent() {
           {/* Glow Badges */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Glow
+              {t("badges.withGlow")}
             </p>
             <div className="flex flex-wrap gap-3">
               <Badge glow variant="primary">
-                Glow Primary
+                {t("badges.glowPrimary")}
               </Badge>
               <Badge glow variant="success">
-                Glow Success
+                {t("badges.glowSuccess")}
               </Badge>
               <Badge glow variant="danger">
-                Glow Danger
+                {t("badges.glowDanger")}
               </Badge>
             </div>
           </div>
@@ -465,82 +506,92 @@ function AppContent() {
           {/* Badges with Icons */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Icons
+              {t("badges.withIcons")}
             </p>
             <div className="flex flex-wrap gap-3">
               <Badge variant="primary">
-                <span className="mr-1">📦</span> Package
+                <span className="mr-1">📦</span> {t("badges.package")}
               </Badge>
               <Badge variant="success">
-                <span className="mr-1">✅</span> Done
+                <span className="mr-1">✅</span> {t("badges.done")}
               </Badge>
               <Badge variant="warning">
-                <span className="mr-1">⚠️</span> Pending
+                <span className="mr-1">⚠️</span> {t("badges.warning")}
               </Badge>
               <Badge variant="danger">
-                <span className="mr-1">❌</span> Failed
+                <span className="mr-1">❌</span> {t("badges.failed")}
               </Badge>
             </div>
           </div>
         </section>
-        {/* ----- BUTTONS SHOWCASE ----- */}
+
+        {/* ============================================
+            BUTTONS SHOWCASE
+            ============================================ */}
         {/* Buttons: variants */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Button Variants</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("buttons.title")}</h2>
           <div className="flex flex-wrap gap-3">
-            <Button variant="primary">Primary</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="glass">Glass</Button>
-            <Button variant="danger">Danger</Button>
-            <Button variant="success">Success</Button>
-            <Button variant="outline">Outline</Button>
+            <Button variant="primary">{t("buttons.primary")}</Button>
+            <Button variant="secondary">{t("buttons.secondary")}</Button>
+            <Button variant="glass">{t("buttons.glass")}</Button>
+            <Button variant="danger">{t("buttons.danger")}</Button>
+            <Button variant="success">{t("buttons.success")}</Button>
+            <Button variant="outline">{t("buttons.outline")}</Button>
           </div>
         </section>
-        {/* Buttons: stats */}
+
+        {/* Buttons: states */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Button States</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("buttons.states")}</h2>
           <div className="flex flex-wrap gap-3 items-center">
-            <Button variant="primary">Normal</Button>
+            <Button variant="primary">{t("buttons.normal")}</Button>
             <Button
               variant="primary"
               className="bg-[var(--color-primary-hover)] shadow-[var(--shadow-glow-primary)]"
             >
-              Hover
+              {t("buttons.hover")}
             </Button>
             <Button variant="primary" className="scale-95">
-              Pressed
+              {t("buttons.pressed")}
             </Button>
             <Button variant="primary" disabled>
-              Disabled
+              {t("buttons.disabled")}
             </Button>
             <Button variant="primary" loading>
-              Loading
+              {t("buttons.loading")}
             </Button>
           </div>
         </section>
+
         {/* Buttons: sizes */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Button Sizes</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("buttons.sizesTitle")}
+          </h2>
           <div className="flex flex-wrap gap-3 items-center">
             <Button size="sm" variant="primary">
-              Small
+              {t("buttons.small")}
             </Button>
             <Button size="md" variant="primary">
-              Medium (default)
+              {t("buttons.medium")}
             </Button>
             <Button size="lg" variant="primary">
-              Large
+              {t("buttons.large")}
             </Button>
           </div>
         </section>
-        {/* ----- AVATAR SHOWCASE ----- */}
+
+        {/* ============================================
+            AVATAR SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Avatar</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("avatar.title")}</h2>
 
           {/* Sizes */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Sizes
+              {t("avatar.sizes")}
             </p>
             <div className="flex items-center gap-4">
               <Avatar size="xs" fallbackText="JD" />
@@ -554,7 +605,7 @@ function AppContent() {
           {/* Shapes */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Shapes
+              {t("avatar.shapes")}
             </p>
             <div className="flex items-center gap-4">
               <Avatar shape="circle" fallbackText="JD" />
@@ -566,7 +617,7 @@ function AppContent() {
           {/* With Status */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Status Indicators
+              {t("avatar.status")}
             </p>
             <div className="flex items-center gap-4">
               <Avatar status="online" fallbackText="JD" />
@@ -579,7 +630,7 @@ function AppContent() {
           {/* With Glow */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Glow Effects
+              {t("avatar.glowEffects")}
             </p>
             <div className="flex items-center gap-4">
               <Avatar glow="purple" fallbackText="JD" />
@@ -591,7 +642,7 @@ function AppContent() {
           {/* With Image */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Image
+              {t("avatar.withImage")}
             </p>
             <div className="flex items-center gap-4">
               <Avatar
@@ -617,7 +668,7 @@ function AppContent() {
           {/* Group */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Group
+              {t("avatar.group")}
             </p>
             <Avatar group size="md">
               <Avatar fallbackText="JD" />
@@ -630,7 +681,7 @@ function AppContent() {
           {/* Clickable */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Clickable
+              {t("avatar.clickable")}
             </p>
             <Avatar
               fallbackText="JD"
@@ -639,34 +690,37 @@ function AppContent() {
             />
           </div>
         </section>
-        {/* ----- TOOLTIP SHOWCASE ----- */}
+
+        {/* ============================================
+            TOOLTIP SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Tooltip</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("tooltip.title")}</h2>
 
           {/* Placements */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Placements
+              {t("tooltip.placements")}
             </p>
             <div className="grid grid-cols-4 gap-4">
-              <Tooltip content="Top" placement="top">
+              <Tooltip content={t("tooltip.top")} placement="top">
                 <Button size="sm" variant="glass" className="w-full">
-                  Top
+                  {t("tooltip.top")}
                 </Button>
               </Tooltip>
-              <Tooltip content="Bottom" placement="bottom">
+              <Tooltip content={t("tooltip.bottom")} placement="bottom">
                 <Button size="sm" variant="glass" className="w-full">
-                  Bottom
+                  {t("tooltip.bottom")}
                 </Button>
               </Tooltip>
-              <Tooltip content="Left" placement="left">
+              <Tooltip content={t("tooltip.left")} placement="left">
                 <Button size="sm" variant="glass" className="w-full">
-                  Left
+                  {t("tooltip.left")}
                 </Button>
               </Tooltip>
-              <Tooltip content="Right" placement="right">
+              <Tooltip content={t("tooltip.right")} placement="right">
                 <Button size="sm" variant="glass" className="w-full">
-                  Right
+                  {t("tooltip.right")}
                 </Button>
               </Tooltip>
             </div>
@@ -675,17 +729,17 @@ function AppContent() {
           {/* Variants */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Variants
+              {t("tooltip.variants")}
             </p>
             <div className="flex items-center gap-4">
-              <Tooltip content="Glass tooltip" variant="glass">
-                <Button variant="glass">Glass</Button>
+              <Tooltip content={t("tooltip.glassTooltip")} variant="glass">
+                <Button variant="glass">{t("buttons.glass")}</Button>
               </Tooltip>
-              <Tooltip content="Solid tooltip" variant="solid">
-                <Button variant="secondary">Solid</Button>
+              <Tooltip content={t("tooltip.solidTooltip")} variant="solid">
+                <Button variant="secondary">{t("buttons.secondary")}</Button>
               </Tooltip>
-              <Tooltip content="Outline tooltip" variant="outline">
-                <Button variant="outline">Outline</Button>
+              <Tooltip content={t("tooltip.outlineTooltip")} variant="outline">
+                <Button variant="outline">{t("buttons.outline")}</Button>
               </Tooltip>
             </div>
           </div>
@@ -693,9 +747,9 @@ function AppContent() {
           {/* With Badge */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Badge
+              {t("tooltip.withBadge")}
             </p>
-            <Tooltip content="You have 42 unread messages">
+            <Tooltip content={t("tooltip.unreadMessages", { count: 42 })}>
               <Badge variant="primary" glow className="cursor-pointer">
                 42
               </Badge>
@@ -705,16 +759,19 @@ function AppContent() {
           {/* Long Content */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Long Content
+              {t("tooltip.longContent")}
             </p>
-            <Tooltip content="This is a longer tooltip with more detailed information about the element you're hovering over.">
-              <Button variant="primary">Hover for details</Button>
+            <Tooltip content={t("tooltip.longTooltip")}>
+              <Button variant="primary">{t("tooltip.hoverDetails")}</Button>
             </Tooltip>
           </div>
         </section>
-        {/* ----- TABS SHOWCASE ----- */}
+
+        {/* ============================================
+            TABS SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Tabs</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("tabs.title")}</h2>
           <Tabs
             items={tabItems}
             activeValue={activeTab}
@@ -722,14 +779,19 @@ function AppContent() {
             glowColor="primary"
           />
         </section>
-        {/* ----- ACCORDION SHOWCASE ----- */}
+
+        {/* ============================================
+            ACCORDION SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Accordion</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("accordion.title")}
+          </h2>
 
           {/* Mode Switcher */}
           <div className="flex items-center gap-4 mb-4 flex-wrap">
             <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-              Mode:
+              {t("accordion.mode")}:
             </span>
             <Button
               size="sm"
@@ -739,7 +801,7 @@ function AppContent() {
                 setOpenAccordionItems(["1"]);
               }}
             >
-              Single
+              {t("accordion.single")}
             </Button>
             <Button
               size="sm"
@@ -749,19 +811,19 @@ function AppContent() {
                 setOpenAccordionItems(["1", "2"]);
               }}
             >
-              Multiple
+              {t("accordion.multiple")}
             </Button>
             <span className="text-xs text-[var(--color-text-tertiary)] font-mono ml-2">
               {accordionMode === "single"
-                ? "Only one item can be open at a time"
-                : "Multiple items can be open simultaneously"}
+                ? t("accordion.singleDesc")
+                : t("accordion.multipleDesc")}
             </span>
           </div>
 
           {/* Controlled Accordion */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Controlled — Open items:{" "}
+              {t("accordion.controlled")}{" "}
               <span className="text-[var(--color-primary)]">
                 {openAccordionItems.length > 0
                   ? openAccordionItems.join(", ")
@@ -781,7 +843,7 @@ function AppContent() {
           {/* With Icons */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Icons
+              {t("accordion.withIcons")}
             </p>
             <Accordion
               items={accordionItemsWithIcons}
@@ -790,24 +852,27 @@ function AppContent() {
             />
           </div>
         </section>
-        {/* ----- DROPDOWN SHOWCASE ----- */}
+
+        {/* ============================================
+            DROPDOWN SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Dropdown</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("dropdown.title")}</h2>
 
           {/* Basic Dropdowns */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Basic
+              {t("dropdown.basic")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Dropdown
                 options={frameworkOptions}
-                placeholder="Select a framework..."
+                placeholder={t("dropdown.selectFramework")}
                 defaultValue="react"
               />
               <Dropdown
                 options={frameworkOptions}
-                placeholder="With placeholder"
+                placeholder={t("dropdown.withPlaceholder")}
               />
             </div>
           </div>
@@ -815,19 +880,19 @@ function AppContent() {
           {/* With Icons */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Icons
+              {t("dropdown.withIcons")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Dropdown
                 options={dropdownOptionsWithIcons}
-                placeholder="Select with icons..."
+                placeholder={t("dropdown.selectWithIcons")}
                 defaultValue="user"
               />
               <Dropdown
                 options={dropdownOptionsWithIcons}
-                placeholder="Search with icons..."
+                placeholder={t("dropdown.searchWithIcons")}
                 searchable
-                searchPlaceholder="Search options..."
+                searchPlaceholder={t("dropdown.searchOptions")}
               />
             </div>
           </div>
@@ -835,23 +900,23 @@ function AppContent() {
           {/* Searchable */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Searchable
+              {t("dropdown.searchable")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Dropdown
                 options={frameworkOptions}
-                placeholder="Search frameworks..."
+                placeholder={t("dropdown.searchFrameworks")}
                 searchable
                 defaultValue="react"
-                label="Framework"
-                helperText="Type to filter options"
+                label={t("dropdown.framework")}
+                helperText={t("dropdown.typeToFilter")}
               />
               <Dropdown
                 options={dropdownOptionsWithIcons}
-                placeholder="Search with icons..."
+                placeholder={t("dropdown.searchWithIcons")}
                 searchable
-                searchPlaceholder="Search..."
-                label="With Icons"
+                searchPlaceholder={t("dropdown.searchOptions")}
+                label={t("dropdown.withIcons")}
               />
             </div>
           </div>
@@ -859,7 +924,7 @@ function AppContent() {
           {/* Controlled */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Controlled — Selected:{" "}
+              {t("dropdown.controlled")}{" "}
               <span className="text-[var(--color-primary)] font-bold">
                 {selectedFramework}
               </span>
@@ -869,8 +934,8 @@ function AppContent() {
                 options={frameworkOptions}
                 value={selectedFramework}
                 onChange={setSelectedFramework}
-                placeholder="Select a framework..."
-                label="Controlled Dropdown"
+                placeholder={t("dropdown.selectFramework")}
+                label={t("dropdown.framework")}
               />
               <div className="flex items-center gap-2 flex-wrap">
                 <Button
@@ -878,50 +943,59 @@ function AppContent() {
                   variant="outline"
                   onClick={() => setSelectedFramework("vue")}
                 >
-                  Set Vue
+                  {t("dropdown.setVue")}
                 </Button>
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={() => setSelectedFramework("svelte")}
                 >
-                  Set Svelte
+                  {t("dropdown.setSvelte")}
                 </Button>
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={() => setSelectedFramework("solid")}
                 >
-                  Set Solid
+                  {t("dropdown.setSolid")}
                 </Button>
               </div>
             </div>
           </div>
         </section>
-        {/* ----- CARD SHOWCASE ----- */}
+
+        {/* ============================================
+            CARDS SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Cards</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("cards.title")}</h2>
 
           {/* Variants */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Variants
+              {t("cards.variants")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Card variant="glass">
-                <h3 className="font-heading font-bold">Glass</h3>
+                <h3 className="font-heading font-bold">
+                  {t("cards.glassCard")}
+                </h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   backdrop-filter: blur(20px)
                 </p>
               </Card>
               <Card variant="solid">
-                <h3 className="font-heading font-bold">Solid</h3>
+                <h3 className="font-heading font-bold">
+                  {t("cards.solidCard")}
+                </h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   More opaque, less blur
                 </p>
               </Card>
               <Card variant="outline">
-                <h3 className="font-heading font-bold">Outline</h3>
+                <h3 className="font-heading font-bold">
+                  {t("cards.outlineCard")}
+                </h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   Transparent with border
                 </p>
@@ -932,23 +1006,29 @@ function AppContent() {
           {/* Float + Glow */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Float + Glow
+              {t("cards.floatGlow")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Card float glow="purple">
-                <h3 className="font-heading font-bold">Purple Glow</h3>
+                <h3 className="font-heading font-bold">
+                  {t("cards.purpleGlow")}
+                </h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   Hover to float ✨
                 </p>
               </Card>
               <Card float glow="cyan">
-                <h3 className="font-heading font-bold">Cyan Glow</h3>
+                <h3 className="font-heading font-bold">
+                  {t("cards.cyanGlow")}
+                </h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   Hover to float ✨
                 </p>
               </Card>
               <Card float glow="pink">
-                <h3 className="font-heading font-bold">Pink Glow</h3>
+                <h3 className="font-heading font-bold">
+                  {t("cards.pinkGlow")}
+                </h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
                   Hover to float ✨
                 </p>
@@ -959,55 +1039,63 @@ function AppContent() {
           {/* Feature Cards */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Feature Cards
+              {t("cards.featureCards")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card glow="purple" className="text-center">
                 <div className="text-4xl mb-2">🚀</div>
-                <h3 className="font-heading font-bold">Launch</h3>
+                <h3 className="font-heading font-bold">{t("cards.launch")}</h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
-                  Deploy your project with one click.
+                  {t("cards.deployProject")}
                 </p>
               </Card>
               <Card variant="solid" className="text-center">
                 <div className="text-4xl mb-2">📊</div>
-                <h3 className="font-heading font-bold">Analytics</h3>
+                <h3 className="font-heading font-bold">
+                  {t("cards.analytics")}
+                </h3>
                 <p className="text-[var(--color-text-secondary)] text-sm">
-                  Track your performance metrics.
+                  {t("cards.trackPerformance")}
                 </p>
               </Card>
             </div>
           </div>
         </section>
-        {/* ----- INPUT SHOWCASE ----- */}
+
+        {/* ============================================
+            INPUT SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Inputs</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("inputs.title")}</h2>
 
           {/* Basic Inputs */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Basic Inputs
+              {t("inputs.basic")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input placeholder="Text input" />
-              <Input type="password" placeholder="Password" />
-              <Input type="search" placeholder="Search..." />
-              <Input type="email" placeholder="Email" />
+              <Input placeholder={t("inputs.textInput")} />
+              <Input type="password" placeholder={t("inputs.password")} />
+              <Input type="search" placeholder={t("inputs.search")} />
+              <Input type="email" placeholder={t("inputs.email")} />
             </div>
           </div>
 
           {/* With Labels */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Labels
+              {t("inputs.withLabels")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input label="Username" placeholder="Enter username" />
               <Input
-                label="Email"
+                label={t("inputs.username")}
+                placeholder={t("inputs.enterUsername")}
+              />
+              <Input
+                label={t("inputs.email")}
                 type="email"
-                placeholder="Enter email"
-                helperText="We'll never share your email."
+                placeholder={t("inputs.enterEmail")}
+                helperText={t("inputs.emailHelper")}
               />
             </div>
           </div>
@@ -1015,14 +1103,17 @@ function AppContent() {
           {/* With Icons */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              With Icons
+              {t("inputs.withIconsTitle")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input leftIcon={<UserIcon />} placeholder="Username" />
+              <Input
+                leftIcon={<UserIcon />}
+                placeholder={t("inputs.username")}
+              />
               <Input
                 leftIcon={<SearchIcon />}
                 type="search"
-                placeholder="Search..."
+                placeholder={t("inputs.search")}
               />
             </div>
           </div>
@@ -1030,65 +1121,72 @@ function AppContent() {
           {/* Validation States */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Validation States
+              {t("inputs.validation")}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Input
-                placeholder="Success"
+                placeholder={t("inputs.success")}
                 validation="success"
-                successMessage="Valid input!"
+                successMessage={t("inputs.validInput")}
               />
               <Input
-                placeholder="Error"
+                placeholder={t("inputs.error")}
                 validation="error"
-                errorMessage="Something went wrong"
+                errorMessage={t("inputs.somethingWrong")}
               />
             </div>
           </div>
         </section>
-        {/* ----- MODAL SHOWCASE ----- */}
+
+        {/* ============================================
+            MODAL SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Modal</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("modal.title")}</h2>
           <div className="flex gap-3 flex-wrap">
             <Button variant="primary" onClick={() => setIsModalOpen(true)}>
-              🔮 Open Modal
+              🔮 {t("modal.openModal")}
             </Button>
             <Button variant="glass" onClick={() => setIsModalOpen(true)}>
-              📜 View Content
+              📜 {t("modal.viewContent")}
             </Button>
           </div>
           <Modal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
-            title="🗂️ Archive Access"
-            confirmText="Accept Mission"
-            cancelText="Decline"
+            title={`🗂️ ${t("modal.archiveAccess")}`}
+            confirmText={t("modal.acceptMission")}
+            cancelText={t("modal.decline")}
             onConfirm={() => {
               console.log("Mission accepted!");
               setIsModalOpen(false);
             }}
           >
-            You've discovered a sealed Jedi archive fragment. This modal uses
-            glass-heavy styling with blur(30px) backdrop, scale-in animation,
-            and is rendered via React Portal outside the DOM tree.
+            {t("modal.modalDescription")}
           </Modal>
         </section>
-        {/* ----- TOAST SHOWCASE ----- */}
+
+        {/* ============================================
+            TOAST SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Toast Notifications</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("toast.title")}</h2>
           <p className="text-[var(--color-text-secondary)] text-sm mb-6 font-sans">
-            Top-right · Minimal · 220ms slide-in · Auto-dismiss
+            {t("toast.subtitle")}
           </p>
           <ToastDemo />
         </section>
-        {/* ----- PROGRESS SHOWCASE ----- */}
+
+        {/* ============================================
+            PROGRESS SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Progress</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("progress.title")}</h2>
 
           {/* Horizontal */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Horizontal
+              {t("progress.horizontal")}
             </p>
             <div className="flex flex-col gap-4 max-w-md">
               <Progress
@@ -1133,7 +1231,7 @@ function AppContent() {
           {/* Label Inside */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Label Inside Bar
+              {t("progress.labelInside")}
             </p>
             <div className="flex flex-col gap-4 max-w-md">
               <Progress
@@ -1166,7 +1264,7 @@ function AppContent() {
           {/* Display Types */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Display Types
+              {t("progress.displayTypes")}
             </p>
             <div className="flex flex-col gap-4 max-w-md">
               <Progress
@@ -1185,7 +1283,7 @@ function AppContent() {
               <Progress
                 value={75}
                 displayType="custom"
-                label="Almost done!"
+                label={t("progress.almostDone")}
                 labelPosition="right"
                 showLabel
               />
@@ -1195,7 +1293,7 @@ function AppContent() {
           {/* Sizes */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Sizes
+              {t("progress.sizes")}
             </p>
             <div className="flex flex-col gap-4 max-w-md">
               <Progress value={50} size="sm" labelPosition="right" showLabel />
@@ -1207,7 +1305,7 @@ function AppContent() {
           {/* Radial */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Radial
+              {t("progress.radial")}
             </p>
             <div className="flex flex-wrap gap-6">
               <Progress variant="radial" value={75} color="primary" showLabel />
@@ -1233,7 +1331,7 @@ function AppContent() {
           {/* Radial with Custom Label */}
           <div className="mb-6">
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Radial with Custom Label
+              {t("progress.radialCustom")}
             </p>
             <div className="flex flex-wrap gap-6">
               <Progress
@@ -1247,14 +1345,14 @@ function AppContent() {
                 variant="radial"
                 value={75}
                 displayType="custom"
-                label="Done!"
+                label={t("progress.done")}
                 showLabel
                 color="success"
               />
               <Progress
                 variant="radial"
                 value={45}
-                label="Loading..."
+                label={t("progress.loading")}
                 showLabel
                 color="warning"
               />
@@ -1264,7 +1362,7 @@ function AppContent() {
           {/* Radial Sizes */}
           <div>
             <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              Radial Sizes
+              {t("progress.radialSizes")}
             </p>
             <div className="flex flex-wrap gap-6 items-end">
               <Progress variant="radial" value={50} size="sm" showLabel />
@@ -1273,9 +1371,12 @@ function AppContent() {
             </div>
           </div>
         </section>
-        {/* ----- XPBAR SHOWCASE ----- */}
+
+        {/* ============================================
+            XPBAR SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">XPBar, RankTier</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("xpbar.title")}</h2>
 
           {/* Basic XP Bar */}
           <div className="glass mb-5 p-6 float-card">
@@ -1288,9 +1389,9 @@ function AppContent() {
               value={3400}
               max={5000}
               level={14}
-              customLabel="★ RANK PROGRESS"
+              customLabel={`★ ${t("xpbar.rankProgress")}`}
               levelLabel="Rank"
-              xpLabel="EXP"
+              xpLabel={t("xpbar.exp")}
             />
           </div>
 
@@ -1300,9 +1401,9 @@ function AppContent() {
               value={3400}
               max={5000}
               level={14}
-              levelLabel="Tier"
-              xpLabel="Points"
-              customLabel="🏆 RANK PROGRESS"
+              levelLabel={t("xpbar.tier")}
+              xpLabel={t("xpbar.points")}
+              customLabel={`🏆 ${t("xpbar.rankProgress")}`}
               ranks={[
                 { label: "Common", requiredXP: 0 },
                 { label: "Uncommon", requiredXP: 1000 },
@@ -1319,9 +1420,9 @@ function AppContent() {
               value={750}
               max={1200}
               level={3}
-              levelLabel="Prestige"
-              xpLabel="Score"
-              customLabel="⚔️ MISSION PROGRESS"
+              levelLabel={t("xpbar.prestige")}
+              xpLabel={t("xpbar.score")}
+              customLabel={`⚔️ ${t("xpbar.missionProgress")}`}
               ranks={[
                 { label: "Recruit", requiredXP: 0 },
                 { label: "Soldier", requiredXP: 300 },
@@ -1331,33 +1432,37 @@ function AppContent() {
               ]}
             />
           </div>
-
-          {/* QuestCard */}
         </section>
-        {/* ----- GLOW SHOWCASE ----- */}
+
+        {/* ============================================
+            GLOW SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Glow Effects</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("glow.title")}</h2>
           <div className="flex flex-wrap gap-3">
             <Button glow="purple" variant="primary">
-              Glow Purple
+              {t("glow.glowPurple")}
             </Button>
             <Button glow="cyan" variant="success">
-              Glow Cyan
+              {t("glow.glowCyan")}
             </Button>
             <Button glow="pink" variant="danger">
-              Glow Pink
+              {t("glow.glowPink")}
             </Button>
           </div>
         </section>
-        {/* ----- QUEST CARD SHOWCASE ----- */}
+
+        {/* ============================================
+            QUEST CARD SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Quest Cards</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("quest.title")}</h2>
 
           {/* Basic Quest Card */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <QuestCard
-              title="Build CMS"
-              description="Deploy the encrypted Jedi archive interface before the snow melts."
+              title={t("quest.buildCMS")}
+              description={t("quest.buildCMSDesc")}
               xp={300}
               deadline="tomorrow"
               rank="S"
@@ -1365,16 +1470,16 @@ function AppContent() {
             />
 
             <QuestCard
-              title="Secure Archives"
-              description="Implement end-to-end encryption for all stored data in the archive."
+              title={t("quest.secureArchives")}
+              description={t("quest.secureArchivesDesc")}
               xp={200}
               deadline="3 days"
               rank="A"
               glow="purple"
               requirements={[
-                "Complete 3 code reviews",
-                "Write 5 unit tests",
-                "Deploy to staging",
+                t("quest.completeReviews"),
+                t("quest.writeTests"),
+                t("quest.deployStaging"),
               ]}
             />
           </div>
@@ -1382,95 +1487,112 @@ function AppContent() {
           {/* Full Featured Quest Card */}
           <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
             <QuestCard
-              title="Legendary Quest: The Lost Archive"
-              description="Journey into the depths of the forgotten vault and retrieve the ancient holocron."
+              title={t("quest.legendaryQuest")}
+              description={t("quest.legendaryQuestDesc")}
               xp={1000}
-              xpLabel="EXP"
+              xpLabel={t("xpbar.exp")}
               deadline="2024-12-25"
               rank="S+"
               glow="purple"
               requirements={[
-                "Reach level 25",
-                "Defeat the Shadow Guardian",
-                "Collect 3 ancient artifacts",
-                "Solve the sphinx riddle",
+                t("quest.reachLevel"),
+                t("quest.defeatGuardian"),
+                t("quest.collectArtifacts"),
+                t("quest.solveRiddle"),
               ]}
             />
 
             <QuestCard
-              title="Map Night City"
-              description="Create a comprehensive map of the cyberpunk district before the data purge."
+              title={t("quest.mapNightCity")}
+              description={t("quest.mapNightCityDesc")}
               xp={150}
               deadline="tonight"
               rank="B"
               glow="pink"
               requirements={[
-                "Scan 10 locations",
-                "Interview 5 NPCs",
-                "Upload to the archive",
+                t("quest.scanLocations"),
+                t("quest.interviewNPCs"),
+                t("quest.uploadArchive"),
               ]}
             />
           </div>
         </section>
-        {/* ----- CHARACTER CARD SHOWCASE ----- */}
+
+        {/* ============================================
+            CHARACTER CARD SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Character Cards</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("character.title")}
+          </h2>
 
           {/* Vertical Layout */}
           <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
-            Vertical Layout (default)
+            {t("character.vertical")}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <CharacterCard
-              name="Dara"
-              subtitle="Jedi Archivist"
-              quote="The dark is not to be feared — it is to be archived."
+              name={t("character.daraName")}
+              subtitle={t("character.daraSubtitle")}
+              quote={t("character.daraQuote")}
               icon="🦇"
               mbti="INTJ"
               species="Human/Cyborg"
               affiliation="Jedi Order"
               traits={["MBTI: INTJ", "Human/Cyborg"]}
               stats={[
-                { label: "Force", value: 73, color: "primary" },
-                { label: "Combat", value: 85, color: "secondary" },
-                { label: "Intelligence", value: 92, color: "accent" },
-                { label: "Wisdom", value: 68, color: "warning" },
+                { label: t("character.force"), value: 73, color: "primary" },
+                { label: t("character.combat"), value: 85, color: "secondary" },
+                {
+                  label: t("character.intelligence"),
+                  value: 92,
+                  color: "accent",
+                },
+                { label: t("character.wisdom"), value: 68, color: "warning" },
               ]}
               glow="purple"
             />
 
             <CharacterCard
-              name="Cipher"
-              subtitle="Netrunner"
-              quote="The code is the key to everything."
+              name={t("character.cipherName")}
+              subtitle={t("character.cipherSubtitle")}
+              quote={t("character.cipherQuote")}
               portrait="https://i.pravatar.cc/150?img=11"
               mbti="INTP"
               species="Cyborg"
               affiliation="Netwatch"
               traits={["MBTI: INTP", "Cyborg"]}
               stats={[
-                { label: "Hacking", value: 95, color: "secondary" },
-                { label: "Stealth", value: 78, color: "accent" },
-                { label: "Intelligence", value: 88, color: "primary" },
-                { label: "Combat", value: 45, color: "danger" },
+                {
+                  label: t("character.hacking"),
+                  value: 95,
+                  color: "secondary",
+                },
+                { label: t("character.stealth"), value: 78, color: "accent" },
+                {
+                  label: t("character.intelligence"),
+                  value: 88,
+                  color: "primary",
+                },
+                { label: t("character.combat"), value: 45, color: "danger" },
               ]}
               glow="cyan"
             />
 
             <CharacterCard
-              name="Shadow"
-              subtitle="Night Hunter"
-              quote="I move in the darkness where they cannot see."
+              name={t("character.shadowName")}
+              subtitle={t("character.shadowSubtitle")}
+              quote={t("character.shadowQuote")}
               icon="🌙"
               mbti="ISTP"
               species="Vampire"
               affiliation="Night Council"
               traits={["MBTI: ISTP", "Vampire"]}
               stats={[
-                { label: "Agility", value: 92, color: "accent" },
-                { label: "Stealth", value: 88, color: "danger" },
-                { label: "Strength", value: 76, color: "warning" },
-                { label: "Wisdom", value: 82, color: "primary" },
+                { label: t("character.agility"), value: 92, color: "accent" },
+                { label: t("character.stealth"), value: 88, color: "danger" },
+                { label: t("character.strength"), value: 76, color: "warning" },
+                { label: t("character.wisdom"), value: 82, color: "primary" },
               ]}
               glow="pink"
             />
@@ -1478,98 +1600,130 @@ function AppContent() {
 
           {/* Horizontal Layout */}
           <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
-            Horizontal Layout
+            {t("character.horizontal")}
           </p>
           <div className="flex flex-col gap-6">
             <CharacterCard
               layout="horizontal"
-              name="Dara"
-              subtitle="Jedi Archivist"
-              quote="The dark is not to be feared — it is to be archived."
+              name={t("character.daraName")}
+              subtitle={t("character.daraSubtitle")}
+              quote={t("character.daraQuote")}
               icon="🦇"
               mbti="INTJ"
               species="Human/Cyborg"
               affiliation="Jedi Order"
               traits={["MBTI: INTJ", "Human/Cyborg"]}
               stats={[
-                { label: "Force", value: 73, color: "primary" },
-                { label: "Combat", value: 85, color: "secondary" },
-                { label: "Intelligence", value: 92, color: "accent" },
-                { label: "Wisdom", value: 68, color: "warning" },
+                { label: t("character.force"), value: 73, color: "primary" },
+                { label: t("character.combat"), value: 85, color: "secondary" },
+                {
+                  label: t("character.intelligence"),
+                  value: 92,
+                  color: "accent",
+                },
+                { label: t("character.wisdom"), value: 68, color: "warning" },
               ]}
               glow="purple"
             />
 
             <CharacterCard
               layout="horizontal"
-              name="Cipher"
-              subtitle="Netrunner"
-              quote="The code is the key to everything."
+              name={t("character.cipherName")}
+              subtitle={t("character.cipherSubtitle")}
+              quote={t("character.cipherQuote")}
               portrait="https://i.pravatar.cc/150?img=11"
               mbti="INTP"
               species="Cyborg"
               affiliation="Netwatch"
               traits={["MBTI: INTP", "Cyborg"]}
               stats={[
-                { label: "Hacking", value: 95, color: "secondary" },
-                { label: "Stealth", value: 78, color: "accent" },
-                { label: "Intelligence", value: 88, color: "primary" },
-                { label: "Combat", value: 45, color: "danger" },
+                {
+                  label: t("character.hacking"),
+                  value: 95,
+                  color: "secondary",
+                },
+                { label: t("character.stealth"), value: 78, color: "accent" },
+                {
+                  label: t("character.intelligence"),
+                  value: 88,
+                  color: "primary",
+                },
+                { label: t("character.combat"), value: 45, color: "danger" },
               ]}
               glow="cyan"
             />
 
             <CharacterCard
               layout="horizontal"
-              name="Shadow"
-              subtitle="Night Hunter"
-              quote="I move in the darkness where they cannot see."
+              name={t("character.shadowName")}
+              subtitle={t("character.shadowSubtitle")}
+              quote={t("character.shadowQuote")}
               icon="🌙"
               mbti="ISTP"
               species="Vampire"
               affiliation="Night Council"
               traits={["MBTI: ISTP", "Vampire"]}
               stats={[
-                { label: "Agility", value: 92, color: "accent" },
-                { label: "Stealth", value: 88, color: "danger" },
-                { label: "Strength", value: 76, color: "warning" },
-                { label: "Wisdom", value: 82, color: "primary" },
+                { label: t("character.agility"), value: 92, color: "accent" },
+                { label: t("character.stealth"), value: 88, color: "danger" },
+                { label: t("character.strength"), value: 76, color: "warning" },
+                { label: t("character.wisdom"), value: 82, color: "primary" },
               ]}
               glow="pink"
             />
           </div>
         </section>
-        {/* ----- STATS WIDGET SHOWCASE ----- */}
+
+        {/* ============================================
+            STATS WIDGET SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Stats Widget</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("statsWidget.title")}
+          </h2>
 
           {/* Radial Variant */}
           <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
-            Radial Variant
+            {t("statsWidget.radialVariant")}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <StatsWidget
-              title="FORCE STATS"
+              title={t("statsWidget.forceStats")}
               glow="purple"
               stats={[
-                { label: "Force", value: 73, color: "primary", trend: 12 },
-                { label: "Combat", value: 85, color: "secondary", trend: 8 },
                 {
-                  label: "Intelligence",
+                  label: t("character.force"),
+                  value: 73,
+                  color: "primary",
+                  trend: 12,
+                },
+                {
+                  label: t("character.combat"),
+                  value: 85,
+                  color: "secondary",
+                  trend: 8,
+                },
+                {
+                  label: t("character.intelligence"),
                   value: 92,
                   color: "accent",
                   trend: -3,
                 },
-                { label: "Wisdom", value: 68, color: "warning", trend: 5 },
+                {
+                  label: t("character.wisdom"),
+                  value: 68,
+                  color: "warning",
+                  trend: 5,
+                },
               ]}
             />
 
             <StatsWidget
-              title="CHARACTER STATS"
+              title={t("statsWidget.characterStats")}
               glow="cyan"
               stats={[
                 {
-                  label: "Health",
+                  label: t("statsWidget.health"),
                   value: 85,
                   max: 100,
                   unit: "HP",
@@ -1577,7 +1731,7 @@ function AppContent() {
                   trend: -5,
                 },
                 {
-                  label: "Mana",
+                  label: t("statsWidget.mana"),
                   value: 62,
                   max: 100,
                   unit: "MP",
@@ -1585,7 +1739,7 @@ function AppContent() {
                   trend: 15,
                 },
                 {
-                  label: "Stamina",
+                  label: t("statsWidget.stamina"),
                   value: 45,
                   max: 100,
                   unit: "SP",
@@ -1593,7 +1747,7 @@ function AppContent() {
                   trend: 3,
                 },
                 {
-                  label: "Level",
+                  label: t("statsWidget.level"),
                   value: 14,
                   max: 20,
                   unit: "",
@@ -1606,31 +1760,66 @@ function AppContent() {
 
           {/* Bar Variant */}
           <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
-            Bar Variant
+            {t("statsWidget.barVariant")}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <StatsWidget
               variant="bar"
-              title="📈 PROGRESS"
+              title={`📈 ${t("statsWidget.progress")}`}
               glow="pink"
               stats={[
-                { label: "Strength", value: 78, color: "danger", trend: 22 },
-                { label: "Agility", value: 92, color: "accent", trend: 8 },
-                { label: "Endurance", value: 65, color: "warning", trend: -4 },
-                { label: "Luck", value: 45, color: "success", trend: 12 },
+                {
+                  label: t("character.strength"),
+                  value: 78,
+                  color: "danger",
+                  trend: 22,
+                },
+                {
+                  label: t("character.agility"),
+                  value: 92,
+                  color: "accent",
+                  trend: 8,
+                },
+                {
+                  label: t("statsWidget.endurance"),
+                  value: 65,
+                  color: "warning",
+                  trend: -4,
+                },
+                {
+                  label: t("statsWidget.luck"),
+                  value: 45,
+                  color: "success",
+                  trend: 12,
+                },
               ]}
             />
 
             <StatsWidget
               variant="bar"
-              title="SKILLS"
+              title={t("statsWidget.skills")}
               glow="purple"
               stats={[
-                { label: "Hacking", value: 95, color: "secondary", trend: 5 },
-                { label: "Stealth", value: 78, color: "accent", trend: 18 },
-                { label: "Combat", value: 45, color: "danger", trend: -7 },
                 {
-                  label: "Intelligence",
+                  label: t("character.hacking"),
+                  value: 95,
+                  color: "secondary",
+                  trend: 5,
+                },
+                {
+                  label: t("character.stealth"),
+                  value: 78,
+                  color: "accent",
+                  trend: 18,
+                },
+                {
+                  label: t("character.combat"),
+                  value: 45,
+                  color: "danger",
+                  trend: -7,
+                },
+                {
+                  label: t("character.intelligence"),
                   value: 88,
                   color: "primary",
                   trend: 3,
@@ -1641,32 +1830,67 @@ function AppContent() {
 
           {/* Horizontal Layout */}
           <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
-            Horizontal Layout
+            {t("statsWidget.horizontalLayout")}
           </p>
           <div className="flex flex-col gap-6">
             <StatsWidget
               layout="horizontal"
-              title="⚔️ BATTLE STATS"
+              title={`⚔️ ${t("statsWidget.battleStats")}`}
               glow="cyan"
               stats={[
-                { label: "Strength", value: 78, color: "danger", trend: 22 },
-                { label: "Agility", value: 92, color: "accent", trend: 8 },
-                { label: "Endurance", value: 65, color: "warning", trend: -4 },
-                { label: "Luck", value: 45, color: "success", trend: 12 },
+                {
+                  label: t("character.strength"),
+                  value: 78,
+                  color: "danger",
+                  trend: 22,
+                },
+                {
+                  label: t("character.agility"),
+                  value: 92,
+                  color: "accent",
+                  trend: 8,
+                },
+                {
+                  label: t("statsWidget.endurance"),
+                  value: 65,
+                  color: "warning",
+                  trend: -4,
+                },
+                {
+                  label: t("statsWidget.luck"),
+                  value: 45,
+                  color: "success",
+                  trend: 12,
+                },
               ]}
             />
 
             <StatsWidget
               variant="bar"
               layout="horizontal"
-              title="📊 SKILL PROGRESS"
+              title={`📊 ${t("statsWidget.skillProgress")}`}
               glow="purple"
               stats={[
-                { label: "Hacking", value: 95, color: "secondary", trend: 5 },
-                { label: "Stealth", value: 78, color: "accent", trend: 18 },
-                { label: "Combat", value: 45, color: "danger", trend: -7 },
                 {
-                  label: "Intelligence",
+                  label: t("character.hacking"),
+                  value: 95,
+                  color: "secondary",
+                  trend: 5,
+                },
+                {
+                  label: t("character.stealth"),
+                  value: 78,
+                  color: "accent",
+                  trend: 18,
+                },
+                {
+                  label: t("character.combat"),
+                  value: 45,
+                  color: "danger",
+                  trend: -7,
+                },
+                {
+                  label: t("character.intelligence"),
                   value: 88,
                   color: "primary",
                   trend: 3,
@@ -1676,15 +1900,19 @@ function AppContent() {
           </div>
         </section>
 
-        {/* ----- THEME CHANGER SHOWCASE ----- */}
+        {/* ============================================
+            THEME CHANGER SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Theme Changer</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("themeChanger.title")}
+          </h2>
 
           <div className="flex flex-wrap gap-6 items-end">
             {/* Default */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Default
+                {t("themeChanger.default")}
               </span>
               <ThemeChanger size="md" />
             </div>
@@ -1692,7 +1920,7 @@ function AppContent() {
             {/* Icon Only */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Icon Only
+                {t("themeChanger.iconOnly")}
               </span>
               <ThemeChanger iconOnly size="md" />
             </div>
@@ -1700,7 +1928,7 @@ function AppContent() {
             {/* Fixed Width */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Fixed Width (160px)
+                {t("themeChanger.fixedWidth")}
               </span>
               <ThemeChanger fixedWidth="160px" size="md" />
             </div>
@@ -1708,7 +1936,7 @@ function AppContent() {
             {/* Small */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Small
+                {t("themeChanger.small")}
               </span>
               <ThemeChanger size="sm" />
             </div>
@@ -1716,7 +1944,7 @@ function AppContent() {
             {/* Small Icon Only */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Small Icon Only
+                {t("themeChanger.smallIconOnly")}
               </span>
               <ThemeChanger iconOnly size="sm" />
             </div>
@@ -1724,7 +1952,7 @@ function AppContent() {
             {/* Custom Themes */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Custom Themes
+                {t("themeChanger.customThemes")}
               </span>
               <ThemeChanger
                 availableThemes={[
@@ -1741,27 +1969,26 @@ function AppContent() {
           <div className="mt-6 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
             <p className="text-sm text-[var(--color-text-secondary)]">
               <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
-                Demo:
+                {t("themeChanger.demo")}:
               </span>{" "}
-              Theme changer with auto-detection, icon-only mode, and fixed width
-              support. Pass{" "}
-              <code className="text-[var(--color-primary)]">iconOnly</code> for
-              compact navbar usage, or{" "}
-              <code className="text-[var(--color-primary)]">fixedWidth</code>{" "}
-              for consistent sizing.
+              {t("themeChanger.themeChangerDesc")}
             </p>
           </div>
         </section>
 
-        {/* ----- LANGUAGE CHANGERS SHOWCASE ----- */}
+        {/* ============================================
+            LANGUAGE CHANGER SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Language Changer</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("languageChanger.title")}
+          </h2>
 
           <div className="flex flex-wrap gap-6 items-end">
             {/* Default */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Default
+                {t("languageChanger.default")}
               </span>
               <LanguageChanger size="md" />
             </div>
@@ -1769,7 +1996,7 @@ function AppContent() {
             {/* Icon Only */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Icon Only
+                {t("languageChanger.iconOnly")}
               </span>
               <LanguageChanger iconOnly size="md" />
             </div>
@@ -1777,7 +2004,7 @@ function AppContent() {
             {/* Fixed Width */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Fixed Width (160px)
+                {t("languageChanger.fixedWidth")}
               </span>
               <LanguageChanger fixedWidth="160px" size="md" />
             </div>
@@ -1785,7 +2012,7 @@ function AppContent() {
             {/* Small */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Small
+                {t("languageChanger.small")}
               </span>
               <LanguageChanger size="sm" />
             </div>
@@ -1793,7 +2020,7 @@ function AppContent() {
             {/* Small Icon Only */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Small Icon Only
+                {t("languageChanger.smallIconOnly")}
               </span>
               <LanguageChanger iconOnly size="sm" />
             </div>
@@ -1801,7 +2028,7 @@ function AppContent() {
             {/* Custom Languages */}
             <div className="flex flex-col gap-2">
               <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                Custom Languages
+                {t("languageChanger.customLanguages")}
               </span>
               <LanguageChanger
                 availableLanguages={[
@@ -1817,84 +2044,90 @@ function AppContent() {
           <div className="mt-6 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
             <p className="text-sm text-[var(--color-text-secondary)]">
               <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
-                Demo:
+                {t("languageChanger.demo")}:
               </span>{" "}
-              Language changer with localStorage persistence, icon-only mode,
-              and fixed width support. Pass{" "}
-              <code className="text-[var(--color-primary)]">iconOnly</code> for
-              compact navbar usage, or{" "}
-              <code className="text-[var(--color-primary)]">fixedWidth</code>{" "}
-              for consistent sizing. The language is persisted via localStorage
-              and updates the{" "}
-              <code className="text-[var(--color-primary)]">lang</code> and{" "}
-              <code className="text-[var(--color-primary)]">dir</code>{" "}
-              attributes on the html element.
+              {t("languageChanger.languageChangerDesc")}
             </p>
           </div>
         </section>
 
-        {/* ----- GRADIENT SHOWCASE ----- */}
+        {/* ============================================
+            GRADIENT SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Gradients</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("gradients.title")}
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-primary text-white text-center">
-              Primary
+              {t("gradients.primary")}
             </div>
             <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-accent text-white text-center">
-              Accent
+              {t("gradients.accent")}
             </div>
             <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-success text-white text-center">
-              Success
+              {t("gradients.success")}
             </div>
             <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-danger text-white text-center">
-              Danger
+              {t("gradients.danger")}
             </div>
           </div>
         </section>
-        {/* ----- GLASS & GLOW SHOWCASE ----- */}
+
+        {/* ============================================
+            EFFECTS SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Effects</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("effects.title")}</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <div className="p-6 rounded-[var(--radius-standard)] glass text-center">
-              Glass Effect
+              {t("effects.glassEffect")}
             </div>
             <div className="p-6 rounded-[var(--radius-standard)] glow-purple text-center bg-[var(--color-bg-tertiary)]">
-              Glow Purple
+              {t("effects.glowPurple")}
             </div>
             <div className="p-6 rounded-[var(--radius-standard)] glow-pink text-center bg-[var(--color-bg-tertiary)]">
-              Glow Pink
+              {t("effects.glowPink")}
             </div>
           </div>
         </section>
-        {/* ----- TYPOGRAPHY SHOWCASE ----- */}
+
+        {/* ============================================
+            TYPOGRAPHY SHOWCASE
+            ============================================ */}
         <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Typography</h2>
+          <h2 className="text-2xl font-semibold mb-6">
+            {t("typography.title")}
+          </h2>
           <div className="space-y-4">
             <p className="text-sm text-[var(--color-text-secondary)]">
-              Text Secondary
+              {t("typography.textSecondary")}
             </p>
-            <p className="text-base">Regular body text with Inter font</p>
+            <p className="text-base">{t("typography.regularBody")}</p>
             <p className="text-xl font-bold text-gradient-primary">
-              Gradient Heading
+              {t("typography.gradientHeading")}
             </p>
             <p className="text-lg font-medium text-[var(--color-accent)]">
-              Accent colored text
+              {t("typography.accentText")}
             </p>
             <code className="px-3 py-1 rounded-[var(--radius-sm)] block">
-              console.log("Code with JetBrains Mono");
+              {t("typography.codeExample")}
             </code>
           </div>
         </section>
-        {/* ----- PERSIAN TEXT SHOWCASE ----- */}
+
+        {/* ============================================
+            PERSIAN TEXT SHOWCASE
+            ============================================ */}
         <section className="p-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">Persian Support</h2>
+          <h2 className="text-2xl font-semibold mb-6">{t("persian.title")}</h2>
           <div className="space-y-4">
-            <p className="lang-fa text-lg">
-              این متن با فونت وزیرمتن نمایش داده می‌شود
-            </p>
-            <h3 className="lang-fa-heading text-xl">عنوان فارسی با قلم Kook</h3>
+            <p className="lang-fa text-lg">{t("persian.persianText")}</p>
+            <h3 className="lang-fa-heading text-xl">
+              {t("persian.persianHeading")}
+            </h3>
             <p className="lang-fa text-sm text-[var(--color-text-secondary)]">
-              متن فارسی با اندازه کوچک و رنگ ثانویه
+              {t("persian.persianDesc")}
             </p>
           </div>
         </section>
@@ -1902,6 +2135,10 @@ function AppContent() {
     </div>
   );
 }
+
+// ============================================
+// App Component with Providers
+// ============================================
 
 function App() {
   return (
