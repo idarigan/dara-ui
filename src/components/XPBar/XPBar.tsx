@@ -1,4 +1,6 @@
-import React from "react";
+// src/components/XPBar/XPBar.tsx
+
+import React, { useState, useRef } from "react";
 
 export interface RankTier {
   /**
@@ -68,6 +70,7 @@ export interface XPBarProps {
  * - Glow effect on fill
  * - Theme-aware colors
  * - RTL support
+ * - 3D tilt effect on hover
  */
 export const XPBar: React.FC<XPBarProps> = ({
   value = 0,
@@ -80,6 +83,33 @@ export const XPBar: React.FC<XPBarProps> = ({
   ranks,
   className = "",
 }) => {
+  // 3D tilt state
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Handle 3D tilt on mouse move
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
+    setRotation({ x: rotateX, y: rotateY });
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    setRotation({ x: 0, y: 0 });
+  };
+
   // Clamp value between 0 and max
   const clampedValue = Math.max(0, Math.min(value, max));
   const percentage = (clampedValue / max) * 100;
@@ -131,14 +161,33 @@ export const XPBar: React.FC<XPBarProps> = ({
   };
 
   return (
-    <div className={`glass p-6 float-card ${className}`}>
+    <div
+      ref={cardRef}
+      className={`glass p-6 float-card ${className}`}
+      style={{
+        transform: isHovering
+          ? `perspective(800px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(1.02)`
+          : "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)",
+        transformStyle: "preserve-3d",
+        transition: "transform 0.2s ease-out, box-shadow 0.4s ease",
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {/* XP Progress label */}
-      <p className="font-mono text-xs text-[var(--color-primary)] uppercase tracking-wider mb-4">
+      <p
+        className="font-mono text-xs text-[var(--color-primary)] uppercase tracking-wider mb-4"
+        style={{ transform: "translateZ(20px)" }}
+      >
         {customLabel || "XP Progress"}
       </p>
 
       {/* Level/Rank and XP display */}
-      <div className="flex items-center justify-between mb-2">
+      <div
+        className="flex items-center justify-between mb-2"
+        style={{ transform: "translateZ(15px)" }}
+      >
         <div className="flex items-center gap-2">
           <span className="font-accent text-sm text-[var(--color-text-primary)]/80">
             {ranks && currentRank ? (
@@ -162,7 +211,11 @@ export const XPBar: React.FC<XPBarProps> = ({
       </div>
 
       {/* Progress bar track */}
-      <div className="xp-bar-track" dir="ltr">
+      <div
+        className="xp-bar-track"
+        dir="ltr"
+        style={{ transform: "translateZ(10px)" }}
+      >
         <div
           className="xp-bar-fill"
           style={{
@@ -180,7 +233,10 @@ export const XPBar: React.FC<XPBarProps> = ({
 
       {/* XP to next level/rank */}
       {showLabel && (
-        <p className="font-mono text-xs text-[var(--color-text-tertiary)] mt-2">
+        <p
+          className="font-mono text-xs text-[var(--color-text-tertiary)] mt-2"
+          style={{ transform: "translateZ(5px)" }}
+        >
           {getBarLabel()}
         </p>
       )}
