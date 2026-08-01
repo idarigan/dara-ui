@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// src/components/QuestCard/QuestCard.tsx
+
+import React, { useState, useRef } from "react";
 import { Modal } from "../Modal/Modal";
 
 export interface QuestCardProps {
@@ -61,6 +63,8 @@ export interface QuestCardProps {
  * - Requirements list
  * - Completion modal with sparkle drop effect
  * - Theme-aware colors
+ * - 3D tilt effect on hover
+ * - Smooth animated glow transitions
  */
 export const QuestCard: React.FC<QuestCardProps> = ({
   title,
@@ -79,8 +83,35 @@ export const QuestCard: React.FC<QuestCardProps> = ({
   const [showModal, setShowModal] = useState(false);
   const [showSparkles, setShowSparkles] = useState(false);
 
+  // 3D tilt state
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
   const isControlled = controlledDone !== undefined;
   const completed = isControlled ? controlledDone : isDone;
+
+  // Handle 3D tilt on mouse move
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -8;
+    const rotateY = ((x - centerX) / centerX) * 8;
+    setRotation({ x: rotateX, y: rotateY });
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    setRotation({ x: 0, y: 0 });
+  };
 
   // Format deadline with smart display
   const getDeadlineDisplay = (): string => {
@@ -209,6 +240,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
   return (
     <>
       <div
+        ref={cardRef}
         className={`
           glass p-6 float-card cursor-pointer relative
           h-full flex flex-col
@@ -217,6 +249,16 @@ export const QuestCard: React.FC<QuestCardProps> = ({
           transition-all duration-300
           ${className}
         `}
+        style={{
+          transform: isHovering
+            ? `perspective(800px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(1.02)`
+            : "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)",
+          transformStyle: "preserve-3d",
+          transition: "transform 0.2s ease-out",
+        }}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         onClick={handleCardClick}
         role="button"
         tabIndex={0}
@@ -230,22 +272,34 @@ export const QuestCard: React.FC<QuestCardProps> = ({
         )}
 
         {/* Mission Label */}
-        <p className="font-mono text-xs text-[var(--color-cyan)] uppercase tracking-wider mb-3">
+        <p
+          className="font-mono text-xs text-[var(--color-cyan)] uppercase tracking-wider mb-3"
+          style={{ transform: "translateZ(20px)" }}
+        >
           🗡️ MISSION
         </p>
 
         {/* Title */}
-        <h4 className="font-heading text-xl font-bold mb-2 text-[var(--color-text-primary)]">
+        <h4
+          className="font-heading text-xl font-bold mb-2 text-[var(--color-text-primary)]"
+          style={{ transform: "translateZ(25px)" }}
+        >
           {title}
         </h4>
 
         {/* Description */}
-        <p className="text-[var(--color-text-secondary)] text-sm mb-3 flex-grow">
+        <p
+          className="text-[var(--color-text-secondary)] text-sm mb-3 flex-grow"
+          style={{ transform: "translateZ(15px)" }}
+        >
           {description}
         </p>
 
         {/* XP and Deadline */}
-        <div className="flex items-center gap-4 flex-wrap">
+        <div
+          className="flex items-center gap-4 flex-wrap"
+          style={{ transform: "translateZ(10px)" }}
+        >
           <span className="font-accent text-sm text-[var(--color-success)]">
             +{xp} {xpLabel}
           </span>
@@ -258,7 +312,10 @@ export const QuestCard: React.FC<QuestCardProps> = ({
 
         {/* Requirements */}
         {requirements.length > 0 && (
-          <div className="mt-3 pt-3 border-t border-[var(--color-border-secondary)]">
+          <div
+            className="mt-3 pt-3 border-t border-[var(--color-border-secondary)]"
+            style={{ transform: "translateZ(5px)" }}
+          >
             <p className="text-xs text-[var(--color-text-tertiary)] font-mono mb-1.5">
               Requirements:
             </p>
@@ -278,7 +335,10 @@ export const QuestCard: React.FC<QuestCardProps> = ({
 
         {/* Rank Badge */}
         {rank && (
-          <div className="absolute top-4 right-4">
+          <div
+            className="absolute top-4 right-4"
+            style={{ transform: "translateZ(30px)" }}
+          >
             <span
               className={`
                 font-accent text-xs font-bold tracking-wider
