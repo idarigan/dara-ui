@@ -28,6 +28,7 @@ import { CharacterCard } from "./components/CharacterCard/CharacterCard";
 import { ThemeProvider } from "./components/ThemeChanger";
 import useDirection from "./hooks/useDirection";
 
+import { ThemeChanger } from "./components/ThemeChanger";
 import {
   I18nProvider,
   useI18n,

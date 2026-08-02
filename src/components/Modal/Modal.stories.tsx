@@ -1,3 +1,5 @@
+// src/components/Modal/Modal.stories.tsx
+
 import type { Meta, StoryObj } from "@storybook/react";
 import { Modal } from "./Modal";
 import { useState } from "react";
@@ -28,6 +30,7 @@ const meta = {
     size: "md",
     closeOnBackdropClick: true,
     closeOnEscape: true,
+    children: "Modal content", // Add default children
   },
 } satisfies Meta<typeof Modal>;
 
@@ -127,6 +130,7 @@ export const Sizes: Story = {
   args: {
     isOpen: false,
     onClose: () => {},
+    children: "Modal content",
   },
 };
 
@@ -153,6 +157,8 @@ export const WithoutActions: Story = {
   args: {
     isOpen: false,
     onClose: () => {},
+    children:
+      "This modal has no action buttons. Click the X or backdrop to close.",
   },
 };
 

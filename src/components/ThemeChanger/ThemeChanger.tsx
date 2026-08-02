@@ -1,3 +1,5 @@
+// src/components/ThemeChanger/ThemeChanger.tsx
+
 import React, {
   useState,
   useRef,
@@ -121,6 +123,24 @@ export interface ThemeProviderProps {
 }
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
+
+/**
+ * Get default icon for theme
+ */
+const getDefaultIcon = (value: string): string => {
+  const iconMap: Record<string, string> = {
+    nightfall: "🌙",
+    daylight: "☀️",
+    "bloody-moon": "🌕",
+    dark: "🌙",
+    light: "☀️",
+    dracula: "🧛",
+    wine: "🍷",
+    gothic: "🖤",
+    cyber: "💜",
+  };
+  return iconMap[value] || "🎨";
+};
 
 /**
  * ThemeProvider - Provides theme context to children
@@ -348,13 +368,16 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
 
   // Try to get context if available
   let contextValue: ThemeContextValue | null = null;
-  try {
-    contextValue = useTheme();
-  } catch {
-    // Not inside ThemeProvider
-  }
+  let isInContext = false;
 
-  const isInContext = useThemeContext && contextValue !== null;
+  try {
+    const ctx = useTheme();
+    contextValue = ctx;
+    isInContext = useThemeContext && true;
+  } catch {
+    isInContext = false;
+    contextValue = null;
+  }
 
   // Determine if controlled or uncontrolled
   const isControlled = controlledValue !== undefined;
@@ -373,7 +396,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
   let currentTheme: string;
   if (isControlled) {
     currentTheme = controlledValue;
-  } else if (isInContext) {
+  } else if (isInContext && contextValue) {
     currentTheme = contextValue.theme;
   } else {
     currentTheme = internalValue;
@@ -477,7 +500,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
   const handleSelect = useCallback(
     (themeValue: string) => {
       // If we're in context, use context's setTheme
-      if (isInContext) {
+      if (isInContext && contextValue) {
         contextValue.setTheme(themeValue);
       } else if (!isControlled) {
         setInternalValue(themeValue);
@@ -494,22 +517,6 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
     },
     [isInContext, contextValue, isControlled, onChange, applyTheme],
   );
-
-  // Get default icon for theme
-  const getDefaultIcon = (value: string): string => {
-    const iconMap: Record<string, string> = {
-      nightfall: "🌙",
-      daylight: "☀️",
-      "bloody-moon": "🌕",
-      dark: "🌙",
-      light: "☀️",
-      dracula: "🧛",
-      wine: "🍷",
-      gothic: "🖤",
-      cyber: "💜",
-    };
-    return iconMap[value] || "🎨";
-  };
 
   // Size styles
   const sizeStyles = {

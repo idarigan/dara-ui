@@ -1,3 +1,5 @@
+// src/components/LanguageChanger/LanguageChanger.tsx
+
 import React, {
   useState,
   useRef,
@@ -80,6 +82,237 @@ export const DEFAULT_LANGUAGES: LanguageOption[] = [
   { value: "fr", label: "Français", icon: "🇫🇷", dir: "ltr" },
 ];
 
+// ============================================
+// I18n Context & Provider
+// ============================================
+
+export interface I18nContextValue {
+  /**
+   * Current language code
+   */
+  language: string;
+  /**
+   * Set the current language
+   */
+  setLanguage: (lang: string) => void;
+  /**
+   * Translation function - resolves nested keys
+   * @example t('welcome.title') => "Welcome"
+   * @example t('greeting', { name: "John" }) => "Hello John"
+   */
+  t: (key: string, params?: Record<string, string | number>) => string;
+  /**
+   * Available languages
+   */
+  languages: LanguageOption[];
+  /**
+   * Direction for current language
+   */
+  dir: "ltr" | "rtl";
+}
+
+export interface I18nProviderProps {
+  /**
+   * Initial language
+   */
+  defaultLanguage?: string;
+  /**
+   * Translations object - keyed by language code
+   * @example { en: { welcome: "Welcome" }, fa: { welcome: "خوش آمدید" } }
+   */
+  translations: Record<string, Record<string, any>>;
+  /**
+   * Available languages (overrides default)
+   */
+  languages?: LanguageOption[];
+  /**
+   * Children
+   */
+  children: React.ReactNode;
+}
+
+const I18nContext = createContext<I18nContextValue | undefined>(undefined);
+
+/**
+ * I18nProvider - Provides translation context to children
+ *
+ * Features:
+ * - Self-contained i18n system, no external dependencies
+ * - Nested key resolution (e.g., 'welcome.title')
+ * - Parameter interpolation (e.g., 'Hello {{name}}')
+ * - Language persistence in localStorage
+ * - Auto-updates dir attribute on html
+ * - Triggers re-render of all consuming components on language change
+ */
+export const I18nProvider: React.FC<I18nProviderProps> = ({
+  defaultLanguage,
+  translations,
+  languages: customLanguages,
+  children,
+}) => {
+  const STORAGE_KEY = "dara-ui-language";
+
+  // Determine default languages
+  const defaultLanguages: LanguageOption[] =
+    customLanguages || DEFAULT_LANGUAGES;
+
+  // Get initial language from localStorage or default
+  const getInitialLang = (): string => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored && defaultLanguages.some((l) => l.value === stored)) {
+      return stored;
+    }
+    return defaultLanguage || defaultLanguages[0]?.value || "en";
+  };
+
+  const [language, setLanguageState] = useState<string>(getInitialLang);
+
+  // Translation function with nested key resolution and parameter interpolation
+  const t = useCallback(
+    (key: string, params?: Record<string, string | number>): string => {
+      const currentTranslations =
+        translations[language] || translations.en || {};
+
+      // Resolve nested keys (e.g., 'welcome.title')
+      const keys = key.split(".");
+      let value: any = currentTranslations;
+      for (const k of keys) {
+        if (value && typeof value === "object" && k in value) {
+          value = value[k];
+        } else {
+          // Fallback to English if available
+          const fallback = translations.en || {};
+          let fallbackValue: any = fallback;
+          for (const fk of keys) {
+            if (
+              fallbackValue &&
+              typeof fallbackValue === "object" &&
+              fk in fallbackValue
+            ) {
+              fallbackValue = fallbackValue[fk];
+            } else {
+              return key; // Return the key if not found anywhere
+            }
+          }
+          value = fallbackValue;
+          break;
+        }
+      }
+
+      if (typeof value !== "string") {
+        return key;
+      }
+
+      // Parameter interpolation
+      if (params) {
+        return value.replace(/\{\{(\w+)\}\}/g, (_, paramName) => {
+          return String(params[paramName] ?? `{{${paramName}}}`);
+        });
+      }
+
+      return value;
+    },
+    [language, translations],
+  );
+
+  // Set language and apply to document
+  const setLanguage = useCallback(
+    (lang: string) => {
+      const langOption = defaultLanguages.find((l) => l.value === lang);
+      if (!langOption) return;
+
+      setLanguageState(lang);
+      document.documentElement.lang = lang;
+      document.documentElement.dir = langOption.dir || "ltr";
+      localStorage.setItem(STORAGE_KEY, lang);
+
+      // Dispatch event for other components
+      window.dispatchEvent(
+        new CustomEvent("dara-language-change", { detail: { lang } }),
+      );
+    },
+    [defaultLanguages],
+  );
+
+  // Apply initial language on mount
+  useEffect(() => {
+    const initialLang = getInitialLang();
+    const langOption = defaultLanguages.find((l) => l.value === initialLang);
+    if (langOption) {
+      document.documentElement.lang = initialLang;
+      document.documentElement.dir = langOption.dir || "ltr";
+    }
+  }, [defaultLanguages]);
+
+  // Listen for language changes from other components (e.g., LanguageChanger)
+  useEffect(() => {
+    const handleLanguageChange = (event: CustomEvent) => {
+      const { lang } = event.detail;
+      if (lang && lang !== language) {
+        setLanguageState(lang);
+      }
+    };
+
+    window.addEventListener(
+      "dara-language-change",
+      handleLanguageChange as EventListener,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "dara-language-change",
+        handleLanguageChange as EventListener,
+      );
+    };
+  }, [language]);
+
+  // Get current language direction
+  const currentDir =
+    defaultLanguages.find((l) => l.value === language)?.dir || "ltr";
+
+  const value: I18nContextValue = useMemo(
+    () => ({
+      language,
+      setLanguage,
+      t,
+      languages: defaultLanguages,
+      dir: currentDir,
+    }),
+    [language, setLanguage, t, defaultLanguages, currentDir],
+  );
+
+  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
+};
+
+/**
+ * useI18n - Hook for accessing i18n context
+ *
+ * @example
+ * ```tsx
+ * const { t, language, setLanguage } = useI18n();
+ *
+ * // Translate a key
+ * <h1>{t('welcome.title')}</h1>
+ *
+ * // With parameters
+ * <p>{t('greeting', { name: user.name })}</p>
+ *
+ * // Change language
+ * <button onClick={() => setLanguage('fa')}>فارسی</button>
+ * ```
+ */
+export const useI18n = (): I18nContextValue => {
+  const context = useContext(I18nContext);
+  if (!context) {
+    throw new Error("useI18n must be used within an I18nProvider");
+  }
+  return context;
+};
+
+// ============================================
+// LanguageChanger Component
+// ============================================
+
 /**
  * Dara UI LanguageChanger - Dropdown for switching between languages
  *
@@ -116,13 +349,16 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
 
   // Try to get context if available
   let contextValue: I18nContextValue | null = null;
-  try {
-    contextValue = useI18n();
-  } catch {
-    // Not inside I18nProvider
-  }
+  let isInContext = false;
 
-  const isInContext = useI18nContext && contextValue !== null;
+  try {
+    const ctx = useI18n();
+    contextValue = ctx;
+    isInContext = useI18nContext && true;
+  } catch {
+    isInContext = false;
+    contextValue = null;
+  }
 
   // Determine if controlled or uncontrolled
   const isControlled = controlledValue !== undefined;
@@ -142,7 +378,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   let currentLang: string;
   if (isControlled) {
     currentLang = controlledValue;
-  } else if (isInContext) {
+  } else if (isInContext && contextValue) {
     currentLang = contextValue.language;
   } else {
     currentLang = internalValue;
@@ -202,7 +438,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   const handleSelect = useCallback(
     (lang: string) => {
       // If we're in context, use context's setLanguage
-      if (isInContext) {
+      if (isInContext && contextValue) {
         contextValue.setLanguage(lang);
       } else if (!isControlled) {
         setInternalValue(lang);
@@ -486,230 +722,3 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
 
 LanguageChanger.displayName = "LanguageChanger";
 export default LanguageChanger;
-
-// ============================================
-// I18n Context & Provider
-// ============================================
-
-export interface I18nContextValue {
-  /**
-   * Current language code
-   */
-  language: string;
-  /**
-   * Set the current language
-   */
-  setLanguage: (lang: string) => void;
-  /**
-   * Translation function - resolves nested keys
-   * @example t('welcome.title') => "Welcome"
-   * @example t('greeting', { name: "John" }) => "Hello John"
-   */
-  t: (key: string, params?: Record<string, string | number>) => string;
-  /**
-   * Available languages
-   */
-  languages: LanguageOption[];
-  /**
-   * Direction for current language
-   */
-  dir: "ltr" | "rtl";
-}
-
-export interface I18nProviderProps {
-  /**
-   * Initial language
-   */
-  defaultLanguage?: string;
-  /**
-   * Translations object - keyed by language code
-   * @example { en: { welcome: "Welcome" }, fa: { welcome: "خوش آمدید" } }
-   */
-  translations: Record<string, Record<string, any>>;
-  /**
-   * Available languages (overrides default)
-   */
-  languages?: LanguageOption[];
-  /**
-   * Children
-   */
-  children: React.ReactNode;
-}
-
-const I18nContext = createContext<I18nContextValue | undefined>(undefined);
-
-/**
- * I18nProvider - Provides translation context to children
- *
- * Features:
- * - Self-contained i18n system, no external dependencies
- * - Nested key resolution (e.g., 'welcome.title')
- * - Parameter interpolation (e.g., 'Hello {{name}}')
- * - Language persistence in localStorage
- * - Auto-updates dir attribute on html
- * - Triggers re-render of all consuming components on language change
- */
-export const I18nProvider: React.FC<I18nProviderProps> = ({
-  defaultLanguage,
-  translations,
-  languages: customLanguages,
-  children,
-}) => {
-  const STORAGE_KEY = "dara-ui-language";
-
-  // Determine default languages
-  const defaultLanguages: LanguageOption[] =
-    customLanguages || DEFAULT_LANGUAGES;
-
-  // Get initial language from localStorage or default
-  const getInitialLang = (): string => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored && defaultLanguages.some((l) => l.value === stored)) {
-      return stored;
-    }
-    return defaultLanguage || defaultLanguages[0]?.value || "en";
-  };
-
-  const [language, setLanguageState] = useState<string>(getInitialLang);
-
-  // Translation function with nested key resolution and parameter interpolation
-  const t = useCallback(
-    (key: string, params?: Record<string, string | number>): string => {
-      const currentTranslations =
-        translations[language] || translations.en || {};
-
-      // Resolve nested keys (e.g., 'welcome.title')
-      const keys = key.split(".");
-      let value: any = currentTranslations;
-      for (const k of keys) {
-        if (value && typeof value === "object" && k in value) {
-          value = value[k];
-        } else {
-          // Fallback to English if available
-          const fallback = translations.en || {};
-          let fallbackValue: any = fallback;
-          for (const fk of keys) {
-            if (
-              fallbackValue &&
-              typeof fallbackValue === "object" &&
-              fk in fallbackValue
-            ) {
-              fallbackValue = fallbackValue[fk];
-            } else {
-              return key; // Return the key if not found anywhere
-            }
-          }
-          value = fallbackValue;
-          break;
-        }
-      }
-
-      if (typeof value !== "string") {
-        return key;
-      }
-
-      // Parameter interpolation
-      if (params) {
-        return value.replace(/\{\{(\w+)\}\}/g, (_, paramName) => {
-          return String(params[paramName] ?? `{{${paramName}}}`);
-        });
-      }
-
-      return value;
-    },
-    [language, translations],
-  );
-
-  // Set language and apply to document
-  const setLanguage = useCallback(
-    (lang: string) => {
-      const langOption = defaultLanguages.find((l) => l.value === lang);
-      if (!langOption) return;
-
-      setLanguageState(lang);
-      document.documentElement.lang = lang;
-      document.documentElement.dir = langOption.dir || "ltr";
-      localStorage.setItem(STORAGE_KEY, lang);
-
-      // Dispatch event for other components
-      window.dispatchEvent(
-        new CustomEvent("dara-language-change", { detail: { lang } }),
-      );
-    },
-    [defaultLanguages],
-  );
-
-  // Apply initial language on mount
-  useEffect(() => {
-    const initialLang = getInitialLang();
-    const langOption = defaultLanguages.find((l) => l.value === initialLang);
-    if (langOption) {
-      document.documentElement.lang = initialLang;
-      document.documentElement.dir = langOption.dir || "ltr";
-    }
-  }, [defaultLanguages]);
-
-  // Listen for language changes from other components (e.g., LanguageChanger)
-  useEffect(() => {
-    const handleLanguageChange = (event: CustomEvent) => {
-      const { lang } = event.detail;
-      if (lang && lang !== language) {
-        setLanguageState(lang);
-      }
-    };
-
-    window.addEventListener(
-      "dara-language-change",
-      handleLanguageChange as EventListener,
-    );
-
-    return () => {
-      window.removeEventListener(
-        "dara-language-change",
-        handleLanguageChange as EventListener,
-      );
-    };
-  }, [language]);
-
-  // Get current language direction
-  const currentDir =
-    defaultLanguages.find((l) => l.value === language)?.dir || "ltr";
-
-  const value: I18nContextValue = useMemo(
-    () => ({
-      language,
-      setLanguage,
-      t,
-      languages: defaultLanguages,
-      dir: currentDir,
-    }),
-    [language, setLanguage, t, defaultLanguages, currentDir],
-  );
-
-  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
-};
-
-/**
- * useI18n - Hook for accessing i18n context
- *
- * @example
- * ```tsx
- * const { t, language, setLanguage } = useI18n();
- *
- * // Translate a key
- * <h1>{t('welcome.title')}</h1>
- *
- * // With parameters
- * <p>{t('greeting', { name: user.name })}</p>
- *
- * // Change language
- * <button onClick={() => setLanguage('fa')}>فارسی</button>
- * ```
- */
-export const useI18n = (): I18nContextValue => {
-  const context = useContext(I18nContext);
-  if (!context) {
-    throw new Error("useI18n must be used within an I18nProvider");
-  }
-  return context;
-};
