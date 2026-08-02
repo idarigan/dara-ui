@@ -25,10 +25,11 @@ import { Progress } from "./components/Progress/Progress";
 import { XPBar } from "./components/XPBar";
 import { QuestCard } from "./components/QuestCard/QuestCard";
 import { CharacterCard } from "./components/CharacterCard/CharacterCard";
-import { ThemeProvider } from "./components/ThemeChanger";
+import { ThemeProvider, ThemeChanger } from "./components/ThemeChanger";
+import { Navbar } from "./components/Navbar";
+import type { NavLink } from "./components/Navbar";
 import useDirection from "./hooks/useDirection";
 
-import { ThemeChanger } from "./components/ThemeChanger";
 import {
   I18nProvider,
   useI18n,
@@ -111,6 +112,39 @@ const CheckIcon = () => (
     strokeWidth={2}
   >
     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+  </svg>
+);
+
+// Navbar Icons
+const HomeIcon = () => (
+  <svg
+    className="h-4 w-4"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+    />
+  </svg>
+);
+
+const ExploreIcon = () => (
+  <svg
+    className="h-4 w-4"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+    />
   </svg>
 );
 
@@ -327,6 +361,23 @@ const dropdownOptionsWithIcons = [
 ];
 
 // ============================================
+// Navbar Links
+// ============================================
+
+const navbarLinks: NavLink[] = [
+  { label: "Home", href: "#", icon: <HomeIcon />, active: true },
+  { label: "Explore", href: "#", icon: <ExploreIcon /> },
+  { label: "Settings", href: "#", icon: <SettingsIcon /> },
+];
+
+const secondaryNavLinks: NavLink[] = [
+  { label: "Dashboard", href: "#" },
+  { label: "Projects", href: "#" },
+  { label: "Team", href: "#" },
+  { label: "Analytics", href: "#" },
+];
+
+// ============================================
 // Toast Demo Component
 // ============================================
 
@@ -390,1750 +441,1863 @@ function AppContent() {
     setTheme(newTheme);
   };
 
+  // Handle search from navbar
+  const handleSearch = (query: string) => {
+    console.log("Searching for:", query);
+  };
+
   return (
-    <div className="min-h-screen p-8 transition-theme">
-      <div className="max-w-4xl mx-auto">
-        {/* ============================================
-            HEADER
-            ============================================ */}
-        <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
-          <h1 className="text-4xl font-bold text-gradient-primary">
-            {t("app.title")}
-          </h1>
-          <div className="flex gap-2 flex-wrap items-center">
-            <Button
-              size="sm"
-              variant={theme === "nightfall" ? "primary" : "outline"}
-              onClick={() => changeTheme("nightfall")}
-            >
-              🌙 {t("header.nightfall")}
-            </Button>
-            <Button
-              size="sm"
-              variant={theme === "daylight" ? "primary" : "outline"}
-              onClick={() => changeTheme("daylight")}
-            >
-              ☀️ {t("header.daylight")}
-            </Button>
-            <Button
-              size="sm"
-              variant={theme === "dracula" ? "primary" : "outline"}
-              onClick={() => changeTheme("dracula")}
-            >
-              🍷 {t("header.dracula")}
-            </Button>
-            <Button size="sm" variant="outline" onClick={toggleDirection}>
-              {direction === "ltr"
-                ? `🔁 ${t("header.rtl")}`
-                : `🔁 ${t("header.ltr")}`}
-            </Button>
-          </div>
-        </div>
-
-        {/* ============================================
-            BADGES SHOWCASE
-            ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("badges.title")}</h2>
-
-          {/* Badge Variants */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("badges.variants")}
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Badge variant="primary">{t("badges.primary")}</Badge>
-              <Badge variant="secondary">{t("badges.secondary")}</Badge>
-              <Badge variant="success">{t("badges.success")}</Badge>
-              <Badge variant="danger">{t("badges.danger")}</Badge>
-              <Badge variant="warning">{t("badges.warning")}</Badge>
-            </div>
-          </div>
-
-          {/* Badge Sizes */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("badges.sizes")}
-            </p>
-            <div className="flex flex-wrap gap-3 items-center">
-              <Badge size="sm">{t("badges.small")}</Badge>
-              <Badge size="md">{t("badges.medium")}</Badge>
-              <Badge size="lg">{t("badges.large")}</Badge>
-            </div>
-          </div>
-
-          {/* Outline Badges */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("badges.outline")}
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Badge outline variant="primary">
-                {t("badges.primary")}
-              </Badge>
-              <Badge outline variant="secondary">
-                {t("badges.secondary")}
-              </Badge>
-              <Badge outline variant="success">
-                {t("badges.success")}
-              </Badge>
-              <Badge outline variant="danger">
-                {t("badges.danger")}
-              </Badge>
-              <Badge outline variant="warning">
-                {t("badges.warning")}
-              </Badge>
-            </div>
-          </div>
-
-          {/* Glow Badges */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("badges.withGlow")}
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Badge glow variant="primary">
-                {t("badges.glowPrimary")}
-              </Badge>
-              <Badge glow variant="success">
-                {t("badges.glowSuccess")}
-              </Badge>
-              <Badge glow variant="danger">
-                {t("badges.glowDanger")}
-              </Badge>
-            </div>
-          </div>
-
-          {/* Badges with Icons */}
-          <div>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("badges.withIcons")}
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Badge variant="primary">
-                <span className="mr-1">📦</span> {t("badges.package")}
-              </Badge>
-              <Badge variant="success">
-                <span className="mr-1">✅</span> {t("badges.done")}
-              </Badge>
-              <Badge variant="warning">
-                <span className="mr-1">⚠️</span> {t("badges.warning")}
-              </Badge>
-              <Badge variant="danger">
-                <span className="mr-1">❌</span> {t("badges.failed")}
-              </Badge>
-            </div>
-          </div>
-        </section>
-
-        {/* ============================================
-            BUTTONS SHOWCASE
-            ============================================ */}
-        {/* Buttons: variants */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("buttons.title")}</h2>
-          <div className="flex flex-wrap gap-3">
-            <Button variant="primary">{t("buttons.primary")}</Button>
-            <Button variant="secondary">{t("buttons.secondary")}</Button>
-            <Button variant="glass">{t("buttons.glass")}</Button>
-            <Button variant="danger">{t("buttons.danger")}</Button>
-            <Button variant="success">{t("buttons.success")}</Button>
-            <Button variant="outline">{t("buttons.outline")}</Button>
-          </div>
-        </section>
-
-        {/* Buttons: states */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("buttons.states")}</h2>
-          <div className="flex flex-wrap gap-3 items-center">
-            <Button variant="primary">{t("buttons.normal")}</Button>
-            <Button
-              variant="primary"
-              className="bg-[var(--color-primary-hover)] shadow-[var(--shadow-glow-primary)]"
-            >
-              {t("buttons.hover")}
-            </Button>
-            <Button variant="primary" className="scale-95">
-              {t("buttons.pressed")}
-            </Button>
-            <Button variant="primary" disabled>
-              {t("buttons.disabled")}
-            </Button>
-            <Button variant="primary" loading>
-              {t("buttons.loading")}
-            </Button>
-          </div>
-        </section>
-
-        {/* Buttons: sizes */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">
-            {t("buttons.sizesTitle")}
-          </h2>
-          <div className="flex flex-wrap gap-3 items-center">
-            <Button size="sm" variant="primary">
-              {t("buttons.small")}
-            </Button>
-            <Button size="md" variant="primary">
-              {t("buttons.medium")}
-            </Button>
-            <Button size="lg" variant="primary">
-              {t("buttons.large")}
-            </Button>
-          </div>
-        </section>
-
-        {/* ============================================
-            AVATAR SHOWCASE
-            ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("avatar.title")}</h2>
-
-          {/* Sizes */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("avatar.sizes")}
-            </p>
-            <div className="flex items-center gap-4">
-              <Avatar size="xs" fallbackText="JD" />
-              <Avatar size="sm" fallbackText="JD" />
-              <Avatar size="md" fallbackText="JD" />
-              <Avatar size="lg" fallbackText="JD" />
-              <Avatar size="xl" fallbackText="JD" />
-            </div>
-          </div>
-
-          {/* Shapes */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("avatar.shapes")}
-            </p>
-            <div className="flex items-center gap-4">
-              <Avatar shape="circle" fallbackText="JD" />
-              <Avatar shape="rounded" fallbackText="JD" />
-              <Avatar shape="square" fallbackText="JD" />
-            </div>
-          </div>
-
-          {/* With Status */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("avatar.status")}
-            </p>
-            <div className="flex items-center gap-4">
-              <Avatar status="online" fallbackText="JD" />
-              <Avatar status="away" fallbackText="JD" />
-              <Avatar status="busy" fallbackText="JD" />
-              <Avatar status="offline" fallbackText="JD" />
-            </div>
-          </div>
-
-          {/* With Glow */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("avatar.glowEffects")}
-            </p>
-            <div className="flex items-center gap-4">
-              <Avatar glow="purple" fallbackText="JD" />
-              <Avatar glow="cyan" fallbackText="JD" />
-              <Avatar glow="pink" fallbackText="JD" />
-            </div>
-          </div>
-
-          {/* With Image */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("avatar.withImage")}
-            </p>
-            <div className="flex items-center gap-4">
-              <Avatar
-                src="https://i.pravatar.cc/150?img=5"
-                alt="User avatar"
-                size="md"
-              />
-              <Avatar
-                src="https://i.pravatar.cc/150?img=9"
-                alt="User avatar"
-                size="md"
-                glow="purple"
-              />
-              <Avatar
-                src="https://i.pravatar.cc/150?img=12"
-                alt="User avatar"
-                size="md"
-                status="online"
-              />
-            </div>
-          </div>
-
-          {/* Group */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("avatar.group")}
-            </p>
-            <Avatar group size="md">
-              <Avatar fallbackText="JD" />
-              <Avatar fallbackText="JS" />
-              <Avatar fallbackText="AK" />
-              <Avatar fallbackText="MR" />
-            </Avatar>
-          </div>
-
-          {/* Clickable */}
-          <div>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("avatar.clickable")}
-            </p>
-            <Avatar
-              fallbackText="JD"
-              onClick={() => alert("Avatar clicked!")}
-              glow="purple"
-            />
-          </div>
-        </section>
-
-        {/* ============================================
-            TOOLTIP SHOWCASE
-            ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("tooltip.title")}</h2>
-
-          {/* Placements */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("tooltip.placements")}
-            </p>
-            <div className="grid grid-cols-4 gap-4">
-              <Tooltip content={t("tooltip.top")} placement="top">
-                <Button size="sm" variant="glass" className="w-full">
-                  {t("tooltip.top")}
-                </Button>
-              </Tooltip>
-              <Tooltip content={t("tooltip.bottom")} placement="bottom">
-                <Button size="sm" variant="glass" className="w-full">
-                  {t("tooltip.bottom")}
-                </Button>
-              </Tooltip>
-              <Tooltip content={t("tooltip.left")} placement="left">
-                <Button size="sm" variant="glass" className="w-full">
-                  {t("tooltip.left")}
-                </Button>
-              </Tooltip>
-              <Tooltip content={t("tooltip.right")} placement="right">
-                <Button size="sm" variant="glass" className="w-full">
-                  {t("tooltip.right")}
-                </Button>
-              </Tooltip>
-            </div>
-          </div>
-
-          {/* Variants */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("tooltip.variants")}
-            </p>
-            <div className="flex items-center gap-4">
-              <Tooltip content={t("tooltip.glassTooltip")} variant="glass">
-                <Button variant="glass">{t("buttons.glass")}</Button>
-              </Tooltip>
-              <Tooltip content={t("tooltip.solidTooltip")} variant="solid">
-                <Button variant="secondary">{t("buttons.secondary")}</Button>
-              </Tooltip>
-              <Tooltip content={t("tooltip.outlineTooltip")} variant="outline">
-                <Button variant="outline">{t("buttons.outline")}</Button>
-              </Tooltip>
-            </div>
-          </div>
-
-          {/* With Badge */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("tooltip.withBadge")}
-            </p>
-            <Tooltip content={t("tooltip.unreadMessages", { count: 42 })}>
-              <Badge variant="primary" glow className="cursor-pointer">
-                42
-              </Badge>
-            </Tooltip>
-          </div>
-
-          {/* Long Content */}
-          <div>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("tooltip.longContent")}
-            </p>
-            <Tooltip content={t("tooltip.longTooltip")}>
-              <Button variant="primary">{t("tooltip.hoverDetails")}</Button>
-            </Tooltip>
-          </div>
-        </section>
-
-        {/* ============================================
-            TABS SHOWCASE
-            ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("tabs.title")}</h2>
-          <Tabs
-            items={tabItems}
-            activeValue={activeTab}
-            onChange={setActiveTab}
-            glowColor="primary"
-          />
-        </section>
-
-        {/* ============================================
-            ACCORDION SHOWCASE
-            ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">
-            {t("accordion.title")}
-          </h2>
-
-          {/* Mode Switcher */}
-          <div className="flex items-center gap-4 mb-4 flex-wrap">
-            <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-              {t("accordion.mode")}:
-            </span>
-            <Button
-              size="sm"
-              variant={accordionMode === "single" ? "primary" : "outline"}
-              onClick={() => {
-                setAccordionMode("single");
-                setOpenAccordionItems(["1"]);
-              }}
-            >
-              {t("accordion.single")}
-            </Button>
-            <Button
-              size="sm"
-              variant={accordionMode === "multiple" ? "primary" : "outline"}
-              onClick={() => {
-                setAccordionMode("multiple");
-                setOpenAccordionItems(["1", "2"]);
-              }}
-            >
-              {t("accordion.multiple")}
-            </Button>
-            <span className="text-xs text-[var(--color-text-tertiary)] font-mono ml-2">
-              {accordionMode === "single"
-                ? t("accordion.singleDesc")
-                : t("accordion.multipleDesc")}
-            </span>
-          </div>
-
-          {/* Controlled Accordion */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("accordion.controlled")}{" "}
-              <span className="text-[var(--color-primary)]">
-                {openAccordionItems.length > 0
-                  ? openAccordionItems.join(", ")
-                  : "none"}
-              </span>
-            </p>
-            <Accordion
-              items={accordionItems}
-              openItems={openAccordionItems}
-              onOpenChange={setOpenAccordionItems}
-              multiple={accordionMode === "multiple"}
-            />
-          </div>
-
-          <div className="border-t border-[var(--color-border-secondary)] my-6"></div>
-
-          {/* With Icons */}
-          <div>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("accordion.withIcons")}
-            </p>
-            <Accordion
-              items={accordionItemsWithIcons}
-              defaultOpenItems={["1"]}
-              multiple={false}
-            />
-          </div>
-        </section>
-
-        {/* ============================================
-            DROPDOWN SHOWCASE
-            ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("dropdown.title")}</h2>
-
-          {/* Basic Dropdowns */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("dropdown.basic")}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Dropdown
-                options={frameworkOptions}
-                placeholder={t("dropdown.selectFramework")}
-                defaultValue="react"
-              />
-              <Dropdown
-                options={frameworkOptions}
-                placeholder={t("dropdown.withPlaceholder")}
-              />
-            </div>
-          </div>
-
-          {/* With Icons */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("dropdown.withIcons")}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Dropdown
-                options={dropdownOptionsWithIcons}
-                placeholder={t("dropdown.selectWithIcons")}
-                defaultValue="user"
-              />
-              <Dropdown
-                options={dropdownOptionsWithIcons}
-                placeholder={t("dropdown.searchWithIcons")}
-                searchable
-                searchPlaceholder={t("dropdown.searchOptions")}
-              />
-            </div>
-          </div>
-
-          {/* Searchable */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("dropdown.searchable")}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Dropdown
-                options={frameworkOptions}
-                placeholder={t("dropdown.searchFrameworks")}
-                searchable
-                defaultValue="react"
-                label={t("dropdown.framework")}
-                helperText={t("dropdown.typeToFilter")}
-              />
-              <Dropdown
-                options={dropdownOptionsWithIcons}
-                placeholder={t("dropdown.searchWithIcons")}
-                searchable
-                searchPlaceholder={t("dropdown.searchOptions")}
-                label={t("dropdown.withIcons")}
-              />
-            </div>
-          </div>
-
-          {/* Controlled */}
-          <div>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("dropdown.controlled")}{" "}
-              <span className="text-[var(--color-primary)] font-bold">
-                {selectedFramework}
-              </span>
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Dropdown
-                options={frameworkOptions}
-                value={selectedFramework}
-                onChange={setSelectedFramework}
-                placeholder={t("dropdown.selectFramework")}
-                label={t("dropdown.framework")}
-              />
-              <div className="flex items-center gap-2 flex-wrap">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => setSelectedFramework("vue")}
-                >
-                  {t("dropdown.setVue")}
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => setSelectedFramework("svelte")}
-                >
-                  {t("dropdown.setSvelte")}
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => setSelectedFramework("solid")}
-                >
-                  {t("dropdown.setSolid")}
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ============================================
-            CARDS SHOWCASE
-            ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("cards.title")}</h2>
-
-          {/* Variants */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("cards.variants")}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Card variant="glass">
-                <h3 className="font-heading font-bold">
-                  {t("cards.glassCard")}
-                </h3>
-                <p className="text-[var(--color-text-secondary)] text-sm">
-                  backdrop-filter: blur(20px)
-                </p>
-              </Card>
-              <Card variant="solid">
-                <h3 className="font-heading font-bold">
-                  {t("cards.solidCard")}
-                </h3>
-                <p className="text-[var(--color-text-secondary)] text-sm">
-                  More opaque, less blur
-                </p>
-              </Card>
-              <Card variant="outline">
-                <h3 className="font-heading font-bold">
-                  {t("cards.outlineCard")}
-                </h3>
-                <p className="text-[var(--color-text-secondary)] text-sm">
-                  Transparent with border
-                </p>
-              </Card>
-            </div>
-          </div>
-
-          {/* Float + Glow */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("cards.floatGlow")}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Card float glow="purple">
-                <h3 className="font-heading font-bold">
-                  {t("cards.purpleGlow")}
-                </h3>
-                <p className="text-[var(--color-text-secondary)] text-sm">
-                  Hover to float ✨
-                </p>
-              </Card>
-              <Card float glow="cyan">
-                <h3 className="font-heading font-bold">
-                  {t("cards.cyanGlow")}
-                </h3>
-                <p className="text-[var(--color-text-secondary)] text-sm">
-                  Hover to float ✨
-                </p>
-              </Card>
-              <Card float glow="pink">
-                <h3 className="font-heading font-bold">
-                  {t("cards.pinkGlow")}
-                </h3>
-                <p className="text-[var(--color-text-secondary)] text-sm">
-                  Hover to float ✨
-                </p>
-              </Card>
-            </div>
-          </div>
-
-          {/* Feature Cards */}
-          <div>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("cards.featureCards")}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Card glow="purple" className="text-center">
-                <div className="text-4xl mb-2">🚀</div>
-                <h3 className="font-heading font-bold">{t("cards.launch")}</h3>
-                <p className="text-[var(--color-text-secondary)] text-sm">
-                  {t("cards.deployProject")}
-                </p>
-              </Card>
-              <Card variant="solid" className="text-center">
-                <div className="text-4xl mb-2">📊</div>
-                <h3 className="font-heading font-bold">
-                  {t("cards.analytics")}
-                </h3>
-                <p className="text-[var(--color-text-secondary)] text-sm">
-                  {t("cards.trackPerformance")}
-                </p>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* ============================================
-            INPUT SHOWCASE
-            ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("inputs.title")}</h2>
-
-          {/* Basic Inputs */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("inputs.basic")}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input placeholder={t("inputs.textInput")} />
-              <Input type="password" placeholder={t("inputs.password")} />
-              <Input type="search" placeholder={t("inputs.search")} />
-              <Input type="email" placeholder={t("inputs.email")} />
-            </div>
-          </div>
-
-          {/* With Labels */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("inputs.withLabels")}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input
-                label={t("inputs.username")}
-                placeholder={t("inputs.enterUsername")}
-              />
-              <Input
-                label={t("inputs.email")}
-                type="email"
-                placeholder={t("inputs.enterEmail")}
-                helperText={t("inputs.emailHelper")}
-              />
-            </div>
-          </div>
-
-          {/* With Icons */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("inputs.withIconsTitle")}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input
-                leftIcon={<UserIcon />}
-                placeholder={t("inputs.username")}
-              />
-              <Input
-                leftIcon={<SearchIcon />}
-                type="search"
-                placeholder={t("inputs.search")}
-              />
-            </div>
-          </div>
-
-          {/* Validation States */}
-          <div>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("inputs.validation")}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input
-                placeholder={t("inputs.success")}
-                validation="success"
-                successMessage={t("inputs.validInput")}
-              />
-              <Input
-                placeholder={t("inputs.error")}
-                validation="error"
-                errorMessage={t("inputs.somethingWrong")}
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* ============================================
-            MODAL SHOWCASE
-            ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("modal.title")}</h2>
-          <div className="flex gap-3 flex-wrap">
-            <Button variant="primary" onClick={() => setIsModalOpen(true)}>
-              🔮 {t("modal.openModal")}
-            </Button>
-            <Button variant="glass" onClick={() => setIsModalOpen(true)}>
-              📜 {t("modal.viewContent")}
-            </Button>
-          </div>
-          <Modal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            title={`🗂️ ${t("modal.archiveAccess")}`}
-            confirmText={t("modal.acceptMission")}
-            cancelText={t("modal.decline")}
-            onConfirm={() => {
-              console.log("Mission accepted!");
-              setIsModalOpen(false);
+    <>
+      {/* ============================================
+          NAVBAR
+          ============================================ */}
+      <Navbar
+        brand={
+          <span
+            className="font-heading font-bold text-lg tracking-tight"
+            style={{
+              background: "var(--gradient-primary)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
             }}
           >
-            {t("modal.modalDescription")}
-          </Modal>
-        </section>
+            DARA UI
+          </span>
+        }
+        links={navbarLinks}
+        secondaryLinks={secondaryNavLinks}
+        showSecondaryNav
+        showSearch
+        searchPlaceholder={t("inputs.search") || "Search..."}
+        onSearch={handleSearch}
+        showLanguageChanger
+        languageChanger={<LanguageChanger size="sm" iconOnly />}
+        showThemeChanger
+        themeChanger={<ThemeChanger size="sm" iconOnly />}
+      />
+      {/* ============================================
+          MAIN CONTENT
+          ============================================ */}
+      <div className="min-h-screen p-8 pt-20 transition-theme">
+        <div className="max-w-4xl mx-auto">
+          {/* ============================================
+            HEADER
+            ============================================ */}
+          <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
+            <h1 className="text-4xl font-bold text-gradient-primary">
+              {t("app.title")}
+            </h1>
+            <div className="flex gap-2 flex-wrap items-center">
+              <Button
+                size="sm"
+                variant={theme === "nightfall" ? "primary" : "outline"}
+                onClick={() => changeTheme("nightfall")}
+              >
+                🌙 {t("header.nightfall")}
+              </Button>
+              <Button
+                size="sm"
+                variant={theme === "daylight" ? "primary" : "outline"}
+                onClick={() => changeTheme("daylight")}
+              >
+                ☀️ {t("header.daylight")}
+              </Button>
+              <Button
+                size="sm"
+                variant={theme === "dracula" ? "primary" : "outline"}
+                onClick={() => changeTheme("dracula")}
+              >
+                🍷 {t("header.dracula")}
+              </Button>
+              <Button size="sm" variant="outline" onClick={toggleDirection}>
+                {direction === "ltr"
+                  ? `🔁 ${t("header.rtl")}`
+                  : `🔁 ${t("header.ltr")}`}
+              </Button>
+            </div>
+          </div>
 
-        {/* ============================================
+          {/* ============================================
+            BADGES SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">{t("badges.title")}</h2>
+
+            {/* Badge Variants */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("badges.variants")}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Badge variant="primary">{t("badges.primary")}</Badge>
+                <Badge variant="secondary">{t("badges.secondary")}</Badge>
+                <Badge variant="success">{t("badges.success")}</Badge>
+                <Badge variant="danger">{t("badges.danger")}</Badge>
+                <Badge variant="warning">{t("badges.warning")}</Badge>
+              </div>
+            </div>
+
+            {/* Badge Sizes */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("badges.sizes")}
+              </p>
+              <div className="flex flex-wrap gap-3 items-center">
+                <Badge size="sm">{t("badges.small")}</Badge>
+                <Badge size="md">{t("badges.medium")}</Badge>
+                <Badge size="lg">{t("badges.large")}</Badge>
+              </div>
+            </div>
+
+            {/* Outline Badges */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("badges.outline")}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Badge outline variant="primary">
+                  {t("badges.primary")}
+                </Badge>
+                <Badge outline variant="secondary">
+                  {t("badges.secondary")}
+                </Badge>
+                <Badge outline variant="success">
+                  {t("badges.success")}
+                </Badge>
+                <Badge outline variant="danger">
+                  {t("badges.danger")}
+                </Badge>
+                <Badge outline variant="warning">
+                  {t("badges.warning")}
+                </Badge>
+              </div>
+            </div>
+
+            {/* Glow Badges */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("badges.withGlow")}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Badge glow variant="primary">
+                  {t("badges.glowPrimary")}
+                </Badge>
+                <Badge glow variant="success">
+                  {t("badges.glowSuccess")}
+                </Badge>
+                <Badge glow variant="danger">
+                  {t("badges.glowDanger")}
+                </Badge>
+              </div>
+            </div>
+
+            {/* Badges with Icons */}
+            <div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("badges.withIcons")}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Badge variant="primary">
+                  <span className="mr-1">📦</span> {t("badges.package")}
+                </Badge>
+                <Badge variant="success">
+                  <span className="mr-1">✅</span> {t("badges.done")}
+                </Badge>
+                <Badge variant="warning">
+                  <span className="mr-1">⚠️</span> {t("badges.warning")}
+                </Badge>
+                <Badge variant="danger">
+                  <span className="mr-1">❌</span> {t("badges.failed")}
+                </Badge>
+              </div>
+            </div>
+          </section>
+
+          {/* ============================================
+            BUTTONS SHOWCASE
+            ============================================ */}
+          {/* Buttons: variants */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("buttons.title")}
+            </h2>
+            <div className="flex flex-wrap gap-3">
+              <Button variant="primary">{t("buttons.primary")}</Button>
+              <Button variant="secondary">{t("buttons.secondary")}</Button>
+              <Button variant="glass">{t("buttons.glass")}</Button>
+              <Button variant="danger">{t("buttons.danger")}</Button>
+              <Button variant="success">{t("buttons.success")}</Button>
+              <Button variant="outline">{t("buttons.outline")}</Button>
+            </div>
+          </section>
+
+          {/* Buttons: states */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("buttons.states")}
+            </h2>
+            <div className="flex flex-wrap gap-3 items-center">
+              <Button variant="primary">{t("buttons.normal")}</Button>
+              <Button
+                variant="primary"
+                className="bg-[var(--color-primary-hover)] shadow-[var(--shadow-glow-primary)]"
+              >
+                {t("buttons.hover")}
+              </Button>
+              <Button variant="primary" className="scale-95">
+                {t("buttons.pressed")}
+              </Button>
+              <Button variant="primary" disabled>
+                {t("buttons.disabled")}
+              </Button>
+              <Button variant="primary" loading>
+                {t("buttons.loading")}
+              </Button>
+            </div>
+          </section>
+
+          {/* Buttons: sizes */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("buttons.sizesTitle")}
+            </h2>
+            <div className="flex flex-wrap gap-3 items-center">
+              <Button size="sm" variant="primary">
+                {t("buttons.small")}
+              </Button>
+              <Button size="md" variant="primary">
+                {t("buttons.medium")}
+              </Button>
+              <Button size="lg" variant="primary">
+                {t("buttons.large")}
+              </Button>
+            </div>
+          </section>
+
+          {/* ============================================
+            AVATAR SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">{t("avatar.title")}</h2>
+
+            {/* Sizes */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("avatar.sizes")}
+              </p>
+              <div className="flex items-center gap-4">
+                <Avatar size="xs" fallbackText="JD" />
+                <Avatar size="sm" fallbackText="JD" />
+                <Avatar size="md" fallbackText="JD" />
+                <Avatar size="lg" fallbackText="JD" />
+                <Avatar size="xl" fallbackText="JD" />
+              </div>
+            </div>
+
+            {/* Shapes */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("avatar.shapes")}
+              </p>
+              <div className="flex items-center gap-4">
+                <Avatar shape="circle" fallbackText="JD" />
+                <Avatar shape="rounded" fallbackText="JD" />
+                <Avatar shape="square" fallbackText="JD" />
+              </div>
+            </div>
+
+            {/* With Status */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("avatar.status")}
+              </p>
+              <div className="flex items-center gap-4">
+                <Avatar status="online" fallbackText="JD" />
+                <Avatar status="away" fallbackText="JD" />
+                <Avatar status="busy" fallbackText="JD" />
+                <Avatar status="offline" fallbackText="JD" />
+              </div>
+            </div>
+
+            {/* With Glow */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("avatar.glowEffects")}
+              </p>
+              <div className="flex items-center gap-4">
+                <Avatar glow="purple" fallbackText="JD" />
+                <Avatar glow="cyan" fallbackText="JD" />
+                <Avatar glow="pink" fallbackText="JD" />
+              </div>
+            </div>
+
+            {/* With Image */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("avatar.withImage")}
+              </p>
+              <div className="flex items-center gap-4">
+                <Avatar
+                  src="https://i.pravatar.cc/150?img=5"
+                  alt="User avatar"
+                  size="md"
+                />
+                <Avatar
+                  src="https://i.pravatar.cc/150?img=9"
+                  alt="User avatar"
+                  size="md"
+                  glow="purple"
+                />
+                <Avatar
+                  src="https://i.pravatar.cc/150?img=12"
+                  alt="User avatar"
+                  size="md"
+                  status="online"
+                />
+              </div>
+            </div>
+
+            {/* Group */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("avatar.group")}
+              </p>
+              <Avatar group size="md">
+                <Avatar fallbackText="JD" />
+                <Avatar fallbackText="JS" />
+                <Avatar fallbackText="AK" />
+                <Avatar fallbackText="MR" />
+              </Avatar>
+            </div>
+
+            {/* Clickable */}
+            <div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("avatar.clickable")}
+              </p>
+              <Avatar
+                fallbackText="JD"
+                onClick={() => alert("Avatar clicked!")}
+                glow="purple"
+              />
+            </div>
+          </section>
+
+          {/* ============================================
+            TOOLTIP SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("tooltip.title")}
+            </h2>
+
+            {/* Placements */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("tooltip.placements")}
+              </p>
+              <div className="grid grid-cols-4 gap-4">
+                <Tooltip content={t("tooltip.top")} placement="top">
+                  <Button size="sm" variant="glass" className="w-full">
+                    {t("tooltip.top")}
+                  </Button>
+                </Tooltip>
+                <Tooltip content={t("tooltip.bottom")} placement="bottom">
+                  <Button size="sm" variant="glass" className="w-full">
+                    {t("tooltip.bottom")}
+                  </Button>
+                </Tooltip>
+                <Tooltip content={t("tooltip.left")} placement="left">
+                  <Button size="sm" variant="glass" className="w-full">
+                    {t("tooltip.left")}
+                  </Button>
+                </Tooltip>
+                <Tooltip content={t("tooltip.right")} placement="right">
+                  <Button size="sm" variant="glass" className="w-full">
+                    {t("tooltip.right")}
+                  </Button>
+                </Tooltip>
+              </div>
+            </div>
+
+            {/* Variants */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("tooltip.variants")}
+              </p>
+              <div className="flex items-center gap-4">
+                <Tooltip content={t("tooltip.glassTooltip")} variant="glass">
+                  <Button variant="glass">{t("buttons.glass")}</Button>
+                </Tooltip>
+                <Tooltip content={t("tooltip.solidTooltip")} variant="solid">
+                  <Button variant="secondary">{t("buttons.secondary")}</Button>
+                </Tooltip>
+                <Tooltip
+                  content={t("tooltip.outlineTooltip")}
+                  variant="outline"
+                >
+                  <Button variant="outline">{t("buttons.outline")}</Button>
+                </Tooltip>
+              </div>
+            </div>
+
+            {/* With Badge */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("tooltip.withBadge")}
+              </p>
+              <Tooltip content={t("tooltip.unreadMessages", { count: 42 })}>
+                <Badge variant="primary" glow className="cursor-pointer">
+                  42
+                </Badge>
+              </Tooltip>
+            </div>
+
+            {/* Long Content */}
+            <div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("tooltip.longContent")}
+              </p>
+              <Tooltip content={t("tooltip.longTooltip")}>
+                <Button variant="primary">{t("tooltip.hoverDetails")}</Button>
+              </Tooltip>
+            </div>
+          </section>
+
+          {/* ============================================
+            TABS SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">{t("tabs.title")}</h2>
+            <Tabs
+              items={tabItems}
+              activeValue={activeTab}
+              onChange={setActiveTab}
+              glowColor="primary"
+            />
+          </section>
+
+          {/* ============================================
+            ACCORDION SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("accordion.title")}
+            </h2>
+
+            {/* Mode Switcher */}
+            <div className="flex items-center gap-4 mb-4 flex-wrap">
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                {t("accordion.mode")}:
+              </span>
+              <Button
+                size="sm"
+                variant={accordionMode === "single" ? "primary" : "outline"}
+                onClick={() => {
+                  setAccordionMode("single");
+                  setOpenAccordionItems(["1"]);
+                }}
+              >
+                {t("accordion.single")}
+              </Button>
+              <Button
+                size="sm"
+                variant={accordionMode === "multiple" ? "primary" : "outline"}
+                onClick={() => {
+                  setAccordionMode("multiple");
+                  setOpenAccordionItems(["1", "2"]);
+                }}
+              >
+                {t("accordion.multiple")}
+              </Button>
+              <span className="text-xs text-[var(--color-text-tertiary)] font-mono ml-2">
+                {accordionMode === "single"
+                  ? t("accordion.singleDesc")
+                  : t("accordion.multipleDesc")}
+              </span>
+            </div>
+
+            {/* Controlled Accordion */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("accordion.controlled")}{" "}
+                <span className="text-[var(--color-primary)]">
+                  {openAccordionItems.length > 0
+                    ? openAccordionItems.join(", ")
+                    : "none"}
+                </span>
+              </p>
+              <Accordion
+                items={accordionItems}
+                openItems={openAccordionItems}
+                onOpenChange={setOpenAccordionItems}
+                multiple={accordionMode === "multiple"}
+              />
+            </div>
+
+            <div className="border-t border-[var(--color-border-secondary)] my-6"></div>
+
+            {/* With Icons */}
+            <div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("accordion.withIcons")}
+              </p>
+              <Accordion
+                items={accordionItemsWithIcons}
+                defaultOpenItems={["1"]}
+                multiple={false}
+              />
+            </div>
+          </section>
+
+          {/* ============================================
+            DROPDOWN SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("dropdown.title")}
+            </h2>
+
+            {/* Basic Dropdowns */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("dropdown.basic")}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Dropdown
+                  options={frameworkOptions}
+                  placeholder={t("dropdown.selectFramework")}
+                  defaultValue="react"
+                />
+                <Dropdown
+                  options={frameworkOptions}
+                  placeholder={t("dropdown.withPlaceholder")}
+                />
+              </div>
+            </div>
+
+            {/* With Icons */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("dropdown.withIcons")}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Dropdown
+                  options={dropdownOptionsWithIcons}
+                  placeholder={t("dropdown.selectWithIcons")}
+                  defaultValue="user"
+                />
+                <Dropdown
+                  options={dropdownOptionsWithIcons}
+                  placeholder={t("dropdown.searchWithIcons")}
+                  searchable
+                  searchPlaceholder={t("dropdown.searchOptions")}
+                />
+              </div>
+            </div>
+
+            {/* Searchable */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("dropdown.searchable")}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Dropdown
+                  options={frameworkOptions}
+                  placeholder={t("dropdown.searchFrameworks")}
+                  searchable
+                  defaultValue="react"
+                  label={t("dropdown.framework")}
+                  helperText={t("dropdown.typeToFilter")}
+                />
+                <Dropdown
+                  options={dropdownOptionsWithIcons}
+                  placeholder={t("dropdown.searchWithIcons")}
+                  searchable
+                  searchPlaceholder={t("dropdown.searchOptions")}
+                  label={t("dropdown.withIcons")}
+                />
+              </div>
+            </div>
+
+            {/* Controlled */}
+            <div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("dropdown.controlled")}{" "}
+                <span className="text-[var(--color-primary)] font-bold">
+                  {selectedFramework}
+                </span>
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Dropdown
+                  options={frameworkOptions}
+                  value={selectedFramework}
+                  onChange={setSelectedFramework}
+                  placeholder={t("dropdown.selectFramework")}
+                  label={t("dropdown.framework")}
+                />
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setSelectedFramework("vue")}
+                  >
+                    {t("dropdown.setVue")}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setSelectedFramework("svelte")}
+                  >
+                    {t("dropdown.setSvelte")}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setSelectedFramework("solid")}
+                  >
+                    {t("dropdown.setSolid")}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ============================================
+            CARDS SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">{t("cards.title")}</h2>
+
+            {/* Variants */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("cards.variants")}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Card variant="glass">
+                  <h3 className="font-heading font-bold">
+                    {t("cards.glassCard")}
+                  </h3>
+                  <p className="text-[var(--color-text-secondary)] text-sm">
+                    backdrop-filter: blur(20px)
+                  </p>
+                </Card>
+                <Card variant="solid">
+                  <h3 className="font-heading font-bold">
+                    {t("cards.solidCard")}
+                  </h3>
+                  <p className="text-[var(--color-text-secondary)] text-sm">
+                    More opaque, less blur
+                  </p>
+                </Card>
+                <Card variant="outline">
+                  <h3 className="font-heading font-bold">
+                    {t("cards.outlineCard")}
+                  </h3>
+                  <p className="text-[var(--color-text-secondary)] text-sm">
+                    Transparent with border
+                  </p>
+                </Card>
+              </div>
+            </div>
+
+            {/* Float + Glow */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("cards.floatGlow")}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Card float glow="purple">
+                  <h3 className="font-heading font-bold">
+                    {t("cards.purpleGlow")}
+                  </h3>
+                  <p className="text-[var(--color-text-secondary)] text-sm">
+                    Hover to float ✨
+                  </p>
+                </Card>
+                <Card float glow="cyan">
+                  <h3 className="font-heading font-bold">
+                    {t("cards.cyanGlow")}
+                  </h3>
+                  <p className="text-[var(--color-text-secondary)] text-sm">
+                    Hover to float ✨
+                  </p>
+                </Card>
+                <Card float glow="pink">
+                  <h3 className="font-heading font-bold">
+                    {t("cards.pinkGlow")}
+                  </h3>
+                  <p className="text-[var(--color-text-secondary)] text-sm">
+                    Hover to float ✨
+                  </p>
+                </Card>
+              </div>
+            </div>
+
+            {/* Feature Cards */}
+            <div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("cards.featureCards")}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Card glow="purple" className="text-center">
+                  <div className="text-4xl mb-2">🚀</div>
+                  <h3 className="font-heading font-bold">
+                    {t("cards.launch")}
+                  </h3>
+                  <p className="text-[var(--color-text-secondary)] text-sm">
+                    {t("cards.deployProject")}
+                  </p>
+                </Card>
+                <Card variant="solid" className="text-center">
+                  <div className="text-4xl mb-2">📊</div>
+                  <h3 className="font-heading font-bold">
+                    {t("cards.analytics")}
+                  </h3>
+                  <p className="text-[var(--color-text-secondary)] text-sm">
+                    {t("cards.trackPerformance")}
+                  </p>
+                </Card>
+              </div>
+            </div>
+          </section>
+
+          {/* ============================================
+            INPUT SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">{t("inputs.title")}</h2>
+
+            {/* Basic Inputs */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("inputs.basic")}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input placeholder={t("inputs.textInput")} />
+                <Input type="password" placeholder={t("inputs.password")} />
+                <Input type="search" placeholder={t("inputs.search")} />
+                <Input type="email" placeholder={t("inputs.email")} />
+              </div>
+            </div>
+
+            {/* With Labels */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("inputs.withLabels")}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input
+                  label={t("inputs.username")}
+                  placeholder={t("inputs.enterUsername")}
+                />
+                <Input
+                  label={t("inputs.email")}
+                  type="email"
+                  placeholder={t("inputs.enterEmail")}
+                  helperText={t("inputs.emailHelper")}
+                />
+              </div>
+            </div>
+
+            {/* With Icons */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("inputs.withIconsTitle")}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input
+                  leftIcon={<UserIcon />}
+                  placeholder={t("inputs.username")}
+                />
+                <Input
+                  leftIcon={<SearchIcon />}
+                  type="search"
+                  placeholder={t("inputs.search")}
+                />
+              </div>
+            </div>
+
+            {/* Validation States */}
+            <div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("inputs.validation")}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input
+                  placeholder={t("inputs.success")}
+                  validation="success"
+                  successMessage={t("inputs.validInput")}
+                />
+                <Input
+                  placeholder={t("inputs.error")}
+                  validation="error"
+                  errorMessage={t("inputs.somethingWrong")}
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* ============================================
+            MODAL SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">{t("modal.title")}</h2>
+            <div className="flex gap-3 flex-wrap">
+              <Button variant="primary" onClick={() => setIsModalOpen(true)}>
+                🔮 {t("modal.openModal")}
+              </Button>
+              <Button variant="glass" onClick={() => setIsModalOpen(true)}>
+                📜 {t("modal.viewContent")}
+              </Button>
+            </div>
+            <Modal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              title={`🗂️ ${t("modal.archiveAccess")}`}
+              confirmText={t("modal.acceptMission")}
+              cancelText={t("modal.decline")}
+              onConfirm={() => {
+                console.log("Mission accepted!");
+                setIsModalOpen(false);
+              }}
+            >
+              {t("modal.modalDescription")}
+            </Modal>
+          </section>
+
+          {/* ============================================
             TOAST SHOWCASE
             ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("toast.title")}</h2>
-          <p className="text-[var(--color-text-secondary)] text-sm mb-6 font-sans">
-            {t("toast.subtitle")}
-          </p>
-          <ToastDemo />
-        </section>
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">{t("toast.title")}</h2>
+            <p className="text-[var(--color-text-secondary)] text-sm mb-6 font-sans">
+              {t("toast.subtitle")}
+            </p>
+            <ToastDemo />
+          </section>
 
-        {/* ============================================
+          {/* ============================================
             PROGRESS SHOWCASE
             ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("progress.title")}</h2>
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("progress.title")}
+            </h2>
 
-          {/* Horizontal */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("progress.horizontal")}
-            </p>
-            <div className="flex flex-col gap-4 max-w-md">
-              <Progress
-                value={75}
-                color="primary"
-                labelPosition="right"
-                showLabel
-              />
-              <Progress
-                value={60}
-                color="secondary"
-                labelPosition="right"
-                showLabel
-              />
-              <Progress
-                value={45}
-                color="accent"
-                labelPosition="right"
-                showLabel
-              />
-              <Progress
-                value={80}
-                color="success"
-                labelPosition="right"
-                showLabel
-              />
-              <Progress
-                value={30}
-                color="danger"
-                labelPosition="right"
-                showLabel
-              />
-              <Progress
-                value={55}
-                color="gradient"
-                labelPosition="right"
-                showLabel
-              />
+            {/* Horizontal */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("progress.horizontal")}
+              </p>
+              <div className="flex flex-col gap-4 max-w-md">
+                <Progress
+                  value={75}
+                  color="primary"
+                  labelPosition="right"
+                  showLabel
+                />
+                <Progress
+                  value={60}
+                  color="secondary"
+                  labelPosition="right"
+                  showLabel
+                />
+                <Progress
+                  value={45}
+                  color="accent"
+                  labelPosition="right"
+                  showLabel
+                />
+                <Progress
+                  value={80}
+                  color="success"
+                  labelPosition="right"
+                  showLabel
+                />
+                <Progress
+                  value={30}
+                  color="danger"
+                  labelPosition="right"
+                  showLabel
+                />
+                <Progress
+                  value={55}
+                  color="gradient"
+                  labelPosition="right"
+                  showLabel
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Label Inside */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("progress.labelInside")}
-            </p>
-            <div className="flex flex-col gap-4 max-w-md">
-              <Progress
-                value={75}
-                color="primary"
-                labelPosition="inside"
-                showLabel
-              />
-              <Progress
-                value={45}
-                color="secondary"
-                labelPosition="inside"
-                showLabel
-              />
-              <Progress
-                value={30}
-                color="danger"
-                labelPosition="inside"
-                showLabel
-              />
-              <Progress
-                value={55}
-                color="gradient"
-                labelPosition="inside"
-                showLabel
-              />
+            {/* Label Inside */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("progress.labelInside")}
+              </p>
+              <div className="flex flex-col gap-4 max-w-md">
+                <Progress
+                  value={75}
+                  color="primary"
+                  labelPosition="inside"
+                  showLabel
+                />
+                <Progress
+                  value={45}
+                  color="secondary"
+                  labelPosition="inside"
+                  showLabel
+                />
+                <Progress
+                  value={30}
+                  color="danger"
+                  labelPosition="inside"
+                  showLabel
+                />
+                <Progress
+                  value={55}
+                  color="gradient"
+                  labelPosition="inside"
+                  showLabel
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Display Types */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("progress.displayTypes")}
-            </p>
-            <div className="flex flex-col gap-4 max-w-md">
-              <Progress
-                value={75}
-                displayType="percentage"
-                labelPosition="right"
-                showLabel
-              />
-              <Progress
-                value={3}
-                max={5}
-                displayType="ratio"
-                labelPosition="right"
-                showLabel
-              />
-              <Progress
-                value={75}
-                displayType="custom"
-                label={t("progress.almostDone")}
-                labelPosition="right"
-                showLabel
-              />
+            {/* Display Types */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("progress.displayTypes")}
+              </p>
+              <div className="flex flex-col gap-4 max-w-md">
+                <Progress
+                  value={75}
+                  displayType="percentage"
+                  labelPosition="right"
+                  showLabel
+                />
+                <Progress
+                  value={3}
+                  max={5}
+                  displayType="ratio"
+                  labelPosition="right"
+                  showLabel
+                />
+                <Progress
+                  value={75}
+                  displayType="custom"
+                  label={t("progress.almostDone")}
+                  labelPosition="right"
+                  showLabel
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Sizes */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("progress.sizes")}
-            </p>
-            <div className="flex flex-col gap-4 max-w-md">
-              <Progress value={50} size="sm" labelPosition="right" showLabel />
-              <Progress value={65} size="md" labelPosition="right" showLabel />
-              <Progress value={80} size="lg" labelPosition="right" showLabel />
+            {/* Sizes */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("progress.sizes")}
+              </p>
+              <div className="flex flex-col gap-4 max-w-md">
+                <Progress
+                  value={50}
+                  size="sm"
+                  labelPosition="right"
+                  showLabel
+                />
+                <Progress
+                  value={65}
+                  size="md"
+                  labelPosition="right"
+                  showLabel
+                />
+                <Progress
+                  value={80}
+                  size="lg"
+                  labelPosition="right"
+                  showLabel
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Radial */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("progress.radial")}
-            </p>
-            <div className="flex flex-wrap gap-6">
-              <Progress variant="radial" value={75} color="primary" showLabel />
-              <Progress
-                variant="radial"
-                value={60}
-                color="secondary"
-                showLabel
-              />
-              <Progress variant="radial" value={45} color="accent" showLabel />
-              <Progress variant="radial" value={80} color="success" showLabel />
-              <Progress variant="radial" value={30} color="danger" showLabel />
-              <Progress variant="radial" value={90} color="warning" showLabel />
-              <Progress
-                variant="radial"
-                value={55}
-                color="gradient"
-                showLabel
-              />
+            {/* Radial */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("progress.radial")}
+              </p>
+              <div className="flex flex-wrap gap-6">
+                <Progress
+                  variant="radial"
+                  value={75}
+                  color="primary"
+                  showLabel
+                />
+                <Progress
+                  variant="radial"
+                  value={60}
+                  color="secondary"
+                  showLabel
+                />
+                <Progress
+                  variant="radial"
+                  value={45}
+                  color="accent"
+                  showLabel
+                />
+                <Progress
+                  variant="radial"
+                  value={80}
+                  color="success"
+                  showLabel
+                />
+                <Progress
+                  variant="radial"
+                  value={30}
+                  color="danger"
+                  showLabel
+                />
+                <Progress
+                  variant="radial"
+                  value={90}
+                  color="warning"
+                  showLabel
+                />
+                <Progress
+                  variant="radial"
+                  value={55}
+                  color="gradient"
+                  showLabel
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Radial with Custom Label */}
-          <div className="mb-6">
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("progress.radialCustom")}
-            </p>
-            <div className="flex flex-wrap gap-6">
-              <Progress
-                variant="radial"
-                value={3}
-                max={5}
-                displayType="ratio"
-                showLabel
-              />
-              <Progress
-                variant="radial"
-                value={75}
-                displayType="custom"
-                label={t("progress.done")}
-                showLabel
-                color="success"
-              />
-              <Progress
-                variant="radial"
-                value={45}
-                label={t("progress.loading")}
-                showLabel
-                color="warning"
-              />
+            {/* Radial with Custom Label */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("progress.radialCustom")}
+              </p>
+              <div className="flex flex-wrap gap-6">
+                <Progress
+                  variant="radial"
+                  value={3}
+                  max={5}
+                  displayType="ratio"
+                  showLabel
+                />
+                <Progress
+                  variant="radial"
+                  value={75}
+                  displayType="custom"
+                  label={t("progress.done")}
+                  showLabel
+                  color="success"
+                />
+                <Progress
+                  variant="radial"
+                  value={45}
+                  label={t("progress.loading")}
+                  showLabel
+                  color="warning"
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Radial Sizes */}
-          <div>
-            <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
-              {t("progress.radialSizes")}
-            </p>
-            <div className="flex flex-wrap gap-6 items-end">
-              <Progress variant="radial" value={50} size="sm" showLabel />
-              <Progress variant="radial" value={65} size="md" showLabel />
-              <Progress variant="radial" value={80} size="lg" showLabel />
+            {/* Radial Sizes */}
+            <div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("progress.radialSizes")}
+              </p>
+              <div className="flex flex-wrap gap-6 items-end">
+                <Progress variant="radial" value={50} size="sm" showLabel />
+                <Progress variant="radial" value={65} size="md" showLabel />
+                <Progress variant="radial" value={80} size="lg" showLabel />
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* ============================================
+          {/* ============================================
             XPBAR SHOWCASE
             ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("xpbar.title")}</h2>
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">{t("xpbar.title")}</h2>
 
-          {/* Basic XP Bar */}
-          <div className="glass mb-5 p-6 float-card">
-            <XPBar value={3400} max={5000} level={14} />
-          </div>
+            {/* Basic XP Bar */}
+            <div className="glass mb-5 p-6 float-card">
+              <XPBar value={3400} max={5000} level={14} />
+            </div>
 
-          {/* With custom labels */}
-          <div className="glass mb-5 p-6 float-card glow-cyan">
-            <XPBar
-              value={3400}
-              max={5000}
-              level={14}
-              customLabel={`★ ${t("xpbar.rankProgress")}`}
-              levelLabel="Rank"
-              xpLabel={t("xpbar.exp")}
-            />
-          </div>
+            {/* With custom labels */}
+            <div className="glass mb-5 p-6 float-card glow-cyan">
+              <XPBar
+                value={3400}
+                max={5000}
+                level={14}
+                customLabel={`★ ${t("xpbar.rankProgress")}`}
+                levelLabel="Rank"
+                xpLabel={t("xpbar.exp")}
+              />
+            </div>
 
-          {/* With rank tiers */}
-          <div className="glass mb-5 p-6 float-card glow-purple">
-            <XPBar
-              value={3400}
-              max={5000}
-              level={14}
-              levelLabel={t("xpbar.tier")}
-              xpLabel={t("xpbar.points")}
-              customLabel={`🏆 ${t("xpbar.rankProgress")}`}
-              ranks={[
-                { label: "Common", requiredXP: 0 },
-                { label: "Uncommon", requiredXP: 1000 },
-                { label: "Rare", requiredXP: 2500 },
-                { label: "Epic", requiredXP: 4000 },
-                { label: "Legendary", requiredXP: 6000 },
-              ]}
-            />
-          </div>
+            {/* With rank tiers */}
+            <div className="glass mb-5 p-6 float-card glow-purple">
+              <XPBar
+                value={3400}
+                max={5000}
+                level={14}
+                levelLabel={t("xpbar.tier")}
+                xpLabel={t("xpbar.points")}
+                customLabel={`🏆 ${t("xpbar.rankProgress")}`}
+                ranks={[
+                  { label: "Common", requiredXP: 0 },
+                  { label: "Uncommon", requiredXP: 1000 },
+                  { label: "Rare", requiredXP: 2500 },
+                  { label: "Epic", requiredXP: 4000 },
+                  { label: "Legendary", requiredXP: 6000 },
+                ]}
+              />
+            </div>
 
-          {/* Game style with custom rank labels */}
-          <div className="glass mb-5 p-6 float-card">
-            <XPBar
-              value={750}
-              max={1200}
-              level={3}
-              levelLabel={t("xpbar.prestige")}
-              xpLabel={t("xpbar.score")}
-              customLabel={`⚔️ ${t("xpbar.missionProgress")}`}
-              ranks={[
-                { label: "Recruit", requiredXP: 0 },
-                { label: "Soldier", requiredXP: 300 },
-                { label: "Veteran", requiredXP: 600 },
-                { label: "Elite", requiredXP: 900 },
-                { label: "Commander", requiredXP: 1200 },
-              ]}
-            />
-          </div>
-        </section>
+            {/* Game style with custom rank labels */}
+            <div className="glass mb-5 p-6 float-card">
+              <XPBar
+                value={750}
+                max={1200}
+                level={3}
+                levelLabel={t("xpbar.prestige")}
+                xpLabel={t("xpbar.score")}
+                customLabel={`⚔️ ${t("xpbar.missionProgress")}`}
+                ranks={[
+                  { label: "Recruit", requiredXP: 0 },
+                  { label: "Soldier", requiredXP: 300 },
+                  { label: "Veteran", requiredXP: 600 },
+                  { label: "Elite", requiredXP: 900 },
+                  { label: "Commander", requiredXP: 1200 },
+                ]}
+              />
+            </div>
+          </section>
 
-        {/* ============================================
+          {/* ============================================
             GLOW SHOWCASE
             ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("glow.title")}</h2>
-          <div className="flex flex-wrap gap-3">
-            <Button glow="purple" variant="primary">
-              {t("glow.glowPurple")}
-            </Button>
-            <Button glow="cyan" variant="success">
-              {t("glow.glowCyan")}
-            </Button>
-            <Button glow="pink" variant="danger">
-              {t("glow.glowPink")}
-            </Button>
-          </div>
-        </section>
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">{t("glow.title")}</h2>
+            <div className="flex flex-wrap gap-3">
+              <Button glow="purple" variant="primary">
+                {t("glow.glowPurple")}
+              </Button>
+              <Button glow="cyan" variant="success">
+                {t("glow.glowCyan")}
+              </Button>
+              <Button glow="pink" variant="danger">
+                {t("glow.glowPink")}
+              </Button>
+            </div>
+          </section>
 
-        {/* ============================================
+          {/* ============================================
             QUEST CARD SHOWCASE
             ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("quest.title")}</h2>
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">{t("quest.title")}</h2>
 
-          {/* Basic Quest Card */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <QuestCard
-              title={t("quest.buildCMS")}
-              description={t("quest.buildCMSDesc")}
-              xp={300}
-              deadline="tomorrow"
-              rank="S"
-              glow="cyan"
-            />
+            {/* Basic Quest Card */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <QuestCard
+                title={t("quest.buildCMS")}
+                description={t("quest.buildCMSDesc")}
+                xp={300}
+                deadline="tomorrow"
+                rank="S"
+                glow="cyan"
+              />
 
-            <QuestCard
-              title={t("quest.secureArchives")}
-              description={t("quest.secureArchivesDesc")}
-              xp={200}
-              deadline="3 days"
-              rank="A"
-              glow="purple"
-              requirements={[
-                t("quest.completeReviews"),
-                t("quest.writeTests"),
-                t("quest.deployStaging"),
-              ]}
-            />
-          </div>
+              <QuestCard
+                title={t("quest.secureArchives")}
+                description={t("quest.secureArchivesDesc")}
+                xp={200}
+                deadline="3 days"
+                rank="A"
+                glow="purple"
+                requirements={[
+                  t("quest.completeReviews"),
+                  t("quest.writeTests"),
+                  t("quest.deployStaging"),
+                ]}
+              />
+            </div>
 
-          {/* Full Featured Quest Card */}
-          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <QuestCard
-              title={t("quest.legendaryQuest")}
-              description={t("quest.legendaryQuestDesc")}
-              xp={1000}
-              xpLabel={t("xpbar.exp")}
-              deadline="2024-12-25"
-              rank="S+"
-              glow="purple"
-              requirements={[
-                t("quest.reachLevel"),
-                t("quest.defeatGuardian"),
-                t("quest.collectArtifacts"),
-                t("quest.solveRiddle"),
-              ]}
-            />
+            {/* Full Featured Quest Card */}
+            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <QuestCard
+                title={t("quest.legendaryQuest")}
+                description={t("quest.legendaryQuestDesc")}
+                xp={1000}
+                xpLabel={t("xpbar.exp")}
+                deadline="2024-12-25"
+                rank="S+"
+                glow="purple"
+                requirements={[
+                  t("quest.reachLevel"),
+                  t("quest.defeatGuardian"),
+                  t("quest.collectArtifacts"),
+                  t("quest.solveRiddle"),
+                ]}
+              />
 
-            <QuestCard
-              title={t("quest.mapNightCity")}
-              description={t("quest.mapNightCityDesc")}
-              xp={150}
-              deadline="tonight"
-              rank="B"
-              glow="pink"
-              requirements={[
-                t("quest.scanLocations"),
-                t("quest.interviewNPCs"),
-                t("quest.uploadArchive"),
-              ]}
-            />
-          </div>
-        </section>
+              <QuestCard
+                title={t("quest.mapNightCity")}
+                description={t("quest.mapNightCityDesc")}
+                xp={150}
+                deadline="tonight"
+                rank="B"
+                glow="pink"
+                requirements={[
+                  t("quest.scanLocations"),
+                  t("quest.interviewNPCs"),
+                  t("quest.uploadArchive"),
+                ]}
+              />
+            </div>
+          </section>
 
-        {/* ============================================
+          {/* ============================================
             CHARACTER CARD SHOWCASE
             ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">
-            {t("character.title")}
-          </h2>
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("character.title")}
+            </h2>
 
-          {/* Vertical Layout */}
-          <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
-            {t("character.vertical")}
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            <CharacterCard
-              name={t("character.daraName")}
-              subtitle={t("character.daraSubtitle")}
-              quote={t("character.daraQuote")}
-              icon="🦇"
-              mbti="INTJ"
-              species="Human/Cyborg"
-              affiliation="Jedi Order"
-              traits={["MBTI: INTJ", "Human/Cyborg"]}
-              stats={[
-                { label: t("character.force"), value: 73, color: "primary" },
-                { label: t("character.combat"), value: 85, color: "secondary" },
-                {
-                  label: t("character.intelligence"),
-                  value: 92,
-                  color: "accent",
-                },
-                { label: t("character.wisdom"), value: 68, color: "warning" },
-              ]}
-              glow="purple"
-            />
+            {/* Vertical Layout */}
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
+              {t("character.vertical")}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              <CharacterCard
+                name={t("character.daraName")}
+                subtitle={t("character.daraSubtitle")}
+                quote={t("character.daraQuote")}
+                icon="🦇"
+                mbti="INTJ"
+                species="Human/Cyborg"
+                affiliation="Jedi Order"
+                traits={["MBTI: INTJ", "Human/Cyborg"]}
+                stats={[
+                  { label: t("character.force"), value: 73, color: "primary" },
+                  {
+                    label: t("character.combat"),
+                    value: 85,
+                    color: "secondary",
+                  },
+                  {
+                    label: t("character.intelligence"),
+                    value: 92,
+                    color: "accent",
+                  },
+                  { label: t("character.wisdom"), value: 68, color: "warning" },
+                ]}
+                glow="purple"
+              />
 
-            <CharacterCard
-              name={t("character.cipherName")}
-              subtitle={t("character.cipherSubtitle")}
-              quote={t("character.cipherQuote")}
-              portrait="https://i.pravatar.cc/150?img=11"
-              mbti="INTP"
-              species="Cyborg"
-              affiliation="Netwatch"
-              traits={["MBTI: INTP", "Cyborg"]}
-              stats={[
-                {
-                  label: t("character.hacking"),
-                  value: 95,
-                  color: "secondary",
-                },
-                { label: t("character.stealth"), value: 78, color: "accent" },
-                {
-                  label: t("character.intelligence"),
-                  value: 88,
-                  color: "primary",
-                },
-                { label: t("character.combat"), value: 45, color: "danger" },
-              ]}
-              glow="cyan"
-            />
+              <CharacterCard
+                name={t("character.cipherName")}
+                subtitle={t("character.cipherSubtitle")}
+                quote={t("character.cipherQuote")}
+                portrait="https://i.pravatar.cc/150?img=11"
+                mbti="INTP"
+                species="Cyborg"
+                affiliation="Netwatch"
+                traits={["MBTI: INTP", "Cyborg"]}
+                stats={[
+                  {
+                    label: t("character.hacking"),
+                    value: 95,
+                    color: "secondary",
+                  },
+                  { label: t("character.stealth"), value: 78, color: "accent" },
+                  {
+                    label: t("character.intelligence"),
+                    value: 88,
+                    color: "primary",
+                  },
+                  { label: t("character.combat"), value: 45, color: "danger" },
+                ]}
+                glow="cyan"
+              />
 
-            <CharacterCard
-              name={t("character.shadowName")}
-              subtitle={t("character.shadowSubtitle")}
-              quote={t("character.shadowQuote")}
-              icon="🌙"
-              mbti="ISTP"
-              species="Vampire"
-              affiliation="Night Council"
-              traits={["MBTI: ISTP", "Vampire"]}
-              stats={[
-                { label: t("character.agility"), value: 92, color: "accent" },
-                { label: t("character.stealth"), value: 88, color: "danger" },
-                { label: t("character.strength"), value: 76, color: "warning" },
-                { label: t("character.wisdom"), value: 82, color: "primary" },
-              ]}
-              glow="pink"
-            />
-          </div>
+              <CharacterCard
+                name={t("character.shadowName")}
+                subtitle={t("character.shadowSubtitle")}
+                quote={t("character.shadowQuote")}
+                icon="🌙"
+                mbti="ISTP"
+                species="Vampire"
+                affiliation="Night Council"
+                traits={["MBTI: ISTP", "Vampire"]}
+                stats={[
+                  { label: t("character.agility"), value: 92, color: "accent" },
+                  { label: t("character.stealth"), value: 88, color: "danger" },
+                  {
+                    label: t("character.strength"),
+                    value: 76,
+                    color: "warning",
+                  },
+                  { label: t("character.wisdom"), value: 82, color: "primary" },
+                ]}
+                glow="pink"
+              />
+            </div>
 
-          {/* Horizontal Layout */}
-          <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
-            {t("character.horizontal")}
-          </p>
-          <div className="flex flex-col gap-6">
-            <CharacterCard
-              layout="horizontal"
-              name={t("character.daraName")}
-              subtitle={t("character.daraSubtitle")}
-              quote={t("character.daraQuote")}
-              icon="🦇"
-              mbti="INTJ"
-              species="Human/Cyborg"
-              affiliation="Jedi Order"
-              traits={["MBTI: INTJ", "Human/Cyborg"]}
-              stats={[
-                { label: t("character.force"), value: 73, color: "primary" },
-                { label: t("character.combat"), value: 85, color: "secondary" },
-                {
-                  label: t("character.intelligence"),
-                  value: 92,
-                  color: "accent",
-                },
-                { label: t("character.wisdom"), value: 68, color: "warning" },
-              ]}
-              glow="purple"
-            />
+            {/* Horizontal Layout */}
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
+              {t("character.horizontal")}
+            </p>
+            <div className="flex flex-col gap-6">
+              <CharacterCard
+                layout="horizontal"
+                name={t("character.daraName")}
+                subtitle={t("character.daraSubtitle")}
+                quote={t("character.daraQuote")}
+                icon="🦇"
+                mbti="INTJ"
+                species="Human/Cyborg"
+                affiliation="Jedi Order"
+                traits={["MBTI: INTJ", "Human/Cyborg"]}
+                stats={[
+                  { label: t("character.force"), value: 73, color: "primary" },
+                  {
+                    label: t("character.combat"),
+                    value: 85,
+                    color: "secondary",
+                  },
+                  {
+                    label: t("character.intelligence"),
+                    value: 92,
+                    color: "accent",
+                  },
+                  { label: t("character.wisdom"), value: 68, color: "warning" },
+                ]}
+                glow="purple"
+              />
 
-            <CharacterCard
-              layout="horizontal"
-              name={t("character.cipherName")}
-              subtitle={t("character.cipherSubtitle")}
-              quote={t("character.cipherQuote")}
-              portrait="https://i.pravatar.cc/150?img=11"
-              mbti="INTP"
-              species="Cyborg"
-              affiliation="Netwatch"
-              traits={["MBTI: INTP", "Cyborg"]}
-              stats={[
-                {
-                  label: t("character.hacking"),
-                  value: 95,
-                  color: "secondary",
-                },
-                { label: t("character.stealth"), value: 78, color: "accent" },
-                {
-                  label: t("character.intelligence"),
-                  value: 88,
-                  color: "primary",
-                },
-                { label: t("character.combat"), value: 45, color: "danger" },
-              ]}
-              glow="cyan"
-            />
+              <CharacterCard
+                layout="horizontal"
+                name={t("character.cipherName")}
+                subtitle={t("character.cipherSubtitle")}
+                quote={t("character.cipherQuote")}
+                portrait="https://i.pravatar.cc/150?img=11"
+                mbti="INTP"
+                species="Cyborg"
+                affiliation="Netwatch"
+                traits={["MBTI: INTP", "Cyborg"]}
+                stats={[
+                  {
+                    label: t("character.hacking"),
+                    value: 95,
+                    color: "secondary",
+                  },
+                  { label: t("character.stealth"), value: 78, color: "accent" },
+                  {
+                    label: t("character.intelligence"),
+                    value: 88,
+                    color: "primary",
+                  },
+                  { label: t("character.combat"), value: 45, color: "danger" },
+                ]}
+                glow="cyan"
+              />
 
-            <CharacterCard
-              layout="horizontal"
-              name={t("character.shadowName")}
-              subtitle={t("character.shadowSubtitle")}
-              quote={t("character.shadowQuote")}
-              icon="🌙"
-              mbti="ISTP"
-              species="Vampire"
-              affiliation="Night Council"
-              traits={["MBTI: ISTP", "Vampire"]}
-              stats={[
-                { label: t("character.agility"), value: 92, color: "accent" },
-                { label: t("character.stealth"), value: 88, color: "danger" },
-                { label: t("character.strength"), value: 76, color: "warning" },
-                { label: t("character.wisdom"), value: 82, color: "primary" },
-              ]}
-              glow="pink"
-            />
-          </div>
-        </section>
+              <CharacterCard
+                layout="horizontal"
+                name={t("character.shadowName")}
+                subtitle={t("character.shadowSubtitle")}
+                quote={t("character.shadowQuote")}
+                icon="🌙"
+                mbti="ISTP"
+                species="Vampire"
+                affiliation="Night Council"
+                traits={["MBTI: ISTP", "Vampire"]}
+                stats={[
+                  { label: t("character.agility"), value: 92, color: "accent" },
+                  { label: t("character.stealth"), value: 88, color: "danger" },
+                  {
+                    label: t("character.strength"),
+                    value: 76,
+                    color: "warning",
+                  },
+                  { label: t("character.wisdom"), value: 82, color: "primary" },
+                ]}
+                glow="pink"
+              />
+            </div>
+          </section>
 
-        {/* ============================================
+          {/* ============================================
             STATS WIDGET SHOWCASE
             ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">
-            {t("statsWidget.title")}
-          </h2>
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("statsWidget.title")}
+            </h2>
 
-          {/* Radial Variant */}
-          <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
-            {t("statsWidget.radialVariant")}
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <StatsWidget
-              title={t("statsWidget.forceStats")}
-              glow="purple"
-              stats={[
-                {
-                  label: t("character.force"),
-                  value: 73,
-                  color: "primary",
-                  trend: 12,
-                },
-                {
-                  label: t("character.combat"),
-                  value: 85,
-                  color: "secondary",
-                  trend: 8,
-                },
-                {
-                  label: t("character.intelligence"),
-                  value: 92,
-                  color: "accent",
-                  trend: -3,
-                },
-                {
-                  label: t("character.wisdom"),
-                  value: 68,
-                  color: "warning",
-                  trend: 5,
-                },
-              ]}
-            />
+            {/* Radial Variant */}
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
+              {t("statsWidget.radialVariant")}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <StatsWidget
+                title={t("statsWidget.forceStats")}
+                glow="purple"
+                stats={[
+                  {
+                    label: t("character.force"),
+                    value: 73,
+                    color: "primary",
+                    trend: 12,
+                  },
+                  {
+                    label: t("character.combat"),
+                    value: 85,
+                    color: "secondary",
+                    trend: 8,
+                  },
+                  {
+                    label: t("character.intelligence"),
+                    value: 92,
+                    color: "accent",
+                    trend: -3,
+                  },
+                  {
+                    label: t("character.wisdom"),
+                    value: 68,
+                    color: "warning",
+                    trend: 5,
+                  },
+                ]}
+              />
 
-            <StatsWidget
-              title={t("statsWidget.characterStats")}
-              glow="cyan"
-              stats={[
-                {
-                  label: t("statsWidget.health"),
-                  value: 85,
-                  max: 100,
-                  unit: "HP",
-                  color: "danger",
-                  trend: -5,
-                },
-                {
-                  label: t("statsWidget.mana"),
-                  value: 62,
-                  max: 100,
-                  unit: "MP",
-                  color: "secondary",
-                  trend: 15,
-                },
-                {
-                  label: t("statsWidget.stamina"),
-                  value: 45,
-                  max: 100,
-                  unit: "SP",
-                  color: "warning",
-                  trend: 3,
-                },
-                {
-                  label: t("statsWidget.level"),
-                  value: 14,
-                  max: 20,
-                  unit: "",
-                  color: "primary",
-                  trend: 0,
-                },
-              ]}
-            />
-          </div>
+              <StatsWidget
+                title={t("statsWidget.characterStats")}
+                glow="cyan"
+                stats={[
+                  {
+                    label: t("statsWidget.health"),
+                    value: 85,
+                    max: 100,
+                    unit: "HP",
+                    color: "danger",
+                    trend: -5,
+                  },
+                  {
+                    label: t("statsWidget.mana"),
+                    value: 62,
+                    max: 100,
+                    unit: "MP",
+                    color: "secondary",
+                    trend: 15,
+                  },
+                  {
+                    label: t("statsWidget.stamina"),
+                    value: 45,
+                    max: 100,
+                    unit: "SP",
+                    color: "warning",
+                    trend: 3,
+                  },
+                  {
+                    label: t("statsWidget.level"),
+                    value: 14,
+                    max: 20,
+                    unit: "",
+                    color: "primary",
+                    trend: 0,
+                  },
+                ]}
+              />
+            </div>
 
-          {/* Bar Variant */}
-          <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
-            {t("statsWidget.barVariant")}
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <StatsWidget
-              variant="bar"
-              title={`📈 ${t("statsWidget.progress")}`}
-              glow="pink"
-              stats={[
-                {
-                  label: t("character.strength"),
-                  value: 78,
-                  color: "danger",
-                  trend: 22,
-                },
-                {
-                  label: t("character.agility"),
-                  value: 92,
-                  color: "accent",
-                  trend: 8,
-                },
-                {
-                  label: t("statsWidget.endurance"),
-                  value: 65,
-                  color: "warning",
-                  trend: -4,
-                },
-                {
-                  label: t("statsWidget.luck"),
-                  value: 45,
-                  color: "success",
-                  trend: 12,
-                },
-              ]}
-            />
+            {/* Bar Variant */}
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
+              {t("statsWidget.barVariant")}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <StatsWidget
+                variant="bar"
+                title={`📈 ${t("statsWidget.progress")}`}
+                glow="pink"
+                stats={[
+                  {
+                    label: t("character.strength"),
+                    value: 78,
+                    color: "danger",
+                    trend: 22,
+                  },
+                  {
+                    label: t("character.agility"),
+                    value: 92,
+                    color: "accent",
+                    trend: 8,
+                  },
+                  {
+                    label: t("statsWidget.endurance"),
+                    value: 65,
+                    color: "warning",
+                    trend: -4,
+                  },
+                  {
+                    label: t("statsWidget.luck"),
+                    value: 45,
+                    color: "success",
+                    trend: 12,
+                  },
+                ]}
+              />
 
-            <StatsWidget
-              variant="bar"
-              title={t("statsWidget.skills")}
-              glow="purple"
-              stats={[
-                {
-                  label: t("character.hacking"),
-                  value: 95,
-                  color: "secondary",
-                  trend: 5,
-                },
-                {
-                  label: t("character.stealth"),
-                  value: 78,
-                  color: "accent",
-                  trend: 18,
-                },
-                {
-                  label: t("character.combat"),
-                  value: 45,
-                  color: "danger",
-                  trend: -7,
-                },
-                {
-                  label: t("character.intelligence"),
-                  value: 88,
-                  color: "primary",
-                  trend: 3,
-                },
-              ]}
-            />
-          </div>
+              <StatsWidget
+                variant="bar"
+                title={t("statsWidget.skills")}
+                glow="purple"
+                stats={[
+                  {
+                    label: t("character.hacking"),
+                    value: 95,
+                    color: "secondary",
+                    trend: 5,
+                  },
+                  {
+                    label: t("character.stealth"),
+                    value: 78,
+                    color: "accent",
+                    trend: 18,
+                  },
+                  {
+                    label: t("character.combat"),
+                    value: 45,
+                    color: "danger",
+                    trend: -7,
+                  },
+                  {
+                    label: t("character.intelligence"),
+                    value: 88,
+                    color: "primary",
+                    trend: 3,
+                  },
+                ]}
+              />
+            </div>
 
-          {/* Horizontal Layout */}
-          <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
-            {t("statsWidget.horizontalLayout")}
-          </p>
-          <div className="flex flex-col gap-6">
-            <StatsWidget
-              layout="horizontal"
-              title={`⚔️ ${t("statsWidget.battleStats")}`}
-              glow="cyan"
-              stats={[
-                {
-                  label: t("character.strength"),
-                  value: 78,
-                  color: "danger",
-                  trend: 22,
-                },
-                {
-                  label: t("character.agility"),
-                  value: 92,
-                  color: "accent",
-                  trend: 8,
-                },
-                {
-                  label: t("statsWidget.endurance"),
-                  value: 65,
-                  color: "warning",
-                  trend: -4,
-                },
-                {
-                  label: t("statsWidget.luck"),
-                  value: 45,
-                  color: "success",
-                  trend: 12,
-                },
-              ]}
-            />
+            {/* Horizontal Layout */}
+            <p className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono">
+              {t("statsWidget.horizontalLayout")}
+            </p>
+            <div className="flex flex-col gap-6">
+              <StatsWidget
+                layout="horizontal"
+                title={`⚔️ ${t("statsWidget.battleStats")}`}
+                glow="cyan"
+                stats={[
+                  {
+                    label: t("character.strength"),
+                    value: 78,
+                    color: "danger",
+                    trend: 22,
+                  },
+                  {
+                    label: t("character.agility"),
+                    value: 92,
+                    color: "accent",
+                    trend: 8,
+                  },
+                  {
+                    label: t("statsWidget.endurance"),
+                    value: 65,
+                    color: "warning",
+                    trend: -4,
+                  },
+                  {
+                    label: t("statsWidget.luck"),
+                    value: 45,
+                    color: "success",
+                    trend: 12,
+                  },
+                ]}
+              />
 
-            <StatsWidget
-              variant="bar"
-              layout="horizontal"
-              title={`📊 ${t("statsWidget.skillProgress")}`}
-              glow="purple"
-              stats={[
-                {
-                  label: t("character.hacking"),
-                  value: 95,
-                  color: "secondary",
-                  trend: 5,
-                },
-                {
-                  label: t("character.stealth"),
-                  value: 78,
-                  color: "accent",
-                  trend: 18,
-                },
-                {
-                  label: t("character.combat"),
-                  value: 45,
-                  color: "danger",
-                  trend: -7,
-                },
-                {
-                  label: t("character.intelligence"),
-                  value: 88,
-                  color: "primary",
-                  trend: 3,
-                },
-              ]}
-            />
-          </div>
-        </section>
+              <StatsWidget
+                variant="bar"
+                layout="horizontal"
+                title={`📊 ${t("statsWidget.skillProgress")}`}
+                glow="purple"
+                stats={[
+                  {
+                    label: t("character.hacking"),
+                    value: 95,
+                    color: "secondary",
+                    trend: 5,
+                  },
+                  {
+                    label: t("character.stealth"),
+                    value: 78,
+                    color: "accent",
+                    trend: 18,
+                  },
+                  {
+                    label: t("character.combat"),
+                    value: 45,
+                    color: "danger",
+                    trend: -7,
+                  },
+                  {
+                    label: t("character.intelligence"),
+                    value: 88,
+                    color: "primary",
+                    trend: 3,
+                  },
+                ]}
+              />
+            </div>
+          </section>
 
-        {/* ============================================
+          {/* ============================================
             THEME CHANGER SHOWCASE
             ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">
-            {t("themeChanger.title")}
-          </h2>
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("themeChanger.title")}
+            </h2>
 
-          <div className="flex flex-wrap gap-6 items-end">
-            {/* Default */}
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("themeChanger.default")}
-              </span>
-              <ThemeChanger size="md" />
+            <div className="flex flex-wrap gap-6 items-end">
+              {/* Default */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                  {t("themeChanger.default")}
+                </span>
+                <ThemeChanger size="md" />
+              </div>
+
+              {/* Icon Only */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                  {t("themeChanger.iconOnly")}
+                </span>
+                <ThemeChanger iconOnly size="md" />
+              </div>
+
+              {/* Fixed Width */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                  {t("themeChanger.fixedWidth")}
+                </span>
+                <ThemeChanger fixedWidth="160px" size="md" />
+              </div>
+
+              {/* Small */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                  {t("themeChanger.small")}
+                </span>
+                <ThemeChanger size="sm" />
+              </div>
+
+              {/* Small Icon Only */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                  {t("themeChanger.smallIconOnly")}
+                </span>
+                <ThemeChanger iconOnly size="sm" />
+              </div>
+
+              {/* Custom Themes */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                  {t("themeChanger.customThemes")}
+                </span>
+                <ThemeChanger
+                  availableThemes={[
+                    { value: "nightfall", label: "Nightfall", icon: "🌙" },
+                    { value: "daylight", label: "Daylight", icon: "☀️" },
+                    { value: "bloody-moon", label: "Bloody Moon", icon: "🌕" },
+                  ]}
+                  autoDetect={false}
+                  size="md"
+                />
+              </div>
             </div>
 
-            {/* Icon Only */}
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("themeChanger.iconOnly")}
-              </span>
-              <ThemeChanger iconOnly size="md" />
+            <div className="mt-6 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
+              <p className="text-sm text-[var(--color-text-secondary)]">
+                <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
+                  {t("themeChanger.demo")}:
+                </span>{" "}
+                {t("themeChanger.themeChangerDesc")}
+              </p>
             </div>
+          </section>
 
-            {/* Fixed Width */}
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("themeChanger.fixedWidth")}
-              </span>
-              <ThemeChanger fixedWidth="160px" size="md" />
-            </div>
-
-            {/* Small */}
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("themeChanger.small")}
-              </span>
-              <ThemeChanger size="sm" />
-            </div>
-
-            {/* Small Icon Only */}
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("themeChanger.smallIconOnly")}
-              </span>
-              <ThemeChanger iconOnly size="sm" />
-            </div>
-
-            {/* Custom Themes */}
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("themeChanger.customThemes")}
-              </span>
-              <ThemeChanger
-                availableThemes={[
-                  { value: "nightfall", label: "Nightfall", icon: "🌙" },
-                  { value: "daylight", label: "Daylight", icon: "☀️" },
-                  { value: "bloody-moon", label: "Bloody Moon", icon: "🌕" },
-                ]}
-                autoDetect={false}
-                size="md"
-              />
-            </div>
-          </div>
-
-          <div className="mt-6 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
-            <p className="text-sm text-[var(--color-text-secondary)]">
-              <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
-                {t("themeChanger.demo")}:
-              </span>{" "}
-              {t("themeChanger.themeChangerDesc")}
-            </p>
-          </div>
-        </section>
-
-        {/* ============================================
+          {/* ============================================
             LANGUAGE CHANGER SHOWCASE
             ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">
-            {t("languageChanger.title")}
-          </h2>
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("languageChanger.title")}
+            </h2>
 
-          <div className="flex flex-wrap gap-6 items-end">
-            {/* Default */}
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("languageChanger.default")}
-              </span>
-              <LanguageChanger size="md" />
+            <div className="flex flex-wrap gap-6 items-end">
+              {/* Default */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                  {t("languageChanger.default")}
+                </span>
+                <LanguageChanger size="md" />
+              </div>
+
+              {/* Icon Only */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                  {t("languageChanger.iconOnly")}
+                </span>
+                <LanguageChanger iconOnly size="md" />
+              </div>
+
+              {/* Fixed Width */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                  {t("languageChanger.fixedWidth")}
+                </span>
+                <LanguageChanger fixedWidth="160px" size="md" />
+              </div>
+
+              {/* Small */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                  {t("languageChanger.small")}
+                </span>
+                <LanguageChanger size="sm" />
+              </div>
+
+              {/* Small Icon Only */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                  {t("languageChanger.smallIconOnly")}
+                </span>
+                <LanguageChanger iconOnly size="sm" />
+              </div>
+
+              {/* Custom Languages */}
+              <div className="flex flex-col gap-2">
+                <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                  {t("languageChanger.customLanguages")}
+                </span>
+                <LanguageChanger
+                  availableLanguages={[
+                    { value: "en", label: "English", icon: "🇬🇧", dir: "ltr" },
+                    { value: "fa", label: "فارسی", icon: "🇮🇷", dir: "rtl" },
+                    { value: "fr", label: "Français", icon: "🇫🇷", dir: "ltr" },
+                  ]}
+                  size="md"
+                />
+              </div>
             </div>
 
-            {/* Icon Only */}
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("languageChanger.iconOnly")}
-              </span>
-              <LanguageChanger iconOnly size="md" />
+            <div className="mt-6 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
+              <p className="text-sm text-[var(--color-text-secondary)]">
+                <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
+                  {t("languageChanger.demo")}:
+                </span>{" "}
+                {t("languageChanger.languageChangerDesc")}
+              </p>
             </div>
+          </section>
 
-            {/* Fixed Width */}
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("languageChanger.fixedWidth")}
-              </span>
-              <LanguageChanger fixedWidth="160px" size="md" />
-            </div>
-
-            {/* Small */}
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("languageChanger.small")}
-              </span>
-              <LanguageChanger size="sm" />
-            </div>
-
-            {/* Small Icon Only */}
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("languageChanger.smallIconOnly")}
-              </span>
-              <LanguageChanger iconOnly size="sm" />
-            </div>
-
-            {/* Custom Languages */}
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                {t("languageChanger.customLanguages")}
-              </span>
-              <LanguageChanger
-                availableLanguages={[
-                  { value: "en", label: "English", icon: "🇬🇧", dir: "ltr" },
-                  { value: "fa", label: "فارسی", icon: "🇮🇷", dir: "rtl" },
-                  { value: "fr", label: "Français", icon: "🇫🇷", dir: "ltr" },
-                ]}
-                size="md"
-              />
-            </div>
-          </div>
-
-          <div className="mt-6 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
-            <p className="text-sm text-[var(--color-text-secondary)]">
-              <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
-                {t("languageChanger.demo")}:
-              </span>{" "}
-              {t("languageChanger.languageChangerDesc")}
-            </p>
-          </div>
-        </section>
-
-        {/* ============================================
+          {/* ============================================
             GRADIENT SHOWCASE
             ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">
-            {t("gradients.title")}
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-primary text-white text-center">
-              {t("gradients.primary")}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("gradients.title")}
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-primary text-white text-center">
+                {t("gradients.primary")}
+              </div>
+              <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-accent text-white text-center">
+                {t("gradients.accent")}
+              </div>
+              <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-success text-white text-center">
+                {t("gradients.success")}
+              </div>
+              <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-danger text-white text-center">
+                {t("gradients.danger")}
+              </div>
             </div>
-            <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-accent text-white text-center">
-              {t("gradients.accent")}
-            </div>
-            <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-success text-white text-center">
-              {t("gradients.success")}
-            </div>
-            <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-danger text-white text-center">
-              {t("gradients.danger")}
-            </div>
-          </div>
-        </section>
+          </section>
 
-        {/* ============================================
+          {/* ============================================
             EFFECTS SHOWCASE
             ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("effects.title")}</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="p-6 rounded-[var(--radius-standard)] glass text-center">
-              {t("effects.glassEffect")}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("effects.title")}
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="p-6 rounded-[var(--radius-standard)] glass text-center">
+                {t("effects.glassEffect")}
+              </div>
+              <div className="p-6 rounded-[var(--radius-standard)] glow-purple text-center bg-[var(--color-bg-tertiary)]">
+                {t("effects.glowPurple")}
+              </div>
+              <div className="p-6 rounded-[var(--radius-standard)] glow-pink text-center bg-[var(--color-bg-tertiary)]">
+                {t("effects.glowPink")}
+              </div>
             </div>
-            <div className="p-6 rounded-[var(--radius-standard)] glow-purple text-center bg-[var(--color-bg-tertiary)]">
-              {t("effects.glowPurple")}
-            </div>
-            <div className="p-6 rounded-[var(--radius-standard)] glow-pink text-center bg-[var(--color-bg-tertiary)]">
-              {t("effects.glowPink")}
-            </div>
-          </div>
-        </section>
+          </section>
 
-        {/* ============================================
+          {/* ============================================
             TYPOGRAPHY SHOWCASE
             ============================================ */}
-        <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">
-            {t("typography.title")}
-          </h2>
-          <div className="space-y-4">
-            <p className="text-sm text-[var(--color-text-secondary)]">
-              {t("typography.textSecondary")}
-            </p>
-            <p className="text-base">{t("typography.regularBody")}</p>
-            <p className="text-xl font-bold text-gradient-primary">
-              {t("typography.gradientHeading")}
-            </p>
-            <p className="text-lg font-medium text-[var(--color-accent)]">
-              {t("typography.accentText")}
-            </p>
-            <code className="px-3 py-1 rounded-[var(--radius-sm)] block">
-              {t("typography.codeExample")}
-            </code>
-          </div>
-        </section>
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("typography.title")}
+            </h2>
+            <div className="space-y-4">
+              <p className="text-sm text-[var(--color-text-secondary)]">
+                {t("typography.textSecondary")}
+              </p>
+              <p className="text-base">{t("typography.regularBody")}</p>
+              <p className="text-xl font-bold text-gradient-primary">
+                {t("typography.gradientHeading")}
+              </p>
+              <p className="text-lg font-medium text-[var(--color-accent)]">
+                {t("typography.accentText")}
+              </p>
+              <code className="px-3 py-1 rounded-[var(--radius-sm)] block">
+                {t("typography.codeExample")}
+              </code>
+            </div>
+          </section>
 
-        {/* ============================================
+          {/* ============================================
             PERSIAN TEXT SHOWCASE
             ============================================ */}
-        <section className="p-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-          <h2 className="text-2xl font-semibold mb-6">{t("persian.title")}</h2>
-          <div className="space-y-4">
-            <p className="lang-fa text-lg">{t("persian.persianText")}</p>
-            <h3 className="lang-fa-heading text-xl">
-              {t("persian.persianHeading")}
-            </h3>
-            <p className="lang-fa text-sm text-[var(--color-text-secondary)]">
-              {t("persian.persianDesc")}
-            </p>
-          </div>
-        </section>
+          <section className="p-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("persian.title")}
+            </h2>
+            <div className="space-y-4">
+              <p className="lang-fa text-lg">{t("persian.persianText")}</p>
+              <h3 className="lang-fa-heading text-xl">
+                {t("persian.persianHeading")}
+              </h3>
+              <p className="lang-fa text-sm text-[var(--color-text-secondary)]">
+                {t("persian.persianDesc")}
+              </p>
+            </div>
+          </section>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
