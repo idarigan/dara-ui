@@ -1,4 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  createContext,
+  useContext,
+  useCallback,
+  useMemo,
+} from "react";
 
 export interface ThemeOption {
   /**
@@ -57,6 +65,11 @@ export interface ThemeChangerProps {
    * Additional className
    */
   className?: string;
+  /**
+   * Whether to use the Theme context
+   * @default true
+   */
+  useContext?: boolean;
 }
 
 /**
@@ -68,53 +81,87 @@ const DEFAULT_THEMES: ThemeOption[] = [
   { value: "bloody-moon", label: "Bloody Moon", icon: "🌕" },
 ];
 
+// ============================================
+// Theme Context & Provider
+// ============================================
+
+export interface ThemeContextValue {
+  /**
+   * Current theme value
+   */
+  theme: string;
+  /**
+   * Set the current theme
+   */
+  setTheme: (theme: string) => void;
+  /**
+   * Available themes
+   */
+  themes: ThemeOption[];
+}
+
+export interface ThemeProviderProps {
+  /**
+   * Initial theme
+   */
+  defaultTheme?: string;
+  /**
+   * Available themes (overrides default)
+   */
+  themes?: ThemeOption[];
+  /**
+   * Whether to auto-detect themes from CSS
+   * @default true
+   */
+  autoDetect?: boolean;
+  /**
+   * Children
+   */
+  children: React.ReactNode;
+}
+
+const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
+
 /**
- * Dara UI ThemeChanger - Dropdown for switching between themes
+ * ThemeProvider - Provides theme context to children
  *
  * Features:
- * - Auto-detects available themes from CSS [data-theme] attributes
- * - Supports custom theme lists
- * - Clean dropdown with icon support
- * - Icon-only mode for compact navigation bars
- * - Fixed width option for consistent sizing
- * - Controlled or uncontrolled modes
- * - Applies theme via data-theme attribute on html element
- * - Size variants (sm, md, lg)
- * - Dropdown is always centered under the trigger
- * - Menu width matches the button when iconOnly or fixedWidth is used
+ * - Self-contained theme system
+ * - Auto-detects themes from CSS
+ * - Theme persistence in localStorage
+ * - Auto-updates data-theme attribute on html
+ * - Triggers re-render of all consuming components on theme change
  */
-export const ThemeChanger: React.FC<ThemeChangerProps> = ({
-  value: controlledValue,
-  defaultValue,
-  onChange,
-  availableThemes,
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({
+  defaultTheme,
+  themes: customThemes,
   autoDetect = true,
-  size = "md",
-  iconOnly = false,
-  fixedWidth,
-  className = "",
+  children,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [themes, setThemes] = useState<ThemeOption[]>(DEFAULT_THEMES);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const STORAGE_KEY = "dara-ui-theme";
 
-  // Determine if controlled or uncontrolled
-  const isControlled = controlledValue !== undefined;
-  const [internalValue, setInternalValue] = useState<string>(
-    defaultValue || DEFAULT_THEMES[0]?.value || "nightfall",
-  );
+  // Get initial theme from localStorage or default
+  const getInitialTheme = (): string => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      return stored;
+    }
+    return defaultTheme || DEFAULT_THEMES[0]?.value || "nightfall";
+  };
 
-  const currentTheme = isControlled ? controlledValue : internalValue;
+  const [availableThemes, setAvailableThemes] =
+    useState<ThemeOption[]>(DEFAULT_THEMES);
+  const [theme, setThemeState] = useState<string>(getInitialTheme);
 
   // Auto-detect themes from DOM
   useEffect(() => {
-    if (!autoDetect && availableThemes) {
-      setThemes(availableThemes);
+    if (!autoDetect && customThemes) {
+      setAvailableThemes(customThemes);
       return;
     }
 
-    if (availableThemes) {
-      setThemes(availableThemes);
+    if (customThemes) {
+      setAvailableThemes(customThemes);
       return;
     }
 
@@ -158,11 +205,235 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
     }
 
     if (detectedThemes.length > 0) {
+      setAvailableThemes(detectedThemes);
+      // Update theme if current theme not in detected list
+      if (!detectedThemes.some((t) => t.value === theme)) {
+        const newTheme = detectedThemes[0]?.value || "nightfall";
+        setThemeState(newTheme);
+        applyTheme(newTheme);
+      }
+    } else if (customThemes) {
+      setAvailableThemes(customThemes);
+    }
+  }, [autoDetect, customThemes]);
+
+  // Apply theme to document
+  const applyTheme = useCallback((themeValue: string) => {
+    document.documentElement.setAttribute("data-theme", themeValue);
+  }, []);
+
+  // Apply on mount and when theme changes
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme, applyTheme]);
+
+  // Set theme and apply to document
+  const setTheme = useCallback(
+    (themeValue: string) => {
+      const themeOption = availableThemes.find((t) => t.value === themeValue);
+      if (!themeOption) return;
+
+      setThemeState(themeValue);
+      applyTheme(themeValue);
+      localStorage.setItem(STORAGE_KEY, themeValue);
+
+      // Dispatch event for other components
+      window.dispatchEvent(
+        new CustomEvent("dara-theme-change", { detail: { theme: themeValue } }),
+      );
+    },
+    [availableThemes, applyTheme],
+  );
+
+  // Apply initial theme on mount
+  useEffect(() => {
+    const initialTheme = getInitialTheme();
+    const themeOption = availableThemes.find((t) => t.value === initialTheme);
+    if (themeOption) {
+      applyTheme(initialTheme);
+    }
+  }, [availableThemes, applyTheme]);
+
+  // Listen for theme changes from other components (e.g., ThemeChanger)
+  useEffect(() => {
+    const handleThemeChange = (event: CustomEvent) => {
+      const { theme: newTheme } = event.detail;
+      if (newTheme && newTheme !== theme) {
+        setThemeState(newTheme);
+      }
+    };
+
+    window.addEventListener(
+      "dara-theme-change",
+      handleThemeChange as EventListener,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "dara-theme-change",
+        handleThemeChange as EventListener,
+      );
+    };
+  }, [theme]);
+
+  const value: ThemeContextValue = useMemo(
+    () => ({
+      theme,
+      setTheme,
+      themes: availableThemes,
+    }),
+    [theme, setTheme, availableThemes],
+  );
+
+  return (
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  );
+};
+
+/**
+ * useTheme - Hook for accessing theme context
+ *
+ * @example
+ * ```tsx
+ * const { theme, setTheme, themes } = useTheme();
+ *
+ * // Change theme
+ * <button onClick={() => setTheme('daylight')}>Switch to Daylight</button>
+ * ```
+ */
+export const useTheme = (): ThemeContextValue => {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error("useTheme must be used within a ThemeProvider");
+  }
+  return context;
+};
+
+// ============================================
+// ThemeChanger Component
+// ============================================
+
+/**
+ * Dara UI ThemeChanger - Dropdown for switching between themes
+ *
+ * Features:
+ * - Auto-detects available themes from CSS [data-theme] attributes
+ * - Supports custom theme lists
+ * - Clean dropdown with icon support
+ * - Icon-only mode for compact navigation bars
+ * - Fixed width option for consistent sizing
+ * - Controlled or uncontrolled modes
+ * - Applies theme via data-theme attribute on html element
+ * - Size variants (sm, md, lg)
+ * - Dropdown is always centered under the trigger
+ * - Menu width matches the button when iconOnly or fixedWidth is used
+ * - All ThemeChanger instances sync through Theme context
+ */
+export const ThemeChanger: React.FC<ThemeChangerProps> = ({
+  value: controlledValue,
+  defaultValue,
+  onChange,
+  availableThemes,
+  autoDetect = true,
+  size = "md",
+  iconOnly = false,
+  fixedWidth,
+  className = "",
+  useContext: useThemeContext = true,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [themes, setThemes] = useState<ThemeOption[]>(DEFAULT_THEMES);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const STORAGE_KEY = "dara-ui-theme";
+
+  // Try to get context if available
+  let contextValue: ThemeContextValue | null = null;
+  try {
+    contextValue = useTheme();
+  } catch {
+    // Not inside ThemeProvider
+  }
+
+  const isInContext = useThemeContext && contextValue !== null;
+
+  // Determine if controlled or uncontrolled
+  const isControlled = controlledValue !== undefined;
+
+  // For internal state - only used when not in context or controlled
+  const [internalValue, setInternalValue] = useState<string>(() => {
+    // Try to load from localStorage
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      return stored;
+    }
+    return defaultValue || DEFAULT_THEMES[0]?.value || "nightfall";
+  });
+
+  // Current theme: priority: controlled > context > internal
+  let currentTheme: string;
+  if (isControlled) {
+    currentTheme = controlledValue;
+  } else if (isInContext) {
+    currentTheme = contextValue.theme;
+  } else {
+    currentTheme = internalValue;
+  }
+
+  // Auto-detect themes from DOM
+  useEffect(() => {
+    if (!autoDetect && availableThemes) {
+      setThemes(availableThemes);
+      return;
+    }
+
+    if (availableThemes) {
+      setThemes(availableThemes);
+      return;
+    }
+
+    // Try to detect themes from CSS
+    const detectedThemes: ThemeOption[] = [];
+    const styleSheets = document.styleSheets;
+
+    try {
+      for (const sheet of styleSheets) {
+        try {
+          const rules = sheet.cssRules || sheet.rules;
+          for (const rule of rules) {
+            if (rule instanceof CSSStyleRule) {
+              const match = rule.selectorText?.match(
+                /\[data-theme="([^"]+)"\]/,
+              );
+              if (match && match[1]) {
+                const themeValue = match[1];
+                const label = themeValue
+                  .split("-")
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(" ");
+                if (!detectedThemes.some((t) => t.value === themeValue)) {
+                  detectedThemes.push({
+                    value: themeValue,
+                    label: label,
+                    icon: getDefaultIcon(themeValue),
+                  });
+                }
+              }
+            }
+          }
+        } catch {
+          continue;
+        }
+      }
+    } catch {
+      // If detection fails, fall back to default themes
+    }
+
+    if (detectedThemes.length > 0) {
       setThemes(detectedThemes);
       // Update internal value if current theme not in detected list
       if (!detectedThemes.some((t) => t.value === currentTheme)) {
         const newValue = detectedThemes[0]?.value || "nightfall";
-        if (!isControlled) {
+        if (!isControlled && !isInContext) {
           setInternalValue(newValue);
         }
         applyTheme(newValue);
@@ -173,14 +444,14 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
   }, [autoDetect, availableThemes]);
 
   // Apply theme to document
-  const applyTheme = (theme: string) => {
-    document.documentElement.setAttribute("data-theme", theme);
-  };
+  const applyTheme = useCallback((themeValue: string) => {
+    document.documentElement.setAttribute("data-theme", themeValue);
+  }, []);
 
   // Apply on mount and when theme changes
   useEffect(() => {
     applyTheme(currentTheme);
-  }, [currentTheme]);
+  }, [currentTheme, applyTheme]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -203,14 +474,26 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
   }, [isOpen]);
 
   // Handle theme selection
-  const handleSelect = (themeValue: string) => {
-    if (!isControlled) {
-      setInternalValue(themeValue);
-    }
-    applyTheme(themeValue);
-    onChange?.(themeValue);
-    setIsOpen(false);
-  };
+  const handleSelect = useCallback(
+    (themeValue: string) => {
+      // If we're in context, use context's setTheme
+      if (isInContext) {
+        contextValue.setTheme(themeValue);
+      } else if (!isControlled) {
+        setInternalValue(themeValue);
+      }
+
+      applyTheme(themeValue);
+      onChange?.(themeValue);
+      setIsOpen(false);
+
+      // Dispatch event for other components
+      window.dispatchEvent(
+        new CustomEvent("dara-theme-change", { detail: { theme: themeValue } }),
+      );
+    },
+    [isInContext, contextValue, isControlled, onChange, applyTheme],
+  );
 
   // Get default icon for theme
   const getDefaultIcon = (value: string): string => {
@@ -236,7 +519,6 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
       icon: "h-3 w-3",
       iconOnlySize: "w-8 h-8",
       chevronSize: "h-3 w-3",
-      // matching width for icon-only menu
       iconOnlyWidth: "32px",
     },
     md: {
@@ -261,9 +543,6 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
   const currentOption = themes.find((t) => t.value === currentTheme);
 
   // Determine menu width
-  // - iconOnly → exact same size as the circular button
-  // - fixedWidth → exact same width as the trigger
-  // - otherwise → sensible min width
   const menuWidth = iconOnly
     ? sizeStyles[size].iconOnlyWidth
     : fixedWidth || "140px";
@@ -296,7 +575,6 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
           )}
         </button>
 
-        {/* Dropdown Menu - perfectly centered under the icon button + same width */}
         <div
           className={`
             absolute z-50 mt-1.5
@@ -350,7 +628,6 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
   // Full dropdown mode with label + icon + chevron
   return (
     <div ref={dropdownRef} className={`relative inline-block ${className}`}>
-      {/* Trigger Button */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
@@ -373,7 +650,6 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
         aria-expanded={isOpen}
         aria-haspopup="listbox"
       >
-        {/* Left side: icon + label */}
         <span className="flex items-center gap-2 flex-1 min-w-0">
           {currentOption?.icon && (
             <span className="flex-shrink-0 text-base">
@@ -385,7 +661,6 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
           </span>
         </span>
 
-        {/* Right side: chevron */}
         <svg
           className={`
             flex-shrink-0 ml-2
@@ -406,7 +681,6 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
         </svg>
       </button>
 
-      {/* Dropdown Menu - perfectly centered under the button + matching width when fixedWidth is set */}
       <div
         className={`
           absolute z-50 mt-1.5

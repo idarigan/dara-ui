@@ -25,7 +25,7 @@ import { Progress } from "./components/Progress/Progress";
 import { XPBar } from "./components/XPBar";
 import { QuestCard } from "./components/QuestCard/QuestCard";
 import { CharacterCard } from "./components/CharacterCard/CharacterCard";
-import { ThemeChanger } from "./components/ThemeChanger";
+import { ThemeProvider } from "./components/ThemeChanger";
 import useDirection from "./hooks/useDirection";
 
 import {
@@ -2144,7 +2144,9 @@ function App() {
   return (
     <ToastProvider>
       <I18nProvider translations={translations} defaultLanguage="en">
-        <AppContent />
+        <ThemeProvider defaultTheme="nightfall">
+          <AppContent />
+        </ThemeProvider>
       </I18nProvider>
     </ToastProvider>
   );
