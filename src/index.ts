@@ -33,6 +33,10 @@ export type {
 export { Modal } from "./components/Modal/Modal";
 export type { ModalProps } from "./components/Modal/Modal";
 
+// ----- Layout Components -----
+export { Navbar } from "./components/Navbar";
+export type { NavbarProps, NavLink } from "./components/Navbar";
+
 // ----- Toast -----
 export {
   Toast,
