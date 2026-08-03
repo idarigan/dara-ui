@@ -1,5 +1,5 @@
+// src/components/Navbar/Navbar.tsx
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { Button } from "../Button/Button";
 import { Input } from "../Input/Input";
 
 export interface NavLink {
@@ -27,7 +27,8 @@ export interface NavLink {
 
 export interface NavbarProps {
   /**
-   * Brand/Logo element
+   * Brand/Logo element – can be text, an <img>, or any React node.
+   * Defaults to the "DARA UI" gradient text.
    */
   brand?: React.ReactNode;
   /**
@@ -90,13 +91,15 @@ export interface NavbarProps {
  *
  * Features:
  * - Floating pill style on scroll, sticky at top initially
- * - Glass transparent blur effect
+ * - Glass transparent blur effect (theme-aware)
  * - Mobile hamburger menu with smooth animations
  * - RTL support
  * - Search bar with mobile expandable magnifier
  * - Custom links with icons
  * - Secondary navigation drawer on hover (desktop only)
  * - Optional language and theme changers
+ * - Proper mobile padding with gap from screen edges
+ * - Brand accepts text **or** image (defaults to "DARA UI")
  */
 export const Navbar: React.FC<NavbarProps> = ({
   brand,
@@ -137,10 +140,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   // Handle scroll for floating effect
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 20);
+      setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -213,6 +214,22 @@ export const Navbar: React.FC<NavbarProps> = ({
     setIsMobileMenuOpen(false);
   };
 
+  // Default brand (gradient text)
+  const defaultBrand = (
+    <a
+      href="/"
+      className="font-heading font-bold text-lg tracking-tight"
+      style={{
+        background: "var(--gradient-primary)",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        backgroundClip: "text",
+      }}
+    >
+      DARA UI
+    </a>
+  );
+
   return (
     <>
       <nav
@@ -220,6 +237,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         className={`
           fixed top-0 left-0 right-0 z-50
           transition-all duration-300 ease-[var(--ease-in-out)]
+          ${isScrolled ? "px-3 md:px-4" : ""}
           ${className}
         `}
         style={{
@@ -227,55 +245,34 @@ export const Navbar: React.FC<NavbarProps> = ({
           paddingBottom: isScrolled ? "12px" : "0",
         }}
       >
-        {/* Navbar Container */}
+        {/* Navbar Container – theme-aware colors */}
         <div
           className={`
-            mx-auto px-4 md:px-6
+            mx-auto
             transition-all duration-300 ease-[var(--ease-in-out)]
             ${
               isScrolled
                 ? `
-                  max-w-5xl
                   glass-heavy
                   rounded-full
                   shadow-[var(--shadow-float)]
                   py-2
+                  px-6 md:px-8
                 `
                 : `
-                  max-w-full
                   bg-[var(--color-bg-secondary)]/80
                   backdrop-blur-[20px]
-                  -webkit-backdrop-blur-[20px]
                   border-b border-[var(--color-border-primary)]
                   py-3
+                  px-6 md:px-8
+                  rounded-none
                 `
             }
           `}
-          style={{
-            background: isScrolled
-              ? "rgba(255,255,255,0.08)"
-              : "var(--color-bg-secondary)",
-            backdropFilter: isScrolled ? "blur(30px)" : "blur(20px)",
-            WebkitBackdropFilter: isScrolled ? "blur(30px)" : "blur(20px)",
-          }}
         >
           <div className="flex items-center justify-between gap-3">
-            {/* Brand / Logo */}
-            <div className="flex-shrink-0">
-              {brand || (
-                <span
-                  className="font-heading font-bold text-lg tracking-tight"
-                  style={{
-                    background: "var(--gradient-primary)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  DARA UI
-                </span>
-              )}
-            </div>
+            {/* Brand / Logo – accepts text or image */}
+            <div className="flex-shrink-0">{brand ?? defaultBrand}</div>
 
             {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center gap-1">
@@ -288,7 +285,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     transition-all duration-180
                     ${
                       link.active
-                        ? "bg-[var(--color-primary)] text-[var(--color-text-inverse)]"
+                        ? "bg-[var(--color-primary)] text-white shadow-[var(--shadow-glow-primary)]"
                         : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
                     }
                     flex items-center gap-1.5
@@ -405,43 +402,43 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* Right Content */}
               {rightContent}
 
-              {/* Hamburger Menu Button - Mobile */}
+              {/* Hamburger Menu Button - Mobile (perfectly centered X) */}
               <button
                 onClick={toggleMobileMenu}
                 className={`
-                  md:hidden flex flex-col items-center justify-center
+                  md:hidden relative
                   w-10 h-10 rounded-full
                   bg-[var(--color-bg-tertiary)]
                   hover:bg-[var(--color-bg-elevated)]
                   transition-all duration-180
-                  relative
-                  group
+                  flex items-center justify-center
                 `}
                 aria-label="Toggle menu"
                 aria-expanded={isMobileMenuOpen}
               >
+                {/* Three lines – absolute so the X is perfectly centered */}
                 <span
                   className={`
-                    block w-5 h-0.5 rounded-full
+                    absolute block w-5 h-0.5 rounded-full
                     bg-[var(--color-text-primary)]
                     transition-all duration-300 ease-[var(--ease-in-out)]
-                    ${isMobileMenuOpen ? "rotate-45 translate-y-1.5" : "-translate-y-1.5"}
+                    ${isMobileMenuOpen ? "rotate-45" : "-translate-y-1.5"}
                   `}
                 />
                 <span
                   className={`
-                    block w-5 h-0.5 rounded-full
+                    absolute block w-5 h-0.5 rounded-full
                     bg-[var(--color-text-primary)]
                     transition-all duration-300 ease-[var(--ease-in-out)]
-                    ${isMobileMenuOpen ? "opacity-0" : "opacity-100"}
+                    ${isMobileMenuOpen ? "opacity-0 scale-0" : "opacity-100"}
                   `}
                 />
                 <span
                   className={`
-                    block w-5 h-0.5 rounded-full
+                    absolute block w-5 h-0.5 rounded-full
                     bg-[var(--color-text-primary)]
                     transition-all duration-300 ease-[var(--ease-in-out)]
-                    ${isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : "translate-y-1.5"}
+                    ${isMobileMenuOpen ? "-rotate-45" : "translate-y-1.5"}
                   `}
                 />
               </button>
@@ -468,7 +465,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       transition-all duration-180
                       ${
                         link.active
-                          ? "bg-[var(--color-primary)] text-[var(--color-text-inverse)]"
+                          ? "bg-[var(--color-primary)] text-white shadow-[var(--shadow-glow-primary)]"
                           : "text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
                       }
                       flex items-center gap-1.5
@@ -507,7 +504,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           fixed top-0 right-0 z-45
           w-80 max-w-[85vw] h-full
           bg-[var(--color-bg-secondary)]/95
-          backdrop-blur-[20px] -webkit-backdrop-blur-[20px]
+          backdrop-blur-[20px]
           border-l border-[var(--color-border-primary)]
           shadow-[var(--shadow-float)]
           transition-all duration-400 ease-[var(--ease-in-out)]
@@ -518,6 +515,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               ? "translate-x-0 opacity-100"
               : "translate-x-full opacity-0"
           }
+          rounded-l-[var(--radius-large)]
         `}
         style={{
           transform: isMobileMenuOpen ? "translateX(0)" : "translateX(100%)",
@@ -530,21 +528,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       >
         {/* Mobile Menu Header */}
         <div className="flex items-center justify-between p-4 border-b border-[var(--color-border-primary)]">
-          <div className="flex-shrink-0">
-            {brand || (
-              <span
-                className="font-heading font-bold text-lg tracking-tight"
-                style={{
-                  background: "var(--gradient-primary)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                DARA UI
-              </span>
-            )}
-          </div>
+          <div className="flex-shrink-0">{brand ?? defaultBrand}</div>
           <button
             onClick={toggleMobileMenu}
             className="w-8 h-8 rounded-full flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30 transition-all duration-180"
@@ -577,7 +561,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 transition-all duration-180
                 ${
                   link.active
-                    ? "bg-[var(--color-primary)] text-[var(--color-text-inverse)]"
+                    ? "bg-[var(--color-primary)] text-white shadow-[var(--shadow-glow-primary)]"
                     : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
                 }
               `}
