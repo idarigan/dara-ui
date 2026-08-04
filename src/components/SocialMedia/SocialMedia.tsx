@@ -1,5 +1,3 @@
-// src/components/SocialMedia/SocialMedia.tsx
-
 import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
@@ -156,25 +154,31 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     return PLATFORM_DATA[key] || PLATFORM_DATA.github;
   };
 
-  // Size mapping
+  // Size mapping – now includes real pixel values
   const sizeMap = {
     sm: {
       button: "w-9 h-9 text-sm",
       icon: "h-3.5 w-3.5",
       chevron: "w-8 h-8",
       gap: "gap-2",
+      buttonPx: 36, // w-9 = 2.25rem = 36px
+      chevronPx: 32, // w-8 = 2rem = 32px
     },
     md: {
       button: "w-11 h-11 text-base",
       icon: "h-4.5 w-4.5",
       chevron: "w-10 h-10",
       gap: "gap-2.5",
+      buttonPx: 44, // w-11 = 2.75rem = 44px
+      chevronPx: 40, // w-10 = 2.5rem = 40px
     },
     lg: {
       button: "w-13 h-13 text-lg",
       icon: "h-5.5 w-5.5",
       chevron: "w-12 h-12",
       gap: "gap-3",
+      buttonPx: 52, // approx
+      chevronPx: 48, // w-12 = 3rem = 48px
     },
   };
 
@@ -206,11 +210,9 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
         toggleExpanded();
       }
     };
-
     if (isExpanded) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -245,10 +247,9 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
 
   const pos = positionStyles[position];
 
-  // Calculate button width for padding
-  const buttonWidth = sizeStyles.button.split(" ")[0];
-
-  const isOpen = isExpanded && !isClosing;
+  // Real pixel values for the padding calculation
+  const buttonPx = sizeStyles.buttonPx;
+  const gapPx = 8; // small breathing room between last button and chevron
 
   return (
     <div
@@ -257,6 +258,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
       style={{
         top: getVerticalOffset(),
         transform: "translateY(-50%)",
+        [isLeft ? "left" : "right"]: `${offset}px`,
       }}
     >
       <div className="relative flex items-center">
@@ -272,9 +274,9 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
             ${isLeft ? "left-0" : "right-0"}
           `}
           style={{
-            paddingRight: isLeft ? "0" : `calc(${buttonWidth} + 8px)`,
-            paddingLeft: isLeft ? `calc(${buttonWidth} + 8px)` : "0",
-            width: "auto",
+            // Push the buttons away from the chevron so nothing sits underneath
+            paddingRight: isLeft ? "0" : `${buttonPx + gapPx}px`,
+            paddingLeft: isLeft ? `${buttonPx + gapPx}px` : "0",
           }}
         >
           {links.map((link, index) => {
@@ -354,9 +356,6 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
             z-10
             flex-shrink-0
           `}
-          style={{
-            position: "relative",
-          }}
           aria-label={isExpanded ? "Close social menu" : "Open social menu"}
         >
           <svg
