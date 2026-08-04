@@ -26,6 +26,16 @@ export interface LanguageOption {
    * @default "ltr"
    */
   dir?: "ltr" | "rtl";
+  /**
+   * Dropdown placement
+   * @default "center"
+   */
+  placement?:
+    | "center"
+    | "bottom-start"
+    | "bottom-end"
+    | "top-start"
+    | "top-end";
 }
 
 export interface LanguageChangerProps {
@@ -337,6 +347,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   iconOnly = false,
   fixedWidth,
   className = "",
+  placement = "center",
   useContext: useI18nContext = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -514,6 +525,22 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
     ? sizeStyles[size].iconOnlyWidth
     : fixedWidth || "140px";
 
+  // Get placement classes
+  const getPlacementClasses = () => {
+    switch (placement) {
+      case "bottom-start":
+        return "left-0 -translate-x-0";
+      case "bottom-end":
+        return "right-0 -translate-x-0";
+      case "top-start":
+        return "left-0 -translate-x-0 bottom-full mb-1.5";
+      case "top-end":
+        return "right-0 -translate-x-0 bottom-full mb-1.5";
+      default:
+        return "left-1/2 -translate-x-1/2";
+    }
+  };
+
   // Icon-only mode - fixed size circle with only the icon
   if (iconOnly) {
     return (
@@ -546,7 +573,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
         <div
           className={`
             absolute z-50 mt-1.5
-            left-0 right-0
+            ${getPlacementClasses()}
             glass
             rounded-[var(--radius-md)]
             py-1
