@@ -1,5 +1,3 @@
-// src/components/ThemeChanger/ThemeChanger.tsx
-
 import React, {
   useState,
   useRef,

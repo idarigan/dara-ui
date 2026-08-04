@@ -285,8 +285,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                     transition-all duration-180
                     ${
                       link.active
-                        ? "bg-[var(--color-primary)] text-white shadow-[var(--shadow-glow-primary)]"
-                        : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
+                        ? "bg-[var(--color-primary)] !text-white shadow-[var(--shadow-glow-primary)]"
+                        : "!text-[var(--color-text-secondary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
                     }
                     flex items-center gap-1.5
                   `}
@@ -465,8 +465,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                       transition-all duration-180
                       ${
                         link.active
-                          ? "bg-[var(--color-primary)] text-white shadow-[var(--shadow-glow-primary)]"
-                          : "text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
+                          ? "bg-[var(--color-primary)] !text-white shadow-[var(--shadow-glow-primary)]"
+                          : "!text-[var(--color-text-tertiary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
                       }
                       flex items-center gap-1.5
                     `}
@@ -561,8 +561,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 transition-all duration-180
                 ${
                   link.active
-                    ? "bg-[var(--color-primary)] text-white shadow-[var(--shadow-glow-primary)]"
-                    : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
+                    ? "bg-[var(--color-primary)] !text-white shadow-[var(--shadow-glow-primary)]"
+                    : "!text-[var(--color-text-secondary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
                 }
               `}
               onClick={handleLinkClick}

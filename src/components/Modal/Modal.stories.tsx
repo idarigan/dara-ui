@@ -1,5 +1,3 @@
-// src/components/Modal/Modal.stories.tsx
-
 import type { Meta, StoryObj } from "@storybook/react";
 import { Modal } from "./Modal";
 import { useState } from "react";
