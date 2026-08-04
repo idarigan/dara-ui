@@ -130,8 +130,6 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
   className = "",
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Detect platform from URL
@@ -160,38 +158,28 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
   // Size mapping
   const sizeMap = {
     sm: {
-      button: "w-10 h-10 text-sm",
-      icon: "h-4 w-4",
+      button: "w-9 h-9 text-sm",
+      icon: "h-3.5 w-3.5",
       chevron: "w-8 h-8",
+      gap: "gap-2",
     },
     md: {
-      button: "w-12 h-12 text-base",
-      icon: "h-5 w-5",
+      button: "w-11 h-11 text-base",
+      icon: "h-4.5 w-4.5",
       chevron: "w-10 h-10",
+      gap: "gap-2.5",
     },
     lg: {
-      button: "w-14 h-14 text-lg",
-      icon: "h-6 w-6",
+      button: "w-13 h-13 text-lg",
+      icon: "h-5.5 w-5.5",
       chevron: "w-12 h-12",
+      gap: "gap-3",
     },
   };
 
-  // Toggle expansion with smooth animation
+  // Toggle expansion
   const toggleExpanded = () => {
-    if (!isExpanded) {
-      setMounted(true);
-      setIsVisible(false);
-      setTimeout(() => {
-        setIsVisible(true);
-        setIsExpanded(true);
-      }, 20);
-    } else {
-      setIsVisible(false);
-      setTimeout(() => {
-        setIsExpanded(false);
-        setMounted(false);
-      }, 300);
-    }
+    setIsExpanded((prev) => !prev);
   };
 
   // Close on click outside
@@ -202,7 +190,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
         !containerRef.current.contains(event.target as Node) &&
         isExpanded
       ) {
-        toggleExpanded();
+        setIsExpanded(false);
       }
     };
 
@@ -231,14 +219,21 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     left: {
       container: `left-0`,
       chevron: `left-[${offset}px]`,
+      menu: `left-[${offset}px]`,
+      transform: "translateX(0)",
     },
     right: {
       container: `right-0`,
       chevron: `right-[${offset}px]`,
+      menu: `right-[${offset}px]`,
+      transform: "translateX(0)",
     },
   };
 
   const pos = positionStyles[position];
+
+  // Calculate button width for padding
+  const buttonWidth = sizeStyles.button.split(" ")[0];
 
   return (
     <div
@@ -249,71 +244,77 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
         transform: "translateY(-50%)",
       }}
     >
-      {/* Main container */}
       <div className="relative flex items-center">
-        {/* Expanded menu - smooth animation */}
-        {isExpanded && (
-          <div
-            className={`
-              absolute top-1/2 -translate-y-1/2
-              ${isLeft ? "left-0" : "right-0"}
-              flex items-center gap-2
-              transition-all duration-300 ease-[var(--ease-in-out)]
-              ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"}
-            `}
-            style={{
-              paddingLeft: isLeft ? sizeStyles.button.split(" ")[0] : "0",
-              paddingRight: isLeft ? "0" : sizeStyles.button.split(" ")[0],
-            }}
-          >
-            {links.map((link, index) => {
-              const platform = detectPlatform(link.url);
-              const platformData = getPlatformData(platform);
-              const label =
-                link.label ||
-                platform.charAt(0).toUpperCase() + platform.slice(1);
+        {/* Social buttons - expand outward from chevron */}
+        <div
+          className={`
+            absolute top-1/2 -translate-y-1/2
+            flex items-center
+            ${sizeStyles.gap}
+            transition-all duration-300 ease-[var(--ease-in-out)]
+            ${isExpanded ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+            ${isLeft ? "left-0" : "right-0"}
+          `}
+          style={{
+            paddingRight: isLeft ? "0" : `calc(${buttonWidth} + 8px)`,
+            paddingLeft: isLeft ? `calc(${buttonWidth} + 8px)` : "0",
+            width: "auto",
+          }}
+        >
+          {links.map((link, index) => {
+            const platform = detectPlatform(link.url);
+            const platformData = getPlatformData(platform);
+            const label =
+              link.label ||
+              platform.charAt(0).toUpperCase() + platform.slice(1);
 
-              return (
-                <a
-                  key={index}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`
-                    flex items-center gap-2
-                    ${sizeStyles.button}
-                    rounded-full
-                    text-white
-                    shadow-lg
-                    hover:shadow-xl
-                    transition-all duration-200
-                    hover:scale-110
-                    ${showLabels ? "px-4" : "justify-center"}
-                    group
-                    relative
-                  `}
-                  style={{
-                    background: `linear-gradient(135deg, ${platformData.color}, ${platformData.color}dd)`,
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleExpanded();
-                  }}
-                >
-                  <FontAwesomeIcon
-                    icon={platformData.icon}
-                    className={`${sizeStyles.icon} flex-shrink-0`}
-                  />
-                  {showLabels && (
-                    <span className="text-xs font-medium truncate max-w-[80px]">
-                      {label}
-                    </span>
-                  )}
-                </a>
-              );
-            })}
-          </div>
-        )}
+            // Stagger animation delay
+            const delay = index * 50;
+
+            return (
+              <a
+                key={index}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`
+                  flex items-center gap-2
+                  ${sizeStyles.button}
+                  rounded-full
+                  text-white
+                  shadow-lg
+                  hover:shadow-xl
+                  transition-all duration-200
+                  hover:scale-110
+                  hover:-translate-y-0.5
+                  ${showLabels ? "px-4" : "justify-center"}
+                  group
+                  relative
+                  flex-shrink-0
+                `}
+                style={{
+                  background: `linear-gradient(135deg, ${platformData.color}, ${platformData.color}dd)`,
+                  transitionDelay: `${delay}ms`,
+                  transform: isExpanded ? "scale(1)" : "scale(0.3)",
+                  opacity: isExpanded ? 1 : 0,
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={platformData.icon}
+                  className={`${sizeStyles.icon} flex-shrink-0`}
+                />
+                {showLabels && (
+                  <span className="text-xs font-medium truncate max-w-[80px]">
+                    {label}
+                  </span>
+                )}
+              </a>
+            );
+          })}
+        </div>
 
         {/* Chevron toggle button - glass morphism */}
         <button
@@ -328,7 +329,11 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
             hover:shadow-[var(--shadow-glow-primary)]
             relative
             z-10
+            flex-shrink-0
           `}
+          style={{
+            position: "relative",
+          }}
           aria-label={isExpanded ? "Close social menu" : "Open social menu"}
         >
           <svg
