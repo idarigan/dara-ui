@@ -28,6 +28,7 @@ import { CharacterCard } from "./components/CharacterCard/CharacterCard";
 import { ThemeProvider, ThemeChanger } from "./components/ThemeChanger";
 import { Navbar } from "./components/Navbar";
 import type { NavLink } from "./components/Navbar";
+import { SocialMedia } from "./components/SocialMedia";
 import useDirection from "./hooks/useDirection";
 
 import {
@@ -2295,6 +2296,27 @@ function AppContent() {
               </p>
             </div>
           </section>
+
+          {/* ============================================
+            SOCIAL MEDIA SHOWCASE
+            ============================================ */}
+          <SocialMedia
+            links={[
+              { platform: "github", url: "https://github.com/dara-ui" },
+              { platform: "twitter", url: "https://twitter.com/dara-ui" },
+              { platform: "discord", url: "https://discord.gg/dara-ui" },
+              { platform: "youtube", url: "https://youtube.com/@dara-ui" },
+              { platform: "instagram", url: "https://instagram.com/dara-ui" },
+              {
+                platform: "linkedin",
+                url: "https://linkedin.com/company/dara-ui",
+              },
+              { platform: "bluesky", url: "https://bsky.app/profile/dara-ui" },
+            ]}
+            position="right"
+            size="md"
+            showLabels={false}
+          />
         </div>
       </div>
     </>
