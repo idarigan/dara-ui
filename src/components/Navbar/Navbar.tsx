@@ -1,4 +1,5 @@
 // src/components/Navbar/Navbar.tsx
+
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Input } from "../Input/Input";
 
@@ -99,7 +100,9 @@ export interface NavbarProps {
  * - Secondary navigation drawer on hover (desktop only)
  * - Optional language and theme changers
  * - Proper mobile padding with gap from screen edges
- * - Brand accepts text **or** image (defaults to "DARA UI")
+ * - Brand accepts text or image (defaults to "DARA UI")
+ * - Perfect nav item alignment (centered, with proper spacing)
+ * - Hamburger menu has correct z-index and no duplicate controls
  */
 export const Navbar: React.FC<NavbarProps> = ({
   brand,
@@ -230,6 +233,21 @@ export const Navbar: React.FC<NavbarProps> = ({
     </a>
   );
 
+  // Render brand helper
+  const renderBrand = () => {
+    if (brand) {
+      if (typeof brand === "string") {
+        return (
+          <span className="font-heading font-bold text-lg tracking-tight text-[var(--color-text-primary)]">
+            {brand}
+          </span>
+        );
+      }
+      return brand;
+    }
+    return defaultBrand;
+  };
+
   return (
     <>
       <nav
@@ -245,7 +263,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           paddingBottom: isScrolled ? "12px" : "0",
         }}
       >
-        {/* Navbar Container – theme-aware colors */}
+        {/* Navbar Container */}
         <div
           className={`
             mx-auto
@@ -269,26 +287,37 @@ export const Navbar: React.FC<NavbarProps> = ({
                 `
             }
           `}
+          style={{
+            background: isScrolled
+              ? "rgba(255,255,255,0.08)"
+              : "var(--color-bg-secondary)",
+            backdropFilter: isScrolled ? "blur(30px)" : "blur(20px)",
+            WebkitBackdropFilter: isScrolled ? "blur(30px)" : "blur(20px)",
+          }}
         >
-          <div className="flex items-center justify-between gap-3">
-            {/* Brand / Logo – accepts text or image */}
-            <div className="flex-shrink-0">{brand ?? defaultBrand}</div>
+          <div className="flex items-center justify-between gap-4">
+            {/* Brand / Logo - left side */}
+            <div className="flex-shrink-0">
+              <a href="/" className="block">
+                {renderBrand()}
+              </a>
+            </div>
 
-            {/* Desktop Navigation Links */}
-            <div className="hidden md:flex items-center gap-1">
+            {/* Desktop Navigation Links - centered with flex-1 and justify-center */}
+            <div className="hidden md:flex flex-1 items-center justify-center gap-1">
               {links.map((link, index) => (
                 <a
                   key={index}
                   href={link.href}
                   className={`
-                    px-3 py-1.5 rounded-full text-sm font-medium
+                    px-4 py-1.5 rounded-full text-sm font-medium
                     transition-all duration-180
                     ${
                       link.active
-                        ? "bg-[var(--color-primary)] !text-white shadow-[var(--shadow-glow-primary)]"
-                        : "!text-[var(--color-text-secondary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
+                        ? "bg-[var(--color-primary)] text-white shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)]"
+                        : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
                     }
-                    flex items-center gap-1.5
+                    flex items-center gap-2
                   `}
                   onClick={handleLinkClick}
                 >
@@ -300,7 +329,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               ))}
             </div>
 
-            {/* Right Side */}
+            {/* Right Side - controls, search, changers */}
             <div className="flex items-center gap-2 flex-shrink-0">
               {/* Search - Desktop */}
               {showSearch && !isMobile && (
@@ -402,7 +431,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* Right Content */}
               {rightContent}
 
-              {/* Hamburger Menu Button - Mobile (perfectly centered X) */}
+              {/* Hamburger Menu Button - Mobile */}
               <button
                 onClick={toggleMobileMenu}
                 className={`
@@ -412,11 +441,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                   hover:bg-[var(--color-bg-elevated)]
                   transition-all duration-180
                   flex items-center justify-center
+                  flex-shrink-0
                 `}
                 aria-label="Toggle menu"
                 aria-expanded={isMobileMenuOpen}
               >
-                {/* Three lines – absolute so the X is perfectly centered */}
                 <span
                   className={`
                     absolute block w-5 h-0.5 rounded-full
@@ -465,8 +494,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                       transition-all duration-180
                       ${
                         link.active
-                          ? "bg-[var(--color-primary)] !text-white shadow-[var(--shadow-glow-primary)]"
-                          : "!text-[var(--color-text-tertiary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
+                          ? "bg-[var(--color-primary)] text-white shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)]"
+                          : "text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
                       }
                       flex items-center gap-1.5
                     `}
@@ -484,7 +513,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay - z-40 (below navbar z-50) */}
       <div
         className={`
           fixed inset-0 z-40
@@ -497,13 +526,13 @@ export const Navbar: React.FC<NavbarProps> = ({
         aria-hidden="true"
       />
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Menu Drawer - z-45 (above overlay, below navbar) */}
       <div
         ref={mobileMenuRef}
         className={`
           fixed top-0 right-0 z-45
           w-80 max-w-[85vw] h-full
-          bg-[var(--color-bg-secondary)]/95
+          bg-[var(--color-bg-secondary)]/98
           backdrop-blur-[20px]
           border-l border-[var(--color-border-primary)]
           shadow-[var(--shadow-float)]
@@ -526,12 +555,16 @@ export const Navbar: React.FC<NavbarProps> = ({
         aria-modal="true"
         aria-label="Navigation menu"
       >
-        {/* Mobile Menu Header */}
+        {/* Mobile Menu Header - only brand and close button, NO changers */}
         <div className="flex items-center justify-between p-4 border-b border-[var(--color-border-primary)]">
-          <div className="flex-shrink-0">{brand ?? defaultBrand}</div>
+          <div className="flex-shrink-0">
+            <a href="/" className="block" onClick={handleLinkClick}>
+              {renderBrand()}
+            </a>
+          </div>
           <button
             onClick={toggleMobileMenu}
-            className="w-8 h-8 rounded-full flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30 transition-all duration-180"
+            className="w-8 h-8 rounded-full flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30 transition-all duration-180 flex-shrink-0"
             aria-label="Close menu"
           >
             <svg
@@ -561,8 +594,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 transition-all duration-180
                 ${
                   link.active
-                    ? "bg-[var(--color-primary)] !text-white shadow-[var(--shadow-glow-primary)]"
-                    : "!text-[var(--color-text-secondary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
+                    ? "bg-[var(--color-primary)] text-white shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)]"
+                    : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
                 }
               `}
               onClick={handleLinkClick}
@@ -571,9 +604,39 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="font-medium">{link.label}</span>
             </a>
           ))}
+
+          {/* Secondary links in mobile menu */}
+          {showSecondaryNav && secondaryLinks.length > 0 && (
+            <div className="mt-4 pt-4 border-t border-[var(--color-border-primary)] space-y-1">
+              <p className="text-xs text-[var(--color-text-tertiary)] font-mono px-4 py-1">
+                More
+              </p>
+              {secondaryLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.href}
+                  className={`
+                    flex items-center gap-3 px-4 py-3 rounded-[var(--radius-md)]
+                    transition-all duration-180
+                    ${
+                      link.active
+                        ? "bg-[var(--color-primary)] text-white shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)]"
+                        : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
+                    }
+                  `}
+                  onClick={handleLinkClick}
+                >
+                  {link.icon && (
+                    <span className="flex-shrink-0">{link.icon}</span>
+                  )}
+                  <span className="font-medium">{link.label}</span>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Mobile Menu Footer */}
+        {/* Mobile Menu Footer - only search and changers (single instance) */}
         <div className="p-4 border-t border-[var(--color-border-primary)] space-y-3">
           {/* Search in mobile menu */}
           {showSearch && (
@@ -604,7 +667,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </form>
           )}
 
-          {/* Language & Theme Changers */}
+          {/* Language & Theme Changers - single instance, with proper placement */}
           <div className="flex items-center gap-2">
             {showLanguageChanger && languageChanger}
             {showThemeChanger && themeChanger}
