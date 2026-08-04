@@ -179,7 +179,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           `}
         >
           {/* 3-COLUMN LAYOUT */}
-          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4">
+          <div className="grid grid-cols-[auto_1fr_auto] items-center md:gap-4">
             {/* LEFT - Brand */}
             <div className="flex-shrink-0">
               <a href="/" className="block" onClick={handleLinkClick}>
