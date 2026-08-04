@@ -118,7 +118,7 @@ const PLATFORM_DATA: Record<
  * - Platform-specific colors and gradients
  * - Uses Font Awesome icons
  * - Glass morphism styling
- * - Smooth expand/collapse animation
+ * - Smooth expand/collapse animation with stagger on both open and close
  */
 export const SocialMedia: React.FC<SocialMediaProps> = ({
   links,
@@ -130,6 +130,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
   className = "",
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Detect platform from URL
@@ -177,9 +178,20 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     },
   };
 
-  // Toggle expansion
+  // Toggle expansion with smooth close
   const toggleExpanded = () => {
-    setIsExpanded((prev) => !prev);
+    if (isExpanded) {
+      // Start closing animation
+      setIsClosing(true);
+      // After animation completes, close
+      setTimeout(() => {
+        setIsExpanded(false);
+        setIsClosing(false);
+      }, 300);
+    } else {
+      setIsExpanded(true);
+      setIsClosing(false);
+    }
   };
 
   // Close on click outside
@@ -188,9 +200,10 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
       if (
         containerRef.current &&
         !containerRef.current.contains(event.target as Node) &&
-        isExpanded
+        isExpanded &&
+        !isClosing
       ) {
-        setIsExpanded(false);
+        toggleExpanded();
       }
     };
 
@@ -201,7 +214,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isExpanded]);
+  }, [isExpanded, isClosing]);
 
   // Get vertical offset style
   const getVerticalOffset = () => {
@@ -235,6 +248,8 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
   // Calculate button width for padding
   const buttonWidth = sizeStyles.button.split(" ")[0];
 
+  const isOpen = isExpanded && !isClosing;
+
   return (
     <div
       ref={containerRef}
@@ -251,8 +266,9 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
             absolute top-1/2 -translate-y-1/2
             flex items-center
             ${sizeStyles.gap}
-            transition-all duration-300 ease-[var(--ease-in-out)]
+            transition-opacity duration-300 ease-[var(--ease-in-out)]
             ${isExpanded ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+            ${isClosing ? "opacity-0" : ""}
             ${isLeft ? "left-0" : "right-0"}
           `}
           style={{
@@ -268,8 +284,10 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
               link.label ||
               platform.charAt(0).toUpperCase() + platform.slice(1);
 
-            // Stagger animation delay
-            const delay = index * 50;
+            // Stagger animation delay - different for open and close
+            const delay = isClosing
+              ? (links.length - 1 - index) * 40 // Reverse stagger on close
+              : index * 40; // Forward stagger on open
 
             return (
               <a
@@ -296,7 +314,12 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
                   background: `linear-gradient(135deg, ${platformData.color}, ${platformData.color}dd)`,
                   transitionDelay: `${delay}ms`,
                   transform: isExpanded ? "scale(1)" : "scale(0.3)",
-                  opacity: isExpanded ? 1 : 0,
+                  opacity: isExpanded && !isClosing ? 1 : 0,
+                  transition: `
+                    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                    opacity 0.2s ease,
+                    box-shadow 0.2s ease
+                  `,
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
