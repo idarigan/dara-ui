@@ -1,3 +1,5 @@
+// src/components/LanguageChanger/LanguageChanger.tsx
+
 import React, {
   useState,
   useRef,
@@ -26,16 +28,6 @@ export interface LanguageOption {
    * @default "ltr"
    */
   dir?: "ltr" | "rtl";
-  /**
-   * Dropdown placement
-   * @default "center"
-   */
-  placement?:
-    | "center"
-    | "bottom-start"
-    | "bottom-end"
-    | "top-start"
-    | "top-end";
 }
 
 export interface LanguageChangerProps {
@@ -79,6 +71,11 @@ export interface LanguageChangerProps {
    * @default true
    */
   useContext?: boolean;
+  /**
+   * Dropdown placement
+   * @default "bottom"
+   */
+  placement?: "bottom" | "top";
 }
 
 /**
@@ -347,7 +344,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   iconOnly = false,
   fixedWidth,
   className = "",
-  placement = "center",
+  placement = "bottom",
   useContext: useI18nContext = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -356,18 +353,9 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const STORAGE_KEY = "dara-ui-language";
 
-  // Try to get context if available
-  let contextValue: I18nContextValue | null = null;
-  let isInContext = false;
-
-  try {
-    const ctx = useI18n();
-    contextValue = ctx;
-    isInContext = useI18nContext && true;
-  } catch {
-    isInContext = false;
-    contextValue = null;
-  }
+  // Check if we're inside I18nProvider by checking context directly
+  const context = useContext(I18nContext);
+  const isInContext = useI18nContext && context !== undefined;
 
   // Determine if controlled or uncontrolled
   const isControlled = controlledValue !== undefined;
@@ -387,8 +375,8 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   let currentLang: string;
   if (isControlled) {
     currentLang = controlledValue;
-  } else if (isInContext && contextValue) {
-    currentLang = contextValue.language;
+  } else if (isInContext) {
+    currentLang = context.language;
   } else {
     currentLang = internalValue;
   }
@@ -447,8 +435,8 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   const handleSelect = useCallback(
     (lang: string) => {
       // If we're in context, use context's setLanguage
-      if (isInContext && contextValue) {
-        contextValue.setLanguage(lang);
+      if (isInContext) {
+        context.setLanguage(lang);
       } else if (!isControlled) {
         setInternalValue(lang);
       }
@@ -457,7 +445,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
       onChange?.(lang);
       setIsOpen(false);
     },
-    [isInContext, contextValue, isControlled, onChange, applyLanguage],
+    [isInContext, context, isControlled, onChange, applyLanguage],
   );
 
   // Get default icon for language
@@ -527,18 +515,10 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
 
   // Get placement classes
   const getPlacementClasses = () => {
-    switch (placement) {
-      case "bottom-start":
-        return "left-0 -translate-x-0";
-      case "bottom-end":
-        return "right-0 -translate-x-0";
-      case "top-start":
-        return "left-0 -translate-x-0 bottom-full mb-1.5";
-      case "top-end":
-        return "right-0 -translate-x-0 bottom-full mb-1.5";
-      default:
-        return "left-1/2 -translate-x-1/2";
+    if (placement === "top") {
+      return "bottom-full mb-1.5";
     }
+    return "top-full mt-1.5";
   };
 
   // Icon-only mode - fixed size circle with only the icon
@@ -572,7 +552,8 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
         {/* Dropdown Menu */}
         <div
           className={`
-            absolute z-50 mt-1.5
+            absolute z-50
+            left-0 right-0
             ${getPlacementClasses()}
             glass
             rounded-[var(--radius-md)]
@@ -580,7 +561,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
             shadow-[var(--shadow-float)]
             transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
             overflow-hidden
-            ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}
+            ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-2 pointer-events-none"}
           `}
           style={{
             width: menuWidth,
