@@ -473,9 +473,9 @@ function AppContent() {
         searchPlaceholder={t("inputs.search") || "Search..."}
         onSearch={handleSearch}
         showLanguageChanger
-        languageChanger={<LanguageChanger size="sm" iconOnly />}
+        languageChanger={<LanguageChanger iconOnly size="sm" openUpward />}
         showThemeChanger
-        themeChanger={<ThemeChanger size="sm" iconOnly />}
+        themeChanger={<ThemeChanger iconOnly size="sm" openUpward />}
       />
       {/* ============================================
           MAIN CONTENT
@@ -2316,6 +2316,7 @@ function AppContent() {
             position="right"
             size="md"
             showLabels={false}
+            verticalOffset="50%"
           />
         </div>
       </div>

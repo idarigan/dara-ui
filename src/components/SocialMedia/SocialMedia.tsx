@@ -12,59 +12,21 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 export interface SocialLink {
-  /**
-   * Platform name (e.g., "github", "twitter", "discord")
-   */
   platform: string;
-  /**
-   * URL to the social profile
-   */
   url: string;
-  /**
-   * Custom label (overrides platform name)
-   */
   label?: string;
 }
 
 export interface SocialMediaProps {
-  /**
-   * Array of social links
-   */
   links: SocialLink[];
-  /**
-   * Position of the chevron
-   * @default "right"
-   */
   position?: "left" | "right";
-  /**
-   * Offset from the edge (in pixels)
-   * @default 20
-   */
   offset?: number;
-  /**
-   * Vertical offset from top (in pixels or percentage)
-   * @default "50%"
-   */
   verticalOffset?: string | number;
-  /**
-   * Size of the buttons
-   * @default "md"
-   */
   size?: "sm" | "md" | "lg";
-  /**
-   * Whether to show labels
-   * @default false
-   */
   showLabels?: boolean;
-  /**
-   * Additional className
-   */
   className?: string;
 }
 
-/**
- * Platform icon and color mapping
- */
 const PLATFORM_DATA: Record<
   string,
   { icon: IconDefinition; color: string; gradient: string }
@@ -106,18 +68,6 @@ const PLATFORM_DATA: Record<
   },
 };
 
-/**
- * Dara UI SocialMedia - Floating social media buttons with chevron
- *
- * Features:
- * - Floating chevron on the edge of the screen
- * - Expands to show social media buttons with smooth animation
- * - Auto-detects platform from URL
- * - Platform-specific colors and gradients
- * - Uses Font Awesome icons
- * - Glass morphism styling
- * - Smooth expand/collapse animation with stagger on both open and close
- */
 export const SocialMedia: React.FC<SocialMediaProps> = ({
   links,
   position = "right",
@@ -131,7 +81,6 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
   const [isClosing, setIsClosing] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Detect platform from URL
   const detectPlatform = (url: string): string => {
     const urlLower = url.toLowerCase();
     if (urlLower.includes("github.com")) return "github";
@@ -148,46 +97,41 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     return "github";
   };
 
-  // Get platform data
   const getPlatformData = (platform: string) => {
     const key = platform.toLowerCase();
     return PLATFORM_DATA[key] || PLATFORM_DATA.github;
   };
 
-  // Size mapping – now includes real pixel values
   const sizeMap = {
     sm: {
       button: "w-9 h-9 text-sm",
       icon: "h-3.5 w-3.5",
       chevron: "w-8 h-8",
       gap: "gap-2",
-      buttonPx: 36, // w-9 = 2.25rem = 36px
-      chevronPx: 32, // w-8 = 2rem = 32px
+      buttonPx: 36,
+      chevronPx: 32,
     },
     md: {
       button: "w-11 h-11 text-base",
       icon: "h-4.5 w-4.5",
       chevron: "w-10 h-10",
       gap: "gap-2.5",
-      buttonPx: 44, // w-11 = 2.75rem = 44px
-      chevronPx: 40, // w-10 = 2.5rem = 40px
+      buttonPx: 44,
+      chevronPx: 40,
     },
     lg: {
       button: "w-13 h-13 text-lg",
       icon: "h-5.5 w-5.5",
       chevron: "w-12 h-12",
       gap: "gap-3",
-      buttonPx: 52, // approx
-      chevronPx: 48, // w-12 = 3rem = 48px
+      buttonPx: 52,
+      chevronPx: 48,
     },
   };
 
-  // Toggle expansion with smooth close
   const toggleExpanded = () => {
     if (isExpanded) {
-      // Start closing animation
       setIsClosing(true);
-      // After animation completes, close
       setTimeout(() => {
         setIsExpanded(false);
         setIsClosing(false);
@@ -198,7 +142,6 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     }
   };
 
-  // Close on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -218,7 +161,6 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     };
   }, [isExpanded, isClosing]);
 
-  // Get vertical offset style
   const getVerticalOffset = () => {
     if (typeof verticalOffset === "number") {
       return `${verticalOffset}px`;
@@ -229,7 +171,6 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
   const isLeft = position === "left";
   const sizeStyles = sizeMap[size] || sizeMap.md;
 
-  // Position styles
   const positionStyles = {
     left: {
       container: `left-0`,
@@ -246,15 +187,14 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
   };
 
   const pos = positionStyles[position];
-
-  // Real pixel values for the padding calculation
   const buttonPx = sizeStyles.buttonPx;
-  const gapPx = 8; // small breathing room between last button and chevron
+  const gapPx = 8;
 
   return (
     <div
       ref={containerRef}
-      className={`fixed z-[100] ${pos.container} ${className}`}
+      // FIX: z-index lowered to 40 so it stays under navbar (z-50)
+      className={`fixed z-40 ${pos.container} ${className}`}
       style={{
         top: getVerticalOffset(),
         transform: "translateY(-50%)",
@@ -274,7 +214,6 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
             ${isLeft ? "left-0" : "right-0"}
           `}
           style={{
-            // Push the buttons away from the chevron so nothing sits underneath
             paddingRight: isLeft ? "0" : `${buttonPx + gapPx}px`,
             paddingLeft: isLeft ? `${buttonPx + gapPx}px` : "0",
           }}
@@ -286,10 +225,9 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
               link.label ||
               platform.charAt(0).toUpperCase() + platform.slice(1);
 
-            // Stagger animation delay - different for open and close
             const delay = isClosing
-              ? (links.length - 1 - index) * 40 // Reverse stagger on close
-              : index * 40; // Forward stagger on open
+              ? (links.length - 1 - index) * 40
+              : index * 40;
 
             return (
               <a
