@@ -21,6 +21,8 @@ export interface NavbarProps {
   showThemeChanger?: boolean;
   languageChanger?: React.ReactNode;
   themeChanger?: React.ReactNode;
+  languageChangerMobile?: React.ReactNode;
+  themeChangerMobile?: React.ReactNode;
   rightContent?: React.ReactNode;
   className?: string;
 }
@@ -37,6 +39,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   showThemeChanger = false,
   languageChanger,
   themeChanger,
+  languageChangerMobile,
+  themeChangerMobile,
   rightContent,
   className = "",
 }) => {
@@ -525,8 +529,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             </form>
           )}
           <div className="flex items-center gap-3">
-            {showLanguageChanger && languageChanger}
-            {showThemeChanger && themeChanger}
+            {showLanguageChanger && (languageChangerMobile || languageChanger)}
+            {showThemeChanger && (themeChangerMobile || themeChanger)}
           </div>
 
           {rightContent && <div className="pt-1">{rightContent}</div>}
