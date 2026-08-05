@@ -452,31 +452,31 @@ function AppContent() {
       {/* ============================================
           NAVBAR
           ============================================ */}
-      <Navbar
-        brand={
-          <span
-            className="font-heading font-bold text-lg tracking-tight"
-            style={{
-              background: "var(--gradient-primary)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            DARA UI
-          </span>
-        }
-        links={navbarLinks}
-        secondaryLinks={secondaryNavLinks}
-        showSecondaryNav
-        showSearch
-        searchPlaceholder={t("inputs.search") || "Search..."}
-        onSearch={handleSearch}
-        showLanguageChanger
-        languageChanger={<LanguageChanger iconOnly size="sm" openUpward />}
-        showThemeChanger
-        themeChanger={<ThemeChanger iconOnly size="sm" openUpward />}
-      />
+   <Navbar
+      brand={
+        <span
+          className="font-heading font-bold text-lg tracking-tight"
+          style={{
+            background: "var(--gradient-primary)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+          }}
+        >
+          DARA UI
+        </span>
+      }
+      links={navbarLinks}
+      secondaryLinks={secondaryNavLinks}
+      showSecondaryNav
+      showSearch
+      searchPlaceholder={t("inputs.search") || "Search..."}
+      onSearch={handleSearch}
+      showLanguageChanger
+      languageChanger={<LanguageChanger iconOnly size="sm" placement="top" />}
+      showThemeChanger
+      themeChanger={<ThemeChanger iconOnly size="sm" openUpward />}
+    />
       {/* ============================================
           MAIN CONTENT
           ============================================ */}
