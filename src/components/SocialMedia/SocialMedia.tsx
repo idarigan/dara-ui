@@ -71,7 +71,7 @@ const PLATFORM_DATA: Record<
 export const SocialMedia: React.FC<SocialMediaProps> = ({
   links,
   position = "right",
-  offset = 20,
+  offset = 5,
   verticalOffset = "50%",
   size = "md",
   showLabels = false,
@@ -198,7 +198,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
       style={{
         top: getVerticalOffset(),
         transform: "translateY(-50%)",
-        [isLeft ? "left" : "right"]: `${offset}px`,
+        ...(isLeft ? { left: `${offset + 5}px` } : { right: `${offset}px` }),
       }}
     >
       <div className="relative flex items-center">
@@ -239,7 +239,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
                   flex items-center gap-2
                   ${sizeStyles.button}
                   rounded-full
-                  text-white
+                  !text-white
                   shadow-lg
                   hover:shadow-xl
                   transition-all duration-200

@@ -1,4 +1,3 @@
-// src/components/Navbar/Navbar.tsx
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Input } from "../Input/Input";
 

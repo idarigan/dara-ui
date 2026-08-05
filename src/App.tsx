@@ -2313,7 +2313,7 @@ function AppContent() {
               },
               { platform: "bluesky", url: "https://bsky.app/profile/dara-ui" },
             ]}
-            position="right"
+            position="left"
             size="md"
             showLabels={false}
             verticalOffset="50%"
