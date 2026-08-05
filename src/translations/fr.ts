@@ -9,6 +9,15 @@ export const fr = {
     rtl: "RTL",
     ltr: "LTR",
   },
+  navbar: {
+    home: "Accueil",
+    explore: "Explorer",
+    settings: "Paramètres",
+    dashboard: "Tableau de bord",
+    projects: "Projets",
+    team: "Équipe",
+    analytics: "Analyses",
+  },
   badges: {
     title: "Badges",
     variants: "Variantes",

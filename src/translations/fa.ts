@@ -9,6 +9,15 @@ export const fa = {
     rtl: "راست‌چین",
     ltr: "چپ‌چین",
   },
+  navbar: {
+    home: "خانه",
+    explore: "کاوش",
+    settings: "تنظیمات",
+    dashboard: "داشبورد",
+    projects: "پروژه‌ها",
+    team: "تیم",
+    analytics: "تحلیل",
+  },
   badges: {
     title: "نشان‌ها",
     variants: "واریانت‌ها",

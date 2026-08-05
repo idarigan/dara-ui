@@ -9,7 +9,7 @@
  * to switch dynamically between languages while maintaining RTL support.
  */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Button from "./components/Button/Button";
 import { Badge } from "./components/Badge/Badge";
 import { Input } from "./components/Input/Input";
@@ -116,7 +116,7 @@ const CheckIcon = () => (
   </svg>
 );
 
-// Navbar Icons
+// Navbar Icons (reusable)
 const HomeIcon = () => (
   <svg
     className="h-4 w-4"
@@ -362,23 +362,6 @@ const dropdownOptionsWithIcons = [
 ];
 
 // ============================================
-// Navbar Links
-// ============================================
-
-const navbarLinks: NavLink[] = [
-  { label: "Home", href: "#", icon: <HomeIcon />, active: true },
-  { label: "Explore", href: "#", icon: <ExploreIcon /> },
-  { label: "Settings", href: "#", icon: <SettingsIcon /> },
-];
-
-const secondaryNavLinks: NavLink[] = [
-  { label: "Dashboard", href: "#" },
-  { label: "Projects", href: "#" },
-  { label: "Team", href: "#" },
-  { label: "Analytics", href: "#" },
-];
-
-// ============================================
 // Toast Demo Component
 // ============================================
 
@@ -446,6 +429,26 @@ function AppContent() {
   const handleSearch = (query: string) => {
     console.log("Searching for:", query);
   };
+
+  // ----- Navbar links with i18n support -----
+  const navbarLinks: NavLink[] = useMemo(
+    () => [
+      { label: t("navbar.home"), href: "#", icon: <HomeIcon />, active: true },
+      { label: t("navbar.explore"), href: "#", icon: <ExploreIcon /> },
+      { label: t("navbar.settings"), href: "#", icon: <SettingsIcon /> },
+    ],
+    [t],
+  );
+
+  const secondaryNavLinks: NavLink[] = useMemo(
+    () => [
+      { label: t("navbar.dashboard"), href: "#" },
+      { label: t("navbar.projects"), href: "#" },
+      { label: t("navbar.team"), href: "#" },
+      { label: t("navbar.analytics"), href: "#" },
+    ],
+    [t],
+  );
 
   return (
     <>
