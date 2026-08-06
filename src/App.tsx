@@ -29,6 +29,8 @@ import { ThemeProvider, ThemeChanger } from "./components/ThemeChanger";
 import { Navbar } from "./components/Navbar";
 import type { NavLink } from "./components/Navbar";
 import { SocialMedia } from "./components/SocialMedia";
+import { Sidebar } from "./components/Sidebar";
+import type { SidebarGroup, SidebarItem } from "./components/Sidebar";
 import useDirection from "./hooks/useDirection";
 
 import {
@@ -116,7 +118,70 @@ const CheckIcon = () => (
   </svg>
 );
 
-// Navbar Icons (reusable)
+const FolderIcon = () => (
+  <svg
+    className="h-5 w-5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+    />
+  </svg>
+);
+
+const DocsIcon = () => (
+  <svg
+    className="h-5 w-5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+    />
+  </svg>
+);
+
+const MailIcon = () => (
+  <svg
+    className="h-5 w-5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+    />
+  </svg>
+);
+
+const LogoutIcon = () => (
+  <svg
+    className="h-5 w-5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+    />
+  </svg>
+);
+
 const HomeIcon = () => (
   <svg
     className="h-4 w-4"
@@ -2301,6 +2366,113 @@ function AppContent() {
               <p className="lang-fa text-sm text-[var(--color-text-secondary)]">
                 {t("persian.persianDesc")}
               </p>
+            </div>
+          </section>
+
+          {/* ============================================
+            SIDEBAR SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("sidebar.title")}
+            </h2>
+
+            <div className="relative min-h-[400px] rounded-[var(--radius-standard)] overflow-hidden bg-[var(--color-bg-tertiary)]/30">
+              {/* Sidebar demo inside a container */}
+              <div className="relative h-[400px]">
+                <Sidebar
+                  brand={
+                    <span
+                      className="font-heading font-bold text-sm tracking-tight"
+                      style={{
+                        background: "var(--gradient-primary)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                      }}
+                    >
+                      DARA UI
+                    </span>
+                  }
+                  groups={[
+                    {
+                      label: t("sidebar.main"),
+                      icon: <HomeIcon />,
+                      defaultExpanded: true,
+                      items: [
+                        {
+                          id: "demo-dashboard",
+                          label: t("sidebar.dashboard"),
+                          icon: <HomeIcon />,
+                          active: true,
+                        },
+                        {
+                          id: "demo-projects",
+                          label: t("sidebar.projects"),
+                          icon: <FolderIcon />,
+                          badge: 12,
+                        },
+                        {
+                          id: "demo-team",
+                          label: t("sidebar.team"),
+                          icon: <UserIcon />,
+                        },
+                      ],
+                    },
+                    {
+                      label: t("sidebar.management"),
+                      icon: <SettingsIcon />,
+                      items: [
+                        {
+                          id: "demo-documents",
+                          label: t("sidebar.documents"),
+                          icon: <DocsIcon />,
+                          subItems: [
+                            {
+                              id: "demo-invoices",
+                              label: t("sidebar.invoices"),
+                            },
+                            {
+                              id: "demo-reports",
+                              label: t("sidebar.reports"),
+                              badge: 3,
+                            },
+                            { id: "demo-archive", label: t("sidebar.archive") },
+                          ],
+                        },
+                        {
+                          id: "demo-messages",
+                          label: t("sidebar.messages"),
+                          icon: <MailIcon />,
+                          badge: 5,
+                          subItems: [
+                            { id: "demo-inbox", label: t("sidebar.inbox") },
+                            { id: "demo-sent", label: t("sidebar.sent") },
+                            { id: "demo-drafts", label: t("sidebar.drafts") },
+                          ],
+                        },
+                        {
+                          id: "demo-settings",
+                          label: t("sidebar.settings"),
+                          icon: <SettingsIcon />,
+                        },
+                      ],
+                    },
+                  ]}
+                  footer={
+                    <button className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 w-full px-3 py-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-elevated)]/30 text-sm">
+                      <LogoutIcon />
+                      <span>{t("sidebar.logout")}</span>
+                    </button>
+                  }
+                  className="relative z-10 h-full"
+                />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <p className="text-[var(--color-text-tertiary)] text-sm font-mono">
+                    ← {t("sidebar.hint")}
+                  </p>
+                </div>
+              </div>
             </div>
           </section>
 
