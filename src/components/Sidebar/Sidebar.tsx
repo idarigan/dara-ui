@@ -1,3 +1,4 @@
+// src/components/Sidebar/Sidebar.tsx
 import React, { useState, useRef, useEffect, useCallback } from "react";
 
 export interface SidebarItem {
@@ -126,7 +127,8 @@ export interface SidebarProps {
    */
   className?: string;
   /**
-   * Footer content
+   * Footer content (e.g. logout button).
+   * When collapsed, text labels are auto-hidden and only icons remain centered.
    */
   footer?: React.ReactNode;
   /**
@@ -143,6 +145,13 @@ export interface SidebarProps {
 
 /**
  * Dara UI Sidebar - Collapsible navigation with groups and sub-menus
+ *
+ * Features:
+ * - Collapse / expand with Ctrl+B
+ * - Icon-only mode when collapsed (labels + group headers hide cleanly)
+ * - Footer (logout etc.) keeps only the icon when collapsed – no broken label
+ * - Smooth fade transition when switching content panels
+ * - Full RTL support
  */
 export const Sidebar: React.FC<SidebarProps> = ({
   brand,
@@ -168,7 +177,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const isCollapsed = isControlledCollapse
     ? controlledCollapsed
     : internalCollapsed;
-
   const isIconOnly = iconOnly || isCollapsed;
 
   const isControlledActive = controlledActiveId !== undefined;
@@ -192,11 +200,47 @@ export const Sidebar: React.FC<SidebarProps> = ({
   );
 
   const [isRTL, setIsRTL] = useState(false);
-
   useEffect(() => {
     setIsRTL(document.documentElement.dir === "rtl");
   }, []);
 
+  // ------- Content fade animation -------
+  const getActiveContent = useCallback((): React.ReactNode => {
+    for (const group of groups) {
+      for (const item of group.items) {
+        if (item.id === activeId) return item.content;
+        if (item.subItems) {
+          for (const subItem of item.subItems) {
+            if (subItem.id === activeId) return subItem.content;
+          }
+        }
+      }
+    }
+    return null;
+  }, [groups, activeId]);
+
+  const activeContent = getActiveContent();
+  const [displayedContent, setDisplayedContent] =
+    useState<React.ReactNode>(activeContent);
+  const [contentVisible, setContentVisible] = useState(true);
+
+  useEffect(() => {
+    if (activeContent === displayedContent) return;
+
+    // Fade out
+    setContentVisible(false);
+    const timer = setTimeout(() => {
+      setDisplayedContent(activeContent);
+      // Fade in on next frame
+      requestAnimationFrame(() => {
+        setContentVisible(true);
+      });
+    }, 160);
+
+    return () => clearTimeout(timer);
+  }, [activeContent, displayedContent]);
+
+  // ------- Collapse / expand -------
   const toggleCollapse = useCallback(() => {
     if (!collapsible) return;
     const newState = !isCollapsed;
@@ -208,39 +252,44 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   const toggleGroup = useCallback((groupKey: string) => {
     setExpandedGroups((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(groupKey)) {
-        newSet.delete(groupKey);
-      } else {
-        newSet.add(groupKey);
-      }
-      return newSet;
+      const next = new Set(prev);
+      if (next.has(groupKey)) next.delete(groupKey);
+      else next.add(groupKey);
+      return next;
     });
   }, []);
 
   const toggleSubItems = useCallback((key: string) => {
     setExpandedSubItems((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(key)) {
-        newSet.delete(key);
-      } else {
-        newSet.add(key);
-      }
-      return newSet;
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
     });
   }, []);
 
   const handleItemClick = useCallback(
     (itemId: string, onClick?: () => void) => {
-      if (!isControlledActive) {
-        setInternalActiveId(itemId);
-      }
+      if (!isControlledActive) setInternalActiveId(itemId);
       onItemClick?.(itemId);
       onClick?.();
     },
     [isControlledActive, onItemClick],
   );
 
+  // Ctrl+B shortcut
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "b") {
+        e.preventDefault();
+        toggleCollapse();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [toggleCollapse]);
+
+  // ------- Render helpers -------
   const renderItem = (
     item: SidebarItem,
     depth: number = 0,
@@ -250,9 +299,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
     const hasSubItems = item.subItems && item.subItems.length > 0;
     const subKey = `${parentId || item.id}-sub`;
     const isSubExpanded = expandedSubItems.has(subKey);
-
     const depthPadding = isIconOnly ? 0 : depth * 16;
 
+    // Icon-only (collapsed) mode
     if (isIconOnly) {
       return (
         <div key={item.id} className="relative">
@@ -269,8 +318,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   ? "opacity-40 cursor-not-allowed"
                   : "hover:bg-[var(--color-bg-elevated)]/40 cursor-pointer"
               }
-              ${isActive ? "text-[var(--color-primary)]" : "text-[var(--color-text-secondary)]"}
-              ${isActive ? "bg-[var(--color-primary-light)]" : ""}
+              ${isActive ? "text-[var(--color-primary)] bg-[var(--color-primary-light)]" : "text-[var(--color-text-secondary)]"}
               group
             `}
             title={item.label}
@@ -278,7 +326,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             aria-disabled={item.disabled}
           >
             {item.icon && (
-              <span className="flex-shrink-0 text-current w-5 h-5">
+              <span className="flex-shrink-0 text-current w-5 h-5 flex items-center justify-center">
                 {item.icon}
               </span>
             )}
@@ -288,10 +336,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   absolute -top-0.5 ${isRTL ? "-left-0.5" : "-right-0.5"}
                   flex items-center justify-center
                   min-w-[18px] h-[18px] px-1
-                  text-[9px] font-bold
-                  rounded-full
-                  bg-[var(--color-danger)]
-                  text-white
+                  text-[9px] font-bold rounded-full
+                  bg-[var(--color-danger)] text-white
                 `}
               >
                 {item.badge}
@@ -300,13 +346,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
             {isActive && (
               <span
                 className={`
-                  absolute
-                  ${isRTL ? "right-0" : "left-0"}
+                  absolute ${isRTL ? "right-0" : "left-0"}
                   top-1/2 -translate-y-1/2
-                  w-0.5 h-6
-                  rounded-full
-                  bg-[var(--color-primary)]
-                  shadow-[var(--shadow-glow-primary)]
+                  w-0.5 h-6 rounded-full
+                  bg-[var(--color-primary)] shadow-[var(--shadow-glow-primary)]
                 `}
               />
             )}
@@ -315,30 +358,26 @@ export const Sidebar: React.FC<SidebarProps> = ({
       );
     }
 
+    // Expanded mode
     return (
       <div key={item.id} className="relative">
         <button
           onClick={() => {
-            if (hasSubItems) {
-              toggleSubItems(subKey);
-            } else {
-              handleItemClick(item.id, item.onClick);
-            }
+            if (hasSubItems) toggleSubItems(subKey);
+            else handleItemClick(item.id, item.onClick);
           }}
           disabled={item.disabled}
           className={`
             w-full flex items-center gap-3
             px-3 py-2.5 rounded-[var(--radius-md)]
             transition-all duration-180
-            text-sm font-medium
-            relative
+            text-sm font-medium relative
             ${
               item.disabled
                 ? "opacity-40 cursor-not-allowed"
                 : "hover:bg-[var(--color-bg-elevated)]/40 cursor-pointer"
             }
-            ${isActive ? "text-[var(--color-primary)]" : "text-[var(--color-text-secondary)]"}
-            ${isActive ? "bg-[var(--color-primary-light)]" : ""}
+            ${isActive ? "text-[var(--color-primary)] bg-[var(--color-primary-light)]" : "text-[var(--color-text-secondary)]"}
             group
           `}
           style={{
@@ -350,24 +389,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
           aria-expanded={hasSubItems ? isSubExpanded : undefined}
         >
           {item.icon && (
-            <span className="flex-shrink-0 text-current w-5 h-5">
+            <span className="flex-shrink-0 text-current w-5 h-5 flex items-center justify-center">
               {item.icon}
             </span>
           )}
           <span
-            className={`
-              flex-1 truncate text-left
-              ${isRTL ? "text-right" : "text-left"}
-            `}
+            className={`flex-1 truncate ${isRTL ? "text-right" : "text-left"}`}
           >
             {item.label}
           </span>
           {item.badge && (
             <span
               className={`
-                flex-shrink-0
-                text-[10px] font-bold
-                px-2 py-0.5 rounded-full
+                flex-shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full
                 ${
                   isActive
                     ? "bg-[var(--color-primary)] text-white"
@@ -381,8 +415,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {hasSubItems && (
             <span
               className={`
-                flex-shrink-0
-                transition-transform duration-250
+                flex-shrink-0 transition-transform duration-250
                 text-[var(--color-text-tertiary)]
                 ${isSubExpanded ? (isRTL ? "-rotate-90" : "rotate-90") : "rotate-0"}
               `}
@@ -405,13 +438,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {isActive && (
             <span
               className={`
-                absolute
-                ${isRTL ? "right-0" : "left-0"}
+                absolute ${isRTL ? "right-0" : "left-0"}
                 top-1/2 -translate-y-1/2
-                w-0.5 h-6
-                rounded-full
-                bg-[var(--color-primary)]
-                shadow-[var(--shadow-glow-primary)]
+                w-0.5 h-6 rounded-full
+                bg-[var(--color-primary)] shadow-[var(--shadow-glow-primary)]
               `}
             />
           )}
@@ -420,10 +450,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {hasSubItems && isSubExpanded && !isIconOnly && (
           <div
             className={`
-              relative
+              relative space-y-0.5
               ${isRTL ? "mr-4 pr-4 border-r" : "ml-4 pl-4 border-l"}
               border-[var(--color-border-secondary)]
-              space-y-0.5
             `}
           >
             {item.subItems!.map((subItem) =>
@@ -453,8 +482,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <button
             onClick={() => toggleGroup(groupKey)}
             className={`
-              w-full flex items-center gap-2
-              px-3 py-2
+              w-full flex items-center gap-2 px-3 py-2
               text-xs font-mono uppercase tracking-wider
               text-[var(--color-text-tertiary)]
               hover:text-[var(--color-text-secondary)]
@@ -471,10 +499,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               {group.label}
             </span>
             <span
-              className={`
-                transition-transform duration-250
-                ${isExpanded ? "rotate-180" : "rotate-0"}
-              `}
+              className={`transition-transform duration-250 ${isExpanded ? "rotate-180" : "rotate-0"}`}
             >
               <svg
                 className="h-3 w-3"
@@ -492,7 +517,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </span>
           </button>
         )}
-
         <div
           className={`
             overflow-hidden transition-all duration-300 ease-[var(--ease-in-out)]
@@ -506,37 +530,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
     );
   };
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === "b") {
-        e.preventDefault();
-        toggleCollapse();
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [toggleCollapse]);
-
-  const getActiveContent = (): React.ReactNode => {
-    for (const group of groups) {
-      for (const item of group.items) {
-        if (item.id === activeId) {
-          return item.content;
-        }
-        if (item.subItems) {
-          for (const subItem of item.subItems) {
-            if (subItem.id === activeId) {
-              return subItem.content;
-            }
-          }
-        }
-      }
-    }
-    return null;
-  };
-
-  const activeContent = getActiveContent();
 
   const positionClasses = fixed
     ? "fixed top-0 z-40"
@@ -554,17 +547,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
         maxHeight: fixed ? "100%" : height,
       }}
     >
-      {/* Sidebar */}
+      {/* ------- Sidebar ------- */}
       <aside
         className={`
           ${positionClasses}
           h-full
           bg-[var(--color-bg-secondary)]/95
           backdrop-blur-[20px]
-          border-r border-[var(--color-border-primary)]
           transition-all duration-300 ease-[var(--ease-in-out)]
           flex flex-col
           ${isRTL ? "border-l border-r-0" : "border-r"}
+          border-[var(--color-border-primary)]
           ${fixed ? "" : "shadow-[var(--shadow-float)]"}
         `}
         style={{
@@ -577,38 +570,32 @@ export const Sidebar: React.FC<SidebarProps> = ({
         role="navigation"
         aria-label="Sidebar navigation"
       >
-        {/* ----- Brand - fixed at top ----- */}
+        {/* Brand */}
         {brand && (
           <div
             className={`
-              flex items-center gap-3
-              px-4 py-4
+              flex items-center gap-3 px-4 py-4
               border-b border-[var(--color-border-primary)]
-              min-h-[64px]
-              ${isCollapsed ? "justify-center" : ""}
+              min-h-[64px] flex-shrink-0
+              ${isCollapsed ? "justify-center px-2" : ""}
               ${isRTL ? "flex-row-reverse" : ""}
-              flex-shrink-0
             `}
           >
             {brand}
           </div>
         )}
 
-        {/* ----- Navigation - scrollable middle ----- */}
+        {/* Navigation */}
         <nav
-          className="flex-1 overflow-y-auto p-3 space-y-2 min-h-0"
+          className="flex-1 overflow-y-auto p-3 space-y-2 min-h-0 sidebar-scroll"
           style={{
             scrollbarWidth: "thin",
             scrollbarColor: "var(--color-border-primary) transparent",
           }}
         >
           <style>{`
-            .sidebar-scroll::-webkit-scrollbar {
-              width: 4px;
-            }
-            .sidebar-scroll::-webkit-scrollbar-track {
-              background: transparent;
-            }
+            .sidebar-scroll::-webkit-scrollbar { width: 4px; }
+            .sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
             .sidebar-scroll::-webkit-scrollbar-thumb {
               background: var(--color-border-primary);
               border-radius: 4px;
@@ -617,62 +604,67 @@ export const Sidebar: React.FC<SidebarProps> = ({
               background: var(--color-text-tertiary);
             }
           `}</style>
-          <div className="sidebar-scroll h-full">
-            {groups.map((group, index) => renderGroup(group, index))}
-          </div>
+          {groups.map((group, index) => renderGroup(group, index))}
         </nav>
 
-        {/* ----- Footer - pinned to bottom ----- */}
-        <div
-          className={`
-            border-t border-[var(--color-border-primary)]
-            flex-shrink-0
-            ${isCollapsed ? "" : ""}
-          `}
-        >
+        {/* Footer + Collapse toggle */}
+        <div className="border-t border-[var(--color-border-primary)] flex-shrink-0">
           {footer && (
             <div
               className={`
                 p-3
                 ${isCollapsed ? "flex justify-center" : ""}
-                ${isRTL ? "flex-row-reverse" : ""}
               `}
             >
-              {footer}
+              {/* 
+                Collapse-aware wrapper:
+                - When collapsed → force icon-only look on any button inside footer
+                - Hides text nodes / spans that are labels
+                - Centers the remaining icon
+              */}
+              <div
+                className={`
+                  w-full
+                  ${
+                    isCollapsed
+                      ? `
+                        flex justify-center
+                        [&>button]:!w-10 [&>button]:!h-10 [&>button]:!px-0 [&>button]:!gap-0 [&>button]:justify-center
+                        [&>button>span:not(:first-child)]:hidden
+                        [&>button>svg+span]:hidden
+                        [&>a]:!w-10 [&>a]:!h-10 [&>a]:!px-0 [&>a]:!gap-0 [&>a]:justify-center
+                        [&>a>span:not(:first-child)]:hidden
+                      `
+                      : ""
+                  }
+                `}
+              >
+                {footer}
+              </div>
             </div>
           )}
 
-          {/* Collapse Toggle Button - inside footer */}
           {collapsible && (
             <div
-              className={`
-                px-3 pb-3
-                ${isCollapsed ? "flex justify-center" : ""}
-              `}
+              className={`px-3 pb-3 ${isCollapsed ? "flex justify-center" : ""}`}
             >
               <button
                 onClick={toggleCollapse}
                 className={`
                   flex items-center justify-center
-                  w-full
-                  px-3 py-2
-                  rounded-[var(--radius-md)]
-                  glass
+                  rounded-[var(--radius-md)] glass
                   text-[var(--color-text-secondary)]
                   hover:text-[var(--color-text-primary)]
                   hover:bg-[var(--color-bg-elevated)]/40
-                  transition-all duration-180
-                  text-sm
-                  gap-2
-                  ${isCollapsed ? "w-8 h-8 px-0" : ""}
+                  transition-all duration-180 text-sm gap-2
+                  ${isCollapsed ? "w-10 h-10 px-0" : "w-full px-3 py-2"}
                 `}
                 aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
                 title={`${isCollapsed ? "Expand" : "Collapse"} (Ctrl+B)`}
               >
                 <svg
                   className={`
-                    h-4 w-4 flex-shrink-0
-                    transition-transform duration-300
+                    h-4 w-4 flex-shrink-0 transition-transform duration-300
                     ${isCollapsed ? (isRTL ? "rotate-180" : "rotate-0") : isRTL ? "rotate-0" : "rotate-180"}
                   `}
                   fill="none"
@@ -697,20 +689,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
       </aside>
 
-      {/* ----- Content Area - scrollable ----- */}
-      {activeContent && (
+      {/* ------- Content area with smooth fade ------- */}
+      {displayedContent != null && (
         <div
           className={`
-            flex-1 p-6 overflow-y-auto transition-all duration-300 ease-[var(--ease-in-out)]
-            ${fixed ? "" : ""}
+            flex-1 p-6 overflow-y-auto
+            transition-all duration-300 ease-[var(--ease-in-out)]
           `}
           style={{
             height: "100%",
             maxHeight: "100%",
             minHeight: 0,
+            opacity: contentVisible ? 1 : 0,
+            transform: contentVisible ? "translateY(0)" : "translateY(6px)",
+            transition:
+              "opacity 160ms cubic-bezier(0.4, 0, 0.2, 1), transform 160ms cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
-          {activeContent}
+          {displayedContent}
         </div>
       )}
     </div>
