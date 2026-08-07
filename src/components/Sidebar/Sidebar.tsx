@@ -34,7 +34,7 @@ export interface SidebarItem {
    */
   href?: string;
   /**
-   * Content to render when this item is selected (for demo/application)
+   * Content to render when this item is selected
    */
   content?: React.ReactNode;
   /**
@@ -57,7 +57,7 @@ export interface SidebarGroup {
    */
   items: SidebarItem[];
   /**
-   * Whether the group is expanded (collapsible)
+   * Whether the group is expanded
    */
   defaultExpanded?: boolean;
 }
@@ -90,7 +90,7 @@ export interface SidebarProps {
    */
   onCollapseChange?: (collapsed: boolean) => void;
   /**
-   * Icon-only mode (hides labels, shows icons only)
+   * Icon-only mode
    * @default false
    */
   iconOnly?: boolean;
@@ -112,12 +112,12 @@ export interface SidebarProps {
    */
   onItemClick?: (itemId: string) => void;
   /**
-   * Width of the sidebar when expanded
+   * Width when expanded
    * @default "260px"
    */
   expandedWidth?: string;
   /**
-   * Width of the sidebar when collapsed
+   * Width when collapsed
    * @default "64px"
    */
   collapsedWidth?: string;
@@ -135,7 +135,7 @@ export interface SidebarProps {
    */
   fixed?: boolean;
   /**
-   * Height of the sidebar (when not fixed)
+   * Height of the sidebar container
    * @default "100%"
    */
   height?: string;
@@ -143,17 +143,6 @@ export interface SidebarProps {
 
 /**
  * Dara UI Sidebar - Collapsible navigation with groups and sub-menus
- *
- * Features:
- * - Collapsible with icon-only mode
- * - Groups with expandable sections
- * - Sub-menus (nested items)
- * - Active state with visual indicator
- * - RTL support
- * - Keyboard accessible
- * - Smooth animations
- * - Glass morphism styling
- * - Can be fixed or inline
  */
 export const Sidebar: React.FC<SidebarProps> = ({
   brand,
@@ -174,24 +163,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
   fixed = false,
   height = "100%",
 }) => {
-  // ----- Collapse state -----
   const isControlledCollapse = controlledCollapsed !== undefined;
   const [internalCollapsed, setInternalCollapsed] = useState(defaultCollapsed);
   const isCollapsed = isControlledCollapse
     ? controlledCollapsed
     : internalCollapsed;
 
-  // Effectively icon-only when collapsed or explicitly set
   const isIconOnly = iconOnly || isCollapsed;
 
-  // ----- Active item state -----
   const isControlledActive = controlledActiveId !== undefined;
   const [internalActiveId, setInternalActiveId] = useState<string | undefined>(
     defaultActiveItemId || groups[0]?.items[0]?.id,
   );
   const activeId = isControlledActive ? controlledActiveId : internalActiveId;
 
-  // ----- Expanded groups state -----
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => {
     const initial = new Set<string>();
     groups.forEach((group, index) => {
@@ -202,19 +187,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
     return initial;
   });
 
-  // ----- Expanded sub-items state -----
   const [expandedSubItems, setExpandedSubItems] = useState<Set<string>>(
     new Set(),
   );
 
-  // ----- RTL detection -----
   const [isRTL, setIsRTL] = useState(false);
 
   useEffect(() => {
     setIsRTL(document.documentElement.dir === "rtl");
   }, []);
 
-  // ----- Toggle collapse -----
   const toggleCollapse = useCallback(() => {
     if (!collapsible) return;
     const newState = !isCollapsed;
@@ -224,7 +206,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
     onCollapseChange?.(newState);
   }, [collapsible, isCollapsed, isControlledCollapse, onCollapseChange]);
 
-  // ----- Toggle group expansion -----
   const toggleGroup = useCallback((groupKey: string) => {
     setExpandedGroups((prev) => {
       const newSet = new Set(prev);
@@ -237,7 +218,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
     });
   }, []);
 
-  // ----- Toggle sub-items expansion -----
   const toggleSubItems = useCallback((key: string) => {
     setExpandedSubItems((prev) => {
       const newSet = new Set(prev);
@@ -250,7 +230,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
     });
   }, []);
 
-  // ----- Handle item click -----
   const handleItemClick = useCallback(
     (itemId: string, onClick?: () => void) => {
       if (!isControlledActive) {
@@ -262,7 +241,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
     [isControlledActive, onItemClick],
   );
 
-  // ----- Render a single item -----
   const renderItem = (
     item: SidebarItem,
     depth: number = 0,
@@ -275,7 +253,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
     const depthPadding = isIconOnly ? 0 : depth * 16;
 
-    // Icon-only mode: hide labels, show only icons
     if (isIconOnly) {
       return (
         <div key={item.id} className="relative">
@@ -320,7 +297,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 {item.badge}
               </span>
             )}
-            {/* Active indicator - only show when active */}
             {isActive && (
               <span
                 className={`
@@ -339,7 +315,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       );
     }
 
-    // Full mode with labels
     return (
       <div key={item.id} className="relative">
         <button
@@ -427,7 +402,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </svg>
             </span>
           )}
-          {/* Active indicator - only show when active */}
           {isActive && (
             <span
               className={`
@@ -443,7 +417,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           )}
         </button>
 
-        {/* Sub-items */}
         {hasSubItems && isSubExpanded && !isIconOnly && (
           <div
             className={`
@@ -462,12 +435,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
     );
   };
 
-  // ----- Render a group -----
   const renderGroup = (group: SidebarGroup, index: number) => {
     const groupKey = `group-${index}`;
     const isExpanded = expandedGroups.has(groupKey);
 
-    // Icon-only mode: show only group items, no group labels
     if (isIconOnly) {
       return (
         <div key={groupKey} className="space-y-1">
@@ -478,7 +449,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
     return (
       <div key={groupKey} className="mb-2">
-        {/* Group header - collapsible */}
         {showGroupLabels && (
           <button
             onClick={() => toggleGroup(groupKey)}
@@ -523,7 +493,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </button>
         )}
 
-        {/* Group items */}
         <div
           className={`
             overflow-hidden transition-all duration-300 ease-[var(--ease-in-out)]
@@ -538,7 +507,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
     );
   };
 
-  // ----- Keyboard shortcut: Ctrl+B to toggle -----
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "b") {
@@ -550,7 +518,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [toggleCollapse]);
 
-  // Get active item's content
   const getActiveContent = (): React.ReactNode => {
     for (const group of groups) {
       for (const item of group.items) {
@@ -584,6 +551,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       `}
       style={{
         height: fixed ? "100%" : height,
+        maxHeight: fixed ? "100%" : height,
       }}
     >
       {/* Sidebar */}
@@ -603,11 +571,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
           width: isCollapsed ? collapsedWidth : expandedWidth,
           [isRTL ? "right" : "left"]: fixed ? 0 : "auto",
           flexShrink: 0,
+          height: "100%",
+          maxHeight: "100%",
         }}
         role="navigation"
         aria-label="Sidebar navigation"
       >
-        {/* ----- Brand ----- */}
+        {/* ----- Brand - fixed at top ----- */}
         {brand && (
           <div
             className={`
@@ -617,15 +587,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
               min-h-[64px]
               ${isCollapsed ? "justify-center" : ""}
               ${isRTL ? "flex-row-reverse" : ""}
+              flex-shrink-0
             `}
           >
             {brand}
           </div>
         )}
 
-        {/* ----- Navigation with custom scrollbar ----- */}
+        {/* ----- Navigation - scrollable middle ----- */}
         <nav
-          className="flex-1 overflow-y-auto p-3 space-y-2"
+          className="flex-1 overflow-y-auto p-3 space-y-2 min-h-0"
           style={{
             scrollbarWidth: "thin",
             scrollbarColor: "var(--color-border-primary) transparent",
@@ -651,72 +622,92 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         </nav>
 
-        {/* ----- Footer ----- */}
-        {footer && (
-          <div
-            className={`
-              border-t border-[var(--color-border-primary)]
-              p-3
-              ${isCollapsed ? "flex justify-center" : ""}
-              ${isRTL ? "flex-row-reverse" : ""}
-            `}
-          >
-            {footer}
-          </div>
-        )}
-
-        {/* ----- Collapse Toggle Button ----- */}
-        {collapsible && (
-          <button
-            onClick={toggleCollapse}
-            className={`
-              absolute bottom-4
-              ${isRTL ? "left-3" : "right-3"}
-              w-8 h-8
-              rounded-full
-              glass
-              flex items-center justify-center
-              text-[var(--color-text-secondary)]
-              hover:text-[var(--color-text-primary)]
-              hover:bg-[var(--color-bg-elevated)]/40
-              transition-all duration-180
-              z-10
-              group
-            `}
-            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-            title={`${isCollapsed ? "Expand" : "Collapse"} (Ctrl+B)`}
-          >
-            <svg
+        {/* ----- Footer - pinned to bottom ----- */}
+        <div
+          className={`
+            border-t border-[var(--color-border-primary)]
+            flex-shrink-0
+            ${isCollapsed ? "" : ""}
+          `}
+        >
+          {footer && (
+            <div
               className={`
-                h-4 w-4
-                transition-transform duration-300
-                ${isCollapsed ? (isRTL ? "rotate-180" : "rotate-0") : isRTL ? "rotate-0" : "rotate-180"}
+                p-3
+                ${isCollapsed ? "flex justify-center" : ""}
+                ${isRTL ? "flex-row-reverse" : ""}
               `}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2.5}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d={isRTL ? "M15 19l-7-7 7-7" : "M9 5l7 7-7 7"}
-              />
-            </svg>
-          </button>
-        )}
+              {footer}
+            </div>
+          )}
+
+          {/* Collapse Toggle Button - inside footer */}
+          {collapsible && (
+            <div
+              className={`
+                px-3 pb-3
+                ${isCollapsed ? "flex justify-center" : ""}
+              `}
+            >
+              <button
+                onClick={toggleCollapse}
+                className={`
+                  flex items-center justify-center
+                  w-full
+                  px-3 py-2
+                  rounded-[var(--radius-md)]
+                  glass
+                  text-[var(--color-text-secondary)]
+                  hover:text-[var(--color-text-primary)]
+                  hover:bg-[var(--color-bg-elevated)]/40
+                  transition-all duration-180
+                  text-sm
+                  gap-2
+                  ${isCollapsed ? "w-8 h-8 px-0" : ""}
+                `}
+                aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+                title={`${isCollapsed ? "Expand" : "Collapse"} (Ctrl+B)`}
+              >
+                <svg
+                  className={`
+                    h-4 w-4 flex-shrink-0
+                    transition-transform duration-300
+                    ${isCollapsed ? (isRTL ? "rotate-180" : "rotate-0") : isRTL ? "rotate-0" : "rotate-180"}
+                  `}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d={isRTL ? "M15 19l-7-7 7-7" : "M9 5l7 7-7 7"}
+                  />
+                </svg>
+                {!isCollapsed && (
+                  <span className="text-xs font-mono text-[var(--color-text-tertiary)]">
+                    Ctrl+B
+                  </span>
+                )}
+              </button>
+            </div>
+          )}
+        </div>
       </aside>
 
-      {/* ----- Content Area ----- */}
+      {/* ----- Content Area - scrollable ----- */}
       {activeContent && (
         <div
           className={`
-            flex-1 p-6 transition-all duration-300 ease-[var(--ease-in-out)]
-            ${fixed ? "overflow-y-auto" : ""}
+            flex-1 p-6 overflow-y-auto transition-all duration-300 ease-[var(--ease-in-out)]
+            ${fixed ? "" : ""}
           `}
           style={{
-            marginLeft: isRTL ? "0" : "0",
-            marginRight: isRTL ? "0" : "0",
+            height: "100%",
+            maxHeight: "100%",
+            minHeight: 0,
           }}
         >
           {activeContent}

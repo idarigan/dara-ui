@@ -2379,33 +2379,15 @@ function AppContent() {
               {t("sidebar.subtitle")}
             </p>
 
-            {/* Controls */}
-            <div className="flex flex-wrap gap-3 mb-6">
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => {
-                  const sidebar = document.querySelector(
-                    "[data-sidebar-demo]",
-                  ) as any;
-                  if (sidebar) {
-                    const collapsed =
-                      sidebar.getAttribute("data-collapsed") === "true";
-                    sidebar.setAttribute("data-collapsed", String(!collapsed));
-                    // We'll handle this via state in the demo
-                  }
-                }}
-              >
-                🔄 Toggle Collapse
-              </Button>
-            </div>
-
             {/* Sidebar Demo */}
-            <div className="relative rounded-[var(--radius-standard)] overflow-hidden bg-[var(--color-bg-tertiary)]/30 border border-[var(--color-border-primary)]">
+            <div
+              className="relative rounded-[var(--radius-standard)] overflow-hidden bg-[var(--color-bg-tertiary)]/30 border border-[var(--color-border-primary)]"
+              style={{ height: "500px" }}
+            >
               {(() => {
-                // ----- Sidebar content components -----
+                // ----- Sidebar content components (same as before) -----
                 const DashboardContent = () => (
-                  <div className="p-4">
+                  <div>
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       📊 {t("sidebar.dashboard")}
                     </h3>
@@ -2442,7 +2424,7 @@ function AppContent() {
                 );
 
                 const ProjectsContent = () => (
-                  <div className="p-4">
+                  <div>
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       📁 {t("sidebar.projects")}
                     </h3>
@@ -2473,7 +2455,7 @@ function AppContent() {
                 );
 
                 const TeamContent = () => (
-                  <div className="p-4">
+                  <div>
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       👥 {t("sidebar.team")}
                     </h3>
@@ -2530,7 +2512,7 @@ function AppContent() {
                 );
 
                 const InvoicesContent = () => (
-                  <div className="p-4">
+                  <div>
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       📄 {t("sidebar.invoices")}
                     </h3>
@@ -2565,7 +2547,7 @@ function AppContent() {
                 );
 
                 const ReportsContent = () => (
-                  <div className="p-4">
+                  <div>
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       📊 {t("sidebar.reports")}
                     </h3>
@@ -2595,7 +2577,7 @@ function AppContent() {
                 );
 
                 const ArchiveContent = () => (
-                  <div className="p-4">
+                  <div>
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       🗂️ {t("sidebar.archive")}
                     </h3>
@@ -2626,7 +2608,7 @@ function AppContent() {
                 );
 
                 const InboxContent = () => (
-                  <div className="p-4">
+                  <div>
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       📬 {t("sidebar.inbox")}
                     </h3>
@@ -2679,7 +2661,7 @@ function AppContent() {
                 );
 
                 const SentContent = () => (
-                  <div className="p-4">
+                  <div>
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       📤 {t("sidebar.sent")}
                     </h3>
@@ -2729,7 +2711,7 @@ function AppContent() {
                 );
 
                 const DraftsContent = () => (
-                  <div className="p-4">
+                  <div>
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       📝 {t("sidebar.drafts")}
                     </h3>
@@ -2776,7 +2758,7 @@ function AppContent() {
                 );
 
                 const SettingsContent = () => (
-                  <div className="p-4">
+                  <div>
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       ⚙️ {t("sidebar.settings")}
                     </h3>
@@ -2812,7 +2794,6 @@ function AppContent() {
                   </div>
                 );
 
-                // ----- Sidebar groups with content -----
                 const sidebarGroups: SidebarGroup[] = [
                   {
                     label: t("sidebar.main"),
@@ -2927,11 +2908,12 @@ function AppContent() {
                     brand={sidebarBrand}
                     groups={sidebarGroups}
                     footer={sidebarFooter}
-                    className="h-[500px]"
+                    className="h-full"
                     fixed={false}
                     collapsible
                     defaultCollapsed={false}
                     showGroupLabels
+                    height="100%"
                   />
                 );
               })()}
