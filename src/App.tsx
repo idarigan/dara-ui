@@ -2372,26 +2372,48 @@ function AppContent() {
             SIDEBAR SHOWCASE
             ============================================ */}
           <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-            <h2 className="text-2xl font-semibold mb-6">
+            <h2 className="text-2xl font-semibold mb-2">
               {t("sidebar.title")}
             </h2>
             <p className="text-[var(--color-text-secondary)] text-sm mb-6 font-sans">
               {t("sidebar.subtitle")}
             </p>
 
-            <div className="relative rounded-[var(--radius-standard)] overflow-hidden bg-[var(--color-bg-tertiary)]/30 min-h-[500px]">
+            {/* Controls */}
+            <div className="flex flex-wrap gap-3 mb-6">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => {
+                  const sidebar = document.querySelector(
+                    "[data-sidebar-demo]",
+                  ) as any;
+                  if (sidebar) {
+                    const collapsed =
+                      sidebar.getAttribute("data-collapsed") === "true";
+                    sidebar.setAttribute("data-collapsed", String(!collapsed));
+                    // We'll handle this via state in the demo
+                  }
+                }}
+              >
+                🔄 Toggle Collapse
+              </Button>
+            </div>
+
+            {/* Sidebar Demo */}
+            <div className="relative rounded-[var(--radius-standard)] overflow-hidden bg-[var(--color-bg-tertiary)]/30 border border-[var(--color-border-primary)]">
               {(() => {
                 // ----- Sidebar content components -----
                 const DashboardContent = () => (
-                  <div className="p-6">
+                  <div className="p-4">
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       📊 {t("sidebar.dashboard")}
                     </h3>
                     <p className="text-[var(--color-text-secondary)] mb-4">
                       {t("sidebar.dashboardContent")}
                     </p>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div className="glass p-4 rounded-[var(--radius-md)] text-center">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="glass p-3 rounded-[var(--radius-md)] text-center">
                         <div className="text-2xl font-bold text-[var(--color-primary)]">
                           12
                         </div>
@@ -2399,7 +2421,7 @@ function AppContent() {
                           {t("sidebar.activeProjects")}
                         </div>
                       </div>
-                      <div className="glass p-4 rounded-[var(--radius-md)] text-center">
+                      <div className="glass p-3 rounded-[var(--radius-md)] text-center">
                         <div className="text-2xl font-bold text-[var(--color-success)]">
                           8
                         </div>
@@ -2407,7 +2429,7 @@ function AppContent() {
                           {t("sidebar.completedTasks")}
                         </div>
                       </div>
-                      <div className="glass p-4 rounded-[var(--radius-md)] text-center">
+                      <div className="glass p-3 rounded-[var(--radius-md)] text-center">
                         <div className="text-2xl font-bold text-[var(--color-secondary)]">
                           5
                         </div>
@@ -2420,7 +2442,7 @@ function AppContent() {
                 );
 
                 const ProjectsContent = () => (
-                  <div className="p-6">
+                  <div className="p-4">
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       📁 {t("sidebar.projects")}
                     </h3>
@@ -2436,7 +2458,7 @@ function AppContent() {
                       ].map((name, i) => (
                         <div
                           key={i}
-                          className="flex items-center justify-between glass p-3 rounded-[var(--radius-md)]"
+                          className="flex items-center justify-between glass p-2.5 rounded-[var(--radius-md)]"
                         >
                           <span className="text-sm text-[var(--color-text-primary)]">
                             {name}
@@ -2451,7 +2473,7 @@ function AppContent() {
                 );
 
                 const TeamContent = () => (
-                  <div className="p-6">
+                  <div className="p-4">
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       👥 {t("sidebar.team")}
                     </h3>
@@ -2480,15 +2502,10 @@ function AppContent() {
                           role: "Backend Engineer",
                           online: true,
                         },
-                        {
-                          name: "Eve Davis",
-                          role: "QA Engineer",
-                          online: false,
-                        },
                       ].map((member, i) => (
                         <div
                           key={i}
-                          className="flex items-center gap-3 glass p-3 rounded-[var(--radius-md)]"
+                          className="flex items-center gap-3 glass p-2.5 rounded-[var(--radius-md)]"
                         >
                           <div className="w-8 h-8 rounded-full bg-[var(--color-primary)]/20 flex items-center justify-center text-sm font-bold text-[var(--color-primary)]">
                             {member.name.charAt(0)}
@@ -2513,7 +2530,7 @@ function AppContent() {
                 );
 
                 const InvoicesContent = () => (
-                  <div className="p-6">
+                  <div className="p-4">
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       📄 {t("sidebar.invoices")}
                     </h3>
@@ -2525,11 +2542,10 @@ function AppContent() {
                         { id: "INV-001", amount: "$1,200", status: "Paid" },
                         { id: "INV-002", amount: "$850", status: "Pending" },
                         { id: "INV-003", amount: "$2,400", status: "Paid" },
-                        { id: "INV-004", amount: "$620", status: "Overdue" },
                       ].map((inv, i) => (
                         <div
                           key={i}
-                          className="flex items-center justify-between glass p-3 rounded-[var(--radius-md)]"
+                          className="flex items-center justify-between glass p-2.5 rounded-[var(--radius-md)]"
                         >
                           <span className="text-sm text-[var(--color-text-primary)]">
                             {inv.id}
@@ -2538,7 +2554,7 @@ function AppContent() {
                             {inv.amount}
                           </span>
                           <span
-                            className={`text-xs px-2 py-0.5 rounded-full ${inv.status === "Paid" ? "bg-[var(--color-success)]/20 text-[var(--color-success)]" : inv.status === "Pending" ? "bg-[var(--color-warning)]/20 text-[var(--color-warning)]" : "bg-[var(--color-danger)]/20 text-[var(--color-danger)]"}`}
+                            className={`text-xs px-2 py-0.5 rounded-full ${inv.status === "Paid" ? "bg-[var(--color-success)]/20 text-[var(--color-success)]" : "bg-[var(--color-warning)]/20 text-[var(--color-warning)]"}`}
                           >
                             {inv.status}
                           </span>
@@ -2549,7 +2565,7 @@ function AppContent() {
                 );
 
                 const ReportsContent = () => (
-                  <div className="p-6">
+                  <div className="p-4">
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       📊 {t("sidebar.reports")}
                     </h3>
@@ -2561,11 +2577,10 @@ function AppContent() {
                         "Q4 Financial Report",
                         "User Growth Analysis",
                         "Performance Metrics",
-                        "Project Timeline",
                       ].map((report, i) => (
                         <div
                           key={i}
-                          className="flex items-center justify-between glass p-3 rounded-[var(--radius-md)]"
+                          className="flex items-center justify-between glass p-2.5 rounded-[var(--radius-md)]"
                         >
                           <span className="text-sm text-[var(--color-text-primary)]">
                             {report}
@@ -2580,7 +2595,7 @@ function AppContent() {
                 );
 
                 const ArchiveContent = () => (
-                  <div className="p-6">
+                  <div className="p-4">
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       🗂️ {t("sidebar.archive")}
                     </h3>
@@ -2592,11 +2607,10 @@ function AppContent() {
                         "2023 Q4 Documents",
                         "Old Project Files",
                         "Meeting Notes",
-                        "Inactive Clients",
                       ].map((item, i) => (
                         <div
                           key={i}
-                          className="flex items-center gap-3 glass p-3 rounded-[var(--radius-md)]"
+                          className="flex items-center gap-3 glass p-2.5 rounded-[var(--radius-md)]"
                         >
                           <span className="text-lg">📁</span>
                           <span className="text-sm text-[var(--color-text-primary)]">
@@ -2612,7 +2626,7 @@ function AppContent() {
                 );
 
                 const InboxContent = () => (
-                  <div className="p-6">
+                  <div className="p-4">
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       📬 {t("sidebar.inbox")}
                     </h3>
@@ -2639,16 +2653,10 @@ function AppContent() {
                           time: "1d ago",
                           unread: false,
                         },
-                        {
-                          from: "Dave Brown",
-                          subject: "Deployment Status",
-                          time: "2d ago",
-                          unread: false,
-                        },
                       ].map((msg, i) => (
                         <div
                           key={i}
-                          className={`flex items-center gap-3 glass p-3 rounded-[var(--radius-md)] ${msg.unread ? "border-l-2 border-[var(--color-primary)]" : ""}`}
+                          className={`flex items-center gap-3 glass p-2.5 rounded-[var(--radius-md)] ${msg.unread ? "border-l-2 border-[var(--color-primary)]" : ""}`}
                         >
                           <div className="w-8 h-8 rounded-full bg-[var(--color-secondary)]/20 flex items-center justify-center text-sm font-bold text-[var(--color-secondary)]">
                             {msg.from.charAt(0)}
@@ -2671,7 +2679,7 @@ function AppContent() {
                 );
 
                 const SentContent = () => (
-                  <div className="p-6">
+                  <div className="p-4">
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       📤 {t("sidebar.sent")}
                     </h3>
@@ -2698,7 +2706,7 @@ function AppContent() {
                       ].map((msg, i) => (
                         <div
                           key={i}
-                          className="flex items-center gap-3 glass p-3 rounded-[var(--radius-md)]"
+                          className="flex items-center gap-3 glass p-2.5 rounded-[var(--radius-md)]"
                         >
                           <div className="w-8 h-8 rounded-full bg-[var(--color-accent)]/20 flex items-center justify-center text-sm font-bold text-[var(--color-accent)]">
                             {msg.to.charAt(0)}
@@ -2721,7 +2729,7 @@ function AppContent() {
                 );
 
                 const DraftsContent = () => (
-                  <div className="p-6">
+                  <div className="p-4">
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       📝 {t("sidebar.drafts")}
                     </h3>
@@ -2748,7 +2756,7 @@ function AppContent() {
                       ].map((draft, i) => (
                         <div
                           key={i}
-                          className="flex items-center justify-between glass p-3 rounded-[var(--radius-md)]"
+                          className="flex items-center justify-between glass p-2.5 rounded-[var(--radius-md)]"
                         >
                           <div>
                             <div className="text-sm text-[var(--color-text-primary)]">
@@ -2768,7 +2776,7 @@ function AppContent() {
                 );
 
                 const SettingsContent = () => (
-                  <div className="p-6">
+                  <div className="p-4">
                     <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
                       ⚙️ {t("sidebar.settings")}
                     </h3>
@@ -2776,7 +2784,7 @@ function AppContent() {
                       {t("sidebar.settingsContent")}
                     </p>
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between glass p-3 rounded-[var(--radius-md)]">
+                      <div className="flex items-center justify-between glass p-2.5 rounded-[var(--radius-md)]">
                         <span className="text-sm text-[var(--color-text-primary)]">
                           {t("sidebar.notifications")}
                         </span>
@@ -2784,7 +2792,7 @@ function AppContent() {
                           <span className="absolute right-0.5 top-0.5 w-4 h-4 rounded-full bg-white"></span>
                         </button>
                       </div>
-                      <div className="flex items-center justify-between glass p-3 rounded-[var(--radius-md)]">
+                      <div className="flex items-center justify-between glass p-2.5 rounded-[var(--radius-md)]">
                         <span className="text-sm text-[var(--color-text-primary)]">
                           {t("sidebar.darkMode")}
                         </span>
@@ -2792,7 +2800,7 @@ function AppContent() {
                           <span className="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white"></span>
                         </button>
                       </div>
-                      <div className="flex items-center justify-between glass p-3 rounded-[var(--radius-md)]">
+                      <div className="flex items-center justify-between glass p-2.5 rounded-[var(--radius-md)]">
                         <span className="text-sm text-[var(--color-text-primary)]">
                           {t("sidebar.language")}
                         </span>
@@ -2893,33 +2901,42 @@ function AppContent() {
                   },
                 ];
 
+                const sidebarBrand = (
+                  <span
+                    className="font-heading font-bold text-sm tracking-tight truncate max-w-[180px]"
+                    style={{
+                      background: "var(--gradient-primary)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    DARA UI
+                  </span>
+                );
+
+                const sidebarFooter = (
+                  <button className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 w-full px-3 py-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-elevated)]/30 text-sm">
+                    <LogoutIcon />
+                    <span>{t("sidebar.logout")}</span>
+                  </button>
+                );
+
                 return (
                   <Sidebar
-                    brand={
-                      <span
-                        className="font-heading font-bold text-sm tracking-tight truncate max-w-[180px]"
-                        style={{
-                          background: "var(--gradient-primary)",
-                          WebkitBackgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
-                          backgroundClip: "text",
-                        }}
-                      >
-                        DARA UI
-                      </span>
-                    }
+                    brand={sidebarBrand}
                     groups={sidebarGroups}
-                    footer={
-                      <button className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 w-full px-3 py-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-elevated)]/30 text-sm">
-                        <LogoutIcon />
-                        <span>{t("sidebar.logout")}</span>
-                      </button>
-                    }
+                    footer={sidebarFooter}
                     className="h-[500px]"
+                    fixed={false}
+                    collapsible
+                    defaultCollapsed={false}
+                    showGroupLabels
                   />
                 );
               })()}
             </div>
+
             <div className="mt-4 flex gap-4 flex-wrap text-xs text-[var(--color-text-tertiary)]">
               <span>💡 {t("sidebar.tip1")}</span>
               <span>⌨️ {t("sidebar.tip2")}</span>

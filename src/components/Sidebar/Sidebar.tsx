@@ -129,6 +129,16 @@ export interface SidebarProps {
    * Footer content
    */
   footer?: React.ReactNode;
+  /**
+   * Whether the sidebar is fixed to the viewport
+   * @default false
+   */
+  fixed?: boolean;
+  /**
+   * Height of the sidebar (when not fixed)
+   * @default "100%"
+   */
+  height?: string;
 }
 
 /**
@@ -143,6 +153,7 @@ export interface SidebarProps {
  * - Keyboard accessible
  * - Smooth animations
  * - Glass morphism styling
+ * - Can be fixed or inline
  */
 export const Sidebar: React.FC<SidebarProps> = ({
   brand,
@@ -160,6 +171,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   collapsedWidth = "64px",
   className = "",
   footer,
+  fixed = false,
+  height = "100%",
 }) => {
   // ----- Collapse state -----
   const isControlledCollapse = controlledCollapsed !== undefined;
@@ -194,7 +207,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     new Set(),
   );
 
-  // ----- RTL detection (using useRef to avoid hydration mismatches) -----
+  // ----- RTL detection -----
   const [isRTL, setIsRTL] = useState(false);
 
   useEffect(() => {
@@ -556,12 +569,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
     return null;
   };
 
+  const activeContent = getActiveContent();
+
+  const positionClasses = fixed
+    ? "fixed top-0 z-40"
+    : "relative rounded-[var(--radius-large)] overflow-hidden";
+
   return (
-    <>
+    <div
+      className={`
+        flex transition-all duration-300 ease-[var(--ease-in-out)]
+        ${fixed ? "min-h-screen" : ""}
+        ${className}
+      `}
+      style={{
+        height: fixed ? "100%" : height,
+      }}
+    >
       {/* Sidebar */}
       <aside
         className={`
-          fixed top-0 z-40
+          ${positionClasses}
           h-full
           bg-[var(--color-bg-secondary)]/95
           backdrop-blur-[20px]
@@ -569,11 +597,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
           transition-all duration-300 ease-[var(--ease-in-out)]
           flex flex-col
           ${isRTL ? "border-l border-r-0" : "border-r"}
-          ${className}
+          ${fixed ? "" : "shadow-[var(--shadow-float)]"}
         `}
         style={{
           width: isCollapsed ? collapsedWidth : expandedWidth,
-          [isRTL ? "right" : "left"]: 0,
+          [isRTL ? "right" : "left"]: fixed ? 0 : "auto",
+          flexShrink: 0,
         }}
         role="navigation"
         aria-label="Sidebar navigation"
@@ -679,30 +708,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </aside>
 
       {/* ----- Content Area ----- */}
-      <div
-        className="transition-all duration-300 ease-[var(--ease-in-out)] p-8"
-        style={{
-          marginLeft: isRTL
-            ? "0"
-            : isCollapsed
-              ? collapsedWidth
-              : expandedWidth,
-          marginRight: isRTL
-            ? isCollapsed
-              ? collapsedWidth
-              : expandedWidth
-            : "0",
-        }}
-      >
-        {getActiveContent() || (
-          <div className="flex items-center justify-center h-full min-h-[400px]">
-            <p className="text-[var(--color-text-tertiary)] text-center">
-              Select an item from the sidebar to see its content.
-            </p>
-          </div>
-        )}
-      </div>
-    </>
+      {activeContent && (
+        <div
+          className={`
+            flex-1 p-6 transition-all duration-300 ease-[var(--ease-in-out)]
+            ${fixed ? "overflow-y-auto" : ""}
+          `}
+          style={{
+            marginLeft: isRTL ? "0" : "0",
+            marginRight: isRTL ? "0" : "0",
+          }}
+        >
+          {activeContent}
+        </div>
+      )}
+    </div>
   );
 };
 
