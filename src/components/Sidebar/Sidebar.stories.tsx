@@ -78,15 +78,144 @@ const LogoutIcon = () => (
   </svg>
 );
 
+// Content components for each item
+const DashboardContent = () => (
+  <div>
+    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+      Dashboard
+    </h2>
+    <p className="text-[var(--color-text-secondary)]">
+      Welcome to your dashboard. Here you can see an overview of your projects
+      and team activity.
+    </p>
+  </div>
+);
+
+const ProjectsContent = () => (
+  <div>
+    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+      Projects
+    </h2>
+    <p className="text-[var(--color-text-secondary)]">
+      Manage all your projects in one place. You have 12 active projects.
+    </p>
+  </div>
+);
+
+const TeamContent = () => (
+  <div>
+    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+      Team
+    </h2>
+    <p className="text-[var(--color-text-secondary)]">
+      Your team members and their roles. 5 members online.
+    </p>
+  </div>
+);
+
+const InvoicesContent = () => (
+  <div>
+    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+      Invoices
+    </h2>
+    <p className="text-[var(--color-text-secondary)]">
+      View and manage all your invoices.
+    </p>
+  </div>
+);
+
+const ReportsContent = () => (
+  <div>
+    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+      Reports
+    </h2>
+    <p className="text-[var(--color-text-secondary)]">
+      Generate and view detailed reports.
+    </p>
+  </div>
+);
+
+const ArchiveContent = () => (
+  <div>
+    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+      Archive
+    </h2>
+    <p className="text-[var(--color-text-secondary)]">
+      Access archived documents and records.
+    </p>
+  </div>
+);
+
+const InboxContent = () => (
+  <div>
+    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+      Inbox
+    </h2>
+    <p className="text-[var(--color-text-secondary)]">
+      Your unread messages and conversations.
+    </p>
+  </div>
+);
+
+const SentContent = () => (
+  <div>
+    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+      Sent
+    </h2>
+    <p className="text-[var(--color-text-secondary)]">
+      Messages you have sent to others.
+    </p>
+  </div>
+);
+
+const DraftsContent = () => (
+  <div>
+    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+      Drafts
+    </h2>
+    <p className="text-[var(--color-text-secondary)]">
+      Your saved drafts and pending messages.
+    </p>
+  </div>
+);
+
+const SettingsContent = () => (
+  <div>
+    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+      Settings
+    </h2>
+    <p className="text-[var(--color-text-secondary)]">
+      Configure your application preferences and account settings.
+    </p>
+  </div>
+);
+
 const groups = [
   {
     label: "Main",
     icon: <HomeIcon />,
     defaultExpanded: true,
     items: [
-      { id: "dashboard", label: "Dashboard", icon: <HomeIcon />, active: true },
-      { id: "projects", label: "Projects", icon: <FolderIcon />, badge: 12 },
-      { id: "team", label: "Team", icon: <UserIcon /> },
+      {
+        id: "dashboard",
+        label: "Dashboard",
+        icon: <HomeIcon />,
+        active: true,
+        content: <DashboardContent />,
+      },
+      {
+        id: "projects",
+        label: "Projects",
+        icon: <FolderIcon />,
+        badge: 12,
+        content: <ProjectsContent />,
+      },
+      {
+        id: "team",
+        label: "Team",
+        icon: <UserIcon />,
+        content: <TeamContent />,
+      },
     ],
   },
   {
@@ -98,10 +227,24 @@ const groups = [
         label: "Documents",
         icon: <DocsIcon />,
         subItems: [
-          { id: "docs-invoices", label: "Invoices" },
-          { id: "docs-reports", label: "Reports", badge: 3 },
-          { id: "docs-archive", label: "Archive" },
+          {
+            id: "docs-invoices",
+            label: "Invoices",
+            content: <InvoicesContent />,
+          },
+          {
+            id: "docs-reports",
+            label: "Reports",
+            badge: 3,
+            content: <ReportsContent />,
+          },
+          {
+            id: "docs-archive",
+            label: "Archive",
+            content: <ArchiveContent />,
+          },
         ],
+        content: <div>Documents overview</div>,
       },
       {
         id: "messages",
@@ -109,20 +252,54 @@ const groups = [
         icon: <MailIcon />,
         badge: 5,
         subItems: [
-          { id: "msgs-inbox", label: "Inbox" },
-          { id: "msgs-sent", label: "Sent" },
-          { id: "msgs-drafts", label: "Drafts" },
+          {
+            id: "msgs-inbox",
+            label: "Inbox",
+            content: <InboxContent />,
+          },
+          {
+            id: "msgs-sent",
+            label: "Sent",
+            content: <SentContent />,
+          },
+          {
+            id: "msgs-drafts",
+            label: "Drafts",
+            content: <DraftsContent />,
+          },
         ],
+        content: <div>Messages overview</div>,
       },
       {
         id: "settings",
         label: "Settings",
         icon: <SettingsIcon />,
-        disabled: true,
+        content: <SettingsContent />,
       },
     ],
   },
 ];
+
+const brand = (
+  <span
+    className="font-heading font-bold text-lg tracking-tight truncate"
+    style={{
+      background: "var(--gradient-primary)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      backgroundClip: "text",
+    }}
+  >
+    DARA UI
+  </span>
+);
+
+const footer = (
+  <button className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 w-full px-3 py-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-elevated)]/30 text-sm">
+    <LogoutIcon />
+    <span>Logout</span>
+  </button>
+);
 
 const meta = {
   title: "Components/Sidebar",
@@ -138,7 +315,6 @@ const meta = {
   },
   args: {
     collapsible: true,
-    showLabels: true,
     showGroupLabels: true,
   },
 } satisfies Meta<typeof Sidebar>;
@@ -146,53 +322,17 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const brand = (
-  <span
-    className="font-heading font-bold text-lg tracking-tight"
-    style={{
-      background: "var(--gradient-primary)",
-      WebkitBackgroundClip: "text",
-      WebkitTextFillColor: "transparent",
-      backgroundClip: "text",
-    }}
-  >
-    DARA UI
-  </span>
-);
-
-const footer = (
-  <button className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 w-full px-3 py-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-elevated)]/30">
-    <LogoutIcon />
-    <span>Logout</span>
-  </button>
-);
-
 export const Default: Story = {
   render: (args) => (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[var(--color-bg-primary)]">
       <Sidebar {...args} brand={brand} groups={groups} footer={footer} />
-      <div
-        className="p-8"
-        style={{ marginLeft: args.iconOnly ? "64px" : "260px" }}
-      >
-        <h1 className="font-heading text-3xl font-bold text-[var(--color-text-primary)] mb-4">
-          Dashboard
-        </h1>
-        <p className="text-[var(--color-text-secondary)]">
-          Press{" "}
-          <kbd className="px-2 py-1 bg-[var(--color-bg-tertiary)] rounded-[var(--radius-sm)] font-mono text-sm">
-            Ctrl+B
-          </kbd>{" "}
-          to toggle the sidebar.
-        </p>
-      </div>
     </div>
   ),
 };
 
 export const Collapsed: Story = {
   render: (args) => (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[var(--color-bg-primary)]">
       <Sidebar
         {...args}
         brand={brand}
@@ -200,21 +340,13 @@ export const Collapsed: Story = {
         footer={footer}
         defaultCollapsed
       />
-      <div className="p-8 ml-[64px]">
-        <h1 className="font-heading text-3xl font-bold text-[var(--color-text-primary)] mb-4">
-          Collapsed Sidebar
-        </h1>
-        <p className="text-[var(--color-text-secondary)]">
-          Hover over icons to see tooltips.
-        </p>
-      </div>
     </div>
   ),
 };
 
 export const IconOnly: Story = {
   render: (args) => (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[var(--color-bg-primary)]">
       <Sidebar
         {...args}
         brand={brand}
@@ -222,61 +354,8 @@ export const IconOnly: Story = {
         footer={footer}
         iconOnly
       />
-      <div className="p-8 ml-[64px]">
-        <h1 className="font-heading text-3xl font-bold text-[var(--color-text-primary)] mb-4">
-          Icon Only Mode
-        </h1>
-        <p className="text-[var(--color-text-secondary)]">
-          Always shows icons without labels.
-        </p>
-      </div>
     </div>
   ),
-};
-
-export const WithoutGroups: Story = {
-  render: (args) => {
-    const flatGroups = [
-      {
-        label: "",
-        items: [
-          {
-            id: "dashboard",
-            label: "Dashboard",
-            icon: <HomeIcon />,
-            active: true,
-          },
-          {
-            id: "projects",
-            label: "Projects",
-            icon: <FolderIcon />,
-            badge: 12,
-          },
-          { id: "team", label: "Team", icon: <UserIcon /> },
-          { id: "settings", label: "Settings", icon: <SettingsIcon /> },
-        ],
-      },
-    ];
-
-    return (
-      <div className="min-h-screen">
-        <Sidebar
-          {...args}
-          brand={brand}
-          groups={flatGroups}
-          showGroupLabels={false}
-        />
-        <div className="p-8 ml-[260px]">
-          <h1 className="font-heading text-3xl font-bold text-[var(--color-text-primary)] mb-4">
-            Without Groups
-          </h1>
-          <p className="text-[var(--color-text-secondary)]">
-            Flat navigation without group headers.
-          </p>
-        </div>
-      </div>
-    );
-  },
 };
 
 export const Controlled: Story = {
@@ -285,53 +364,47 @@ export const Controlled: Story = {
     const [collapsed, setCollapsed] = useState(false);
 
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-[var(--color-bg-primary)]">
         <Sidebar
           {...args}
           brand={brand}
           groups={groups}
+          footer={footer}
           activeItemId={activeId}
           onItemClick={setActiveId}
           collapsed={collapsed}
           onCollapseChange={setCollapsed}
-          footer={footer}
         />
-        <div className="p-8 ml-[260px]">
-          <h1 className="font-heading text-3xl font-bold text-[var(--color-text-primary)] mb-4">
-            Controlled Sidebar
-          </h1>
-          <p className="text-[var(--color-text-secondary)] mb-4">
-            Active:{" "}
-            <span className="text-[var(--color-primary)] font-bold">
-              {activeId}
-            </span>
-          </p>
-          <div className="flex gap-3 flex-wrap">
-            <button
-              className="px-4 py-2 rounded-[var(--radius-md)] bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
-              onClick={() => setActiveId("dashboard")}
-            >
-              Dashboard
-            </button>
-            <button
-              className="px-4 py-2 rounded-[var(--radius-md)] bg-[var(--color-secondary)] text-[var(--color-bg-primary)] hover:bg-[var(--color-secondary-hover)]"
-              onClick={() => setActiveId("projects")}
-            >
-              Projects
-            </button>
-            <button
-              className="px-4 py-2 rounded-[var(--radius-md)] glass hover:bg-[var(--color-bg-elevated)]/30"
-              onClick={() => setActiveId("documents")}
-            >
-              Documents
-            </button>
-            <button
-              className="px-4 py-2 rounded-[var(--radius-md)] glass hover:bg-[var(--color-bg-elevated)]/30"
-              onClick={() => setCollapsed(!collapsed)}
-            >
-              {collapsed ? "Expand" : "Collapse"}
-            </button>
-          </div>
+        <div
+          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex gap-3 flex-wrap justify-center bg-[var(--color-bg-secondary)] p-3 rounded-[var(--radius-md)] glass"
+          style={{
+            marginLeft: collapsed ? "32px" : "130px",
+          }}
+        >
+          <button
+            className="px-3 py-1.5 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
+            onClick={() => setActiveId("dashboard")}
+          >
+            Dashboard
+          </button>
+          <button
+            className="px-3 py-1.5 text-xs rounded-[var(--radius-md)] bg-[var(--color-secondary)] text-[var(--color-bg-primary)] hover:bg-[var(--color-secondary-hover)]"
+            onClick={() => setActiveId("projects")}
+          >
+            Projects
+          </button>
+          <button
+            className="px-3 py-1.5 text-xs rounded-[var(--radius-md)] glass hover:bg-[var(--color-bg-elevated)]/30"
+            onClick={() => setActiveId("docs-invoices")}
+          >
+            Invoices
+          </button>
+          <button
+            className="px-3 py-1.5 text-xs rounded-[var(--radius-md)] glass hover:bg-[var(--color-bg-elevated)]/30"
+            onClick={() => setCollapsed(!collapsed)}
+          >
+            {collapsed ? "Expand" : "Collapse"}
+          </button>
         </div>
       </div>
     );

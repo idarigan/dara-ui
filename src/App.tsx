@@ -30,7 +30,6 @@ import { Navbar } from "./components/Navbar";
 import type { NavLink } from "./components/Navbar";
 import { SocialMedia } from "./components/SocialMedia";
 import { Sidebar } from "./components/Sidebar";
-import type { SidebarGroup, SidebarItem } from "./components/Sidebar";
 import useDirection from "./hooks/useDirection";
 
 import {
@@ -2376,103 +2375,555 @@ function AppContent() {
             <h2 className="text-2xl font-semibold mb-6">
               {t("sidebar.title")}
             </h2>
+            <p className="text-[var(--color-text-secondary)] text-sm mb-6 font-sans">
+              {t("sidebar.subtitle")}
+            </p>
 
-            <div className="relative min-h-[400px] rounded-[var(--radius-standard)] overflow-hidden bg-[var(--color-bg-tertiary)]/30">
-              {/* Sidebar demo inside a container */}
-              <div className="relative h-[400px]">
-                <Sidebar
-                  brand={
-                    <span
-                      className="font-heading font-bold text-sm tracking-tight"
-                      style={{
-                        background: "var(--gradient-primary)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                      }}
-                    >
-                      DARA UI
-                    </span>
-                  }
-                  groups={[
-                    {
-                      label: t("sidebar.main"),
-                      icon: <HomeIcon />,
-                      defaultExpanded: true,
-                      items: [
+            <div className="relative rounded-[var(--radius-standard)] overflow-hidden bg-[var(--color-bg-tertiary)]/30 min-h-[500px]">
+              {(() => {
+                // ----- Sidebar content components -----
+                const DashboardContent = () => (
+                  <div className="p-6">
+                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
+                      📊 {t("sidebar.dashboard")}
+                    </h3>
+                    <p className="text-[var(--color-text-secondary)] mb-4">
+                      {t("sidebar.dashboardContent")}
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="glass p-4 rounded-[var(--radius-md)] text-center">
+                        <div className="text-2xl font-bold text-[var(--color-primary)]">
+                          12
+                        </div>
+                        <div className="text-xs text-[var(--color-text-tertiary)]">
+                          {t("sidebar.activeProjects")}
+                        </div>
+                      </div>
+                      <div className="glass p-4 rounded-[var(--radius-md)] text-center">
+                        <div className="text-2xl font-bold text-[var(--color-success)]">
+                          8
+                        </div>
+                        <div className="text-xs text-[var(--color-text-tertiary)]">
+                          {t("sidebar.completedTasks")}
+                        </div>
+                      </div>
+                      <div className="glass p-4 rounded-[var(--radius-md)] text-center">
+                        <div className="text-2xl font-bold text-[var(--color-secondary)]">
+                          5
+                        </div>
+                        <div className="text-xs text-[var(--color-text-tertiary)]">
+                          {t("sidebar.teamMembers")}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+
+                const ProjectsContent = () => (
+                  <div className="p-6">
+                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
+                      📁 {t("sidebar.projects")}
+                    </h3>
+                    <p className="text-[var(--color-text-secondary)] mb-4">
+                      {t("sidebar.projectsContent")}
+                    </p>
+                    <div className="space-y-2">
+                      {[
+                        "Project Alpha",
+                        "Project Beta",
+                        "Project Gamma",
+                        "Project Delta",
+                      ].map((name, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center justify-between glass p-3 rounded-[var(--radius-md)]"
+                        >
+                          <span className="text-sm text-[var(--color-text-primary)]">
+                            {name}
+                          </span>
+                          <span className="text-xs text-[var(--color-text-tertiary)]">
+                            {Math.floor(Math.random() * 80 + 20)}%
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+
+                const TeamContent = () => (
+                  <div className="p-6">
+                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
+                      👥 {t("sidebar.team")}
+                    </h3>
+                    <p className="text-[var(--color-text-secondary)] mb-4">
+                      {t("sidebar.teamContent")}
+                    </p>
+                    <div className="space-y-2">
+                      {[
                         {
-                          id: "demo-dashboard",
-                          label: t("sidebar.dashboard"),
-                          icon: <HomeIcon />,
-                          active: true,
+                          name: "Alice Johnson",
+                          role: "Lead Developer",
+                          online: true,
                         },
                         {
-                          id: "demo-projects",
-                          label: t("sidebar.projects"),
-                          icon: <FolderIcon />,
-                          badge: 12,
+                          name: "Bob Smith",
+                          role: "UI/UX Designer",
+                          online: true,
                         },
                         {
-                          id: "demo-team",
-                          label: t("sidebar.team"),
-                          icon: <UserIcon />,
-                        },
-                      ],
-                    },
-                    {
-                      label: t("sidebar.management"),
-                      icon: <SettingsIcon />,
-                      items: [
-                        {
-                          id: "demo-documents",
-                          label: t("sidebar.documents"),
-                          icon: <DocsIcon />,
-                          subItems: [
-                            {
-                              id: "demo-invoices",
-                              label: t("sidebar.invoices"),
-                            },
-                            {
-                              id: "demo-reports",
-                              label: t("sidebar.reports"),
-                              badge: 3,
-                            },
-                            { id: "demo-archive", label: t("sidebar.archive") },
-                          ],
+                          name: "Carol White",
+                          role: "Project Manager",
+                          online: false,
                         },
                         {
-                          id: "demo-messages",
-                          label: t("sidebar.messages"),
-                          icon: <MailIcon />,
-                          badge: 5,
-                          subItems: [
-                            { id: "demo-inbox", label: t("sidebar.inbox") },
-                            { id: "demo-sent", label: t("sidebar.sent") },
-                            { id: "demo-drafts", label: t("sidebar.drafts") },
-                          ],
+                          name: "Dave Brown",
+                          role: "Backend Engineer",
+                          online: true,
                         },
                         {
-                          id: "demo-settings",
-                          label: t("sidebar.settings"),
-                          icon: <SettingsIcon />,
+                          name: "Eve Davis",
+                          role: "QA Engineer",
+                          online: false,
                         },
-                      ],
-                    },
-                  ]}
-                  footer={
-                    <button className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 w-full px-3 py-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-elevated)]/30 text-sm">
-                      <LogoutIcon />
-                      <span>{t("sidebar.logout")}</span>
-                    </button>
-                  }
-                  className="relative z-10 h-full"
-                />
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <p className="text-[var(--color-text-tertiary)] text-sm font-mono">
-                    ← {t("sidebar.hint")}
-                  </p>
-                </div>
-              </div>
+                      ].map((member, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center gap-3 glass p-3 rounded-[var(--radius-md)]"
+                        >
+                          <div className="w-8 h-8 rounded-full bg-[var(--color-primary)]/20 flex items-center justify-center text-sm font-bold text-[var(--color-primary)]">
+                            {member.name.charAt(0)}
+                          </div>
+                          <div className="flex-1">
+                            <div className="text-sm text-[var(--color-text-primary)]">
+                              {member.name}
+                            </div>
+                            <div className="text-xs text-[var(--color-text-tertiary)]">
+                              {member.role}
+                            </div>
+                          </div>
+                          <span
+                            className={`text-xs px-2 py-0.5 rounded-full ${member.online ? "bg-[var(--color-success)]/20 text-[var(--color-success)]" : "bg-[var(--color-text-tertiary)]/20 text-[var(--color-text-tertiary)]"}`}
+                          >
+                            {member.online ? "🟢 Online" : "⚪ Offline"}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+
+                const InvoicesContent = () => (
+                  <div className="p-6">
+                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
+                      📄 {t("sidebar.invoices")}
+                    </h3>
+                    <p className="text-[var(--color-text-secondary)] mb-4">
+                      {t("sidebar.invoicesContent")}
+                    </p>
+                    <div className="space-y-2">
+                      {[
+                        { id: "INV-001", amount: "$1,200", status: "Paid" },
+                        { id: "INV-002", amount: "$850", status: "Pending" },
+                        { id: "INV-003", amount: "$2,400", status: "Paid" },
+                        { id: "INV-004", amount: "$620", status: "Overdue" },
+                      ].map((inv, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center justify-between glass p-3 rounded-[var(--radius-md)]"
+                        >
+                          <span className="text-sm text-[var(--color-text-primary)]">
+                            {inv.id}
+                          </span>
+                          <span className="text-sm font-medium text-[var(--color-text-primary)]">
+                            {inv.amount}
+                          </span>
+                          <span
+                            className={`text-xs px-2 py-0.5 rounded-full ${inv.status === "Paid" ? "bg-[var(--color-success)]/20 text-[var(--color-success)]" : inv.status === "Pending" ? "bg-[var(--color-warning)]/20 text-[var(--color-warning)]" : "bg-[var(--color-danger)]/20 text-[var(--color-danger)]"}`}
+                          >
+                            {inv.status}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+
+                const ReportsContent = () => (
+                  <div className="p-6">
+                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
+                      📊 {t("sidebar.reports")}
+                    </h3>
+                    <p className="text-[var(--color-text-secondary)] mb-4">
+                      {t("sidebar.reportsContent")}
+                    </p>
+                    <div className="space-y-2">
+                      {[
+                        "Q4 Financial Report",
+                        "User Growth Analysis",
+                        "Performance Metrics",
+                        "Project Timeline",
+                      ].map((report, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center justify-between glass p-3 rounded-[var(--radius-md)]"
+                        >
+                          <span className="text-sm text-[var(--color-text-primary)]">
+                            {report}
+                          </span>
+                          <span className="text-xs text-[var(--color-text-tertiary)]">
+                            📄 PDF
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+
+                const ArchiveContent = () => (
+                  <div className="p-6">
+                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
+                      🗂️ {t("sidebar.archive")}
+                    </h3>
+                    <p className="text-[var(--color-text-secondary)] mb-4">
+                      {t("sidebar.archiveContent")}
+                    </p>
+                    <div className="space-y-2">
+                      {[
+                        "2023 Q4 Documents",
+                        "Old Project Files",
+                        "Meeting Notes",
+                        "Inactive Clients",
+                      ].map((item, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center gap-3 glass p-3 rounded-[var(--radius-md)]"
+                        >
+                          <span className="text-lg">📁</span>
+                          <span className="text-sm text-[var(--color-text-primary)]">
+                            {item}
+                          </span>
+                          <span className="ml-auto text-xs text-[var(--color-text-tertiary)]">
+                            {Math.floor(Math.random() * 30 + 1)} items
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+
+                const InboxContent = () => (
+                  <div className="p-6">
+                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
+                      📬 {t("sidebar.inbox")}
+                    </h3>
+                    <p className="text-[var(--color-text-secondary)] mb-4">
+                      {t("sidebar.inboxContent")}
+                    </p>
+                    <div className="space-y-2">
+                      {[
+                        {
+                          from: "Alice Johnson",
+                          subject: "Project Update",
+                          time: "2h ago",
+                          unread: true,
+                        },
+                        {
+                          from: "Bob Smith",
+                          subject: "Design Review",
+                          time: "5h ago",
+                          unread: true,
+                        },
+                        {
+                          from: "Carol White",
+                          subject: "Meeting Agenda",
+                          time: "1d ago",
+                          unread: false,
+                        },
+                        {
+                          from: "Dave Brown",
+                          subject: "Deployment Status",
+                          time: "2d ago",
+                          unread: false,
+                        },
+                      ].map((msg, i) => (
+                        <div
+                          key={i}
+                          className={`flex items-center gap-3 glass p-3 rounded-[var(--radius-md)] ${msg.unread ? "border-l-2 border-[var(--color-primary)]" : ""}`}
+                        >
+                          <div className="w-8 h-8 rounded-full bg-[var(--color-secondary)]/20 flex items-center justify-center text-sm font-bold text-[var(--color-secondary)]">
+                            {msg.from.charAt(0)}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-sm text-[var(--color-text-primary)] truncate">
+                              {msg.from}
+                            </div>
+                            <div className="text-xs text-[var(--color-text-tertiary)] truncate">
+                              {msg.subject}
+                            </div>
+                          </div>
+                          <span className="text-xs text-[var(--color-text-tertiary)] flex-shrink-0">
+                            {msg.time}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+
+                const SentContent = () => (
+                  <div className="p-6">
+                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
+                      📤 {t("sidebar.sent")}
+                    </h3>
+                    <p className="text-[var(--color-text-secondary)] mb-4">
+                      {t("sidebar.sentContent")}
+                    </p>
+                    <div className="space-y-2">
+                      {[
+                        {
+                          to: "Alice Johnson",
+                          subject: "Project Files",
+                          time: "1h ago",
+                        },
+                        {
+                          to: "Bob Smith",
+                          subject: "Feedback Request",
+                          time: "3h ago",
+                        },
+                        {
+                          to: "Carol White",
+                          subject: "Report Draft",
+                          time: "1d ago",
+                        },
+                      ].map((msg, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center gap-3 glass p-3 rounded-[var(--radius-md)]"
+                        >
+                          <div className="w-8 h-8 rounded-full bg-[var(--color-accent)]/20 flex items-center justify-center text-sm font-bold text-[var(--color-accent)]">
+                            {msg.to.charAt(0)}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-sm text-[var(--color-text-primary)] truncate">
+                              {msg.to}
+                            </div>
+                            <div className="text-xs text-[var(--color-text-tertiary)] truncate">
+                              {msg.subject}
+                            </div>
+                          </div>
+                          <span className="text-xs text-[var(--color-text-tertiary)] flex-shrink-0">
+                            {msg.time}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+
+                const DraftsContent = () => (
+                  <div className="p-6">
+                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
+                      📝 {t("sidebar.drafts")}
+                    </h3>
+                    <p className="text-[var(--color-text-secondary)] mb-4">
+                      {t("sidebar.draftsContent")}
+                    </p>
+                    <div className="space-y-2">
+                      {[
+                        {
+                          title: "Q4 Report Draft",
+                          lastEdit: "2h ago",
+                          words: 245,
+                        },
+                        {
+                          title: "Project Proposal",
+                          lastEdit: "1d ago",
+                          words: 1020,
+                        },
+                        {
+                          title: "Design Specs",
+                          lastEdit: "3d ago",
+                          words: 580,
+                        },
+                      ].map((draft, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center justify-between glass p-3 rounded-[var(--radius-md)]"
+                        >
+                          <div>
+                            <div className="text-sm text-[var(--color-text-primary)]">
+                              {draft.title}
+                            </div>
+                            <div className="text-xs text-[var(--color-text-tertiary)]">
+                              {draft.lastEdit} · {draft.words} words
+                            </div>
+                          </div>
+                          <span className="text-xs text-[var(--color-text-tertiary)]">
+                            ✏️
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+
+                const SettingsContent = () => (
+                  <div className="p-6">
+                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
+                      ⚙️ {t("sidebar.settings")}
+                    </h3>
+                    <p className="text-[var(--color-text-secondary)] mb-4">
+                      {t("sidebar.settingsContent")}
+                    </p>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between glass p-3 rounded-[var(--radius-md)]">
+                        <span className="text-sm text-[var(--color-text-primary)]">
+                          {t("sidebar.notifications")}
+                        </span>
+                        <button className="w-10 h-5 rounded-full bg-[var(--color-primary)] relative">
+                          <span className="absolute right-0.5 top-0.5 w-4 h-4 rounded-full bg-white"></span>
+                        </button>
+                      </div>
+                      <div className="flex items-center justify-between glass p-3 rounded-[var(--radius-md)]">
+                        <span className="text-sm text-[var(--color-text-primary)]">
+                          {t("sidebar.darkMode")}
+                        </span>
+                        <button className="w-10 h-5 rounded-full bg-[var(--color-bg-tertiary)] relative">
+                          <span className="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white"></span>
+                        </button>
+                      </div>
+                      <div className="flex items-center justify-between glass p-3 rounded-[var(--radius-md)]">
+                        <span className="text-sm text-[var(--color-text-primary)]">
+                          {t("sidebar.language")}
+                        </span>
+                        <span className="text-sm text-[var(--color-text-secondary)]">
+                          English
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+
+                // ----- Sidebar groups with content -----
+                const sidebarGroups: SidebarGroup[] = [
+                  {
+                    label: t("sidebar.main"),
+                    icon: <HomeIcon />,
+                    defaultExpanded: true,
+                    items: [
+                      {
+                        id: "demo-dashboard",
+                        label: t("sidebar.dashboard"),
+                        icon: <HomeIcon />,
+                        active: true,
+                        content: <DashboardContent />,
+                      },
+                      {
+                        id: "demo-projects",
+                        label: t("sidebar.projects"),
+                        icon: <FolderIcon />,
+                        badge: 12,
+                        content: <ProjectsContent />,
+                      },
+                      {
+                        id: "demo-team",
+                        label: t("sidebar.team"),
+                        icon: <UserIcon />,
+                        content: <TeamContent />,
+                      },
+                    ],
+                  },
+                  {
+                    label: t("sidebar.management"),
+                    icon: <SettingsIcon />,
+                    items: [
+                      {
+                        id: "demo-documents",
+                        label: t("sidebar.documents"),
+                        icon: <DocsIcon />,
+                        subItems: [
+                          {
+                            id: "demo-invoices",
+                            label: t("sidebar.invoices"),
+                            content: <InvoicesContent />,
+                          },
+                          {
+                            id: "demo-reports",
+                            label: t("sidebar.reports"),
+                            badge: 3,
+                            content: <ReportsContent />,
+                          },
+                          {
+                            id: "demo-archive",
+                            label: t("sidebar.archive"),
+                            content: <ArchiveContent />,
+                          },
+                        ],
+                      },
+                      {
+                        id: "demo-messages",
+                        label: t("sidebar.messages"),
+                        icon: <MailIcon />,
+                        badge: 5,
+                        subItems: [
+                          {
+                            id: "demo-inbox",
+                            label: t("sidebar.inbox"),
+                            content: <InboxContent />,
+                          },
+                          {
+                            id: "demo-sent",
+                            label: t("sidebar.sent"),
+                            content: <SentContent />,
+                          },
+                          {
+                            id: "demo-drafts",
+                            label: t("sidebar.drafts"),
+                            content: <DraftsContent />,
+                          },
+                        ],
+                      },
+                      {
+                        id: "demo-settings",
+                        label: t("sidebar.settings"),
+                        icon: <SettingsIcon />,
+                        content: <SettingsContent />,
+                      },
+                    ],
+                  },
+                ];
+
+                return (
+                  <Sidebar
+                    brand={
+                      <span
+                        className="font-heading font-bold text-sm tracking-tight truncate max-w-[180px]"
+                        style={{
+                          background: "var(--gradient-primary)",
+                          WebkitBackgroundClip: "text",
+                          WebkitTextFillColor: "transparent",
+                          backgroundClip: "text",
+                        }}
+                      >
+                        DARA UI
+                      </span>
+                    }
+                    groups={sidebarGroups}
+                    footer={
+                      <button className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 w-full px-3 py-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-elevated)]/30 text-sm">
+                        <LogoutIcon />
+                        <span>{t("sidebar.logout")}</span>
+                      </button>
+                    }
+                    className="h-[500px]"
+                  />
+                );
+              })()}
+            </div>
+            <div className="mt-4 flex gap-4 flex-wrap text-xs text-[var(--color-text-tertiary)]">
+              <span>💡 {t("sidebar.tip1")}</span>
+              <span>⌨️ {t("sidebar.tip2")}</span>
+              <span>🔄 {t("sidebar.tip3")}</span>
             </div>
           </section>
 

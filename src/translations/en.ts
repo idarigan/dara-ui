@@ -21,8 +21,6 @@ export const en = {
   sidebar: {
     title: "Sidebar",
     hint: "Collapsible · Groups · Sub-menus · RTL ready",
-    collapse: "Collapse",
-    expand: "Expand",
     logout: "Logout",
     main: "Main",
     management: "Management",
@@ -38,6 +36,21 @@ export const en = {
     inbox: "Inbox",
     sent: "Sent",
     drafts: "Drafts",
+    collapse: "Collapse",
+    expand: "Expand",
+    dashboardContent:
+      "Welcome to your dashboard. Here you can see an overview of your projects and team activity.",
+    projectsContent:
+      "Manage all your projects in one place. You have 12 active projects.",
+    teamContent: "Your team members and their roles. 5 members online.",
+    invoicesContent: "View and manage all your invoices.",
+    reportsContent: "Generate and view detailed reports.",
+    archiveContent: "Access archived documents and records.",
+    inboxContent: "Your unread messages and conversations.",
+    sentContent: "Messages you have sent to others.",
+    draftsContent: "Your saved drafts and pending messages.",
+    settingsContent:
+      "Configure your application preferences and account settings.",
   },
   badges: {
     title: "Badges",

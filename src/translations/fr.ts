@@ -21,8 +21,6 @@ export const fr = {
   sidebar: {
     title: "Barre latérale",
     hint: "Réductible · Groupes · Sous-menus · Prêt RTL",
-    collapse: "Réduire",
-    expand: "Développer",
     logout: "Déconnexion",
     main: "Principal",
     management: "Gestion",
@@ -38,6 +36,22 @@ export const fr = {
     inbox: "Boîte de réception",
     sent: "Envoyés",
     drafts: "Brouillons",
+    collapse: "Réduire",
+    expand: "Développer",
+    dashboardContent:
+      "Bienvenue sur votre tableau de bord. Vous pouvez voir un aperçu de vos projets et de l'activité de votre équipe.",
+    projectsContent:
+      "Gérez tous vos projets au même endroit. Vous avez 12 projets actifs.",
+    teamContent:
+      "Les membres de votre équipe et leurs rôles. 5 membres en ligne.",
+    invoicesContent: "Consultez et gérez toutes vos factures.",
+    reportsContent: "Générez et consultez des rapports détaillés.",
+    archiveContent: "Accédez aux documents et dossiers archivés.",
+    inboxContent: "Vos messages non lus et vos conversations.",
+    sentContent: "Messages que vous avez envoyés à d'autres.",
+    draftsContent: "Vos brouillons enregistrés et messages en attente.",
+    settingsContent:
+      "Configurez les préférences de votre application et les paramètres de votre compte.",
   },
   badges: {
     title: "Badges",
