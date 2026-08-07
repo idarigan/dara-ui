@@ -38,6 +38,16 @@ export const fr = {
     drafts: "Brouillons",
     collapse: "Réduire",
     expand: "Développer",
+    subtitle: "Navigation réductible avec groupes, sous-menus et support RTL",
+    tip1: "Cliquez sur le bouton de réduction ou appuyez sur Ctrl+B pour basculer",
+    tip2: "Les éléments avec sous-menus se développent au clic",
+    tip3: "Les éléments actifs sont surlignés en violet",
+    activeProjects: "Projets actifs",
+    completedTasks: "Tâches terminées",
+    teamMembers: "Membres de l'équipe",
+    notifications: "Notifications",
+    darkMode: "Mode sombre",
+    language: "Langue",
     dashboardContent:
       "Bienvenue sur votre tableau de bord. Vous pouvez voir un aperçu de vos projets et de l'activité de votre équipe.",
     projectsContent:

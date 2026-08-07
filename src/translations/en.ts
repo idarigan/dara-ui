@@ -38,6 +38,16 @@ export const en = {
     drafts: "Drafts",
     collapse: "Collapse",
     expand: "Expand",
+    subtitle: "Collapsible navigation with groups, sub-menus, and RTL support",
+    tip1: "Click the collapse button or press Ctrl+B to toggle",
+    tip2: "Items with sub-menus expand on click",
+    tip3: "Active items are highlighted with a purple accent",
+    activeProjects: "Active Projects",
+    completedTasks: "Completed Tasks",
+    teamMembers: "Team Members",
+    notifications: "Notifications",
+    darkMode: "Dark Mode",
+    language: "Language",
     dashboardContent:
       "Welcome to your dashboard. Here you can see an overview of your projects and team activity.",
     projectsContent:
