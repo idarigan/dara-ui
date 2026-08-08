@@ -41,6 +41,19 @@ export type { CheckboxProps } from "./components/Checkbox/Checkbox";
 export { Navbar } from "./components/Navbar";
 export type { NavbarProps, NavLink } from "./components/Navbar";
 
+export { Sidebar } from "./components/Sidebar/Sidebar";
+export type {
+  SidebarProps,
+  SidebarItem,
+  SidebarGroup,
+} from "./components/Sidebar/Sidebar";
+
+export { SocialMedia } from "./components/SocialMedia/SocialMedia";
+export type {
+  SocialMediaProps,
+  SocialLink,
+} from "./components/SocialMedia/SocialMedia";
+
 // ----- Toast -----
 export {
   Toast,
@@ -78,6 +91,25 @@ export type {
   LanguageChangerProps,
   LanguageOption,
 } from "./components/LanguageChanger";
+
+// ----- RPG/Specialty Components -----
+export { CharacterCard } from "./components/CharacterCard/CharacterCard";
+export type {
+  CharacterCardProps,
+  CharacterStat,
+} from "./components/CharacterCard/CharacterCard";
+
+export { QuestCard } from "./components/QuestCard/QuestCard";
+export type { QuestCardProps } from "./components/QuestCard/QuestCard";
+
+export { StatsWidget } from "./components/StatsWidget/StatsWidget";
+export type {
+  StatsWidgetProps,
+  StatsWidgetData,
+} from "./components/StatsWidget/StatsWidget";
+
+export { XPBar } from "./components/XPBar/XPBar";
+export type { XPBarProps, RankTier } from "./components/XPBar/XPBar";
 
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";
