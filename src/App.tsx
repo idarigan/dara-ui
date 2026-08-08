@@ -41,6 +41,7 @@ import { translations } from "./translations";
 
 import "./styles/index.css";
 import StatsWidget from "./components/StatsWidget";
+import Checkbox from "./components/Checkbox";
 
 type Theme = "nightfall" | "daylight" | "dracula";
 
@@ -589,7 +590,6 @@ function AppContent() {
               </Button>
             </div>
           </div>
-
           {/* ============================================
             BADGES SHOWCASE
             ============================================ */}
@@ -685,7 +685,6 @@ function AppContent() {
               </div>
             </div>
           </section>
-
           {/* ============================================
             BUTTONS SHOWCASE
             ============================================ */}
@@ -703,7 +702,6 @@ function AppContent() {
               <Button variant="outline">{t("buttons.outline")}</Button>
             </div>
           </section>
-
           {/* Buttons: states */}
           <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
             <h2 className="text-2xl font-semibold mb-6">
@@ -728,7 +726,6 @@ function AppContent() {
               </Button>
             </div>
           </section>
-
           {/* Buttons: sizes */}
           <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
             <h2 className="text-2xl font-semibold mb-6">
@@ -746,7 +743,6 @@ function AppContent() {
               </Button>
             </div>
           </section>
-
           {/* ============================================
             AVATAR SHOWCASE
             ============================================ */}
@@ -855,7 +851,6 @@ function AppContent() {
               />
             </div>
           </section>
-
           {/* ============================================
             TOOLTIP SHOWCASE
             ============================================ */}
@@ -936,7 +931,6 @@ function AppContent() {
               </Tooltip>
             </div>
           </section>
-
           {/* ============================================
             TABS SHOWCASE
             ============================================ */}
@@ -949,7 +943,6 @@ function AppContent() {
               glowColor="primary"
             />
           </section>
-
           {/* ============================================
             ACCORDION SHOWCASE
             ============================================ */}
@@ -1022,7 +1015,6 @@ function AppContent() {
               />
             </div>
           </section>
-
           {/* ============================================
             DROPDOWN SHOWCASE
             ============================================ */}
@@ -1135,7 +1127,6 @@ function AppContent() {
               </div>
             </div>
           </section>
-
           {/* ============================================
             CARDS SHOWCASE
             ============================================ */}
@@ -1235,7 +1226,6 @@ function AppContent() {
               </div>
             </div>
           </section>
-
           {/* ============================================
             INPUT SHOWCASE
             ============================================ */}
@@ -1311,7 +1301,6 @@ function AppContent() {
               </div>
             </div>
           </section>
-
           {/* ============================================
             MODAL SHOWCASE
             ============================================ */}
@@ -1339,7 +1328,6 @@ function AppContent() {
               {t("modal.modalDescription")}
             </Modal>
           </section>
-
           {/* ============================================
             TOAST SHOWCASE
             ============================================ */}
@@ -1350,7 +1338,6 @@ function AppContent() {
             </p>
             <ToastDemo />
           </section>
-
           {/* ============================================
             PROGRESS SHOWCASE
             ============================================ */}
@@ -1587,7 +1574,6 @@ function AppContent() {
               </div>
             </div>
           </section>
-
           {/* ============================================
             XPBAR SHOWCASE
             ============================================ */}
@@ -1649,7 +1635,6 @@ function AppContent() {
               />
             </div>
           </section>
-
           {/* ============================================
             GLOW SHOWCASE
             ============================================ */}
@@ -1667,7 +1652,6 @@ function AppContent() {
               </Button>
             </div>
           </section>
-
           {/* ============================================
             QUEST CARD SHOWCASE
             ============================================ */}
@@ -1733,7 +1717,6 @@ function AppContent() {
               />
             </div>
           </section>
-
           {/* ============================================
             CHARACTER CARD SHOWCASE
             ============================================ */}
@@ -1905,7 +1888,6 @@ function AppContent() {
               />
             </div>
           </section>
-
           {/* ============================================
             STATS WIDGET SHOWCASE
             ============================================ */}
@@ -2131,7 +2113,6 @@ function AppContent() {
               />
             </div>
           </section>
-
           {/* ============================================
             THEME CHANGER SHOWCASE
             ============================================ */}
@@ -2207,7 +2188,6 @@ function AppContent() {
               </p>
             </div>
           </section>
-
           {/* ============================================
             LANGUAGE CHANGER SHOWCASE
             ============================================ */}
@@ -2282,7 +2262,6 @@ function AppContent() {
               </p>
             </div>
           </section>
-
           {/* ============================================
             GRADIENT SHOWCASE
             ============================================ */}
@@ -2305,7 +2284,6 @@ function AppContent() {
               </div>
             </div>
           </section>
-
           {/* ============================================
             EFFECTS SHOWCASE
             ============================================ */}
@@ -2325,7 +2303,6 @@ function AppContent() {
               </div>
             </div>
           </section>
-
           {/* ============================================
             TYPOGRAPHY SHOWCASE
             ============================================ */}
@@ -2353,7 +2330,7 @@ function AppContent() {
           {/* ============================================
             PERSIAN TEXT SHOWCASE
             ============================================ */}
-          <section className="p-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
             <h2 className="text-2xl font-semibold mb-6">
               {t("persian.title")}
             </h2>
@@ -2923,6 +2900,189 @@ function AppContent() {
               <span>💡 {t("sidebar.tip1")}</span>
               <span>⌨️ {t("sidebar.tip2")}</span>
               <span>🔄 {t("sidebar.tip3")}</span>
+            </div>
+          </section>
+
+          {/* ============================================
+            CHECKBOX SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("checkbox.title")}
+            </h2>
+
+            {/* Basic Checkboxes */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("checkbox.basic")}
+              </p>
+              <div className="flex flex-wrap gap-6">
+                <Checkbox label={t("checkbox.unchecked")} />
+                <Checkbox label={t("checkbox.checked")} defaultChecked />
+                <Checkbox
+                  label={t("checkbox.glowChecked")}
+                  defaultChecked
+                  glow
+                />
+              </div>
+            </div>
+
+            {/* Sizes */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("checkbox.sizes")}
+              </p>
+              <div className="flex flex-wrap gap-6 items-center">
+                <Checkbox
+                  size="sm"
+                  label={t("checkbox.small")}
+                  defaultChecked
+                />
+                <Checkbox
+                  size="md"
+                  label={t("checkbox.medium")}
+                  defaultChecked
+                />
+                <Checkbox
+                  size="lg"
+                  label={t("checkbox.large")}
+                  defaultChecked
+                />
+              </div>
+            </div>
+
+            {/* States */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("checkbox.states")}
+              </p>
+              <div className="flex flex-wrap gap-6">
+                <Checkbox label={t("checkbox.normal")} />
+                <Checkbox label={t("checkbox.error")} error />
+                <Checkbox label={t("checkbox.disabled")} disabled />
+                <Checkbox
+                  label={t("checkbox.disabledChecked")}
+                  disabled
+                  defaultChecked
+                />
+              </div>
+            </div>
+
+            {/* RTL Support */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("checkbox.rtlSupport")}
+              </p>
+              <div className="flex flex-wrap gap-6">
+                <div className="glass p-4 rounded-[var(--radius-md)]">
+                  <div className="flex flex-col gap-3">
+                    <Checkbox label={t("checkbox.rtlLabel1")} defaultChecked />
+                    <Checkbox label={t("checkbox.rtlLabel2")} />
+                    <Checkbox
+                      label={t("checkbox.rtlLabel3")}
+                      defaultChecked
+                      glow
+                    />
+                  </div>
+                  <p className="text-xs text-[var(--color-text-tertiary)] mt-3 font-mono">
+                    {t("checkbox.rtlNote")}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Controlled */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("checkbox.controlled")}
+              </p>
+              <div className="flex flex-wrap gap-6">
+                {(() => {
+                  const [controlledChecked, setControlledChecked] =
+                    useState(false);
+                  return (
+                    <div className="flex flex-col gap-3">
+                      <Checkbox
+                        label={t("checkbox.controlledLabel")}
+                        checked={controlledChecked}
+                        onCheckedChange={setControlledChecked}
+                        glow
+                      />
+                      <div className="text-xs text-[var(--color-text-secondary)] font-mono">
+                        {t("checkbox.status")}:{" "}
+                        {controlledChecked ? "✅ Checked" : "⬜ Unchecked"}
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
+                          onClick={() => setControlledChecked(true)}
+                        >
+                          {t("checkbox.check")}
+                        </button>
+                        <button
+                          className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)]"
+                          onClick={() => setControlledChecked(false)}
+                        >
+                          {t("checkbox.uncheck")}
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+            </div>
+
+            {/* Group Example */}
+            <div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("checkbox.group")}
+              </p>
+              <div className="glass p-6 rounded-[var(--radius-md)]">
+                <p className="text-sm font-medium text-[var(--color-text-secondary)] mb-3">
+                  {t("checkbox.groupLabel")}
+                </p>
+                {(() => {
+                  const [groupValues, setGroupValues] = useState({
+                    option1: true,
+                    option2: false,
+                    option3: false,
+                  });
+                  const handleGroupChange =
+                    (key: keyof typeof groupValues) => (checked: boolean) => {
+                      setGroupValues((prev) => ({ ...prev, [key]: checked }));
+                    };
+                  return (
+                    <>
+                      <div className="flex flex-col gap-3">
+                        <Checkbox
+                          label={t("checkbox.groupOption1")}
+                          checked={groupValues.option1}
+                          onCheckedChange={handleGroupChange("option1")}
+                          glow
+                        />
+                        <Checkbox
+                          label={t("checkbox.groupOption2")}
+                          checked={groupValues.option2}
+                          onCheckedChange={handleGroupChange("option2")}
+                        />
+                        <Checkbox
+                          label={t("checkbox.groupOption3")}
+                          checked={groupValues.option3}
+                          onCheckedChange={handleGroupChange("option3")}
+                        />
+                      </div>
+                      <div className="mt-3 text-xs text-[var(--color-text-tertiary)] font-mono">
+                        {t("checkbox.selectedCount")}:{" "}
+                        {
+                          Object.entries(groupValues).filter(([, v]) => v)
+                            .length
+                        }{" "}
+                        of 3
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
             </div>
           </section>
 
