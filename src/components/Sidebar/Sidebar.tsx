@@ -1,5 +1,4 @@
-// src/components/Sidebar/Sidebar.tsx
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 export interface SidebarItem {
   /**
@@ -149,9 +148,10 @@ export interface SidebarProps {
  * Features:
  * - Collapse / expand with Ctrl+B
  * - Icon-only mode when collapsed (labels + group headers hide cleanly)
- * - Footer (logout etc.) keeps only the icon when collapsed – no broken label
- * - Smooth fade transition when switching content panels
- * - Full RTL support
+ * - Footer (logout etc.) keeps only the icon when collapsed
+ * - Smooth fade when switching content panels
+ * - Animated group + nested sub-menu expand/collapse
+ * - Full RTL support (items, chevrons, active bar, brand, footer, borders)
  */
 export const Sidebar: React.FC<SidebarProps> = ({
   brand,
@@ -199,12 +199,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
     new Set(),
   );
 
+  // Live RTL detection (updates when language changes)
   const [isRTL, setIsRTL] = useState(false);
   useEffect(() => {
-    setIsRTL(document.documentElement.dir === "rtl");
+    const updateDir = () => {
+      setIsRTL(document.documentElement.dir === "rtl");
+    };
+    updateDir();
+    const observer = new MutationObserver(updateDir);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["dir"],
+    });
+    return () => observer.disconnect();
   }, []);
 
-  // ------- Content fade animation -------
+  // Content fade animation
   const getActiveContent = useCallback((): React.ReactNode => {
     for (const group of groups) {
       for (const item of group.items) {
@@ -226,27 +236,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   useEffect(() => {
     if (activeContent === displayedContent) return;
-
-    // Fade out
     setContentVisible(false);
     const timer = setTimeout(() => {
       setDisplayedContent(activeContent);
-      // Fade in on next frame
-      requestAnimationFrame(() => {
-        setContentVisible(true);
-      });
+      requestAnimationFrame(() => setContentVisible(true));
     }, 160);
-
     return () => clearTimeout(timer);
   }, [activeContent, displayedContent]);
 
-  // ------- Collapse / expand -------
+  // Collapse / expand
   const toggleCollapse = useCallback(() => {
     if (!collapsible) return;
     const newState = !isCollapsed;
-    if (!isControlledCollapse) {
-      setInternalCollapsed(newState);
-    }
+    if (!isControlledCollapse) setInternalCollapsed(newState);
     onCollapseChange?.(newState);
   }, [collapsible, isCollapsed, isControlledCollapse, onCollapseChange]);
 
@@ -289,14 +291,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [toggleCollapse]);
 
-  // ------- Render helpers -------
+  // Render helpers
   const renderItem = (
     item: SidebarItem,
     depth: number = 0,
     parentId?: string,
   ) => {
     const isActive = activeId === item.id;
-    const hasSubItems = item.subItems && item.subItems.length > 0;
+    const hasSubItems = !!(item.subItems && item.subItems.length > 0);
     const subKey = `${parentId || item.id}-sub`;
     const isSubExpanded = expandedSubItems.has(subKey);
     const depthPadding = isIconOnly ? 0 : depth * 16;
@@ -311,14 +313,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
             className={`
               w-full flex items-center justify-center
               px-2 py-3 rounded-[var(--radius-md)]
-              transition-all duration-180
-              relative
+              transition-all duration-180 relative
               ${
                 item.disabled
                   ? "opacity-40 cursor-not-allowed"
                   : "hover:bg-[var(--color-bg-elevated)]/40 cursor-pointer"
               }
-              ${isActive ? "text-[var(--color-primary)] bg-[var(--color-primary-light)]" : "text-[var(--color-text-secondary)]"}
+              ${
+                isActive
+                  ? "text-[var(--color-primary)] bg-[var(--color-primary-light)]"
+                  : "text-[var(--color-text-secondary)]"
+              }
               group
             `}
             title={item.label}
@@ -369,6 +374,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           disabled={item.disabled}
           className={`
             w-full flex items-center gap-3
+            ${isRTL ? "flex-row-reverse" : ""}
             px-3 py-2.5 rounded-[var(--radius-md)]
             transition-all duration-180
             text-sm font-medium relative
@@ -377,12 +383,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 ? "opacity-40 cursor-not-allowed"
                 : "hover:bg-[var(--color-bg-elevated)]/40 cursor-pointer"
             }
-            ${isActive ? "text-[var(--color-primary)] bg-[var(--color-primary-light)]" : "text-[var(--color-text-secondary)]"}
+            ${
+              isActive
+                ? "text-[var(--color-primary)] bg-[var(--color-primary-light)]"
+                : "text-[var(--color-text-secondary)]"
+            }
             group
           `}
           style={{
-            paddingLeft: isRTL ? `${16}px` : `${16 + depthPadding}px`,
-            paddingRight: isRTL ? `${16 + depthPadding}px` : `${16}px`,
+            paddingInlineStart: `${16 + depthPadding}px`,
+            paddingInlineEnd: "12px",
           }}
           aria-current={isActive ? "page" : undefined}
           aria-disabled={item.disabled}
@@ -417,7 +427,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
               className={`
                 flex-shrink-0 transition-transform duration-250
                 text-[var(--color-text-tertiary)]
-                ${isSubExpanded ? (isRTL ? "-rotate-90" : "rotate-90") : "rotate-0"}
+                ${
+                  isSubExpanded
+                    ? "rotate-90"
+                    : isRTL
+                      ? "rotate-180"
+                      : "rotate-0"
+                }
               `}
             >
               <svg
@@ -447,17 +463,28 @@ export const Sidebar: React.FC<SidebarProps> = ({
           )}
         </button>
 
-        {hasSubItems && isSubExpanded && !isIconOnly && (
+        {/* Nested sub-items – same open/close animation as groups */}
+        {hasSubItems && !isIconOnly && (
           <div
             className={`
-              relative space-y-0.5
-              ${isRTL ? "mr-4 pr-4 border-r" : "ml-4 pl-4 border-l"}
-              border-[var(--color-border-secondary)]
+              overflow-hidden transition-all duration-300 ease-[var(--ease-in-out)]
+              ${isSubExpanded ? "max-h-[9999px] opacity-100" : "max-h-0 opacity-0"}
             `}
           >
-            {item.subItems!.map((subItem) =>
-              renderItem(subItem, depth + 1, item.id),
-            )}
+            <div
+              className={`
+                relative space-y-0.5 py-1
+                ${
+                  isRTL
+                    ? "mr-4 pr-4 border-r border-[var(--color-border-secondary)]"
+                    : "ml-4 pl-4 border-l border-[var(--color-border-secondary)]"
+                }
+              `}
+            >
+              {item.subItems!.map((subItem) =>
+                renderItem(subItem, depth + 1, item.id),
+              )}
+            </div>
           </div>
         )}
       </div>
@@ -499,7 +526,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               {group.label}
             </span>
             <span
-              className={`transition-transform duration-250 ${isExpanded ? "rotate-180" : "rotate-0"}`}
+              className={`transition-transform duration-250 ${
+                isExpanded ? "rotate-180" : "rotate-0"
+              }`}
             >
               <svg
                 className="h-3 w-3"
@@ -531,9 +560,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
     );
   };
 
+  // Outer radius: only the edge that faces the content is rounded
+  const radiusClass = fixed
+    ? ""
+    : isRTL
+      ? "rounded-l-[var(--radius-large)]"
+      : "rounded-r-[var(--radius-large)]";
+
   const positionClasses = fixed
     ? "fixed top-0 z-40"
-    : "relative rounded-[var(--radius-large)] overflow-hidden";
+    : `relative overflow-hidden ${radiusClass}`;
+
+  // direction style forces nested flex (logo+text, icon+label) to mirror
+  const rtlDirection =
+    isRTL && !isCollapsed
+      ? ({ direction: "rtl" } as const)
+      : ({ direction: "ltr" } as const);
 
   return (
     <div
@@ -547,7 +589,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         maxHeight: fixed ? "100%" : height,
       }}
     >
-      {/* ------- Sidebar ------- */}
+      {/* Sidebar */}
       <aside
         className={`
           ${positionClasses}
@@ -556,7 +598,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           backdrop-blur-[20px]
           transition-all duration-300 ease-[var(--ease-in-out)]
           flex flex-col
-          ${isRTL ? "border-l border-r-0" : "border-r"}
+          ${isRTL ? "border-l" : "border-r"}
           border-[var(--color-border-primary)]
           ${fixed ? "" : "shadow-[var(--shadow-float)]"}
         `}
@@ -570,7 +612,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         role="navigation"
         aria-label="Sidebar navigation"
       >
-        {/* Brand */}
+        {/* Brand / logo – direction:rtl mirrors nested flex content */}
         {brand && (
           <div
             className={`
@@ -578,8 +620,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               border-b border-[var(--color-border-primary)]
               min-h-[64px] flex-shrink-0
               ${isCollapsed ? "justify-center px-2" : ""}
-              ${isRTL ? "flex-row-reverse" : ""}
             `}
+            style={rtlDirection}
+            dir={isRTL && !isCollapsed ? "rtl" : "ltr"}
           >
             {brand}
           </div>
@@ -607,21 +650,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {groups.map((group, index) => renderGroup(group, index))}
         </nav>
 
-        {/* Footer + Collapse toggle */}
+        {/* Footer + collapse toggle */}
         <div className="border-t border-[var(--color-border-primary)] flex-shrink-0">
           {footer && (
-            <div
-              className={`
-                p-3
-                ${isCollapsed ? "flex justify-center" : ""}
-              `}
-            >
-              {/* 
-                Collapse-aware wrapper:
-                - When collapsed → force icon-only look on any button inside footer
-                - Hides text nodes / spans that are labels
-                - Centers the remaining icon
-              */}
+            <div className={`p-3 ${isCollapsed ? "flex justify-center" : ""}`}>
               <div
                 className={`
                   w-full
@@ -638,6 +670,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       : ""
                   }
                 `}
+                style={rtlDirection}
+                dir={isRTL && !isCollapsed ? "rtl" : "ltr"}
               >
                 {footer}
               </div>
@@ -658,6 +692,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   hover:bg-[var(--color-bg-elevated)]/40
                   transition-all duration-180 text-sm gap-2
                   ${isCollapsed ? "w-10 h-10 px-0" : "w-full px-3 py-2"}
+                  ${!isCollapsed && isRTL ? "flex-row-reverse" : ""}
                 `}
                 aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
                 title={`${isCollapsed ? "Expand" : "Collapse"} (Ctrl+B)`}
@@ -665,7 +700,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <svg
                   className={`
                     h-4 w-4 flex-shrink-0 transition-transform duration-300
-                    ${isCollapsed ? (isRTL ? "rotate-180" : "rotate-0") : isRTL ? "rotate-0" : "rotate-180"}
+                    ${
+                      isCollapsed
+                        ? isRTL
+                          ? "rotate-180"
+                          : "rotate-0"
+                        : isRTL
+                          ? "rotate-0"
+                          : "rotate-180"
+                    }
                   `}
                   fill="none"
                   viewBox="0 0 24 24"
@@ -675,7 +718,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d={isRTL ? "M15 19l-7-7 7-7" : "M9 5l7 7-7 7"}
+                    d="M9 5l7 7-7 7"
                   />
                 </svg>
                 {!isCollapsed && (
@@ -689,13 +732,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
       </aside>
 
-      {/* ------- Content area with smooth fade ------- */}
+      {/* Content area with smooth fade */}
       {displayedContent != null && (
         <div
-          className={`
-            flex-1 p-6 overflow-y-auto
-            transition-all duration-300 ease-[var(--ease-in-out)]
-          `}
+          className="flex-1 p-6 overflow-y-auto transition-all duration-300 ease-[var(--ease-in-out)]"
           style={{
             height: "100%",
             maxHeight: "100%",
