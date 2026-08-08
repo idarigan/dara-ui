@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 
-export interface CheckboxProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "size"> {
+export interface CheckboxProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "type" | "size"
+> {
   /**
    * Whether the checkbox is checked
    * @default false
@@ -53,7 +55,7 @@ export interface CheckboxProps
  * - Glass styling with theme-aware colors
  * - Smooth check animation with sparkle effect
  * - Glow effect when checked
- * - RTL support (label on right, box on left)
+ * - RTL support via document dir (box on the right, label on the left in RTL)
  * - Controlled and uncontrolled modes
  * - Multiple sizes (sm, md, lg)
  * - Error state support
@@ -79,21 +81,6 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const [internalChecked, setInternalChecked] = useState(defaultChecked);
     const [showSparkles, setShowSparkles] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
-
-    // Determine if RTL
-    const [isRTL, setIsRTL] = useState(false);
-    useEffect(() => {
-      const updateDir = () => {
-        setIsRTL(document.documentElement.dir === "rtl");
-      };
-      updateDir();
-      const observer = new MutationObserver(updateDir);
-      observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ["dir"],
-      });
-      return () => observer.disconnect();
-    }, []);
 
     const checked = isControlled ? controlledChecked : internalChecked;
 
@@ -141,9 +128,10 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const sizeClasses = sizes[size] || sizes.md;
 
     // Glow styles
-    const glowClasses = glow && checked
-      ? "shadow-[var(--shadow-glow-primary)] ring-2 ring-[var(--color-primary)]/30"
-      : "";
+    const glowClasses =
+      glow && checked
+        ? "shadow-[var(--shadow-glow-primary)] ring-2 ring-[var(--color-primary)]/30"
+        : "";
 
     // Error styles
     const errorClasses = error
@@ -198,6 +186,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                   borderRadius: "50%",
                   position: "absolute",
                   transform: `translate(-50%, -50%)`,
+                  // @ts-expect-error CSS custom properties
                   "--angle": `${angle}deg`,
                   "--distance": `${distance}px`,
                   animationDelay: `${delay}s`,
@@ -214,7 +203,6 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         htmlFor={checkboxId}
         className={`
           inline-flex items-center
-          ${isRTL ? "flex-row-reverse" : "flex-row"}
           ${sizeClasses.gap}
           cursor-pointer
           ${disabled ? "opacity-50 cursor-not-allowed" : ""}
@@ -224,15 +212,15 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         {/* Hidden input */}
         <input
           ref={(node) => {
-            // Forward ref
             if (typeof ref === "function") {
               ref(node);
             } else if (ref) {
               (ref as React.MutableRefObject<HTMLInputElement | null>).current =
                 node;
             }
-            (inputRef as React.MutableRefObject<HTMLInputElement | null>)
-              .current = node;
+            (
+              inputRef as React.MutableRefObject<HTMLInputElement | null>
+            ).current = node;
           }}
           id={checkboxId}
           type="checkbox"
@@ -244,7 +232,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           {...props}
         />
 
-        {/* Custom checkbox */}
+        {/* Custom checkbox box – first in DOM so it sits at flex-start
+            (left in LTR, right in RTL when document dir is set) */}
         <div
           className={`
             relative flex-shrink-0
@@ -262,9 +251,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             border
           `}
           style={{
-            boxShadow: checked && glow
-              ? "var(--shadow-glow-primary)"
-              : "none",
+            boxShadow: checked && glow ? "var(--shadow-glow-primary)" : "none",
           }}
         >
           {checked && (
@@ -282,7 +269,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           {checked && showSparkles && <Sparkles />}
         </div>
 
-        {/* Label */}
+        {/* Label – second in DOM, sits after the box in reading direction */}
         {label && (
           <span
             className={`
