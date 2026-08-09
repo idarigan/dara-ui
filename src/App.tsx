@@ -42,6 +42,7 @@ import { translations } from "./translations";
 import "./styles/index.css";
 import StatsWidget from "./components/StatsWidget";
 import Checkbox from "./components/Checkbox";
+import Switch from "./components/Switch";
 
 type Theme = "nightfall" | "daylight" | "dracula";
 
@@ -2326,7 +2327,6 @@ function AppContent() {
               </code>
             </div>
           </section>
-
           {/* ============================================
             PERSIAN TEXT SHOWCASE
             ============================================ */}
@@ -2344,7 +2344,6 @@ function AppContent() {
               </p>
             </div>
           </section>
-
           {/* ============================================
             SIDEBAR SHOWCASE
             ============================================ */}
@@ -2902,7 +2901,6 @@ function AppContent() {
               <span>🔄 {t("sidebar.tip3")}</span>
             </div>
           </section>
-
           {/* ============================================
             CHECKBOX SHOWCASE
             ============================================ */}
@@ -3073,6 +3071,166 @@ function AppContent() {
                       </div>
                       <div className="mt-3 text-xs text-[var(--color-text-tertiary)] font-mono">
                         {t("checkbox.selectedCount")}:{" "}
+                        {
+                          Object.entries(groupValues).filter(([, v]) => v)
+                            .length
+                        }{" "}
+                        of 3
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
+            </div>
+          </section>
+
+          {/* ============================================
+            SWITCH SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">{t("switch.title")}</h2>
+
+            {/* Basic Switches */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("switch.basic")}
+              </p>
+              <div className="flex flex-wrap gap-8">
+                <Switch label={t("switch.off")} />
+                <Switch label={t("switch.on")} defaultChecked />
+                <Switch label={t("switch.glowOn")} defaultChecked glow />
+              </div>
+            </div>
+
+            {/* Sizes */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("switch.sizes")}
+              </p>
+              <div className="flex flex-wrap gap-8 items-end">
+                <Switch size="sm" label={t("switch.small")} defaultChecked />
+                <Switch size="md" label={t("switch.medium")} defaultChecked />
+                <Switch size="lg" label={t("switch.large")} defaultChecked />
+              </div>
+            </div>
+
+            {/* States */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("switch.states")}
+              </p>
+              <div className="flex flex-wrap gap-8">
+                <Switch label={t("switch.normal")} />
+                <Switch label={t("switch.disabledOff")} disabled />
+                <Switch
+                  label={t("switch.disabledOn")}
+                  disabled
+                  defaultChecked
+                />
+              </div>
+            </div>
+
+            {/* RTL Support */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("switch.rtlSupport")}
+              </p>
+              <div className="flex flex-wrap gap-8">
+                <div className="glass p-4 rounded-[var(--radius-md)]">
+                  <div className="flex flex-col gap-4">
+                    <Switch label={t("switch.rtlLabel1")} defaultChecked />
+                    <Switch label={t("switch.rtlLabel2")} />
+                    <Switch label={t("switch.rtlLabel3")} defaultChecked glow />
+                  </div>
+                  <p className="text-xs text-[var(--color-text-tertiary)] mt-3 font-mono">
+                    {t("switch.rtlNote")}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Controlled */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("switch.controlled")}
+              </p>
+              <div className="flex flex-wrap gap-8">
+                {(() => {
+                  const [controlledChecked, setControlledChecked] =
+                    useState(false);
+                  return (
+                    <div className="flex flex-col gap-3">
+                      <Switch
+                        label={t("switch.controlledLabel")}
+                        checked={controlledChecked}
+                        onCheckedChange={setControlledChecked}
+                        glow
+                      />
+                      <div className="text-xs text-[var(--color-text-secondary)] font-mono">
+                        {t("switch.status")}:{" "}
+                        {controlledChecked ? "✅ On" : "⬜ Off"}
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
+                          onClick={() => setControlledChecked(true)}
+                        >
+                          {t("switch.turnOn")}
+                        </button>
+                        <button
+                          className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)]"
+                          onClick={() => setControlledChecked(false)}
+                        >
+                          {t("switch.turnOff")}
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+            </div>
+
+            {/* Group Example */}
+            <div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("switch.group")}
+              </p>
+              <div className="glass p-6 rounded-[var(--radius-md)]">
+                <p className="text-sm font-medium text-[var(--color-text-secondary)] mb-3">
+                  {t("switch.groupLabel")}
+                </p>
+                {(() => {
+                  const [groupValues, setGroupValues] = useState({
+                    option1: true,
+                    option2: false,
+                    option3: false,
+                  });
+                  const handleGroupChange =
+                    (key: keyof typeof groupValues) => (checked: boolean) => {
+                      setGroupValues((prev) => ({ ...prev, [key]: checked }));
+                    };
+                  return (
+                    <>
+                      <div className="flex flex-col gap-4">
+                        <Switch
+                          label={t("switch.groupOption1")}
+                          checked={groupValues.option1}
+                          onCheckedChange={handleGroupChange("option1")}
+                          glow
+                        />
+                        <Switch
+                          label={t("switch.groupOption2")}
+                          checked={groupValues.option2}
+                          onCheckedChange={handleGroupChange("option2")}
+                        />
+                        <Switch
+                          label={t("switch.groupOption3")}
+                          checked={groupValues.option3}
+                          onCheckedChange={handleGroupChange("option3")}
+                        />
+                      </div>
+                      <div className="mt-3 text-xs text-[var(--color-text-tertiary)] font-mono">
+                        {t("switch.enabledCount")}:{" "}
                         {
                           Object.entries(groupValues).filter(([, v]) => v)
                             .length

@@ -37,6 +37,10 @@ export type { ModalProps } from "./components/Modal/Modal";
 export { Checkbox } from "./components/Checkbox/Checkbox";
 export type { CheckboxProps } from "./components/Checkbox/Checkbox";
 
+// ----- Switch -----
+export { Switch } from "./components/Switch/Switch";
+export type { SwitchProps } from "./components/Switch/Switch";
+
 // ----- Layout Components -----
 export { Navbar } from "./components/Navbar";
 export type { NavbarProps, NavLink } from "./components/Navbar";
