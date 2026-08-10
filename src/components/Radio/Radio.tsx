@@ -28,7 +28,7 @@ export interface RadioProps extends Omit<
    */
   size?: "sm" | "md" | "lg";
   /**
-   * If true, adds a glow effect when checked
+   * Glow when checked
    * @default false
    */
   glow?: boolean;
@@ -43,11 +43,11 @@ export interface RadioProps extends Omit<
    */
   disabled?: boolean;
   /**
-   * Value for the radio (used in groups)
+   * Value (required for groups)
    */
   value?: string;
   /**
-   * Name for the radio (used in groups)
+   * Name (shared across a group)
    */
   name?: string;
   /**
@@ -57,17 +57,15 @@ export interface RadioProps extends Omit<
 }
 
 /**
- * Dara UI Radio - Glass-morphism radio button with smooth animations
+ * Dara UI Radio – glass ring + spring dot
  *
  * Features:
- * - Glass styling with theme-aware colors
- * - Smooth check animation with pulse effect
- * - Glow effect when checked
- * - RTL support (label on right, radio on left in RTL)
- * - Controlled and uncontrolled modes
- * - Multiple sizes (sm, md, lg)
- * - Error state support
- * - Group capable via name attribute
+ * - Optimistic UI: visual state flips on click (no wait for parent re-render)
+ * - Glass outer ring, solid center dot
+ * - Fast CSS motion (~100ms)
+ * - Optional glow
+ * - RTL via document dir
+ * - Group-ready with name + value
  */
 export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
@@ -75,6 +73,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       checked: controlledChecked,
       defaultChecked = false,
       onCheckedChange,
+      onChange,
       label,
       size = "md",
       glow = false,
@@ -90,150 +89,93 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   ) => {
     const isControlled = controlledChecked !== undefined;
     const [internalChecked, setInternalChecked] = useState(defaultChecked);
-    const [showPulse, setShowPulse] = useState(false);
+    // Optimistic visual state
+    const [visualChecked, setVisualChecked] = useState(
+      isControlled ? !!controlledChecked : defaultChecked,
+    );
     const inputRef = useRef<HTMLInputElement>(null);
 
-    // Determine if RTL
-    const [isRTL, setIsRTL] = useState(false);
+    // Sync from parent when controlled
     useEffect(() => {
-      const updateDir = () => {
-        setIsRTL(document.documentElement.dir === "rtl");
-      };
-      updateDir();
-      const observer = new MutationObserver(updateDir);
-      observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ["dir"],
-      });
-      return () => observer.disconnect();
-    }, []);
+      if (isControlled) {
+        setVisualChecked(!!controlledChecked);
+      }
+    }, [controlledChecked, isControlled]);
 
-    const checked = isControlled ? controlledChecked : internalChecked;
-
-    // Generate unique ID for label association
     const generatedId = React.useId();
     const radioId = id || generatedId;
 
-    // Handle change
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newChecked = event.target.checked;
-      if (!isControlled) {
-        setInternalChecked(newChecked);
-      }
-      onCheckedChange?.(newChecked);
+      const next = event.target.checked;
 
-      // Trigger pulse animation
-      if (newChecked) {
-        setShowPulse(true);
-        setTimeout(() => setShowPulse(false), 700);
-      }
+      // Paint immediately
+      setVisualChecked(next);
+      if (!isControlled) setInternalChecked(next);
+
+      onCheckedChange?.(next);
+      onChange?.(event);
     };
 
-    // Size mapping
+    useEffect(() => {
+      if (isControlled || !name) return;
+
+      const syncFromDOM = () => {
+        const el = inputRef.current;
+        if (el) setVisualChecked(el.checked);
+      };
+
+      document.addEventListener("change", syncFromDOM, true);
+      return () => document.removeEventListener("change", syncFromDOM, true);
+    }, [isControlled, name]);
+
     const sizes = {
       sm: {
-        radio: "w-4 h-4",
-        dot: "h-2 w-2",
+        ring: "w-4 h-4",
+        dot: "w-1.5 h-1.5",
         label: "text-sm",
         gap: "gap-2",
-        pulseSize: 20,
       },
       md: {
-        radio: "w-5 h-5",
-        dot: "h-2.5 w-2.5",
+        ring: "w-5 h-5",
+        dot: "w-2 h-2",
         label: "text-base",
         gap: "gap-2.5",
-        pulseSize: 24,
       },
       lg: {
-        radio: "w-6 h-6",
-        dot: "h-3 w-3",
+        ring: "w-6 h-6",
+        dot: "w-2.5 h-2.5",
         label: "text-lg",
         gap: "gap-3",
-        pulseSize: 28,
       },
     };
 
-    const sizeClasses = sizes[size] || sizes.md;
-
-    // Glow styles
-    const glowClasses =
-      glow && checked
-        ? "shadow-[var(--shadow-glow-primary)] ring-2 ring-[var(--color-primary)]/30"
-        : "";
-
-    // Error styles
-    const errorClasses = error
-      ? "border-[var(--color-danger)]"
-      : "border-[var(--color-border-primary)]";
-
-    // Radio dot
-    const RadioDot = () => (
-      <div
-        className={`
-          ${sizeClasses.dot}
-          rounded-full
-          bg-[var(--color-primary)]
-          transition-all duration-[var(--transition-med)] ease-[var(--ease-bounce)]
-          ${checked ? "scale-100 opacity-100" : "scale-0 opacity-0"}
-        `}
-      />
-    );
-
-    // Pulse ring animation
-    const PulseRing = () => {
-      const pulseSize = sizeClasses.pulseSize || 20;
-
-      return (
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            animation: "radioPulse 0.7s ease-out forwards",
-          }}
-        >
-          <div
-            className="absolute rounded-full border-2 border-[var(--color-primary)]"
-            style={{
-              width: `${pulseSize}px`,
-              height: `${pulseSize}px`,
-              left: "50%",
-              top: "50%",
-              transform: "translate(-50%, -50%)",
-              animation: "radioPulseRing 0.7s ease-out forwards",
-            }}
-          />
-        </div>
-      );
-    };
+    const s = sizes[size] || sizes.md;
+    const checked = visualChecked;
 
     return (
       <label
         htmlFor={radioId}
         className={`
           inline-flex items-center
-          ${isRTL ? "flex-row-reverse" : "flex-row"}
-          ${sizeClasses.gap}
+          ${s.gap}
           cursor-pointer
           ${disabled ? "opacity-50 cursor-not-allowed" : ""}
           ${className}
         `}
       >
-        {/* Hidden input */}
         <input
           ref={(node) => {
-            if (typeof ref === "function") {
-              ref(node);
-            } else if (ref) {
+            if (typeof ref === "function") ref(node);
+            else if (ref)
               (ref as React.MutableRefObject<HTMLInputElement | null>).current =
                 node;
-            }
             (
               inputRef as React.MutableRefObject<HTMLInputElement | null>
             ).current = node;
           }}
           id={radioId}
           type="radio"
-          checked={checked}
+          checked={isControlled ? controlledChecked : internalChecked}
           onChange={handleChange}
           disabled={disabled}
           value={value}
@@ -243,66 +185,81 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           {...props}
         />
 
-        {/* Custom radio button */}
-        <div
+        {/* Outer ring */}
+        <span
           className={`
             relative flex-shrink-0
-            ${sizeClasses.radio}
+            ${s.ring}
             rounded-full
-            transition-all duration-[var(--transition-med)]
-            ${errorClasses}
-            ${disabled ? "bg-[var(--color-bg-tertiary)]" : ""}
+            flex items-center justify-center
+            border-2
+            transition-[border-color,box-shadow,background-color] duration-100 ease-out
+            ${
+              error
+                ? "border-[var(--color-danger)]"
+                : checked
+                  ? "border-[var(--color-primary)]"
+                  : "border-[var(--color-border-primary)]"
+            }
             ${
               checked
-                ? `bg-[var(--color-primary)] ${glowClasses}`
-                : "bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)]"
+                ? "bg-[var(--color-primary)]/10"
+                : "bg-[var(--color-bg-elevated)]/40 hover:bg-[var(--color-bg-elevated)]/60"
             }
-            flex items-center justify-center
-            border
+            backdrop-blur-[8px]
+            ${
+              glow && checked
+                ? "shadow-[var(--shadow-glow-primary)] ring-2 ring-[var(--color-primary)]/25"
+                : ""
+            }
           `}
-          style={{
-            boxShadow: checked && glow ? "var(--shadow-glow-primary)" : "none",
-          }}
         >
-          <RadioDot />
+          {/* Center dot – short spring */}
+          <span
+            className={`
+              ${s.dot}
+              rounded-full
+              bg-[var(--color-primary)]
+              transition-transform duration-100
+              ease-[cubic-bezier(0.34,1.4,0.64,1)]
+              ${checked ? "scale-100" : "scale-0"}
+            `}
+          />
 
-          {/* Pulse animation */}
-          {checked && showPulse && <PulseRing />}
-        </div>
+          {checked && (
+            <span
+              key={String(checked) + radioId}
+              className="absolute inset-0 rounded-full pointer-events-none radio-pulse-ring"
+              aria-hidden
+            />
+          )}
+        </span>
 
-        {/* Label */}
         {label && (
           <span
             className={`
-              ${sizeClasses.label}
-              text-[var(--color-text-primary)]
+              ${s.label}
               font-sans font-medium
-              ${disabled ? "text-[var(--color-text-tertiary)]" : ""}
+              text-[var(--color-text-primary)]
               select-none
+              ${disabled ? "text-[var(--color-text-tertiary)]" : ""}
             `}
           >
             {label}
           </span>
         )}
 
-        {/* Pulse animation styles */}
         <style>{`
+          .radio-pulse-ring {
+            animation: radioPulse 0.35s ease-out forwards;
+          }
           @keyframes radioPulse {
             0% {
+              box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 40%, transparent);
               opacity: 1;
             }
             100% {
-              opacity: 0;
-            }
-          }
-
-          @keyframes radioPulseRing {
-            0% {
-              transform: translate(-50%, -50%) scale(0.5);
-              opacity: 1;
-            }
-            100% {
-              transform: translate(-50%, -50%) scale(2.5);
+              box-shadow: 0 0 0 8px transparent;
               opacity: 0;
             }
           }
