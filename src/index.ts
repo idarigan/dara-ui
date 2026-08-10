@@ -41,6 +41,10 @@ export type { CheckboxProps } from "./components/Checkbox/Checkbox";
 export { Switch } from "./components/Switch/Switch";
 export type { SwitchProps } from "./components/Switch/Switch";
 
+// ----- Radio -----
+export { Radio } from "./components/Radio/Radio";
+export type { RadioProps } from "./components/Radio/Radio";
+
 // ----- Layout Components -----
 export { Navbar } from "./components/Navbar";
 export type { NavbarProps, NavLink } from "./components/Navbar";

@@ -43,6 +43,7 @@ import "./styles/index.css";
 import StatsWidget from "./components/StatsWidget";
 import Checkbox from "./components/Checkbox";
 import Switch from "./components/Switch";
+import Radio from "./components/Radio";
 
 type Theme = "nightfall" | "daylight" | "dracula";
 
@@ -3372,6 +3373,166 @@ function AppContent() {
                       <div className="mt-3 text-xs text-[var(--color-text-tertiary)] font-mono">
                         {t("switch.enabledCount")}:{" "}
                         {Object.values(vals).filter(Boolean).length} of 3
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
+            </div>
+          </section>
+
+          {/* ============================================
+            RADIO SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">{t("radio.title")}</h2>
+
+            {/* Basic Radios */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("radio.basic")}
+              </p>
+              <div className="flex flex-wrap gap-6">
+                <Radio label={t("radio.unselected")} />
+                <Radio label={t("radio.selected")} defaultChecked />
+                <Radio label={t("radio.glowSelected")} defaultChecked glow />
+              </div>
+            </div>
+
+            {/* Sizes */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("radio.sizes")}
+              </p>
+              <div className="flex flex-wrap gap-6 items-center">
+                <Radio size="sm" label={t("radio.small")} defaultChecked />
+                <Radio size="md" label={t("radio.medium")} defaultChecked />
+                <Radio size="lg" label={t("radio.large")} defaultChecked />
+              </div>
+            </div>
+
+            {/* States */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("radio.states")}
+              </p>
+              <div className="flex flex-wrap gap-6">
+                <Radio label={t("radio.normal")} />
+                <Radio label={t("radio.error")} error />
+                <Radio label={t("radio.disabled")} disabled />
+                <Radio
+                  label={t("radio.disabledChecked")}
+                  disabled
+                  defaultChecked
+                />
+              </div>
+            </div>
+
+            {/* RTL Support */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("radio.rtlSupport")}
+              </p>
+              <div className="flex flex-wrap gap-6">
+                <div className="glass p-4 rounded-[var(--radius-md)]">
+                  <div className="flex flex-col gap-3">
+                    <Radio label={t("radio.rtlLabel1")} defaultChecked />
+                    <Radio label={t("radio.rtlLabel2")} />
+                    <Radio label={t("radio.rtlLabel3")} defaultChecked glow />
+                  </div>
+                  <p className="text-xs text-[var(--color-text-tertiary)] mt-3 font-mono">
+                    {t("radio.rtlNote")}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Controlled */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("radio.controlled")}
+              </p>
+              <div className="flex flex-wrap gap-6">
+                {(() => {
+                  const [controlledChecked, setControlledChecked] =
+                    useState(false);
+                  return (
+                    <div className="flex flex-col gap-3">
+                      <Radio
+                        label={t("radio.controlledLabel")}
+                        checked={controlledChecked}
+                        onCheckedChange={setControlledChecked}
+                        glow
+                      />
+                      <div className="text-xs text-[var(--color-text-secondary)] font-mono">
+                        {t("radio.status")}:{" "}
+                        {controlledChecked ? "✅ Selected" : "⬜ Deselected"}
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
+                          onClick={() => setControlledChecked(true)}
+                        >
+                          {t("radio.select")}
+                        </button>
+                        <button
+                          className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)]"
+                          onClick={() => setControlledChecked(false)}
+                        >
+                          {t("radio.deselect")}
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+            </div>
+
+            {/* Group Example */}
+            <div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("radio.group")}
+              </p>
+              <div className="glass p-6 rounded-[var(--radius-md)]">
+                <p className="text-sm font-medium text-[var(--color-text-secondary)] mb-3">
+                  {t("radio.groupLabel")}
+                </p>
+                {(() => {
+                  const [selected, setSelected] = useState("option1");
+                  return (
+                    <>
+                      <div className="flex flex-col gap-3">
+                        <Radio
+                          label={t("radio.groupOption1")}
+                          name="preference"
+                          value="option1"
+                          checked={selected === "option1"}
+                          onCheckedChange={(checked) => {
+                            if (checked) setSelected("option1");
+                          }}
+                          glow
+                        />
+                        <Radio
+                          label={t("radio.groupOption2")}
+                          name="preference"
+                          value="option2"
+                          checked={selected === "option2"}
+                          onCheckedChange={(checked) => {
+                            if (checked) setSelected("option2");
+                          }}
+                        />
+                        <Radio
+                          label={t("radio.groupOption3")}
+                          name="preference"
+                          value="option3"
+                          checked={selected === "option3"}
+                          onCheckedChange={(checked) => {
+                            if (checked) setSelected("option3");
+                          }}
+                        />
+                      </div>
+                      <div className="mt-3 text-xs text-[var(--color-text-tertiary)] font-mono">
+                        {t("radio.selected")}: {selected}
                       </div>
                     </>
                   );
