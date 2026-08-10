@@ -215,6 +215,102 @@ const ExploreIcon = () => (
   </svg>
 );
 
+const BellIcon = () => (
+  <svg
+    className="h-3 w-3"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+    />
+  </svg>
+);
+
+const BellSlashIcon = () => (
+  <svg
+    className="h-3 w-3"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M9.172 9.172a4 4 0 015.656 5.656M6 11c0-2.21 1.343-4.104 3.26-4.904M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11M4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9M3 3l18 18"
+    />
+  </svg>
+);
+
+const MoonIcon = () => (
+  <svg
+    className="h-3 w-3"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+    />
+  </svg>
+);
+
+const SunIcon = () => (
+  <svg
+    className="h-3 w-3"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+    />
+  </svg>
+);
+
+const VolumeHighIcon = () => (
+  <svg
+    className="h-3 w-3"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M6 10v4h3l4 4V6l-4 4H6z"
+    />
+  </svg>
+);
+
+const VolumeMuteIcon = () => (
+  <svg
+    className="h-3 w-3"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
+    />
+  </svg>
+);
+
 // ============================================
 // Tab items for Tabs demo
 // ============================================
@@ -591,6 +687,7 @@ function AppContent() {
               </Button>
             </div>
           </div>
+
           {/* ============================================
             BADGES SHOWCASE
             ============================================ */}
@@ -686,6 +783,7 @@ function AppContent() {
               </div>
             </div>
           </section>
+
           {/* ============================================
             BUTTONS SHOWCASE
             ============================================ */}
@@ -744,6 +842,7 @@ function AppContent() {
               </Button>
             </div>
           </section>
+
           {/* ============================================
             AVATAR SHOWCASE
             ============================================ */}
@@ -852,6 +951,7 @@ function AppContent() {
               />
             </div>
           </section>
+
           {/* ============================================
             TOOLTIP SHOWCASE
             ============================================ */}
@@ -932,6 +1032,7 @@ function AppContent() {
               </Tooltip>
             </div>
           </section>
+
           {/* ============================================
             TABS SHOWCASE
             ============================================ */}
@@ -944,6 +1045,7 @@ function AppContent() {
               glowColor="primary"
             />
           </section>
+
           {/* ============================================
             ACCORDION SHOWCASE
             ============================================ */}
@@ -1016,6 +1118,7 @@ function AppContent() {
               />
             </div>
           </section>
+
           {/* ============================================
             DROPDOWN SHOWCASE
             ============================================ */}
@@ -1128,6 +1231,7 @@ function AppContent() {
               </div>
             </div>
           </section>
+
           {/* ============================================
             CARDS SHOWCASE
             ============================================ */}
@@ -1227,6 +1331,7 @@ function AppContent() {
               </div>
             </div>
           </section>
+
           {/* ============================================
             INPUT SHOWCASE
             ============================================ */}
@@ -1302,6 +1407,7 @@ function AppContent() {
               </div>
             </div>
           </section>
+
           {/* ============================================
             MODAL SHOWCASE
             ============================================ */}
@@ -1329,6 +1435,7 @@ function AppContent() {
               {t("modal.modalDescription")}
             </Modal>
           </section>
+
           {/* ============================================
             TOAST SHOWCASE
             ============================================ */}
@@ -1339,6 +1446,7 @@ function AppContent() {
             </p>
             <ToastDemo />
           </section>
+
           {/* ============================================
             PROGRESS SHOWCASE
             ============================================ */}
@@ -1575,6 +1683,7 @@ function AppContent() {
               </div>
             </div>
           </section>
+
           {/* ============================================
             XPBAR SHOWCASE
             ============================================ */}
@@ -1636,6 +1745,7 @@ function AppContent() {
               />
             </div>
           </section>
+
           {/* ============================================
             GLOW SHOWCASE
             ============================================ */}
@@ -1653,6 +1763,7 @@ function AppContent() {
               </Button>
             </div>
           </section>
+
           {/* ============================================
             QUEST CARD SHOWCASE
             ============================================ */}
@@ -1718,6 +1829,7 @@ function AppContent() {
               />
             </div>
           </section>
+
           {/* ============================================
             CHARACTER CARD SHOWCASE
             ============================================ */}
@@ -1889,6 +2001,7 @@ function AppContent() {
               />
             </div>
           </section>
+
           {/* ============================================
             STATS WIDGET SHOWCASE
             ============================================ */}
@@ -2114,6 +2227,7 @@ function AppContent() {
               />
             </div>
           </section>
+
           {/* ============================================
             THEME CHANGER SHOWCASE
             ============================================ */}
@@ -2189,6 +2303,7 @@ function AppContent() {
               </p>
             </div>
           </section>
+
           {/* ============================================
             LANGUAGE CHANGER SHOWCASE
             ============================================ */}
@@ -2263,6 +2378,7 @@ function AppContent() {
               </p>
             </div>
           </section>
+
           {/* ============================================
             GRADIENT SHOWCASE
             ============================================ */}
@@ -2285,6 +2401,7 @@ function AppContent() {
               </div>
             </div>
           </section>
+
           {/* ============================================
             EFFECTS SHOWCASE
             ============================================ */}
@@ -2304,6 +2421,7 @@ function AppContent() {
               </div>
             </div>
           </section>
+
           {/* ============================================
             TYPOGRAPHY SHOWCASE
             ============================================ */}
@@ -2327,6 +2445,7 @@ function AppContent() {
               </code>
             </div>
           </section>
+
           {/* ============================================
             PERSIAN TEXT SHOWCASE
             ============================================ */}
@@ -2344,6 +2463,7 @@ function AppContent() {
               </p>
             </div>
           </section>
+
           {/* ============================================
             SIDEBAR SHOWCASE
             ============================================ */}
@@ -2901,6 +3021,7 @@ function AppContent() {
               <span>🔄 {t("sidebar.tip3")}</span>
             </div>
           </section>
+
           {/* ============================================
             CHECKBOX SHOWCASE
             ============================================ */}
@@ -3090,7 +3211,7 @@ function AppContent() {
           <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
             <h2 className="text-2xl font-semibold mb-6">{t("switch.title")}</h2>
 
-            {/* Basic Switches */}
+            {/* Basic */}
             <div className="mb-6">
               <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
                 {t("switch.basic")}
@@ -3114,6 +3235,33 @@ function AppContent() {
               </div>
             </div>
 
+            {/* With icons (optional) */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                With icons
+              </p>
+              <div className="flex flex-wrap gap-8">
+                <Switch
+                  label="Notifications"
+                  defaultChecked
+                  glow
+                  onIcon={<BellIcon />}
+                  offIcon={<BellSlashIcon />}
+                />
+                <Switch
+                  label="Dark mode"
+                  onIcon={<MoonIcon />}
+                  offIcon={<SunIcon />}
+                />
+                <Switch
+                  label="Sound"
+                  defaultChecked
+                  onIcon={<VolumeHighIcon />}
+                  offIcon={<VolumeMuteIcon />}
+                />
+              </div>
+            </div>
+
             {/* States */}
             <div className="mb-6">
               <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
@@ -3130,22 +3278,20 @@ function AppContent() {
               </div>
             </div>
 
-            {/* RTL Support */}
+            {/* RTL */}
             <div className="mb-6">
               <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
                 {t("switch.rtlSupport")}
               </p>
-              <div className="flex flex-wrap gap-8">
-                <div className="glass p-4 rounded-[var(--radius-md)]">
-                  <div className="flex flex-col gap-4">
-                    <Switch label={t("switch.rtlLabel1")} defaultChecked />
-                    <Switch label={t("switch.rtlLabel2")} />
-                    <Switch label={t("switch.rtlLabel3")} defaultChecked glow />
-                  </div>
-                  <p className="text-xs text-[var(--color-text-tertiary)] mt-3 font-mono">
-                    {t("switch.rtlNote")}
-                  </p>
+              <div className="glass p-4 rounded-[var(--radius-md)] inline-block">
+                <div className="flex flex-col gap-4">
+                  <Switch label={t("switch.rtlLabel1")} defaultChecked glow />
+                  <Switch label={t("switch.rtlLabel2")} />
+                  <Switch label={t("switch.rtlLabel3")} defaultChecked />
                 </div>
+                <p className="text-xs text-[var(--color-text-tertiary)] mt-3 font-mono">
+                  {t("switch.rtlNote")}
+                </p>
               </div>
             </div>
 
@@ -3154,43 +3300,39 @@ function AppContent() {
               <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
                 {t("switch.controlled")}
               </p>
-              <div className="flex flex-wrap gap-8">
-                {(() => {
-                  const [controlledChecked, setControlledChecked] =
-                    useState(false);
-                  return (
-                    <div className="flex flex-col gap-3">
-                      <Switch
-                        label={t("switch.controlledLabel")}
-                        checked={controlledChecked}
-                        onCheckedChange={setControlledChecked}
-                        glow
-                      />
-                      <div className="text-xs text-[var(--color-text-secondary)] font-mono">
-                        {t("switch.status")}:{" "}
-                        {controlledChecked ? "✅ On" : "⬜ Off"}
-                      </div>
-                      <div className="flex gap-2">
-                        <button
-                          className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
-                          onClick={() => setControlledChecked(true)}
-                        >
-                          {t("switch.turnOn")}
-                        </button>
-                        <button
-                          className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-elevated)]"
-                          onClick={() => setControlledChecked(false)}
-                        >
-                          {t("switch.turnOff")}
-                        </button>
-                      </div>
+              {(() => {
+                const [on, setOn] = useState(false);
+                return (
+                  <div className="flex flex-col gap-3">
+                    <Switch
+                      label={t("switch.controlledLabel")}
+                      checked={on}
+                      onCheckedChange={setOn}
+                      glow
+                    />
+                    <div className="text-xs text-[var(--color-text-secondary)] font-mono">
+                      {t("switch.status")}: {on ? "✅ On" : "⬜ Off"}
                     </div>
-                  );
-                })()}
-              </div>
+                    <div className="flex gap-2">
+                      <button
+                        className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary)] text-white"
+                        onClick={() => setOn(true)}
+                      >
+                        {t("switch.turnOn")}
+                      </button>
+                      <button
+                        className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)]"
+                        onClick={() => setOn(false)}
+                      >
+                        {t("switch.turnOff")}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
 
-            {/* Group Example */}
+            {/* Group */}
             <div>
               <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
                 {t("switch.group")}
@@ -3200,42 +3342,36 @@ function AppContent() {
                   {t("switch.groupLabel")}
                 </p>
                 {(() => {
-                  const [groupValues, setGroupValues] = useState({
+                  const [vals, setVals] = useState({
                     option1: true,
                     option2: false,
                     option3: false,
                   });
-                  const handleGroupChange =
-                    (key: keyof typeof groupValues) => (checked: boolean) => {
-                      setGroupValues((prev) => ({ ...prev, [key]: checked }));
-                    };
+                  const set = (key: keyof typeof vals) => (v: boolean) =>
+                    setVals((p) => ({ ...p, [key]: v }));
                   return (
                     <>
                       <div className="flex flex-col gap-4">
                         <Switch
                           label={t("switch.groupOption1")}
-                          checked={groupValues.option1}
-                          onCheckedChange={handleGroupChange("option1")}
+                          checked={vals.option1}
+                          onCheckedChange={set("option1")}
                           glow
                         />
                         <Switch
                           label={t("switch.groupOption2")}
-                          checked={groupValues.option2}
-                          onCheckedChange={handleGroupChange("option2")}
+                          checked={vals.option2}
+                          onCheckedChange={set("option2")}
                         />
                         <Switch
                           label={t("switch.groupOption3")}
-                          checked={groupValues.option3}
-                          onCheckedChange={handleGroupChange("option3")}
+                          checked={vals.option3}
+                          onCheckedChange={set("option3")}
                         />
                       </div>
                       <div className="mt-3 text-xs text-[var(--color-text-tertiary)] font-mono">
                         {t("switch.enabledCount")}:{" "}
-                        {
-                          Object.entries(groupValues).filter(([, v]) => v)
-                            .length
-                        }{" "}
-                        of 3
+                        {Object.values(vals).filter(Boolean).length} of 3
                       </div>
                     </>
                   );

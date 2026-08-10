@@ -55,13 +55,62 @@ export const WithGlow: Story = {
   },
 };
 
+// ----- With Custom Icons -----
+export const WithCustomIcons: Story = {
+  render: () => {
+    const PlayIcon = () => (
+      <svg
+        className="h-3 w-3"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <polygon points="5 3 19 12 5 21 5 3" />
+      </svg>
+    );
+    const PauseIcon = () => (
+      <svg
+        className="h-3 w-3"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="6" y="4" width="4" height="16" />
+        <rect x="14" y="4" width="4" height="16" />
+      </svg>
+    );
+
+    return (
+      <div className="flex flex-col gap-4">
+        <Switch
+          label="Play/Pause"
+          onIcon={<PlayIcon />}
+          offIcon={<PauseIcon />}
+          defaultChecked
+        />
+        <Switch
+          label="Music on/off"
+          onIcon={<PlayIcon />}
+          offIcon={<PauseIcon />}
+        />
+      </div>
+    );
+  },
+};
+
 // ----- Sizes -----
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
-      <Switch size="sm" label="Small" defaultChecked />
-      <Switch size="md" label="Medium" defaultChecked />
-      <Switch size="lg" label="Large" defaultChecked />
+      <Switch size="sm" label="Small" defaultChecked glow />
+      <Switch size="md" label="Medium" defaultChecked glow />
+      <Switch size="lg" label="Large" defaultChecked glow />
     </div>
   ),
 };
@@ -69,13 +118,12 @@ export const Sizes: Story = {
 // ----- RTL Support -----
 export const RTLSupport: Story = {
   render: () => {
-    // Set RTL for demo
     document.documentElement.dir = "rtl";
     document.documentElement.lang = "fa";
 
     return (
       <div className="flex flex-col gap-4">
-        <Switch label="فعال سازی حالت شب" defaultChecked />
+        <Switch label="فعال سازی حالت شب" defaultChecked glow />
         <Switch label="فعال کردن اعلان‌ها" />
         <Switch label="حالت خودکار" defaultChecked glow />
       </div>

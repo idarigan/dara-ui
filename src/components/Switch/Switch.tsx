@@ -1,3 +1,4 @@
+// src/components/Switch/Switch.tsx
 import React, { useState, useRef, useEffect } from "react";
 
 export interface SwitchProps extends Omit<
@@ -19,7 +20,7 @@ export interface SwitchProps extends Omit<
    */
   onCheckedChange?: (checked: boolean) => void;
   /**
-   * Label text for the switch (appears above)
+   * Label text – always rendered above the switch
    */
   label?: string;
   /**
@@ -28,7 +29,7 @@ export interface SwitchProps extends Omit<
    */
   size?: "sm" | "md" | "lg";
   /**
-   * If true, adds a glow effect when checked
+   * Glow effect when checked
    * @default false
    */
   glow?: boolean;
@@ -38,21 +39,30 @@ export interface SwitchProps extends Omit<
    */
   disabled?: boolean;
   /**
-   * Additional className
+   * Optional icon shown inside the thumb when ON
+   */
+  onIcon?: React.ReactNode;
+  /**
+   * Optional icon shown inside the thumb when OFF
+   */
+  offIcon?: React.ReactNode;
+  /**
+   * Additional className for the outer wrapper
    */
   className?: string;
 }
 
 /**
- * Dara UI Switch - Toggle switch with glass styling and sparkle animation
+ * Dara UI Switch – glassmorphism toggle
  *
  * Features:
- * - Glass styling with theme-aware colors
- * - Smooth toggle animation with sparkle effect on turn on
- * - Glow effect when checked
- * - RTL support (label stays above, switch mirrors direction)
- * - Controlled and uncontrolled modes
- * - Multiple sizes (sm, md, lg)
+ * - Glass track + elevated thumb
+ * - Thumb overhangs the track when ON
+ * - Sparkle burst only when turning on
+ * - Optional glow
+ * - Optional on/off icons (none by default)
+ * - Label always above, inherits document dir
+ * - Full RTL mirroring (thumb travels the opposite way)
  */
 export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
   (
@@ -64,6 +74,8 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       size = "md",
       glow = false,
       disabled = false,
+      onIcon,
+      offIcon,
       className = "",
       id,
       ...props
@@ -75,7 +87,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
     const [showSparkles, setShowSparkles] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    // Determine if RTL
+    // Live RTL detection
     const [isRTL, setIsRTL] = useState(false);
     useEffect(() => {
       const updateDir = () => {
@@ -92,255 +104,253 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
 
     const checked = isControlled ? controlledChecked : internalChecked;
 
-    // Generate unique ID for label association
     const generatedId = React.useId();
     const switchId = id || generatedId;
 
-    // Handle change
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newChecked = event.target.checked;
-      if (!isControlled) {
-        setInternalChecked(newChecked);
-      }
-      onCheckedChange?.(newChecked);
+      const next = event.target.checked;
+      if (!isControlled) setInternalChecked(next);
+      onCheckedChange?.(next);
 
-      // Trigger sparkle animation only when turning on
-      if (newChecked) {
+      if (next) {
         setShowSparkles(true);
-        setTimeout(() => setShowSparkles(false), 800);
+        setTimeout(() => setShowSparkles(false), 700);
       }
     };
 
-    // Size mapping
+    // Size tokens – thumb slightly larger than track height so it can overhang
     const sizes = {
       sm: {
-        track: "w-9 h-5",
-        thumb: "w-4 h-4",
-        thumbOffset: "translate-x-4",
-        thumbOffOffset: "translate-x-0",
-        label: "text-sm",
+        track: "w-10 h-5",
+        thumb: "w-5 h-5",
+        travel: 22,
+        label: "text-xs",
+        icon: "text-[10px]",
         gap: "gap-1.5",
       },
       md: {
-        track: "w-11 h-6",
-        thumb: "w-5 h-5",
-        thumbOffset: "translate-x-5",
-        thumbOffOffset: "translate-x-0",
-        label: "text-base",
+        track: "w-12 h-6",
+        thumb: "w-6 h-6",
+        travel: 26,
+        label: "text-sm",
+        icon: "text-xs",
         gap: "gap-2",
       },
       lg: {
-        track: "w-14 h-7",
-        thumb: "w-6 h-6",
-        thumbOffset: "translate-x-7",
-        thumbOffOffset: "translate-x-0",
-        label: "text-lg",
+        track: "w-16 h-8",
+        thumb: "w-8 h-8",
+        travel: 36,
+        label: "text-base",
+        icon: "text-sm",
         gap: "gap-2.5",
       },
     };
 
-    const sizeClasses = sizes[size] || sizes.md;
+    const s = sizes[size] || sizes.md;
 
-    // Glow styles
-    const glowClasses =
-      glow && checked
-        ? "shadow-[var(--shadow-glow-primary)] ring-2 ring-[var(--color-primary)]/30"
-        : "";
-
-    // Track styles
-    const trackClasses = checked
-      ? `bg-[var(--color-primary)] ${glowClasses}`
-      : "bg-[var(--color-bg-tertiary)]";
-
-    // Thumb position - RTL aware (switch direction mirrors in RTL)
-    const getThumbTranslate = () => {
-      if (checked) {
-        // In RTL, the thumb moves left (negative direction)
-        return isRTL ? "-translate-x-full" : sizeClasses.thumbOffset;
-      }
-      return sizeClasses.thumbOffOffset;
-    };
-
-    // Checkmark icon for thumb
-    const CheckIcon = () => (
-      <svg
-        className={`${sizeClasses.thumb === "w-4 h-4" ? "h-2.5 w-2.5" : sizeClasses.thumb === "w-5 h-5" ? "h-3 w-3" : "h-3.5 w-3.5"} text-[var(--color-text-inverse)]`}
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={3}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <polyline points="20 6 9 17 4 12" />
-      </svg>
-    );
-
-    // Cross icon for thumb (when off)
-    const CrossIcon = () => (
-      <svg
-        className={`${sizeClasses.thumb === "w-4 h-4" ? "h-2.5 w-2.5" : sizeClasses.thumb === "w-5 h-5" ? "h-3 w-3" : "h-3.5 w-3.5"} text-[var(--color-text-tertiary)]`}
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2.5}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    );
-
-    // Sparkle particles
-    const Sparkles = () => {
-      const colors = [
-        "var(--color-primary)",
-        "var(--color-secondary)",
-        "var(--color-accent)",
-        "var(--color-success)",
-        "#ffffff",
-      ];
-      const particles = 12;
-
-      return (
-        <div className="absolute inset-0 pointer-events-none overflow-visible">
-          {Array.from({ length: particles }).map((_, i) => {
-            const angle = (i / particles) * 360 + Math.random() * 30;
-            const distance = 12 + Math.random() * 20;
-            const size = 2 + Math.random() * 3;
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            const delay = Math.random() * 0.15;
-
-            return (
-              <div
-                key={i}
-                className="switch-sparkle"
-                style={{
-                  left: "50%",
-                  top: "50%",
-                  width: `${size}px`,
-                  height: `${size}px`,
-                  backgroundColor: color,
-                  borderRadius: "50%",
-                  position: "absolute",
-                  transform: `translate(-50%, -50%)`,
-                  "--angle": `${angle}deg`,
-                  "--distance": `${distance}px`,
-                  animationDelay: `${delay}s`,
-                }}
-              />
-            );
-          })}
-        </div>
-      );
-    };
+    // LTR: OFF near left, ON past right edge
+    // RTL: OFF near right, ON past left edge
+    const thumbX = checked ? (isRTL ? -s.travel : s.travel) : 2;
 
     return (
       <div
         className={`
-          inline-flex flex-col
-          ${sizeClasses.gap}
+          inline-flex flex-col items-start
+          ${s.gap}
+          ${disabled ? "opacity-50 pointer-events-none" : ""}
           ${className}
         `}
       >
-        {/* Label - always above the switch */}
+        {/* Label – always above */}
         {label && (
           <label
             htmlFor={switchId}
             className={`
-              ${sizeClasses.label}
-              text-[var(--color-text-primary)]
+              ${s.label}
               font-sans font-medium
-              ${disabled ? "text-[var(--color-text-tertiary)]" : ""}
+              text-[var(--color-text-primary)]
               select-none
-              ${isRTL ? "text-right" : "text-left"}
+              cursor-pointer
             `}
           >
             {label}
           </label>
         )}
 
-        {/* Switch container */}
         <label
           htmlFor={switchId}
           className={`
-            inline-flex items-center
+            relative inline-flex items-center
             cursor-pointer
-            ${disabled ? "opacity-50 cursor-not-allowed" : ""}
+            ${disabled ? "cursor-not-allowed" : ""}
           `}
         >
-          {/* Hidden input */}
           <input
             ref={(node) => {
-              if (typeof ref === "function") {
-                ref(node);
-              } else if (ref) {
+              if (typeof ref === "function") ref(node);
+              else if (ref)
                 (
                   ref as React.MutableRefObject<HTMLInputElement | null>
                 ).current = node;
-              }
               (
                 inputRef as React.MutableRefObject<HTMLInputElement | null>
               ).current = node;
             }}
             id={switchId}
             type="checkbox"
+            role="switch"
             checked={checked}
             onChange={handleChange}
             disabled={disabled}
             className="sr-only"
+            aria-checked={checked}
             {...props}
           />
 
-          {/* Custom switch track */}
+          {/* Track */}
           <div
             className={`
               relative flex-shrink-0
-              ${sizeClasses.track}
+              ${s.track}
               rounded-full
-              transition-all duration-[var(--transition-med)]
-              ${trackClasses}
-              ${disabled ? "bg-[var(--color-bg-tertiary)]" : ""}
-              flex items-center
-              border border-[var(--color-border-primary)]
-              ${checked ? "border-[var(--color-primary)]" : ""}
+              overflow-visible
+              transition-all duration-300 ease-[var(--ease-in-out)]
+              border
+              ${
+                checked
+                  ? `
+                    bg-[var(--color-primary)]/25
+                    border-[var(--color-primary)]/50
+                    backdrop-blur-[12px]
+                  `
+                  : `
+                    bg-[var(--color-bg-elevated)]/40
+                    border-[var(--color-border-primary)]
+                    backdrop-blur-[10px]
+                  `
+              }
+              ${
+                glow && checked
+                  ? "shadow-[var(--shadow-glow-primary)] ring-2 ring-[var(--color-primary)]/25"
+                  : "shadow-[var(--shadow-float)]"
+              }
             `}
             style={{
               boxShadow:
-                checked && glow ? "var(--shadow-glow-primary)" : "none",
+                glow && checked ? "var(--shadow-glow-primary)" : undefined,
             }}
           >
-            {/* Thumb */}
+            {/* Soft inner highlight */}
             <div
               className={`
-                ${sizeClasses.thumb}
-                rounded-full
-                bg-white
-                shadow-md
-                transition-all duration-[var(--transition-med)] ease-[var(--ease-bounce)]
-                ${getThumbTranslate()}
-                flex items-center justify-center
-                relative
-                ${checked ? "bg-white" : "bg-white"}
+                absolute inset-0 rounded-full pointer-events-none
+                transition-opacity duration-300
+                ${checked ? "opacity-100" : "opacity-40"}
               `}
               style={{
-                transform: `translateX(${checked ? (isRTL ? "-100%" : "100%") : "0%"})`,
+                background:
+                  "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 55%)",
+              }}
+            />
+
+            {/* Thumb – vertical center only via inline transform (no Tailwind conflict) */}
+            <div
+              className={`
+                absolute
+                ${s.thumb}
+                rounded-full
+                flex items-center justify-center
+                transition-transform duration-350
+                ease-[cubic-bezier(0.34,1.56,0.64,1)]
+                ${
+                  checked
+                    ? `
+                      bg-white
+                      shadow-[0_2px_12px_rgba(0,0,0,0.25),0_0_0_1px_rgba(255,255,255,0.4)]
+                    `
+                    : `
+                      bg-[var(--color-bg-secondary)]
+                      shadow-[0_2px_8px_rgba(0,0,0,0.2),0_0_0_1px_var(--color-border-primary)]
+                    `
+                }
+              `}
+              style={{
+                top: "50%",
+                [isRTL ? "right" : "left"]: 0,
+                // single transform source of truth → always vertically centered
+                transform: `translateY(-50%) translateX(${thumbX}px)`,
               }}
             >
-              {checked ? <CheckIcon /> : <CrossIcon />}
+              {checked && onIcon && (
+                <span
+                  className={`
+                    ${s.icon}
+                    flex items-center justify-center leading-none
+                    text-[var(--color-primary)]
+                  `}
+                >
+                  {onIcon}
+                </span>
+              )}
+              {!checked && offIcon && (
+                <span
+                  className={`
+                    ${s.icon}
+                    flex items-center justify-center leading-none
+                    text-[var(--color-text-tertiary)]
+                  `}
+                >
+                  {offIcon}
+                </span>
+              )}
             </div>
 
-            {/* Sparkle animation */}
-            {checked && showSparkles && <Sparkles />}
+            {/* Sparkles */}
+            {checked && showSparkles && (
+              <div className="absolute inset-0 pointer-events-none overflow-visible">
+                {Array.from({ length: 10 }).map((_, i) => {
+                  const angle = (i / 10) * 360 + Math.random() * 24;
+                  const distance = 14 + Math.random() * 18;
+                  const particleSize = 2 + Math.random() * 2.5;
+                  const colors = [
+                    "var(--color-primary)",
+                    "var(--color-secondary)",
+                    "var(--color-accent)",
+                    "#ffffff",
+                  ];
+                  const color =
+                    colors[Math.floor(Math.random() * colors.length)];
+                  const delay = Math.random() * 0.12;
+
+                  return (
+                    <div
+                      key={i}
+                      className="switch-sparkle"
+                      style={{
+                        position: "absolute",
+                        left: isRTL ? "20%" : "80%",
+                        top: "50%",
+                        width: `${particleSize}px`,
+                        height: `${particleSize}px`,
+                        backgroundColor: color,
+                        borderRadius: "50%",
+                        // @ts-expect-error CSS custom properties
+                        "--angle": `${angle}deg`,
+                        "--distance": `${distance}px`,
+                        animationDelay: `${delay}s`,
+                      }}
+                    />
+                  );
+                })}
+              </div>
+            )}
           </div>
         </label>
 
-        {/* Sparkle animation styles */}
         <style>{`
           .switch-sparkle {
-            animation: switchSparkleBurst 0.7s ease-out forwards;
+            animation: switchSparkleBurst 0.65s ease-out forwards;
           }
-
           @keyframes switchSparkleBurst {
             0% {
               transform: translate(-50%, -50%) scale(1);
