@@ -31,6 +31,11 @@ import type { NavLink } from "./components/Navbar";
 import { SocialMedia } from "./components/SocialMedia";
 import { Sidebar } from "./components/Sidebar";
 import useDirection from "./hooks/useDirection";
+import StatsWidget from "./components/StatsWidget";
+import Checkbox from "./components/Checkbox";
+import Switch from "./components/Switch";
+import Radio from "./components/Radio";
+import { Range } from "./components/Range/Range";
 
 import {
   I18nProvider,
@@ -45,10 +50,6 @@ import { GradientRing } from "./components/GradientRing/GradientRing";
 import { NoiseOverlay } from "./components/NoiseOverlay/NoiseOverlay";
 
 import "./styles/index.css";
-import StatsWidget from "./components/StatsWidget";
-import Checkbox from "./components/Checkbox";
-import Switch from "./components/Switch";
-import Radio from "./components/Radio";
 
 type Theme = "nightfall" | "daylight" | "dracula";
 
@@ -3600,6 +3601,288 @@ function AppContent() {
                   {t("radio.rtlNote")}
                 </p>
               </div>
+            </div>
+          </section>
+
+          {/* ============================================
+            RANGE SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">{t("range.title")}</h2>
+
+            {/* Basic */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("range.basic")}
+              </p>
+              <div className="flex flex-col gap-6 max-w-md">
+                <Range defaultValue={65} label={t("range.volume")} suffix="%" />
+                <Range
+                  defaultValue={42}
+                  label={t("range.brightness")}
+                  suffix="%"
+                  color="secondary"
+                />
+                <Range
+                  defaultValue={80}
+                  label={t("range.contrast")}
+                  suffix="%"
+                  color="accent"
+                />
+              </div>
+            </div>
+
+            {/* Colors */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("range.colors")}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
+                <Range
+                  defaultValue={50}
+                  color="primary"
+                  label={t("range.primary")}
+                  suffix="%"
+                />
+                <Range
+                  defaultValue={50}
+                  color="secondary"
+                  label={t("range.secondary")}
+                  suffix="%"
+                />
+                <Range
+                  defaultValue={50}
+                  color="accent"
+                  label={t("range.accent")}
+                  suffix="%"
+                />
+                <Range
+                  defaultValue={50}
+                  color="success"
+                  label={t("range.success")}
+                  suffix="%"
+                />
+                <Range
+                  defaultValue={50}
+                  color="danger"
+                  label={t("range.danger")}
+                  suffix="%"
+                />
+                <Range
+                  defaultValue={50}
+                  color="warning"
+                  label={t("range.warning")}
+                  suffix="%"
+                />
+              </div>
+            </div>
+
+            {/* Sizes */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("range.sizes")}
+              </p>
+              <div className="flex flex-col gap-4 max-w-md">
+                <Range
+                  defaultValue={50}
+                  size="sm"
+                  label={t("range.small")}
+                  suffix="%"
+                />
+                <Range
+                  defaultValue={65}
+                  size="md"
+                  label={t("range.medium")}
+                  suffix="%"
+                />
+                <Range
+                  defaultValue={80}
+                  size="lg"
+                  label={t("range.large")}
+                  suffix="%"
+                />
+              </div>
+            </div>
+
+            {/* Custom Suffix/Prefix */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("range.customUnits")}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
+                <Range
+                  defaultValue={75}
+                  suffix="px"
+                  label={t("range.pixels")}
+                  color="secondary"
+                />
+                <Range
+                  defaultValue={99}
+                  prefix="$"
+                  suffix=""
+                  label={t("range.price")}
+                  color="success"
+                />
+                <Range
+                  defaultValue={1500}
+                  prefix="تومان "
+                  suffix=""
+                  label={t("range.rial")}
+                  color="accent"
+                />
+                <Range
+                  defaultValue={42}
+                  suffix="°C"
+                  label={t("range.temperature")}
+                  color="warning"
+                />
+              </div>
+            </div>
+
+            {/* Value Positions */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("range.valuePositions")}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
+                <Range
+                  defaultValue={50}
+                  valuePosition="left"
+                  label={t("range.left")}
+                  suffix="%"
+                />
+                <Range
+                  defaultValue={50}
+                  valuePosition="right"
+                  label={t("range.right")}
+                  suffix="%"
+                />
+                <Range
+                  defaultValue={50}
+                  valuePosition="top"
+                  label={t("range.top")}
+                  suffix="%"
+                />
+                <Range
+                  defaultValue={50}
+                  valuePosition="bottom"
+                  label={t("range.bottom")}
+                  suffix="%"
+                />
+              </div>
+            </div>
+
+            {/* Sparkle at Max */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("range.sparkleAtMax")}
+              </p>
+              <div className="flex flex-col gap-4 max-w-md">
+                <Range
+                  defaultValue={95}
+                  label={t("range.almostMax")}
+                  suffix="%"
+                  color="primary"
+                />
+                <Range
+                  defaultValue={100}
+                  label={t("range.atMax")}
+                  suffix="%"
+                  color="success"
+                />
+              </div>
+              <p className="text-xs text-[var(--color-text-tertiary)] mt-2 font-mono">
+                ✨ {t("range.sparkleNote")}
+              </p>
+            </div>
+
+            {/* Without Glow */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("range.withoutGlow")}
+              </p>
+              <div className="flex flex-col gap-4 max-w-md">
+                <Range
+                  defaultValue={60}
+                  glow={false}
+                  label={t("range.noGlow")}
+                  suffix="%"
+                />
+                <Range
+                  defaultValue={75}
+                  glow={false}
+                  label={t("range.noGlow2")}
+                  suffix="%"
+                  color="secondary"
+                />
+              </div>
+            </div>
+
+            {/* Controlled */}
+            <div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("range.controlled")}
+              </p>
+              {(() => {
+                const [controlledValue, setControlledValue] = useState(50);
+                const [finalValue, setFinalValue] = useState(50);
+
+                return (
+                  <div className="flex flex-col gap-4 max-w-md">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                        {t("range.liveValue")}:{" "}
+                        <span className="text-[var(--color-primary)] font-bold">
+                          {controlledValue}%
+                        </span>
+                      </span>
+                      <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
+                        {t("range.finalValue")}:{" "}
+                        <span className="text-[var(--color-secondary)] font-bold">
+                          {finalValue}%
+                        </span>
+                      </span>
+                    </div>
+                    <Range
+                      value={controlledValue}
+                      onChange={setControlledValue}
+                      onChangeComplete={setFinalValue}
+                      label={t("range.controlledLabel")}
+                      suffix="%"
+                    />
+                    <div className="flex gap-2 flex-wrap">
+                      <Button
+                        size="sm"
+                        variant="primary"
+                        onClick={() => setControlledValue(25)}
+                      >
+                        {t("range.set25")}
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="success"
+                        onClick={() => setControlledValue(75)}
+                      >
+                        {t("range.set75")}
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="danger"
+                        onClick={() => setControlledValue(100)}
+                      >
+                        {t("range.set100")}
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => setControlledValue(0)}
+                      >
+                        {t("range.reset")}
+                      </Button>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           </section>
 

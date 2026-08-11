@@ -45,6 +45,10 @@ export type { SwitchProps } from "./components/Switch/Switch";
 export { Radio } from "./components/Radio/Radio";
 export type { RadioProps } from "./components/Radio/Radio";
 
+// ----- Range -----
+export { Range } from "./components/Range/Range";
+export type { RangeProps } from "./components/Range/Range";
+
 // ----- Layout Components -----
 export { Navbar } from "./components/Navbar";
 export type { NavbarProps, NavLink } from "./components/Navbar";
