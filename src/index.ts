@@ -119,6 +119,19 @@ export type {
 export { XPBar } from "./components/XPBar/XPBar";
 export type { XPBarProps, RankTier } from "./components/XPBar/XPBar";
 
+// ----- Visual Effects -----
+export { Particles } from "./components/Particles/Particles";
+export type { ParticlesProps } from "./components/Particles/Particles";
+
+export { AuroraBlobs } from "./components/AuroraBlobs/AuroraBlobs";
+export type { AuroraBlobsProps } from "./components/AuroraBlobs/AuroraBlobs";
+
+export { GradientRing } from "./components/GradientRing/GradientRing";
+export type { GradientRingProps } from "./components/GradientRing/GradientRing";
+
+export { NoiseOverlay } from "./components/NoiseOverlay/NoiseOverlay";
+export type { NoiseOverlayProps } from "./components/NoiseOverlay/NoiseOverlay";
+
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";
 export type { Direction } from "./hooks/useDirection";
