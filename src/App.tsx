@@ -36,6 +36,8 @@ import Checkbox from "./components/Checkbox";
 import Switch from "./components/Switch";
 import Radio from "./components/Radio";
 import { Range } from "./components/Range/Range";
+import { ProductCard } from "./components/ProductCard/ProductCard";
+import { BlogCard } from "./components/BlogCard/BlogCard";
 
 import {
   I18nProvider,
@@ -2255,6 +2257,406 @@ function AppContent() {
                   },
                 ]}
               />
+            </div>
+          </section>
+
+          {/* ============================================
+            PRODUCT CARDS SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("productCard.title")}
+            </h2>
+
+            {/* Vertical Layout */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("productCard.vertical")}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <ProductCard
+                  title={t("productCard.product1")}
+                  price={79.99}
+                  currency="$"
+                  image="https://picsum.photos/seed/cyberpunk/300/300"
+                  description={t("productCard.desc1")}
+                  rating={4.5}
+                  reviewCount={128}
+                  category={t("productCard.category1")}
+                  tags={[t("productCard.tag1"), t("productCard.tag2")]}
+                  badge={t("productCard.limited")}
+                  badgeVariant="danger"
+                  onAddToCart={() => console.log("Added to cart!")}
+                />
+                <ProductCard
+                  title={t("productCard.product2")}
+                  price={149.99}
+                  currency="$"
+                  image="https://picsum.photos/seed/holocron/300/300"
+                  description={t("productCard.desc2")}
+                  rating={5}
+                  reviewCount={89}
+                  category={t("productCard.category2")}
+                  tags={[t("productCard.tag3"), t("productCard.tag1")]}
+                  badge="New"
+                  badgeVariant="primary"
+                  onSale
+                  originalPrice={199.99}
+                  onAddToCart={() => console.log("Added to cart!")}
+                />
+                <ProductCard
+                  title={t("productCard.product3")}
+                  price={59.99}
+                  currency="$"
+                  image="https://picsum.photos/seed/controller/300/300"
+                  description={t("productCard.desc3")}
+                  rating={4}
+                  reviewCount={203}
+                  category={t("productCard.category3")}
+                  tags={[t("productCard.tag3"), "rgb"]}
+                  inStock={false}
+                  onAddToCart={() => console.log("Added to cart!")}
+                />
+                <ProductCard
+                  title={t("productCard.product4")}
+                  price={34.99}
+                  currency="$"
+                  image="https://picsum.photos/seed/shard/300/300"
+                  description={t("productCard.desc4")}
+                  rating={3.5}
+                  reviewCount={45}
+                  category={t("productCard.category4")}
+                  tags={[t("productCard.tag4"), "classified"]}
+                  glow="cyan"
+                  onAddToCart={() => console.log("Added to cart!")}
+                />
+              </div>
+            </div>
+
+            {/* Horizontal Layout */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("productCard.horizontal")}
+              </p>
+              <div className="grid grid-cols-1 gap-4 max-w-2xl">
+                <ProductCard
+                  title={t("productCard.product1")}
+                  price={79.99}
+                  currency="$"
+                  image="https://picsum.photos/seed/cyberpunk2/300/300"
+                  description={t("productCard.desc1")}
+                  rating={4.5}
+                  reviewCount={128}
+                  category={t("productCard.category1")}
+                  layout="horizontal"
+                  glow="purple"
+                  onAddToCart={() => console.log("Added to cart!")}
+                />
+                <ProductCard
+                  title={t("productCard.product2")}
+                  price={149.99}
+                  currency="$"
+                  image="https://picsum.photos/seed/holocron2/300/300"
+                  description={t("productCard.desc2")}
+                  rating={5}
+                  reviewCount={89}
+                  category={t("productCard.category2")}
+                  layout="horizontal"
+                  onSale
+                  originalPrice={199.99}
+                  glow="cyan"
+                  onAddToCart={() => console.log("Added to cart!")}
+                />
+              </div>
+            </div>
+
+            {/* Compact Layout */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("productCard.compact")}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <ProductCard
+                  title={t("productCard.product1")}
+                  price={79.99}
+                  currency="$"
+                  image="https://picsum.photos/seed/cyberpunk3/100/100"
+                  layout="compact"
+                  glow="purple"
+                  onAddToCart={() => console.log("Added to cart!")}
+                />
+                <ProductCard
+                  title={t("productCard.product2")}
+                  price={149.99}
+                  currency="$"
+                  image="https://picsum.photos/seed/holocron3/100/100"
+                  layout="compact"
+                  onSale
+                  originalPrice={199.99}
+                  glow="cyan"
+                  onAddToCart={() => console.log("Added to cart!")}
+                />
+                <ProductCard
+                  title={t("productCard.product3")}
+                  price={59.99}
+                  currency="$"
+                  image="https://picsum.photos/seed/controller3/100/100"
+                  layout="compact"
+                  inStock={false}
+                  onAddToCart={() => console.log("Added to cart!")}
+                />
+                <ProductCard
+                  title={t("productCard.product4")}
+                  price={34.99}
+                  currency="$"
+                  image="https://picsum.photos/seed/shard3/100/100"
+                  layout="compact"
+                  glow="pink"
+                  onAddToCart={() => console.log("Added to cart!")}
+                />
+              </div>
+            </div>
+
+            {/* Glow Effects */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("productCard.glows")}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <ProductCard
+                  title={t("productCard.product1")}
+                  price={79.99}
+                  currency="$"
+                  image="https://picsum.photos/seed/glow1/300/300"
+                  glow="purple"
+                  onAddToCart={() => console.log("Added to cart!")}
+                />
+                <ProductCard
+                  title={t("productCard.product2")}
+                  price={149.99}
+                  currency="$"
+                  image="https://picsum.photos/seed/glow2/300/300"
+                  glow="cyan"
+                  onAddToCart={() => console.log("Added to cart!")}
+                />
+                <ProductCard
+                  title={t("productCard.product3")}
+                  price={59.99}
+                  currency="$"
+                  image="https://picsum.photos/seed/glow3/300/300"
+                  glow="pink"
+                  onAddToCart={() => console.log("Added to cart!")}
+                />
+              </div>
+            </div>
+
+            {/* Responsive - Full width on mobile */}
+            <div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("productCard.responsive")}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
+                <ProductCard
+                  title={t("productCard.product1")}
+                  price={79.99}
+                  currency="$"
+                  image="https://picsum.photos/seed/responsive1/300/300"
+                  description={t("productCard.desc1")}
+                  fullWidthMobile
+                  onAddToCart={() => console.log("Added to cart!")}
+                />
+                <ProductCard
+                  title={t("productCard.product2")}
+                  price={149.99}
+                  currency="$"
+                  image="https://picsum.photos/seed/responsive2/300/300"
+                  description={t("productCard.desc2")}
+                  fullWidthMobile
+                  glow="purple"
+                  onAddToCart={() => console.log("Added to cart!")}
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* ============================================
+            BLOG CARDS SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">{t("blogCard.title")}</h2>
+
+            {/* Vertical Layout */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("blogCard.vertical")}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <BlogCard
+                  title={t("blogCard.post1")}
+                  excerpt={t("blogCard.excerpt1")}
+                  coverImage="https://picsum.photos/seed/glassmorphism/400/250"
+                  author={t("blogCard.author1")}
+                  authorAvatar="https://i.pravatar.cc/150?img=1"
+                  date={new Date("2024-11-15")}
+                  readTime={5}
+                  category={t("blogCard.category1")}
+                  tags={[t("blogCard.tag1"), t("blogCard.tag2")]}
+                  link="#"
+                />
+                <BlogCard
+                  title={t("blogCard.post2")}
+                  excerpt={t("blogCard.excerpt2")}
+                  coverImage="https://picsum.photos/seed/design-system/400/250"
+                  author={t("blogCard.author2")}
+                  authorAvatar="https://i.pravatar.cc/150?img=2"
+                  date={new Date("2024-11-10")}
+                  readTime={8}
+                  category={t("blogCard.category2")}
+                  tags={[t("blogCard.tag2"), t("blogCard.tag3")]}
+                  glow="cyan"
+                  link="#"
+                />
+                <BlogCard
+                  title={t("blogCard.post3")}
+                  excerpt={t("blogCard.excerpt3")}
+                  coverImage="https://picsum.photos/seed/3d-hover/400/250"
+                  author={t("blogCard.author3")}
+                  authorAvatar="https://i.pravatar.cc/150?img=3"
+                  date={new Date("2024-11-05")}
+                  readTime={6}
+                  category={t("blogCard.category3")}
+                  tags={[t("blogCard.tag3"), t("blogCard.tag2")]}
+                  glow="purple"
+                  link="#"
+                />
+              </div>
+            </div>
+
+            {/* Horizontal Layout */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("blogCard.horizontal")}
+              </p>
+              <div className="grid grid-cols-1 gap-4 max-w-3xl">
+                <BlogCard
+                  title={t("blogCard.post1")}
+                  excerpt={t("blogCard.excerpt1")}
+                  coverImage="https://picsum.photos/seed/horizontal1/400/250"
+                  author={t("blogCard.author1")}
+                  authorAvatar="https://i.pravatar.cc/150?img=4"
+                  date={new Date("2024-11-15")}
+                  readTime={5}
+                  category={t("blogCard.category1")}
+                  layout="horizontal"
+                  glow="purple"
+                  link="#"
+                />
+                <BlogCard
+                  title={t("blogCard.post2")}
+                  excerpt={t("blogCard.excerpt2")}
+                  coverImage="https://picsum.photos/seed/horizontal2/400/250"
+                  author={t("blogCard.author2")}
+                  authorAvatar="https://i.pravatar.cc/150?img=5"
+                  date={new Date("2024-11-10")}
+                  readTime={8}
+                  category={t("blogCard.category2")}
+                  layout="horizontal"
+                  glow="cyan"
+                  link="#"
+                />
+              </div>
+            </div>
+
+            {/* Featured */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("blogCard.featured")}
+              </p>
+              <div className="max-w-2xl">
+                <BlogCard
+                  title={t("blogCard.post4")}
+                  excerpt={t("blogCard.excerpt4")}
+                  coverImage="https://picsum.photos/seed/cyberpunk-aesthetic/800/400"
+                  author={t("blogCard.author4")}
+                  authorAvatar="https://i.pravatar.cc/150?img=6"
+                  date={new Date("2024-11-01")}
+                  readTime={10}
+                  category={t("blogCard.category4")}
+                  tags={[t("blogCard.tag1"), t("blogCard.tag4"), t("blogCard.tag2")]}
+                  featured
+                  glow="pink"
+                  link="#"
+                />
+              </div>
+            </div>
+
+            {/* Glow Effects */}
+            <div className="mb-6">
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("blogCard.glows")}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <BlogCard
+                  title={t("blogCard.post1")}
+                  excerpt={t("blogCard.excerpt1")}
+                  coverImage="https://picsum.photos/seed/glow-blog1/400/250"
+                  author={t("blogCard.author1")}
+                  date={new Date("2024-11-15")}
+                  readTime={5}
+                  glow="purple"
+                  link="#"
+                />
+                <BlogCard
+                  title={t("blogCard.post2")}
+                  excerpt={t("blogCard.excerpt2")}
+                  coverImage="https://picsum.photos/seed/glow-blog2/400/250")
+                  author={t("blogCard.author2")}
+                  date={new Date("2024-11-10")}
+                  readTime={8}
+                  glow="cyan"
+                  link="#"
+                />
+                <BlogCard
+                  title={t("blogCard.post3")}
+                  excerpt={t("blogCard.excerpt3")}
+                  coverImage="https://picsum.photos/seed/glow-blog3/400/250"
+                  author={t("blogCard.author3")}
+                  date={new Date("2024-11-05")}
+                  readTime={6}
+                  glow="pink"
+                  link="#"
+                />
+              </div>
+            </div>
+
+            {/* Responsive - Full width on mobile */}
+            <div>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+                {t("blogCard.responsive")}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
+                <BlogCard
+                  title={t("blogCard.post1")}
+                  excerpt={t("blogCard.excerpt1")}
+                  coverImage="https://picsum.photos/seed/resp-blog1/400/250"
+                  author={t("blogCard.author1")}
+                  date={new Date("2024-11-15")}
+                  readTime={5}
+                  fullWidthMobile
+                  link="#"
+                />
+                <BlogCard
+                  title={t("blogCard.post2")}
+                  excerpt={t("blogCard.excerpt2")}
+                  coverImage="https://picsum.photos/seed/resp-blog2/400/250"
+                  author={t("blogCard.author2")}
+                  date={new Date("2024-11-10")}
+                  readTime={8}
+                  fullWidthMobile
+                  glow="purple"
+                  link="#"
+                />
+              </div>
             </div>
           </section>
 
