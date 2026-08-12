@@ -1,4 +1,3 @@
-// src/components/Switch/Switch.tsx
 import React, { useState, useRef, useEffect } from "react";
 
 export interface SwitchProps extends Omit<

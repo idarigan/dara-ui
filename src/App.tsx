@@ -2483,7 +2483,9 @@ function AppContent() {
             BLOG CARDS SHOWCASE
             ============================================ */}
           <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-            <h2 className="text-2xl font-semibold mb-6">{t("blogCard.title")}</h2>
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("blogCard.title")}
+            </h2>
 
             {/* Vertical Layout */}
             <div className="mb-6">
@@ -2582,7 +2584,11 @@ function AppContent() {
                   date={new Date("2024-11-01")}
                   readTime={10}
                   category={t("blogCard.category4")}
-                  tags={[t("blogCard.tag1"), t("blogCard.tag4"), t("blogCard.tag2")]}
+                  tags={[
+                    t("blogCard.tag1"),
+                    t("blogCard.tag4"),
+                    t("blogCard.tag2"),
+                  ]}
                   featured
                   glow="pink"
                   link="#"
@@ -2609,7 +2615,7 @@ function AppContent() {
                 <BlogCard
                   title={t("blogCard.post2")}
                   excerpt={t("blogCard.excerpt2")}
-                  coverImage="https://picsum.photos/seed/glow-blog2/400/250")
+                  coverImage="https://picsum.photos/seed/glow-blog2/400/250"
                   author={t("blogCard.author2")}
                   date={new Date("2024-11-10")}
                   readTime={8}

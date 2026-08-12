@@ -1,4 +1,3 @@
-// src/components/Range/Range.tsx
 import React, {
   useState,
   useRef,

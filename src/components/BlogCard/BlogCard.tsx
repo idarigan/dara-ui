@@ -8,7 +8,7 @@ export interface BlogCardProps {
    */
   title: string;
   /**
-   * Blog post excerpt / description
+   * Blog post excerpt
    */
   excerpt: string;
   /**
@@ -32,7 +32,7 @@ export interface BlogCardProps {
    */
   readTime?: number;
   /**
-   * Blog post category
+   * Category
    */
   category?: string;
   /**
@@ -44,21 +44,21 @@ export interface BlogCardProps {
    */
   link?: string;
   /**
-   * Callback when card is clicked
+   * Click callback
    */
   onClick?: () => void;
   /**
-   * Featured post (larger)
+   * Featured (larger)
    * @default false
    */
   featured?: boolean;
   /**
-   * Layout variant
+   * Layout
    * @default "vertical"
    */
   layout?: "vertical" | "horizontal";
   /**
-   * Glow variant color
+   * Glow
    * @default "none"
    */
   glow?: "purple" | "cyan" | "pink" | "none";
@@ -68,7 +68,7 @@ export interface BlogCardProps {
    */
   showCategory?: boolean;
   /**
-   * Show author info
+   * Show author
    * @default true
    */
   showAuthor?: boolean;
@@ -89,18 +89,7 @@ export interface BlogCardProps {
 }
 
 /**
- * Dara UI BlogCard - Glassy blog card with 3D hover effect
- *
- * Features:
- * - 3D tilt effect on hover (same as RPG components)
- * - Glassmorphism styling
- * - Vertical and horizontal layouts
- * - Featured variant with larger size
- * - Author avatar and name
- * - Publication date and read time
- * - Category and tags
- * - Responsive with optional full width on mobile
- * - Theme-aware colors
+ * Dara UI BlogCard – glass blog card with 3D tilt
  */
 export const BlogCard: React.FC<BlogCardProps> = ({
   title,
@@ -127,20 +116,17 @@ export const BlogCard: React.FC<BlogCardProps> = ({
   const [isHovering, setIsHovering] = useState(false);
   const [imageError, setImageError] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
-
   const isHorizontal = layout === "horizontal";
 
-  // Handle 3D tilt on mouse move
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -8;
-    const rotateY = ((x - centerX) / centerX) * 8;
-    setRotation({ x: rotateX, y: rotateY });
+    setRotation({
+      x: ((y - rect.height / 2) / (rect.height / 2)) * -6,
+      y: ((x - rect.width / 2) / (rect.width / 2)) * 6,
+    });
   };
 
   const handleMouseEnter = () => setIsHovering(true);
@@ -149,7 +135,6 @@ export const BlogCard: React.FC<BlogCardProps> = ({
     setRotation({ x: 0, y: 0 });
   };
 
-  // Glow styles
   const glowStyles = {
     purple: "glow-purple",
     cyan: "glow-cyan",
@@ -157,27 +142,19 @@ export const BlogCard: React.FC<BlogCardProps> = ({
     none: "",
   };
 
-  // Format date
   const formatDate = (dateValue: string | Date) => {
-    if (typeof dateValue === "string") {
-      return new Date(dateValue).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      });
-    }
-    return dateValue.toLocaleDateString("en-US", {
+    const d = typeof dateValue === "string" ? new Date(dateValue) : dateValue;
+    return d.toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
     });
   };
 
-  // Placeholder image
-  const placeholderImage = () => (
-    <div className="w-full h-full flex items-center justify-center bg-[var(--color-bg-tertiary)] text-[var(--color-text-tertiary)] text-4xl">
+  const Placeholder = () => (
+    <div className="w-full h-full flex items-center justify-center bg-[var(--color-bg-tertiary)] text-[var(--color-text-tertiary)]">
       <svg
-        className="w-12 h-12"
+        className="w-10 h-10"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -186,24 +163,57 @@ export const BlogCard: React.FC<BlogCardProps> = ({
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.486 5.486 0 006.75 15.75v-1.5m-7.007 11.55h.007"
+          d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5"
         />
       </svg>
     </div>
   );
 
-  // Image component
-  const renderCover = () => {
-    const coverClasses = `
-      ${isHorizontal ? "w-full md:w-56 md:h-56 flex-shrink-0" : "w-full aspect-video"}
-      ${featured ? "aspect-video" : ""}
-      rounded-[var(--radius-md)] overflow-hidden
-      bg-[var(--color-bg-tertiary)]
-      relative
-    `;
+  const coverClass = isHorizontal
+    ? "w-full sm:w-44 sm:h-44 md:w-52 md:h-52 flex-shrink-0 aspect-video sm:aspect-square"
+    : featured
+      ? "w-full aspect-[16/9]"
+      : "w-full aspect-video";
 
-    return (
-      <div className={coverClasses}>
+  const tagLimit = featured ? 4 : 3;
+
+  return (
+    <div
+      ref={cardRef}
+      className={`
+        glass relative overflow-hidden
+        ${featured ? "p-5" : "p-4"}
+        ${glowStyles[glow]}
+        ${fullWidthMobile ? "w-full sm:w-auto" : ""}
+        ${isHorizontal ? "flex flex-col sm:flex-row gap-4" : "flex flex-col h-full"}
+        ${className}
+        cursor-pointer
+      `}
+      style={{
+        transform: isHovering
+          ? `perspective(900px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(1.015)`
+          : "perspective(900px) rotateX(0) rotateY(0) scale(1)",
+        transformStyle: "preserve-3d",
+        transition: "transform 0.2s ease-out, box-shadow 0.35s ease",
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") onClick?.();
+      }}
+      aria-label={`Blog post: ${title}`}
+    >
+      <div
+        className={`
+          ${coverClass}
+          rounded-[var(--radius-md)] overflow-hidden
+          bg-[var(--color-bg-tertiary)] relative
+        `}
+      >
         {coverImage && !imageError ? (
           <img
             src={coverImage}
@@ -213,102 +223,82 @@ export const BlogCard: React.FC<BlogCardProps> = ({
             loading="lazy"
           />
         ) : (
-          placeholderImage()
+          <Placeholder />
         )}
+
         {category && showCategory && (
-          <Badge
-            variant="primary"
-            size="sm"
-            glow
-            className="absolute top-3 left-3 z-10"
-          >
-            {category}
-          </Badge>
+          <span className="absolute top-2.5 start-2.5 z-10">
+            <Badge variant="primary" size="sm" glow>
+              {category}
+            </Badge>
+          </span>
         )}
       </div>
-    );
-  };
 
-  // Content
-  const renderContent = () => {
-    const contentClasses = `
-      ${isHorizontal ? "flex-1 min-w-0" : ""}
-      flex flex-col
-    `;
-
-    return (
-      <div className={contentClasses}>
-        {/* Title */}
+      <div
+        className={`flex flex-col flex-1 min-w-0 ${isHorizontal ? "" : "mt-3"}`}
+      >
         <h3
           className={`
             font-heading font-bold text-[var(--color-text-primary)]
+            leading-snug line-clamp-2
             ${featured ? "text-2xl" : isHorizontal ? "text-lg" : "text-xl"}
-            ${isHorizontal ? "text-lg" : ""}
-            line-clamp-2
-            ${link ? "cursor-pointer hover:text-[var(--color-primary)]" : ""}
+            ${link ? "hover:text-[var(--color-primary)]" : ""}
             transition-colors duration-180
           `}
-          onClick={() => link && window.open(link, "_blank")}
+          onClick={(e) => {
+            if (link) {
+              e.stopPropagation();
+              window.open(link, "_blank");
+            }
+          }}
         >
           {title}
         </h3>
 
-        {/* Excerpt */}
         <p
           className={`
-            text-[var(--color-text-secondary)] 
-            ${featured ? "text-base" : "text-sm"}
-            mt-2
-            line-clamp-${featured ? "3" : "2"}
-            flex-1
+            text-[var(--color-text-secondary)] mt-2 flex-1
+            ${featured ? "text-base line-clamp-3" : "text-sm line-clamp-2"}
           `}
         >
           {excerpt}
         </p>
 
-        {/* Tags */}
         {tags.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mt-3">
-            {tags.slice(0, featured ? 4 : 3).map((tag, index) => (
+            {tags.slice(0, tagLimit).map((tag) => (
               <span
-                key={index}
-                className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[var(--color-bg-tertiary)] text-[var(--color-text-tertiary)]"
+                key={tag}
+                className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-[var(--color-bg-tertiary)] text-[var(--color-text-tertiary)]"
               >
                 #{tag}
               </span>
             ))}
-            {tags.length > (featured ? 4 : 3) && (
+            {tags.length > tagLimit && (
               <span className="text-[10px] font-mono text-[var(--color-text-tertiary)]">
-                +{tags.length - (featured ? 4 : 3)}
+                +{tags.length - tagLimit}
               </span>
             )}
           </div>
         )}
 
-        {/* Footer: Author + Date + Read time */}
-        <div
-          className={`
-            flex items-center gap-4 mt-4 pt-4
-            border-t border-[var(--color-border-secondary)]
-            ${isHorizontal ? "flex-wrap" : ""}
-          `}
-        >
+        <div className="flex items-center flex-wrap gap-x-4 gap-y-2 mt-4 pt-3 border-t border-[var(--color-border-secondary)]">
           {showAuthor && author && (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 min-w-0">
               <Avatar
                 src={authorAvatar}
                 fallbackText={author}
                 size="sm"
                 glow="none"
-                bordered={false}
               />
-              <span className="text-sm font-medium text-[var(--color-text-primary)]">
+              <span className="text-sm font-medium text-[var(--color-text-primary)] truncate">
                 {author}
               </span>
             </div>
           )}
 
-          <div className="flex items-center gap-3 text-xs text-[var(--color-text-tertiary)]">
+          <div className="flex items-center gap-3 text-xs text-[var(--color-text-tertiary)] ms-auto">
             {date && (
               <time
                 dateTime={typeof date === "string" ? date : date.toISOString()}
@@ -316,7 +306,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
                 {formatDate(date)}
               </time>
             )}
-            {showReadTime && readTime && (
+            {showReadTime && readTime != null && (
               <span className="flex items-center gap-1">
                 <svg
                   className="h-3 w-3"
@@ -331,75 +321,41 @@ export const BlogCard: React.FC<BlogCardProps> = ({
                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                {readTime} min read
+                {readTime} min
               </span>
             )}
           </div>
         </div>
-      </div>
-    );
-  };
 
-  // Layout classes
-  const layoutClasses = {
-    vertical: "flex flex-col gap-4",
-    horizontal: "flex flex-col md:flex-row gap-4",
-  };
-
-  const mobileFullWidth = fullWidthMobile ? "w-full sm:w-auto" : "";
-
-  return (
-    <div
-      ref={cardRef}
-      className={`
-        glass p-5 float-card relative
-        transition-all duration-300
-        ${glowStyles[glow]}
-        ${layoutClasses[layout]}
-        ${mobileFullWidth}
-        ${featured ? "p-6" : ""}
-        ${className}
-        cursor-pointer
-      `}
-      style={{
-        transform: isHovering
-          ? `perspective(800px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(1.02)`
-          : "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)",
-        transformStyle: "preserve-3d",
-        transition: "transform 0.2s ease-out, box-shadow 0.4s ease",
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={onClick}
-      role="button"
-      tabIndex={0}
-      aria-label={`Blog post: ${title}`}
-    >
-      {renderCover()}
-      {renderContent()}
-
-      {/* Read more link on hover for featured */}
-      {featured && isHovering && link && (
-        <div className="absolute bottom-5 right-5 z-10">
-          <span className="text-sm font-medium text-[var(--color-primary)] flex items-center gap-1">
-            Read More
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
+        {/* Always visible when link exists – no empty opacity gap */}
+        {link && (
+          <div className="mt-3">
+            <span
+              className={`
+                text-sm font-medium text-[var(--color-primary)]
+                inline-flex items-center gap-1
+                transition-opacity duration-200
+                ${isHovering || featured ? "opacity-100" : "opacity-70"}
+              `}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-              />
-            </svg>
-          </span>
-        </div>
-      )}
+              Read more
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                />
+              </svg>
+            </span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
