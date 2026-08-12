@@ -89,7 +89,13 @@ export interface BlogCardProps {
 }
 
 /**
- * Dara UI BlogCard – glass blog card with 3D tilt
+ * Dara UI BlogCard – glass blog card with 3D tilt, elevation & glow hover
+ *
+ * Features:
+ * - Vertical / horizontal layouts + featured size
+ * - 3D tilt + lift + glow on hover
+ * - Cover zoom, stable line-clamps, in-flow Read more
+ * - RTL-friendly badge (start-*)
  */
 export const BlogCard: React.FC<BlogCardProps> = ({
   title,
@@ -142,6 +148,17 @@ export const BlogCard: React.FC<BlogCardProps> = ({
     none: "",
   };
 
+  const hoverGlowShadow = {
+    purple:
+      "0 0 28px color-mix(in srgb, var(--color-primary) 45%, transparent)",
+    cyan: "0 0 28px color-mix(in srgb, var(--color-secondary) 45%, transparent)",
+    pink: "0 0 28px color-mix(in srgb, var(--color-accent) 45%, transparent)",
+    none: "0 0 24px color-mix(in srgb, var(--color-primary) 28%, transparent)",
+  }[glow];
+
+  const restShadow = "var(--shadow-float, 0 8px 24px rgba(0,0,0,0.18))";
+  const elevatedShadow = `0 16px 40px rgba(0,0,0,0.28), ${hoverGlowShadow}`;
+
   const formatDate = (dateValue: string | Date) => {
     const d = typeof dateValue === "string" ? new Date(dateValue) : dateValue;
     return d.toLocaleDateString("en-US", {
@@ -191,10 +208,15 @@ export const BlogCard: React.FC<BlogCardProps> = ({
       `}
       style={{
         transform: isHovering
-          ? `perspective(900px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(1.015)`
-          : "perspective(900px) rotateX(0) rotateY(0) scale(1)",
+          ? `perspective(900px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) translateY(-6px) scale(1.02)`
+          : "perspective(900px) rotateX(0) rotateY(0) translateY(0) scale(1)",
         transformStyle: "preserve-3d",
-        transition: "transform 0.2s ease-out, box-shadow 0.35s ease",
+        boxShadow: isHovering ? elevatedShadow : restShadow,
+        transition:
+          "transform 0.22s ease-out, box-shadow 0.3s ease, border-color 0.25s ease",
+        borderColor: isHovering
+          ? "color-mix(in srgb, var(--color-primary) 35%, var(--color-border-primary))"
+          : undefined,
       }}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
@@ -207,18 +229,32 @@ export const BlogCard: React.FC<BlogCardProps> = ({
       }}
       aria-label={`Blog post: ${title}`}
     >
+      {/* Soft glow wash on hover */}
+      <div
+        className="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity duration-300 z-0"
+        style={{
+          opacity: isHovering ? 1 : 0,
+          background:
+            "radial-gradient(ellipse at 30% 0%, color-mix(in srgb, var(--color-primary) 14%, transparent), transparent 55%)",
+        }}
+      />
+
+      {/* Cover */}
       <div
         className={`
           ${coverClass}
           rounded-[var(--radius-md)] overflow-hidden
-          bg-[var(--color-bg-tertiary)] relative
+          bg-[var(--color-bg-tertiary)] relative z-[1]
         `}
       >
         {coverImage && !imageError ? (
           <img
             src={coverImage}
             alt={title}
-            className="w-full h-full object-cover"
+            className={`
+              w-full h-full object-cover transition-transform duration-500
+              ${isHovering ? "scale-105" : "scale-100"}
+            `}
             onError={() => setImageError(true)}
             loading="lazy"
           />
@@ -235,16 +271,19 @@ export const BlogCard: React.FC<BlogCardProps> = ({
         )}
       </div>
 
+      {/* Content */}
       <div
-        className={`flex flex-col flex-1 min-w-0 ${isHorizontal ? "" : "mt-3"}`}
+        className={`
+          flex flex-col flex-1 min-w-0 relative z-[1]
+          ${isHorizontal ? "" : "mt-3"}
+        `}
       >
         <h3
           className={`
-            font-heading font-bold text-[var(--color-text-primary)]
-            leading-snug line-clamp-2
+            font-heading font-bold leading-snug line-clamp-2
             ${featured ? "text-2xl" : isHorizontal ? "text-lg" : "text-xl"}
-            ${link ? "hover:text-[var(--color-primary)]" : ""}
             transition-colors duration-180
+            ${isHovering ? "text-[var(--color-primary)]" : "text-[var(--color-text-primary)]"}
           `}
           onClick={(e) => {
             if (link) {
@@ -283,6 +322,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
           </div>
         )}
 
+        {/* Footer */}
         <div className="flex items-center flex-wrap gap-x-4 gap-y-2 mt-4 pt-3 border-t border-[var(--color-border-secondary)]">
           {showAuthor && author && (
             <div className="flex items-center gap-2 min-w-0">
@@ -327,20 +367,23 @@ export const BlogCard: React.FC<BlogCardProps> = ({
           </div>
         </div>
 
-        {/* Always visible when link exists – no empty opacity gap */}
+        {/* Read more – always in flow when link exists */}
         {link && (
           <div className="mt-3">
             <span
               className={`
                 text-sm font-medium text-[var(--color-primary)]
                 inline-flex items-center gap-1
-                transition-opacity duration-200
-                ${isHovering || featured ? "opacity-100" : "opacity-70"}
+                transition-all duration-200
+                ${isHovering ? "opacity-100 translate-x-0.5" : "opacity-70"}
               `}
             >
               Read more
               <svg
-                className="h-4 w-4"
+                className={`
+                  h-4 w-4 transition-transform duration-200
+                  ${isHovering ? "translate-x-0.5" : ""}
+                `}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

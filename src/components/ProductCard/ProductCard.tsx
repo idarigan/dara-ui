@@ -102,13 +102,7 @@ export interface ProductCardProps {
 }
 
 /**
- * Dara UI ProductCard – glass product card with 3D tilt
- *
- * Features:
- * - Vertical / horizontal / compact layouts
- * - Original price as tiny absolute label next to current price
- * - Compact: corner ribbon for Sale, full-card overlay for Out of Stock
- * - RTL-friendly placement
+ * Dara UI ProductCard – glass product card with 3D tilt, elevation & glow hover
  */
 export const ProductCard: React.FC<ProductCardProps> = ({
   title,
@@ -167,6 +161,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     none: "",
   };
 
+  // Hover glow ring (works even when glow="none")
+  const hoverGlowShadow = {
+    purple:
+      "0 0 28px color-mix(in srgb, var(--color-primary) 45%, transparent)",
+    cyan: "0 0 28px color-mix(in srgb, var(--color-secondary) 45%, transparent)",
+    pink: "0 0 28px color-mix(in srgb, var(--color-accent) 45%, transparent)",
+    none: "0 0 24px color-mix(in srgb, var(--color-primary) 28%, transparent)",
+  }[glow];
+
+  const restShadow = "var(--shadow-float, 0 8px 24px rgba(0,0,0,0.18))";
+  const elevatedShadow = `0 16px 40px rgba(0,0,0,0.28), ${hoverGlowShadow}`;
+
   const formatPrice = (value: number | string) => {
     if (typeof value === "string") return value;
     return `${currency}${value.toFixed(2)}`;
@@ -210,6 +216,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       ? "w-28 h-28 sm:w-36 sm:h-36 flex-shrink-0"
       : "w-full aspect-square";
 
+  // Compact: lift + scale (no 3D). Others: 3D + lift.
+  const hoverTransform = isCompact
+    ? isHovering
+      ? "translateY(-4px) scale(1.03)"
+      : "translateY(0) scale(1)"
+    : isHovering
+      ? `perspective(900px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) translateY(-6px) scale(1.02)`
+      : "perspective(900px) rotateX(0) rotateY(0) translateY(0) scale(1)";
+
   return (
     <div
       ref={cardRef}
@@ -225,12 +240,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         cursor-pointer
       `}
       style={{
-        transform:
-          isHovering && !isCompact
-            ? `perspective(900px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(1.015)`
-            : "perspective(900px) rotateX(0) rotateY(0) scale(1)",
+        transform: hoverTransform,
         transformStyle: "preserve-3d",
-        transition: "transform 0.2s ease-out, box-shadow 0.35s ease",
+        boxShadow: isHovering ? elevatedShadow : restShadow,
+        transition:
+          "transform 0.22s ease-out, box-shadow 0.3s ease, border-color 0.25s ease",
+        borderColor: isHovering
+          ? "color-mix(in srgb, var(--color-primary) 35%, var(--color-border-primary))"
+          : undefined,
       }}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
@@ -243,31 +260,29 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       }}
       aria-label={`Product: ${title}`}
     >
+      {/* Soft glow wash on hover */}
+      <div
+        className="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity duration-300"
+        style={{
+          opacity: isHovering ? 1 : 0,
+          background:
+            "radial-gradient(ellipse at 30% 0%, color-mix(in srgb, var(--color-primary) 14%, transparent), transparent 55%)",
+        }}
+      />
+
       {/* Compact corner Sale ribbon */}
       {isCompact && onSale && (
         <div
-          className="
-            absolute top-0 end-0 z-20
-            w-12 h-12 overflow-hidden pointer-events-none
-          "
+          className="absolute top-0 end-0 z-20 w-12 h-12 overflow-hidden pointer-events-none"
           aria-hidden
         >
-          <span
-            className="
-              absolute top-[7px] end-[-18px]
-              w-[56px] text-center
-              bg-[var(--color-danger)] text-white
-              text-[8px] font-bold uppercase tracking-wider
-              py-0.5 shadow-sm
-              rotate-45 origin-center
-            "
-          >
+          <span className="absolute top-[7px] end-[-18px] w-[56px] text-center bg-[var(--color-danger)] text-white text-[8px] font-bold uppercase tracking-wider py-0.5 shadow-sm rotate-45 origin-center">
             Sale
           </span>
         </div>
       )}
 
-      {/* Compact: full-card Out of Stock overlay */}
+      {/* Compact full-card Out of Stock */}
       {isCompact && !inStock && (
         <div className="absolute inset-0 z-30 flex items-center justify-center rounded-[inherit] bg-black/60 backdrop-blur-[2px]">
           <span className="font-heading font-bold text-white text-[11px] uppercase tracking-widest px-2 text-center">
@@ -282,13 +297,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           ${imageBoxClass}
           rounded-[var(--radius-md)] overflow-hidden
           bg-[var(--color-bg-tertiary)] relative
+          transition-transform duration-300
+          ${isHovering && isCompact ? "scale-105" : ""}
         `}
       >
         {image && !imageError ? (
           <img
             src={image}
             alt={title}
-            className="w-full h-full object-cover"
+            className={`
+              w-full h-full object-cover transition-transform duration-500
+              ${isHovering && !isCompact ? "scale-105" : "scale-100"}
+            `}
             onError={() => setImageError(true)}
             loading="lazy"
           />
@@ -296,7 +316,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <Placeholder />
         )}
 
-        {/* Image badges – not used for compact Sale */}
         <div className="absolute top-2 start-2 z-10 flex flex-col gap-1 items-start">
           {badge && !isCompact && (
             <Badge variant={badgeVariant} size="sm" glow>
@@ -310,7 +329,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           )}
         </div>
 
-        {/* Non-compact out of stock on image only */}
         {!inStock && !isCompact && (
           <div className="absolute inset-0 bg-black/55 flex items-center justify-center z-10">
             <span className="font-heading font-bold text-white text-xs uppercase tracking-wider">
@@ -323,7 +341,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       {/* Body */}
       <div
         className={`
-          flex flex-col min-w-0
+          flex flex-col min-w-0 relative z-[1]
           ${isVertical ? "flex-1 mt-3" : "flex-1"}
         `}
       >
@@ -338,8 +356,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             font-heading font-bold text-[var(--color-text-primary)]
             ${isCompact ? "text-sm" : "text-base"}
             line-clamp-2 leading-snug
-            ${link ? "hover:text-[var(--color-primary)]" : ""}
+            ${link || isHovering ? "hover:text-[var(--color-primary)]" : ""}
             transition-colors duration-180
+            ${isHovering ? "text-[var(--color-primary)]" : ""}
           `}
           onClick={(e) => {
             if (link) {
@@ -375,7 +394,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         )}
 
-        {/* Price + rating */}
         <div
           className={`
             flex items-center justify-between gap-3
@@ -383,7 +401,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             ${isCompact ? "mt-1" : ""}
           `}
         >
-          {/* Current price with tiny absolute old price */}
           <div className="relative inline-flex items-baseline min-w-0">
             <span
               className={`
@@ -394,18 +411,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             >
               {formatPrice(price)}
             </span>
-
             {onSale && originalPrice && (
               <span
                 className={`
-                  absolute line-through
-                  text-[var(--color-text-tertiary)] font-mono
+                  absolute line-through text-[var(--color-text-tertiary)] font-mono
                   pointer-events-none whitespace-nowrap
-                  ${
-                    isCompact
-                      ? "text-[8px] -top-2.5 start-0"
-                      : "text-[10px] -top-3 start-0.5"
-                  }
+                  ${isCompact ? "text-[8px] -top-2.5 start-0" : "text-[10px] -top-3 start-0.5"}
                 `}
               >
                 {formatPrice(originalPrice)}
@@ -443,7 +454,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         )}
       </div>
 
-      {/* Compact cart button */}
+      {/* Compact cart – pops on hover */}
       {isCompact && showQuickActions && (
         <button
           type="button"
@@ -454,13 +465,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           disabled={!inStock}
           className={`
             flex-shrink-0 w-9 h-9 rounded-full
-            flex items-center justify-center
-            transition-colors duration-180 relative z-10
+            flex items-center justify-center relative z-10
+            transition-all duration-200
             ${
               inStock
                 ? "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
                 : "bg-[var(--color-bg-tertiary)] text-[var(--color-text-tertiary)] cursor-not-allowed"
             }
+            ${isHovering && inStock ? "scale-110 shadow-[var(--shadow-glow-primary)]" : "scale-100"}
           `}
           aria-label={inStock ? "Add to cart" : "Out of stock"}
         >
