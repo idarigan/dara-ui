@@ -1,0 +1,55 @@
+import {
+  Meta,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+  Stories,
+  ArgTypes,
+} from "@storybook/blocks";
+import * as ToastStories from "./Toast.stories";
+
+<Meta of={ToastStories} />
+
+<Title>Toast</Title>
+
+<Subtitle>Brief notifications with slide-in animation</Subtitle>
+
+<Description>
+  Toasts are brief notifications that appear at the top-right corner. Dara UI
+  toasts feature glass-heavy styling with slide-in animation and auto-dismiss.
+</Description>
+
+<Primary />
+
+<Controls />
+
+---
+
+## Types
+
+| Type      | Color  | Use Case             |
+| --------- | ------ | -------------------- |
+| `success` | Green  | Success messages     |
+| `error`   | Red    | Error messages       |
+| `warning` | Yellow | Warning messages     |
+| `info`    | Blue   | Information messages |
+
+---
+
+## Usage
+
+```tsx
+import { useToast } from "dara-ui";
+
+function MyComponent() {
+  const toast = useToast();
+
+  return (
+    <button onClick={() => toast.success("Mission complete! +300 XP")}>
+      Show Toast
+    </button>
+  );
+}
+```

@@ -23,7 +23,7 @@ const meta = {
   args: {
     name: "Dara",
     subtitle: "Jedi Archivist",
-    quote: "The dark is not to be feared — it is to be archived.",
+    quote: "The dark is not to be feared - it is to be archived.",
     mbti: "INTJ",
     species: "Human/Cyborg",
     affiliation: "Jedi Order",
@@ -90,7 +90,7 @@ export const DifferentGlows: Story = {
         <CharacterCard
           name="Dara"
           subtitle="Jedi Archivist"
-          quote="The dark is not to be feared — it is to be archived."
+          quote="The dark is not to be feared - it is to be archived."
           icon="🦇"
           mbti="INTJ"
           species="Human/Cyborg"

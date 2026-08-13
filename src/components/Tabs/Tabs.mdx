@@ -1,0 +1,69 @@
+import {
+  Meta,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+  Stories,
+  ArgTypes,
+} from "@storybook/blocks";
+import * as TabsStories from "./Tabs.stories";
+
+<Meta of={TabsStories} />
+
+<Title>Tabs</Title>
+
+<Subtitle>Organize content into tabbed panels</Subtitle>
+
+<Description>
+  Tabs organize related content into switchable panels. Dara UI tabs feature
+  animated underline indicators and glow effects.
+</Description>
+
+<Primary />
+
+<Controls />
+
+---
+
+## Glow Colors
+
+| Color       | Effect                     |
+| ----------- | -------------------------- |
+| `primary`   | Purple underline with glow |
+| `secondary` | Cyan underline with glow   |
+| `accent`    | Pink underline with glow   |
+| `success`   | Green underline with glow  |
+| `danger`    | Red underline with glow    |
+| `none`      | No glow effect             |
+
+---
+
+## Alignments
+
+| Alignment | Use Case             |
+| --------- | -------------------- |
+| `left`    | Default, most common |
+| `center`  | Centered navigation  |
+| `right`   | Right-aligned tabs   |
+
+---
+
+## Do's and Don'ts
+
+### ✅ Do
+
+- Use tabs for organizing related content
+- Keep tab labels short and clear
+- Use consistent tab styling
+
+### ❌ Don't
+
+- Don't use tabs for unrelated content
+- Don't put too many tabs (max 6-7)
+- Don't hide important content behind tabs
+
+---
+
+<Stories />

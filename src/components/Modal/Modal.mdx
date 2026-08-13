@@ -1,0 +1,70 @@
+import {
+  Meta,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+  Stories,
+  ArgTypes,
+} from "@storybook/blocks";
+import * as ModalStories from "./Modal.stories";
+
+<Meta of={ModalStories} />
+
+<Title>Modal</Title>
+
+<Subtitle>Glass-heavy modal dialog with scale-in animation</Subtitle>
+
+<Description>
+  Modals are overlay dialogs used for focused interactions. Dara UI modals
+  feature glass-heavy styling with blur(30px) backdrop, scale-in animation, and
+  React Portal rendering.
+</Description>
+
+<Primary />
+
+<Controls />
+
+---
+
+## Sizes
+
+| Size | Max Width |
+| ---- | --------- |
+| `sm` | 24rem     |
+| `md` | 28rem     |
+| `lg` | 32rem     |
+| `xl` | 36rem     |
+
+---
+
+## Features
+
+- ✅ Glass-heavy styling with blur(30px)
+- ✅ Scale-in animation
+- ✅ React Portal rendering
+- ✅ Focus trapping
+- ✅ Escape key support
+- ✅ Backdrop click to close (configurable)
+
+---
+
+## Do's and Don'ts
+
+### ✅ Do
+
+- Use modals for important actions
+- Keep modal content focused
+- Provide clear actions
+- Use `onConfirm` for primary actions
+
+### ❌ Don't
+
+- Don't stack multiple modals
+- Don't put too much content in a modal
+- Don't use modals for navigation
+
+---
+
+<Stories />

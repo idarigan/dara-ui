@@ -203,7 +203,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
       },
     };
 
-    // Fixed widths when not fullWidth — label length never resizes the trigger
+    // Fixed widths when not fullWidth - label length never resizes the trigger
     const fixedWidths = {
       sm: "w-36",
       md: "w-44",

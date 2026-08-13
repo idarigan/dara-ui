@@ -390,15 +390,15 @@ const accordionItems = [
         <p className="mb-2">Three themes are available:</p>
         <ul className="list-disc list-inside space-y-1 text-[var(--color-text-tertiary)]">
           <li>
-            <span className="text-[var(--color-primary)]">Nightfall</span> —
+            <span className="text-[var(--color-primary)]">Nightfall</span> -
             Dark, mysterious, glass-heavy
           </li>
           <li>
-            <span className="text-[var(--color-warning)]">Daylight</span> —
+            <span className="text-[var(--color-warning)]">Daylight</span> -
             Light, clean, minimal
           </li>
           <li>
-            <span className="text-[var(--color-danger)]">Dracula</span> — Dark,
+            <span className="text-[var(--color-danger)]">Dracula</span> - Dark,
             intense, red-accented
           </li>
         </ul>
@@ -708,7 +708,7 @@ function AppContent() {
           <section className="text-center mb-24 relative">
             <GradientRing />
             <span className="section-label block mb-4" data-i18n="hero.version">
-              v1.0 — The Digital Archives
+              v1.0 - The Digital Archives
             </span>
             <h1 className="font-heading text-7xl md:text-8xl font-bold mb-6 tracking-tight text-gradient-hero">
               DARA UI

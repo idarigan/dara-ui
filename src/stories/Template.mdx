@@ -1,0 +1,71 @@
+import {
+  Meta,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+  Stories,
+  ArgTypes,
+} from "@storybook/blocks";
+import * as ComponentStories from "./Component.stories";
+
+<Meta of={ComponentStories} />
+
+<Title>ComponentName</Title>
+
+<Subtitle>Brief description</Subtitle>
+
+<Description>
+  Detailed description of the component, its purpose, and key features.
+</Description>
+
+<Primary />
+
+<Controls />
+
+---
+
+## Variants
+
+| Variant    | Description     |
+| ---------- | --------------- |
+| `default`  | Default variant |
+| `variant1` | Description     |
+| `variant2` | Description     |
+
+---
+
+## Props
+
+<ArgTypes />
+
+---
+
+## Usage
+
+\`\`\`tsx
+import { ComponentName } from "dara-ui";
+
+<ComponentName prop1="value" prop2="value">
+  Content
+</ComponentName>
+\`\`\`
+
+---
+
+## Do's and Don'ts
+
+### ✅ Do
+
+- Do this
+- Do that
+
+### ❌ Don't
+
+- Don't do this
+- Don't do that
+
+---
+
+<Stories />

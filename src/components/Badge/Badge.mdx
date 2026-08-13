@@ -1,0 +1,48 @@
+import {
+  Meta,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+  Stories,
+  ArgTypes,
+} from "@storybook/blocks";
+import * as BadgeStories from "./Badge.stories";
+
+<Meta of={BadgeStories} />
+
+<Title>Badge</Title>
+
+<Subtitle>Small label for status, categories, or counts</Subtitle>
+
+<Description>
+  Badges are compact labels used to indicate status, categories, or counts. Dara
+  UI badges feature glass styling with glow effects.
+</Description>
+
+<Primary />
+
+<Controls />
+
+---
+
+## Variants
+
+| Variant     | Color   |
+| ----------- | ------- |
+| `primary`   | #7C5CFF |
+| `secondary` | #00D9FF |
+| `success`   | #00FF99 |
+| `danger`    | #FF5370 |
+| `warning`   | #FFC857 |
+
+---
+
+## Outline Variants
+
+```tsx
+<Badge outline variant="primary">
+  Outline Badge
+</Badge>
+```

@@ -80,7 +80,7 @@ export const Controlled: Story = {
     return (
       <div className="w-[500px]">
         <p className="text-xs text-white/40 font-mono mb-2">
-          Controlled — Open:{" "}
+          Controlled - Open:{" "}
           <span className="text-[#7c5cff]">{openItems.join(", ")}</span>
         </p>
         <Accordion

@@ -1,0 +1,68 @@
+import {
+  Meta,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+  Stories,
+  ArgTypes,
+} from "@storybook/blocks";
+import * as AvatarStories from "./Avatar.stories";
+
+<Meta of={AvatarStories} />
+
+<Title>Avatar</Title>
+
+<Subtitle>User profile image with fallback support</Subtitle>
+
+<Description>
+  Avatars display user profile images with fallback to initials or icon. Dara UI
+  avatars feature multiple sizes, shapes, status indicators, and glow effects.
+</Description>
+
+<Primary />
+
+<Controls />
+
+---
+
+## Sizes
+
+| Size | Dimensions |
+| ---- | ---------- |
+| `xs` | 24x24      |
+| `sm` | 32x32      |
+| `md` | 40x40      |
+| `lg` | 48x48      |
+| `xl` | 64x64      |
+
+---
+
+## Status Indicators
+
+| Status    | Color  |
+| --------- | ------ |
+| `online`  | Green  |
+| `away`    | Yellow |
+| `busy`    | Red    |
+| `offline` | Gray   |
+
+---
+
+## Do's and Don'ts
+
+### ✅ Do
+
+- Use avatars for user identification
+- Use fallbacks for missing images
+- Use status indicators for presence
+
+### ❌ Don't
+
+- Don't use avatars without alt text
+- Don't make avatars too small
+
+---
+
+<Stories />
