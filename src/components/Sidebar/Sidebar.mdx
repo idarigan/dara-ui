@@ -1,0 +1,47 @@
+import {
+  Meta,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+  Stories,
+  ArgTypes,
+} from "@storybook/blocks";
+import * as SidebarStories from "./Sidebar.stories";
+
+<Meta of={SidebarStories} />
+
+<Title>Sidebar</Title>
+
+<Subtitle>Collapsible navigation with groups and sub-menus</Subtitle>
+
+<Description>
+  Sidebar provides navigation with collapsible groups. Dara UI Sidebar features
+  groups, sub-menus, RTL support, and Ctrl+B shortcut.
+</Description>
+
+<Primary />
+
+<Controls />
+
+---
+
+## Features
+
+- ✅ Collapse/expand with Ctrl+B
+- ✅ Groups with expand/collapse
+- ✅ Nested sub-menus
+- ✅ Icon-only mode when collapsed
+- ✅ Content panel with fade animation
+- ✅ RTL support
+
+---
+
+## Keyboard Shortcut
+
+Press `Ctrl+B` (or `Cmd+B` on Mac) to toggle the sidebar collapse state.
+
+---
+
+<Stories />

@@ -1,0 +1,65 @@
+import {
+  Meta,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+  Stories,
+  ArgTypes,
+} from "@storybook/blocks";
+import * as ProgressStories from "./Progress.stories";
+
+<Meta of={ProgressStories} />
+
+<Title>Progress</Title>
+
+<Subtitle>Horizontal and radial progress indicators</Subtitle>
+
+<Description>
+  Progress indicators show completion status. Dara UI progress supports
+  horizontal and radial variants with configurable colors and label positions.
+</Description>
+
+<Primary />
+
+<Controls />
+
+---
+
+## Variants
+
+| Variant      | Description            |
+| ------------ | ---------------------- |
+| `horizontal` | Linear progress bar    |
+| `radial`     | Circular progress ring |
+
+---
+
+## Colors
+
+| Color       | Use Case                           |
+| ----------- | ---------------------------------- |
+| `primary`   | Default progress                   |
+| `secondary` | Secondary progress                 |
+| `accent`    | Accent colored                     |
+| `success`   | Completed progress                 |
+| `danger`    | Error state                        |
+| `warning`   | Warning state                      |
+| `gradient`  | Gradient from primary to secondary |
+
+---
+
+## Label Positions (Horizontal)
+
+| Position | Description          |
+| -------- | -------------------- |
+| `left`   | Label on the left    |
+| `right`  | Label on the right   |
+| `top`    | Label on top         |
+| `bottom` | Label on bottom      |
+| `inside` | Label inside the bar |
+
+---
+
+<Stories />

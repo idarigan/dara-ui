@@ -1,0 +1,52 @@
+import {
+  Meta,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+  Stories,
+  ArgTypes,
+} from "@storybook/blocks";
+import * as LanguageChangerStories from "./LanguageChanger.stories";
+
+<Meta of={LanguageChangerStories} />
+
+<Title>LanguageChanger</Title>
+
+<Subtitle>Language switcher with i18n support</Subtitle>
+
+<Description>
+  LanguageChanger allows users to switch languages. Features icon-only mode,
+  fixed width support, and localStorage persistence.
+</Description>
+
+<Primary />
+
+<Controls />
+
+---
+
+## Features
+
+- ✅ localStorage persistence
+- ✅ Icon-only mode
+- ✅ Fixed width support
+- ✅ Updates lang and dir attributes
+- ✅ Controlled and uncontrolled modes
+- ✅ Custom language list support
+
+---
+
+## Usage
+
+```tsx
+import { LanguageChanger, I18nProvider } from "dara-ui";
+import { translations } from "dara-ui/translations";
+
+<I18nProvider translations={translations} defaultLanguage="en">
+  <LanguageChanger />
+</I18nProvider>;
+```
+
+<Stories />

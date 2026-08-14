@@ -1,0 +1,50 @@
+import {
+  Meta,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+  Stories,
+  ArgTypes,
+} from "@storybook/blocks";
+import * as ProductCardStories from "./ProductCard.stories";
+
+<Meta of={ProductCardStories} />
+
+<Title>ProductCard</Title>
+
+<Subtitle>Glassy product card with 3D hover effect</Subtitle>
+
+<Description>
+  ProductCard displays product information with glass styling. Features rating
+  stars, sale badge, stock status, and quick add to cart.
+</Description>
+
+<Primary />
+
+<Controls />
+
+---
+
+## Layouts
+
+| Layout       | Description                   |
+| ------------ | ----------------------------- |
+| `vertical`   | Image on top, info below      |
+| `horizontal` | Image on left, info on right  |
+| `compact`    | Small image with minimal info |
+
+---
+
+## Features
+
+- ✅ Rating stars display
+- ✅ Sale badge and price comparison
+- ✅ Stock status indicator
+- ✅ Quick add to cart button
+- ✅ 3D tilt on hover
+
+---
+
+<Stories />

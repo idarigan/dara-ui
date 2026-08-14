@@ -1,0 +1,36 @@
+import {
+  Meta,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+  Stories,
+} from "@storybook/blocks";
+import { Particles } from "../components/Particles/Particles";
+import { AuroraBlobs } from "../components/AuroraBlobs/AuroraBlobs";
+import { GradientRing } from "../components/GradientRing/GradientRing";
+import { NoiseOverlay } from "../components/NoiseOverlay/NoiseOverlay";
+
+<Meta title="Components/Visual Effects" />
+
+<Title>Visual Effects</Title>
+
+<Subtitle>Atmospheric background effects</Subtitle>
+
+<Description>
+  Dara UI includes several visual effect components for creating immersive
+  backgrounds: Particles, AuroraBlobs, GradientRing, and NoiseOverlay.
+</Description>
+
+---
+
+## Particles
+
+Animated starfield/particle background.
+
+```tsx
+import { Particles } from "dara-ui";
+
+<Particles count={60} />;
+```

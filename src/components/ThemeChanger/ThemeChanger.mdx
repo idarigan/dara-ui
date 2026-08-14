@@ -1,0 +1,53 @@
+import {
+  Meta,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+  Stories,
+  ArgTypes,
+} from "@storybook/blocks";
+import * as ThemeChangerStories from "./ThemeChanger.stories";
+
+<Meta of={ThemeChangerStories} />
+
+<Title>ThemeChanger</Title>
+
+<Subtitle>Theme switcher with auto-detection</Subtitle>
+
+<Description>
+  ThemeChanger allows users to switch between themes. Features auto-detection
+  from CSS, icon-only mode, and fixed width support.
+</Description>
+
+<Primary />
+
+<Controls />
+
+---
+
+## Features
+
+- ✅ Auto-detects themes from CSS
+- ✅ Icon-only mode for navbars
+- ✅ Fixed width support
+- ✅ Persists preference in localStorage
+- ✅ Controlled and uncontrolled modes
+- ✅ Open upward option
+
+---
+
+## Usage
+
+```tsx
+import { ThemeChanger } from "dara-ui";
+
+// Full mode
+<ThemeChanger />
+
+// Icon only for navbar
+<ThemeChanger iconOnly size="sm" />
+```
+
+<Stories />

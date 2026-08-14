@@ -1,0 +1,54 @@
+import {
+  Meta,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+  Stories,
+  ArgTypes,
+} from "@storybook/blocks";
+import * as XPBarStories from "./XPBar.stories";
+
+<Meta of={XPBarStories} />
+
+<Title>XPBar</Title>
+
+<Subtitle>RPG-style experience progress bar</Subtitle>
+
+<Description>
+  XPBar displays progression in a gamified way. Dara UI XPBar features gradient
+  fill, level display, and rank tier system.
+</Description>
+
+<Primary />
+
+<Controls />
+
+---
+
+## Features
+
+- ✅ Gradient fill (purple to cyan)
+- ✅ Level display with customizable labels
+- ✅ Rank tier system
+- ✅ Glow effect on fill
+- ✅ 3D tilt on hover
+
+---
+
+## Rank Tiers
+
+```tsx
+const ranks = [
+  { label: "Common", requiredXP: 0 },
+  { label: "Uncommon", requiredXP: 1000 },
+  { label: "Rare", requiredXP: 2500 },
+  { label: "Epic", requiredXP: 4000 },
+  { label: "Legendary", requiredXP: 6000 },
+];
+
+<XPBar value={3400} max={5000} level={14} ranks={ranks} />;
+```
+
+<Stories />
