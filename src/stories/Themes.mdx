@@ -1,0 +1,61 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Themes" />
+
+# Themes
+
+Dara UI ships three built-in themes. Switch with `data-theme` on the document element or the `ThemeChanger` component.
+
+| Theme | Attribute | Feel |
+|-------|-----------|------|
+| **Nightfall** | `data-theme="nightfall"` | Default dark archive — deep navy, purple primary |
+| **Daylight** | `data-theme="daylight"` | Light surfaces, same accent language |
+| **Dracula** | `data-theme="dracula"` | High-contrast purple / gothic |
+
+## ThemeProvider
+
+```tsx
+import { ThemeProvider, ThemeChanger } from 'dara-ui';
+
+<ThemeProvider defaultTheme="nightfall">
+  <ThemeChanger />
+  {/* children */}
+</ThemeProvider>
+```
+
+## Manual switch
+
+```tsx
+document.documentElement.setAttribute('data-theme', 'dracula');
+```
+
+## Tokens you can override
+
+Core variables (subset):
+
+```css
+:root,
+[data-theme="nightfall"] {
+  --color-primary: #7c5cff;
+  --color-secondary: #00d9ff;
+  --color-accent: #ff4d9d;
+  --color-bg-primary: #0b0f19;
+  --color-text-primary: #e2e8f0;
+  --shadow-glow-primary: 0 0 20px rgba(124, 92, 255, 0.45);
+  --radius-md: 12px;
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+```
+
+## Do / Don't
+
+<div className="do-dont-grid">
+  <div className="do-card">
+    <span className="label">Do</span>
+    <p>Keep one theme source of truth (provider or a single script that sets <code>data-theme</code>).</p>
+  </div>
+  <div className="dont-card">
+    <span className="label">Don't</span>
+    <p>Hard-code hex colors in product UI — use <code>var(--color-*)</code> so themes stay coherent.</p>
+  </div>
+</div>

@@ -1,34 +1,51 @@
-import {
-  Meta,
-  Title,
-  Subtitle,
-  Description,
-  Primary,
-  Controls,
-  Stories,
-} from "@storybook/blocks";
-import { Badge } from "../components/Badge/Badge";
-import { Button } from "../components/Button/Button";
+import { Meta } from '@storybook/blocks';
 
 <Meta title="Introduction" />
 
-<Title>Dara UI</Title>
+# Dara UI
 
-<Subtitle>A cyberpunk design system for the future</Subtitle>
+**Glass-heavy design system** — cyberpunk archive aesthetics, soft glow, and production-ready React components.
 
-<Description>
-  Dara UI is a design system that feels like an interface discovered inside a
-  futuristic archive hidden beneath Calgary during a snowstorm. It blends
-  glassmorphism, cyberpunk, gothic aesthetics, Apple minimalism, and anime HUD
-  elements.
-</Description>
+Dara UI mixes glassmorphism, cyberpunk HUD energy, and clean Apple-like spacing. Every interactive piece is theme-aware (`nightfall`, `daylight`, `dracula`), RTL-ready, and documented with live Storybook stories.
 
----
+## What you get
 
-## Quick Start
+- **30+ components** — buttons, forms, navigation, RPG widgets, product/blog cards
+- **3 themes** out of the box via `data-theme`
+- **RTL / i18n** — `dir` inheritance, LanguageChanger, translations
+- **Motion** — scale-in modals, spring radios, range sparkles, 3D card tilt
+- **Tokens** — CSS variables for color, radius, shadow, easing
 
-```bash
-npm install dara-ui
-# or
-yarn add dara-ui
+## Quick peek
+
+```tsx
+import { Button, Badge, ThemeProvider } from 'dara-ui';
+import 'dara-ui/style.css';
+
+function App() {
+  return (
+    <ThemeProvider defaultTheme="nightfall">
+      <Button variant="primary" glow>
+        Launch mission
+      </Button>
+      <Badge variant="success" glow>
+        Online
+      </Badge>
+    </ThemeProvider>
+  );
+}
 ```
+
+## Design principles
+
+1. **Glass first** — translucent surfaces, blur, soft borders
+2. **Glow with purpose** — accent light on focus, active, and success states
+3. **Motion is feedback** — animations answer user actions, never decorate randomly
+4. **Mirror for RTL** — layout flips with `dir`, not hard-coded left/right
+5. **Tokens over magic numbers** — themes swap by changing CSS variables
+
+## Next steps
+
+- [Getting Started](?path=/docs/getting-started--docs) — install and wire providers
+- [Themes](?path=/docs/themes--docs) — nightfall, daylight, dracula
+- Browse **Components** in the sidebar for live examples and props

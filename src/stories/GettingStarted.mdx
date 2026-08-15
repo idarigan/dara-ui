@@ -1,23 +1,104 @@
-import {
-  Meta,
-  Title,
-  Subtitle,
-  Description,
-  Primary,
-  Controls,
-  Stories,
-} from "@storybook/blocks";
+import { Meta } from '@storybook/blocks';
 
 <Meta title="Getting Started" />
 
-<Title>Getting Started with Dara UI</Title>
+# Getting Started
 
-## Installation
+## Install
 
 ```bash
 npm install dara-ui
 # or
-yarn add dara-ui
-# or
 pnpm add dara-ui
+yarn add dara-ui
 ```
+
+Peer dependencies: `react` and `react-dom` (18+).
+
+## Import styles
+
+```tsx
+// main.tsx or App root
+import 'dara-ui/style.css';
+```
+
+## Minimal setup
+
+```tsx
+import { ThemeProvider, Button, ToastProvider } from 'dara-ui';
+import 'dara-ui/style.css';
+
+export default function App() {
+  return (
+    <ThemeProvider defaultTheme="nightfall">
+      <ToastProvider>
+        <Button variant="primary">Hello Dara</Button>
+      </ToastProvider>
+    </ThemeProvider>
+  );
+}
+```
+
+## With i18n + direction
+
+```tsx
+import {
+  ThemeProvider,
+  ToastProvider,
+  I18nProvider,
+  translations,
+} from 'dara-ui';
+
+export default function App() {
+  return (
+    <ToastProvider>
+      <I18nProvider translations={translations} defaultLanguage="en">
+        <ThemeProvider defaultTheme="nightfall">
+          {/* app */}
+        </ThemeProvider>
+      </I18nProvider>
+    </ToastProvider>
+  );
+}
+```
+
+`I18nProvider` sets `lang` and `dir` on `<html>`. Components listen to `dir` for RTL.
+
+## Tailwind / CSS variables
+
+Dara UI ships design tokens as CSS custom properties (see `tokens.css`). Themes switch with:
+
+```html
+<html data-theme="nightfall">
+```
+
+or via `ThemeProvider` / `ThemeChanger`.
+
+## TypeScript
+
+All public components export typed props. Example:
+
+```tsx
+import type { ButtonProps, BadgeProps } from 'dara-ui';
+```
+
+## Storybook
+
+This docs site is Storybook. Run locally:
+
+```bash
+npm run storybook
+```
+
+## Do / Don't
+
+<div className="do-dont-grid">
+  <div className="do-card">
+    <span className="label">Do</span>
+    <p>Wrap the app once with ThemeProvider (and ToastProvider if you use toasts).</p>
+  </div>
+  <div className="dont-card">
+    <span className="label">Don't</span>
+    <p>Import component CSS files one-by-one — use the bundled <code>dara-ui/style.css</code>.</p>
+  </div>
+</div>
