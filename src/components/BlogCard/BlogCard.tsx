@@ -159,13 +159,35 @@ export const BlogCard: React.FC<BlogCardProps> = ({
   const restShadow = "var(--shadow-float, 0 8px 24px rgba(0,0,0,0.18))";
   const elevatedShadow = `0 16px 40px rgba(0,0,0,0.28), ${hoverGlowShadow}`;
 
-  const formatDate = (dateValue: string | Date) => {
-    const d = typeof dateValue === "string" ? new Date(dateValue) : dateValue;
-    return d.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
+  // Safe date formatting function
+  const formatDate = (dateValue: string | Date): string => {
+    try {
+      const d = dateValue instanceof Date ? dateValue : new Date(dateValue);
+      if (isNaN(d.getTime())) {
+        return "";
+      }
+      return d.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    } catch (error) {
+      console.warn("Invalid date provided to BlogCard:", dateValue);
+      return "";
+    }
+  };
+
+  // Safe dateTime attribute function
+  const getDateTime = (dateValue: string | Date): string | undefined => {
+    try {
+      if (dateValue instanceof Date) {
+        return isNaN(dateValue.getTime()) ? undefined : dateValue.toISOString();
+      }
+      const testDate = new Date(dateValue);
+      return isNaN(testDate.getTime()) ? undefined : dateValue;
+    } catch (error) {
+      return undefined;
+    }
   };
 
   const Placeholder = () => (
@@ -340,11 +362,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
 
           <div className="flex items-center gap-3 text-xs text-[var(--color-text-tertiary)] ms-auto">
             {date && (
-              <time
-                dateTime={typeof date === "string" ? date : date.toISOString()}
-              >
-                {formatDate(date)}
-              </time>
+              <time dateTime={getDateTime(date)}>{formatDate(date)}</time>
             )}
             {showReadTime && readTime != null && (
               <span className="flex items-center gap-1">

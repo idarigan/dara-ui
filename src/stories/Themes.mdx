@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from "@storybook/blocks";
 
 <Meta title="Themes" />
 
@@ -6,27 +6,27 @@ import { Meta } from '@storybook/blocks';
 
 Dara UI ships three built-in themes. Switch with `data-theme` on the document element or the `ThemeChanger` component.
 
-| Theme | Attribute | Feel |
-|-------|-----------|------|
-| **Nightfall** | `data-theme="nightfall"` | Default dark archive — deep navy, purple primary |
-| **Daylight** | `data-theme="daylight"` | Light surfaces, same accent language |
-| **Dracula** | `data-theme="dracula"` | High-contrast purple / gothic |
+| Theme         | Attribute                | Feel                                             |
+| ------------- | ------------------------ | ------------------------------------------------ |
+| **Nightfall** | `data-theme="nightfall"` | Default dark archive - deep navy, purple primary |
+| **Daylight**  | `data-theme="daylight"`  | Light surfaces, same accent language             |
+| **Dracula**   | `data-theme="dracula"`   | High-contrast purple / gothic                    |
 
 ## ThemeProvider
 
 ```tsx
-import { ThemeProvider, ThemeChanger } from 'dara-ui';
+import { ThemeProvider, ThemeChanger } from "dara-ui";
 
 <ThemeProvider defaultTheme="nightfall">
   <ThemeChanger />
   {/* children */}
-</ThemeProvider>
+</ThemeProvider>;
 ```
 
 ## Manual switch
 
 ```tsx
-document.documentElement.setAttribute('data-theme', 'dracula');
+document.documentElement.setAttribute("data-theme", "dracula");
 ```
 
 ## Tokens you can override
@@ -52,10 +52,16 @@ Core variables (subset):
 <div className="do-dont-grid">
   <div className="do-card">
     <span className="label">Do</span>
-    <p>Keep one theme source of truth (provider or a single script that sets <code>data-theme</code>).</p>
+    <p>
+      Keep one theme source of truth (provider or a single script that sets{" "}
+      <code>data-theme</code>).
+    </p>
   </div>
   <div className="dont-card">
     <span className="label">Don't</span>
-    <p>Hard-code hex colors in product UI — use <code>var(--color-*)</code> so themes stay coherent.</p>
+    <p>
+      Hard-code hex colors in product UI - use <code>var(--color-*)</code> so
+      themes stay coherent.
+    </p>
   </div>
 </div>

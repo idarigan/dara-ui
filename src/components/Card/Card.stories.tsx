@@ -127,6 +127,11 @@ export const FloatCards: Story = {
 };
 
 export const ContentExamples: Story = {
+  args: {
+    float: true,
+    glow: "cyan"
+  },
+
   render: function ContentExamplesStory() {
     return (
       <div className="flex flex-wrap gap-4">
@@ -150,5 +155,5 @@ export const ContentExamples: Story = {
         </Card>
       </div>
     );
-  },
+  }
 };

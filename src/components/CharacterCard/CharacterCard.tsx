@@ -161,8 +161,6 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
     const circumference = 2 * Math.PI * radius;
     const offset = circumference - (percentage / 100) * circumference;
     const colorClass = getStatColor(stat.color);
-
-    // Fixed width so every item is identical → perfect equal spacing between ring centers
     const itemWidth = isHorizontal ? 60 : 68;
 
     return (
@@ -238,7 +236,7 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
           </div>
         </div>
 
-        {/* Label – perfectly centered under the ring, still has max-width */}
+        {/* Label */}
         <p className="text-[9px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-1.5 text-center leading-tight max-w-full">
           {stat.label}
         </p>
@@ -298,10 +296,10 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
           </div>
         </div>
 
-        {/* Quote - only show in vertical mode */}
+        {/* Quote */}
         {quote && !isHorizontal && (
           <p
-            className="text-[var(--color-text-secondary)] text-sm italic mt-3 leading-relaxed"
+            className="text-[var(--color-text-secondary)] text-sm italic mt-4 leading-relaxed"
             style={{ transform: "translateZ(10px)" }}
           >
             "{quote}"
@@ -312,15 +310,15 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
       {/* Right/Content Section */}
       <div
         className={`
-          ${isHorizontal ? "flex-1 min-w-0" : "w-full"}
+          ${isHorizontal ? "flex-1 min-w-0" : "w-full mt-5"}
           flex flex-col
         `}
         style={{ transform: "translateZ(15px)" }}
       >
-        {/* Quote - only show in horizontal mode */}
+        {/* Quote */}
         {quote && isHorizontal && (
           <p
-            className="text-[var(--color-text-secondary)] text-sm italic mb-3 leading-relaxed line-clamp-2"
+            className="text-[var(--color-text-secondary)] text-sm italic mb-4 leading-relaxed line-clamp-2"
             style={{ transform: "translateZ(10px)" }}
           >
             "{quote}"
@@ -330,8 +328,8 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
         {/* Details */}
         <div
           className={`
-    ${isHorizontal ? "flex flex-wrap gap-x-2 gap-y-1 mb-3" : "grid grid-cols-2 gap-y-2 mb-4"}
-  `}
+            ${isHorizontal ? "flex flex-wrap gap-x-2 gap-y-1.5 mb-4" : "grid grid-cols-2 gap-y-2.5 mb-5"}
+          `}
           style={{ transform: "translateZ(8px)" }}
         >
           {mbti && (
@@ -363,9 +361,9 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
           {affiliation && (
             <div
               className={`
-      flex items-center gap-1.5 min-w-0
-      ${isHorizontal ? "max-w-full" : "col-span-2"}
-    `}
+                flex items-center gap-1.5 min-w-0
+                ${isHorizontal ? "max-w-full" : "col-span-2"}
+              `}
             >
               <span className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono flex-shrink-0">
                 Affiliation:
@@ -380,7 +378,7 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
         {/* Traits */}
         {traits.length > 0 && (
           <div
-            className="flex flex-wrap gap-2 mb-3"
+            className="flex flex-wrap gap-2 mb-4"
             style={{ transform: "translateZ(5px)" }}
           >
             {traits.map((trait, index) => (
@@ -391,12 +389,12 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
           </div>
         )}
 
-        {/* Stats – equal spacing + perfectly centered labels */}
+        {/* Stats */}
         {stats.length > 0 && (
           <div
             className={`
               ${isHorizontal ? "flex flex-wrap gap-3 justify-start" : "flex flex-wrap gap-3 justify-center"}
-              pt-3 border-t border-[var(--color-border-secondary)]
+              pt-4 border-t border-[var(--color-border-secondary)]
             `}
             style={{ transform: "translateZ(5px)" }}
           >

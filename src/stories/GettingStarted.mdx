@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from "@storybook/blocks";
 
 <Meta title="Getting Started" />
 
@@ -19,14 +19,14 @@ Peer dependencies: `react` and `react-dom` (18+).
 
 ```tsx
 // main.tsx or App root
-import 'dara-ui/style.css';
+import "dara-ui/style.css";
 ```
 
 ## Minimal setup
 
 ```tsx
-import { ThemeProvider, Button, ToastProvider } from 'dara-ui';
-import 'dara-ui/style.css';
+import { ThemeProvider, Button, ToastProvider } from "dara-ui";
+import "dara-ui/style.css";
 
 export default function App() {
   return (
@@ -47,15 +47,13 @@ import {
   ToastProvider,
   I18nProvider,
   translations,
-} from 'dara-ui';
+} from "dara-ui";
 
 export default function App() {
   return (
     <ToastProvider>
       <I18nProvider translations={translations} defaultLanguage="en">
-        <ThemeProvider defaultTheme="nightfall">
-          {/* app */}
-        </ThemeProvider>
+        <ThemeProvider defaultTheme="nightfall">{/* app */}</ThemeProvider>
       </I18nProvider>
     </ToastProvider>
   );
@@ -69,7 +67,7 @@ export default function App() {
 Dara UI ships design tokens as CSS custom properties (see `tokens.css`). Themes switch with:
 
 ```html
-<html data-theme="nightfall">
+<html data-theme="nightfall"></html>
 ```
 
 or via `ThemeProvider` / `ThemeChanger`.
@@ -79,7 +77,7 @@ or via `ThemeProvider` / `ThemeChanger`.
 All public components export typed props. Example:
 
 ```tsx
-import type { ButtonProps, BadgeProps } from 'dara-ui';
+import type { ButtonProps, BadgeProps } from "dara-ui";
 ```
 
 ## Storybook
@@ -95,10 +93,16 @@ npm run storybook
 <div className="do-dont-grid">
   <div className="do-card">
     <span className="label">Do</span>
-    <p>Wrap the app once with ThemeProvider (and ToastProvider if you use toasts).</p>
+    <p>
+      Wrap the app once with ThemeProvider (and ToastProvider if you use
+      toasts).
+    </p>
   </div>
   <div className="dont-card">
     <span className="label">Don't</span>
-    <p>Import component CSS files one-by-one — use the bundled <code>dara-ui/style.css</code>.</p>
+    <p>
+      Import component CSS files one-by-one - use the bundled{" "}
+      <code>dara-ui/style.css</code>.
+    </p>
   </div>
 </div>
