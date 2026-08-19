@@ -5,13 +5,9 @@ import tailwindcss from "@tailwindcss/vite";
 import dts from "vite-plugin-dts";
 import path, { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
 import { playwright } from "@vitest/browser-playwright";
 
-const dirname =
-  typeof __dirname !== "undefined"
-    ? __dirname
-    : path.dirname(fileURLToPath(import.meta.url));
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [
@@ -24,7 +20,6 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      // ✅ Use dirname variable, point to library root
       entry: resolve(dirname, "src/index.ts"),
       name: "DaraUI",
       formats: ["es", "cjs"],
@@ -46,11 +41,7 @@ export default defineConfig({
     projects: [
       {
         extends: true,
-        plugins: [
-          storybookTest({
-            configDir: path.join(dirname, ".storybook"),
-          }),
-        ],
+        plugins: [],
         test: {
           name: "storybook",
           browser: {

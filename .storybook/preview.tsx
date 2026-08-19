@@ -11,11 +11,9 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-
     docs: {
       theme: daraTheme,
     },
-
     backgrounds: {
       default: "nightfall",
       values: [
@@ -24,11 +22,9 @@ const preview: Preview = {
         { name: "Dracula", value: "#1A1B26" },
       ],
     },
-
     a11y: {
       test: "todo",
     },
-
     options: {
       storySort: {
         method: "alphabetical",
