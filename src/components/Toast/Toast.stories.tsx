@@ -42,9 +42,20 @@ export const Default: Story = {
 
     return (
       <div className="relative min-h-[200px] w-[400px] overflow-hidden">
-        <Button variant="primary" onClick={() => setIsVisible(true)}>
-          Show Toast
-        </Button>
+        <div className="flex flex-wrap gap-3 justify-center">
+          <Button variant="success" onClick={() => setIsVisible(true)}>
+            Success Toast
+          </Button>
+          <Button variant="danger" onClick={() => setIsVisible(true)}>
+            Error Toast
+          </Button>
+          <Button variant="outline" onClick={() => setIsVisible(true)}>
+            Warning Toast
+          </Button>
+          <Button variant="glass" onClick={() => setIsVisible(true)}>
+            Info Toast
+          </Button>
+        </div>
         {isVisible && (
           <div className="absolute top-0 right-0">
             <Toast {...args} onDismiss={() => setIsVisible(false)} />
