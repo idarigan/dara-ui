@@ -2,7 +2,7 @@
 // DARA UI - Main Entry Point
 // ========================================
 
-// ----- Components -----
+// ----- Core Components -----
 export { Button } from "./components/Button/Button";
 export type { ButtonProps } from "./components/Button/Button";
 
@@ -33,19 +33,16 @@ export type {
 export { Modal } from "./components/Modal/Modal";
 export type { ModalProps } from "./components/Modal/Modal";
 
-// ----- Checkbox -----
+// ----- Form Components -----
 export { Checkbox } from "./components/Checkbox/Checkbox";
 export type { CheckboxProps } from "./components/Checkbox/Checkbox";
 
-// ----- Switch -----
 export { Switch } from "./components/Switch/Switch";
 export type { SwitchProps } from "./components/Switch/Switch";
 
-// ----- Radio -----
 export { Radio } from "./components/Radio/Radio";
 export type { RadioProps } from "./components/Radio/Radio";
 
-// ----- Range -----
 export { Range } from "./components/Range/Range";
 export type { RangeProps } from "./components/Range/Range";
 
