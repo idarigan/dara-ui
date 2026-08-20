@@ -377,6 +377,7 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
       <div
         ref={ref}
         className={`${fullWidth ? "w-full" : "inline-block"} ${className}`}
+        style={{ minWidth: "120px" }}
       >
         {label && (
           <label
