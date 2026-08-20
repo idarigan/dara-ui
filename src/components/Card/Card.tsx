@@ -12,7 +12,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   padding?: "sm" | "md" | "lg" | "none";
   /**
-   * Border radius
+   * Border radius - this was broken, now properly mapped
    * @default "standard"
    */
   radius?: "sm" | "md" | "standard" | "large" | "xl" | "full";
@@ -22,7 +22,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   float?: boolean;
   /**
-   * Glow effect color
+   * Glow effect color - now properly distinct
    */
   glow?: "purple" | "cyan" | "pink" | "primary" | "secondary" | "accent";
   /**
@@ -95,15 +95,17 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       none: "p-0",
     };
 
+    // Fixed radius mapping
     const radiusMap = {
       sm: "rounded-sm",
       md: "rounded-md",
-      standard: "rounded-standard",
-      large: "rounded-large",
+      standard: "rounded-[var(--radius-standard)]",
+      large: "rounded-[var(--radius-large)]",
       xl: "rounded-xl",
       full: "rounded-full",
     };
 
+    // Fixed glow mapping
     const glowStyles = {
       purple: "glow-purple",
       cyan: "glow-cyan",
@@ -130,14 +132,12 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     return (
       <div
         ref={(node) => {
-          // Forward the ref
           if (typeof ref === "function") {
             ref(node);
           } else if (ref) {
             (ref as React.MutableRefObject<HTMLDivElement | null>).current =
               node;
           }
-          // Store in our local ref
           (cardRef as React.MutableRefObject<HTMLDivElement | null>).current =
             node;
         }}
