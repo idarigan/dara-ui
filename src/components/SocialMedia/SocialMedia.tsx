@@ -235,6 +235,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`${label} (opens in new tab)`}
                 className={`
                   flex items-center gap-2
                   ${sizeStyles.button}
@@ -250,24 +251,11 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
                   relative
                   flex-shrink-0
                 `}
-                style={{
-                  background: `linear-gradient(135deg, ${platformData.color}, ${platformData.color}dd)`,
-                  transitionDelay: `${delay}ms`,
-                  transform: isExpanded ? "scale(1)" : "scale(0.3)",
-                  opacity: isExpanded && !isClosing ? 1 : 0,
-                  transition: `
-                    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    opacity 0.2s ease,
-                    box-shadow 0.2s ease
-                  `,
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
               >
                 <FontAwesomeIcon
                   icon={platformData.icon}
                   className={`${sizeStyles.icon} flex-shrink-0`}
+                  aria-hidden="true"
                 />
                 {showLabels && (
                   <span className="text-xs font-medium truncate max-w-[80px]">
@@ -278,7 +266,6 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
             );
           })}
         </div>
-
         {/* Chevron toggle button - glass morphism */}
         <button
           onClick={toggleExpanded}
@@ -307,6 +294,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
             viewBox="0 0 24 24"
             stroke="currentColor"
             strokeWidth={2.5}
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"

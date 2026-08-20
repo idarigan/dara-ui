@@ -226,8 +226,8 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
 
       return (
         <div
-          ref={ref}
           className={`w-full ${containerClass} ${className}`}
+          style={{ minWidth: "100px" }}
           {...props}
         >
           {showLabel && isLabelBefore && (
@@ -258,19 +258,13 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
             >
               {/* Fill */}
               <div
-                className={`
-                  h-full rounded-full
-                  ${colorMap[color]}
-                  ${barClass}
-                  relative
-                  flex items-center justify-end
-                  pr-2
-                `}
+                className={`h-full rounded-full ${colorMap[color]} ${barClass} relative flex items-center justify-end pr-2`}
                 style={{
                   width: `${percentage}%`,
                   transition: animated ? "width 0.4s ease" : "none",
                 }}
                 role="progressbar"
+                aria-label={`${label || "Progress"}: ${Math.round(percentage)}%`}
                 aria-valuenow={clampedValue}
                 aria-valuemin={0}
                 aria-valuemax={max}
@@ -415,16 +409,17 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
               cy={center}
               r={radius}
               fill="none"
-              className={`
-                ${radialColorMap[color as keyof typeof radialColorMap] || radialColorMap.primary}
-                transition-all duration-[var(--transition-base)] ease-[var(--ease-in-out)]
-              `}
+              className={
+                radialColorMap[color as keyof typeof radialColorMap] ||
+                radialColorMap.primary
+              }
               strokeWidth={thickness}
               strokeDasharray={circumference}
               strokeDashoffset={offset}
               strokeLinecap="round"
               transform={`rotate(-90 ${center} ${center})`}
               role="progressbar"
+              aria-label={`${label || "Progress"}: ${Math.round(percentage)}%`}
               aria-valuenow={clampedValue}
               aria-valuemin={0}
               aria-valuemax={max}
