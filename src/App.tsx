@@ -30,6 +30,7 @@ import { Navbar } from "./components/Navbar";
 import type { NavLink } from "./components/Navbar";
 import { SocialMedia } from "./components/SocialMedia";
 import { Sidebar } from "./components/Sidebar";
+import type { SidebarGroup } from "./components/Sidebar";
 import useDirection from "./hooks/useDirection";
 import StatsWidget from "./components/StatsWidget";
 import Checkbox from "./components/Checkbox";
