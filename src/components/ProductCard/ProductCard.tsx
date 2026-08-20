@@ -322,9 +322,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               {badge}
             </Badge>
           )}
-          {onSale && !isCompact && (
+          {onSale && !isCompact && !badge && (
             <Badge variant="danger" size="sm" glow>
               Sale
+            </Badge>
+          )}
+          {/* If both badge and onSale, only show badge */}
+          {onSale && !isCompact && badge && (
+            <Badge variant="danger" size="sm" glow>
+              {badge}
             </Badge>
           )}
         </div>
