@@ -76,6 +76,37 @@ export const ErrorState: Story = {
   ),
 };
 
+// ----- RTL Support -----
+export const RTLSupport: Story = {
+  render: () => {
+    const currentDir = document.documentElement.dir;
+    document.documentElement.dir = "rtl";
+    document.documentElement.lang = "fa";
+
+    return (
+      <div className="flex flex-col gap-4 items-start">
+        <Checkbox label="پذیرش شرایط" defaultChecked />
+        <Checkbox label="تایید اطلاعات" />
+        <Checkbox label="فعال سازی حالت شب" defaultChecked glow />
+        <button
+          className="mt-4 px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary)] text-white"
+          onClick={() => {
+            document.documentElement.dir = currentDir;
+            document.documentElement.lang = "en";
+          }}
+        >
+          Reset to LTR
+        </button>
+      </div>
+    );
+  },
+  decorators: [
+    (Story) => {
+      return <Story />;
+    },
+  ],
+};
+
 // ----- Disabled -----
 export const Disabled: Story = {
   render: () => (

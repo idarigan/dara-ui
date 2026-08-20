@@ -118,6 +118,7 @@ export const Sizes: Story = {
 // ----- RTL Support -----
 export const RTLSupport: Story = {
   render: () => {
+    const currentDir = document.documentElement.dir;
     document.documentElement.dir = "rtl";
     document.documentElement.lang = "fa";
 
@@ -126,14 +127,18 @@ export const RTLSupport: Story = {
         <Switch label="فعال سازی حالت شب" defaultChecked glow />
         <Switch label="فعال کردن اعلان‌ها" />
         <Switch label="حالت خودکار" defaultChecked glow />
+        <button
+          className="mt-4 px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary)] text-white"
+          onClick={() => {
+            document.documentElement.dir = currentDir;
+            document.documentElement.lang = "en";
+          }}
+        >
+          Reset to LTR
+        </button>
       </div>
     );
   },
-  decorators: [
-    (Story) => {
-      return <Story />;
-    },
-  ],
 };
 
 // ----- Disabled -----
