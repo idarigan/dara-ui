@@ -476,7 +476,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           className={`
-            flex items-center justify-center
+            inline-flex items-center
             bg-[var(--color-bg-tertiary)]
             text-[var(--color-text-primary)]
             border border-[var(--color-border-primary)]
@@ -485,11 +485,15 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
             hover:border-[var(--color-border-secondary)]
             transition-all duration-180
             active:scale-95
-            ${sizeStyles[size].iconOnlySize}
+            ${sizeStyles[size].trigger}
           `}
+          style={{
+            width: fixedWidth || "auto",
+            minWidth: fixedWidth || "auto",
+          }}
           aria-expanded={isOpen}
           aria-haspopup="listbox"
-          title={currentOption?.label || "Theme"}
+          aria-label={`Current theme: ${currentOption?.label || "Theme"}`}
         >
           {currentOption?.icon && (
             <span className="text-base">{currentOption.icon}</span>
