@@ -6,7 +6,17 @@ const config: StorybookConfig = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-a11y",
-    "@storybook/addon-docs",
+    {
+      name: "@storybook/addon-docs",
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [],
+            rehypePlugins: [],
+          },
+        },
+      },
+    },
     "@storybook/addon-themes",
   ],
   framework: {
