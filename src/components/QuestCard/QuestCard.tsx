@@ -243,7 +243,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
           glass p-6 float-card cursor-pointer relative
           h-full flex flex-col
           ${glowClass}
-          ${completed ? "opacity-60 pointer-events-none" : ""}
+          ${completed ? "opacity-80" : ""}
           transition-all duration-300
           ${className}
         `}
