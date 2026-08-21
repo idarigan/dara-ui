@@ -36,7 +36,7 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Glow effect around the avatar
    */
-  glow?: "purple" | "cyan" | "pink" | "primary" | "secondary" | "accent";
+  low?: "primary" | "secondary" | "accent";
   /**
    * Online status indicator
    */
@@ -104,9 +104,6 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
 
     // Glow styles
     const glowStyles = {
-      purple: "shadow-[var(--shadow-glow-primary)]",
-      cyan: "shadow-[var(--shadow-glow-secondary)]",
-      pink: "shadow-[var(--shadow-glow-accent)]",
       primary: "shadow-[var(--shadow-glow-primary)]",
       secondary: "shadow-[var(--shadow-glow-secondary)]",
       accent: "shadow-[var(--shadow-glow-accent)]",

@@ -84,7 +84,7 @@ export interface ProductCardProps {
    * Glow variant color
    * @default "none"
    */
-  glow?: "purple" | "cyan" | "pink" | "none";
+  glow?: "primary" | "secondary" | "accent" | "none";
   /**
    * Show add-to-cart action
    * @default true
@@ -155,9 +155,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   const glowStyles = {
-    purple: "glow-purple",
-    cyan: "glow-cyan",
-    pink: "glow-pink",
+    primary: "glow-purple",
+    secondary: "glow-cyan",
+    accent: "glow-pink",
     none: "",
   };
 

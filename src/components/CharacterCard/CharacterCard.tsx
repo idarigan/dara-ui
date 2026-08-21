@@ -62,7 +62,7 @@ export interface CharacterCardProps {
    * Glow variant color
    * @default "purple"
    */
-  glow?: "purple" | "cyan" | "pink" | "none";
+  glow?: "primary" | "secondary" | "accent" | "none";
   /**
    * Layout mode
    * @default "vertical"
@@ -127,9 +127,9 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
 
   // Glow styles
   const glowStyles = {
-    purple: "glow-purple",
-    cyan: "glow-cyan",
-    pink: "glow-pink",
+    primary: "glow-purple",
+    secondary: "glow-cyan",
+    accent: "glow-pink",
     none: "",
   };
   const glowClass = glowStyles[glow] || "";

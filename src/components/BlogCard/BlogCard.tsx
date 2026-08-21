@@ -61,7 +61,7 @@ export interface BlogCardProps {
    * Glow
    * @default "none"
    */
-  glow?: "purple" | "cyan" | "pink" | "none";
+  glow?: "primary" | "secondary" | "accent" | "none";
   /**
    * Show category badge
    * @default true
@@ -142,9 +142,9 @@ export const BlogCard: React.FC<BlogCardProps> = ({
   };
 
   const glowStyles = {
-    purple: "glow-purple",
-    cyan: "glow-cyan",
-    pink: "glow-pink",
+    primary: "glow-purple",
+    secondary: "glow-cyan",
+    accent: "glow-pink",
     none: "",
   };
 

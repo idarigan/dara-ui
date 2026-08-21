@@ -55,7 +55,7 @@ export interface StatsWidgetProps {
    * Glow variant color
    * @default "none"
    */
-  glow?: "purple" | "cyan" | "pink" | "none";
+  glow?: "primary" | "secondary" | "accent" | "none";
   /**
    * Layout mode
    * @default "vertical"
@@ -117,9 +117,9 @@ export const StatsWidget: React.FC<StatsWidgetProps> = ({
 
   // Glow styles
   const glowStyles = {
-    purple: "glow-purple",
-    cyan: "glow-cyan",
-    pink: "glow-pink",
+    primary: "glow-purple",
+    secondary: "glow-cyan",
+    accent: "glow-pink",
     none: "",
   };
 

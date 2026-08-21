@@ -23,7 +23,7 @@ const meta = {
     },
     glow: {
       control: "select",
-      options: ["", "purple", "cyan", "pink", "primary", "secondary", "accent"],
+      options: ["", "primary", "secondary", "accent"],
     },
     bordered: { control: "boolean" },
     fallback: { control: "boolean" },
@@ -88,9 +88,9 @@ export const WithStatus: Story = {
 export const WithGlow: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Avatar glow="purple" fallbackText="JD" />
-      <Avatar glow="cyan" fallbackText="JD" />
-      <Avatar glow="pink" fallbackText="JD" />
+      <Avatar glow="primary" fallbackText="JD" />
+      <Avatar glow="secondary" fallbackText="JD" />
+      <Avatar glow="accent" fallbackText="JD" />
     </div>
   ),
 };
@@ -100,7 +100,7 @@ export const Bordered: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Avatar bordered fallbackText="JD" />
-      <Avatar bordered glow="purple" fallbackText="JD" />
+      <Avatar bordered glow="primary" fallbackText="JD" />
     </div>
   ),
 };
@@ -131,7 +131,7 @@ export const WithClick: Story = {
     <Avatar
       fallbackText="JD"
       onClick={() => alert("Avatar clicked!")}
-      glow="purple"
+      glow="primary"
     />
   ),
 };

@@ -36,7 +36,7 @@ export interface QuestCardProps {
    * Glow variant color
    * @default "none"
    */
-  glow?: "purple" | "cyan" | "pink" | "none";
+  glow?: "primary" | "secondary" | "accent" | "none";
   /**
    * Optional done state (controlled)
    */
@@ -181,9 +181,9 @@ export const QuestCard: React.FC<QuestCardProps> = ({
   };
 
   const glowStyles = {
-    purple: "glow-purple",
-    cyan: "glow-cyan",
-    pink: "glow-pink",
+    primary: "glow-purple",
+    secondary: "glow-cyan",
+    accent: "glow-pink",
     none: "",
   };
 

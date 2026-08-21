@@ -8,6 +8,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   variant?:
     | "primary"
     | "secondary"
+    | "accent"
     | "glass"
     | "danger"
     | "success"
@@ -28,9 +29,9 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    */
   loading?: boolean;
   /**
-   * Glow effect color
+   * Glow effect color - primary, secondary, or accent
    */
-  glow?: "purple" | "cyan" | "pink";
+  glow?: "primary" | "secondary" | "accent";
   /**
    * Icon on the left side
    */
@@ -42,7 +43,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 /**
- * Dara UI Button - with enhanced hover glow and elevation effects
+ * Dara UI Button
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -68,7 +69,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       primary:
         "bg-[var(--color-primary)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)]",
       secondary:
-        "bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] border border-[var(--color-border-primary)] hover:bg-[var(--color-bg-elevated)] hover:border-[var(--color-secondary)]",
+        "bg-[var(--color-secondary)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-secondary)] hover:bg-[var(--color-secondary-hover)]",
+      accent:
+        "bg-[var(--color-accent)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-accent)] hover:bg-[var(--color-accent-hover)]",
       glass:
         "glass rounded-full text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/40",
       danger:
@@ -86,9 +89,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const glowStyles = {
-      purple: "hover:shadow-[0_0_50px_rgba(124,92,255,0.5)]",
-      cyan: "hover:shadow-[0_0_50px_rgba(0,217,255,0.5)]",
-      pink: "hover:shadow-[0_0_50px_rgba(255,77,157,0.5)]",
+      primary: "hover:shadow-[0_0_50px_rgba(124,92,255,0.5)]",
+      secondary: "hover:shadow-[0_0_50px_rgba(0,217,255,0.5)]",
+      accent: "hover:shadow-[0_0_50px_rgba(255,77,157,0.5)]",
     };
 
     const classes = [

@@ -14,6 +14,7 @@ const meta = {
       options: [
         "primary",
         "secondary",
+        "accent",
         "glass",
         "danger",
         "success",
@@ -26,7 +27,7 @@ const meta = {
     },
     glow: {
       control: "select",
-      options: ["", "purple", "cyan", "pink"],
+      options: ["", "primary", "secondary", "accent"],
     },
     fullWidth: { control: "boolean" },
     loading: { control: "boolean" },
@@ -52,6 +53,7 @@ export const Variants: Story = {
       <div className="flex flex-wrap gap-3">
         <Button variant="primary">Primary</Button>
         <Button variant="secondary">Secondary</Button>
+        <Button variant="accent">Accent</Button>
         <Button variant="glass">Glass</Button>
         <Button variant="danger">Danger</Button>
         <Button variant="success">Success</Button>
@@ -79,14 +81,14 @@ export const WithGlow: Story = {
   render: function WithGlowStory() {
     return (
       <div className="flex flex-wrap gap-3">
-        <Button glow="purple" variant="primary">
-          Purple Glow
+        <Button glow="primary" variant="primary">
+          Primary Glow
         </Button>
-        <Button glow="cyan" variant="primary">
-          Cyan Glow
+        <Button glow="secondary" variant="secondary">
+          Secondary Glow
         </Button>
-        <Button glow="pink" variant="primary">
-          Pink Glow
+        <Button glow="accent" variant="accent">
+          Accent Glow
         </Button>
       </div>
     );
@@ -126,8 +128,8 @@ export const WithIcons: Story = {
   render: function WithIconsStory() {
     return (
       <div className="flex flex-wrap gap-3">
-        <Button leftIcon="🚀">Launch</Button>
-        <Button rightIcon="→" variant="secondary">
+        <Button leftIcon={<span>🚀</span>}>Launch</Button>
+        <Button rightIcon={<span>→</span>} variant="secondary">
           Next
         </Button>
       </div>
@@ -152,6 +154,6 @@ export const Interactive: Story = {
     children: "Click me!",
     variant: "primary",
     size: "md",
-    glow: "purple",
+    glow: "primary",
   },
 };

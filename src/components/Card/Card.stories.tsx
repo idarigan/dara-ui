@@ -24,7 +24,7 @@ const meta = {
     float: { control: "boolean" },
     glow: {
       control: "select",
-      options: ["", "purple", "cyan", "pink", "primary", "secondary", "accent"],
+      options: ["", "primary", "secondary", "accent"],
     },
   },
   args: {
@@ -82,20 +82,20 @@ export const WithGlow: Story = {
   render: function WithGlowStory() {
     return (
       <div className="flex flex-wrap gap-4">
-        <Card glow="purple" className="w-56">
-          <h3 className="font-heading font-bold">Purple Glow</h3>
+        <Card glow="primary" className="w-56">
+          <h3 className="font-heading font-bold">Primary Glow</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
             Shadow glow
           </p>
         </Card>
-        <Card glow="cyan" className="w-56">
-          <h3 className="font-heading font-bold">Cyan Glow</h3>
+        <Card glow="secondary" className="w-56">
+          <h3 className="font-heading font-bold">Secondary Glow</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
             Shadow glow
           </p>
         </Card>
-        <Card glow="pink" className="w-56">
-          <h3 className="font-heading font-bold">Pink Glow</h3>
+        <Card glow="accent" className="w-56">
+          <h3 className="font-heading font-bold">Accent Glow</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
             Shadow glow
           </p>
@@ -115,7 +115,7 @@ export const FloatCards: Story = {
             Hover to float ✨
           </p>
         </Card>
-        <Card float glow="purple" className="w-56">
+        <Card float glow="primary" className="w-56">
           <h3 className="font-heading font-bold">Float + Glow</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
             Hover to float ✨
@@ -129,7 +129,7 @@ export const FloatCards: Story = {
 export const ContentExamples: Story = {
   args: {
     float: true,
-    glow: "cyan"
+    glow: "cyan",
   },
 
   render: function ContentExamplesStory() {
@@ -144,7 +144,7 @@ export const ContentExamples: Story = {
             A simple card with content.
           </p>
         </Card>
-        <Card glow="purple" className="w-64">
+        <Card glow="primary" className="w-64">
           <div className="w-12 h-12 rounded-standard bg-[var(--color-primary)]/20 flex items-center justify-center text-2xl mb-3">
             🎯
           </div>
@@ -155,5 +155,5 @@ export const ContentExamples: Story = {
         </Card>
       </div>
     );
-  }
+  },
 };
