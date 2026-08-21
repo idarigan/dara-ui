@@ -213,37 +213,37 @@ button.glass,
 }
 
 /* =============================================
-   GLOW UTILITIES - with smooth transitions
+   GLOW UTILITIES - Theme-agnostic
    ============================================= */
 
-.glow-purple {
+.glow-primary {
   box-shadow: var(--shadow-glow-primary);
   transition: box-shadow 0.4s ease;
 }
 
-.glow-purple.float-card:hover {
+.glow-primary.float-card:hover {
   box-shadow:
     var(--shadow-glow-primary),
     0 16px 48px rgba(0, 0, 0, 0.4);
 }
 
-.glow-cyan {
+.glow-secondary {
   box-shadow: var(--shadow-glow-secondary);
   transition: box-shadow 0.4s ease;
 }
 
-.glow-cyan.float-card:hover {
+.glow-secondary.float-card:hover {
   box-shadow:
     var(--shadow-glow-secondary),
     0 16px 48px rgba(0, 0, 0, 0.4);
 }
 
-.glow-pink {
+.glow-accent {
   box-shadow: var(--shadow-glow-accent);
   transition: box-shadow 0.4s ease;
 }
 
-.glow-pink.float-card:hover {
+.glow-accent.float-card:hover {
   box-shadow:
     var(--shadow-glow-accent),
     0 16px 48px rgba(0, 0, 0, 0.4);
@@ -264,15 +264,15 @@ button.glass,
   box-shadow: 0 6px 52px rgba(0, 0, 0, 0.4);
 }
 
-.glow-purple.float-card:hover {
+.glow-primary.float-card:hover {
   box-shadow: 0 6px 52px rgba(124, 92, 255, 0.3);
 }
 
-.glow-cyan.float-card:hover {
+.glow-secondary.float-card:hover {
   box-shadow: 0 6px 52px rgba(0, 217, 255, 0.3);
 }
 
-.glow-pink.float-card:hover {
+.glow-accent.float-card:hover {
   box-shadow: 0 6px 52px rgba(255, 77, 157, 0.3);
 }
 
@@ -282,6 +282,13 @@ button.glass,
 
 .text-gradient-primary {
   background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-secondary {
+  background: var(--gradient-secondary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -484,6 +491,26 @@ button.glass,
 .btn-primary:hover {
   background: var(--color-primary-hover);
   box-shadow: 0 0 35px var(--color-primary);
+}
+
+.btn-secondary {
+  background: var(--color-secondary);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-glow-secondary);
+}
+.btn-secondary:hover {
+  background: var(--color-secondary-hover);
+  box-shadow: 0 0 35px var(--color-secondary);
+}
+
+.btn-accent {
+  background: var(--color-accent);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-glow-accent);
+}
+.btn-accent:hover {
+  background: var(--color-accent-hover);
+  box-shadow: 0 0 35px var(--color-accent);
 }
 
 .btn-danger {
