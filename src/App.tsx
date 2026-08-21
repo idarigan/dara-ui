@@ -1307,7 +1307,7 @@ function AppContent() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Card float glow="primary">
                   <h3 className="font-heading font-bold">
-                    {t("cards.purpleGlow")}
+                    {t("cards.primaryGlow")}
                   </h3>
                   <p className="text-[var(--color-text-secondary)] text-sm">
                     Hover to float ✨
@@ -1315,7 +1315,7 @@ function AppContent() {
                 </Card>
                 <Card float glow="secondary">
                   <h3 className="font-heading font-bold">
-                    {t("cards.cyanGlow")}
+                    {t("cards.secondaryGlow")}
                   </h3>
                   <p className="text-[var(--color-text-secondary)] text-sm">
                     Hover to float ✨
@@ -1323,7 +1323,7 @@ function AppContent() {
                 </Card>
                 <Card float glow="accent">
                   <h3 className="font-heading font-bold">
-                    {t("cards.pinkGlow")}
+                    {t("cards.secondaryGlow")}
                   </h3>
                   <p className="text-[var(--color-text-secondary)] text-sm">
                     Hover to float ✨
@@ -1781,13 +1781,13 @@ function AppContent() {
             <h2 className="text-2xl font-semibold mb-6">{t("glow.title")}</h2>
             <div className="flex flex-wrap gap-3">
               <Button glow="primary" variant="primary">
-                {t("glow.glowPurple")}
+                {t("glow.glowPrimary")}
               </Button>
               <Button glow="secondary" variant="success">
-                {t("glow.glowCyan")}
+                {t("glow.glowSecondary")}
               </Button>
               <Button glow="accent" variant="danger">
-                {t("glow.glowPink")}
+                {t("glow.glowAccent")}
               </Button>
             </div>
           </section>
@@ -2848,10 +2848,10 @@ function AppContent() {
                 {t("effects.glassEffect")}
               </div>
               <div className="p-6 rounded-[var(--radius-standard)] glow-primary text-center bg-[var(--color-bg-tertiary)]">
-                {t("effects.glowPurple")}
+                {t("effects.glowPrimary")}
               </div>
               <div className="p-6 rounded-[var(--radius-standard)] glow-accent text-center bg-[var(--color-bg-tertiary)]">
-                {t("effects.glowPink")}
+                {t("effects.glowAccent")}
               </div>
             </div>
           </section>

@@ -149,10 +149,11 @@ export const BlogCard: React.FC<BlogCardProps> = ({
   };
 
   const hoverGlowShadow = {
-    purple:
+    primary:
       "0 0 28px color-mix(in srgb, var(--color-primary) 45%, transparent)",
-    cyan: "0 0 28px color-mix(in srgb, var(--color-secondary) 45%, transparent)",
-    pink: "0 0 28px color-mix(in srgb, var(--color-accent) 45%, transparent)",
+    secondary:
+      "0 0 28px color-mix(in srgb, var(--color-secondary) 45%, transparent)",
+    accent: "0 0 28px color-mix(in srgb, var(--color-accent) 45%, transparent)",
     none: "0 0 24px color-mix(in srgb, var(--color-primary) 28%, transparent)",
   }[glow];
 

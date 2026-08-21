@@ -19,7 +19,7 @@ const meta = {
     rank: { control: "text" },
     glow: {
       control: "select",
-      options: ["none", "purple", "cyan", "pink"],
+      options: ["none", "primary", "secondary", "accent"],
     },
     done: { control: "boolean" },
   },
@@ -105,24 +105,24 @@ export const DifferentGlows: Story = {
         rank="B"
       />
       <QuestCard
-        title="Purple Glow"
-        description="Mysterious purple aura"
+        title="Primary Glow"
+        description="Mysterious Primary aura"
         xp={150}
         deadline="3 days"
         rank="A"
         glow="primary"
       />
       <QuestCard
-        title="Cyan Glow"
-        description="Cyberpunk cyan aura"
+        title="Secondary Glow"
+        description="Cyberpunk Secondary aura"
         xp={200}
         deadline="1 week"
         rank="S"
         glow="secondary"
       />
       <QuestCard
-        title="Pink Glow"
-        description="Neon pink aura"
+        title="Accent Glow"
+        description="Neon Accent aura"
         xp={120}
         deadline="tonight"
         rank="A"
@@ -141,7 +141,7 @@ export const CustomXPLabel: Story = {
     description: "Finish the mandatory Jedi training program",
     deadline: "2 days",
     rank: "A",
-    glow: "cyan",
+    glow: "secondary",
   },
 };
 
@@ -180,7 +180,7 @@ export const FullFeatured: Story = {
     xpLabel: "EXP",
     deadline: "2024-12-25",
     rank: "S+",
-    glow: "purple",
+    glow: "primary",
     requirements: [
       "Reach level 25",
       "Defeat the Shadow Guardian",

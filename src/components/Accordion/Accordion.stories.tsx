@@ -37,8 +37,7 @@ const defaultItems = [
   {
     id: "2",
     title: "🎨 What themes are available?",
-    content:
-      "Night Archive (default), Snow Calgary (light), Sith Mode (black + red), Jedi Temple (white + blue), Dracula (purple), and Wine (deep reds).",
+    content: "Nightfall (default), Daylight (light) and Dracula (purple).",
   },
   {
     id: "3",

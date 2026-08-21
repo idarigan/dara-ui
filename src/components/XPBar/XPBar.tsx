@@ -61,7 +61,7 @@ export interface XPBarProps {
  * Dara UI XPBar - RPG-style experience progress bar
  *
  * Features:
- * - Gradient fill animation (purple to cyan)
+ * - Gradient fill animation (primary to secondary)
  * - Level display with customizable labels
  * - "X XP to next level" helper text
  * - Rank tier system with badge display

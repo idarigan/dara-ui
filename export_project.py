@@ -60,8 +60,7 @@ class AdvancedProjectExporter:
         
     def _generate_output_name(self) -> Path:
         project_name = self.project_root.name.replace(' ', '_').lower()
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        return Path(f"{project_name}_export_{timestamp}.txt")
+        return Path(f"{project_name}_export.txt")
     
     def should_include_file(self, file_path: Path) -> bool:
         """Enhanced file inclusion check with size and pattern filters"""

@@ -56,7 +56,7 @@ export interface QuestCardProps {
  *
  * Features:
  * - Title, description, XP reward, deadline, rank
- * - Glow variants (purple, cyan, pink)
+ * - Glow variants (primary, secondary, accent)
  * - Smart deadline display (tomorrow, tonight, X days)
  * - Requirements list
  * - Completion modal with sparkle drop effect
@@ -150,7 +150,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
     if (!rank) return "";
     const upperRank = rank.toUpperCase();
     if (upperRank === "S" || upperRank === "S+")
-      return "text-[var(--color-cyan)]";
+      return "text-[var(--color-secondary)]";
     if (upperRank === "A" || upperRank === "A+")
       return "text-[var(--color-primary)]";
     if (upperRank === "B" || upperRank === "B+")
@@ -271,7 +271,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
 
         {/* Mission Label */}
         <p
-          className="font-mono text-xs text-[var(--color-cyan)] uppercase tracking-wider mb-3"
+          className="font-mono text-xs text-[var(--color-secondary)] uppercase tracking-wider mb-3"
           style={{ transform: "translateZ(20px)" }}
         >
           🗡️ MISSION

@@ -15,7 +15,7 @@ const meta = {
     },
     glow: {
       control: "select",
-      options: ["none", "purple", "cyan", "pink"],
+      options: ["none", "primary", "secondary", "accent"],
     },
     featured: { control: "boolean" },
     showCategory: { control: "boolean" },
@@ -66,7 +66,7 @@ export const HorizontalLayout: Story = {
   args: {
     coverImage: "https://picsum.photos/seed/horizontal1/400/250",
     layout: "horizontal",
-    glow: "purple",
+    glow: "primary",
   },
 };
 
@@ -75,7 +75,7 @@ export const Featured: Story = {
   args: {
     coverImage: "https://picsum.photos/seed/cyberpunk-aesthetic/800/400",
     featured: true,
-    glow: "pink",
+    glow: "accent",
   },
 };
 
@@ -83,7 +83,7 @@ export const Featured: Story = {
 export const WithGlow: Story = {
   args: {
     coverImage: "https://picsum.photos/seed/glow-blog1/400/250",
-    glow: "purple",
+    glow: "primary",
   },
 };
 
@@ -137,7 +137,7 @@ export const Interactive: Story = {
     showAuthor: true,
     showReadTime: true,
     fullWidthMobile: false,
-    glow: "purple",
+    glow: "primary",
     layout: "vertical",
   },
 };

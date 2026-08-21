@@ -31,7 +31,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   /**
    * Glow effect color - primary, secondary, or accent
    */
-  glow?: "primary" | "secondary" | "accent";
+  glow?: "" | "primary" | "secondary" | "accent";
   /**
    * Icon on the left side
    */

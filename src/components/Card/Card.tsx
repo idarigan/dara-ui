@@ -24,7 +24,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Glow effect color
    */
-  glow?: "primary" | "secondary" | "accent";
+  glow?: "" | "primary" | "secondary" | "accent";
   /**
    * Card content
    */

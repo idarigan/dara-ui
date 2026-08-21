@@ -19,7 +19,7 @@ const meta = {
     },
     glow: {
       control: "select",
-      options: ["none", "purple", "cyan", "pink"],
+      options: ["none", "primary", "secondary", "accent"],
     },
     title: { control: "text" },
   },
@@ -75,7 +75,7 @@ export const HorizontalLayout: Story = {
 // ----- With Glow -----
 export const WithGlow: Story = {
   args: {
-    glow: "purple",
+    glow: "primary",
     stats: [
       { label: "Force", value: 73, color: "primary", trend: 12 },
       { label: "Combat", value: 85, color: "secondary", trend: 8 },
@@ -130,7 +130,7 @@ export const CustomUnits: Story = {
 export const GameStats: Story = {
   args: {
     title: "⚔️ STATS",
-    glow: "cyan",
+    glow: "secondary",
     stats: [
       { label: "Strength", value: 78, color: "danger", trend: 22 },
       { label: "Agility", value: 92, color: "accent", trend: 8 },
@@ -144,7 +144,7 @@ export const GameStats: Story = {
 export const MixedColors: Story = {
   args: {
     title: "📊 STATS",
-    glow: "pink",
+    glow: "accent",
     stats: [
       { label: "Hacking", value: 95, color: "secondary", trend: 5 },
       { label: "Stealth", value: 78, color: "accent", trend: 18 },
@@ -160,7 +160,7 @@ export const BarHorizontal: Story = {
     variant: "bar",
     layout: "horizontal",
     title: "📈 PROGRESS",
-    glow: "purple",
+    glow: "primary",
     stats: [
       { label: "Strength", value: 78, color: "danger", trend: 22 },
       { label: "Agility", value: 92, color: "accent", trend: 8 },

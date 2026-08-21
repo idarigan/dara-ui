@@ -106,7 +106,7 @@ export const ThemesOverview: Story = {
                   data-theme="nightfall"
                 </td>
                 <td className="px-4 py-3 border-b border-[var(--color-border-secondary)] text-[var(--color-text-secondary)]">
-                  Default dark archive - deep navy, purple primary
+                  Default Nightfall - deep navy with primary accent
                 </td>
               </tr>
               <tr className="hover:bg-[var(--color-bg-elevated)]/30 transition-colors">
@@ -128,7 +128,7 @@ export const ThemesOverview: Story = {
                   data-theme="dracula"
                 </td>
                 <td className="px-4 py-3 text-[var(--color-text-secondary)]">
-                  High-contrast purple / gothic
+                  High-contrast purple
                 </td>
               </tr>
             </tbody>

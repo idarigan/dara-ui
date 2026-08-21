@@ -17,7 +17,7 @@ const meta = {
     affiliation: { control: "text" },
     glow: {
       control: "select",
-      options: ["none", "purple", "cyan", "pink"],
+      options: ["none", "primary", "secondary", "accent"],
     },
   },
   args: {
@@ -27,7 +27,7 @@ const meta = {
     mbti: "INTJ",
     species: "Human/Cyborg",
     affiliation: "Jedi Order",
-    glow: "purple",
+    glow: "primary",
   },
 } satisfies Meta<typeof CharacterCard>;
 
@@ -78,7 +78,7 @@ export const WithEmojiIcon: Story = {
       { label: "Wisdom", value: 90, color: "secondary" },
       { label: "Combat", value: 45, color: "danger" },
     ],
-    glow: "pink",
+    glow: "accent",
   },
 };
 
@@ -161,7 +161,7 @@ export const FullStats: Story = {
       { label: "Leadership", value: 82, color: "secondary" },
       { label: "Wisdom", value: 65, color: "success" },
     ],
-    glow: "cyan",
+    glow: "secondary",
   },
 };
 

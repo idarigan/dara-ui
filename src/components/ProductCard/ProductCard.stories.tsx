@@ -15,7 +15,7 @@ const meta = {
     },
     glow: {
       control: "select",
-      options: ["none", "purple", "cyan", "pink"],
+      options: ["none", "primary", "secondary", "accent"],
     },
     onSale: { control: "boolean" },
     inStock: { control: "boolean" },
@@ -90,7 +90,7 @@ export const HorizontalLayout: Story = {
   args: {
     image: "https://picsum.photos/seed/cyberpunk2/300/300",
     layout: "horizontal",
-    glow: "purple",
+    glow: "primary",
   },
 };
 
@@ -99,7 +99,7 @@ export const CompactLayout: Story = {
   args: {
     image: "https://picsum.photos/seed/cyberpunk3/100/100",
     layout: "compact",
-    glow: "cyan",
+    glow: "secondary",
   },
 };
 
@@ -107,7 +107,7 @@ export const CompactLayout: Story = {
 export const WithGlow: Story = {
   args: {
     image: "https://picsum.photos/seed/glow1/300/300",
-    glow: "purple",
+    glow: "primary",
   },
 };
 
@@ -146,7 +146,7 @@ export const Interactive: Story = {
     onSale: false,
     showQuickActions: true,
     fullWidthMobile: false,
-    glow: "purple",
+    glow: "primary",
     layout: "vertical",
   },
 };
