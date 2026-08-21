@@ -36,7 +36,7 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Glow effect around the avatar
    */
-  low?: "primary" | "secondary" | "accent";
+  glow?: "primary" | "secondary" | "accent";
   /**
    * Online status indicator
    */
