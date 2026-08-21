@@ -683,22 +683,17 @@ function AppContent() {
               </Button>
               <Button
                 size="sm"
-                variant={theme === "daylight" ? "primary" : "outline"}
+                variant={theme === "daylight" ? "secondary" : "outline"}
                 onClick={() => changeTheme("daylight")}
               >
                 ☀️ {t("header.daylight")}
               </Button>
               <Button
                 size="sm"
-                variant={theme === "dracula" ? "primary" : "outline"}
+                variant={theme === "dracula" ? "accent" : "outline"}
                 onClick={() => changeTheme("dracula")}
               >
                 🍷 {t("header.dracula")}
-              </Button>
-              <Button size="sm" variant="outline" onClick={toggleDirection}>
-                {direction === "ltr"
-                  ? `🔁 ${t("header.rtl")}`
-                  : `🔁 ${t("header.ltr")}`}
               </Button>
             </div>
           </div>
@@ -927,9 +922,9 @@ function AppContent() {
                 {t("avatar.glowEffects")}
               </p>
               <div className="flex items-center gap-4">
-                <Avatar glow="purple" fallbackText="JD" />
-                <Avatar glow="cyan" fallbackText="JD" />
-                <Avatar glow="pink" fallbackText="JD" />
+                <Avatar glow="primary" fallbackText="JD" />
+                <Avatar glow="secondary" fallbackText="JD" />
+                <Avatar glow="accent" fallbackText="JD" />
               </div>
             </div>
 
@@ -948,7 +943,7 @@ function AppContent() {
                   src="https://i.pravatar.cc/150?img=9"
                   alt="User avatar"
                   size="md"
-                  glow="purple"
+                  glow="primary"
                 />
                 <Avatar
                   src="https://i.pravatar.cc/150?img=12"
@@ -980,7 +975,7 @@ function AppContent() {
               <Avatar
                 fallbackText="JD"
                 onClick={() => alert("Avatar clicked!")}
-                glow="purple"
+                glow="primary"
               />
             </div>
           </section>
@@ -1310,7 +1305,7 @@ function AppContent() {
                 {t("cards.floatGlow")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Card float glow="purple">
+                <Card float glow="primary">
                   <h3 className="font-heading font-bold">
                     {t("cards.purpleGlow")}
                   </h3>
@@ -1318,7 +1313,7 @@ function AppContent() {
                     Hover to float ✨
                   </p>
                 </Card>
-                <Card float glow="cyan">
+                <Card float glow="secondary">
                   <h3 className="font-heading font-bold">
                     {t("cards.cyanGlow")}
                   </h3>
@@ -1326,7 +1321,7 @@ function AppContent() {
                     Hover to float ✨
                   </p>
                 </Card>
-                <Card float glow="pink">
+                <Card float glow="accent">
                   <h3 className="font-heading font-bold">
                     {t("cards.pinkGlow")}
                   </h3>
@@ -1343,7 +1338,7 @@ function AppContent() {
                 {t("cards.featureCards")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Card glow="purple" className="text-center">
+                <Card glow="primary" className="text-center">
                   <div className="text-4xl mb-2">🚀</div>
                   <h3 className="font-heading font-bold">
                     {t("cards.launch")}
@@ -1729,7 +1724,7 @@ function AppContent() {
             </div>
 
             {/* With custom labels */}
-            <div className="glass mb-5 p-6 float-card glow-cyan">
+            <div className="glass mb-5 p-6 float-card glow-secondary">
               <XPBar
                 value={3400}
                 max={5000}
@@ -1741,7 +1736,7 @@ function AppContent() {
             </div>
 
             {/* With rank tiers */}
-            <div className="glass mb-5 p-6 float-card glow-purple">
+            <div className="glass mb-5 p-6 float-card glow-primary">
               <XPBar
                 value={3400}
                 max={5000}
@@ -1785,13 +1780,13 @@ function AppContent() {
           <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
             <h2 className="text-2xl font-semibold mb-6">{t("glow.title")}</h2>
             <div className="flex flex-wrap gap-3">
-              <Button glow="purple" variant="primary">
+              <Button glow="primary" variant="primary">
                 {t("glow.glowPurple")}
               </Button>
-              <Button glow="cyan" variant="success">
+              <Button glow="secondary" variant="success">
                 {t("glow.glowCyan")}
               </Button>
-              <Button glow="pink" variant="danger">
+              <Button glow="accent" variant="danger">
                 {t("glow.glowPink")}
               </Button>
             </div>
@@ -1811,7 +1806,7 @@ function AppContent() {
                 xp={300}
                 deadline="tomorrow"
                 rank="S"
-                glow="cyan"
+                glow="secondary"
               />
 
               <QuestCard
@@ -1820,7 +1815,7 @@ function AppContent() {
                 xp={200}
                 deadline="3 days"
                 rank="A"
-                glow="purple"
+                glow="primary"
                 requirements={[
                   t("quest.completeReviews"),
                   t("quest.writeTests"),
@@ -1838,7 +1833,7 @@ function AppContent() {
                 xpLabel={t("xpbar.exp")}
                 deadline="2024-12-25"
                 rank="S+"
-                glow="purple"
+                glow="primary"
                 requirements={[
                   t("quest.reachLevel"),
                   t("quest.defeatGuardian"),
@@ -1853,7 +1848,7 @@ function AppContent() {
                 xp={150}
                 deadline="tonight"
                 rank="B"
-                glow="pink"
+                glow="accent"
                 requirements={[
                   t("quest.scanLocations"),
                   t("quest.interviewNPCs"),
@@ -1899,7 +1894,7 @@ function AppContent() {
                   },
                   { label: t("character.wisdom"), value: 68, color: "warning" },
                 ]}
-                glow="purple"
+                glow="primary"
               />
 
               <CharacterCard
@@ -1925,7 +1920,7 @@ function AppContent() {
                   },
                   { label: t("character.combat"), value: 45, color: "danger" },
                 ]}
-                glow="cyan"
+                glow="secondary"
               />
 
               <CharacterCard
@@ -1947,7 +1942,7 @@ function AppContent() {
                   },
                   { label: t("character.wisdom"), value: 82, color: "primary" },
                 ]}
-                glow="pink"
+                glow="accent"
               />
             </div>
 
@@ -1980,7 +1975,7 @@ function AppContent() {
                   },
                   { label: t("character.wisdom"), value: 68, color: "warning" },
                 ]}
-                glow="purple"
+                glow="primary"
               />
 
               <CharacterCard
@@ -2007,7 +2002,7 @@ function AppContent() {
                   },
                   { label: t("character.combat"), value: 45, color: "danger" },
                 ]}
-                glow="cyan"
+                glow="secondary"
               />
 
               <CharacterCard
@@ -2030,7 +2025,7 @@ function AppContent() {
                   },
                   { label: t("character.wisdom"), value: 82, color: "primary" },
                 ]}
-                glow="pink"
+                glow="accent"
               />
             </div>
           </section>
@@ -2050,7 +2045,7 @@ function AppContent() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <StatsWidget
                 title={t("statsWidget.forceStats")}
-                glow="purple"
+                glow="primary"
                 stats={[
                   {
                     label: t("character.force"),
@@ -2081,7 +2076,7 @@ function AppContent() {
 
               <StatsWidget
                 title={t("statsWidget.characterStats")}
-                glow="cyan"
+                glow="secondary"
                 stats={[
                   {
                     label: t("statsWidget.health"),
@@ -2127,7 +2122,7 @@ function AppContent() {
               <StatsWidget
                 variant="bar"
                 title={`📈 ${t("statsWidget.progress")}`}
-                glow="pink"
+                glow="accent"
                 stats={[
                   {
                     label: t("character.strength"),
@@ -2159,7 +2154,7 @@ function AppContent() {
               <StatsWidget
                 variant="bar"
                 title={t("statsWidget.skills")}
-                glow="purple"
+                glow="primary"
                 stats={[
                   {
                     label: t("character.hacking"),
@@ -2197,7 +2192,7 @@ function AppContent() {
               <StatsWidget
                 layout="horizontal"
                 title={`⚔️ ${t("statsWidget.battleStats")}`}
-                glow="cyan"
+                glow="secondary"
                 stats={[
                   {
                     label: t("character.strength"),
@@ -2230,7 +2225,7 @@ function AppContent() {
                 variant="bar"
                 layout="horizontal"
                 title={`📊 ${t("statsWidget.skillProgress")}`}
-                glow="purple"
+                glow="primary"
                 stats={[
                   {
                     label: t("character.hacking"),
@@ -2328,7 +2323,7 @@ function AppContent() {
                   reviewCount={45}
                   category={t("productCard.category4")}
                   tags={[t("productCard.tag4"), "classified"]}
-                  glow="cyan"
+                  glow="secondary"
                   onAddToCart={() => console.log("Added to cart!")}
                 />
               </div>
@@ -2350,7 +2345,7 @@ function AppContent() {
                   reviewCount={128}
                   category={t("productCard.category1")}
                   layout="horizontal"
-                  glow="purple"
+                  glow="primary"
                   onAddToCart={() => console.log("Added to cart!")}
                 />
                 <ProductCard
@@ -2365,7 +2360,7 @@ function AppContent() {
                   layout="horizontal"
                   onSale
                   originalPrice={199.99}
-                  glow="cyan"
+                  glow="secondary"
                   onAddToCart={() => console.log("Added to cart!")}
                 />
               </div>
@@ -2383,7 +2378,7 @@ function AppContent() {
                   currency="$"
                   image="https://picsum.photos/seed/cyberpunk3/100/100"
                   layout="compact"
-                  glow="purple"
+                  glow="primary"
                   onAddToCart={() => console.log("Added to cart!")}
                 />
                 <ProductCard
@@ -2394,7 +2389,7 @@ function AppContent() {
                   layout="compact"
                   onSale
                   originalPrice={199.99}
-                  glow="cyan"
+                  glow="secondary"
                   onAddToCart={() => console.log("Added to cart!")}
                 />
                 <ProductCard
@@ -2412,7 +2407,7 @@ function AppContent() {
                   currency="$"
                   image="https://picsum.photos/seed/shard3/100/100"
                   layout="compact"
-                  glow="pink"
+                  glow="accent"
                   onAddToCart={() => console.log("Added to cart!")}
                 />
               </div>
@@ -2429,7 +2424,7 @@ function AppContent() {
                   price={79.99}
                   currency="$"
                   image="https://picsum.photos/seed/glow1/300/300"
-                  glow="purple"
+                  glow="primary"
                   onAddToCart={() => console.log("Added to cart!")}
                 />
                 <ProductCard
@@ -2437,7 +2432,7 @@ function AppContent() {
                   price={149.99}
                   currency="$"
                   image="https://picsum.photos/seed/glow2/300/300"
-                  glow="cyan"
+                  glow="secondary"
                   onAddToCart={() => console.log("Added to cart!")}
                 />
                 <ProductCard
@@ -2445,7 +2440,7 @@ function AppContent() {
                   price={59.99}
                   currency="$"
                   image="https://picsum.photos/seed/glow3/300/300"
-                  glow="pink"
+                  glow="accent"
                   onAddToCart={() => console.log("Added to cart!")}
                 />
               </div>
@@ -2473,7 +2468,7 @@ function AppContent() {
                   image="https://picsum.photos/seed/responsive2/300/300"
                   description={t("productCard.desc2")}
                   fullWidthMobile
-                  glow="purple"
+                  glow="primary"
                   onAddToCart={() => console.log("Added to cart!")}
                 />
               </div>
@@ -2516,7 +2511,7 @@ function AppContent() {
                   readTime={8}
                   category={t("blogCard.category2")}
                   tags={[t("blogCard.tag2"), t("blogCard.tag3")]}
-                  glow="cyan"
+                  glow="secondary"
                   link="#"
                 />
                 <BlogCard
@@ -2529,7 +2524,7 @@ function AppContent() {
                   readTime={6}
                   category={t("blogCard.category3")}
                   tags={[t("blogCard.tag3"), t("blogCard.tag2")]}
-                  glow="purple"
+                  glow="primary"
                   link="#"
                 />
               </div>
@@ -2551,7 +2546,7 @@ function AppContent() {
                   readTime={5}
                   category={t("blogCard.category1")}
                   layout="horizontal"
-                  glow="purple"
+                  glow="primary"
                   link="#"
                 />
                 <BlogCard
@@ -2564,7 +2559,7 @@ function AppContent() {
                   readTime={8}
                   category={t("blogCard.category2")}
                   layout="horizontal"
-                  glow="cyan"
+                  glow="secondary"
                   link="#"
                 />
               </div>
@@ -2591,7 +2586,7 @@ function AppContent() {
                     t("blogCard.tag2"),
                   ]}
                   featured
-                  glow="pink"
+                  glow="accent"
                   link="#"
                 />
               </div>
@@ -2610,7 +2605,7 @@ function AppContent() {
                   author={t("blogCard.author1")}
                   date={new Date("2024-11-15")}
                   readTime={5}
-                  glow="purple"
+                  glow="primary"
                   link="#"
                 />
                 <BlogCard
@@ -2620,7 +2615,7 @@ function AppContent() {
                   author={t("blogCard.author2")}
                   date={new Date("2024-11-10")}
                   readTime={8}
-                  glow="cyan"
+                  glow="secondary"
                   link="#"
                 />
                 <BlogCard
@@ -2630,7 +2625,7 @@ function AppContent() {
                   author={t("blogCard.author3")}
                   date={new Date("2024-11-05")}
                   readTime={6}
-                  glow="pink"
+                  glow="accent"
                   link="#"
                 />
               </div>
@@ -2660,7 +2655,7 @@ function AppContent() {
                   date={new Date("2024-11-10")}
                   readTime={8}
                   fullWidthMobile
-                  glow="purple"
+                  glow="primary"
                   link="#"
                 />
               </div>
@@ -2852,10 +2847,10 @@ function AppContent() {
               <div className="p-6 rounded-[var(--radius-standard)] glass text-center">
                 {t("effects.glassEffect")}
               </div>
-              <div className="p-6 rounded-[var(--radius-standard)] glow-purple text-center bg-[var(--color-bg-tertiary)]">
+              <div className="p-6 rounded-[var(--radius-standard)] glow-primary text-center bg-[var(--color-bg-tertiary)]">
                 {t("effects.glowPurple")}
               </div>
-              <div className="p-6 rounded-[var(--radius-standard)] glow-pink text-center bg-[var(--color-bg-tertiary)]">
+              <div className="p-6 rounded-[var(--radius-standard)] glow-accent text-center bg-[var(--color-bg-tertiary)]">
                 {t("effects.glowPink")}
               </div>
             </div>
