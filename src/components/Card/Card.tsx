@@ -12,7 +12,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   padding?: "sm" | "md" | "lg" | "none";
   /**
-   * Border radius - this was broken, now properly mapped
+   * Border radius
    * @default "standard"
    */
   radius?: "sm" | "md" | "standard" | "large" | "xl" | "full";
@@ -22,9 +22,9 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   float?: boolean;
   /**
-   * Glow effect color - now properly distinct
+   * Glow effect color
    */
-  glow?: "purple" | "cyan" | "pink" | "primary" | "secondary" | "accent";
+  glow?: "primary" | "secondary" | "accent";
   /**
    * Card content
    */
@@ -95,21 +95,18 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       none: "p-0",
     };
 
-    // Fixed radius mapping
+    // Radius mapping
     const radiusMap = {
-      sm: "rounded-sm",
-      md: "rounded-md",
+      sm: "rounded-[var(--radius-sm)]",
+      md: "rounded-[var(--radius-md)]",
       standard: "rounded-[var(--radius-standard)]",
       large: "rounded-[var(--radius-large)]",
-      xl: "rounded-xl",
-      full: "rounded-full",
+      xl: "rounded-[var(--radius-xl)]",
+      full: "rounded-[var(--radius-full)]",
     };
 
-    // Fixed glow mapping
+    // Glow mapping
     const glowStyles = {
-      purple: "glow-purple",
-      cyan: "glow-cyan",
-      pink: "glow-pink",
       primary: "glow-purple",
       secondary: "glow-cyan",
       accent: "glow-pink",
