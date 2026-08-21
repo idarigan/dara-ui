@@ -60,7 +60,7 @@ export interface CharacterCardProps {
   stats?: CharacterStat[];
   /**
    * Glow variant color
-   * @default "purple"
+   * @default "primary"
    */
   glow?: "primary" | "secondary" | "accent" | "none";
   /**
@@ -98,7 +98,7 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
   affiliation,
   traits = [],
   stats = [],
-  glow = "purple",
+  glow = "primary",
   layout = "vertical",
   className = "",
 }) => {
@@ -281,7 +281,7 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
             fallbackText={name}
             fallback={!portrait && !icon}
             size="lg"
-            glow={glow !== "none" ? "purple" : undefined}
+            glow={glow !== "none" ? "primary" : undefined}
             bordered
           />
           <div className="min-w-0 flex-1">
