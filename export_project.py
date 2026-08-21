@@ -4,7 +4,7 @@ import hashlib
 from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Set
 import argparse
 
 
@@ -38,34 +38,86 @@ class AdvancedProjectExporter:
         '.eslintcache', '.prettiercache',
     }
     
-    def __init__(self, project_root: str = '.', output_file: str = None):
+    def __init__(self, project_root: str = '.', output_file: str = None, 
+                 max_file_size: int = None, max_lines_per_file: int = None,
+                 include_patterns: List[str] = None, exclude_patterns: List[str] = None,
+                 truncate_large_files: bool = False):
         self.project_root = Path(project_root).resolve()
         self.output_file = Path(output_file) if output_file else self._generate_output_name()
         self.file_count = 0
         self.total_size = 0
         self.stats = defaultdict(int)
         self.file_hashes = {}
+        self.skipped_files = []
+        self.truncated_files = []
+        
+        # New configuration options
+        self.max_file_size = max_file_size or 500 * 1024  # 500KB default
+        self.max_lines_per_file = max_lines_per_file or 1000  # 1000 lines default
+        self.truncate_large_files = truncate_large_files
+        self.include_patterns = include_patterns or ['src', '.storybook']
+        self.exclude_patterns = exclude_patterns or []
         
     def _generate_output_name(self) -> Path:
         project_name = self.project_root.name.replace(' ', '_').lower()
-        return Path(f"{project_name}_export.txt")
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        return Path(f"{project_name}_export_{timestamp}.txt")
     
     def should_include_file(self, file_path: Path) -> bool:
+        """Enhanced file inclusion check with size and pattern filters"""
         if not file_path.is_file():
             return False
         
+        # Check file name exclusions
         if file_path.name in self.EXCLUDE_FILES:
             return False
         
+        # Check directory exclusions
         for parent in file_path.parents:
             if parent.name in self.EXCLUDE_DIRS:
                 return False
         
+        # Check include patterns (only include files in specified directories)
+        try:
+            relative_path = file_path.relative_to(self.project_root)
+            # Check if file is in allowed directories
+            if self.include_patterns:
+                is_included = False
+                for pattern in self.include_patterns:
+                    if str(relative_path).startswith(pattern) or pattern in str(relative_path):
+                        is_included = True
+                        break
+                if not is_included:
+                    return False
+        except ValueError:
+            pass
+        
+        # Check exclude patterns
+        if self.exclude_patterns:
+            for pattern in self.exclude_patterns:
+                if pattern in str(file_path):
+                    return False
+        
+        # Check file size
+        try:
+            file_size = file_path.stat().st_size
+            if file_size > self.max_file_size:
+                if self.truncate_large_files:
+                    self.truncated_files.append(str(file_path))
+                    return True  # Still include but will truncate content
+                else:
+                    self.skipped_files.append(f"{file_path} (size: {file_size} bytes)")
+                    return False
+        except:
+            return False
+        
+        # Check if it's a code file or special file
         if file_path.name in {'.gitignore', '.env', '.env.example', '.editorconfig'}:
             return True
         
         if file_path.suffix.lower() in self.CODE_EXTENSIONS:
             try:
+                # Verify it's readable as text
                 with open(file_path, 'r', encoding='utf-8') as f:
                     f.read(1024)
                 return True
@@ -133,6 +185,8 @@ class AdvancedProjectExporter:
             'python': '#',
             'javascript': '//',
             'typescript': '//',
+            'jsx': '//',
+            'tsx': '//',
             'css': '/*',
             'html': '<!--',
             'bash': '#',
@@ -153,15 +207,46 @@ class AdvancedProjectExporter:
         }
     
     def read_file_content(self, file_path: Path) -> Optional[str]:
+        """Read file content with size limits and truncation support"""
         encodings = ['utf-8', 'latin-1', 'cp1252', 'iso-8859-1', 'ascii']
         
         for encoding in encodings:
             try:
-                with open(file_path, 'r', encoding=encoding) as f:
-                    content = f.read()
-                file_hash = self._calculate_hash(content)
-                self.file_hashes[str(file_path.relative_to(self.project_root))] = file_hash
-                return content
+                # Check if we should truncate
+                file_size = file_path.stat().st_size
+                if file_size > self.max_file_size and self.truncate_large_files:
+                    with open(file_path, 'r', encoding=encoding) as f:
+                        lines = []
+                        line_count = 0
+                        for line in f:
+                            if line_count >= self.max_lines_per_file:
+                                lines.append(f"\n... (content truncated after {self.max_lines_per_file} lines)\n")
+                                lines.append(f"Original file size: {file_size:,} bytes\n")
+                                break
+                            lines.append(line)
+                            line_count += 1
+                        content = ''.join(lines)
+                        file_hash = self._calculate_hash(content)
+                        self.file_hashes[str(file_path.relative_to(self.project_root))] = file_hash
+                        return content
+                else:
+                    # Read full file
+                    with open(file_path, 'r', encoding=encoding) as f:
+                        content = f.read()
+                    
+                    # Still check line count and truncate if needed
+                    lines = content.split('\n')
+                    if len(lines) > self.max_lines_per_file and self.truncate_large_files:
+                        truncated_content = '\n'.join(lines[:self.max_lines_per_file])
+                        truncated_content += f"\n\n... (content truncated after {self.max_lines_per_file} lines)\n"
+                        truncated_content += f"Original file had {len(lines)} lines\n"
+                        content = truncated_content
+                        self.truncated_files.append(str(file_path))
+                    
+                    file_hash = self._calculate_hash(content)
+                    self.file_hashes[str(file_path.relative_to(self.project_root))] = file_hash
+                    return content
+                    
             except UnicodeDecodeError:
                 continue
             except Exception:
@@ -186,6 +271,7 @@ class AdvancedProjectExporter:
             '.yaml': 'yaml',
             '.yml': 'yaml',
             '.md': 'markdown',
+            '.mdx': 'mdx',
             '.sh': 'bash',
             '.bash': 'bash',
             '.zsh': 'bash',
@@ -239,6 +325,9 @@ class AdvancedProjectExporter:
     def export(self, include_structure_only: bool = False, 
                include_stats: bool = True) -> bool:
         print(f"📂 Scanning project: {self.project_root}")
+        print(f"📏 Max file size: {self.max_file_size:,} bytes")
+        print(f"📝 Max lines per file: {self.max_lines_per_file}")
+        print(f"📁 Including directories: {', '.join(self.include_patterns)}")
         
         try:
             with open(self.output_file, 'w', encoding='utf-8') as outfile:
@@ -273,6 +362,18 @@ class AdvancedProjectExporter:
                 
                 outfile.write("2. FILE CONTENTS\n")
                 outfile.write("=" * 80 + "\n\n")
+                
+                # Write export configuration info
+                outfile.write("EXPORT CONFIGURATION\n")
+                outfile.write("-" * 40 + "\n")
+                outfile.write(f"Max file size: {self.max_file_size:,} bytes\n")
+                outfile.write(f"Max lines per file: {self.max_lines_per_file}\n")
+                outfile.write(f"Included directories: {', '.join(self.include_patterns)}\n")
+                if self.truncate_large_files:
+                    outfile.write("Truncation: Enabled\n")
+                else:
+                    outfile.write("Truncation: Disabled\n")
+                outfile.write("\n" + "=" * 80 + "\n\n")
                 
                 files_to_export = []
                 for root, dirs, files in os.walk(self.project_root):
@@ -314,6 +415,11 @@ class AdvancedProjectExporter:
                     outfile.write(f"{loc_stats['code']} code | ")
                     outfile.write(f"{loc_stats['comment']} comments | ")
                     outfile.write(f"{loc_stats['blank']} blank\n")
+                    
+                    # Add truncation notice if file was truncated
+                    if str(file_path) in self.truncated_files:
+                        outfile.write("⚠️  NOTE: This file was truncated due to size limits\n")
+                    
                     outfile.write(f"{'─' * 80}\n\n")
                     
                     outfile.write(f"```{language}\n")
@@ -336,6 +442,26 @@ class AdvancedProjectExporter:
                     outfile.write(f"{self.total_size / 1024 / 1024:.2f} MB)\n")
                     outfile.write(f"Average file size: {self.total_size / max(1, self.file_count):,.0f} bytes\n\n")
                     
+                    if self.skipped_files:
+                        outfile.write("SKIPPED FILES\n")
+                        outfile.write("-" * 40 + "\n")
+                        outfile.write(f"Total skipped: {len(self.skipped_files)}\n")
+                        for skipped in self.skipped_files[:10]:  # Show first 10
+                            outfile.write(f"  • {skipped}\n")
+                        if len(self.skipped_files) > 10:
+                            outfile.write(f"  ... and {len(self.skipped_files) - 10} more\n")
+                        outfile.write("\n")
+                    
+                    if self.truncated_files:
+                        outfile.write("TRUNCATED FILES\n")
+                        outfile.write("-" * 40 + "\n")
+                        outfile.write(f"Total truncated: {len(self.truncated_files)}\n")
+                        for truncated in self.truncated_files[:10]:
+                            outfile.write(f"  • {truncated}\n")
+                        if len(self.truncated_files) > 10:
+                            outfile.write(f"  ... and {len(self.truncated_files) - 10} more\n")
+                        outfile.write("\n")
+                    
                     outfile.write("LANGUAGE DISTRIBUTION\n")
                     outfile.write("-" * 40 + "\n")
                     for lang, count in sorted(self.stats.items(), key=lambda x: x[1], reverse=True):
@@ -347,15 +473,17 @@ class AdvancedProjectExporter:
                     if duplicates:
                         outfile.write("\nDUPLICATE FILES DETECTED\n")
                         outfile.write("-" * 40 + "\n")
-                        for hash_val, files in duplicates.items():
+                        for hash_val, files in list(duplicates.items())[:5]:  # Show first 5 groups
                             outfile.write(f"\nHash: {hash_val}\n")
                             for file in files:
                                 outfile.write(f"  • {file}\n")
+                        if len(duplicates) > 5:
+                            outfile.write(f"\n... and {len(duplicates) - 5} more duplicate groups\n")
                         outfile.write(f"\nTotal duplicate groups: {len(duplicates)}\n")
                     
                     outfile.write("\nEXPORT METADATA\n")
                     outfile.write("-" * 40 + "\n")
-                    outfile.write(f"Export tool: Advanced Project Code Exporter v2.0\n")
+                    outfile.write(f"Export tool: Advanced Project Code Exporter v2.1\n")
                     outfile.write(f"Export date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
                     outfile.write(f"Python version: {sys.version}\n")
                     outfile.write(f"Platform: {sys.platform}\n")
@@ -366,6 +494,11 @@ class AdvancedProjectExporter:
             
             print(f"\n✅ Successfully exported {self.file_count} files to: {self.output_file}")
             print(f"📊 Total size: {self.total_size:,} bytes ({self.total_size / 1024:.2f} KB)")
+            
+            if self.skipped_files:
+                print(f"⚠️  Skipped {len(self.skipped_files)} files (too large)")
+            if self.truncated_files:
+                print(f"⚠️  Truncated {len(self.truncated_files)} files (size limit)")
             
             print("\n📈 Language Distribution:")
             for lang, count in sorted(self.stats.items(), key=lambda x: x[1], reverse=True)[:5]:
@@ -382,8 +515,25 @@ class AdvancedProjectExporter:
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Advanced Project Code Exporter with analytics',
+        description='Advanced Project Code Exporter with size control',
         formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Export with defaults (500KB max, 1000 lines max)
+  python exporter.py -p ./my-project
+
+  # Export only src and .storybook with 1MB max file size
+  python exporter.py -p ./my-project --max-size 1048576 --include src,.storybook
+
+  # Truncate large files instead of skipping them
+  python exporter.py -p ./my-project --truncate --max-lines 500
+
+  # Export only structure (no file contents)
+  python exporter.py -p ./my-project --structure-only
+
+  # Exclude specific files/directories
+  python exporter.py -p ./my-project --exclude "*.test.ts,*.spec.ts"
+        """
     )
     
     parser.add_argument('-p', '--project', default='.',
@@ -394,18 +544,34 @@ def main():
                        help='Only export tree structure')
     parser.add_argument('--no-stats', action='store_true',
                        help='Do not include statistics')
-    parser.add_argument('-e', '--exclude', default='',
-                       help='Additional directories to exclude')
+    parser.add_argument('--max-size', type=int, default=500 * 1024,
+                       help='Maximum file size in bytes (default: 500KB)')
+    parser.add_argument('--max-lines', type=int, default=1000,
+                       help='Maximum lines per file (default: 1000)')
+    parser.add_argument('--include', default='src,.storybook',
+                       help='Comma-separated directories to include (default: src,.storybook)')
+    parser.add_argument('--exclude', default='',
+                       help='Comma-separated patterns to exclude')
+    parser.add_argument('--truncate', action='store_true',
+                       help='Truncate large files instead of skipping them')
     parser.add_argument('--max-depth', type=int, default=10,
                        help='Maximum tree depth')
     
     args = parser.parse_args()
     
-    exporter = AdvancedProjectExporter(args.project, args.output)
+    # Parse include/exclude patterns
+    include_patterns = [p.strip() for p in args.include.split(',') if p.strip()]
+    exclude_patterns = [p.strip() for p in args.exclude.split(',') if p.strip()]
     
-    if args.exclude:
-        custom_excludes = {d.strip() for d in args.exclude.split(',') if d.strip()}
-        exporter.EXCLUDE_DIRS.update(custom_excludes)
+    exporter = AdvancedProjectExporter(
+        project_root=args.project,
+        output_file=args.output,
+        max_file_size=args.max_size,
+        max_lines_per_file=args.max_lines,
+        include_patterns=include_patterns,
+        exclude_patterns=exclude_patterns,
+        truncate_large_files=args.truncate
+    )
     
     success = exporter.export(
         include_structure_only=args.structure_only,
@@ -417,5 +583,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# now why im facing that "But beauty requires understanding." once comes before second line?
