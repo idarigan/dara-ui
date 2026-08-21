@@ -96,9 +96,7 @@ export const WithGlow: Story = {
         </Card>
         <Card glow="accent" className="w-56">
           <h3 className="font-heading font-bold">Accent Glow</h3>
-          <p className="text-[var(--color-text-secondary)] text-sm">
-            Shadow glow
-          </p>
+          <p className="text-[var(--color-text-accent)] text-sm">Shadow glow</p>
         </Card>
       </div>
     );
@@ -129,7 +127,7 @@ export const FloatCards: Story = {
 export const ContentExamples: Story = {
   args: {
     float: true,
-    glow: "cyan",
+    glow: "secondary",
   },
 
   render: function ContentExamplesStory() {
