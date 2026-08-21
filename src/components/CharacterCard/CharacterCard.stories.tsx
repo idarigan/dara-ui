@@ -100,7 +100,7 @@ export const DifferentGlows: Story = {
             { label: "Force", value: 73, color: "primary" },
             { label: "Combat", value: 85, color: "secondary" },
           ]}
-          glow="purple"
+          glow="primary"
         />
       </div>
       <div className="w-72">
@@ -117,7 +117,7 @@ export const DifferentGlows: Story = {
             { label: "Hacking", value: 95, color: "secondary" },
             { label: "Stealth", value: 78, color: "accent" },
           ]}
-          glow="cyan"
+          glow="secondary"
         />
       </div>
       <div className="w-72">
@@ -134,7 +134,7 @@ export const DifferentGlows: Story = {
             { label: "Agility", value: 92, color: "accent" },
             { label: "Stealth", value: 88, color: "danger" },
           ]}
-          glow="pink"
+          glow="accent"
         />
       </div>
     </div>

@@ -63,7 +63,7 @@ export const VariousRanks: Story = {
         xp={300}
         deadline="tomorrow"
         rank="S"
-        glow="cyan"
+        glow="secondary"
       />
       <QuestCard
         title="Secure Archives"
@@ -71,7 +71,7 @@ export const VariousRanks: Story = {
         xp={200}
         deadline="3 days"
         rank="A"
-        glow="purple"
+        glow="primary"
       />
       <QuestCard
         title="Map Night City"
@@ -79,7 +79,7 @@ export const VariousRanks: Story = {
         xp={150}
         deadline="1 week"
         rank="B"
-        glow="pink"
+        glow="accent"
       />
       <QuestCard
         title="Fix Bugs"
@@ -110,7 +110,7 @@ export const DifferentGlows: Story = {
         xp={150}
         deadline="3 days"
         rank="A"
-        glow="purple"
+        glow="primary"
       />
       <QuestCard
         title="Cyan Glow"
@@ -118,7 +118,7 @@ export const DifferentGlows: Story = {
         xp={200}
         deadline="1 week"
         rank="S"
-        glow="cyan"
+        glow="secondary"
       />
       <QuestCard
         title="Pink Glow"
@@ -126,7 +126,7 @@ export const DifferentGlows: Story = {
         xp={120}
         deadline="tonight"
         rank="A"
-        glow="pink"
+        glow="accent"
       />
     </div>
   ),
@@ -158,7 +158,7 @@ export const Interactive: Story = {
           xp={300}
           deadline="tomorrow"
           rank="S"
-          glow="cyan"
+          glow="secondary"
           done={completed}
           onComplete={() => setCompleted(true)}
         />

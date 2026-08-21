@@ -107,9 +107,9 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
 
     // Glow mapping
     const glowStyles = {
-      primary: "glow-purple",
-      secondary: "glow-cyan",
-      accent: "glow-pink",
+      primary: "glow-primary",
+      secondary: "glow-secondary",
+      accent: "glow-accent",
     };
 
     const floatClass = float ? "float-card" : "";

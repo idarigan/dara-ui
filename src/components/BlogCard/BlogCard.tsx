@@ -142,9 +142,9 @@ export const BlogCard: React.FC<BlogCardProps> = ({
   };
 
   const glowStyles = {
-    primary: "glow-purple",
-    secondary: "glow-cyan",
-    accent: "glow-pink",
+    primary: "glow-primary",
+    secondary: "glow-secondary",
+    accent: "glow-accent",
     none: "",
   };
 

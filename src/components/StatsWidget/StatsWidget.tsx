@@ -117,9 +117,9 @@ export const StatsWidget: React.FC<StatsWidgetProps> = ({
 
   // Glow styles
   const glowStyles = {
-    primary: "glow-purple",
-    secondary: "glow-cyan",
-    accent: "glow-pink",
+    primary: "glow-primary",
+    secondary: "glow-secondary",
+    accent: "glow-accent",
     none: "",
   };
 
