@@ -20,6 +20,7 @@ const meta = {
     radius: {
       control: "select",
       options: ["sm", "md", "standard", "large", "xl", "full"],
+      description: "Border radius of the card",
     },
     float: { control: "boolean" },
     glow: {
@@ -78,6 +79,39 @@ export const Variants: Story = {
   },
 };
 
+export const RadiusExamples: Story = {
+  render: function RadiusExamplesStory() {
+    return (
+      <div className="flex flex-wrap gap-4">
+        <Card radius="sm" className="w-48">
+          <h3 className="font-heading font-bold text-sm">Radius: sm</h3>
+          <p className="text-[var(--color-text-secondary)] text-xs">6px</p>
+        </Card>
+        <Card radius="md" className="w-48">
+          <h3 className="font-heading font-bold text-sm">Radius: md</h3>
+          <p className="text-[var(--color-text-secondary)] text-xs">10px</p>
+        </Card>
+        <Card radius="standard" className="w-48">
+          <h3 className="font-heading font-bold text-sm">Radius: standard</h3>
+          <p className="text-[var(--color-text-secondary)] text-xs">18px</p>
+        </Card>
+        <Card radius="large" className="w-48">
+          <h3 className="font-heading font-bold text-sm">Radius: large</h3>
+          <p className="text-[var(--color-text-secondary)] text-xs">24px</p>
+        </Card>
+        <Card radius="xl" className="w-48">
+          <h3 className="font-heading font-bold text-sm">Radius: xl</h3>
+          <p className="text-[var(--color-text-secondary)] text-xs">32px</p>
+        </Card>
+        <Card radius="full" className="w-48">
+          <h3 className="font-heading font-bold text-sm">Radius: full</h3>
+          <p className="text-[var(--color-text-secondary)] text-xs">9999px</p>
+        </Card>
+      </div>
+    );
+  },
+};
+
 export const WithGlow: Story = {
   render: function WithGlowStory() {
     return (
@@ -125,11 +159,6 @@ export const FloatCards: Story = {
 };
 
 export const ContentExamples: Story = {
-  args: {
-    float: true,
-    glow: "secondary",
-  },
-
   render: function ContentExamplesStory() {
     return (
       <div className="flex flex-wrap gap-4">
@@ -153,5 +182,23 @@ export const ContentExamples: Story = {
         </Card>
       </div>
     );
+  },
+};
+
+export const Interactive: Story = {
+  args: {
+    variant: "glass",
+    padding: "md",
+    radius: "standard",
+    float: false,
+    glow: "",
+    children: (
+      <>
+        <h3 className="font-heading text-xl font-bold">Interactive Card</h3>
+        <p className="text-[var(--color-text-secondary)] text-sm">
+          Change the props in the controls panel.
+        </p>
+      </>
+    ),
   },
 };

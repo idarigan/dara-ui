@@ -39,6 +39,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
  * - 3D tilt effect on hover when float is enabled
  * - Smooth animated glow transitions
  * - Theme-aware colors
+ * - radius prop wins over .glass border-radius (inline style)
  */
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   (
@@ -50,16 +51,15 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       glow,
       className = "",
       children,
+      style,
       ...props
     },
     ref,
   ) => {
-    // 3D tilt state
     const [rotation, setRotation] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
 
-    // Handle 3D tilt on mouse move
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
       if (!cardRef.current || !float) return;
       const rect = cardRef.current.getBoundingClientRect();
@@ -81,7 +81,6 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       setRotation({ x: 0, y: 0 });
     };
 
-    // Variants
     const variants = {
       glass: "glass",
       solid: "glass-solid",
@@ -95,17 +94,15 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       none: "p-0",
     };
 
-    // Radius mapping
-    const radiusMap = {
-      sm: "rounded-[var(--radius-sm)]",
-      md: "rounded-[var(--radius-md)]",
-      standard: "rounded-[var(--radius-standard)]",
-      large: "rounded-[var(--radius-large)]",
-      xl: "rounded-[var(--radius-xl)]",
-      full: "rounded-[var(--radius-full)]",
+    const radiusVars: Record<NonNullable<CardProps["radius"]>, string> = {
+      sm: "var(--radius-sm)",
+      md: "var(--radius-md)",
+      standard: "var(--radius-standard)",
+      large: "var(--radius-large)",
+      xl: "var(--radius-xl)",
+      full: "var(--radius-full)",
     };
 
-    // Glow mapping
     const glowStyles = {
       primary: "glow-primary",
       secondary: "glow-secondary",
@@ -118,7 +115,6 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     const classes = [
       variants[variant],
       paddings[padding],
-      radiusMap[radius],
       floatClass,
       glowClass,
       className,
@@ -140,14 +136,16 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
         }}
         className={classes}
         style={{
+          borderRadius: radiusVars[radius],
           transform:
             float && isHovering
               ? `perspective(800px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(1.02)`
               : "perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)",
           transformStyle: float ? "preserve-3d" : "flat",
           transition: float
-            ? "transform 0.2s ease-out, box-shadow 0.4s ease"
-            : "none",
+            ? "transform 0.2s ease-out, box-shadow 0.4s ease, border-radius 0.2s ease"
+            : "border-radius 0.2s ease",
+          ...style,
         }}
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
