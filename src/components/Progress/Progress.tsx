@@ -255,6 +255,11 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
               style={{
                 height: `${actualThickness}px`,
               }}
+              role="progressbar"
+              aria-label={`${label || "Progress"}: ${Math.round(percentage)}%`}
+              aria-valuenow={clampedValue}
+              aria-valuemin={0}
+              aria-valuemax={max}
             >
               {/* Fill */}
               <div
@@ -263,11 +268,6 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                   width: `${percentage}%`,
                   transition: animated ? "width 0.4s ease" : "none",
                 }}
-                role="progressbar"
-                aria-label={`${label || "Progress"}: ${Math.round(percentage)}%`}
-                aria-valuenow={clampedValue}
-                aria-valuemin={0}
-                aria-valuemax={max}
               >
                 {/* Label inside the bar - only show if there's enough space */}
                 {showLabel && isLabelInside && percentage > 15 && (
@@ -359,6 +359,11 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
         <div
           className="relative"
           style={{ width: actualSize, height: actualSize }}
+          role="progressbar"
+          aria-label={`${label || "Progress"}: ${Math.round(percentage)}%`}
+          aria-valuenow={clampedValue}
+          aria-valuemin={0}
+          aria-valuemax={max}
         >
           {/* Glow ring */}
           {percentage > 0 && (
@@ -366,6 +371,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
               className="absolute inset-0"
               width={actualSize}
               height={actualSize}
+              aria-hidden="true"
               style={{
                 filter: `blur(8px)`,
                 opacity: 0.4,
@@ -392,6 +398,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
             width={actualSize}
             height={actualSize}
             viewBox={`0 0 ${actualSize} ${actualSize}`}
+            aria-hidden="true"
           >
             {/* Background track */}
             <circle
@@ -418,11 +425,6 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
               strokeDashoffset={offset}
               strokeLinecap="round"
               transform={`rotate(-90 ${center} ${center})`}
-              role="progressbar"
-              aria-label={`${label || "Progress"}: ${Math.round(percentage)}%`}
-              aria-valuenow={clampedValue}
-              aria-valuemin={0}
-              aria-valuemax={max}
               style={{
                 transition: animated ? "stroke-dashoffset 0.6s ease" : "none",
               }}

@@ -306,10 +306,8 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
           {/* Dropdown Menu */}
           <div
             className={`absolute z-50 w-full mt-1.5 glass max-h-60 overflow-auto rounded-[var(--radius-md)] py-1 shadow-[var(--shadow-float)] transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)] ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}`}
-            role="listbox"
-            aria-label={label || "Dropdown options"}
           >
-            {/* Search Input */}
+            {/* Search Input - outside listbox so role children stay valid */}
             {searchable && (
               <div className="px-2 pb-1.5 border-b border-[var(--color-border-secondary)]">
                 <input
@@ -329,12 +327,17 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                     ${sizeStyles[size].search}
                   `}
                   onClick={(e) => e.stopPropagation()}
+                  aria-label={searchPlaceholder}
                 />
               </div>
             )}
 
             {/* Options */}
-            <div className="py-1">
+            <div
+              className="py-1"
+              role="listbox"
+              aria-label={label || "Dropdown options"}
+            >
               {filteredOptions.length === 0 ? (
                 <div
                   className={`${sizeStyles[size].option} text-[var(--color-text-tertiary)] text-center`}
@@ -346,15 +349,26 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                   const isSelected = option.value === selectedValue;
 
                   return (
-                    <button
+                    <div
                       key={option.value}
-                      type="button"
+                      role="option"
+                      aria-selected={isSelected}
+                      aria-disabled={option.disabled || undefined}
+                      tabIndex={option.disabled ? -1 : 0}
                       onClick={() => {
                         if (!option.disabled) {
                           selectOption(option.value);
                         }
                       }}
-                      disabled={option.disabled}
+                      onKeyDown={(e) => {
+                        if (
+                          !option.disabled &&
+                          (e.key === "Enter" || e.key === " ")
+                        ) {
+                          e.preventDefault();
+                          selectOption(option.value);
+                        }
+                      }}
                       className={`
                         w-full flex items-center gap-2 text-left
                         ${sizeStyles[size].option}
@@ -370,16 +384,18 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                         }
                         focus:outline-none focus:bg-[var(--color-bg-elevated)]/30
                       `}
-                      role="option"
-                      aria-selected={isSelected}
-                      aria-disabled={option.disabled}
                     >
                       {option.icon && (
-                        <span className="flex-shrink-0">{option.icon}</span>
+                        <span className="flex-shrink-0" aria-hidden="true">
+                          {option.icon}
+                        </span>
                       )}
                       <span className="truncate">{option.label}</span>
                       {isSelected && (
-                        <span className="ml-auto text-[var(--color-primary)] flex-shrink-0">
+                        <span
+                          className="ml-auto text-[var(--color-primary)] flex-shrink-0"
+                          aria-hidden="true"
+                        >
                           <svg
                             className={`${iconSizes[size]} opacity-80`}
                             fill="none"
@@ -395,7 +411,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                           </svg>
                         </span>
                       )}
-                    </button>
+                    </div>
                   );
                 })
               )}

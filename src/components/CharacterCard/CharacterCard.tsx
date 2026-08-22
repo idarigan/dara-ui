@@ -168,13 +168,19 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
         className="flex flex-col items-center flex-shrink-0"
         style={{ width: itemWidth }}
       >
-        <div className="relative" style={{ width: size, height: size }}>
+        <div
+          className="relative"
+          style={{ width: size, height: size }}
+          role="img"
+          aria-label={`${stat.label}: ${stat.value}%`}
+        >
           {/* Glow ring behind */}
           {percentage > 0 && (
             <svg
               className="absolute inset-0"
               width={size}
               height={size}
+              aria-hidden="true"
               style={{ filter: "blur(6px)", opacity: 0.25 }}
               viewBox={`0 0 ${size} ${size}`}
             >
@@ -199,6 +205,7 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
             width={size}
             height={size}
             viewBox={`0 0 ${size} ${size}`}
+            aria-hidden="true"
           >
             {/* Background track */}
             <circle
@@ -229,7 +236,7 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="font-heading font-bold text-xs text-[var(--color-text-primary)]">
               {stat.value}
-              <span className="text-[8px] text-[var(--color-text-tertiary)]">
+              <span className="text-[10px] text-[var(--color-text-secondary)]">
                 %
               </span>
             </span>

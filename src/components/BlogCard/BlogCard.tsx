@@ -245,11 +245,15 @@ export const BlogCard: React.FC<BlogCardProps> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") onClick?.();
-      }}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={
+        onClick
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") onClick?.();
+            }
+          : undefined
+      }
       aria-label={`Blog post: ${title}`}
     >
       {/* Soft glow wash on hover */}

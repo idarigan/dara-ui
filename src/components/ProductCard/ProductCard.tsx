@@ -254,12 +254,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") onClick?.();
-      }}
-      aria-label={`Product: ${title}`}
+      // Avoid role=button when nested controls exist (a11y nested interactive)
+      {...(showQuickActions
+        ? { "aria-label": `Product: ${title}` }
+        : {
+            role: "button" as const,
+            tabIndex: 0,
+            onKeyDown: (e: React.KeyboardEvent) => {
+              if (e.key === "Enter" || e.key === " ") onClick?.();
+            },
+            "aria-label": `Product: ${title}`,
+          })}
     >
       {/* Soft glow wash on hover */}
       <div

@@ -223,6 +223,12 @@ export const XPBar: React.FC<XPBarProps> = ({
                 : `${percentage}%`,
           }}
           role="progressbar"
+          aria-label={
+            customLabel ||
+            `${levelLabel} ${level}: ${formatNumber(clampedValue)} of ${formatNumber(
+              ranks && nextRank ? nextRank.requiredXP : max,
+            )} ${xpLabel}`
+          }
           aria-valuenow={clampedValue}
           aria-valuemin={0}
           aria-valuemax={ranks && nextRank ? nextRank.requiredXP : max}
