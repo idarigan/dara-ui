@@ -23,10 +23,10 @@
   --color-border-secondary: #1e2d42;
 
   /* Semantic Colors */
-  --color-primary: #7c5cff;
-  --color-primary-hover: #6b4ae8;
-  --color-primary-active: #5a3fd1;
-  --color-primary-light: rgba(124, 92, 255, 0.15);
+  --color-primary: #8b6fff;
+  --color-primary-hover: #7c5cff;
+  --color-primary-active: #6b4ae8;
+  --color-primary-light: rgba(139, 111, 255, 0.15);
 
   --color-secondary: #00d9ff;
   --color-secondary-hover: #00c4e6;
@@ -54,13 +54,13 @@
   --color-info-light: rgba(96, 165, 250, 0.15);
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #7c5cff 0%, #00d9ff 100%);
-  --gradient-secondary: linear-gradient(135deg, #00d9ff 0%, #7c5cff 100%);
+  --gradient-primary: linear-gradient(135deg, #8b6fff 0%, #00d9ff 100%);
+  --gradient-secondary: linear-gradient(135deg, #00d9ff 0%, #8b6fff 100%);
   --gradient-accent: linear-gradient(135deg, #ff4d9d 0%, #ffc857 100%);
   --gradient-success: linear-gradient(135deg, #00ff99 0%, #00d9ff 100%);
   --gradient-danger: linear-gradient(135deg, #ff5370 0%, #ff4d9d 100%);
   --gradient-warm: linear-gradient(135deg, #ffc857 0%, #ff4d9d 100%);
-  --gradient-cool: linear-gradient(135deg, #7c5cff 0%, #60a5fa 100%);
+  --gradient-cool: linear-gradient(135deg, #8b6fff 0%, #60a5fa 100%);
   --gradient-glass: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.08) 0%,
@@ -70,7 +70,7 @@
     135deg,
     #fff 0%,
     #c4b5ff 40%,
-    #7c5cff 70%,
+    #8b6fff 70%,
     #00d9ff 100%
   );
 
@@ -83,7 +83,7 @@
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-glow-primary: 0 0 40px rgba(124, 92, 255, 0.3);
+  --shadow-glow-primary: 0 0 40px rgba(139, 111, 255, 0.3);
   --shadow-glow-secondary: 0 0 40px rgba(0, 217, 255, 0.3);
   --shadow-glow-accent: 0 0 40px rgba(255, 77, 157, 0.3);
   --shadow-glow-success: 0 0 40px rgba(0, 255, 153, 0.3);

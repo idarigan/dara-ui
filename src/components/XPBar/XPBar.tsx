@@ -187,7 +187,7 @@ export const XPBar: React.FC<XPBarProps> = ({
         style={{ transform: "translateZ(15px)" }}
       >
         <div className="flex items-center gap-2">
-          <span className="font-accent text-sm text-[var(--color-text-primary)]/80">
+          <span className="font-accent text-sm text-[var(--color-text-secondary)]">
             {ranks && currentRank ? (
               <>
                 {levelLabel} {level} · {currentRank.label}
