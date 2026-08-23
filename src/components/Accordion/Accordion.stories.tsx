@@ -37,7 +37,8 @@ const defaultItems = [
   {
     id: "2",
     title: "🎨 What themes are available?",
-    content: "Nightfall (default), Daylight (light) and Dracula (purple).",
+    content:
+      "Night Archive (default), Snow Calgary (light), Sith Mode (black + red), Jedi Temple (white + blue), Dracula (purple), and Wine (deep reds).",
   },
   {
     id: "3",
@@ -78,9 +79,11 @@ export const Controlled: Story = {
     const [openItems, setOpenItems] = useState<string[]>(["1"]);
     return (
       <div className="w-[500px]">
-        <p className="text-xs text-white/40 font-mono mb-2">
+        <p className="text-xs text-[var(--color-text-secondary)] font-mono mb-2">
           Controlled - Open:{" "}
-          <span className="text-[#7c5cff]">{openItems.join(", ")}</span>
+          <span className="text-[var(--color-primary)]">
+            {openItems.join(", ")}
+          </span>
         </p>
         <Accordion
           {...args}
@@ -90,19 +93,19 @@ export const Controlled: Story = {
         />
         <div className="flex gap-2 mt-3">
           <button
-            className="px-2 py-1 text-xs bg-[#7c5cff] text-white rounded hover:bg-[#6a4ae8]"
+            className="px-2 py-1 text-xs rounded font-medium bg-[var(--color-primary)] text-[var(--color-text-inverse)] hover:bg-[var(--color-primary-hover)]"
             onClick={() => setOpenItems(["1"])}
           >
             Open 1
           </button>
           <button
-            className="px-2 py-1 text-xs bg-[#00d9ff] text-[#0b0f19] rounded hover:bg-[#00c4e6]"
+            className="px-2 py-1 text-xs rounded font-medium bg-[var(--color-secondary)] text-[var(--color-text-inverse)] hover:bg-[var(--color-secondary-hover)]"
             onClick={() => setOpenItems(["1", "2"])}
           >
             Open 1,2
           </button>
           <button
-            className="px-2 py-1 text-xs bg-[#ff5370] text-white rounded hover:bg-[#e84560]"
+            className="px-2 py-1 text-xs rounded font-medium bg-[var(--color-danger)] text-[var(--color-text-inverse)] hover:bg-[var(--color-danger-hover)]"
             onClick={() => setOpenItems([])}
           >
             Close All
@@ -135,7 +138,9 @@ export const WithoutGlass: Story = {
   render: function WithoutGlassStory(args) {
     return (
       <div className="w-[500px]">
-        <p className="text-xs text-white/40 font-mono mb-2">Without glass</p>
+        <p className="text-xs text-[var(--color-text-secondary)] font-mono mb-2">
+          Without glass
+        </p>
         <Accordion {...args} defaultOpenItems={["1"]} glass={false} />
       </div>
     );
