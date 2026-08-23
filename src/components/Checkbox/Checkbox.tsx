@@ -244,7 +244,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             ${disabled ? "bg-[var(--color-bg-tertiary)]" : ""}
             ${
               checked
-                ? `bg-[var(--color-primary)] ${glowClasses}`
+                ? `bg-[var(--color-primary-solid)] ${glowClasses}`
                 : "bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)]"
             }
             flex items-center justify-center

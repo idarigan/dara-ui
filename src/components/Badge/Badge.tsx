@@ -55,7 +55,7 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
 
     // Solid variants
     const solidVariants = {
-      primary: "bg-[var(--color-primary)] text-[var(--color-text-inverse)]",
+      primary: "bg-[var(--color-primary-solid)] text-white",
       secondary: "bg-[var(--color-secondary)] text-[var(--color-text-inverse)]",
       success: "bg-[var(--color-success)] text-[var(--color-text-inverse)]",
       danger: "bg-[var(--color-danger)] text-[var(--color-text-inverse)]",
