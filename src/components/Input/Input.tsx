@@ -228,7 +228,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             onFocus={handleFocus}
             onBlur={handleBlur}
             disabled={disabled}
-            aria-label={!label ? placeholder : undefined}
+            aria-label={!label ? placeholder || "Input" : undefined}
             {...props}
           />
           {type === "password" && (

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback, useId } from "react";
 
 export interface DropdownOption {
   /**
@@ -132,6 +132,8 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
           opt.label.toLowerCase().includes(searchTerm.toLowerCase()),
         )
       : options;
+
+    const dropdownId = useId();
 
     // Toggle dropdown
     const toggleDropdown = useCallback(() => {
@@ -307,11 +309,16 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
           <div
             className={`absolute z-50 w-full mt-1.5 glass max-h-60 overflow-auto rounded-[var(--radius-md)] py-1 shadow-[var(--shadow-float)] transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)] ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}`}
           >
-            {/* Search Input - outside listbox so role children stay valid */}
+            {/* Search Input */}
+            // Inside the Dropdown component, in the searchable block:
             {searchable && (
               <div className="px-2 pb-1.5 border-b border-[var(--color-border-secondary)]">
+                <label htmlFor={`${dropdownId}-search`} className="sr-only">
+                  {searchPlaceholder}
+                </label>
                 <input
                   ref={searchInputRef}
+                  id={`${dropdownId}-search`}
                   type="text"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -327,11 +334,9 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                     ${sizeStyles[size].search}
                   `}
                   onClick={(e) => e.stopPropagation()}
-                  aria-label={searchPlaceholder}
                 />
               </div>
             )}
-
             {/* Options */}
             <div
               className="py-1"
