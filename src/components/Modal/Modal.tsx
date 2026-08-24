@@ -189,6 +189,7 @@ export const Modal: React.FC<ModalProps> = ({
             onClick={onClose}
             className="text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] text-2xl leading-none transition-colors duration-180"
             aria-label="Close modal"
+            title="Close"
           >
             &times;
           </button>
