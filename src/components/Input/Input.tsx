@@ -101,7 +101,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const generatedId = useId();
     const inputId = id || generatedId;
 
-    // - .input-dara styles
     const baseStyles =
       "w-full font-sans transition-all duration-180 outline-none disabled:opacity-60 disabled:cursor-not-allowed placeholder:text-[var(--color-text-tertiary)]";
 
@@ -181,7 +180,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       onBlur?.(e);
     };
 
-    // Determine label color based on focus and validation state
     const getLabelColor = () => {
       if (disabled) return "text-[var(--color-text-tertiary)]";
       if (validation === "error") return "text-[var(--color-danger)]";
@@ -230,6 +228,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             onFocus={handleFocus}
             onBlur={handleBlur}
             disabled={disabled}
+            aria-label={!label ? placeholder : undefined}
             {...props}
           />
           {type === "password" && (
@@ -238,6 +237,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-colors cursor-pointer"
               tabIndex={-1}
+              aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? (
                 <svg

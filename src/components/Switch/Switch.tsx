@@ -117,7 +117,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       }
     };
 
-    // Size tokens – thumb slightly larger than track height so it can overhang
+    // Size tokens
     const sizes = {
       sm: {
         track: "w-10 h-5",
@@ -160,7 +160,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           ${className}
         `}
       >
-        {/* Label – always above */}
+        {/* Label */}
         {label && (
           <label
             htmlFor={switchId}
@@ -203,6 +203,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
             disabled={disabled}
             className="sr-only"
             aria-checked={checked}
+            aria-label={label || undefined}
             {...props}
           />
 
@@ -252,7 +253,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
               }}
             />
 
-            {/* Thumb – vertical center only via inline transform (no Tailwind conflict) */}
+            {/* Thumb */}
             <div
               className={`
                 absolute
@@ -276,7 +277,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
               style={{
                 top: "50%",
                 [isRTL ? "right" : "left"]: 0,
-                // single transform source of truth → always vertically centered
+                // single transform
                 transform: `translateY(-50%) translateX(${thumbX}px)`,
               }}
             >

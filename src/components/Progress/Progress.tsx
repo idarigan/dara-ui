@@ -434,7 +434,12 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
           {/* Center content - label */}
           {showLabel && (
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-heading font-bold text-base text-[var(--color-text-primary)]">
+              <span
+                className="font-heading font-bold text-base text-[var(--color-text-primary)]"
+                style={{
+                  textShadow: "0 0 10px var(--color-bg-primary)",
+                }}
+              >
                 {displayLabel}
               </span>
             </div>
