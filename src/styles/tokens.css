@@ -24,9 +24,9 @@
 
   /* Semantic Colors */
   --color-primary: #a78bfa;
-  --color-primary-solid: #7c5cff;
-  --color-primary-hover: #6a4ae8;
-  --color-primary-active: #5a3fd1;
+  --color-primary-solid: #6b4ae8;
+  --color-primary-hover: #5a3fd1;
+  --color-primary-active: #4c35b8;
   --color-primary-light: rgba(167, 139, 250, 0.15);
 
   --color-secondary: #00d9ff;
