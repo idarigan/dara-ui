@@ -128,7 +128,7 @@ export const RTLSupport: Story = {
         <Switch label="فعال کردن اعلان‌ها" />
         <Switch label="حالت خودکار" defaultChecked glow />
         <button
-          className="mt-4 px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary)] text-white"
+          className="mt-4 px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary-solid)] text-white"
           onClick={() => {
             document.documentElement.dir = currentDir;
             document.documentElement.lang = "en";
@@ -169,7 +169,7 @@ export const Controlled: Story = {
         </div>
         <div className="flex gap-2">
           <button
-            className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
+            className="px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary-solid)] text-white hover:bg-[var(--color-primary-hover)]"
             onClick={() => setChecked(true)}
           >
             Turn On

@@ -208,7 +208,7 @@ export const WithTranslations: Story = {
                 key={lang}
                 className={`px-3 py-1 text-xs rounded-[var(--radius-md)] transition-colors ${
                   language === lang
-                    ? "bg-[var(--color-primary)] text-white"
+                    ? "bg-[var(--color-primary-solid)] text-white"
                     : "bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] text-[var(--color-text-secondary)]"
                 }`}
                 onClick={() => setLanguage(lang)}

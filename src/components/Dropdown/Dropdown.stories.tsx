@@ -282,7 +282,7 @@ export const Controlled: Story = {
             </span>
           </p>
           <button
-            className="px-2 py-1 text-xs bg-[var(--color-primary)] text-white rounded-[var(--radius-sm)] hover:bg-[var(--color-primary-hover)]"
+            className="px-2 py-1 text-xs bg-[var(--color-primary-solid)] text-white rounded-[var(--radius-sm)] hover:bg-[var(--color-primary-hover)]"
             onClick={() => setValue("vue")}
           >
             Set to Vue

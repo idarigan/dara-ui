@@ -481,7 +481,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             transition-all duration-200
             ${
               inStock
-                ? "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
+                ? "bg-[var(--color-primary-solid)] text-white hover:bg-[var(--color-primary-hover)]"
                 : "bg-[var(--color-bg-tertiary)] text-[var(--color-text-tertiary)] cursor-not-allowed"
             }
             ${isHovering && inStock ? "scale-110 shadow-[var(--shadow-glow-primary)]" : "scale-100"}

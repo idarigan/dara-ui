@@ -414,7 +414,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 flex-shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full
                 ${
                   isActive
-                    ? "bg-[var(--color-primary)] text-white"
+                    ? "bg-[var(--color-primary-solid)] text-white"
                     : "bg-[var(--color-bg-tertiary)] text-[var(--color-text-tertiary)]"
                 }
               `}

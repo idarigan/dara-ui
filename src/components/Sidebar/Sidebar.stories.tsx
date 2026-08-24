@@ -382,7 +382,7 @@ export const Controlled: Story = {
           }}
         >
           <button
-            className="px-3 py-1.5 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
+            className="px-3 py-1.5 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary-solid)] text-white hover:bg-[var(--color-primary-hover)]"
             onClick={() => setActiveId("dashboard")}
           >
             Dashboard

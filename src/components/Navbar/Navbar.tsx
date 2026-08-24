@@ -202,7 +202,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     flex items-center gap-2
                     ${
                       link.active
-                        ? "bg-[var(--color-primary)] !text-white shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)]"
+                        ? "bg-[var(--color-primary-solid)] !text-white shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)]"
                         : "!text-[var(--color-text-secondary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
                     }
                   `}
@@ -355,7 +355,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       px-3 py-1 rounded-full text-xs font-medium transition-all duration-180 flex items-center gap-1.5
                       ${
                         link.active
-                          ? "bg-[var(--color-primary)] !text-white shadow-[var(--shadow-glow-primary)]"
+                          ? "bg-[var(--color-primary-solid)] !text-white shadow-[var(--shadow-glow-primary)]"
                           : "!text-[var(--color-text-tertiary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
                       }
                     `}
@@ -458,7 +458,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 transition-all duration-180
                 ${
                   link.active
-                    ? "bg-[var(--color-primary)] !text-white shadow-[var(--shadow-glow-primary)]"
+                    ? "bg-[var(--color-primary-solid)] !text-white shadow-[var(--shadow-glow-primary)]"
                     : "!text-[var(--color-text-secondary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
                 }
               `}
@@ -483,7 +483,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     transition-all duration-180
                     ${
                       link.active
-                        ? "bg-[var(--color-primary)] !text-white"
+                        ? "bg-[var(--color-primary-solid)] !text-white"
                         : "!text-[var(--color-text-secondary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
                     }
                   `}
