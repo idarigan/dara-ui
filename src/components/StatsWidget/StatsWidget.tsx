@@ -172,8 +172,8 @@ export const StatsWidget: React.FC<StatsWidgetProps> = ({
             radialSize={size}
             showLabel
           />
-          <div className="flex items-center gap-1.5 mt-1.5">
-            <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono text-center leading-tight">
+          <div className="flex items-center gap-1.5 mt-1.5 max-w-full">
+            <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono text-center leading-tight truncate min-w-0">
               {stat.label}
             </p>
             {renderTrend(stat.trend)}
