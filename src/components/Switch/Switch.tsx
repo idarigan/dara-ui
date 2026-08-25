@@ -152,32 +152,30 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
     const thumbX = checked ? (isRTL ? -s.travel : s.travel) : 2;
 
     return (
-      <div
+      <label
+        htmlFor={switchId}
         className={`
           inline-flex flex-col items-start
           ${s.gap}
-          ${disabled ? "opacity-50 pointer-events-none" : ""}
+          ${disabled ? "opacity-50 pointer-events-none" : "cursor-pointer"}
           ${className}
         `}
       >
         {/* Label */}
         {label && (
-          <label
-            htmlFor={switchId}
+          <span
             className={`
               ${s.label}
               font-sans font-medium
               text-[var(--color-text-primary)]
               select-none
-              cursor-pointer
             `}
           >
             {label}
-          </label>
+          </span>
         )}
 
-        <label
-          htmlFor={switchId}
+        <span
           className={`
             relative inline-flex items-center
             cursor-pointer
@@ -203,7 +201,6 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
             disabled={disabled}
             className="sr-only"
             aria-checked={checked}
-            aria-label={label || undefined}
             {...props}
           />
 
@@ -345,7 +342,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
               </div>
             )}
           </div>
-        </label>
+        </span>
 
         <style>{`
           .switch-sparkle {
@@ -365,7 +362,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
             }
           }
         `}</style>
-      </div>
+      </label>
     );
   },
 );
