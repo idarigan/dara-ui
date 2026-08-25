@@ -234,7 +234,10 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
 
           {/* Center value */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-heading font-bold text-xs text-[var(--color-text-primary)]">
+            <span
+              className="font-heading font-bold text-xs text-[var(--color-text-primary)] rounded-full px-1 leading-none"
+              style={{ backgroundColor: "var(--color-bg-primary)" }}
+            >
               {stat.value}
               <span className="text-[10px] text-[var(--color-text-secondary)]">
                 %
