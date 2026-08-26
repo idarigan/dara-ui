@@ -159,13 +159,13 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
 
     // Glow colors (used for horizontal fill glow + radial glow ring)
     const glowColors = {
-      primary: "rgba(124, 92, 255, 0.25)",
-      secondary: "rgba(0, 217, 255, 0.25)",
-      accent: "rgba(255, 77, 157, 0.25)",
-      success: "rgba(0, 255, 153, 0.25)",
-      danger: "rgba(255, 83, 112, 0.25)",
-      warning: "rgba(255, 200, 87, 0.25)",
-      gradient: "rgba(124, 92, 255, 0.25)",
+      primary: "rgba(124, 92, 255, 0.35)",
+      secondary: "rgba(0, 217, 255, 0.35)",
+      accent: "rgba(255, 77, 157, 0.35)",
+      success: "rgba(0, 255, 153, 0.35)",
+      danger: "rgba(255, 83, 112, 0.35)",
+      warning: "rgba(255, 200, 87, 0.35)",
+      gradient: "rgba(124, 92, 255, 0.35)",
     };
 
     // Generate label text based on displayType
@@ -224,6 +224,10 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
         horizontalSizes[size as keyof typeof horizontalSizes] ||
         horizontalSizes.md;
 
+      // Get glow color for this variant
+      const glowColor =
+        glowColors[color as keyof typeof glowColors] || glowColors.primary;
+
       return (
         <div
           className={`w-full ${containerClass} ${className}`}
@@ -233,16 +237,29 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
           {showLabel && isLabelBefore && (
             <span
               className={`
-                font-mono text-xs font-medium text-[var(--color-text-secondary)]
-                flex-shrink-0
-                ${labelOrderClass}
-              `}
+          font-mono text-xs font-medium text-[var(--color-text-secondary)]
+          flex-shrink-0
+          ${labelOrderClass}
+        `}
             >
               {labelText}
             </span>
           )}
 
           <div className="flex-1 w-full relative">
+            {/* Glow layer */}
+            {glow && percentage > 0 && (
+              <div
+                className="absolute inset-0 rounded-full pointer-events-none z-0"
+                style={{
+                  width: `${percentage}%`,
+                  height: `${actualThickness}px`,
+                  boxShadow: `0 0 20px ${glowColor}, 0 0 40px ${glowColor}`,
+                  opacity: 0.7,
+                }}
+              />
+            )}
+
             {/* Track */}
             <div
               className={`
@@ -250,7 +267,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                 bg-[var(--color-bg-tertiary)]
                 ${sizeClass}
                 overflow-hidden
-                relative
+                relative z-10
               `}
               style={{
                 height: `${actualThickness}px`,
@@ -263,36 +280,22 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
             >
               {/* Fill */}
               <div
-                className={`h-full rounded-full ${colorMap[color]} ${barClass} relative flex items-center justify-end pr-2`}
+                className={`h-full rounded-full ${colorMap[color]} ${barClass} relative flex items-center justify-end`}
                 style={{
                   width: `${percentage}%`,
                   transition: animated ? "width 0.4s ease" : "none",
                 }}
               >
-                {/* Glow layer for horizontal bar - only if glow is enabled */}
-                {glow && percentage > 0 && (
-                  <div
-                    className="absolute inset-0 rounded-full opacity-30 pointer-events-none"
-                    style={{
-                      background: `radial-gradient(circle at center, ${glowColors[color as keyof typeof glowColors]} 0%, transparent 70%)`,
-                      transform: "translate(-50%, -50%)",
-                      width: `${percentage + 20}%`,
-                      left: "50%",
-                      top: "50%",
-                    }}
-                  />
-                )}
-
-                {/* Label inside the bar - only show if there's enough space */}
+                {/* Label inside the bar */}
                 {showLabel && isLabelInside && percentage > 15 && (
                   <span
                     className={`
-                      font-mono font-medium text-[var(--color-text-inverse)]
-                      text-[10px] sm:text-xs
-                      truncate
-                      ml-auto
-                      px-1.5
-                    `}
+                font-mono font-medium text-[var(--color-text-inverse)]
+                text-[10px] sm:text-xs
+                truncate
+                ml-auto
+                px-1.5
+              `}
                     style={{
                       fontSize:
                         size === "lg"
@@ -320,8 +323,8 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                   font-mono font-medium text-[var(--color-text-secondary)]
                   text-[10px] sm:text-xs
                   truncate
-                  left-2
                   pointer-events-none
+                  z-20
                 `}
                 style={{
                   left: `${Math.max(percentage, 2)}%`,
