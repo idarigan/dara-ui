@@ -185,7 +185,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                   backgroundColor: color,
                   borderRadius: "50%",
                   position: "absolute",
-                  transform: `translate(-50%, -50%)`,
+                  transform: "translate(-50%, -50%)",
                   // @ts-expect-error CSS custom properties
                   "--angle": `${angle}deg`,
                   "--distance": `${distance}px`,

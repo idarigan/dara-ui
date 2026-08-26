@@ -166,12 +166,6 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
       <canvas
         ref={canvasRef}
         className={`fixed inset-0 z-0 pointer-events-none ${className}`}
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: "none",
-        }}
       />
     );
   },

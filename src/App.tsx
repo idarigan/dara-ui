@@ -101,98 +101,6 @@ const SettingsIcon = () => (
   </svg>
 );
 
-const StarIcon = () => (
-  <svg
-    className="h-4 w-4"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-    />
-  </svg>
-);
-
-const CheckIcon = () => (
-  <svg
-    className="h-4 w-4"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-  </svg>
-);
-
-const FolderIcon = () => (
-  <svg
-    className="h-5 w-5"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-    />
-  </svg>
-);
-
-const DocsIcon = () => (
-  <svg
-    className="h-5 w-5"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-    />
-  </svg>
-);
-
-const MailIcon = () => (
-  <svg
-    className="h-5 w-5"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-    />
-  </svg>
-);
-
-const LogoutIcon = () => (
-  <svg
-    className="h-5 w-5"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-    />
-  </svg>
-);
-
 const HomeIcon = () => (
   <svg
     className="h-4 w-4"
@@ -222,6 +130,18 @@ const ExploreIcon = () => (
       strokeLinejoin="round"
       d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
     />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg
+    className="h-4 w-4"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
   </svg>
 );
 
@@ -317,6 +237,22 @@ const VolumeMuteIcon = () => (
       strokeLinecap="round"
       strokeLinejoin="round"
       d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
+    />
+  </svg>
+);
+
+const StarIcon = () => (
+  <svg
+    className="h-4 w-4"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
     />
   </svg>
 );
@@ -432,82 +368,30 @@ const accordionItemsWithIcons = [
   {
     id: "1",
     title: "Dashboard",
-    icon: (
-      <svg
-        className="h-4 w-4"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-        />
-      </svg>
-    ),
+    icon: <HomeIcon />,
     content: (
       <div className="text-[var(--color-text-secondary)]">
-        📊 Dashboard overview with key metrics and recent activity.
+        Dashboard overview with key metrics and recent activity.
       </div>
     ),
   },
   {
     id: "2",
     title: "Projects",
-    icon: (
-      <svg
-        className="h-4 w-4"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M3.75 13.5l14.25-11.25L13.5 3.75 3.75 13.5zM3.75 13.5L6.75 16.5M13.5 3.75L16.5 6.75M12 12l-3 3M9 15l-3 3"
-        />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 12l3-3M15 9l3-3"
-        />
-      </svg>
-    ),
+    icon: <ExploreIcon />,
     content: (
       <div className="text-[var(--color-text-secondary)]">
-        🚀 Active projects and their current status.
+        Active projects and their current status.
       </div>
     ),
   },
   {
     id: "3",
     title: "Settings",
-    icon: (
-      <svg
-        className="h-4 w-4"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-        />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-        />
-      </svg>
-    ),
+    icon: <SettingsIcon />,
     content: (
       <div className="text-[var(--color-text-secondary)]">
-        ⚙️ Configure your application preferences.
+        Configure your application preferences.
       </div>
     ),
   },
@@ -713,7 +597,6 @@ function AppContent() {
               A design system discovered inside a futuristic archive hidden
               beneath Calgary during a snowstorm.
             </p>
-            {/* ... rest of hero ... */}
           </section>
 
           {/* ============================================
@@ -1323,7 +1206,7 @@ function AppContent() {
                 </Card>
                 <Card float glow="accent">
                   <h3 className="font-heading font-bold">
-                    {t("cards.secondaryGlow")}
+                    {t("cards.accentGlow")}
                   </h3>
                   <p className="text-[var(--color-text-secondary)] text-sm">
                     Hover to float ✨
@@ -2720,7 +2603,7 @@ function AppContent() {
                   availableThemes={[
                     { value: "nightfall", label: "Nightfall", icon: "🌙" },
                     { value: "daylight", label: "Daylight", icon: "☀️" },
-                    { value: "bloody-moon", label: "Bloody Moon", icon: "🌕" },
+                    { value: "dracula", label: "Dracula", icon: "🧛" },
                   ]}
                   autoDetect={false}
                   size="md"
@@ -2895,564 +2778,6 @@ function AppContent() {
               <p className="lang-fa text-sm text-[var(--color-text-secondary)]">
                 {t("persian.persianDesc")}
               </p>
-            </div>
-          </section>
-
-          {/* ============================================
-            SIDEBAR SHOWCASE
-            ============================================ */}
-          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-            <h2 className="text-2xl font-semibold mb-2">
-              {t("sidebar.title")}
-            </h2>
-            <p className="text-[var(--color-text-secondary)] text-sm mb-6 font-sans">
-              {t("sidebar.subtitle")}
-            </p>
-
-            {/* Sidebar Demo */}
-            <div
-              className="relative rounded-[var(--radius-standard)] overflow-hidden bg-[var(--color-bg-tertiary)]/30 border border-[var(--color-border-primary)]"
-              style={{ height: "500px" }}
-            >
-              {(() => {
-                // ----- Sidebar content components (same as before) -----
-                const DashboardContent = () => (
-                  <div>
-                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
-                      📊 {t("sidebar.dashboard")}
-                    </h3>
-                    <p className="text-[var(--color-text-secondary)] mb-4">
-                      {t("sidebar.dashboardContent")}
-                    </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      <div className="glass p-3 rounded-[var(--radius-md)] text-center">
-                        <div className="text-2xl font-bold text-[var(--color-primary)]">
-                          12
-                        </div>
-                        <div className="text-xs text-[var(--color-text-tertiary)]">
-                          {t("sidebar.activeProjects")}
-                        </div>
-                      </div>
-                      <div className="glass p-3 rounded-[var(--radius-md)] text-center">
-                        <div className="text-2xl font-bold text-[var(--color-success)]">
-                          8
-                        </div>
-                        <div className="text-xs text-[var(--color-text-tertiary)]">
-                          {t("sidebar.completedTasks")}
-                        </div>
-                      </div>
-                      <div className="glass p-3 rounded-[var(--radius-md)] text-center">
-                        <div className="text-2xl font-bold text-[var(--color-secondary)]">
-                          5
-                        </div>
-                        <div className="text-xs text-[var(--color-text-tertiary)]">
-                          {t("sidebar.teamMembers")}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-
-                const ProjectsContent = () => (
-                  <div>
-                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
-                      📁 {t("sidebar.projects")}
-                    </h3>
-                    <p className="text-[var(--color-text-secondary)] mb-4">
-                      {t("sidebar.projectsContent")}
-                    </p>
-                    <div className="space-y-2">
-                      {[
-                        "Project Alpha",
-                        "Project Beta",
-                        "Project Gamma",
-                        "Project Delta",
-                      ].map((name, i) => (
-                        <div
-                          key={i}
-                          className="flex items-center justify-between glass p-2.5 rounded-[var(--radius-md)]"
-                        >
-                          <span className="text-sm text-[var(--color-text-primary)]">
-                            {name}
-                          </span>
-                          <span className="text-xs text-[var(--color-text-tertiary)]">
-                            {Math.floor(Math.random() * 80 + 20)}%
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-
-                const TeamContent = () => (
-                  <div>
-                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
-                      👥 {t("sidebar.team")}
-                    </h3>
-                    <p className="text-[var(--color-text-secondary)] mb-4">
-                      {t("sidebar.teamContent")}
-                    </p>
-                    <div className="space-y-2">
-                      {[
-                        {
-                          name: "Alice Johnson",
-                          role: "Lead Developer",
-                          online: true,
-                        },
-                        {
-                          name: "Bob Smith",
-                          role: "UI/UX Designer",
-                          online: true,
-                        },
-                        {
-                          name: "Carol White",
-                          role: "Project Manager",
-                          online: false,
-                        },
-                        {
-                          name: "Dave Brown",
-                          role: "Backend Engineer",
-                          online: true,
-                        },
-                      ].map((member, i) => (
-                        <div
-                          key={i}
-                          className="flex items-center gap-3 glass p-2.5 rounded-[var(--radius-md)]"
-                        >
-                          <div className="w-8 h-8 rounded-full bg-[var(--color-primary)]/20 flex items-center justify-center text-sm font-bold text-[var(--color-primary)]">
-                            {member.name.charAt(0)}
-                          </div>
-                          <div className="flex-1">
-                            <div className="text-sm text-[var(--color-text-primary)]">
-                              {member.name}
-                            </div>
-                            <div className="text-xs text-[var(--color-text-tertiary)]">
-                              {member.role}
-                            </div>
-                          </div>
-                          <span
-                            className={`text-xs px-2 py-0.5 rounded-full ${member.online ? "bg-[var(--color-success)]/20 text-[var(--color-success)]" : "bg-[var(--color-text-tertiary)]/20 text-[var(--color-text-tertiary)]"}`}
-                          >
-                            {member.online ? "🟢 Online" : "⚪ Offline"}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-
-                const InvoicesContent = () => (
-                  <div>
-                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
-                      📄 {t("sidebar.invoices")}
-                    </h3>
-                    <p className="text-[var(--color-text-secondary)] mb-4">
-                      {t("sidebar.invoicesContent")}
-                    </p>
-                    <div className="space-y-2">
-                      {[
-                        { id: "INV-001", amount: "$1,200", status: "Paid" },
-                        { id: "INV-002", amount: "$850", status: "Pending" },
-                        { id: "INV-003", amount: "$2,400", status: "Paid" },
-                      ].map((inv, i) => (
-                        <div
-                          key={i}
-                          className="flex items-center justify-between glass p-2.5 rounded-[var(--radius-md)]"
-                        >
-                          <span className="text-sm text-[var(--color-text-primary)]">
-                            {inv.id}
-                          </span>
-                          <span className="text-sm font-medium text-[var(--color-text-primary)]">
-                            {inv.amount}
-                          </span>
-                          <span
-                            className={`text-xs px-2 py-0.5 rounded-full ${inv.status === "Paid" ? "bg-[var(--color-success)]/20 text-[var(--color-success)]" : "bg-[var(--color-warning)]/20 text-[var(--color-warning)]"}`}
-                          >
-                            {inv.status}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-
-                const ReportsContent = () => (
-                  <div>
-                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
-                      📊 {t("sidebar.reports")}
-                    </h3>
-                    <p className="text-[var(--color-text-secondary)] mb-4">
-                      {t("sidebar.reportsContent")}
-                    </p>
-                    <div className="space-y-2">
-                      {[
-                        "Q4 Financial Report",
-                        "User Growth Analysis",
-                        "Performance Metrics",
-                      ].map((report, i) => (
-                        <div
-                          key={i}
-                          className="flex items-center justify-between glass p-2.5 rounded-[var(--radius-md)]"
-                        >
-                          <span className="text-sm text-[var(--color-text-primary)]">
-                            {report}
-                          </span>
-                          <span className="text-xs text-[var(--color-text-tertiary)]">
-                            📄 PDF
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-
-                const ArchiveContent = () => (
-                  <div>
-                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
-                      🗂️ {t("sidebar.archive")}
-                    </h3>
-                    <p className="text-[var(--color-text-secondary)] mb-4">
-                      {t("sidebar.archiveContent")}
-                    </p>
-                    <div className="space-y-2">
-                      {[
-                        "2023 Q4 Documents",
-                        "Old Project Files",
-                        "Meeting Notes",
-                      ].map((item, i) => (
-                        <div
-                          key={i}
-                          className="flex items-center gap-3 glass p-2.5 rounded-[var(--radius-md)]"
-                        >
-                          <span className="text-lg">📁</span>
-                          <span className="text-sm text-[var(--color-text-primary)]">
-                            {item}
-                          </span>
-                          <span className="ml-auto text-xs text-[var(--color-text-tertiary)]">
-                            {Math.floor(Math.random() * 30 + 1)} items
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-
-                const InboxContent = () => (
-                  <div>
-                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
-                      📬 {t("sidebar.inbox")}
-                    </h3>
-                    <p className="text-[var(--color-text-secondary)] mb-4">
-                      {t("sidebar.inboxContent")}
-                    </p>
-                    <div className="space-y-2">
-                      {[
-                        {
-                          from: "Alice Johnson",
-                          subject: "Project Update",
-                          time: "2h ago",
-                          unread: true,
-                        },
-                        {
-                          from: "Bob Smith",
-                          subject: "Design Review",
-                          time: "5h ago",
-                          unread: true,
-                        },
-                        {
-                          from: "Carol White",
-                          subject: "Meeting Agenda",
-                          time: "1d ago",
-                          unread: false,
-                        },
-                      ].map((msg, i) => (
-                        <div
-                          key={i}
-                          className={`flex items-center gap-3 glass p-2.5 rounded-[var(--radius-md)] ${msg.unread ? "border-l-2 border-[var(--color-primary)]" : ""}`}
-                        >
-                          <div className="w-8 h-8 rounded-full bg-[var(--color-secondary)]/20 flex items-center justify-center text-sm font-bold text-[var(--color-secondary)]">
-                            {msg.from.charAt(0)}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="text-sm text-[var(--color-text-primary)] truncate">
-                              {msg.from}
-                            </div>
-                            <div className="text-xs text-[var(--color-text-tertiary)] truncate">
-                              {msg.subject}
-                            </div>
-                          </div>
-                          <span className="text-xs text-[var(--color-text-tertiary)] flex-shrink-0">
-                            {msg.time}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-
-                const SentContent = () => (
-                  <div>
-                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
-                      📤 {t("sidebar.sent")}
-                    </h3>
-                    <p className="text-[var(--color-text-secondary)] mb-4">
-                      {t("sidebar.sentContent")}
-                    </p>
-                    <div className="space-y-2">
-                      {[
-                        {
-                          to: "Alice Johnson",
-                          subject: "Project Files",
-                          time: "1h ago",
-                        },
-                        {
-                          to: "Bob Smith",
-                          subject: "Feedback Request",
-                          time: "3h ago",
-                        },
-                        {
-                          to: "Carol White",
-                          subject: "Report Draft",
-                          time: "1d ago",
-                        },
-                      ].map((msg, i) => (
-                        <div
-                          key={i}
-                          className="flex items-center gap-3 glass p-2.5 rounded-[var(--radius-md)]"
-                        >
-                          <div className="w-8 h-8 rounded-full bg-[var(--color-accent)]/20 flex items-center justify-center text-sm font-bold text-[var(--color-accent)]">
-                            {msg.to.charAt(0)}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="text-sm text-[var(--color-text-primary)] truncate">
-                              {msg.to}
-                            </div>
-                            <div className="text-xs text-[var(--color-text-tertiary)] truncate">
-                              {msg.subject}
-                            </div>
-                          </div>
-                          <span className="text-xs text-[var(--color-text-tertiary)] flex-shrink-0">
-                            {msg.time}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-
-                const DraftsContent = () => (
-                  <div>
-                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
-                      📝 {t("sidebar.drafts")}
-                    </h3>
-                    <p className="text-[var(--color-text-secondary)] mb-4">
-                      {t("sidebar.draftsContent")}
-                    </p>
-                    <div className="space-y-2">
-                      {[
-                        {
-                          title: "Q4 Report Draft",
-                          lastEdit: "2h ago",
-                          words: 245,
-                        },
-                        {
-                          title: "Project Proposal",
-                          lastEdit: "1d ago",
-                          words: 1020,
-                        },
-                        {
-                          title: "Design Specs",
-                          lastEdit: "3d ago",
-                          words: 580,
-                        },
-                      ].map((draft, i) => (
-                        <div
-                          key={i}
-                          className="flex items-center justify-between glass p-2.5 rounded-[var(--radius-md)]"
-                        >
-                          <div>
-                            <div className="text-sm text-[var(--color-text-primary)]">
-                              {draft.title}
-                            </div>
-                            <div className="text-xs text-[var(--color-text-tertiary)]">
-                              {draft.lastEdit} · {draft.words} words
-                            </div>
-                          </div>
-                          <span className="text-xs text-[var(--color-text-tertiary)]">
-                            ✏️
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-
-                const SettingsContent = () => (
-                  <div>
-                    <h3 className="font-heading text-xl font-bold text-[var(--color-text-primary)] mb-3">
-                      ⚙️ {t("sidebar.settings")}
-                    </h3>
-                    <p className="text-[var(--color-text-secondary)] mb-4">
-                      {t("sidebar.settingsContent")}
-                    </p>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between glass p-2.5 rounded-[var(--radius-md)]">
-                        <span className="text-sm text-[var(--color-text-primary)]">
-                          {t("sidebar.notifications")}
-                        </span>
-                        <button className="w-10 h-5 rounded-full bg-[var(--color-primary)] relative">
-                          <span className="absolute right-0.5 top-0.5 w-4 h-4 rounded-full bg-white"></span>
-                        </button>
-                      </div>
-                      <div className="flex items-center justify-between glass p-2.5 rounded-[var(--radius-md)]">
-                        <span className="text-sm text-[var(--color-text-primary)]">
-                          {t("sidebar.darkMode")}
-                        </span>
-                        <button className="w-10 h-5 rounded-full bg-[var(--color-bg-tertiary)] relative">
-                          <span className="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white"></span>
-                        </button>
-                      </div>
-                      <div className="flex items-center justify-between glass p-2.5 rounded-[var(--radius-md)]">
-                        <span className="text-sm text-[var(--color-text-primary)]">
-                          {t("sidebar.language")}
-                        </span>
-                        <span className="text-sm text-[var(--color-text-secondary)]">
-                          English
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                );
-
-                const sidebarGroups: SidebarGroup[] = [
-                  {
-                    label: t("sidebar.main"),
-                    icon: <HomeIcon />,
-                    defaultExpanded: true,
-                    items: [
-                      {
-                        id: "demo-dashboard",
-                        label: t("sidebar.dashboard"),
-                        icon: <HomeIcon />,
-                        active: true,
-                        content: <DashboardContent />,
-                      },
-                      {
-                        id: "demo-projects",
-                        label: t("sidebar.projects"),
-                        icon: <FolderIcon />,
-                        badge: 12,
-                        content: <ProjectsContent />,
-                      },
-                      {
-                        id: "demo-team",
-                        label: t("sidebar.team"),
-                        icon: <UserIcon />,
-                        content: <TeamContent />,
-                      },
-                    ],
-                  },
-                  {
-                    label: t("sidebar.management"),
-                    icon: <SettingsIcon />,
-                    items: [
-                      {
-                        id: "demo-documents",
-                        label: t("sidebar.documents"),
-                        icon: <DocsIcon />,
-                        subItems: [
-                          {
-                            id: "demo-invoices",
-                            label: t("sidebar.invoices"),
-                            content: <InvoicesContent />,
-                          },
-                          {
-                            id: "demo-reports",
-                            label: t("sidebar.reports"),
-                            badge: 3,
-                            content: <ReportsContent />,
-                          },
-                          {
-                            id: "demo-archive",
-                            label: t("sidebar.archive"),
-                            content: <ArchiveContent />,
-                          },
-                        ],
-                      },
-                      {
-                        id: "demo-messages",
-                        label: t("sidebar.messages"),
-                        icon: <MailIcon />,
-                        badge: 5,
-                        subItems: [
-                          {
-                            id: "demo-inbox",
-                            label: t("sidebar.inbox"),
-                            content: <InboxContent />,
-                          },
-                          {
-                            id: "demo-sent",
-                            label: t("sidebar.sent"),
-                            content: <SentContent />,
-                          },
-                          {
-                            id: "demo-drafts",
-                            label: t("sidebar.drafts"),
-                            content: <DraftsContent />,
-                          },
-                        ],
-                      },
-                      {
-                        id: "demo-settings",
-                        label: t("sidebar.settings"),
-                        icon: <SettingsIcon />,
-                        content: <SettingsContent />,
-                      },
-                    ],
-                  },
-                ];
-
-                const sidebarBrand = (
-                  <span
-                    className="font-heading font-bold text-sm tracking-tight truncate max-w-[180px]"
-                    style={{
-                      background: "var(--gradient-primary)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    DARA UI
-                  </span>
-                );
-
-                const sidebarFooter = (
-                  <button className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 w-full px-3 py-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-elevated)]/30 text-sm">
-                    <LogoutIcon />
-                    <span>{t("sidebar.logout")}</span>
-                  </button>
-                );
-
-                return (
-                  <Sidebar
-                    brand={sidebarBrand}
-                    groups={sidebarGroups}
-                    footer={sidebarFooter}
-                    className="h-full"
-                    fixed={false}
-                    collapsible
-                    defaultCollapsed={false}
-                    showGroupLabels
-                    height="100%"
-                  />
-                );
-              })()}
-            </div>
-
-            <div className="mt-4 flex gap-4 flex-wrap text-xs text-[var(--color-text-tertiary)]">
-              <span>💡 {t("sidebar.tip1")}</span>
-              <span>⌨️ {t("sidebar.tip2")}</span>
-              <span>🔄 {t("sidebar.tip3")}</span>
             </div>
           </section>
 
@@ -3669,7 +2994,7 @@ function AppContent() {
               </div>
             </div>
 
-            {/* With icons (optional) */}
+            {/* With icons */}
             <div className="mb-6">
               <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
                 With icons

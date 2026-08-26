@@ -129,7 +129,7 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
     const isControlled = controlledValue !== undefined;
     const [internalValue, setInternalValue] = useState(defaultValue);
     const [isDragging, setIsDragging] = useState(false);
-    // Optimistic value while dragging – paints with the pointer, not after parent setState
+    // Optimistic value while dragging
     const [dragValue, setDragValue] = useState<number | null>(null);
     const [showSparkles, setShowSparkles] = useState(false);
     const trackRef = useRef<HTMLDivElement>(null);
@@ -161,7 +161,7 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
       return () => observer.disconnect();
     }, []);
 
-    // Sparkles only when we first hit max (not every re-render at max)
+    // Sparkles only when we first hit max
     const wasAtMaxRef = useRef(false);
     useEffect(() => {
       if (isAtMax && !wasAtMaxRef.current && displayValue > min) {
@@ -258,7 +258,6 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
 
     const emitChange = useCallback(
       (newValue: number) => {
-        // Skip redundant parent updates (cuts down App re-renders / particle resets)
         if (lastEmittedRef.current === newValue) return;
         lastEmittedRef.current = newValue;
         if (!isControlled) setInternalValue(newValue);
@@ -345,7 +344,7 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
       bottom: "order-last",
     };
 
-    // Stable particle set – only regenerated when a sparkle burst starts
+    // Stable particle set
     const sparkleParticles = useMemo(() => {
       if (!showSparkles) return [];
       const sparkleColors = [
@@ -369,7 +368,7 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
       transform: "translateY(-50%)",
     } as const;
 
-    // No transition while dragging = thumb locked to the pointer
+    // No transition while dragging
     const trackTransition = isDragging ? "none" : "width 120ms ease-out";
     const thumbTransition = isDragging ? "none" : "transform 120ms ease-out";
 
