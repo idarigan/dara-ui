@@ -33,6 +33,7 @@ const meta = {
     },
     showLabel: { control: "boolean" },
     animated: { control: "boolean" },
+    glow: { control: "boolean" },
     value: { control: "number", min: 0, max: 100 },
     max: { control: "number", min: 1, max: 200 },
   },
@@ -44,6 +45,7 @@ const meta = {
     color: "primary",
     showLabel: true,
     animated: true,
+    glow: false,
   },
 } satisfies Meta<typeof Progress>;
 
@@ -145,6 +147,77 @@ export const CustomLabelFormat: Story = {
   ),
 };
 
+// ----- With Glow (Horizontal) -----
+export const WithGlow: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6 w-80">
+      <p className="text-xs text-[var(--color-text-tertiary)] font-mono mb-2">
+        Horizontal with glow effect
+      </p>
+      <Progress value={75} color="primary" labelPosition="right" glow />
+      <Progress value={60} color="secondary" labelPosition="right" glow />
+      <Progress value={45} color="accent" labelPosition="right" glow />
+      <Progress value={80} color="success" labelPosition="right" glow />
+      <Progress value={30} color="danger" labelPosition="right" glow />
+      <Progress value={90} color="warning" labelPosition="right" glow />
+      <Progress value={55} color="gradient" labelPosition="right" glow />
+    </div>
+  ),
+};
+
+// ----- With Glow (Radial) -----
+export const WithGlowRadial: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-8 items-center justify-center">
+      <p className="text-xs text-[var(--color-text-tertiary)] font-mono w-full text-center mb-2">
+        Radial with glow effect
+      </p>
+      <Progress
+        variant="radial"
+        value={75}
+        color="primary"
+        radialSize={80}
+        glow
+      />
+      <Progress
+        variant="radial"
+        value={60}
+        color="secondary"
+        radialSize={80}
+        glow
+      />
+      <Progress
+        variant="radial"
+        value={45}
+        color="accent"
+        radialSize={80}
+        glow
+      />
+      <Progress
+        variant="radial"
+        value={80}
+        color="success"
+        radialSize={80}
+        glow
+      />
+      <Progress
+        variant="radial"
+        value={30}
+        color="danger"
+        radialSize={80}
+        glow
+      />
+      <Progress
+        variant="radial"
+        value={90}
+        color="warning"
+        radialSize={80}
+        glow
+      />
+    </div>
+  ),
+};
+
 // ----- Interactive (with controls) -----
 export const Interactive: Story = {
   render: () => {
@@ -152,10 +225,11 @@ export const Interactive: Story = {
     const [variant, setVariant] = useState<"horizontal" | "radial">(
       "horizontal",
     );
+    const [showGlow, setShowGlow] = useState(false);
 
     return (
       <div className="flex flex-col items-center gap-6">
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <Button
             size="sm"
             variant={variant === "horizontal" ? "primary" : "outline"}
@@ -170,6 +244,13 @@ export const Interactive: Story = {
           >
             Radial
           </Button>
+          <Button
+            size="sm"
+            variant={showGlow ? "primary" : "outline"}
+            onClick={() => setShowGlow(!showGlow)}
+          >
+            {showGlow ? "Glow ON" : "Glow OFF"}
+          </Button>
         </div>
 
         <Progress
@@ -179,6 +260,7 @@ export const Interactive: Story = {
           showLabel
           radialSize={100}
           size="lg"
+          glow={showGlow}
         />
 
         <div className="flex gap-3 flex-wrap">
