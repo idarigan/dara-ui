@@ -59,19 +59,19 @@ export const Variants: Story = {
         <Card variant="glass" className="w-56">
           <h3 className="font-heading font-bold">Glass</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
-            blur(20px)
+            backdrop-filter: blur(20px)
           </p>
         </Card>
         <Card variant="solid" className="w-56">
           <h3 className="font-heading font-bold">Solid</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
-            More opaque
+            More opaque, less blur
           </p>
         </Card>
         <Card variant="outline" className="w-56">
           <h3 className="font-heading font-bold">Outline</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
-            Border only
+            Transparent with border
           </p>
         </Card>
       </div>
@@ -119,18 +119,20 @@ export const WithGlow: Story = {
         <Card glow="primary" className="w-56">
           <h3 className="font-heading font-bold">Primary Glow</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
-            Shadow glow
+            Hover to float ✨
           </p>
         </Card>
         <Card glow="secondary" className="w-56">
           <h3 className="font-heading font-bold">Secondary Glow</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
-            Shadow glow
+            Hover to float ✨
           </p>
         </Card>
         <Card glow="accent" className="w-56">
           <h3 className="font-heading font-bold">Accent Glow</h3>
-          <p className="text-[var(--color-text-accent)] text-sm">Shadow glow</p>
+          <p className="text-[var(--color-text-secondary)] text-sm">
+            Hover to float ✨
+          </p>
         </Card>
       </div>
     );
@@ -172,9 +174,7 @@ export const ContentExamples: Story = {
           </p>
         </Card>
         <Card glow="primary" className="w-64">
-          <div className="w-12 h-12 rounded-standard bg-[var(--color-primary)]/20 flex items-center justify-center text-2xl mb-3">
-            🎯
-          </div>
+          <div className="text-4xl mb-3">🎯</div>
           <h3 className="font-heading font-bold">Feature Card</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
             With glow effect.
