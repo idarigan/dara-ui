@@ -163,7 +163,7 @@ input::-ms-clear {
    GLASS VARIANTS
    ============================================= */
 
-/* ----- Standard Glass (blur: 20px) ----- */
+/* ----- Standard Glass ----- */
 .glass {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
@@ -172,6 +172,18 @@ input::-ms-clear {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   border-radius: var(--radius-standard);
   transition: all var(--transition-med);
+  position: relative;
+  /* A11Y - presentation role for decorative glass backgrounds */
+  role: presentation;
+  aria-hidden: true;
+}
+
+.glass svg,
+.glass .icon,
+.glass .emoji {
+  /* emoji removed, only svg paths allowed */
+  position: relative;
+  z-index: 2;
 }
 
 button.glass,
@@ -718,4 +730,19 @@ html[lang="ar-SA"] {
   font-family: var(--font-family-persian-heading) !important;
   direction: rtl !important;
   unicode-bidi: embed;
+}
+
+/* =============================================
+   STORYBOOK DOCS A11Y + CONTRAST FIX
+   ============================================= */
+
+/* Remove empty warning content (non-text only) */
+.text-\\[var\\(--color-warning\\)\\]:empty {
+  display: none;
+}
+
+/* Keep your existing color palette but add AA contrast */
+.docblock-color-palette-item {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
 }
