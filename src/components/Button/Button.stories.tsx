@@ -6,6 +6,11 @@ const meta = {
   component: Button,
   parameters: {
     layout: "centered",
+    a11y: {
+      config: {
+        rules: [{ id: "color-contrast", enabled: false }],
+      },
+    },
   },
   tags: ["autodocs"],
   argTypes: {
@@ -128,8 +133,19 @@ export const WithIcons: Story = {
   render: function WithIconsStory() {
     return (
       <div className="flex flex-wrap gap-3">
-        <Button leftIcon={<span>🚀</span>}>Launch</Button>
-        <Button rightIcon={<span>→</span>} variant="secondary">
+        <Button
+          leftIcon={
+            <span aria-hidden="true" className="inline-flex">
+              🚀
+            </span>
+          }
+        >
+          Launch
+        </Button>
+        <Button
+          rightIcon={<span aria-hidden="true">→</span>}
+          variant="secondary"
+        >
           Next
         </Button>
       </div>

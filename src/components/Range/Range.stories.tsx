@@ -117,7 +117,7 @@ export const CustomSuffixPrefix: Story = {
         defaultValue={1500}
         prefix="تومان "
         suffix=""
-        label="Persian Rial"
+        label="Persian Toman"
       />
     </div>
   ),

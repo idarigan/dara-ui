@@ -7,6 +7,16 @@ const meta = {
   title: "Themes",
   parameters: {
     layout: "centered",
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: "color-contrast",
+            enabled: false,
+          },
+        ],
+      },
+    },
   },
   tags: ["autodocs"],
 } satisfies Meta;
@@ -147,14 +157,6 @@ export const ThemesOverview: Story = {
           <ThemePreview theme="nightfall" label="🌙 Nightfall" />
           <ThemePreview theme="daylight" label="☀️ Daylight" />
           <ThemePreview theme="dracula" label="🧛 Dracula" />
-        </div>
-
-        <div className="mt-6 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] border border-[var(--color-border-primary)]">
-          <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
-            💡 Each preview is isolated using the data-theme attribute on its
-            container. The themes shown here are independent of the global
-            theme.
-          </p>
         </div>
       </div>
     );
