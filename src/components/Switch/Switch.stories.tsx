@@ -57,7 +57,7 @@ export const WithGlow: Story = {
 
 // ----- With Custom Icons -----
 export const WithCustomIcons: Story = {
-  render: () => {
+  render: function WithCustomIconsStory() {
     const PlayIcon = () => (
       <svg
         className="h-3 w-3"
@@ -87,7 +87,7 @@ export const WithCustomIcons: Story = {
     );
 
     return (
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 items-start">
         <Switch
           label="Play/Pause"
           onIcon={<PlayIcon />}
@@ -106,36 +106,46 @@ export const WithCustomIcons: Story = {
 
 // ----- Sizes -----
 export const Sizes: Story = {
-  render: () => (
-    <div className="flex flex-col gap-6">
-      <Switch size="sm" label="Small" defaultChecked glow />
-      <Switch size="md" label="Medium" defaultChecked glow />
-      <Switch size="lg" label="Large" defaultChecked glow />
-    </div>
-  ),
+  render: function SizesStory() {
+    return (
+      <div className="flex flex-col gap-6 items-start">
+        <Switch size="sm" label="Small" defaultChecked glow />
+        <Switch size="md" label="Medium" defaultChecked glow />
+        <Switch size="lg" label="Large" defaultChecked glow />
+      </div>
+    );
+  },
 };
 
 // ----- RTL Support -----
 export const RTLSupport: Story = {
-  render: () => {
-    const currentDir = document.documentElement.dir;
-    document.documentElement.dir = "rtl";
-    document.documentElement.lang = "fa";
+  render: function RTLSupportStory() {
+    const [isRTL, setIsRTL] = useState(false);
+
+    const toggleRTL = () => {
+      const newDir = isRTL ? "ltr" : "rtl";
+      document.documentElement.dir = newDir;
+      document.documentElement.lang = newDir === "rtl" ? "fa" : "en";
+      setIsRTL(!isRTL);
+    };
 
     return (
-      <div className="flex flex-col gap-4">
-        <Switch label="فعال سازی حالت شب" defaultChecked glow />
-        <Switch label="فعال کردن اعلان‌ها" />
-        <Switch label="حالت خودکار" defaultChecked glow />
+      <div className="flex flex-col gap-4 items-start p-6 rounded-[var(--radius-md)] bg-[var(--color-bg-secondary)] min-w-[280px]">
         <button
-          className="mt-4 px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary-solid)] text-white"
-          onClick={() => {
-            document.documentElement.dir = currentDir;
-            document.documentElement.lang = "en";
-          }}
+          className="px-4 py-2 text-sm rounded-[var(--radius-md)] bg-[var(--color-primary-solid)] text-white hover:bg-[var(--color-primary-hover)] transition-colors"
+          onClick={toggleRTL}
         >
-          Reset to LTR
+          {isRTL ? "Switch to LTR" : "Switch to RTL"}
         </button>
+        <div className="flex flex-col gap-4 mt-2 w-full">
+          <Switch label="فعال سازی حالت شب" defaultChecked glow />
+          <Switch label="فعال کردن اعلان‌ها" />
+          <Switch label="حالت خودکار" defaultChecked />
+        </div>
+        <p className="text-xs text-[var(--color-text-tertiary)] font-mono mt-2">
+          Current direction:{" "}
+          {isRTL ? "RTL (right-to-left)" : "LTR (left-to-right)"}
+        </p>
       </div>
     );
   },
@@ -143,21 +153,23 @@ export const RTLSupport: Story = {
 
 // ----- Disabled -----
 export const Disabled: Story = {
-  render: () => (
-    <div className="flex flex-col gap-4">
-      <Switch label="Disabled off" disabled />
-      <Switch label="Disabled on" disabled defaultChecked />
-    </div>
-  ),
+  render: function DisabledStory() {
+    return (
+      <div className="flex flex-col gap-4 items-start">
+        <Switch label="Disabled off" disabled />
+        <Switch label="Disabled on" disabled defaultChecked />
+      </div>
+    );
+  },
 };
 
 // ----- Controlled -----
 export const Controlled: Story = {
-  render: () => {
+  render: function ControlledStory() {
     const [checked, setChecked] = useState(false);
 
     return (
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 items-start">
         <Switch
           label="Controlled switch"
           checked={checked}
@@ -188,7 +200,7 @@ export const Controlled: Story = {
 
 // ----- Group -----
 export const Group: Story = {
-  render: () => {
+  render: function GroupStory() {
     const [values, setValues] = useState({
       option1: true,
       option2: false,
@@ -200,7 +212,7 @@ export const Group: Story = {
     };
 
     return (
-      <div className="flex flex-col gap-4 p-6 glass rounded-[var(--radius-md)]">
+      <div className="flex flex-col gap-4 p-6 glass rounded-[var(--radius-md)] min-w-[240px]">
         <p className="text-sm font-medium text-[var(--color-text-secondary)] mb-1">
           Settings:
         </p>

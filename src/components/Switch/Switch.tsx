@@ -122,34 +122,42 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       sm: {
         track: "w-10 h-5",
         thumb: "w-5 h-5",
-        travel: 22,
+        travel: 20,
         label: "text-xs",
         icon: "text-[10px]",
         gap: "gap-1.5",
+        thumbOffset: 0,
       },
       md: {
         track: "w-12 h-6",
         thumb: "w-6 h-6",
-        travel: 26,
+        travel: 24,
         label: "text-sm",
         icon: "text-xs",
         gap: "gap-2",
+        thumbOffset: 0,
       },
       lg: {
         track: "w-16 h-8",
         thumb: "w-8 h-8",
-        travel: 36,
+        travel: 32,
         label: "text-base",
         icon: "text-sm",
         gap: "gap-2.5",
+        thumbOffset: 0,
       },
     };
 
     const s = sizes[size] || sizes.md;
 
-    // LTR: OFF near left, ON past right edge
-    // RTL: OFF near right, ON past left edge
-    const thumbX = checked ? (isRTL ? -s.travel : s.travel) : 2;
+    // LTR: OFF at left (0), ON at right (travel)
+    // RTL: OFF at right (0), ON at left (-travel)
+    let thumbX = 0;
+    if (checked) {
+      thumbX = isRTL ? -s.travel : s.travel;
+    } else {
+      thumbX = 0;
+    }
 
     return (
       <label
@@ -175,11 +183,12 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           </span>
         )}
 
-        <span
+        <div
           className={`
             relative inline-flex items-center
             cursor-pointer
             ${disabled ? "cursor-not-allowed" : ""}
+            align-middle
           `}
         >
           <input
@@ -274,7 +283,6 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
               style={{
                 top: "50%",
                 [isRTL ? "right" : "left"]: 0,
-                // single transform
                 transform: `translateY(-50%) translateX(${thumbX}px)`,
               }}
             >
@@ -342,7 +350,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
               </div>
             )}
           </div>
-        </span>
+        </div>
 
         <style>{`
           .switch-sparkle {
