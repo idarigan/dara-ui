@@ -99,7 +99,7 @@ export interface RangeProps {
  * Features:
  * - Instant thumb tracking (no CSS transition while dragging)
  * - Optimistic local value so controlled mode stays in sync with the pointer
- * - Sparkle particles memoized (won't reshuffle every parent re-render)
+ * - Sparkle particles each time max is reached
  * - Glass styling, RTL, sizes, colors
  */
 export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
@@ -135,6 +135,8 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
     const trackRef = useRef<HTMLDivElement>(null);
     const thumbRef = useRef<HTMLDivElement>(null);
     const lastEmittedRef = useRef<number | null>(null);
+    // Track previous value to detect when we hit max
+    const prevDisplayValueRef = useRef<number>(0);
 
     const sourceValue = isControlled ? controlledValue! : internalValue;
     const clampedSource = Math.max(min, Math.min(max, sourceValue));
@@ -161,17 +163,20 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
       return () => observer.disconnect();
     }, []);
 
-    // Sparkles only when we first hit max
-    const wasAtMaxRef = useRef(false);
+    // Sparkles every time we hit max
     useEffect(() => {
-      if (isAtMax && !wasAtMaxRef.current && displayValue > min) {
+      const prevValue = prevDisplayValueRef.current;
+
+      // Check if we just hit max
+      if (isAtMax && prevValue < max && displayValue > min) {
         setShowSparkles(true);
         const timer = setTimeout(() => setShowSparkles(false), 800);
-        wasAtMaxRef.current = true;
         return () => clearTimeout(timer);
       }
-      if (!isAtMax) wasAtMaxRef.current = false;
-    }, [isAtMax, displayValue, min]);
+
+      // Update previous value for next comparison
+      prevDisplayValueRef.current = displayValue;
+    }, [isAtMax, displayValue, max, min]);
 
     const colorMap = {
       primary: {
@@ -222,6 +227,7 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
         value: "text-xs",
         label: "text-sm",
         gap: "gap-2",
+        minHeight: "56px",
       },
       md: {
         track: "h-1.5",
@@ -230,6 +236,7 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
         value: "text-sm",
         label: "text-base",
         gap: "gap-2.5",
+        minHeight: "64px",
       },
       lg: {
         track: "h-2",
@@ -238,6 +245,7 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
         value: "text-base",
         label: "text-lg",
         gap: "gap-3",
+        minHeight: "76px",
       },
     };
 
@@ -372,11 +380,22 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
     const trackTransition = isDragging ? "none" : "width 120ms ease-out";
     const thumbTransition = isDragging ? "none" : "transform 120ms ease-out";
 
+    // For top/bottom positions, ensure the container has min-height
+    const isVerticalPosition =
+      valuePosition === "top" || valuePosition === "bottom";
+    // Use size-based min-height when vertical, otherwise auto
+    const containerMinHeight = isVerticalPosition ? styles.minHeight : "auto";
+    // Track container also needs min-height for vertical
+    const trackMinHeight = isVerticalPosition ? "32px" : "auto";
+
     return (
       <div
         ref={ref}
         className={`${fullWidth ? "w-full" : "inline-block"} ${className}`}
-        style={{ minWidth: "120px" }}
+        style={{
+          minWidth: isVerticalPosition ? "140px" : "120px",
+          minHeight: containerMinHeight,
+        }}
       >
         {label && (
           <label
@@ -388,6 +407,9 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
 
         <div
           className={`flex ${valuePosClasses[valuePosition] || valuePosClasses.right}`}
+          style={{
+            minHeight: isVerticalPosition ? styles.minHeight : "auto",
+          }}
         >
           {showValue &&
             (valuePosition === "left" || valuePosition === "top") && (
@@ -398,6 +420,7 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
                 font-mono font-medium
                 ${colors.text}
                 min-w-[2.5rem]
+                ${isVerticalPosition ? "mb-0.5" : ""}
               `}
               >
                 {formatValue()}
@@ -413,6 +436,9 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
               ${disabled ? "opacity-50 cursor-not-allowed" : ""}
               py-2
             `}
+            style={{
+              minHeight: trackMinHeight,
+            }}
             onMouseDown={handleMouseDown}
             onTouchStart={handleTouchStart}
           >
@@ -510,6 +536,7 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
                 font-mono font-medium
                 ${colors.text}
                 min-w-[2.5rem]
+                ${isVerticalPosition ? "mt-0.5" : ""}
               `}
               >
                 {formatValue()}
