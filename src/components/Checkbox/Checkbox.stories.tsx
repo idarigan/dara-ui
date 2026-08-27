@@ -78,33 +78,36 @@ export const ErrorState: Story = {
 
 // ----- RTL Support -----
 export const RTLSupport: Story = {
-  render: () => {
-    const currentDir = document.documentElement.dir;
-    document.documentElement.dir = "rtl";
-    document.documentElement.lang = "fa";
+  render: function RTLSupportStory() {
+    const [isRTL, setIsRTL] = useState(false);
+
+    const toggleRTL = () => {
+      const newDir = isRTL ? "ltr" : "rtl";
+      document.documentElement.dir = newDir;
+      document.documentElement.lang = newDir === "rtl" ? "fa" : "en";
+      setIsRTL(!isRTL);
+    };
 
     return (
-      <div className="flex flex-col gap-4 items-start">
-        <Checkbox label="پذیرش شرایط" defaultChecked />
-        <Checkbox label="تایید اطلاعات" />
-        <Checkbox label="فعال سازی حالت شب" defaultChecked glow />
+      <div className="flex flex-col gap-4 items-start p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-secondary)]">
         <button
-          className="mt-4 px-3 py-1 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary-solid)] text-white"
-          onClick={() => {
-            document.documentElement.dir = currentDir;
-            document.documentElement.lang = "en";
-          }}
+          className="px-4 py-2 text-sm rounded-[var(--radius-md)] bg-[var(--color-primary-solid)] text-white hover:bg-[var(--color-primary-hover)] transition-colors"
+          onClick={toggleRTL}
         >
-          Reset to LTR
+          {isRTL ? "Switch to LTR" : "Switch to RTL"}
         </button>
+        <div className="flex flex-col gap-3 mt-2">
+          <Checkbox label="پذیرش شرایط" defaultChecked />
+          <Checkbox label="تایید اطلاعات" />
+          <Checkbox label="فعال سازی حالت شب" defaultChecked glow />
+        </div>
+        <p className="text-xs text-[var(--color-text-tertiary)] font-mono mt-2">
+          Current direction:{" "}
+          {isRTL ? "RTL (right-to-left)" : "LTR (left-to-right)"}
+        </p>
       </div>
     );
   },
-  decorators: [
-    (Story) => {
-      return <Story />;
-    },
-  ],
 };
 
 // ----- Disabled -----
@@ -119,7 +122,7 @@ export const Disabled: Story = {
 
 // ----- Controlled -----
 export const Controlled: Story = {
-  render: () => {
+  render: function ControlledStory() {
     const [checked, setChecked] = useState(false);
 
     return (
@@ -146,6 +149,50 @@ export const Controlled: Story = {
           >
             Uncheck
           </button>
+        </div>
+      </div>
+    );
+  },
+};
+
+// ----- Group -----
+export const Group: Story = {
+  render: function GroupStory() {
+    const [groupValues, setGroupValues] = useState({
+      option1: true,
+      option2: false,
+      option3: false,
+    });
+
+    const handleChange =
+      (key: keyof typeof groupValues) => (checked: boolean) => {
+        setGroupValues((prev) => ({ ...prev, [key]: checked }));
+      };
+
+    return (
+      <div className="flex flex-col gap-3 p-6 glass rounded-[var(--radius-md)]">
+        <p className="text-sm font-medium text-[var(--color-text-secondary)] mb-1">
+          Select your preferences:
+        </p>
+        <Checkbox
+          label="Enable notifications"
+          checked={groupValues.option1}
+          onCheckedChange={handleChange("option1")}
+          glow
+        />
+        <Checkbox
+          label="Dark mode"
+          checked={groupValues.option2}
+          onCheckedChange={handleChange("option2")}
+        />
+        <Checkbox
+          label="Auto-save"
+          checked={groupValues.option3}
+          onCheckedChange={handleChange("option3")}
+        />
+        <div className="mt-2 text-xs text-[var(--color-text-tertiary)] font-mono">
+          Selected: {Object.entries(groupValues).filter(([, v]) => v).length} of
+          3
         </div>
       </div>
     );
