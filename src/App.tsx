@@ -2782,8 +2782,8 @@ function AppContent() {
           </section>
 
           {/* ============================================
-            CHECKBOX SHOWCASE
-            ============================================ */}
+  CHECKBOX SHOWCASE
+  ============================================ */}
           <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
             <h2 className="text-2xl font-semibold mb-6">
               {t("checkbox.title")}
@@ -2852,7 +2852,7 @@ function AppContent() {
                 {t("checkbox.rtlSupport")}
               </p>
               <div className="flex flex-wrap gap-6">
-                <div className="glass p-4 rounded-[var(--radius-md)]">
+                <div className="glass p-4 rounded-[var(--radius-md)] inline-block">
                   <div className="flex flex-col gap-3">
                     <Checkbox label={t("checkbox.rtlLabel1")} defaultChecked />
                     <Checkbox label={t("checkbox.rtlLabel2")} />
@@ -2915,7 +2915,7 @@ function AppContent() {
               <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
                 {t("checkbox.group")}
               </p>
-              <div className="glass p-6 rounded-[var(--radius-md)]">
+              <div className="glass p-6 rounded-[var(--radius-md)] inline-block">
                 <p className="text-sm font-medium text-[var(--color-text-secondary)] mb-3">
                   {t("checkbox.groupLabel")}
                 </p>
@@ -3096,7 +3096,7 @@ function AppContent() {
               <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
                 {t("switch.group")}
               </p>
-              <div className="glass p-6 rounded-[var(--radius-md)]">
+              <div className="glass p-6 rounded-[var(--radius-md)] inline-block">
                 <p className="text-sm font-medium text-[var(--color-text-secondary)] mb-3">
                   {t("switch.groupLabel")}
                 </p>
@@ -3150,7 +3150,7 @@ function AppContent() {
               <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
                 {t("radio.group")}
               </p>
-              <div className="glass p-6 rounded-[var(--radius-md)] max-w-md">
+              <div className="glass p-6 rounded-[var(--radius-md)] inline-block max-w-md">
                 <p className="text-sm font-medium text-[var(--color-text-secondary)] mb-4">
                   {t("radio.groupLabel")}
                 </p>
@@ -3196,7 +3196,7 @@ function AppContent() {
               <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
                 Horizontal group
               </p>
-              <div className="glass p-6 rounded-[var(--radius-md)]">
+              <div className="glass p-6 rounded-[var(--radius-md)] inline-block">
                 {(() => {
                   const [theme, setTheme] = useState("nightfall");
                   return (
