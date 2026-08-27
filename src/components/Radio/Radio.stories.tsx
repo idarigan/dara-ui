@@ -59,59 +59,78 @@ export const WithGlow: Story = {
 
 // ----- Sizes -----
 export const Sizes: Story = {
-  render: () => (
-    <div className="flex flex-col gap-4">
-      <Radio size="sm" label="Small" defaultChecked />
-      <Radio size="md" label="Medium" defaultChecked />
-      <Radio size="lg" label="Large" defaultChecked />
-    </div>
-  ),
+  render: function SizesStory() {
+    return (
+      <div className="flex flex-col gap-4 items-start">
+        <Radio size="sm" label="Small" defaultChecked />
+        <Radio size="md" label="Medium" defaultChecked />
+        <Radio size="lg" label="Large" defaultChecked />
+      </div>
+    );
+  },
 };
 
 // ----- RTL Support -----
 export const RTLSupport: Story = {
-  render: () => {
-    document.documentElement.dir = "rtl";
-    document.documentElement.lang = "fa";
+  render: function RTLSupportStory() {
+    const [isRTL, setIsRTL] = useState(false);
+
+    const toggleRTL = () => {
+      const newDir = isRTL ? "ltr" : "rtl";
+      document.documentElement.dir = newDir;
+      document.documentElement.lang = newDir === "rtl" ? "fa" : "en";
+      setIsRTL(!isRTL);
+    };
 
     return (
-      <div className="flex flex-col gap-4 items-start">
-        <Radio label="پذیرش شرایط" defaultChecked />
-        <Radio label="تایید اطلاعات" />
-        <Radio label="فعال سازی حالت شب" defaultChecked glow />
+      <div className="flex flex-col gap-4 items-start p-6 rounded-[var(--radius-md)] bg-[var(--color-bg-secondary)] min-w-[280px]">
+        <button
+          className="px-4 py-2 text-sm rounded-[var(--radius-md)] bg-[var(--color-primary-solid)] text-white hover:bg-[var(--color-primary-hover)] transition-colors"
+          onClick={toggleRTL}
+        >
+          {isRTL ? "Switch to LTR" : "Switch to RTL"}
+        </button>
+        <div className="flex flex-col gap-3 mt-2 w-full">
+          <Radio label="پذیرش شرایط" defaultChecked />
+          <Radio label="تایید اطلاعات" />
+          <Radio label="فعال سازی حالت شب" defaultChecked glow />
+        </div>
+        <p className="text-xs text-[var(--color-text-tertiary)] font-mono mt-2">
+          Current direction:{" "}
+          {isRTL ? "RTL (right-to-left)" : "LTR (left-to-right)"}
+        </p>
       </div>
     );
   },
-  decorators: [
-    (Story) => {
-      return <Story />;
-    },
-  ],
 };
 
 // ----- Error State -----
 export const ErrorState: Story = {
-  render: () => (
-    <div className="flex flex-col gap-4">
-      <Radio label="Required field" error />
-      <Radio label="Invalid selection" error defaultChecked />
-    </div>
-  ),
+  render: function ErrorStateStory() {
+    return (
+      <div className="flex flex-col gap-4 items-start">
+        <Radio label="Required field" error />
+        <Radio label="Invalid selection" error defaultChecked />
+      </div>
+    );
+  },
 };
 
 // ----- Disabled -----
 export const Disabled: Story = {
-  render: () => (
-    <div className="flex flex-col gap-4">
-      <Radio label="Disabled unchecked" disabled />
-      <Radio label="Disabled checked" disabled defaultChecked />
-    </div>
-  ),
+  render: function DisabledStory() {
+    return (
+      <div className="flex flex-col gap-4 items-start">
+        <Radio label="Disabled unchecked" disabled />
+        <Radio label="Disabled checked" disabled defaultChecked />
+      </div>
+    );
+  },
 };
 
 // ----- Controlled -----
 export const Controlled: Story = {
-  render: () => {
+  render: function ControlledStory() {
     const [checked, setChecked] = useState(false);
 
     return (
@@ -146,11 +165,11 @@ export const Controlled: Story = {
 
 // ----- Group -----
 export const Group: Story = {
-  render: () => {
+  render: function GroupStory() {
     const [selected, setSelected] = useState("option1");
 
     return (
-      <div className="flex flex-col gap-3 p-6 glass rounded-[var(--radius-md)]">
+      <div className="flex flex-col gap-3 p-6 glass rounded-[var(--radius-md)] min-w-[240px]">
         <p className="text-sm font-medium text-[var(--color-text-secondary)] mb-1">
           Select your preference:
         </p>

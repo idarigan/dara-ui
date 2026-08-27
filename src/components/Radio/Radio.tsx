@@ -161,6 +161,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           cursor-pointer
           ${disabled ? "opacity-50 cursor-not-allowed" : ""}
           ${className}
+          align-middle
         `}
       >
         <input
@@ -213,6 +214,9 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
                 : ""
             }
           `}
+          style={{
+            alignSelf: "center",
+          }}
         >
           {/* Center dot – short spring */}
           <span
@@ -243,6 +247,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
               text-[var(--color-text-primary)]
               select-none
               ${disabled ? "text-[var(--color-text-tertiary)]" : ""}
+              align-middle
             `}
           >
             {label}
