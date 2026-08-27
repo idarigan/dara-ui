@@ -162,6 +162,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           ${disabled ? "opacity-50 cursor-not-allowed" : ""}
           ${className}
           align-middle
+          w-fit
         `}
       >
         <input

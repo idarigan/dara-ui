@@ -208,6 +208,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           ${disabled ? "opacity-50 cursor-not-allowed" : ""}
           ${className}
           align-middle
+          w-fit
         `}
       >
         {/* Hidden input */}
@@ -233,7 +234,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           {...props}
         />
 
-        {/* Custom checkbox box - fixed size, no vertical shifting */}
+        {/* Custom checkbox box */}
         <div
           className={`
             relative flex-shrink-0
@@ -270,7 +271,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           {checked && showSparkles && <Sparkles />}
         </div>
 
-        {/* Label – sits after the box in reading direction */}
+        {/* Label */}
         {label && (
           <span
             className={`

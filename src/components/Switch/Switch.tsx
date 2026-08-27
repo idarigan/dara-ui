@@ -167,6 +167,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           ${s.gap}
           ${disabled ? "opacity-50 pointer-events-none" : "cursor-pointer"}
           ${className}
+          w-fit
         `}
       >
         {/* Label */}
