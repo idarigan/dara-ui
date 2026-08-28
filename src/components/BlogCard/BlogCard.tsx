@@ -199,6 +199,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
         viewBox="0 0 24 24"
         stroke="currentColor"
         strokeWidth={1.5}
+        aria-hidden="true"
       >
         <path
           strokeLinecap="round"
@@ -217,6 +218,9 @@ export const BlogCard: React.FC<BlogCardProps> = ({
 
   const tagLimit = featured ? 4 : 3;
 
+  // Determine if card should be interactive
+  const isInteractive = !!onClick;
+
   return (
     <div
       ref={cardRef}
@@ -227,7 +231,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
         ${fullWidthMobile ? "w-full sm:w-auto" : ""}
         ${isHorizontal ? "flex flex-col sm:flex-row gap-4" : "flex flex-col h-full"}
         ${className}
-        cursor-pointer
+        ${isInteractive ? "cursor-pointer" : ""}
       `}
       style={{
         transform: isHovering
@@ -245,16 +249,16 @@ export const BlogCard: React.FC<BlogCardProps> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
-      role={onClick ? "button" : undefined}
-      tabIndex={onClick ? 0 : undefined}
+      role={isInteractive ? "button" : undefined}
+      tabIndex={isInteractive ? 0 : undefined}
+      aria-label={isInteractive ? `Blog post: ${title}` : undefined}
       onKeyDown={
-        onClick
+        isInteractive
           ? (e) => {
               if (e.key === "Enter" || e.key === " ") onClick?.();
             }
           : undefined
       }
-      aria-label={`Blog post: ${title}`}
     >
       {/* Soft glow wash on hover */}
       <div
@@ -377,6 +381,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                   strokeWidth={2}
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -411,6 +416,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
                 viewBox="0 0 24 24"
                 stroke="currentColor"
                 strokeWidth={2}
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
