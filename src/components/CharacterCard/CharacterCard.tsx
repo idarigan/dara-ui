@@ -163,7 +163,12 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
     const center = size / 2;
     const itemWidth = isHorizontal ? 60 : 68;
 
-    // Resolve color for the stroke attribute (Tailwind stroke-* classes are flaky on SVG)
+    // Extra padding so the blur has room
+    const pad = 8;
+    const svgSize = size + pad * 2;
+    const svgCenter = svgSize / 2;
+
+    // Resolve color for the stroke attribute
     const strokeColor =
       stat.color === "secondary"
         ? "var(--color-secondary)"
@@ -191,31 +196,35 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
           <svg
             width={size}
             height={size}
-            viewBox={`0 0 ${size} ${size}`}
-            className="block"
+            viewBox={`0 0 ${svgSize} ${svgSize}`}
+            className="block overflow-visible"
             aria-hidden="true"
+            style={{ overflow: "visible" }}
           >
-            {/* Soft glow */}
+            {/* Soft glow – follows only the progress arc */}
             {percentage > 0 && (
               <circle
-                cx={center}
-                cy={center}
+                cx={svgCenter}
+                cy={svgCenter}
                 r={radius}
                 fill="none"
                 stroke={strokeColor}
-                strokeWidth={strokeWidth + 4}
+                strokeWidth={strokeWidth + 3}
                 strokeDasharray={circumference}
                 strokeDashoffset={offset}
                 strokeLinecap="round"
-                transform={`rotate(-90 ${center} ${center})`}
-                style={{ filter: "blur(5px)", opacity: 0.3 }}
+                transform={`rotate(-90 ${svgCenter} ${svgCenter})`}
+                style={{
+                  filter: "blur(4px)",
+                  opacity: 0.45,
+                }}
               />
             )}
 
             {/* Background track */}
             <circle
-              cx={center}
-              cy={center}
+              cx={svgCenter}
+              cy={svgCenter}
               r={radius}
               fill="none"
               stroke="var(--color-border-secondary)"
@@ -224,8 +233,8 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
 
             {/* Progress arc */}
             <circle
-              cx={center}
-              cy={center}
+              cx={svgCenter}
+              cy={svgCenter}
               r={radius}
               fill="none"
               stroke={strokeColor}
@@ -233,14 +242,14 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
               strokeDasharray={circumference}
               strokeDashoffset={offset}
               strokeLinecap="round"
-              transform={`rotate(-90 ${center} ${center})`}
+              transform={`rotate(-90 ${svgCenter} ${svgCenter})`}
               style={{ transition: "stroke-dashoffset 0.8s ease" }}
             />
 
             {/* Center value */}
             <text
-              x={center}
-              y={center}
+              x={svgCenter}
+              y={svgCenter}
               textAnchor="middle"
               dominantBaseline="central"
               className="font-heading font-bold"
