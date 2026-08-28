@@ -463,14 +463,22 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
               }}
             />
           </svg>
-
           {/* Center content - label */}
           {showLabel && (
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
               <span
-                className="font-heading font-bold text-base text-[var(--color-text-primary)] rounded-full px-1.5 leading-none"
+                className="font-heading font-bold rounded-full leading-none"
                 style={{
-                  backgroundColor: "var(--color-bg-primary)",
+                  fontSize:
+                    actualSize < 60
+                      ? "0.65rem"
+                      : actualSize < 80
+                        ? "0.75rem"
+                        : "0.9rem",
+                  padding: actualSize < 60 ? "1px 4px" : "2px 6px",
+                  color: "var(--color-text-primary)",
+                  backgroundColor: "var(--color-bg-secondary)",
+                  boxShadow: "0 0 0 2px var(--color-bg-secondary)",
                 }}
               >
                 {displayLabel}

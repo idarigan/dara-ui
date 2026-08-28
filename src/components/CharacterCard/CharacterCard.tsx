@@ -157,11 +157,25 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
     const percentage = Math.min(100, Math.max(0, stat.value));
     const size = isHorizontal ? 48 : 56;
     const strokeWidth = 3.5;
-    const radius = (size - strokeWidth) / 2;
+    const radius = size / 2 - strokeWidth / 2;
     const circumference = 2 * Math.PI * radius;
     const offset = circumference - (percentage / 100) * circumference;
-    const colorClass = getStatColor(stat.color);
+    const center = size / 2;
     const itemWidth = isHorizontal ? 60 : 68;
+
+    // Resolve color for the stroke attribute (Tailwind stroke-* classes are flaky on SVG)
+    const strokeColor =
+      stat.color === "secondary"
+        ? "var(--color-secondary)"
+        : stat.color === "accent"
+          ? "var(--color-accent)"
+          : stat.color === "success"
+            ? "var(--color-success)"
+            : stat.color === "danger"
+              ? "var(--color-danger)"
+              : stat.color === "warning"
+                ? "var(--color-warning)"
+                : "var(--color-primary)";
 
     return (
       <div
@@ -174,80 +188,82 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
           role="img"
           aria-label={`${stat.label}: ${stat.value}%`}
         >
-          {/* Glow ring behind */}
-          {percentage > 0 && (
-            <svg
-              className="absolute inset-0"
-              width={size}
-              height={size}
-              aria-hidden="true"
-              style={{ filter: "blur(6px)", opacity: 0.25 }}
-              viewBox={`0 0 ${size} ${size}`}
-            >
-              <circle
-                cx={size / 2}
-                cy={size / 2}
-                r={radius}
-                fill="none"
-                className={colorClass}
-                strokeWidth={strokeWidth}
-                strokeDasharray={circumference}
-                strokeDashoffset={offset}
-                strokeLinecap="round"
-                transform={`rotate(-90 ${size / 2} ${size / 2})`}
-              />
-            </svg>
-          )}
-
-          {/* Main ring */}
           <svg
-            className="relative"
             width={size}
             height={size}
             viewBox={`0 0 ${size} ${size}`}
+            className="block"
             aria-hidden="true"
           >
+            {/* Soft glow */}
+            {percentage > 0 && (
+              <circle
+                cx={center}
+                cy={center}
+                r={radius}
+                fill="none"
+                stroke={strokeColor}
+                strokeWidth={strokeWidth + 4}
+                strokeDasharray={circumference}
+                strokeDashoffset={offset}
+                strokeLinecap="round"
+                transform={`rotate(-90 ${center} ${center})`}
+                style={{ filter: "blur(5px)", opacity: 0.3 }}
+              />
+            )}
+
             {/* Background track */}
             <circle
-              cx={size / 2}
-              cy={size / 2}
+              cx={center}
+              cy={center}
               r={radius}
               fill="none"
               stroke="var(--color-border-secondary)"
               strokeWidth={strokeWidth}
             />
+
             {/* Progress arc */}
             <circle
-              cx={size / 2}
-              cy={size / 2}
+              cx={center}
+              cy={center}
               r={radius}
               fill="none"
-              className={colorClass}
+              stroke={strokeColor}
               strokeWidth={strokeWidth}
               strokeDasharray={circumference}
               strokeDashoffset={offset}
               strokeLinecap="round"
-              transform={`rotate(-90 ${size / 2} ${size / 2})`}
+              transform={`rotate(-90 ${center} ${center})`}
               style={{ transition: "stroke-dashoffset 0.8s ease" }}
             />
-          </svg>
 
-          {/* Center value */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span
-              className="font-heading font-bold text-xs text-[var(--color-text-primary)] rounded-full px-1 leading-none"
-              style={{ backgroundColor: "var(--color-bg-primary)" }}
+            {/* Center value */}
+            <text
+              x={center}
+              y={center}
+              textAnchor="middle"
+              dominantBaseline="central"
+              className="font-heading font-bold"
+              style={{
+                fontSize: size < 52 ? "11px" : "13px",
+                fill: "var(--color-text-primary)",
+              }}
             >
               {stat.value}
-              <span className="text-[10px] text-[var(--color-text-secondary)]">
+              <tspan
+                style={{
+                  fontSize: size < 52 ? "8px" : "9px",
+                  fill: "var(--color-text-secondary)",
+                }}
+              >
                 %
-              </span>
-            </span>
-          </div>
+              </tspan>
+            </text>
+          </svg>
         </div>
 
         {/* Label */}
-        <p className="text-[9px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-1.5 text-center leading-tight max-w-full">
+        <p className="text-[9px] uppercase tracking-wider text-[var(--color-text-secondary)] font-mono mt-1.5 text-center leading-tight max-w-full">
           {stat.label}
         </p>
       </div>
