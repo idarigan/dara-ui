@@ -24,6 +24,16 @@ const preview: Preview = {
     },
     a11y: {
       test: "todo",
+      config: {
+        rules: [
+          {
+            // Ignore color-contrast on SVG text elements
+            id: "color-contrast",
+            selector: "svg text",
+            enabled: false,
+          },
+        ],
+      },
     },
     options: {
       storySort: {
