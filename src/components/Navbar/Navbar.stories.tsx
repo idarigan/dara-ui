@@ -119,7 +119,7 @@ export const Default: Story = {
     const [_, setSearch] = useState("");
 
     return (
-      <div className="min-h-[200vh] pt-16">
+      <div className="relative h-[70vh] overflow-y-auto border border-[var(--color-border-primary)] rounded-[var(--radius-large)]">
         <Navbar
           {...args}
           links={defaultLinks}
@@ -144,7 +144,7 @@ export const WithLanguageChanger: Story = {
     const [_, setSearch] = useState("");
 
     return (
-      <div className="min-h-[200vh] pt-16">
+      <div className="relative h-[70vh] overflow-y-auto border border-[var(--color-border-primary)] rounded-[var(--radius-large)]">
         <Navbar
           {...args}
           links={defaultLinks}
@@ -170,7 +170,7 @@ export const WithThemeChanger: Story = {
     const [_, setSearch] = useState("");
 
     return (
-      <div className="min-h-[200vh] pt-16">
+      <div className="relative h-[70vh] overflow-y-auto border border-[var(--color-border-primary)] rounded-[var(--radius-large)]">
         <Navbar
           {...args}
           links={defaultLinks}
@@ -196,7 +196,7 @@ export const WithBothChangers: Story = {
     const [_, setSearch] = useState("");
 
     return (
-      <div className="min-h-[200vh] pt-16">
+      <div className="relative h-[70vh] overflow-y-auto border border-[var(--color-border-primary)] rounded-[var(--radius-large)]">
         <Navbar
           {...args}
           links={defaultLinks}
@@ -224,7 +224,7 @@ export const WithSecondaryNav: Story = {
     const [_, setSearch] = useState("");
 
     return (
-      <div className="min-h-[200vh] pt-20">
+      <div className="relative h-[70vh] overflow-y-auto border border-[var(--color-border-primary)] rounded-[var(--radius-large)]">
         <Navbar
           {...args}
           links={defaultLinks}
@@ -250,7 +250,7 @@ export const WithCustomBrand: Story = {
     const [_, setSearch] = useState("");
 
     return (
-      <div className="min-h-[200vh] pt-16">
+      <div className="relative h-[70vh] overflow-y-auto border border-[var(--color-border-primary)] rounded-[var(--radius-large)]">
         <Navbar
           {...args}
           brand={
@@ -282,7 +282,7 @@ export const WithRightContent: Story = {
     const [_, setSearch] = useState("");
 
     return (
-      <div className="min-h-[200vh] pt-16">
+      <div className="relative h-[70vh] overflow-y-auto border border-[var(--color-border-primary)] rounded-[var(--radius-large)]">
         <Navbar
           {...args}
           links={defaultLinks}
@@ -313,7 +313,7 @@ export const RTL: Story = {
   render: (args) => {
     const [_, setSearch] = useState("");
     return (
-      <div className="min-h-[200vh] pt-16">
+      <div className="relative h-[70vh] overflow-y-auto border border-[var(--color-border-primary)] rounded-[var(--radius-large)]">
         <Navbar
           {...args}
           links={[
