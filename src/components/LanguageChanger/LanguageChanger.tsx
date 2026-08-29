@@ -570,6 +570,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
             minWidth: menuWidth,
           }}
           role="listbox"
+          aria-label="Select language"
         >
           {displayLanguages.map((lang) => {
             const isActive = lang.value === currentLang;
@@ -700,6 +701,8 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
               `}
               role="option"
               aria-selected={isActive}
+              aria-label={lang.label}
+              title={lang.label}
             >
               {lang.icon && (
                 <span className="flex-shrink-0 text-base">{lang.icon}</span>

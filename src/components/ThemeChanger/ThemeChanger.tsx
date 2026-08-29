@@ -524,6 +524,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
             minWidth: menuWidth,
           }}
           role="listbox"
+          aria-label="Select language"
         >
           {themes.map((theme) => {
             const isActive = theme.value === currentTheme;
@@ -544,6 +545,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
                 `}
                 role="option"
                 aria-selected={isActive}
+                aria-label={theme.label}
                 title={theme.label}
               >
                 {theme.icon && (
