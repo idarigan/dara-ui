@@ -312,11 +312,6 @@ export const WithRightContent: Story = {
 export const RTL: Story = {
   render: (args) => {
     const [_, setSearch] = useState("");
-
-    // Set RTL for demo
-    document.documentElement.dir = "rtl";
-    document.documentElement.lang = "fa";
-
     return (
       <div className="min-h-[200vh] pt-16">
         <Navbar
@@ -343,12 +338,21 @@ export const RTL: Story = {
   },
   decorators: [
     (Story) => {
-      // Reset RTL when leaving the story
-      return (
-        <div>
-          <Story />
-        </div>
-      );
+      // Set RTL only while this story is mounted
+      React.useEffect(() => {
+        const prevDir = document.documentElement.dir;
+        const prevLang = document.documentElement.lang;
+
+        document.documentElement.dir = "rtl";
+        document.documentElement.lang = "fa";
+
+        return () => {
+          document.documentElement.dir = prevDir || "ltr";
+          document.documentElement.lang = prevLang || "en";
+        };
+      }, []);
+
+      return <Story />;
     },
   ],
 };
