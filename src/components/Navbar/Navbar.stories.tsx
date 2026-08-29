@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Navbar } from "./Navbar";
 import { LanguageChanger } from "../LanguageChanger/LanguageChanger";
 import { ThemeChanger } from "../ThemeChanger/ThemeChanger";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../Button/Button";
 import { Avatar } from "../Avatar/Avatar";
 
@@ -56,22 +56,6 @@ const SettingsIcon = () => (
       strokeLinecap="round"
       strokeLinejoin="round"
       d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-    />
-  </svg>
-);
-
-const UserIcon = () => (
-  <svg
-    className="h-4 w-4"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
     />
   </svg>
 );
@@ -325,7 +309,7 @@ export const RTL: Story = {
           showLanguageChanger
           languageChanger={<LanguageChanger size="sm" iconOnly />}
         />
-        <div className="max-w-4xl mx-auto px-4 py-24">
+        <div className="min-h-[150vh] pt-20 px-6">
           <h1 className="font-heading text-4xl font-bold text-[var(--color-text-primary)] mb-4">
             RTL Support
           </h1>
@@ -338,8 +322,7 @@ export const RTL: Story = {
   },
   decorators: [
     (Story) => {
-      // Set RTL only while this story is mounted
-      React.useEffect(() => {
+      useEffect(() => {
         const prevDir = document.documentElement.dir;
         const prevLang = document.documentElement.lang;
 
