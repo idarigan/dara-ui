@@ -268,7 +268,7 @@ const tabItems = [
     content: (
       <div className="py-4 text-[var(--color-text-secondary)]">
         Browse encrypted Jedi records, holocrons, and mission logs from the
-        Calgary archive.
+        archive.
       </div>
     ),
   },
@@ -313,9 +313,9 @@ const accordionItems = [
     content: (
       <div>
         Dara UI is a design system that feels like an interface discovered
-        inside a futuristic archive hidden beneath Calgary during a snowstorm.
-        It blends glassmorphism, cyberpunk, gothic aesthetics, Apple minimalism,
-        and anime HUD elements.
+        inside a futuristic archive hidden beneath during a snowstorm. It blends
+        glassmorphism, cyberpunk, gothic aesthetics, Apple minimalism, and anime
+        HUD elements.
       </div>
     ),
   },
@@ -539,7 +539,7 @@ function AppContent() {
         showLanguageChanger
         languageChanger={<LanguageChanger iconOnly size="sm" />}
         languageChangerMobile={
-          <LanguageChanger iconOnly size="sm" placement="top" />
+          <LanguageChanger iconOnly size="sm" openUpward />
         }
         showThemeChanger
         themeChanger={<ThemeChanger iconOnly size="sm" />}
@@ -557,29 +557,6 @@ function AppContent() {
             <h1 className="text-4xl font-bold text-gradient-primary">
               {t("app.title")}
             </h1>
-            <div className="flex gap-2 flex-wrap items-center">
-              <Button
-                size="sm"
-                variant={theme === "nightfall" ? "primary" : "outline"}
-                onClick={() => changeTheme("nightfall")}
-              >
-                🌙 {t("header.nightfall")}
-              </Button>
-              <Button
-                size="sm"
-                variant={theme === "daylight" ? "secondary" : "outline"}
-                onClick={() => changeTheme("daylight")}
-              >
-                ☀️ {t("header.daylight")}
-              </Button>
-              <Button
-                size="sm"
-                variant={theme === "dracula" ? "accent" : "outline"}
-                onClick={() => changeTheme("dracula")}
-              >
-                🍷 {t("header.dracula")}
-              </Button>
-            </div>
           </div>
 
           {/* ============================================
@@ -595,7 +572,7 @@ function AppContent() {
             </h1>
             <p className="text-[var(--color-text-secondary)] text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed mb-8">
               A design system discovered inside a futuristic archive hidden
-              beneath Calgary during a snowstorm.
+              beneath during a snowstorm.
             </p>
           </section>
 
