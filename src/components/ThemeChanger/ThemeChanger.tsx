@@ -471,60 +471,69 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
   // Icon-only mode
   if (iconOnly) {
     return (
-      <div ref={dropdownRef} className={`relative inline-block ${className}`}>
+      <div ref={dropdownRef} className={`relative inline-flex ${className}`}>
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           className={`
-            inline-flex items-center
-            bg-[var(--color-bg-tertiary)]
-            text-[var(--color-text-primary)]
-            border border-[var(--color-border-primary)]
-            rounded-full
-            hover:bg-[var(--color-bg-elevated)]
-            hover:border-[var(--color-border-secondary)]
-            transition-all duration-180
-            active:scale-95
-            ${sizeStyles[size].trigger}
-          `}
+          inline-flex items-center justify-center
+          bg-[var(--color-bg-tertiary)]
+          text-[var(--color-text-primary)]
+          border border-[var(--color-border-primary)]
+          rounded-full
+          hover:bg-[var(--color-bg-elevated)]
+          hover:border-[var(--color-border-secondary)]
+          transition-all duration-180
+          active:scale-95
+          ${sizeStyles[size].trigger}
+          flex-shrink-0
+        `}
           style={{
-            width: fixedWidth || "auto",
-            minWidth: fixedWidth || "auto",
+            width: fixedWidth || sizeStyles[size].iconOnlyWidth,
+            minWidth: fixedWidth || sizeStyles[size].iconOnlyWidth,
+            height: fixedWidth || sizeStyles[size].iconOnlyWidth,
+            minHeight: fixedWidth || sizeStyles[size].iconOnlyWidth,
           }}
           aria-expanded={isOpen}
           aria-haspopup="listbox"
           aria-label={`Current theme: ${currentOption?.label || "Theme"}`}
         >
           {currentOption?.icon && (
-            <span className="text-base">{currentOption.icon}</span>
+            <span className="text-base leading-none flex items-center justify-center">
+              {currentOption.icon}
+            </span>
           )}
         </button>
 
         <div
           className={`
-            absolute z-50
-            left-0 right-0
-            ${openUpward ? "bottom-full mb-1.5" : "top-full mt-1.5"}
-            glass
-            rounded-[var(--radius-md)]
-            py-1
-            shadow-[var(--shadow-float)]
-            transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
-            overflow-hidden
-            ${
-              isOpen
-                ? "opacity-100 translate-y-0 pointer-events-auto"
-                : openUpward
-                  ? "opacity-0 translate-y-2 pointer-events-none"
-                  : "opacity-0 -translate-y-2 pointer-events-none"
-            }
-          `}
+          absolute z-50
+          left-1/2 -translate-x-1/2
+          ${openUpward ? "bottom-full mb-1.5" : "top-full mt-1.5"}
+          glass
+          rounded-[var(--radius-md)]
+          py-1
+          shadow-[var(--shadow-float)]
+          transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
+          overflow-hidden
+          ${
+            isOpen
+              ? "opacity-100 translate-y-0 pointer-events-auto"
+              : openUpward
+                ? "opacity-0 translate-y-2 pointer-events-none"
+                : "opacity-0 -translate-y-2 pointer-events-none"
+          }
+        `}
           style={{
             width: menuWidth,
             minWidth: menuWidth,
+            position: "absolute",
+            top: openUpward ? "auto" : "100%",
+            bottom: openUpward ? "100%" : "auto",
+            marginTop: openUpward ? "0" : "6px",
+            marginBottom: openUpward ? "6px" : "0",
           }}
           role="listbox"
-          aria-label="Select language"
         >
           {themes.map((theme) => {
             const isActive = theme.value === currentTheme;
@@ -534,22 +543,23 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
                 type="button"
                 onClick={() => handleSelect(theme.value)}
                 className={`
-                  w-full flex items-center justify-center gap-2
-                  ${sizeStyles[size].option}
-                  ${
-                    isActive
-                      ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
-                      : "text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/50"
-                  }
-                  transition-colors duration-150
-                `}
+                w-full flex items-center justify-center gap-2
+                ${sizeStyles[size].option}
+                ${
+                  isActive
+                    ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
+                    : "text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/50"
+                }
+                transition-colors duration-150
+              `}
                 role="option"
                 aria-selected={isActive}
-                aria-label={theme.label}
                 title={theme.label}
               >
                 {theme.icon && (
-                  <span className="flex-shrink-0 text-base">{theme.icon}</span>
+                  <span className="flex-shrink-0 text-base leading-none">
+                    {theme.icon}
+                  </span>
                 )}
               </button>
             );
