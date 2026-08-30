@@ -2576,15 +2576,7 @@ function AppContent() {
                 <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
                   {t("themeChanger.customThemes")}
                 </span>
-                <ThemeChanger
-                  availableThemes={[
-                    { value: "nightfall", label: "Nightfall", icon: "🌙" },
-                    { value: "daylight", label: "Daylight", icon: "☀️" },
-                    { value: "dracula", label: "Dracula", icon: "🧛" },
-                  ]}
-                  autoDetect={false}
-                  size="md"
-                />
+                <ThemeChanger autoDetect={false} size="md" />
               </div>
             </div>
 
