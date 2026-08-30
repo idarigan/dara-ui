@@ -158,13 +158,15 @@ export const CustomLanguages: Story = {
   render: () => (
     <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
       <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
-        Custom language list with custom icons
+        Custom language list with flag CDN images
       </p>
       <LanguageChanger
         availableLanguages={[
-          { value: "en", label: "English", icon: "🇬🇧", dir: "ltr" },
-          { value: "fa", label: "فارسی", icon: "🇮🇷", dir: "rtl" },
-          { value: "fr", label: "Français", icon: "🇫🇷", dir: "ltr" },
+          { value: "en", label: "English", dir: "ltr" },
+          { value: "fa", label: "فارسی", dir: "rtl" },
+          { value: "fr", label: "Français", dir: "ltr" },
+          { value: "de", label: "Deutsch", dir: "ltr" },
+          { value: "es", label: "Español", dir: "ltr" },
         ]}
       />
     </div>

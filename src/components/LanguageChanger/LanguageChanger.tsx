@@ -18,7 +18,7 @@ export interface LanguageOption {
    */
   label: string;
   /**
-   * Optional icon (emoji or React node)
+   * Flag image URL (auto-generated from language code if not provided)
    */
   icon?: React.ReactNode;
   /**
@@ -82,12 +82,12 @@ export interface LanguageChangerProps {
 }
 
 /**
- * Default Dara UI languages
+ * Default Dara UI languages with flag CDN URLs
  */
 export const DEFAULT_LANGUAGES: LanguageOption[] = [
-  { value: "en", label: "English", icon: "🇺🇸", dir: "ltr" },
-  { value: "fa", label: "فارسی", icon: "🇮🇷", dir: "rtl" },
-  { value: "fr", label: "Français", icon: "🇫🇷", dir: "ltr" },
+  { value: "en", label: "English", dir: "ltr" },
+  { value: "fa", label: "فارسی", dir: "rtl" },
+  { value: "fr", label: "Français", dir: "ltr" },
 ];
 
 // ============================================
@@ -322,12 +322,104 @@ export const useI18n = (): I18nContextValue => {
 // ============================================
 
 /**
+ * Get flag image URL from language code
+ */
+const getFlagUrl = (langCode: string): string => {
+  // ISO 3166-1 alpha-2 country codes for languages
+  const languageToCountry: Record<string, string> = {
+    en: "gb",
+    fa: "ir",
+    fr: "fr",
+    de: "de",
+    es: "es",
+    ar: "sa",
+    it: "it",
+    pt: "pt",
+    ru: "ru",
+    ja: "jp",
+    ko: "kr",
+    zh: "cn",
+    nl: "nl",
+    pl: "pl",
+    tr: "tr",
+    vi: "vn",
+    th: "th",
+    id: "id",
+    ms: "my",
+    hi: "in",
+    ur: "pk",
+    he: "il",
+    el: "gr",
+    cs: "cz",
+    hu: "hu",
+    sv: "se",
+    no: "no",
+    da: "dk",
+    fi: "fi",
+    ro: "ro",
+    bg: "bg",
+    hr: "hr",
+    sk: "sk",
+    sl: "si",
+    lt: "lt",
+    lv: "lv",
+    et: "ee",
+    uk: "ua",
+    be: "by",
+    ka: "ge",
+    hy: "am",
+    az: "az",
+  };
+
+  const countryCode = languageToCountry[langCode] || langCode;
+  return `https://flagcdn.com/${countryCode}.svg`;
+};
+
+/**
+ * FlagIcon component - renders a flag image from CDN
+ */
+const FlagIcon: React.FC<{ code: string; className?: string }> = ({
+  code,
+  className = "",
+}) => {
+  const [error, setError] = useState(false);
+  const flagUrl = getFlagUrl(code);
+
+  if (error) {
+    // Fallback: show language code instead of flag
+    return (
+      <span
+        className={`text-xs font-mono text-[var(--color-text-tertiary)] ${className}`}
+      >
+        {code.toUpperCase()}
+      </span>
+    );
+  }
+
+  return (
+    <img
+      src={flagUrl}
+      alt={`${code} flag`}
+      className={`flex-shrink-0 object-cover rounded-sm ${className}`}
+      style={{
+        width: "20px",
+        height: "15px",
+        minWidth: "20px",
+        minHeight: "15px",
+      }}
+      onError={() => setError(true)}
+      loading="lazy"
+    />
+  );
+};
+
+/**
  * Dara UI LanguageChanger - Dropdown for switching between languages
  *
  * Features:
  * - Auto-detects available languages from default list
  * - Supports custom language lists
- * - Clean dropdown with icon support
+ * - Clean dropdown with flag icons from Flagpedia CDN
  * - Icon-only mode for compact navigation bars
  * - Fixed width option for consistent sizing
  * - Controlled or uncontrolled modes
@@ -452,31 +544,12 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
     [isInContext, context, isControlled, onChange, applyLanguage],
   );
 
-  // Get default icon for language
-  const getDefaultIcon = (value: string): string => {
-    const iconMap: Record<string, string> = {
-      en: "🇺🇸",
-      fa: "🇮🇷",
-      fr: "🇫🇷",
-      de: "🇩🇪",
-      es: "🇪🇸",
-      ar: "🇸🇦",
-      it: "🇮🇹",
-      pt: "🇵🇹",
-      ru: "🇷🇺",
-      ja: "🇯🇵",
-      ko: "🇰🇷",
-      zh: "🇨🇳",
-    };
-    return iconMap[value] || "🌐";
-  };
-
-  // Ensure languages have icons
+  // Ensure languages have icons (flag images)
   const displayLanguages = useMemo(
     () =>
       languages.map((lang) => ({
         ...lang,
-        icon: lang.icon || getDefaultIcon(lang.value),
+        icon: lang.icon || <FlagIcon code={lang.value} />,
       })),
     [languages],
   );
@@ -490,6 +563,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
       iconOnlySize: "w-8 h-8",
       chevronSize: "h-3 w-3",
       iconOnlyWidth: "32px",
+      flagSize: "w-4 h-3",
     },
     md: {
       trigger: "px-4 py-2 text-sm",
@@ -498,6 +572,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
       iconOnlySize: "w-10 h-10",
       chevronSize: "h-4 w-4",
       iconOnlyWidth: "40px",
+      flagSize: "w-5 h-3.5",
     },
     lg: {
       trigger: "px-5 py-2.5 text-base",
@@ -506,6 +581,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
       iconOnlySize: "w-12 h-12",
       chevronSize: "h-5 w-5",
       iconOnlyWidth: "48px",
+      flagSize: "w-6 h-4.5",
     },
   };
 
@@ -526,6 +602,33 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
       return "bottom-full mb-1.5";
     }
     return "top-full mt-1.5";
+  };
+
+  // Render flag icon helper
+  const renderFlagIcon = (langCode: string, sizeClass: string) => {
+    const flagUrl = getFlagUrl(langCode);
+    return (
+      <img
+        src={flagUrl}
+        alt={`${langCode} flag`}
+        className={`flex-shrink-0 object-cover rounded-sm ${sizeClass}`}
+        style={{
+          width: size === "sm" ? "16px" : size === "lg" ? "24px" : "20px",
+          height: size === "sm" ? "12px" : size === "lg" ? "18px" : "15px",
+          minWidth: size === "sm" ? "16px" : size === "lg" ? "24px" : "20px",
+          minHeight: size === "sm" ? "12px" : size === "lg" ? "18px" : "15px",
+        }}
+        onError={(e) => {
+          e.currentTarget.style.display = "none";
+          const fallback = document.createElement("span");
+          fallback.className =
+            "text-xs font-mono text-[var(--color-text-tertiary)]";
+          fallback.textContent = langCode.toUpperCase();
+          e.currentTarget.parentNode?.appendChild(fallback);
+        }}
+        loading="lazy"
+      />
+    );
   };
 
   // Icon-only mode
@@ -558,11 +661,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
           aria-haspopup="listbox"
           aria-label={`Current language: ${currentOption?.label || "Language"}`}
         >
-          {currentOption?.icon && (
-            <span className="text-base leading-none flex items-center justify-center">
-              {currentOption.icon}
-            </span>
-          )}
+          {currentOption?.icon || renderFlagIcon(currentLang, "w-4 h-3")}
         </button>
 
         <div
@@ -616,10 +715,18 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
                 aria-selected={isActive}
                 title={lang.label}
               >
-                {lang.icon && (
-                  <span className="flex-shrink-0 text-base leading-none">
-                    {lang.icon}
-                  </span>
+                {typeof lang.icon === "string" ? (
+                  <img
+                    src={lang.icon}
+                    alt={`${lang.value} flag`}
+                    className="flex-shrink-0 object-cover rounded-sm w-4 h-3"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                    }}
+                    loading="lazy"
+                  />
+                ) : (
+                  lang.icon || renderFlagIcon(lang.value, "w-4 h-3")
                 )}
               </button>
             );
@@ -655,11 +762,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
         aria-haspopup="listbox"
       >
         <span className="flex items-center gap-2 flex-1 min-w-0">
-          {currentOption?.icon && (
-            <span className="flex-shrink-0 text-base">
-              {currentOption.icon}
-            </span>
-          )}
+          {currentOption?.icon || renderFlagIcon(currentLang, "w-4 h-3")}
           <span className="font-mono tracking-wide truncate">
             {currentOption?.label || "Language"}
           </span>
@@ -730,8 +833,18 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
               role="option"
               aria-selected={isActive}
             >
-              {lang.icon && (
-                <span className="flex-shrink-0 text-base">{lang.icon}</span>
+              {typeof lang.icon === "string" ? (
+                <img
+                  src={lang.icon}
+                  alt={`${lang.value} flag`}
+                  className="flex-shrink-0 object-cover rounded-sm w-4 h-3"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
+                  loading="lazy"
+                />
+              ) : (
+                lang.icon || renderFlagIcon(lang.value, "w-4 h-3")
               )}
               <span className="truncate">{lang.label}</span>
               {isActive && (
