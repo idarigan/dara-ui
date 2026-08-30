@@ -54,6 +54,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navbarRef = useRef<HTMLElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // RTL detection
   const isRTL =
@@ -66,10 +67,24 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  // Throttled scroll handler to prevent excessive re-renders
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsScrolled(window.scrollY > 20);
+      }, 50);
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -109,22 +124,35 @@ export const Navbar: React.FC<NavbarProps> = ({
     [searchQuery, onSearch],
   );
 
-  const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
+  const toggleMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen((prev) => !prev);
+  }, []);
 
-  const toggleSearch = () => {
+  const toggleSearch = useCallback(() => {
     setIsSearchExpanded((prev) => !prev);
     if (!isSearchExpanded) {
       setTimeout(() => searchInputRef.current?.focus(), 100);
     }
-  };
+  }, [isSearchExpanded]);
 
-  const handleSearchBlur = () => {
+  const handleSearchBlur = useCallback(() => {
     if (isMobile && !searchQuery) {
       setIsSearchExpanded(false);
     }
-  };
+  }, [isMobile, searchQuery]);
 
-  const handleLinkClick = () => setIsMobileMenuOpen(false);
+  const handleLinkClick = useCallback(() => {
+    setIsMobileMenuOpen(false);
+  }, []);
+
+  // Debounced secondary nav handlers
+  const handleSecondaryNavEnter = useCallback(() => {
+    setIsSecondaryNavOpen(true);
+  }, []);
+
+  const handleSecondaryNavLeave = useCallback(() => {
+    setIsSecondaryNavOpen(false);
+  }, []);
 
   const defaultBrand = (
     <span
@@ -140,7 +168,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     </span>
   );
 
-  const renderBrand = () => {
+  const renderBrand = useCallback(() => {
     if (brand) {
       if (typeof brand === "string") {
         return (
@@ -152,7 +180,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       return brand;
     }
     return defaultBrand;
-  };
+  }, [brand]);
 
   return (
     <>
@@ -343,8 +371,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   ? "max-h-20 opacity-100 mt-2"
                   : "max-h-0 opacity-0"
               }`}
-              onMouseEnter={() => setIsSecondaryNavOpen(true)}
-              onMouseLeave={() => setIsSecondaryNavOpen(false)}
+              onMouseEnter={handleSecondaryNavEnter}
+              onMouseLeave={handleSecondaryNavLeave}
             >
               <div className="flex items-center justify-center gap-1 pt-2 border-t border-[var(--color-border-primary)]">
                 {secondaryLinks.map((link, index) => (

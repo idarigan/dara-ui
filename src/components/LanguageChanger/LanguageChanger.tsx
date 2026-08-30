@@ -74,6 +74,11 @@ export interface LanguageChangerProps {
    * @default "bottom"
    */
   placement?: "bottom" | "top";
+  /**
+   * Open the dropdown upward
+   * @default false
+   */
+  openUpward?: boolean;
 }
 
 /**
@@ -343,6 +348,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   fixedWidth,
   className = "",
   placement = "bottom",
+  openUpward = false,
   useContext: useI18nContext = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -513,13 +519,16 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
 
   // Get placement classes
   const getPlacementClasses = () => {
+    if (openUpward) {
+      return "bottom-full mb-1.5";
+    }
     if (placement === "top") {
       return "bottom-full mb-1.5";
     }
     return "top-full mt-1.5";
   };
 
-  // Icon-only mode - fixed size circle with only the icon
+  // Icon-only mode
   if (iconOnly) {
     return (
       <div ref={dropdownRef} className={`relative inline-flex ${className}`}>
@@ -527,18 +536,18 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           className={`
-          inline-flex items-center justify-center
-          bg-[var(--color-bg-tertiary)]
-          text-[var(--color-text-primary)]
-          border border-[var(--color-border-primary)]
-          rounded-full
-          hover:bg-[var(--color-bg-elevated)]
-          hover:border-[var(--color-border-secondary)]
-          transition-all duration-180
-          active:scale-95
-          ${sizeStyles[size].trigger}
-          flex-shrink-0
-        `}
+            inline-flex items-center justify-center
+            bg-[var(--color-bg-tertiary)]
+            text-[var(--color-text-primary)]
+            border border-[var(--color-border-primary)]
+            rounded-full
+            hover:bg-[var(--color-bg-elevated)]
+            hover:border-[var(--color-border-secondary)]
+            transition-all duration-180
+            active:scale-95
+            ${sizeStyles[size].trigger}
+            flex-shrink-0
+          `}
           style={{
             width: fixedWidth || sizeStyles[size].iconOnlyWidth,
             minWidth: fixedWidth || sizeStyles[size].iconOnlyWidth,
@@ -556,27 +565,33 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
           )}
         </button>
 
-        {/* Dropdown Menu - completely removed from flow with position absolute */}
         <div
           className={`
-          absolute z-50
-          left-1/2 -translate-x-1/2
-          ${getPlacementClasses()}
-          glass
-          rounded-[var(--radius-md)]
-          py-1
-          shadow-[var(--shadow-float)]
-          transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
-          overflow-hidden
-          ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-2 pointer-events-none"}
-        `}
+            absolute z-50
+            left-1/2 -translate-x-1/2
+            ${getPlacementClasses()}
+            glass
+            rounded-[var(--radius-md)]
+            py-1
+            shadow-[var(--shadow-float)]
+            transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
+            overflow-hidden
+            ${
+              isOpen
+                ? "opacity-100 translate-y-0 pointer-events-auto"
+                : openUpward
+                  ? "opacity-0 translate-y-2 pointer-events-none"
+                  : "opacity-0 -translate-y-2 pointer-events-none"
+            }
+          `}
           style={{
             width: menuWidth,
             minWidth: menuWidth,
-            // Ensure the menu doesn't affect parent layout
             position: "absolute",
-            top: "100%",
-            marginTop: "6px",
+            top: openUpward ? "auto" : "100%",
+            bottom: openUpward ? "100%" : "auto",
+            marginTop: openUpward ? "0" : "6px",
+            marginBottom: openUpward ? "6px" : "0",
           }}
           role="listbox"
         >
@@ -588,15 +603,15 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
                 type="button"
                 onClick={() => handleSelect(lang.value)}
                 className={`
-                w-full flex items-center justify-center gap-2
-                ${sizeStyles[size].option}
-                ${
-                  isActive
-                    ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
-                    : "text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/50"
-                }
-                transition-colors duration-150
-              `}
+                  w-full flex items-center justify-center gap-2
+                  ${sizeStyles[size].option}
+                  ${
+                    isActive
+                      ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
+                      : "text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/50"
+                  }
+                  transition-colors duration-150
+                `}
                 role="option"
                 aria-selected={isActive}
                 title={lang.label}
@@ -614,10 +629,9 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
     );
   }
 
-  // Full dropdown mode with label + icon + chevron
+  // Dropdown mode
   return (
-    <div ref={dropdownRef} className={`relative inline-block ${className}`}>
-      {/* Trigger Button */}
+    <div ref={dropdownRef} className={`relative inline-flex ${className}`}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
@@ -640,7 +654,6 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
         aria-expanded={isOpen}
         aria-haspopup="listbox"
       >
-        {/* Left side: icon + label */}
         <span className="flex items-center gap-2 flex-1 min-w-0">
           {currentOption?.icon && (
             <span className="flex-shrink-0 text-base">
@@ -652,7 +665,6 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
           </span>
         </span>
 
-        {/* Right side: chevron */}
         <svg
           className={`
             flex-shrink-0 ml-2
@@ -673,18 +685,24 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
         </svg>
       </button>
 
-      {/* Dropdown Menu */}
       <div
         className={`
-          absolute z-50 mt-1.5
+          absolute z-50
           left-1/2 -translate-x-1/2
+          ${getPlacementClasses()}
           glass
           rounded-[var(--radius-md)]
           py-1
           shadow-[var(--shadow-float)]
           transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
           overflow-hidden
-          ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}
+          ${
+            isOpen
+              ? "opacity-100 translate-y-0 pointer-events-auto"
+              : openUpward
+                ? "opacity-0 translate-y-2 pointer-events-none"
+                : "opacity-0 -translate-y-2 pointer-events-none"
+          }
         `}
         style={{
           width: menuWidth,
