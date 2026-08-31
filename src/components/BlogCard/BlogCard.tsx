@@ -342,7 +342,8 @@ export const BlogCard: React.FC<BlogCardProps> = ({
         )}
 
         {/* Footer */}
-        <div className="flex items-center flex-wrap gap-x-4 gap-y-2 mt-4 pt-3 border-t border-[var(--color-border-secondary)]">
+        <div className="flex flex-col gap-3 mt-4 pt-3 border-t border-[var(--color-border-secondary)]">
+          {/* Author row */}
           {showAuthor && author && (
             <div className="flex items-center gap-2 min-w-0">
               <Avatar
@@ -357,7 +358,8 @@ export const BlogCard: React.FC<BlogCardProps> = ({
             </div>
           )}
 
-          <div className="flex items-center gap-3 text-xs text-[var(--color-text-tertiary)] ms-auto">
+          {/* Date + Read Time row */}
+          <div className="flex items-center justify-between text-xs text-[var(--color-text-tertiary)]">
             {date && (
               <time dateTime={getDateTime(date)}>{formatDate(date)}</time>
             )}
@@ -381,40 +383,40 @@ export const BlogCard: React.FC<BlogCardProps> = ({
               </span>
             )}
           </div>
-        </div>
 
-        {/* Read more – always in flow when link exists */}
-        {link && (
-          <div className="mt-3">
-            <span
-              className={`
-                text-sm font-medium text-[var(--color-primary)]
-                inline-flex items-center gap-1
-                transition-all duration-200
-                ${isHovering ? "opacity-100 translate-x-0.5" : "opacity-70"}
-              `}
-            >
-              Read more
-              <svg
+          {/* Read more */}
+          {link && (
+            <div>
+              <span
                 className={`
-                  h-4 w-4 transition-transform duration-200
-                  ${isHovering ? "translate-x-0.5" : ""}
+                  text-sm font-medium text-[var(--color-primary)]
+                  inline-flex items-center gap-1
+                  transition-all duration-200
+                  ${isHovering ? "opacity-100 translate-x-0.5" : "opacity-70"}
                 `}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-                aria-hidden="true"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </span>
-          </div>
-        )}
+                Read more
+                <svg
+                  className={`
+                    h-4 w-4 transition-transform duration-200
+                    ${isHovering ? "translate-x-0.5" : ""}
+                  `}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
