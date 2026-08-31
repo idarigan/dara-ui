@@ -738,22 +738,22 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
 
   // Dropdown mode
   return (
-    <div ref={dropdownRef} className={`relative inline-flex ${className}`}>
+    <div ref={dropdownRef} className={`relative ${className}`}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          inline-flex items-center
-          bg-[var(--color-bg-tertiary)]
-          text-[var(--color-text-primary)]
-          border border-[var(--color-border-primary)]
-          rounded-full
-          hover:bg-[var(--color-bg-elevated)]
-          hover:border-[var(--color-border-secondary)]
-          transition-all duration-180
-          active:scale-95
-          ${sizeStyles[size].trigger}
-        `}
+        inline-flex items-center
+        bg-[var(--color-bg-tertiary)]
+        text-[var(--color-text-primary)]
+        border border-[var(--color-border-primary)]
+        rounded-full
+        hover:bg-[var(--color-bg-elevated)]
+        hover:border-[var(--color-border-secondary)]
+        transition-all duration-180
+        active:scale-95
+        ${sizeStyles[size].trigger}
+      `}
         style={{
           width: fixedWidth || "auto",
           minWidth: fixedWidth || "auto",
@@ -770,11 +770,11 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
 
         <svg
           className={`
-            flex-shrink-0 ml-2
-            transition-transform duration-[var(--transition-med)] ease-[var(--ease-in-out)]
-            ${isOpen ? "rotate-180" : "rotate-0"}
-            ${sizeStyles[size].chevronSize}
-          `}
+          flex-shrink-0 ml-2
+          transition-transform duration-[var(--transition-med)] ease-[var(--ease-in-out)]
+          ${isOpen ? "rotate-180" : "rotate-0"}
+          ${sizeStyles[size].chevronSize}
+        `}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -788,39 +788,40 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
         </svg>
       </button>
 
+      {/* Dropdown Menu */}
       <div
         className={`
-          absolute z-50
-          left-1/2 -translate-x-1/2
-          ${getPlacementClasses()}
+        absolute z-50
+        left-1/2 -translate-x-1/2
+        ${getPlacementClasses()}
+        pointer-events-none
+      `}
+        style={{
+          width: menuWidth,
+          minWidth: menuWidth,
+          top: "100%",
+          marginTop: "6px",
+        }}
+      >
+        <div
+          className={`
           glass
           rounded-[var(--radius-md)]
           py-1
           shadow-[var(--shadow-float)]
           transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
           overflow-hidden
-          ${
-            isOpen
-              ? "opacity-100 translate-y-0 pointer-events-auto"
-              : openUpward
-                ? "opacity-0 translate-y-2 pointer-events-none"
-                : "opacity-0 -translate-y-2 pointer-events-none"
-          }
+          ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}
         `}
-        style={{
-          width: menuWidth,
-          minWidth: menuWidth,
-        }}
-        role="listbox"
-      >
-        {displayLanguages.map((lang) => {
-          const isActive = lang.value === currentLang;
-          return (
-            <button
-              key={lang.value}
-              type="button"
-              onClick={() => handleSelect(lang.value)}
-              className={`
+        >
+          {displayLanguages.map((lang) => {
+            const isActive = lang.value === currentLang;
+            return (
+              <button
+                key={lang.value}
+                type="button"
+                onClick={() => handleSelect(lang.value)}
+                className={`
                 w-full flex items-center gap-2 text-left
                 ${sizeStyles[size].option}
                 ${
@@ -830,41 +831,42 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
                 }
                 transition-colors duration-150
               `}
-              role="option"
-              aria-selected={isActive}
-            >
-              {typeof lang.icon === "string" ? (
-                <img
-                  src={lang.icon}
-                  alt={`${lang.value} flag`}
-                  className="flex-shrink-0 object-cover rounded-sm w-4 h-3"
-                  onError={(e) => {
-                    e.currentTarget.style.display = "none";
-                  }}
-                  loading="lazy"
-                />
-              ) : (
-                lang.icon || renderFlagIcon(lang.value, "w-4 h-3")
-              )}
-              <span className="truncate">{lang.label}</span>
-              {isActive && (
-                <svg
-                  className="ml-auto h-4 w-4 flex-shrink-0 text-[var(--color-primary)]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 13l4 4L19 7"
+                role="option"
+                aria-selected={isActive}
+              >
+                {typeof lang.icon === "string" ? (
+                  <img
+                    src={lang.icon}
+                    alt={`${lang.value} flag`}
+                    className="flex-shrink-0 object-cover rounded-sm w-4 h-3"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                    }}
+                    loading="lazy"
                   />
-                </svg>
-              )}
-            </button>
-          );
-        })}
+                ) : (
+                  lang.icon || renderFlagIcon(lang.value, "w-4 h-3")
+                )}
+                <span className="truncate">{lang.label}</span>
+                {isActive && (
+                  <svg
+                    className="ml-auto h-4 w-4 flex-shrink-0 text-[var(--color-primary)]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

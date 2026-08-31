@@ -18,7 +18,7 @@ export interface ThemeOption {
    */
   label: string;
   /**
-   * Optional icon (emoji or React node)
+   * Optional icon (React node or SVG)
    */
   icon?: React.ReactNode;
 }
@@ -77,16 +77,96 @@ export interface ThemeChangerProps {
 }
 
 /**
- * Default Dara UI themes
+ * SVG Theme Icons
+ */
+const MoonIcon = () => (
+  <svg
+    className="flex-shrink-0"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+  </svg>
+);
+
+const SunIcon = () => (
+  <svg
+    className="flex-shrink-0"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="5" />
+    <line x1="12" y1="1" x2="12" y2="3" />
+    <line x1="12" y1="21" x2="12" y2="23" />
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+    <line x1="1" y1="12" x2="3" y2="12" />
+    <line x1="21" y1="12" x2="23" y2="12" />
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+  </svg>
+);
+
+const DraculaIcon = () => (
+  <svg
+    className="flex-shrink-0"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+    <path d="M2 17l10 5 10-5" />
+    <path d="M2 12l10 5 10-5" />
+  </svg>
+);
+
+const GothicIcon = () => (
+  <svg
+    className="flex-shrink-0"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+    <path d="M2 17l10 5 10-5" />
+    <path d="M2 12l10 5 10-5" />
+    <circle cx="12" cy="12" r="2" />
+  </svg>
+);
+
+/**
+ * Default Dara UI themes with SVG icons
  */
 const DEFAULT_THEMES: ThemeOption[] = [
-  { value: "nightfall", label: "Nightfall", icon: "🌙" },
-  { value: "daylight", label: "Daylight", icon: "☀️" },
-  { value: "bloody-moon", label: "Bloody Moon", icon: "🌕" },
+  { value: "nightfall", label: "Nightfall", icon: <MoonIcon /> },
+  { value: "daylight", label: "Daylight", icon: <SunIcon /> },
+  { value: "bloody-moon", label: "Bloody Moon", icon: <GothicIcon /> },
 ];
 
 // ============================================
-// Theme Context & Provider (unchanged)
+// Theme Context & Provider
 // ============================================
 
 export interface ThemeContextValue {
@@ -104,19 +184,18 @@ export interface ThemeProviderProps {
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
-const getDefaultIcon = (value: string): string => {
-  const iconMap: Record<string, string> = {
-    nightfall: "🌙",
-    daylight: "☀️",
-    "bloody-moon": "🌕",
-    dark: "🌙",
-    light: "☀️",
-    dracula: "🧛",
-    wine: "🍷",
-    gothic: "🖤",
-    cyber: "💜",
+const getDefaultIcon = (value: string): React.ReactNode => {
+  const iconMap: Record<string, React.ReactNode> = {
+    nightfall: <MoonIcon />,
+    daylight: <SunIcon />,
+    dark: <MoonIcon />,
+    light: <SunIcon />,
+    dracula: <DraculaIcon />,
+    wine: <GothicIcon />,
+    gothic: <GothicIcon />,
+    cyber: <MoonIcon />,
   };
-  return iconMap[value] || "🎨";
+  return iconMap[value] || <MoonIcon />;
 };
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({
@@ -274,9 +353,25 @@ export const useTheme = (): ThemeContextValue => {
 };
 
 // ============================================
-// ThemeChanger Component (with openUpward)
+// ThemeChanger Component
 // ============================================
 
+/**
+ * Dara UI ThemeChanger - Dropdown for switching between themes
+ *
+ * Features:
+ * - Auto-detects available themes from CSS
+ * - Supports custom theme lists
+ * - Clean dropdown with SVG icon support
+ * - Icon-only mode for compact navigation bars
+ * - Fixed width option for consistent sizing
+ * - Controlled or uncontrolled modes
+ * - Persists theme preference in localStorage
+ * - Size variants (sm, md, lg)
+ * - Dropdown is always centered under the trigger
+ * - Menu width matches the button when iconOnly or fixedWidth is used
+ * - All ThemeChanger instances sync through Theme context
+ */
 export const ThemeChanger: React.FC<ThemeChangerProps> = ({
   value: controlledValue,
   defaultValue,
@@ -288,7 +383,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
   fixedWidth,
   className = "",
   useContext: useThemeContext = true,
-  openUpward = false, // NEW
+  openUpward = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [themes, setThemes] = useState<ThemeOption[]>(DEFAULT_THEMES);
@@ -326,7 +421,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
     currentTheme = internalValue;
   }
 
-  // Auto-detect themes (unchanged)
+  // Auto-detect themes
   useEffect(() => {
     if (!autoDetect && availableThemes) {
       setThemes(availableThemes);
@@ -435,7 +530,17 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
     [isInContext, contextValue, isControlled, onChange, applyTheme],
   );
 
-  // Size styles (unchanged)
+  // Ensure themes have icons
+  const displayThemes = useMemo(
+    () =>
+      themes.map((theme) => ({
+        ...theme,
+        icon: theme.icon || getDefaultIcon(theme.value),
+      })),
+    [themes],
+  );
+
+  // Size styles
   const sizeStyles = {
     sm: {
       trigger: "px-3 py-1.5 text-xs",
@@ -463,10 +568,26 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
     },
   };
 
-  const currentOption = themes.find((t) => t.value === currentTheme);
+  const currentOption = displayThemes.find((t) => t.value === currentTheme);
   const menuWidth = iconOnly
     ? sizeStyles[size].iconOnlyWidth
     : fixedWidth || "140px";
+
+  // Render icon helper - ensures consistent sizing
+  const renderIcon = (icon: React.ReactNode) => {
+    if (React.isValidElement(icon)) {
+      // Clone the element and add consistent sizing
+      return React.cloneElement(icon, {
+        className: `flex-shrink-0 ${
+          size === "sm" ? "w-4 h-4" : size === "lg" ? "w-6 h-6" : "w-5 h-5"
+        } ${icon.props.className || ""}`,
+        width: size === "sm" ? "16" : size === "lg" ? "24" : "20",
+        height: size === "sm" ? "16" : size === "lg" ? "24" : "20",
+        viewBox: icon.props.viewBox || "0 0 24 24",
+      });
+    }
+    return icon;
+  };
 
   // Icon-only mode
   if (iconOnly) {
@@ -476,18 +597,18 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           className={`
-          inline-flex items-center justify-center
-          bg-[var(--color-bg-tertiary)]
-          text-[var(--color-text-primary)]
-          border border-[var(--color-border-primary)]
-          rounded-full
-          hover:bg-[var(--color-bg-elevated)]
-          hover:border-[var(--color-border-secondary)]
-          transition-all duration-180
-          active:scale-95
-          ${sizeStyles[size].trigger}
-          flex-shrink-0
-        `}
+            inline-flex items-center justify-center
+            bg-[var(--color-bg-tertiary)]
+            text-[var(--color-text-primary)]
+            border border-[var(--color-border-primary)]
+            rounded-full
+            hover:bg-[var(--color-bg-elevated)]
+            hover:border-[var(--color-border-secondary)]
+            transition-all duration-180
+            active:scale-95
+            ${sizeStyles[size].trigger}
+            flex-shrink-0
+          `}
           style={{
             width: fixedWidth || sizeStyles[size].iconOnlyWidth,
             minWidth: fixedWidth || sizeStyles[size].iconOnlyWidth,
@@ -498,32 +619,28 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
           aria-haspopup="listbox"
           aria-label={`Current theme: ${currentOption?.label || "Theme"}`}
         >
-          {currentOption?.icon && (
-            <span className="text-base leading-none flex items-center justify-center">
-              {currentOption.icon}
-            </span>
-          )}
+          {currentOption?.icon && renderIcon(currentOption.icon)}
         </button>
 
         <div
           className={`
-          absolute z-50
-          left-1/2 -translate-x-1/2
-          ${openUpward ? "bottom-full mb-1.5" : "top-full mt-1.5"}
-          glass
-          rounded-[var(--radius-md)]
-          py-1
-          shadow-[var(--shadow-float)]
-          transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
-          overflow-hidden
-          ${
-            isOpen
-              ? "opacity-100 translate-y-0 pointer-events-auto"
-              : openUpward
-                ? "opacity-0 translate-y-2 pointer-events-none"
-                : "opacity-0 -translate-y-2 pointer-events-none"
-          }
-        `}
+            absolute z-50
+            left-1/2 -translate-x-1/2
+            ${openUpward ? "bottom-full mb-1.5" : "top-full mt-1.5"}
+            glass
+            rounded-[var(--radius-md)]
+            py-1
+            shadow-[var(--shadow-float)]
+            transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
+            overflow-hidden
+            ${
+              isOpen
+                ? "opacity-100 translate-y-0 pointer-events-auto"
+                : openUpward
+                  ? "opacity-0 translate-y-2 pointer-events-none"
+                  : "opacity-0 -translate-y-2 pointer-events-none"
+            }
+          `}
           style={{
             width: menuWidth,
             minWidth: menuWidth,
@@ -535,7 +652,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
           }}
           role="listbox"
         >
-          {themes.map((theme) => {
+          {displayThemes.map((theme) => {
             const isActive = theme.value === currentTheme;
             return (
               <button
@@ -543,24 +660,20 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
                 type="button"
                 onClick={() => handleSelect(theme.value)}
                 className={`
-                w-full flex items-center justify-center gap-2
-                ${sizeStyles[size].option}
-                ${
-                  isActive
-                    ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
-                    : "text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/50"
-                }
-                transition-colors duration-150
-              `}
+                  w-full flex items-center justify-center gap-2
+                  ${sizeStyles[size].option}
+                  ${
+                    isActive
+                      ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
+                      : "text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/50"
+                  }
+                  transition-colors duration-150
+                `}
                 role="option"
                 aria-selected={isActive}
                 title={theme.label}
               >
-                {theme.icon && (
-                  <span className="flex-shrink-0 text-base leading-none">
-                    {theme.icon}
-                  </span>
-                )}
+                {theme.icon && renderIcon(theme.icon)}
               </button>
             );
           })}
@@ -569,24 +682,24 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
     );
   }
 
-  // Full dropdown mode with label + icon + chevron
+  // Dropdown mode
   return (
-    <div ref={dropdownRef} className={`relative inline-block ${className}`}>
+    <div ref={dropdownRef} className={`relative ${className}`}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          inline-flex items-center
-          bg-[var(--color-bg-tertiary)]
-          text-[var(--color-text-primary)]
-          border border-[var(--color-border-primary)]
-          rounded-full
-          hover:bg-[var(--color-bg-elevated)]
-          hover:border-[var(--color-border-secondary)]
-          transition-all duration-180
-          active:scale-95
-          ${sizeStyles[size].trigger}
-        `}
+        inline-flex items-center
+        bg-[var(--color-bg-tertiary)]
+        text-[var(--color-text-primary)]
+        border border-[var(--color-border-primary)]
+        rounded-full
+        hover:bg-[var(--color-bg-elevated)]
+        hover:border-[var(--color-border-secondary)]
+        transition-all duration-180
+        active:scale-95
+        ${sizeStyles[size].trigger}
+      `}
         style={{
           width: fixedWidth || "auto",
           minWidth: fixedWidth || "auto",
@@ -595,11 +708,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
         aria-haspopup="listbox"
       >
         <span className="flex items-center gap-2 flex-1 min-w-0">
-          {currentOption?.icon && (
-            <span className="flex-shrink-0 text-base">
-              {currentOption.icon}
-            </span>
-          )}
+          {currentOption?.icon && renderIcon(currentOption.icon)}
           <span className="font-mono tracking-wide truncate">
             {currentOption?.label || "Theme"}
           </span>
@@ -607,11 +716,11 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
 
         <svg
           className={`
-            flex-shrink-0 ml-2
-            transition-transform duration-[var(--transition-med)] ease-[var(--ease-in-out)]
-            ${isOpen ? "rotate-180" : "rotate-0"}
-            ${sizeStyles[size].chevronSize}
-          `}
+          flex-shrink-0 ml-2
+          transition-transform duration-[var(--transition-med)] ease-[var(--ease-in-out)]
+          ${isOpen ? "rotate-180" : "rotate-0"}
+          ${sizeStyles[size].chevronSize}
+        `}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -625,11 +734,25 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
         </svg>
       </button>
 
+      {/* Dropdown Menu */}
       <div
         className={`
-          absolute z-50
-          left-1/2 -translate-x-1/2
-          ${openUpward ? "bottom-full mb-1.5" : "top-full mt-1.5"}
+        absolute z-50
+        left-1/2 -translate-x-1/2
+        ${openUpward ? "bottom-full mb-1.5" : "top-full mt-1.5"}
+        pointer-events-none
+      `}
+        style={{
+          width: menuWidth,
+          minWidth: menuWidth,
+          top: openUpward ? "auto" : "100%",
+          bottom: openUpward ? "100%" : "auto",
+          marginTop: openUpward ? "0" : "6px",
+          marginBottom: openUpward ? "6px" : "0",
+        }}
+      >
+        <div
+          className={`
           glass
           rounded-[var(--radius-md)]
           py-1
@@ -644,20 +767,15 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
                 : "opacity-0 -translate-y-2 pointer-events-none"
           }
         `}
-        style={{
-          width: menuWidth,
-          minWidth: menuWidth,
-        }}
-        role="listbox"
-      >
-        {themes.map((theme) => {
-          const isActive = theme.value === currentTheme;
-          return (
-            <button
-              key={theme.value}
-              type="button"
-              onClick={() => handleSelect(theme.value)}
-              className={`
+        >
+          {displayThemes.map((theme) => {
+            const isActive = theme.value === currentTheme;
+            return (
+              <button
+                key={theme.value}
+                type="button"
+                onClick={() => handleSelect(theme.value)}
+                className={`
                 w-full flex items-center gap-2 text-left
                 ${sizeStyles[size].option}
                 ${
@@ -667,31 +785,30 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
                 }
                 transition-colors duration-150
               `}
-              role="option"
-              aria-selected={isActive}
-            >
-              {theme.icon && (
-                <span className="flex-shrink-0 text-base">{theme.icon}</span>
-              )}
-              <span className="truncate">{theme.label}</span>
-              {isActive && (
-                <svg
-                  className="ml-auto h-4 w-4 flex-shrink-0 text-[var(--color-primary)]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              )}
-            </button>
-          );
-        })}
+                role="option"
+                aria-selected={isActive}
+              >
+                {theme.icon && renderIcon(theme.icon)}
+                <span className="truncate">{theme.label}</span>
+                {isActive && (
+                  <svg
+                    className="ml-auto h-4 w-4 flex-shrink-0 text-[var(--color-primary)]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
