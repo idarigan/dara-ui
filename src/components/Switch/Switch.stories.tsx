@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Switch } from "./Switch";
 import { useState } from "react";
+import { PlayIcon, PauseIcon } from "../Icons";
 
 const meta = {
   title: "Components/Switch",
@@ -58,34 +59,6 @@ export const WithGlow: Story = {
 // ----- With Custom Icons -----
 export const WithCustomIcons: Story = {
   render: function WithCustomIconsStory() {
-    const PlayIcon = () => (
-      <svg
-        className="h-3 w-3"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={3}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <polygon points="5 3 19 12 5 21 5 3" />
-      </svg>
-    );
-    const PauseIcon = () => (
-      <svg
-        className="h-3 w-3"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={3}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <rect x="6" y="4" width="4" height="16" />
-        <rect x="14" y="4" width="4" height="16" />
-      </svg>
-    );
-
     return (
       <div className="flex flex-col gap-4 items-start">
         <Switch

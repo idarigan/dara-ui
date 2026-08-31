@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { AvatarIcon } from "../Icons";
 
 export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -149,23 +150,6 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
       ).toUpperCase();
     };
 
-    // Fallback icon (user icon)
-    const FallbackIcon = () => (
-      <svg
-        className="w-1/2 h-1/2 text-[var(--color-text-tertiary)]"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-        />
-      </svg>
-    );
-
     // Determine if we should show image
     const showImage = src && !fallback && !imageError;
 
@@ -193,7 +177,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
       }
 
       // Default fallback icon
-      return <FallbackIcon />;
+      return <AvatarIcon />;
     };
 
     // Group rendering - stack multiple avatars

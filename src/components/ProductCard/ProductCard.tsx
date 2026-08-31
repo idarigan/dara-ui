@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Badge } from "../Badge/Badge";
 import Button from "../Button/Button";
+import { ImagePlaceholderIcon } from "../Icons";
 
 export interface ProductCardProps {
   /**
@@ -188,6 +189,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             ? "text-[var(--color-warning)]"
             : "text-[var(--color-text-tertiary)]"
         }
+        aria-hidden="true"
       >
         {i < Math.round(rating) ? "★" : "☆"}
       </span>
@@ -195,19 +197,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
   const Placeholder = () => (
     <div className="w-full h-full flex items-center justify-center bg-[var(--color-bg-tertiary)] text-[var(--color-text-tertiary)]">
-      <svg
-        className="w-10 h-10"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"
-        />
-      </svg>
+      <ImagePlaceholderIcon />
     </div>
   );
 
@@ -226,6 +216,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       ? `perspective(900px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) translateY(-6px) scale(1.02)`
       : "perspective(900px) rotateX(0) rotateY(0) translateY(0) scale(1)";
 
+  // Determine if card should be interactive
+  const isInteractive = !showQuickActions && onClick;
+  const hasLink = !!link;
+
   return (
     <div
       ref={cardRef}
@@ -238,7 +232,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         ${isHorizontal ? "flex flex-row gap-4 items-stretch" : ""}
         ${isCompact ? "flex flex-row items-center gap-3" : ""}
         ${className}
-        cursor-pointer
+        ${isInteractive ? "cursor-pointer" : ""}
       `}
       style={{
         transform: hoverTransform,
@@ -254,17 +248,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
-      // Avoid role=button when nested controls exist (a11y nested interactive)
-      {...(showQuickActions
-        ? { "aria-label": `Product: ${title}` }
-        : {
-            role: "button" as const,
-            tabIndex: 0,
-            onKeyDown: (e: React.KeyboardEvent) => {
+      role={isInteractive ? "button" : undefined}
+      tabIndex={isInteractive ? 0 : undefined}
+      aria-label={isInteractive ? `Product: ${title}` : undefined}
+      onKeyDown={
+        isInteractive
+          ? (e) => {
               if (e.key === "Enter" || e.key === " ") onClick?.();
-            },
-            "aria-label": `Product: ${title}`,
-          })}
+            }
+          : undefined
+      }
     >
       {/* Soft glow wash on hover */}
       <div
@@ -280,7 +273,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       {isCompact && onSale && (
         <div
           className="absolute top-0 end-0 z-20 w-12 h-12 overflow-hidden pointer-events-none"
-          aria-hidden
+          aria-hidden="true"
         >
           <span className="absolute top-[7px] end-[-18px] w-[56px] text-center bg-[var(--color-danger)] text-white text-[8px] font-bold uppercase tracking-wider py-0.5 shadow-sm rotate-45 origin-center">
             Sale
@@ -368,7 +361,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             font-heading font-bold text-[var(--color-text-primary)]
             ${isCompact ? "text-sm" : "text-base"}
             line-clamp-2 leading-snug
-            ${link || isHovering ? "hover:text-[var(--color-primary)]" : ""}
+            ${hasLink || isHovering ? "hover:text-[var(--color-primary)]" : ""}
             transition-colors duration-180
             ${isHovering ? "text-[var(--color-primary)]" : ""}
           `}
@@ -438,7 +431,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
           {rating > 0 && !isCompact && (
             <div className="flex items-center gap-1 flex-shrink-0">
-              <span className="flex text-xs leading-none">{renderStars()}</span>
+              <span className="flex text-xs leading-none" aria-hidden="true">
+                {renderStars()}
+              </span>
               {reviewCount > 0 && (
                 <span className="text-[10px] text-[var(--color-text-tertiary)]">
                   ({reviewCount})
@@ -494,6 +489,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             viewBox="0 0 24 24"
             stroke="currentColor"
             strokeWidth={2.5}
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
