@@ -12,84 +12,22 @@ export type TooltipPlacement =
   | "bottom-right";
 
 export interface TooltipProps {
-  /**
-   * Tooltip content
-   */
   content: React.ReactNode;
-  /**
-   * Child element that triggers the tooltip
-   */
   children: React.ReactNode;
-  /**
-   * Tooltip placement relative to the trigger
-   * @default "top"
-   */
   placement?: TooltipPlacement;
-  /**
-   * Delay before showing the tooltip (ms)
-   * @default 300
-   */
   delay?: number;
-  /**
-   * Delay before hiding the tooltip (ms)
-   * @default 0
-   */
   hideDelay?: number;
-  /**
-   * Maximum width of the tooltip
-   * @default "240px"
-   */
   maxWidth?: string;
-  /**
-   * Show arrow indicator
-   * @default true
-   */
   arrow?: boolean;
-  /**
-   * Tooltip variant
-   * @default "glass"
-   */
   variant?: "glass" | "solid" | "outline";
-  /**
-   * Tooltip size
-   * @default "md"
-   */
   size?: "sm" | "md" | "lg";
-  /**
-   * Disable the tooltip
-   * @default false
-   */
   disabled?: boolean;
-  /**
-   * Open state (controlled)
-   */
   open?: boolean;
-  /**
-   * Callback when tooltip opens
-   */
   onOpen?: () => void;
-  /**
-   * Callback when tooltip closes
-   */
   onClose?: () => void;
-  /**
-   * Additional className
-   */
   className?: string;
 }
 
-/**
- * Dara UI Tooltip - Popup tooltips with positioning and animations
- *
- * Features:
- * - Multiple placements (top, bottom, left, right, corners)
- * - Glass, solid, and outline variants
- * - Arrow indicator
- * - Delay controls
- * - Controlled/Uncontrolled modes
- * - Portal rendering for correct z-index
- * - Proper fade + position (no corner jump)
- */
 export const Tooltip: React.FC<TooltipProps> = ({
   content,
   children,
@@ -109,7 +47,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
-  // Start way off-screen so the first paint is never visible
   const [coords, setCoords] = useState({ top: -9999, left: -9999 });
 
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -132,9 +69,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
     outline: "glass-outline",
   };
 
-  const ANIMATION_DURATION = 150; // keep in sync with CSS
+  const ANIMATION_DURATION = 150;
 
-  // Calculate position relative to trigger
   const calculatePosition = useCallback(() => {
     if (!triggerRef.current || !tooltipRef.current) return;
 
@@ -187,7 +123,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
         left = triggerCenterX - tooltipWidth / 2;
     }
 
-    // Keep inside viewport
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
 
@@ -203,7 +138,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
     setCoords({ top, left });
   }, [placement]);
 
-  // Animation lifecycle
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
     let raf1: number;
@@ -213,7 +147,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
       setMounted(true);
       setVisible(false);
 
-      // Double rAF = wait until the portal is in the DOM *and* laid out
       raf1 = requestAnimationFrame(() => {
         raf2 = requestAnimationFrame(() => {
           calculatePosition();
@@ -224,7 +157,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
       setVisible(false);
       timer = setTimeout(() => {
         setMounted(false);
-        // Reset so the next open never starts at a previous position
         setCoords({ top: -9999, left: -9999 });
       }, ANIMATION_DURATION);
     }
@@ -236,7 +168,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
     };
   }, [isVisible, calculatePosition]);
 
-  // Show / hide helpers
   const showTooltip = useCallback(() => {
     if (disabled) return;
 
@@ -267,13 +198,11 @@ export const Tooltip: React.FC<TooltipProps> = ({
     }, hideDelay);
   }, [hideDelay, isControlled, onClose]);
 
-  // Mouse + focus events
   const handleMouseEnter = useCallback(() => showTooltip(), [showTooltip]);
   const handleMouseLeave = useCallback(() => hideTooltip(), [hideTooltip]);
   const handleFocus = useCallback(() => showTooltip(), [showTooltip]);
   const handleBlur = useCallback(() => hideTooltip(), [hideTooltip]);
 
-  // Recalculate on resize / scroll
   useEffect(() => {
     if (!isVisible) return;
 
@@ -287,7 +216,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
     };
   }, [isVisible, calculatePosition]);
 
-  // Cleanup
   useEffect(() => {
     return () => {
       if (showTimeout.current) clearTimeout(showTimeout.current);
@@ -295,21 +223,17 @@ export const Tooltip: React.FC<TooltipProps> = ({
     };
   }, []);
 
-  // Don't keep anything in the tree when closed
-  if (!mounted) {
-    return (
-      <div
-        ref={triggerRef}
-        className="inline-flex"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-      >
-        {children}
-      </div>
+  // Debug: log mounted and visible states
+  useEffect(() => {
+    console.log(
+      "Tooltip mounted:",
+      mounted,
+      "visible:",
+      visible,
+      "coords:",
+      coords,
     );
-  }
+  }, [mounted, visible, coords]);
 
   return (
     <>
@@ -324,10 +248,11 @@ export const Tooltip: React.FC<TooltipProps> = ({
         {children}
       </div>
 
-      {createPortal(
-        <div
-          ref={tooltipRef}
-          className={`
+      {mounted &&
+        createPortal(
+          <div
+            ref={tooltipRef}
+            className={`
             fixed z-[10002]
             font-sans text-[var(--color-text-primary)]
             transition-opacity duration-150 ease-out
@@ -336,20 +261,18 @@ export const Tooltip: React.FC<TooltipProps> = ({
             ${sizeStyles[size]}
             ${className}
           `}
-          style={{
-            top: coords.top,
-            left: coords.left,
-            maxWidth,
-          }}
-          role="tooltip"
-          aria-hidden={!visible}
-        >
-          {content}
+            style={{
+              top: coords.top,
+              left: coords.left,
+              maxWidth,
+            }}
+            role="tooltip"
+          >
+            {content}
 
-          {/* Arrow */}
-          {arrow && (
-            <div
-              className={`
+            {arrow && (
+              <div
+                className={`
                 absolute w-2.5 h-2.5
                 bg-inherit
                 transform rotate-45
@@ -362,16 +285,16 @@ export const Tooltip: React.FC<TooltipProps> = ({
                 ${placement === "bottom-left" ? "top-[-5px] left-3 border-b border-l" : ""}
                 ${placement === "bottom-right" ? "top-[-5px] right-3 border-b border-r" : ""}
               `}
-              style={{
-                borderWidth: "1px",
-                borderStyle: "solid",
-                borderColor: "var(--glass-border, rgba(255,255,255,0.1))",
-              }}
-            />
-          )}
-        </div>,
-        document.body,
-      )}
+                style={{
+                  borderWidth: "1px",
+                  borderStyle: "solid",
+                  borderColor: "var(--glass-border, rgba(255,255,255,0.1))",
+                }}
+              />
+            )}
+          </div>,
+          document.body,
+        )}
     </>
   );
 };

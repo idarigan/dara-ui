@@ -29,8 +29,6 @@ import { ThemeProvider, ThemeChanger } from "./components/ThemeChanger";
 import { Navbar } from "./components/Navbar";
 import type { NavLink } from "./components/Navbar";
 import { SocialMedia } from "./components/SocialMedia";
-import { Sidebar } from "./components/Sidebar";
-import type { SidebarGroup } from "./components/Sidebar";
 import useDirection from "./hooks/useDirection";
 import StatsWidget from "./components/StatsWidget";
 import Checkbox from "./components/Checkbox";
@@ -52,210 +50,25 @@ import { AuroraBlobs } from "./components/AuroraBlobs/AuroraBlobs";
 import { GradientRing } from "./components/GradientRing/GradientRing";
 import { NoiseOverlay } from "./components/NoiseOverlay/NoiseOverlay";
 
+import {
+  SearchIcon,
+  UserIcon,
+  SettingsIcon,
+  HomeIcon,
+  ExploreIcon,
+  CheckIcon,
+  BellIcon,
+  BellSlashIcon,
+  MoonIcon,
+  SunIcon,
+  VolumeHighIcon,
+  VolumeMuteIcon,
+  StarIcon,
+} from "./components/Icons";
+
 import "./styles/index.css";
 
 type Theme = "nightfall" | "daylight" | "dracula";
-
-// ============================================
-// Icons
-// ============================================
-
-const SearchIcon = () => (
-  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-    />
-  </svg>
-);
-
-const UserIcon = () => (
-  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-    />
-  </svg>
-);
-
-const SettingsIcon = () => (
-  <svg
-    className="h-4 w-4"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-    />
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-    />
-  </svg>
-);
-
-const HomeIcon = () => (
-  <svg
-    className="h-4 w-4"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-    />
-  </svg>
-);
-
-const ExploreIcon = () => (
-  <svg
-    className="h-4 w-4"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-    />
-  </svg>
-);
-
-const CheckIcon = () => (
-  <svg
-    className="h-4 w-4"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-  </svg>
-);
-
-const BellIcon = () => (
-  <svg
-    className="h-3 w-3"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-    />
-  </svg>
-);
-
-const BellSlashIcon = () => (
-  <svg
-    className="h-3 w-3"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M9.172 9.172a4 4 0 015.656 5.656M6 11c0-2.21 1.343-4.104 3.26-4.904M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11M4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9M3 3l18 18"
-    />
-  </svg>
-);
-
-const MoonIcon = () => (
-  <svg
-    className="h-3 w-3"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-    />
-  </svg>
-);
-
-const SunIcon = () => (
-  <svg
-    className="h-3 w-3"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-    />
-  </svg>
-);
-
-const VolumeHighIcon = () => (
-  <svg
-    className="h-3 w-3"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M6 10v4h3l4 4V6l-4 4H6z"
-    />
-  </svg>
-);
-
-const VolumeMuteIcon = () => (
-  <svg
-    className="h-3 w-3"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
-    />
-  </svg>
-);
-
-const StarIcon = () => (
-  <svg
-    className="h-4 w-4"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-    />
-  </svg>
-);
 
 // ============================================
 // Tab items for Tabs demo
@@ -854,24 +667,24 @@ function AppContent() {
                 {t("tooltip.placements")}
               </p>
               <div className="grid grid-cols-4 gap-4">
-                <Tooltip content={t("tooltip.top")} placement="top">
+                <Tooltip content="Top" placement="top">
                   <Button size="sm" variant="glass" className="w-full">
-                    {t("tooltip.top")}
+                    Top
                   </Button>
                 </Tooltip>
-                <Tooltip content={t("tooltip.bottom")} placement="bottom">
+                <Tooltip content="Bottom" placement="bottom">
                   <Button size="sm" variant="glass" className="w-full">
-                    {t("tooltip.bottom")}
+                    Bottom
                   </Button>
                 </Tooltip>
-                <Tooltip content={t("tooltip.left")} placement="left">
+                <Tooltip content="Left" placement="left">
                   <Button size="sm" variant="glass" className="w-full">
-                    {t("tooltip.left")}
+                    Left
                   </Button>
                 </Tooltip>
-                <Tooltip content={t("tooltip.right")} placement="right">
+                <Tooltip content="Right" placement="right">
                   <Button size="sm" variant="glass" className="w-full">
-                    {t("tooltip.right")}
+                    Right
                   </Button>
                 </Tooltip>
               </div>
@@ -883,17 +696,14 @@ function AppContent() {
                 {t("tooltip.variants")}
               </p>
               <div className="flex items-center gap-4">
-                <Tooltip content={t("tooltip.glassTooltip")} variant="glass">
-                  <Button variant="glass">{t("buttons.glass")}</Button>
+                <Tooltip content="Glass tooltip" variant="glass">
+                  <Button variant="glass">Glass</Button>
                 </Tooltip>
-                <Tooltip content={t("tooltip.solidTooltip")} variant="solid">
-                  <Button variant="secondary">{t("buttons.secondary")}</Button>
+                <Tooltip content="Solid tooltip" variant="solid">
+                  <Button variant="secondary">Solid</Button>
                 </Tooltip>
-                <Tooltip
-                  content={t("tooltip.outlineTooltip")}
-                  variant="outline"
-                >
-                  <Button variant="outline">{t("buttons.outline")}</Button>
+                <Tooltip content="Outline tooltip" variant="outline">
+                  <Button variant="outline">Outline</Button>
                 </Tooltip>
               </div>
             </div>
@@ -903,7 +713,7 @@ function AppContent() {
               <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
                 {t("tooltip.withBadge")}
               </p>
-              <Tooltip content={t("tooltip.unreadMessages", { count: 42 })}>
+              <Tooltip content="You have 42 unread messages">
                 <Badge variant="primary" glow className="cursor-pointer">
                   42
                 </Badge>
@@ -915,8 +725,8 @@ function AppContent() {
               <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
                 {t("tooltip.longContent")}
               </p>
-              <Tooltip content={t("tooltip.longTooltip")}>
-                <Button variant="primary">{t("tooltip.hoverDetails")}</Button>
+              <Tooltip content="This is a longer tooltip with more detailed information about the element you're hovering over.">
+                <Button variant="primary">Hover for details</Button>
               </Tooltip>
             </div>
           </section>
