@@ -131,30 +131,13 @@ export const Tooltip: React.FC<TooltipProps> = ({
     lg: "px-[18px] py-2.5 text-base",
   };
 
-  // Stronger, always-visible surfaces (glass was nearly invisible in Storybook)
-  const variantClass = {
-    glass:
-      "border border-[var(--color-border-primary)] shadow-[var(--shadow-float)]",
-    solid:
-      "border border-[var(--color-border-primary)] shadow-[var(--shadow-float)]",
-    outline:
-      "border border-[var(--color-border-primary)] bg-transparent shadow-none",
-  }[variant];
-
-  const variantStyle: React.CSSProperties =
-    variant === "glass"
-      ? {
-          background: "var(--color-bg-secondary)",
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
-        }
-      : variant === "solid"
-        ? {
-            background: "var(--color-bg-elevated)",
-          }
-        : {
-            background: "var(--color-bg-primary)",
-          };
+  // Real design-system surfaces
+  const variantClass =
+    variant === "solid"
+      ? "glass-solid"
+      : variant === "outline"
+        ? "glass-outline"
+        : "glass";
 
   const ANIMATION_DURATION = 150;
 
@@ -167,7 +150,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
     const tooltipWidth = tip.offsetWidth;
     const tooltipHeight = tip.offsetHeight;
 
-    // Not laid out yet
     if (tooltipWidth === 0 || tooltipHeight === 0) return false;
 
     const gap = 8;
@@ -215,7 +197,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
         left = cx - tooltipWidth / 2;
     }
 
-    // Clamp to viewport
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     if (left < 8) left = 8;
@@ -227,7 +208,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
     return true;
   }, [placement]);
 
-  // Open / close lifecycle
   useLayoutEffect(() => {
     if (!isVisible) {
       setVisible(false);
@@ -241,21 +221,18 @@ export const Tooltip: React.FC<TooltipProps> = ({
     setMounted(true);
     setVisible(false);
 
-    // Measure after portal is in the DOM
     let attempts = 0;
     let raf = 0;
 
     const tryMeasure = () => {
       attempts += 1;
-      const ok = calculatePosition();
-      if (ok) {
+      if (calculatePosition()) {
         setVisible(true);
         return;
       }
       if (attempts < 8) {
         raf = requestAnimationFrame(tryMeasure);
       } else {
-        // last resort: still show even if size stayed 0
         setVisible(true);
       }
     };
@@ -264,7 +241,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
     return () => cancelAnimationFrame(raf);
   }, [isVisible, calculatePosition]);
 
-  // Keep aligned while open
   useEffect(() => {
     if (!isVisible) return;
     const onUpdate = () => calculatePosition();
@@ -339,8 +315,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
           <div
             ref={tooltipRef}
             className={`
-              fixed z-[10002]
-              rounded-[var(--radius-md)]
+              z-[10002]
               font-sans text-[var(--color-text-primary)]
               transition-opacity duration-150 ease-out
               pointer-events-none
@@ -350,10 +325,11 @@ export const Tooltip: React.FC<TooltipProps> = ({
               ${className}
             `}
             style={{
+              // CRITICAL: .glass sets position:relative and would override Tailwind "fixed"
+              position: "fixed",
               top: coords.top,
               left: coords.left,
               maxWidth,
-              ...variantStyle,
             }}
             role="tooltip"
           >
@@ -361,18 +337,11 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
             {arrow && (
               <div
-                className={`
-                  absolute w-2.5 h-2.5 rotate-45
-                  border border-[var(--color-border-primary)]
-                  ${arrowPos[placement]}
-                `}
+                className={`absolute w-2.5 h-2.5 rotate-45 ${arrowPos[placement]}`}
                 style={{
-                  background:
-                    variant === "solid"
-                      ? "var(--color-bg-elevated)"
-                      : variant === "outline"
-                        ? "var(--color-bg-primary)"
-                        : "var(--color-bg-secondary)",
+                  background: "inherit",
+                  border:
+                    "1px solid var(--glass-border, rgba(255,255,255,0.12))",
                 }}
                 aria-hidden="true"
               />
