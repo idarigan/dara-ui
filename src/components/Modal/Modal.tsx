@@ -54,7 +54,15 @@ export interface ModalProps {
 }
 
 /**
- * Dara UI Modal
+ * Dara UI Modal - Theme-aware modal with glass styling
+ *
+ * Features:
+ * - Theme-aware overlay with backdrop blur
+ * - Glass-heavy styling with CSS variables
+ * - Scale-in animation
+ * - Portal rendering
+ * - Focus management
+ * - Keyboard support (Escape to close)
  */
 const ANIMATION_DURATION = 300;
 
@@ -155,7 +163,7 @@ export const Modal: React.FC<ModalProps> = ({
       className={`
         fixed inset-0 z-[10001]
         flex items-center justify-center
-        bg-black/60 backdrop-blur-[6px]
+        bg-[var(--color-bg-primary)]/60 backdrop-blur-[6px]
         transition-all duration-300 ease-[var(--ease-in-out,cubic-bezier(0.4,0,0.2,1))]
         ${visible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
       `}

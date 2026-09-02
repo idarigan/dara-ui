@@ -353,7 +353,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
 
         {/* Done overlay */}
         {completed && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-[var(--radius-standard)] backdrop-blur-sm z-20">
+          <div className="absolute inset-0 flex items-center justify-center bg-[var(--color-bg-primary)]/60 backdrop-blur-sm rounded-[var(--radius-standard)] z-20">
             <span className="font-heading text-2xl font-bold text-[var(--color-success)]">
               ✓ COMPLETE
             </span>
