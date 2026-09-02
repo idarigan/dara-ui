@@ -307,7 +307,17 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
 
           {/* Dropdown Menu */}
           <div
-            className={`absolute z-50 w-full mt-1.5 glass max-h-60 overflow-auto rounded-[var(--radius-md)] py-1 shadow-[var(--shadow-float)] transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)] ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}`}
+            className={`
+              z-50 w-full mt-1.5 glass max-h-60 overflow-auto
+              rounded-[var(--radius-md)] py-1 shadow-[var(--shadow-float)]
+              transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
+              ${
+                isOpen
+                  ? "opacity-100 translate-y-0 pointer-events-auto"
+                  : "opacity-0 -translate-y-2 pointer-events-none"
+              }
+            `}
+            style={{ position: "absolute" }}
           >
             {/* Search Input */}
             {searchable && (
