@@ -270,7 +270,14 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                 relative z-10
               `}
               style={{
-                height: `${actualThickness}px`,
+                height: `${
+                  isLabelInside
+                    ? Math.max(
+                        actualThickness,
+                        size === "lg" ? 22 : size === "sm" ? 16 : 18,
+                      )
+                    : actualThickness
+                }px`,
               }}
               role="progressbar"
               aria-label={`${label || "Progress"}: ${Math.round(percentage)}%`}
@@ -290,20 +297,20 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                 {showLabel && isLabelInside && percentage > 15 && (
                   <span
                     className={`
-                font-mono font-medium text-[var(--color-text-inverse)]
-                text-[10px] sm:text-xs
-                truncate
-                ml-auto
-                px-1.5
-              `}
+                      font-mono font-semibold text-[var(--color-text-inverse)]
+                      truncate
+                      ml-auto
+                      px-2.5
+                    `}
                     style={{
                       fontSize:
                         size === "lg"
-                          ? "0.75rem"
+                          ? "0.8rem"
                           : size === "sm"
-                            ? "0.6rem"
-                            : "0.65rem",
-                      textShadow: "0 1px 2px rgba(0,0,0,0.2)",
+                            ? "0.65rem"
+                            : "0.7rem",
+                      lineHeight: 1,
+                      textShadow: "0 1px 2px rgba(0,0,0,0.25)",
                       maxWidth: "100%",
                       position: "relative",
                       zIndex: 1,
