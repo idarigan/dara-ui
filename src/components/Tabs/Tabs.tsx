@@ -87,7 +87,7 @@ export const Tabs: React.FC<TabsProps> = ({
         const tabRect = activeTabRef.current.getBoundingClientRect();
         const containerRect = tabsRef.current.getBoundingClientRect();
 
-        // Only update if values changed to prevent unnecessary re-renders
+        // Only update if values changed
         const newLeft = tabRect.left - containerRect.left;
         const newWidth = tabRect.width;
 
@@ -197,7 +197,7 @@ export const Tabs: React.FC<TabsProps> = ({
       <div
         ref={tabsRef}
         className={`
-          relative flex border-b border-white/10
+          relative flex border-b border-[var(--color-border-secondary)]
           ${alignStyles[align]}
           ${fullWidth ? "w-full" : ""}
         `}
@@ -217,10 +217,14 @@ export const Tabs: React.FC<TabsProps> = ({
                 rounded-t-[--radius-md]
                 ${sizeStyles[size]}
                 ${fullWidth ? "flex-1 justify-center" : ""}
-                ${isActive ? "text-white" : "text-white/55 hover:text-white"}
+                ${
+                  isActive
+                    ? "text-[var(--color-text-primary)]"
+                    : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+                }
                 ${item.disabled ? "opacity-40 cursor-not-allowed pointer-events-none" : "cursor-pointer"}
                 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7c5cff]
-                hover:bg-white/5
+                hover:bg-[var(--color-bg-elevated)]/20
                 select-none
               `}
               onClick={() => !item.disabled && handleTabChange(value)}
