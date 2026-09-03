@@ -15,6 +15,8 @@ export interface SocialLink {
   platform: string;
   url: string;
   label?: string;
+  icon?: IconDefinition | React.ReactNode;
+  color?: string; // Optional custom color
 }
 
 export interface SocialMediaProps {
@@ -27,44 +29,34 @@ export interface SocialMediaProps {
   className?: string;
 }
 
-const PLATFORM_DATA: Record<
-  string,
-  { icon: IconDefinition; color: string; gradient: string }
-> = {
+const PLATFORM_DATA: Record<string, { icon: IconDefinition; color: string }> = {
   github: {
     icon: faGithub,
     color: "#24292e",
-    gradient: "from-[#24292e] to-[#6e7681]",
   },
   twitter: {
     icon: faTwitter,
     color: "#1DA1F2",
-    gradient: "from-[#1DA1F2] to-[#0d8bd4]",
   },
   discord: {
     icon: faDiscord,
     color: "#5865F2",
-    gradient: "from-[#5865F2] to-[#4752c4]",
   },
   youtube: {
     icon: faYoutube,
     color: "#FF0000",
-    gradient: "from-[#FF0000] to-[#cc0000]",
   },
   instagram: {
     icon: faInstagram,
     color: "#E4405F",
-    gradient: "from-[#f09433] via-[#e6683c] to-[#dc2743]",
   },
   linkedin: {
     icon: faLinkedin,
     color: "#0A66C2",
-    gradient: "from-[#0A66C2] to-[#084a8a]",
   },
   bluesky: {
     icon: faBluesky,
     color: "#1185FE",
-    gradient: "from-[#1185FE] to-[#0d6fd4]",
   },
 };
 
@@ -190,10 +182,51 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
   const buttonPx = sizeStyles.buttonPx;
   const gapPx = 8;
 
+  // Render icon helper - supports both FontAwesome and custom React nodes
+  const renderIcon = (link: SocialLink, iconSizeClass: string) => {
+    const platform = detectPlatform(link.url);
+    const platformData = getPlatformData(platform);
+
+    // If custom icon is provided as React node
+    if (link.icon && React.isValidElement(link.icon)) {
+      return React.cloneElement(link.icon as React.ReactElement, {
+        className: `${iconSizeClass} flex-shrink-0`,
+        "aria-hidden": true,
+      });
+    }
+
+    // If custom icon is provided as IconDefinition
+    if (link.icon) {
+      return (
+        <FontAwesomeIcon
+          icon={link.icon as IconDefinition}
+          className={`${iconSizeClass} flex-shrink-0`}
+          aria-hidden="true"
+        />
+      );
+    }
+
+    // Fallback to platform default
+    return (
+      <FontAwesomeIcon
+        icon={platformData.icon}
+        className={`${iconSizeClass} flex-shrink-0`}
+        aria-hidden="true"
+      />
+    );
+  };
+
+  // Get icon color - user provided or platform default
+  const getIconColor = (link: SocialLink) => {
+    if (link.color) return link.color;
+    const platform = detectPlatform(link.url);
+    const data = getPlatformData(platform);
+    return data.color;
+  };
+
   return (
     <div
       ref={containerRef}
-      // FIX: z-index lowered to 40 so it stays under navbar (z-50)
       className={`fixed z-40 ${pos.container} ${className}`}
       style={{
         top: getVerticalOffset(),
@@ -219,15 +252,11 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
           }}
         >
           {links.map((link, index) => {
-            const platform = detectPlatform(link.url);
-            const platformData = getPlatformData(platform);
             const label =
               link.label ||
-              platform.charAt(0).toUpperCase() + platform.slice(1);
-
-            const delay = isClosing
-              ? (links.length - 1 - index) * 40
-              : index * 40;
+              detectPlatform(link.url).charAt(0).toUpperCase() +
+                detectPlatform(link.url).slice(1);
+            const iconColor = getIconColor(link);
 
             return (
               <a
@@ -237,28 +266,39 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
                 rel="noopener noreferrer"
                 aria-label={`${label} (opens in new tab)`}
                 className={`
-                  flex items-center gap-2
+                  flex items-center justify-center
                   ${sizeStyles.button}
                   rounded-full
-                  !text-white
+                  glass
+                  text-[var(--color-text-primary)]
+                  border border-[var(--color-border-primary)]
+                  hover:border-[var(--color-border-secondary)]
                   shadow-lg
                   hover:shadow-xl
                   transition-all duration-200
                   hover:scale-110
                   hover:-translate-y-0.5
-                  ${showLabels ? "px-4" : "justify-center"}
+                  ${showLabels ? "px-4" : ""}
                   group
                   relative
                   flex-shrink-0
                 `}
+                style={{
+                  background: "rgba(255, 255, 255, 0.05)",
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                }}
               >
-                <FontAwesomeIcon
-                  icon={platformData.icon}
-                  className={`${sizeStyles.icon} flex-shrink-0`}
-                  aria-hidden="true"
-                />
+                <span
+                  className={`${sizeStyles.icon} flex-shrink-0 flex items-center justify-center`}
+                  style={{
+                    color: iconColor,
+                  }}
+                >
+                  {renderIcon(link, sizeStyles.icon)}
+                </span>
                 {showLabels && (
-                  <span className="text-xs font-medium truncate max-w-[80px]">
+                  <span className="text-xs font-medium truncate max-w-[80px] text-[var(--color-text-primary)]">
                     {label}
                   </span>
                 )}
