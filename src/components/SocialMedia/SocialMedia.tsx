@@ -249,10 +249,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
                   flex items-center justify-center
                   ${sizeStyles.button}
                   rounded-full
-                  glass
-                  text-[var(--color-text-primary)]
-                  border border-[var(--color-border-primary)]
-                  hover:border-[var(--color-border-secondary)]
+                  flex-shrink-0
                   shadow-lg
                   hover:shadow-xl
                   transition-all duration-200
@@ -261,12 +258,29 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
                   ${showLabels ? "px-4" : ""}
                   group
                   relative
-                  flex-shrink-0
                 `}
                 style={{
+                  width:
+                    size === "sm" ? "36px" : size === "lg" ? "52px" : "44px",
+                  height:
+                    size === "sm" ? "36px" : size === "lg" ? "52px" : "44px",
+                  minWidth:
+                    size === "sm" ? "36px" : size === "lg" ? "52px" : "44px",
+                  minHeight:
+                    size === "sm" ? "36px" : size === "lg" ? "52px" : "44px",
                   background: "var(--glass-bg, rgba(255,255,255,0.05))",
                   backdropFilter: "blur(12px)",
                   WebkitBackdropFilter: "blur(12px)",
+                  border: `1px solid ${iconColor}44`, // 27% opacity
+                  borderRadius: "50%",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = iconColor;
+                  e.currentTarget.style.boxShadow = `0 0 20px ${iconColor}33`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = `${iconColor}44`;
+                  e.currentTarget.style.boxShadow = "none";
                 }}
               >
                 <span
@@ -292,7 +306,6 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
           className={`
             ${sizeStyles.chevron}
             rounded-full
-            glass
             flex items-center justify-center
             transition-all duration-300
             hover:scale-110
@@ -301,6 +314,15 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
             z-10
             flex-shrink-0
           `}
+          style={{
+            width: size === "sm" ? "32px" : size === "lg" ? "48px" : "40px",
+            height: size === "sm" ? "32px" : size === "lg" ? "48px" : "40px",
+            background: "var(--glass-bg, rgba(255,255,255,0.05))",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            border: "1px solid var(--color-border-primary)",
+            borderRadius: "50%",
+          }}
           aria-label={isExpanded ? "Close social menu" : "Open social menu"}
         >
           <svg
