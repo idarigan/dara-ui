@@ -16,7 +16,7 @@ export interface SocialLink {
   url: string;
   label?: string;
   icon?: IconDefinition | React.ReactNode;
-  color?: string; // Optional custom color
+  color?: string;
 }
 
 export interface SocialMediaProps {
@@ -29,35 +29,15 @@ export interface SocialMediaProps {
   className?: string;
 }
 
+// Platform data - provides fallback icons and colors
 const PLATFORM_DATA: Record<string, { icon: IconDefinition; color: string }> = {
-  github: {
-    icon: faGithub,
-    color: "#24292e",
-  },
-  twitter: {
-    icon: faTwitter,
-    color: "#1DA1F2",
-  },
-  discord: {
-    icon: faDiscord,
-    color: "#5865F2",
-  },
-  youtube: {
-    icon: faYoutube,
-    color: "#FF0000",
-  },
-  instagram: {
-    icon: faInstagram,
-    color: "#E4405F",
-  },
-  linkedin: {
-    icon: faLinkedin,
-    color: "#0A66C2",
-  },
-  bluesky: {
-    icon: faBluesky,
-    color: "#1185FE",
-  },
+  github: { icon: faGithub, color: "#24292e" },
+  twitter: { icon: faTwitter, color: "#1DA1F2" },
+  discord: { icon: faDiscord, color: "#5865F2" },
+  youtube: { icon: faYoutube, color: "#FF0000" },
+  instagram: { icon: faInstagram, color: "#E4405F" },
+  linkedin: { icon: faLinkedin, color: "#0A66C2" },
+  bluesky: { icon: faBluesky, color: "#1185FE" },
 };
 
 export const SocialMedia: React.FC<SocialMediaProps> = ({
@@ -182,7 +162,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
   const buttonPx = sizeStyles.buttonPx;
   const gapPx = 8;
 
-  // Render icon helper - supports both FontAwesome and custom React nodes
+  // Render icon helper
   const renderIcon = (link: SocialLink, iconSizeClass: string) => {
     const platform = detectPlatform(link.url);
     const platformData = getPlatformData(platform);
@@ -284,7 +264,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
                   flex-shrink-0
                 `}
                 style={{
-                  background: "rgba(255, 255, 255, 0.05)",
+                  background: "var(--glass-bg, rgba(255,255,255,0.05))",
                   backdropFilter: "blur(12px)",
                   WebkitBackdropFilter: "blur(12px)",
                 }}

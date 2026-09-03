@@ -66,6 +66,16 @@ import {
   StarIcon,
 } from "./components/Icons";
 
+import {
+  faGithub,
+  faXTwitter,
+  faDiscord,
+  faYoutube,
+  faInstagram,
+  faLinkedin,
+  faBluesky,
+} from "@fortawesome/free-brands-svg-icons";
+
 import "./styles/index.css";
 
 type Theme = "nightfall" | "daylight" | "dracula";
@@ -3399,16 +3409,48 @@ function AppContent() {
             ============================================ */}
           <SocialMedia
             links={[
-              { platform: "github", url: "https://github.com/dara-ui" },
-              { platform: "twitter", url: "https://twitter.com/dara-ui" },
-              { platform: "discord", url: "https://discord.gg/dara-ui" },
-              { platform: "youtube", url: "https://youtube.com/@dara-ui" },
-              { platform: "instagram", url: "https://instagram.com/dara-ui" },
+              {
+                platform: "github",
+                url: "https://github.com/dara-ui",
+                icon: faGithub,
+                color: "#f0f6fc",
+              },
+              {
+                platform: "twitter",
+                url: "https://twitter.com/dara-ui",
+                icon: faXTwitter,
+                color: "#000",
+              },
+              {
+                platform: "discord",
+                url: "https://discord.gg/dara-ui",
+                icon: faDiscord,
+                color: "#5865F2",
+              },
+              {
+                platform: "youtube",
+                url: "https://youtube.com/@dara-ui",
+                icon: faYoutube,
+                color: "#FF0000",
+              },
+              {
+                platform: "instagram",
+                url: "https://instagram.com/dara-ui",
+                icon: faInstagram,
+                color: "#E4405F",
+              },
               {
                 platform: "linkedin",
                 url: "https://linkedin.com/company/dara-ui",
+                icon: faLinkedin,
+                color: "#0A66C2",
               },
-              { platform: "bluesky", url: "https://bsky.app/profile/dara-ui" },
+              {
+                platform: "bluesky",
+                url: "https://bsky.app/profile/dara-ui",
+                icon: faBluesky,
+                color: "#1185FE",
+              },
             ]}
             position="left"
             size="md"
