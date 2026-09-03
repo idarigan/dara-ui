@@ -67,7 +67,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        "bg-[var(--color-primary)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)] hover:shadow-[var(--shadow-glow-primary)]",
+        "bg-[var(--color-primary)] text-[var(--color-text-primary)] shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)] hover:shadow-[var(--shadow-glow-primary)]",
       secondary:
         "bg-[var(--color-secondary)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-secondary)] hover:bg-[var(--color-secondary-hover)] hover:shadow-[var(--shadow-glow-secondary)]",
       accent:
@@ -75,9 +75,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       glass:
         "glass rounded-full text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/40 hover:border-[var(--color-border-secondary)]",
       danger:
-        "bg-[var(--color-danger)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-danger)] hover:bg-[var(--color-danger-hover)] hover:shadow-[var(--shadow-glow-danger)]",
+        "bg-[var(--color-danger)] text-[var(--color-text-primary)] shadow-[var(--shadow-glow-danger)] hover:bg-[var(--color-danger-hover)] hover:shadow-[var(--shadow-glow-danger)]",
       success:
-        "bg-[var(--color-success)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-success)] hover:bg-[var(--color-success-hover)] hover:shadow-[var(--shadow-glow-success)]",
+        "bg-[var(--color-success)] text-[var(--color-text-primary)] shadow-[var(--shadow-glow-success)] hover:bg-[var(--color-success-hover)] hover:shadow-[var(--shadow-glow-success)]",
       outline:
         "bg-transparent text-[var(--color-text-primary)] border border-[var(--color-border-primary)] hover:bg-[var(--color-primary)]/10 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]",
     };
