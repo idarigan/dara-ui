@@ -125,16 +125,9 @@ export const CustomThemes: Story = {
   render: () => (
     <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
       <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
-        Custom theme list with custom icons
+        Custom theme list with SVG icons
       </p>
-      <ThemeChanger
-        availableThemes={[
-          { value: "nightfall", label: "Night", icon: "🌙" },
-          { value: "daylight", label: "Day", icon: "☀️" },
-          { value: "bloody-moon", label: "Blood", icon: "🔴" },
-        ]}
-        autoDetect={false}
-      />
+      <ThemeChanger autoDetect={false} />
     </div>
   ),
 };

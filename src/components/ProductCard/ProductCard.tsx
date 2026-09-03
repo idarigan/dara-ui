@@ -11,7 +11,7 @@ export interface ProductCardProps {
   /**
    * Product price
    */
-  price: number | string;
+  price: number | stringtring;
   /**
    * Product currency symbol
    * @default "$"
@@ -138,6 +138,21 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const isCompact = layout === "compact";
   const isVertical = layout === "vertical";
 
+  // Live RTL detection
+  const [isRTL, setIsRTL] = useState(false);
+  React.useEffect(() => {
+    const updateDir = () => {
+      setIsRTL(document.documentElement.dir === "rtl");
+    };
+    updateDir();
+    const observer = new MutationObserver(updateDir);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["dir"],
+    });
+    return () => observer.disconnect();
+  }, []);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current || isCompact) return;
     const rect = cardRef.current.getBoundingClientRect();
@@ -220,6 +235,34 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const isInteractive = !showQuickActions && onClick;
   const hasLink = !!link;
 
+  // Classic corner sale ribbon (LTR = top-right, RTL = top-left)
+  const saleRibbon = onSale && isCompact && (
+    <div
+      className={`
+        absolute top-0 z-20 w-[4.5rem] h-[4.5rem]
+        overflow-hidden pointer-events-none
+        ${isRTL ? "left-0" : "right-0"}
+      `}
+      aria-hidden="true"
+    >
+      <span
+        className={`
+          absolute top-[0.35rem] w-[7rem]
+          bg-[var(--color-danger)] text-white
+          text-[10px] font-bold uppercase tracking-wider
+          py-0.5 text-center shadow-sm
+          ${
+            isRTL
+              ? "left-[-2.35rem] -rotate-45 origin-center"
+              : "right-[-2.35rem] rotate-45 origin-center"
+          }
+        `}
+      >
+        Sale
+      </span>
+    </div>
+  );
+
   return (
     <div
       ref={cardRef}
@@ -243,6 +286,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         borderColor: isHovering
           ? "color-mix(in srgb, var(--color-primary) 35%, var(--color-border-primary))"
           : undefined,
+        overflow: "hidden",
+        borderRadius: "var(--radius-standard)",
       }}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
@@ -270,16 +315,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       />
 
       {/* Compact corner Sale ribbon */}
-      {isCompact && onSale && (
-        <div
-          className="absolute top-0 end-0 z-20 w-12 h-12 overflow-hidden pointer-events-none"
-          aria-hidden="true"
-        >
-          <span className="absolute top-[7px] end-[-18px] w-[56px] text-center bg-[var(--color-danger)] text-white text-[8px] font-bold uppercase tracking-wider py-0.5 shadow-sm rotate-45 origin-center">
-            Sale
-          </span>
-        </div>
-      )}
+      {saleRibbon}
 
       {/* Compact full-card Out of Stock */}
       {isCompact && !inStock && (
@@ -461,7 +497,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         )}
       </div>
 
-      {/* Compact cart – pops on hover */}
+      {/* Compact card */}
       {isCompact && showQuickActions && (
         <button
           type="button"

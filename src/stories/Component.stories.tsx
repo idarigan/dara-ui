@@ -17,8 +17,7 @@ export const Default: Story = {
         Dara UI
       </h1>
       <p className="text-[var(--color-text-secondary)] text-lg mb-6">
-        A design system discovered inside a futuristic archive hidden beneath
-        Calgary.
+        A design system discovered inside a futuristic archive hidden beneath .
       </p>
       <div className="flex gap-3 justify-center flex-wrap">
         <span className="px-3 py-1 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-sm">

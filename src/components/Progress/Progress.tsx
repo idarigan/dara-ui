@@ -484,8 +484,6 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                         : "0.9rem",
                   padding: actualSize < 60 ? "1px 4px" : "2px 6px",
                   color: "var(--color-text-primary)",
-                  backgroundColor: "var(--color-bg-secondary)",
-                  boxShadow: "0 0 0 2px var(--color-bg-secondary)",
                 }}
               >
                 {displayLabel}

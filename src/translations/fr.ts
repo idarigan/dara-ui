@@ -146,7 +146,7 @@ export const fr = {
     stats: "Statistiques",
     settings: "Paramètres",
     archiveContent:
-      "Parcourez les enregistrements Jedi cryptés, les holocrons et les journaux de mission des archives de Calgary.",
+      "Parcourez les enregistrements Jedi cryptés, les holocrons et les journaux de mission des archives de .",
     questsContent:
       "Des missions actives, des primes et des quêtes secondaires vous attendent, Padawan.",
     statsContent:
@@ -164,9 +164,9 @@ export const fr = {
     controlled: "Contrôlé - Éléments ouverts :",
     withIcons: "Avec icônes",
     q1: "Qu'est-ce que Dara UI ?",
-    a1: "Dara UI est un système de design qui ressemble à une interface découverte dans une archive futuriste cachée sous Calgary lors d'une tempête de neige. Il mélange le glassmorphisme, le cyberpunk, l'esthétique gothique, le minimalisme d'Apple et des éléments d'interface anime.",
+    a1: "Dara UI est un système de design qui ressemble à une interface découverte dans une archive futuriste cachée sous  lors d'une tempête de neige. Il mélange le glassmorphisme, le cyberpunk, l'esthétique gothique, le minimalisme d'Apple et des éléments d'interface anime.",
     q2: "Quels thèmes sont disponibles ?",
-    a2: "Archive Nocturne (défaut), Calgary Enneigée (clair), Mode Sith (noir + rouge), Temple Jedi (blanc + bleu), Dracula (violet) et Vin (rouges profonds).",
+    a2: "Archive Nocturne (défaut),  Enneigée (clair), Mode Sith (noir + rouge), Temple Jedi (blanc + bleu), Dracula (violet) et Vin (rouges profonds).",
     q3: "Comment l'installer ?",
     dashboard: "Tableau de bord",
     projects: "Projets",

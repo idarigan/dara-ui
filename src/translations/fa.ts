@@ -258,7 +258,7 @@ export const fa = {
     radialCustom: "دایره‌ای با برچسب سفارشی",
     radialSizes: "اندازه‌های دایره‌ای",
     almostDone: "تقریبا تمام شد!",
-    loading: "در حال بارگذاری...",
+    loading: "لودینگ...",
     done: "انجام شد!",
   },
   xpbar: {

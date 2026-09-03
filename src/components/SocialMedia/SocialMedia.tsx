@@ -273,10 +273,12 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
                   WebkitBackdropFilter: "blur(12px)",
                   border: `1px solid ${iconColor}44`, // 27% opacity
                   borderRadius: "50%",
+                  transition:
+                    "border-color 0.25s ease, box-shadow 0.25s ease, scale 0.25s ease",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = iconColor;
-                  e.currentTarget.style.boxShadow = `0 0 20px ${iconColor}33`;
+                  e.currentTarget.style.boxShadow = `0 0 24px ${iconColor}44`;
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = `${iconColor}44`;
