@@ -67,19 +67,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        "bg-[var(--color-primary-solid)] text-white shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)]",
+        "bg-[var(--color-primary)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)] hover:shadow-[var(--shadow-glow-primary)]",
       secondary:
-        "bg-[var(--color-secondary)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-secondary)] hover:bg-[var(--color-secondary-hover)]",
+        "bg-[var(--color-secondary)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-secondary)] hover:bg-[var(--color-secondary-hover)] hover:shadow-[var(--shadow-glow-secondary)]",
       accent:
-        "bg-[var(--color-accent)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-accent)] hover:bg-[var(--color-accent-hover)]",
+        "bg-[var(--color-accent)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-accent)] hover:bg-[var(--color-accent-hover)] hover:shadow-[var(--shadow-glow-accent)]",
       glass:
-        "glass rounded-full text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/40",
+        "glass rounded-full text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/40 hover:border-[var(--color-border-secondary)]",
       danger:
-        "bg-[var(--color-danger)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-danger)] hover:bg-[var(--color-danger-hover)]",
+        "bg-[var(--color-danger)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-danger)] hover:bg-[var(--color-danger-hover)] hover:shadow-[var(--shadow-glow-danger)]",
       success:
-        "bg-[var(--color-success)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-success)] hover:bg-[var(--color-success-hover)]",
+        "bg-[var(--color-success)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-success)] hover:bg-[var(--color-success-hover)] hover:shadow-[var(--shadow-glow-success)]",
       outline:
-        "bg-transparent text-[var(--color-text-primary)] border border-[var(--color-border-primary)] hover:bg-[var(--color-bg-elevated)]/30 hover:border-[var(--color-primary)]",
+        "bg-transparent text-[var(--color-text-primary)] border border-[var(--color-border-primary)] hover:bg-[var(--color-primary)]/10 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]",
     };
 
     const sizes = {
@@ -89,9 +89,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const glowStyles = {
-      primary: "hover:shadow-[0_0_50px_rgba(124,92,255,0.5)]",
-      secondary: "hover:shadow-[0_0_50px_rgba(0,217,255,0.5)]",
-      accent: "hover:shadow-[0_0_50px_rgba(255,77,157,0.5)]",
+      primary:
+        "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-primary)_50%,_transparent)]",
+      secondary:
+        "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-secondary)_50%,_transparent)]",
+      accent:
+        "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-accent)_50%,_transparent)]",
     };
 
     const classes = [
