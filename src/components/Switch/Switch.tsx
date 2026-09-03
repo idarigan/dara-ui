@@ -222,16 +222,16 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
               rounded-full
               overflow-visible
               transition-all duration-300 ease-[var(--ease-in-out)]
-              border
+              border-2
               ${
                 checked
                   ? `
-                    bg-[var(--color-primary)]/25
-                    border-[var(--color-primary)]/50
+                    bg-[var(--color-primary)]
+                    border-[var(--color-primary)]
                     backdrop-blur-[12px]
                   `
                   : `
-                    bg-[var(--color-bg-elevated)]/40
+                    bg-[var(--color-bg-tertiary)]
                     border-[var(--color-border-primary)]
                     backdrop-blur-[10px]
                   `
