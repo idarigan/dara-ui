@@ -29,7 +29,7 @@ export interface SocialMediaProps {
   className?: string;
 }
 
-// Platform data - provides fallback icons and colors
+// Platform dat
 const PLATFORM_DATA: Record<string, { icon: IconDefinition; color: string }> = {
   github: { icon: faGithub, color: "#24292e" },
   twitter: { icon: faTwitter, color: "#1DA1F2" },
@@ -52,6 +52,25 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Detect if we're in dark mode by checking the theme
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  useEffect(() => {
+    const checkTheme = () => {
+      const theme = document.documentElement.getAttribute("data-theme");
+      setIsDarkMode(theme === "nightfall" || theme === "dracula" || !theme);
+    };
+    checkTheme();
+
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const detectPlatform = (url: string): string => {
     const urlLower = url.toLowerCase();
@@ -162,6 +181,34 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
   const buttonPx = sizeStyles.buttonPx;
   const gapPx = 8;
 
+  // Helper to determine if a color is dark
+  const isDarkColor = (hex: string) => {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance < 0.5;
+  };
+
+  // Get adaptive icon color
+  const getAdaptiveColor = (link: SocialLink) => {
+    const color = link.color || getPlatformData(detectPlatform(link.url)).color;
+
+    // If user provided a color, use it
+    if (link.color) return color;
+
+    // In dark mode: keep the color as-is
+    if (isDarkMode) return color;
+
+    // In light mode
+    if (isDarkColor(color)) {
+      // Lighten dark colors for light mode
+      return color === "#24292e" ? "#57606a" : color;
+    }
+
+    return color;
+  };
+
   // Render icon helper
   const renderIcon = (link: SocialLink, iconSizeClass: string) => {
     const platform = detectPlatform(link.url);
@@ -196,12 +243,12 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     );
   };
 
-  // Get icon color - user provided or platform default
+  // Get icon color - user provided or adapted
   const getIconColor = (link: SocialLink) => {
     if (link.color) return link.color;
     const platform = detectPlatform(link.url);
     const data = getPlatformData(platform);
-    return data.color;
+    return getAdaptiveColor(link);
   };
 
   return (
@@ -271,7 +318,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
                   background: "var(--glass-bg, rgba(255,255,255,0.05))",
                   backdropFilter: "blur(12px)",
                   WebkitBackdropFilter: "blur(12px)",
-                  border: `1px solid ${iconColor}44`, // 27% opacity
+                  border: `1px solid ${iconColor}44`,
                   borderRadius: "50%",
                   transition:
                     "border-color 0.25s ease, box-shadow 0.25s ease, scale 0.25s ease",
