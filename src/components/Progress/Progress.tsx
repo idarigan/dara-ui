@@ -134,7 +134,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
       lg: 100,
     };
 
-    // Color mapping
+    // Color mapping for horizontal
     const colorMap = {
       primary: "bg-[var(--color-primary)]",
       secondary: "bg-[var(--color-secondary)]",
@@ -146,29 +146,29 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
         "bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)]",
     };
 
-    // Color mapping for radial (stroke color)
+    // Color mapping for radial
     const radialColorMap = {
-      primary: "stroke-[var(--color-primary)]",
-      secondary: "stroke-[var(--color-secondary)]",
-      accent: "stroke-[var(--color-accent)]",
-      success: "stroke-[var(--color-success)]",
-      danger: "stroke-[var(--color-danger)]",
-      warning: "stroke-[var(--color-warning)]",
-      gradient: "stroke-[var(--color-primary)]",
+      primary: "var(--color-primary)",
+      secondary: "var(--color-secondary)",
+      accent: "var(--color-accent)",
+      success: "var(--color-success)",
+      danger: "var(--color-danger)",
+      warning: "var(--color-warning)",
+      gradient: "url(#radialGradient)",
     };
 
-    // Glow colors (used for horizontal fill glow + radial glow ring)
+    // Glow colors
     const glowColors = {
-      primary: "rgba(124, 92, 255, 0.35)",
+      primary: "rgba(167, 139, 250, 0.35)",
       secondary: "rgba(0, 217, 255, 0.35)",
       accent: "rgba(255, 77, 157, 0.35)",
       success: "rgba(0, 255, 153, 0.35)",
       danger: "rgba(255, 83, 112, 0.35)",
       warning: "rgba(255, 200, 87, 0.35)",
-      gradient: "rgba(124, 92, 255, 0.35)",
+      gradient: "rgba(167, 139, 250, 0.35)",
     };
 
-    // Generate label text based on displayType
+    // Generate label text
     const getLabelText = (): string => {
       if (label) return label;
       if (labelFormat) return labelFormat(clampedValue, max);
@@ -186,7 +186,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
 
     const labelText = getLabelText();
 
-    // --- Horizontal Variant ---
+    // ----- Horizontal Variant (unchanged) -----
     if (variant === "horizontal") {
       const barClass = animated
         ? "transition-all duration-[var(--transition-base)] ease-[var(--ease-in-out)]"
@@ -224,7 +224,6 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
         horizontalSizes[size as keyof typeof horizontalSizes] ||
         horizontalSizes.md;
 
-      // Get glow color for this variant
       const glowColor =
         glowColors[color as keyof typeof glowColors] || glowColors.primary;
 
@@ -237,17 +236,16 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
           {showLabel && isLabelBefore && (
             <span
               className={`
-          font-mono text-xs font-medium text-[var(--color-text-secondary)]
-          flex-shrink-0
-          ${labelOrderClass}
-        `}
+                font-mono text-xs font-medium text-[var(--color-text-secondary)]
+                flex-shrink-0
+                ${labelOrderClass}
+              `}
             >
               {labelText}
             </span>
           )}
 
           <div className="flex-1 w-full relative">
-            {/* Glow layer */}
             {glow && percentage > 0 && (
               <div
                 className="absolute inset-0 rounded-full pointer-events-none z-0"
@@ -260,7 +258,6 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
               />
             )}
 
-            {/* Track */}
             <div
               className={`
                 w-full rounded-full
@@ -285,7 +282,6 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
               aria-valuemin={0}
               aria-valuemax={max}
             >
-              {/* Fill */}
               <div
                 className={`h-full rounded-full ${colorMap[color]} ${barClass} relative flex items-center justify-end`}
                 style={{
@@ -293,7 +289,6 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                   transition: animated ? "width 0.4s ease" : "none",
                 }}
               >
-                {/* Label inside the bar */}
                 {showLabel && isLabelInside && percentage > 15 && (
                   <span
                     className={`
@@ -322,7 +317,6 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
               </div>
             </div>
 
-            {/* Label inside but positioned absolutely outside the fill */}
             {showLabel && isLabelInside && percentage <= 15 && (
               <span
                 className={`
@@ -357,7 +351,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
       );
     }
 
-    // --- Radial Variant ---
+    // --- Radial Variant with full color support ---
     const actualSize =
       radialSize || radialSizes[size as keyof typeof radialSizes] || 80;
     const center = actualSize / 2;
@@ -365,11 +359,25 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
     const circumference = 2 * Math.PI * radius;
     const offset = circumference - (percentage / 100) * circumference;
 
-    // Glow for radial
     const glowColor =
       glowColors[color as keyof typeof glowColors] || glowColors.primary;
-
     const displayLabel = showLabel ? labelText : "";
+
+    // Get the stroke color for the radial progress
+    const getStrokeColor = () => {
+      if (color === "gradient") {
+        return "url(#radialGradient)";
+      }
+      return `var(--color-${color})`;
+    };
+
+    // Get the stroke color for the glow ring
+    const getGlowStrokeColor = () => {
+      if (color === "gradient") {
+        return "url(#glowGradient)";
+      }
+      return `var(--color-${color})`;
+    };
 
     return (
       <div
@@ -386,62 +394,56 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
           aria-valuemin={0}
           aria-valuemax={max}
         >
-          {/* Glow ring (outer glow) - only if glow is enabled */}
-          {glow && percentage > 0 && (
-            <svg
-              className="absolute inset-0"
-              width={actualSize}
-              height={actualSize}
-              aria-hidden="true"
-              style={{ filter: `blur(10px)`, opacity: 0.35 }}
-            >
-              <defs>
-                <linearGradient
-                  id="radialGrad"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
-                  <stop offset="0%" stopColor="var(--color-primary)" />
-                  <stop offset="100%" stopColor="var(--color-accent)" />
-                </linearGradient>
-              </defs>
-              <circle
-                cx={center}
-                cy={center}
-                r={radius + thickness / 2}
-                fill="none"
-                stroke="url(#radialGrad)"
-                strokeWidth={thickness + 6}
-                strokeDasharray={circumference}
-                strokeDashoffset={offset}
-                strokeLinecap="round"
-                transform={`rotate(-90 ${center} ${center})`}
-              />
-            </svg>
-          )}
-
-          {/* Main ring */}
           <svg
-            className="relative"
-            width={actualSize}
-            height={actualSize}
+            className="relative w-full h-full"
             viewBox={`0 0 ${actualSize} ${actualSize}`}
             aria-hidden="true"
           >
             <defs>
+              {/* Gradient for the main ring */}
               <linearGradient
-                id="radialGrad"
+                id="radialGradient"
                 x1="0%"
                 y1="0%"
                 x2="100%"
                 y2="100%"
               >
                 <stop offset="0%" stopColor="var(--color-primary)" />
-                <stop offset="100%" stopColor="var(--color-accent)" />
+                <stop offset="100%" stopColor="var(--color-secondary)" />
+              </linearGradient>
+              {/* Gradient for the glow ring */}
+              <linearGradient
+                id="glowGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                <stop offset="0%" stopColor="var(--color-primary)" />
+                <stop offset="100%" stopColor="var(--color-secondary)" />
               </linearGradient>
             </defs>
+
+            {/* Glow ring (outer glow) */}
+            {glow && percentage > 0 && (
+              <circle
+                cx={center}
+                cy={center}
+                r={radius + thickness / 2}
+                fill="none"
+                stroke={getGlowStrokeColor()}
+                strokeWidth={thickness + 6}
+                strokeDasharray={circumference}
+                strokeDashoffset={offset}
+                strokeLinecap="round"
+                transform={`rotate(-90 ${center} ${center})`}
+                style={{
+                  filter: "blur(10px)",
+                  opacity: 0.35,
+                  transition: animated ? "stroke-dashoffset 0.6s ease" : "none",
+                }}
+              />
+            )}
 
             {/* Background track */}
             <circle
@@ -459,7 +461,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
               cy={center}
               r={radius}
               fill="none"
-              stroke="url(#radialGrad)"
+              stroke={getStrokeColor()}
               strokeWidth={thickness}
               strokeDasharray={circumference}
               strokeDashoffset={offset}
@@ -470,11 +472,12 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
               }}
             />
           </svg>
-          {/* Center content - label */}
+
+          {/* Center label */}
           {showLabel && (
             <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
               <span
-                className="font-heading font-bold rounded-full leading-none"
+                className="font-heading font-bold leading-none"
                 style={{
                   fontSize:
                     actualSize < 60
@@ -482,8 +485,9 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                       : actualSize < 80
                         ? "0.75rem"
                         : "0.9rem",
-                  padding: actualSize < 60 ? "1px 4px" : "2px 6px",
                   color: "var(--color-text-primary)",
+                  textShadow:
+                    "0 0 30px var(--color-bg-primary), 0 0 60px var(--color-bg-primary)",
                 }}
               >
                 {displayLabel}
