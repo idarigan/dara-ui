@@ -43,7 +43,16 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 /**
- * Dara UI Button
+ * Dara UI Button - Glassmorphism style with cyberpunk aesthetics
+ *
+ * Features:
+ * - Multiple variants: primary, secondary, accent, glass, danger, success, outline
+ * - Three sizes: sm, md, lg
+ * - Glow effects with theme-aware shadows
+ * - Loading state with spinner
+ * - Full width option
+ * - Icon support on both sides
+ * - Smooth hover animations with scale and lift
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -67,34 +76,34 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        "bg-[var(--color-primary)] text-[var(--color-text-primary)] shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)] hover:shadow-[var(--shadow-glow-primary)]",
+        "bg-[var(--color-primary-solid)] text-white shadow-[var(--shadow-btn-primary)] hover:bg-[var(--color-primary-hover)] hover:shadow-[var(--shadow-btn-primary-hover)] hover:brightness-105",
       secondary:
-        "bg-[var(--color-secondary)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-secondary)] hover:bg-[var(--color-secondary-hover)] hover:shadow-[var(--shadow-glow-secondary)]",
+        "bg-[var(--color-secondary-solid)] text-white shadow-[var(--shadow-btn-secondary)] hover:bg-[var(--color-secondary-hover)] hover:shadow-[var(--shadow-btn-secondary-hover)] hover:brightness-105",
       accent:
-        "bg-[var(--color-accent)] text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-accent)] hover:bg-[var(--color-accent-hover)] hover:shadow-[var(--shadow-glow-accent)]",
+        "bg-[var(--color-accent-solid)] text-white shadow-[var(--shadow-btn-accent)] hover:bg-[var(--color-accent-hover)] hover:shadow-[var(--shadow-btn-accent-hover)] hover:brightness-105",
       glass:
-        "glass rounded-full text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/40 hover:border-[var(--color-border-secondary)]",
+        "glass text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/40 hover:border-[var(--color-border-secondary)] hover:shadow-[var(--shadow-float)]",
       danger:
-        "bg-[var(--color-danger)] text-[var(--color-text-primary)] shadow-[var(--shadow-glow-danger)] hover:bg-[var(--color-danger-hover)] hover:shadow-[var(--shadow-glow-danger)]",
+        "bg-[var(--color-danger-solid)] text-white shadow-[var(--shadow-btn-danger)] hover:bg-[var(--color-danger-hover)] hover:shadow-[var(--shadow-btn-danger-hover)] hover:brightness-105",
       success:
-        "bg-[var(--color-success)] text-[var(--color-text-primary)] shadow-[var(--shadow-glow-success)] hover:bg-[var(--color-success-hover)] hover:shadow-[var(--shadow-glow-success)]",
+        "bg-[var(--color-success-solid)] text-white shadow-[var(--shadow-btn-success)] hover:bg-[var(--color-success-hover)] hover:shadow-[var(--shadow-btn-success-hover)] hover:brightness-105",
       outline:
-        "bg-transparent text-[var(--color-text-primary)] border border-[var(--color-border-primary)] hover:bg-[var(--color-primary)]/10 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]",
+        "bg-transparent text-[var(--color-text-primary)] border-2 border-[var(--color-border-primary)] hover:bg-[var(--color-primary-light)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] hover:shadow-[var(--shadow-btn-primary)]",
     };
 
     const sizes = {
-      sm: "px-4 py-1.5 text-sm",
-      md: "px-6 py-2.5 text-base",
-      lg: "px-8 py-3.5 text-lg",
+      sm: "px-4 py-1.5 text-sm min-h-[32px]",
+      md: "px-6 py-2.5 text-base min-h-[40px]",
+      lg: "px-8 py-3.5 text-lg min-h-[48px]",
     };
 
     const glowStyles = {
       primary:
-        "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-primary)_50%,_transparent)]",
+        "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-primary-solid)_50%,_transparent)]",
       secondary:
-        "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-secondary)_50%,_transparent)]",
+        "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-secondary-solid)_50%,_transparent)]",
       accent:
-        "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-accent)_50%,_transparent)]",
+        "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-accent-solid)_50%,_transparent)]",
     };
 
     const classes = [
@@ -103,7 +112,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       sizes[size],
       fullWidth ? "w-full" : "",
       loading ? "opacity-80 pointer-events-none" : "",
-      glow ? glowStyles[glow] : "",
+      glow && glow !== "" ? glowStyles[glow] : "",
       className,
     ]
       .filter(Boolean)
@@ -119,9 +128,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {loading && (
           <span className="spinner inline-block w-4 h-4 border-2 border-transparent border-t-current rounded-full animate-spin" />
         )}
-        {leftIcon && <span>{leftIcon}</span>}
+        {leftIcon && <span className="flex-shrink-0">{leftIcon}</span>}
         {children}
-        {rightIcon && <span>{rightIcon}</span>}
+        {rightIcon && <span className="flex-shrink-0">{rightIcon}</span>}
       </button>
     );
   },

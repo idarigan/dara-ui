@@ -34,8 +34,6 @@ import StatsWidget from "./components/StatsWidget";
 import Checkbox from "./components/Checkbox";
 import Switch from "./components/Switch";
 import Radio from "./components/Radio";
-import { Sidebar } from "./components/Sidebar";
-import type { SidebarGroup } from "./components/Sidebar";
 import { Range } from "./components/Range/Range";
 import { ProductCard } from "./components/ProductCard/ProductCard";
 import { BlogCard } from "./components/BlogCard/BlogCard";
@@ -66,10 +64,6 @@ import {
   VolumeHighIcon,
   VolumeMuteIcon,
   StarIcon,
-  FolderIcon,
-  DocsIcon,
-  MailIcon,
-  LogoutIcon,
 } from "./components/Icons";
 
 import {
@@ -83,7 +77,6 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 import "./styles/index.css";
-import Sidebar from "./components/Sidebar";
 
 type Theme = "nightfall" | "daylight" | "dracula";
 
@@ -513,12 +506,32 @@ function AppContent() {
             <div className="flex flex-wrap gap-3">
               <Button variant="primary">{t("buttons.primary")}</Button>
               <Button variant="secondary">{t("buttons.secondary")}</Button>
+              <Button variant="accent">{t("buttons.accent")}</Button>
               <Button variant="glass">{t("buttons.glass")}</Button>
               <Button variant="danger">{t("buttons.danger")}</Button>
               <Button variant="success">{t("buttons.success")}</Button>
               <Button variant="outline">{t("buttons.outline")}</Button>
             </div>
           </section>
+
+          {/* Buttons: with glow */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("buttons.withGlow")}
+            </h2>
+            <div className="flex flex-wrap gap-3">
+              <Button glow="primary" variant="primary">
+                {t("buttons.glowPrimary")}
+              </Button>
+              <Button glow="secondary" variant="secondary">
+                {t("buttons.glowSecondary")}
+              </Button>
+              <Button glow="accent" variant="accent">
+                {t("buttons.glowAccent")}
+              </Button>
+            </div>
+          </section>
+
           {/* Buttons: states */}
           <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
             <h2 className="text-2xl font-semibold mb-6">
@@ -526,13 +539,10 @@ function AppContent() {
             </h2>
             <div className="flex flex-wrap gap-3 items-center">
               <Button variant="primary">{t("buttons.normal")}</Button>
-              <Button
-                variant="primary"
-                className="bg-[var(--color-primary-hover)] shadow-[var(--shadow-glow-primary)]"
-              >
+              <Button variant="primary" className="hover:brightness-105">
                 {t("buttons.hover")}
               </Button>
-              <Button variant="primary" className="scale-95">
+              <Button variant="primary" className="active:scale-95">
                 {t("buttons.pressed")}
               </Button>
               <Button variant="primary" disabled>
@@ -543,6 +553,7 @@ function AppContent() {
               </Button>
             </div>
           </section>
+
           {/* Buttons: sizes */}
           <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
             <h2 className="text-2xl font-semibold mb-6">
@@ -557,6 +568,75 @@ function AppContent() {
               </Button>
               <Button size="lg" variant="primary">
                 {t("buttons.large")}
+              </Button>
+            </div>
+          </section>
+
+          {/* Buttons: with icons */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("buttons.withIcons")}
+            </h2>
+            <div className="flex flex-wrap gap-3 items-center">
+              <Button
+                variant="primary"
+                leftIcon={
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
+                }
+              >
+                {t("buttons.launch")}
+              </Button>
+              <Button
+                variant="secondary"
+                rightIcon={
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
+                  </svg>
+                }
+              >
+                {t("buttons.next")}
+              </Button>
+              <Button
+                variant="success"
+                leftIcon={
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                }
+              >
+                {t("buttons.confirm")}
               </Button>
             </div>
           </section>
@@ -3408,232 +3488,6 @@ function AppContent() {
                   </div>
                 );
               })()}
-            </div>
-          </section>
-
-          {/* ============================================
-            SIDEBAR SHOWCASE
-            ============================================ */}
-          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
-            <h2 className="text-2xl font-semibold mb-6">
-              {t("sidebar.title")}
-            </h2>
-            <p className="text-[var(--color-text-secondary)] text-sm mb-6 font-sans">
-              {t("sidebar.subtitle")}
-            </p>
-
-            {/* Sidebar Demo Container */}
-            <div className="border border-[var(--color-border-primary)] rounded-[var(--radius-large)] overflow-hidden min-h-[500px]">
-              <Sidebar
-                brand={
-                  <span
-                    className="font-heading font-bold text-lg tracking-tight truncate"
-                    style={{
-                      background: "var(--gradient-primary)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    DARA UI
-                  </span>
-                }
-                groups={[
-                  {
-                    label: t("sidebar.main"),
-                    icon: <HomeIcon />,
-                    defaultExpanded: true,
-                    items: [
-                      {
-                        id: "dashboard",
-                        label: t("sidebar.dashboard"),
-                        icon: <HomeIcon />,
-                        active: true,
-                        content: (
-                          <div>
-                            <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                              {t("sidebar.dashboard")}
-                            </h2>
-                            <p className="text-[var(--color-text-secondary)]">
-                              {t("sidebar.dashboardContent")}
-                            </p>
-                          </div>
-                        ),
-                      },
-                      {
-                        id: "projects",
-                        label: t("sidebar.projects"),
-                        icon: <FolderIcon />,
-                        badge: 12,
-                        content: (
-                          <div>
-                            <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                              {t("sidebar.projects")}
-                            </h2>
-                            <p className="text-[var(--color-text-secondary)]">
-                              {t("sidebar.projectsContent")}
-                            </p>
-                          </div>
-                        ),
-                      },
-                      {
-                        id: "team",
-                        label: t("sidebar.team"),
-                        icon: <UserIcon />,
-                        content: (
-                          <div>
-                            <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                              {t("sidebar.team")}
-                            </h2>
-                            <p className="text-[var(--color-text-secondary)]">
-                              {t("sidebar.teamContent")}
-                            </p>
-                          </div>
-                        ),
-                      },
-                    ],
-                  },
-                  {
-                    label: t("sidebar.management"),
-                    icon: <SettingsIcon />,
-                    items: [
-                      {
-                        id: "documents",
-                        label: t("sidebar.documents"),
-                        icon: <DocsIcon />,
-                        subItems: [
-                          {
-                            id: "docs-invoices",
-                            label: t("sidebar.invoices"),
-                            content: (
-                              <div>
-                                <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                                  {t("sidebar.invoices")}
-                                </h2>
-                                <p className="text-[var(--color-text-secondary)]">
-                                  {t("sidebar.invoicesContent")}
-                                </p>
-                              </div>
-                            ),
-                          },
-                          {
-                            id: "docs-reports",
-                            label: t("sidebar.reports"),
-                            badge: 3,
-                            content: (
-                              <div>
-                                <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                                  {t("sidebar.reports")}
-                                </h2>
-                                <p className="text-[var(--color-text-secondary)]">
-                                  {t("sidebar.reportsContent")}
-                                </p>
-                              </div>
-                            ),
-                          },
-                          {
-                            id: "docs-archive",
-                            label: t("sidebar.archive"),
-                            content: (
-                              <div>
-                                <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                                  {t("sidebar.archive")}
-                                </h2>
-                                <p className="text-[var(--color-text-secondary)]">
-                                  {t("sidebar.archiveContent")}
-                                </p>
-                              </div>
-                            ),
-                          },
-                        ],
-                        content: <div>{t("sidebar.documents")} overview</div>,
-                      },
-                      {
-                        id: "messages",
-                        label: t("sidebar.messages"),
-                        icon: <MailIcon />,
-                        badge: 5,
-                        subItems: [
-                          {
-                            id: "msgs-inbox",
-                            label: t("sidebar.inbox"),
-                            content: (
-                              <div>
-                                <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                                  {t("sidebar.inbox")}
-                                </h2>
-                                <p className="text-[var(--color-text-secondary)]">
-                                  {t("sidebar.inboxContent")}
-                                </p>
-                              </div>
-                            ),
-                          },
-                          {
-                            id: "msgs-sent",
-                            label: t("sidebar.sent"),
-                            content: (
-                              <div>
-                                <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                                  {t("sidebar.sent")}
-                                </h2>
-                                <p className="text-[var(--color-text-secondary)]">
-                                  {t("sidebar.sentContent")}
-                                </p>
-                              </div>
-                            ),
-                          },
-                          {
-                            id: "msgs-drafts",
-                            label: t("sidebar.drafts"),
-                            content: (
-                              <div>
-                                <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                                  {t("sidebar.drafts")}
-                                </h2>
-                                <p className="text-[var(--color-text-secondary)]">
-                                  {t("sidebar.draftsContent")}
-                                </p>
-                              </div>
-                            ),
-                          },
-                        ],
-                        content: <div>{t("sidebar.messages")} overview</div>,
-                      },
-                      {
-                        id: "settings",
-                        label: t("sidebar.settings"),
-                        icon: <SettingsIcon />,
-                        content: (
-                          <div>
-                            <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                              {t("sidebar.settings")}
-                            </h2>
-                            <p className="text-[var(--color-text-secondary)]">
-                              {t("sidebar.settingsContent")}
-                            </p>
-                          </div>
-                        ),
-                      },
-                    ],
-                  },
-                ]}
-                footer={
-                  <button className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 w-full px-3 py-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-elevated)]/30 text-sm">
-                    <LogoutIcon />
-                    <span>{t("sidebar.logout")}</span>
-                  </button>
-                }
-                fixed={false}
-              />
-            </div>
-
-            <div className="mt-4 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
-              <p className="text-sm text-[var(--color-text-secondary)]">
-                <span className="font-mono text-xs text-[var(--color-text-tertiary)]">
-                  ℹ️ {t("sidebar.hint")}:
-                </span>{" "}
-                {t("sidebar.tip1")} · {t("sidebar.tip2")} · {t("sidebar.tip3")}
-              </p>
             </div>
           </section>
 

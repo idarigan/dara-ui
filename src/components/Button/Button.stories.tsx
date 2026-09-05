@@ -6,11 +6,6 @@ const meta = {
   component: Button,
   parameters: {
     layout: "centered",
-    a11y: {
-      config: {
-        rules: [{ id: "color-contrast", enabled: false }],
-      },
-    },
   },
   tags: ["autodocs"],
   argTypes: {
@@ -55,7 +50,7 @@ export const Default: Story = {
 export const Variants: Story = {
   render: function VariantsStory() {
     return (
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 p-4 bg-[var(--color-bg-secondary)] rounded-[var(--radius-standard)]">
         <Button variant="primary">Primary</Button>
         <Button variant="secondary">Secondary</Button>
         <Button variant="accent">Accent</Button>
@@ -72,10 +67,16 @@ export const Variants: Story = {
 export const Sizes: Story = {
   render: function SizesStory() {
     return (
-      <div className="flex flex-wrap gap-3 items-center">
-        <Button size="sm">Small</Button>
-        <Button size="md">Medium</Button>
-        <Button size="lg">Large</Button>
+      <div className="flex flex-wrap gap-3 items-center p-4 bg-[var(--color-bg-secondary)] rounded-[var(--radius-standard)]">
+        <Button size="sm" variant="primary">
+          Small
+        </Button>
+        <Button size="md" variant="primary">
+          Medium
+        </Button>
+        <Button size="lg" variant="primary">
+          Large
+        </Button>
       </div>
     );
   },
@@ -85,7 +86,7 @@ export const Sizes: Story = {
 export const WithGlow: Story = {
   render: function WithGlowStory() {
     return (
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 p-4 bg-[var(--color-bg-secondary)] rounded-[var(--radius-standard)]">
         <Button glow="primary" variant="primary">
           Primary Glow
         </Button>
@@ -104,10 +105,15 @@ export const WithGlow: Story = {
 export const Loading: Story = {
   render: function LoadingStory() {
     return (
-      <div className="flex flex-wrap gap-3">
-        <Button loading>Loading</Button>
+      <div className="flex flex-wrap gap-3 p-4 bg-[var(--color-bg-secondary)] rounded-[var(--radius-standard)]">
+        <Button loading variant="primary">
+          Loading
+        </Button>
         <Button loading variant="success">
           Processing
+        </Button>
+        <Button loading variant="danger">
+          Deleting
         </Button>
       </div>
     );
@@ -118,10 +124,15 @@ export const Loading: Story = {
 export const Disabled: Story = {
   render: function DisabledStory() {
     return (
-      <div className="flex flex-wrap gap-3">
-        <Button disabled>Disabled</Button>
+      <div className="flex flex-wrap gap-3 p-4 bg-[var(--color-bg-secondary)] rounded-[var(--radius-standard)]">
+        <Button disabled variant="primary">
+          Disabled
+        </Button>
         <Button disabled variant="secondary">
           Disabled Secondary
+        </Button>
+        <Button disabled variant="outline">
+          Disabled Outline
         </Button>
       </div>
     );
@@ -132,21 +143,66 @@ export const Disabled: Story = {
 export const WithIcons: Story = {
   render: function WithIconsStory() {
     return (
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 p-4 bg-[var(--color-bg-secondary)] rounded-[var(--radius-standard)]">
         <Button
           leftIcon={
-            <span aria-hidden="true" className="inline-flex">
-              🚀
-            </span>
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2.5}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              />
+            </svg>
           }
+          variant="primary"
         >
           Launch
         </Button>
         <Button
-          rightIcon={<span aria-hidden="true">→</span>}
+          rightIcon={
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2.5}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13 7l5 5m0 0l-5 5m5-5H6"
+              />
+            </svg>
+          }
           variant="secondary"
         >
           Next
+        </Button>
+        <Button
+          leftIcon={
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2.5}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          }
+          variant="success"
+        >
+          Confirm
         </Button>
       </div>
     );
@@ -157,8 +213,10 @@ export const WithIcons: Story = {
 export const FullWidth: Story = {
   render: function FullWidthStory() {
     return (
-      <div className="w-80">
-        <Button fullWidth>Full Width Button</Button>
+      <div className="w-80 p-4 bg-[var(--color-bg-secondary)] rounded-[var(--radius-standard)]">
+        <Button fullWidth variant="primary">
+          Full Width Button
+        </Button>
       </div>
     );
   },
