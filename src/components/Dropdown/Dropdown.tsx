@@ -279,7 +279,9 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                   {selectedOption.icon}
                 </span>
               )}
-              <span className="truncate">{displayLabel}</span>
+              <span className="truncate" dir="auto">
+                {displayLabel}
+              </span>
             </span>
             <span
               className={`
@@ -404,7 +406,9 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                           {option.icon}
                         </span>
                       )}
-                      <span className="truncate">{option.label}</span>
+                      <span className="truncate" dir="auto">
+                        {option.label}
+                      </span>
                       {isSelected && (
                         <span
                           className="ml-auto text-[var(--color-primary)] flex-shrink-0"

@@ -407,7 +407,10 @@ function AppContent() {
 
             {/* Badge Variants */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("badges.variants")}
               </p>
               <div className="flex flex-wrap gap-3">
@@ -421,7 +424,10 @@ function AppContent() {
 
             {/* Badge Sizes */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("badges.sizes")}
               </p>
               <div className="flex flex-wrap gap-3 items-center">
@@ -433,7 +439,10 @@ function AppContent() {
 
             {/* Outline Badges */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("badges.outline")}
               </p>
               <div className="flex flex-wrap gap-3">
@@ -457,7 +466,10 @@ function AppContent() {
 
             {/* Glow Badges */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("badges.withGlow")}
               </p>
               <div className="flex flex-wrap gap-3">
@@ -475,7 +487,10 @@ function AppContent() {
 
             {/* Badges with Icons */}
             <div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("badges.withIcons")}
               </p>
               <div className="flex flex-wrap gap-3">
@@ -649,7 +664,10 @@ function AppContent() {
 
             {/* Sizes */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("avatar.sizes")}
               </p>
               <div className="flex items-center gap-4">
@@ -663,7 +681,10 @@ function AppContent() {
 
             {/* Shapes */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("avatar.shapes")}
               </p>
               <div className="flex items-center gap-4">
@@ -675,7 +696,10 @@ function AppContent() {
 
             {/* With Status */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("avatar.status")}
               </p>
               <div className="flex items-center gap-4">
@@ -688,7 +712,10 @@ function AppContent() {
 
             {/* With Glow */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("avatar.glowEffects")}
               </p>
               <div className="flex items-center gap-4">
@@ -700,7 +727,10 @@ function AppContent() {
 
             {/* With Image */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("avatar.withImage")}
               </p>
               <div className="flex items-center gap-4">
@@ -726,7 +756,10 @@ function AppContent() {
 
             {/* Group */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("avatar.group")}
               </p>
               <Avatar group size="md">
@@ -739,7 +772,10 @@ function AppContent() {
 
             {/* Clickable */}
             <div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("avatar.clickable")}
               </p>
               <Avatar
@@ -760,7 +796,10 @@ function AppContent() {
 
             {/* Placements */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("tooltip.placements")}
               </p>
               <div className="grid grid-cols-4 gap-4">
@@ -789,7 +828,10 @@ function AppContent() {
 
             {/* Variants */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("tooltip.variants")}
               </p>
               <div className="flex items-center gap-4">
@@ -807,7 +849,10 @@ function AppContent() {
 
             {/* With Badge */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("tooltip.withBadge")}
               </p>
               <Tooltip content="You have 42 unread messages">
@@ -819,7 +864,10 @@ function AppContent() {
 
             {/* Long Content */}
             <div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("tooltip.longContent")}
               </p>
               <Tooltip content="This is a longer tooltip with more detailed information about the element you're hovering over.">
@@ -883,7 +931,10 @@ function AppContent() {
 
             {/* Controlled Accordion */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("accordion.controlled")}{" "}
                 <span className="text-[var(--color-primary)]">
                   {openAccordionItems.length > 0
@@ -903,7 +954,10 @@ function AppContent() {
 
             {/* With Icons */}
             <div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("accordion.withIcons")}
               </p>
               <Accordion
@@ -924,7 +978,10 @@ function AppContent() {
 
             {/* Basic Dropdowns */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("dropdown.basic")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -942,7 +999,10 @@ function AppContent() {
 
             {/* With Icons */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("dropdown.withIcons")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -962,7 +1022,10 @@ function AppContent() {
 
             {/* Searchable */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("dropdown.searchable")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -986,7 +1049,10 @@ function AppContent() {
 
             {/* Controlled */}
             <div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("dropdown.controlled")}{" "}
                 <span className="text-[var(--color-primary)] font-bold">
                   {selectedFramework}
@@ -1035,7 +1101,10 @@ function AppContent() {
 
             {/* Variants */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("cards.variants")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1068,7 +1137,10 @@ function AppContent() {
 
             {/* Float + Glow */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("cards.floatGlow")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1101,7 +1173,10 @@ function AppContent() {
 
             {/* Feature Cards */}
             <div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("cards.featureCards")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1135,7 +1210,10 @@ function AppContent() {
 
             {/* Basic Inputs */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("inputs.basic")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1148,7 +1226,10 @@ function AppContent() {
 
             {/* With Labels */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("inputs.withLabels")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1167,7 +1248,10 @@ function AppContent() {
 
             {/* With Icons */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("inputs.withIconsTitle")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1185,7 +1269,10 @@ function AppContent() {
 
             {/* Validation States */}
             <div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("inputs.validation")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1252,7 +1339,10 @@ function AppContent() {
 
             {/* Horizontal */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("progress.horizontal")}
               </p>
               <div className="flex flex-col gap-4 max-w-md">
@@ -1297,7 +1387,10 @@ function AppContent() {
 
             {/* Label Inside */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("progress.labelInside")}
               </p>
               <div className="flex flex-col gap-4 max-w-md">
@@ -1330,7 +1423,10 @@ function AppContent() {
 
             {/* Display Types */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("progress.displayTypes")}
               </p>
               <div className="flex flex-col gap-4 max-w-md">
@@ -1359,7 +1455,10 @@ function AppContent() {
 
             {/* Sizes */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("progress.sizes")}
               </p>
               <div className="flex flex-col gap-4 max-w-md">
@@ -1386,7 +1485,10 @@ function AppContent() {
 
             {/* Radial */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("progress.radial")}
               </p>
               <div className="flex flex-wrap gap-6">
@@ -1437,7 +1539,10 @@ function AppContent() {
 
             {/* Radial with Custom Label */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("progress.radialCustom")}
               </p>
               <div className="flex flex-wrap gap-6">
@@ -1468,7 +1573,10 @@ function AppContent() {
 
             {/* Radial Sizes */}
             <div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("progress.radialSizes")}
               </p>
               <div className="flex flex-wrap gap-6 items-end">
@@ -2033,7 +2141,10 @@ function AppContent() {
 
             {/* Vertical Layout */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("productCard.vertical")}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -2098,7 +2209,10 @@ function AppContent() {
 
             {/* Horizontal Layout */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("productCard.horizontal")}
               </p>
               <div className="grid grid-cols-1 gap-4 max-w-2xl">
@@ -2135,7 +2249,10 @@ function AppContent() {
 
             {/* Compact Layout */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("productCard.compact")}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -2182,7 +2299,10 @@ function AppContent() {
 
             {/* Glow Effects */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("productCard.glows")}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -2215,7 +2335,10 @@ function AppContent() {
 
             {/* Responsive - Full width on mobile */}
             <div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("productCard.responsive")}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
@@ -2252,7 +2375,10 @@ function AppContent() {
 
             {/* Vertical Layout */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("blogCard.vertical")}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -2299,7 +2425,10 @@ function AppContent() {
 
             {/* Horizontal Layout */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("blogCard.horizontal")}
               </p>
               <div className="grid grid-cols-1 gap-4 max-w-3xl">
@@ -2334,7 +2463,10 @@ function AppContent() {
 
             {/* Featured */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("blogCard.featured")}
               </p>
               <div className="max-w-2xl">
@@ -2361,7 +2493,10 @@ function AppContent() {
 
             {/* Glow Effects */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("blogCard.glows")}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -2400,7 +2535,10 @@ function AppContent() {
 
             {/* Responsive - Full width on mobile */}
             <div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("blogCard.responsive")}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
@@ -2658,8 +2796,8 @@ function AppContent() {
           </section>
 
           {/* ============================================
-  CHECKBOX SHOWCASE
-  ============================================ */}
+            CHECKBOX SHOWCASE
+            ============================================ */}
           <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
             <h2 className="text-2xl font-semibold mb-6">
               {t("checkbox.title")}
@@ -2667,7 +2805,10 @@ function AppContent() {
 
             {/* Basic Checkboxes */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("checkbox.basic")}
               </p>
               <div className="flex flex-wrap gap-6">
@@ -2683,7 +2824,10 @@ function AppContent() {
 
             {/* Sizes */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("checkbox.sizes")}
               </p>
               <div className="flex flex-wrap gap-6 items-center">
@@ -2707,7 +2851,10 @@ function AppContent() {
 
             {/* States */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("checkbox.states")}
               </p>
               <div className="flex flex-wrap gap-6">
@@ -2724,7 +2871,10 @@ function AppContent() {
 
             {/* RTL Support */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("checkbox.rtlSupport")}
               </p>
               <div className="flex flex-wrap gap-6">
@@ -2747,7 +2897,10 @@ function AppContent() {
 
             {/* Controlled */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("checkbox.controlled")}
               </p>
               <div className="flex flex-wrap gap-6">
@@ -2788,7 +2941,10 @@ function AppContent() {
 
             {/* Group Example */}
             <div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("checkbox.group")}
               </p>
               <div className="glass p-6 rounded-[var(--radius-md)] inline-block">
@@ -2848,7 +3004,10 @@ function AppContent() {
 
             {/* Basic */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("switch.basic")}
               </p>
               <div className="flex flex-wrap gap-8">
@@ -2860,7 +3019,10 @@ function AppContent() {
 
             {/* Sizes */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("switch.sizes")}
               </p>
               <div className="flex flex-wrap gap-8 items-end">
@@ -2872,7 +3034,10 @@ function AppContent() {
 
             {/* With icons */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 With icons
               </p>
               <div className="flex flex-wrap gap-8">
@@ -2899,7 +3064,10 @@ function AppContent() {
 
             {/* States */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("switch.states")}
               </p>
               <div className="flex flex-wrap gap-8">
@@ -2915,7 +3083,10 @@ function AppContent() {
 
             {/* RTL */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("switch.rtlSupport")}
               </p>
               <div className="glass p-4 rounded-[var(--radius-md)] inline-block">
@@ -2932,7 +3103,10 @@ function AppContent() {
 
             {/* Controlled */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("switch.controlled")}
               </p>
               {(() => {
@@ -2969,7 +3143,10 @@ function AppContent() {
 
             {/* Group */}
             <div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("switch.group")}
               </p>
               <div className="glass p-6 rounded-[var(--radius-md)] inline-block">
@@ -3023,7 +3200,10 @@ function AppContent() {
 
             {/* Primary group – plan picker */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("radio.group")}
               </p>
               <div className="glass p-6 rounded-[var(--radius-md)] inline-block max-w-md">
@@ -3069,7 +3249,10 @@ function AppContent() {
 
             {/* Horizontal group */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 Horizontal group
               </p>
               <div className="glass p-6 rounded-[var(--radius-md)] inline-block">
@@ -3107,7 +3290,10 @@ function AppContent() {
 
             {/* Sizes */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("radio.sizes")}
               </p>
               {(() => {
@@ -3145,7 +3331,10 @@ function AppContent() {
 
             {/* States */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("radio.states")}
               </p>
               <div className="flex flex-wrap gap-6">
@@ -3169,7 +3358,10 @@ function AppContent() {
 
             {/* RTL group */}
             <div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("radio.rtlSupport")}
               </p>
               <div className="glass p-4 rounded-[var(--radius-md)] inline-block">
@@ -3217,7 +3409,10 @@ function AppContent() {
 
             {/* Basic */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("range.basic")}
               </p>
               <div className="flex flex-col gap-6 max-w-md">
@@ -3239,7 +3434,10 @@ function AppContent() {
 
             {/* Colors */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("range.colors")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
@@ -3284,7 +3482,10 @@ function AppContent() {
 
             {/* Sizes */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("range.sizes")}
               </p>
               <div className="flex flex-col gap-4 max-w-md">
@@ -3311,7 +3512,10 @@ function AppContent() {
 
             {/* Custom Suffix/Prefix */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("range.customUnits")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
@@ -3346,7 +3550,10 @@ function AppContent() {
 
             {/* Value Positions */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("range.valuePositions")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
@@ -3379,7 +3586,10 @@ function AppContent() {
 
             {/* Sparkle at Max */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("range.sparkleAtMax")}
               </p>
               <div className="flex flex-col gap-4 max-w-md">
@@ -3403,7 +3613,10 @@ function AppContent() {
 
             {/* Without Glow */}
             <div className="mb-6">
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("range.withoutGlow")}
               </p>
               <div className="flex flex-col gap-4 max-w-md">
@@ -3425,7 +3638,10 @@ function AppContent() {
 
             {/* Controlled */}
             <div>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
                 {t("range.controlled")}
               </p>
               {(() => {

@@ -623,6 +623,7 @@ html[dir="rtl"] {
     letter-spacing: 0 !important;
   }
 
+  /* Monospace fonts should stay LTR but text should be RTL-aware */
   code,
   pre,
   kbd,
@@ -631,6 +632,197 @@ html[dir="rtl"] {
     font-family: var(--font-family-mono) !important;
     direction: ltr !important;
     unicode-bidi: embed;
+    text-align: start !important;
+  }
+
+  /* Section labels with mono font */
+  .section-label.font-mono,
+  .section-label[class*="font-mono"] {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    letter-spacing: 0 !important;
+  }
+
+  /* Badge text in RTL */
+  .badge,
+  [class*="Badge"] span,
+  span[class*="badge"] {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    letter-spacing: 0 !important;
+  }
+
+  /* Dropdown option text in RTL */
+  .dropdown-option,
+  [role="option"] span,
+  [role="listbox"] span {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    text-align: right !important;
+  }
+
+  /* Button text in RTL */
+  .btn-dara,
+  button[class*="btn"],
+  [class*="Button"] span {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    letter-spacing: 0 !important;
+  }
+
+  /* Tooltip content in RTL */
+  [role="tooltip"] {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    text-align: right !important;
+  }
+
+  /* Toast message in RTL */
+  [role="alert"] span {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    text-align: right !important;
+  }
+
+  /* Tabs labels in RTL */
+  [role="tab"] span {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    letter-spacing: 0 !important;
+  }
+
+  /* Accordion titles in RTL */
+  .accordion-trigger span,
+  [class*="Accordion"] button span {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    letter-spacing: 0 !important;
+  }
+
+  /* Input labels and placeholders in RTL */
+  label,
+  input,
+  textarea,
+  .input-label,
+  .input-helper {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    text-align: right !important;
+  }
+
+  /* Navbar links in RTL */
+  .navbar-link,
+  [class*="Navbar"] a span {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    letter-spacing: 0 !important;
+  }
+
+  /* Sidebar items in RTL */
+  .sidebar-item,
+  [class*="Sidebar"] button span,
+  [class*="Sidebar"] a span {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    text-align: right !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* Stats widget labels in RTL */
+  .stats-label,
+  [class*="StatsWidget"] p,
+  [class*="StatsWidget"] span {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    text-align: right !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* Quest card text in RTL */
+  .quest-title,
+  .quest-description,
+  .quest-requirement,
+  [class*="QuestCard"] p,
+  [class*="QuestCard"] h4,
+  [class*="QuestCard"] li {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    text-align: right !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* Product card text in RTL */
+  .product-title,
+  .product-description,
+  .product-category,
+  .product-tag,
+  [class*="ProductCard"] h3,
+  [class*="ProductCard"] p,
+  [class*="ProductCard"] span {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    text-align: right !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* Blog card text in RTL */
+  .blog-title,
+  .blog-excerpt,
+  .blog-author,
+  .blog-category,
+  .blog-tag,
+  [class*="BlogCard"] h3,
+  [class*="BlogCard"] p,
+  [class*="BlogCard"] span {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    text-align: right !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* Character card text in RTL */
+  .character-name,
+  .character-subtitle,
+  .character-quote,
+  .character-trait,
+  .character-stat-label,
+  [class*="CharacterCard"] h4,
+  [class*="CharacterCard"] p,
+  [class*="CharacterCard"] span {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    text-align: right !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* Modal content in RTL */
+  .modal-title,
+  .modal-body,
+  .modal-footer,
+  [class*="Modal"] h3,
+  [class*="Modal"] p,
+  [class*="Modal"] div {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    text-align: right !important;
+    letter-spacing: 0 !important;
   }
 
   .lang-en {
@@ -674,6 +866,18 @@ html[dir="ltr"] {
     font-family: var(--font-family-sans);
   }
 
+  /* Monospace in LTR */
+  code,
+  pre,
+  kbd,
+  samp,
+  .font-mono {
+    font-family: var(--font-family-mono) !important;
+    direction: ltr !important;
+    unicode-bidi: embed;
+    text-align: start !important;
+  }
+
   .lang-fa {
     font-family: var(--font-family-persian-body) !important;
     direction: rtl !important;
@@ -685,51 +889,6 @@ html[dir="ltr"] {
     direction: rtl !important;
     unicode-bidi: embed;
   }
-}
-
-/* ----- Legacy support ----- */
-html[lang="fa"],
-html[lang="fa-IR"],
-html[lang="ar"],
-html[lang="ar-SA"] {
-  body {
-    font-family: var(--font-family-persian-body);
-    direction: rtl;
-    line-height: 1.8;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-family-persian-heading);
-  }
-}
-
-/* ----- Mixed Language Utilities ----- */
-.lang-en {
-  font-family: var(--font-family-sans) !important;
-  direction: ltr !important;
-  unicode-bidi: embed;
-}
-
-.lang-fa {
-  font-family: var(--font-family-persian-body) !important;
-  direction: rtl !important;
-  unicode-bidi: embed;
-}
-
-.lang-en-heading {
-  font-family: var(--font-family-heading) !important;
-  direction: ltr !important;
-  unicode-bidi: embed;
-}
-
-.lang-fa-heading {
-  font-family: var(--font-family-persian-heading) !important;
-  direction: rtl !important;
-  unicode-bidi: embed;
 }
 
 /* =============================================

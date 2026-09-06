@@ -28,7 +28,13 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 /**
- * Dara UI Badge
+ * Dara UI Badge - Theme-aware status indicators
+ *
+ * Features:
+ * - Multiple variants with consistent colors
+ * - Size variants
+ * - Glow and outline options
+ * - RTL support via dir attribute
  */
 export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
   (
@@ -43,7 +49,6 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     },
     ref,
   ) => {
-    // Glass-based badges
     const baseStyles =
       "inline-flex items-center justify-center font-accent font-medium transition-all duration-180 rounded-full";
 
@@ -56,10 +61,10 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     // Solid variants
     const solidVariants = {
       primary: "bg-[var(--color-primary-solid)] text-white",
-      secondary: "bg-[var(--color-secondary)] text-[var(--color-text-inverse)]",
-      success: "bg-[var(--color-success)] text-[var(--color-text-inverse)]",
-      danger: "bg-[var(--color-danger)] text-[var(--color-text-inverse)]",
-      warning: "bg-[var(--color-warning)] text-[var(--color-text-inverse)]",
+      secondary: "bg-[var(--color-secondary-solid)] text-white",
+      success: "bg-[var(--color-success-solid)] text-white",
+      danger: "bg-[var(--color-danger-solid)] text-white",
+      warning: "bg-[var(--color-warning-solid)] text-white",
     };
 
     // Outline variants
@@ -101,7 +106,7 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
       .join(" ");
 
     return (
-      <span ref={ref} className={classes} {...props}>
+      <span ref={ref} className={classes} dir="auto" {...props}>
         {children}
       </span>
     );
