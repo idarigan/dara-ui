@@ -623,24 +623,56 @@ html[dir="rtl"] {
     letter-spacing: 0 !important;
   }
 
-  /* Monospace fonts should stay LTR but text should be RTL-aware */
-  code,
-  pre,
-  kbd,
-  samp,
-  .font-mono {
-    font-family: var(--font-family-mono) !important;
-    direction: ltr !important;
-    unicode-bidi: embed;
-    text-align: start !important;
-  }
-
-  /* Section labels with mono font */
-  .section-label.font-mono,
-  .section-label[class*="font-mono"] {
+  /* CRITICAL FIX: Any element with font-mono in RTL should use Persian body font */
+  .font-mono,
+  [class*="font-mono"],
+  code.font-mono,
+  pre.font-mono,
+  p.font-mono,
+  span.font-mono {
     font-family: var(--font-family-persian-body) !important;
     direction: rtl !important;
     unicode-bidi: embed;
+    text-align: start !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* EXCEPTION: Actual code blocks should stay LTR */
+  code:not(.font-mono),
+  pre:not(.font-mono),
+  .code-block {
+    font-family: var(--font-family-mono) !important;
+    direction: ltr !important;
+    unicode-bidi: embed;
+  }
+
+  /* Section labels with mono font - force RTL text */
+  .section-label.font-mono,
+  .section-label[class*="font-mono"],
+  p.font-mono.section-label,
+  span.font-mono.section-label {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    letter-spacing: 0 !important;
+    text-align: right !important;
+  }
+
+  /* ALL p tags with font-mono need RTL */
+  p.font-mono {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    text-align: start !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* ALL span tags with font-mono need RTL */
+  span.font-mono {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    text-align: start !important;
     letter-spacing: 0 !important;
   }
 
@@ -825,6 +857,19 @@ html[dir="rtl"] {
     letter-spacing: 0 !important;
   }
 
+  /* XPBar text in RTL */
+  .xp-bar-label,
+  .xp-bar-level,
+  .xp-bar-stats,
+  [class*="XPBar"] p,
+  [class*="XPBar"] span {
+    font-family: var(--font-family-persian-body) !important;
+    direction: rtl !important;
+    unicode-bidi: embed;
+    text-align: right !important;
+    letter-spacing: 0 !important;
+  }
+
   .lang-en {
     font-family: var(--font-family-sans) !important;
     direction: ltr !important;
@@ -834,59 +879,6 @@ html[dir="rtl"] {
   .lang-en-heading {
     font-family: var(--font-family-heading) !important;
     direction: ltr !important;
-    unicode-bidi: embed;
-  }
-}
-
-/* ----- LTR (Default: English, etc.) ----- */
-html[dir="ltr"] {
-  body {
-    font-family: var(--font-family-sans);
-    direction: ltr;
-    line-height: 1.6;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  .font-heading {
-    font-family: var(--font-family-heading);
-    letter-spacing: -0.01em;
-  }
-
-  .font-accent,
-  .badge,
-  .label,
-  .tab-btn,
-  .btn-dara,
-  .section-label {
-    font-family: var(--font-family-sans);
-  }
-
-  /* Monospace in LTR */
-  code,
-  pre,
-  kbd,
-  samp,
-  .font-mono {
-    font-family: var(--font-family-mono) !important;
-    direction: ltr !important;
-    unicode-bidi: embed;
-    text-align: start !important;
-  }
-
-  .lang-fa {
-    font-family: var(--font-family-persian-body) !important;
-    direction: rtl !important;
-    unicode-bidi: embed;
-  }
-
-  .lang-fa-heading {
-    font-family: var(--font-family-persian-heading) !important;
-    direction: rtl !important;
     unicode-bidi: embed;
   }
 }
