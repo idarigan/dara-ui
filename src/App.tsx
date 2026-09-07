@@ -17,6 +17,7 @@ import { Card } from "./components/Card/Card";
 import { Tabs } from "./components/Tabs/Tabs";
 import { Accordion } from "./components/Accordion/Accordion";
 import { Dropdown } from "./components/Dropdown/Dropdown";
+import { GradientRing } from "./components/GradientRing/GradientRing";
 import { Modal } from "./components/Modal/Modal";
 import { ToastProvider, useToast } from "./components/Toast";
 import { Avatar } from "./components/Avatar/Avatar";
