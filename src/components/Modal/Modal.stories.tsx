@@ -38,7 +38,7 @@ type Story = StoryObj<typeof meta>;
 // ----- Default -----
 export const Default: Story = {
   args: {
-    title: "🗂️ Archive Access",
+    title: "Archive Access",
     children:
       "You've discovered a sealed Jedi archive fragment. This modal uses glass-heavy styling with blur(30px) backdrop, scale-in animation, and is rendered via React Portal.",
     confirmText: "Accept Mission",
@@ -163,7 +163,7 @@ export const WithoutActions: Story = {
 // ----- Interactive Playground -----
 export const Interactive: Story = {
   args: {
-    title: "🗂️ Archive Access",
+    title: "Archive Access",
     children:
       "You've discovered a sealed Jedi archive fragment. This modal uses glass-heavy styling with blur(30px) backdrop.",
     confirmText: "Accept Mission",

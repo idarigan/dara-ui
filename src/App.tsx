@@ -1313,7 +1313,7 @@ function AppContent() {
             <Modal
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
-              title={`🗂️ ${t("modal.archiveAccess")}`}
+              title={t("modal.archiveAccess")}
               confirmText={t("modal.acceptMission")}
               cancelText={t("modal.decline")}
               onConfirm={() => {

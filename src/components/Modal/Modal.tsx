@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 import Button from "../Button/Button";
+import { FolderIcon } from "../Icons";
 
 export interface ModalProps {
   /**
@@ -188,8 +189,9 @@ export const Modal: React.FC<ModalProps> = ({
           {title && (
             <h3
               id="modal-title"
-              className="font-heading text-xl font-bold text-[var(--color-text-primary)]"
+              className="font-heading text-xl font-bold text-[var(--color-text-primary)] flex items-center gap-2"
             >
+              <FolderIcon className="h-5 w-5 flex-shrink-0 text-[var(--color-primary)]" />
               {title}
             </h3>
           )}
