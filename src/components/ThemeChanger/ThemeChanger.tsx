@@ -131,9 +131,7 @@ const DraculaIcon = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <path d="M12 2L2 7l10 5 10-5-10-5z" />
-    <path d="M2 17l10 5 10-5" />
-    <path d="M2 12l10 5 10-5" />
+    <path d="M12 2C12 2 5 9 5 15C5 18.866 8.134 22 12 22C15.866 22 19 18.866 19 15C19 9 12 2 12 2Z" />
   </svg>
 );
 
