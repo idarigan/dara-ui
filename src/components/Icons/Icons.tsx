@@ -510,10 +510,10 @@ export const ChevronLeftIcon = ({
 );
 
 // ============================================
-// Toast Icons
+// Status Icons
 // ============================================
 
-export const ToastSuccessIcon = ({
+export const SuccessIcon = ({
   className = "h-5 w-5",
 }: {
   className?: string;
@@ -529,7 +529,7 @@ export const ToastSuccessIcon = ({
   </svg>
 );
 
-export const ToastErrorIcon = ({
+export const ErrorIcon = ({
   className = "h-5 w-5",
 }: {
   className?: string;
@@ -549,7 +549,7 @@ export const ToastErrorIcon = ({
   </svg>
 );
 
-export const ToastWarningIcon = ({
+export const WarningIcon = ({
   className = "h-5 w-5",
 }: {
   className?: string;
@@ -569,11 +569,7 @@ export const ToastWarningIcon = ({
   </svg>
 );
 
-export const ToastInfoIcon = ({
-  className = "h-5 w-5",
-}: {
-  className?: string;
-}) => (
+export const InfoIcon = ({ className = "h-5 w-5" }: { className?: string }) => (
   <svg
     className={className}
     fill="none"

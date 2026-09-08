@@ -1,4 +1,5 @@
 import React, { forwardRef, useState, useId } from "react";
+import { ErrorIcon, SuccessIcon, WarningIcon } from "../Icons";
 
 export interface InputProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -279,13 +280,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {(helperText || errorMessage || successMessage) && (
           <div className="flex items-center gap-1.5 text-xs">
             {validation === "error" && errorMessage && (
-              <span className="text-[var(--color-danger)]">
-                ⚠️ {errorMessage}
+              <span className="text-[var(--color-danger)] flex items-center">
+                <ErrorIcon /> {errorMessage}
               </span>
             )}
             {validation === "success" && successMessage && (
-              <span className="text-[var(--color-success)]">
-                ✅ {successMessage}
+              <span className="text-[var(--color-success)] flex items-center">
+                <SuccessIcon /> {successMessage}
               </span>
             )}
             {!validation && helperText && (
