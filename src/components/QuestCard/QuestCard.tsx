@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Modal } from "../Modal/Modal";
-
+import { SwordIcon, ClockIcon } from "../Icons";
 export interface QuestCardProps {
   /**
    * Quest title
@@ -120,30 +120,29 @@ export const QuestCard: React.FC<QuestCardProps> = ({
 
     const lowerDeadline = deadline.toLowerCase();
     if (lowerDeadline === "tomorrow") {
-      return "⏰ Deadline: Tomorrow";
+      return "Deadline: Tomorrow";
     }
     if (lowerDeadline === "tonight") {
-      return "⏰ Deadline: Tonight";
+      return "Deadline: Tonight";
     }
 
     if (isNaN(deadlineDate.getTime())) {
-      return `⏰ ${deadline}`;
+      return deadline;
     }
 
     const diffTime = deadlineDate.getTime() - now.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-    if (diffDays === 0) return "⏰ Deadline: Today";
-    if (diffDays === 1) return "⏰ Deadline: Tomorrow";
-    if (diffDays === -1) return "⏰ Deadline: Yesterday";
-    if (diffDays < 0) return `⏰ ${Math.abs(diffDays)} days ago`;
-    if (diffDays < 7) return `⏰ Deadline: ${diffDays} days`;
-    if (diffDays < 14) return "⏰ Deadline: 1 week";
-    if (diffDays < 30) return `⏰ Deadline: ${Math.floor(diffDays / 7)} weeks`;
-    if (diffDays < 60) return "⏰ Deadline: 1 month";
-    if (diffDays < 365)
-      return `⏰ Deadline: ${Math.floor(diffDays / 30)} months`;
-    return `⏰ Deadline: ${Math.floor(diffDays / 365)} years`;
+    if (diffDays === 0) return "Deadline: Today";
+    if (diffDays === 1) return "Deadline: Tomorrow";
+    if (diffDays === -1) return "Deadline: Yesterday";
+    if (diffDays < 0) return `${Math.abs(diffDays)} days ago`;
+    if (diffDays < 7) return `Deadline: ${diffDays} days`;
+    if (diffDays < 14) return "Deadline: 1 week";
+    if (diffDays < 30) return `Deadline: ${Math.floor(diffDays / 7)} weeks`;
+    if (diffDays < 60) return "Deadline: 1 month";
+    if (diffDays < 365) return `Deadline: ${Math.floor(diffDays / 30)} months`;
+    return `Deadline: ${Math.floor(diffDays / 365)} years`;
   };
 
   const getRankColor = (): string => {
@@ -271,10 +270,11 @@ export const QuestCard: React.FC<QuestCardProps> = ({
 
         {/* Mission Label */}
         <p
-          className="font-mono text-xs text-[var(--color-secondary)] uppercase tracking-wider mb-3"
+          className="font-mono text-xs text-[var(--color-secondary)] uppercase tracking-wider mb-3 flex items-center gap-1.5"
           style={{ transform: "translateZ(20px)" }}
         >
-          🗡️ MISSION
+          <SwordIcon className="h-3 w-3 flex-shrink-0" />
+          MISSION
         </p>
 
         {/* Title */}
@@ -302,7 +302,8 @@ export const QuestCard: React.FC<QuestCardProps> = ({
             +{xp} {xpLabel}
           </span>
           {deadline && (
-            <span className="font-mono text-xs text-[var(--color-danger)]">
+            <span className="font-mono text-xs text-[var(--color-danger)] flex items-center gap-1">
+              <ClockIcon className="h-3 w-3 flex-shrink-0" />
               {getDeadlineDisplay()}
             </span>
           )}
@@ -365,12 +366,13 @@ export const QuestCard: React.FC<QuestCardProps> = ({
       <Modal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
-        title="🗡️ Complete Mission"
+        title="Complete Mission"
         confirmText="✔️ Complete"
         cancelText="Cancel"
         onConfirm={handleConfirmComplete}
       >
-        <p className="text-[var(--color-text-secondary)] mb-2">
+        <p className="text-[var(--color-text-secondary)] mb-2 flex items-center gap-2">
+          <SwordIcon className="h-4 w-4 text-[var(--color-primary)] flex-shrink-0" />
           Are you sure you want to complete the mission:
         </p>
         <p className="font-heading font-bold text-lg text-[var(--color-text-primary)] mb-3">

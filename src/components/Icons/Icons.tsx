@@ -652,3 +652,51 @@ export const BlogPlaceholderIcon = ({
     />
   </svg>
 );
+
+// ============================================
+// Quest & Mission Icons
+// ============================================
+
+export const SwordIcon = ({
+  className = "h-4 w-4",
+}: {
+  className?: string;
+}) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M14.5 9.5L20 4" />
+    <path d="M4 20L9.5 14.5" />
+    <path d="M12 12L20 4" />
+    <path d="M12 12L4 20" />
+    <path d="M12 12L14.5 9.5" />
+    <path d="M12 12L9.5 14.5" />
+    <path d="M10 5L14 9" />
+    <path d="M5 10L9 14" />
+  </svg>
+);
+
+export const ClockIcon = ({
+  className = "h-4 w-4",
+}: {
+  className?: string;
+}) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 6v6l4 2" />
+  </svg>
+);
