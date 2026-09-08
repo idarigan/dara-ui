@@ -9,6 +9,10 @@
  * to switch dynamically between languages while maintaining RTL support.
  */
 
+// ============================================
+// IMPORTS
+// ============================================
+
 import { useState, useEffect, useMemo } from "react";
 import Button from "./components/Button/Button";
 import { Badge } from "./components/Badge/Badge";
@@ -17,7 +21,6 @@ import { Card } from "./components/Card/Card";
 import { Tabs } from "./components/Tabs/Tabs";
 import { Accordion } from "./components/Accordion/Accordion";
 import { Dropdown } from "./components/Dropdown/Dropdown";
-import { GradientRing } from "./components/GradientRing/GradientRing";
 import { Modal } from "./components/Modal/Modal";
 import { ToastProvider, useToast } from "./components/Toast";
 import { Avatar } from "./components/Avatar/Avatar";
@@ -46,11 +49,13 @@ import {
 } from "./components/LanguageChanger";
 import { translations } from "./translations";
 
+// Visual Effects - imported once
 import { Particles } from "./components/Particles/Particles";
 import { AuroraBlobs } from "./components/AuroraBlobs/AuroraBlobs";
 import { GradientRing } from "./components/GradientRing/GradientRing";
 import { NoiseOverlay } from "./components/NoiseOverlay/NoiseOverlay";
 
+// Icons
 import {
   SearchIcon,
   UserIcon,
@@ -67,6 +72,7 @@ import {
   StarIcon,
 } from "./components/Icons";
 
+// Social Media Icons
 import {
   faGithub,
   faXTwitter,
