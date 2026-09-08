@@ -95,6 +95,7 @@ export interface TooltipProps {
  * - Controlled/Uncontrolled modes
  * - Portal rendering for correct z-index
  * - Proper fade + position (no corner jump)
+ * - RTL support via MutationObserver
  */
 export const Tooltip: React.FC<TooltipProps> = ({
   content,
@@ -116,6 +117,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
   const [coords, setCoords] = useState({ top: -9999, left: -9999 });
+  const [isRTL, setIsRTL] = useState(false);
 
   const triggerRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -124,6 +126,22 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
   const isControlled = controlledOpen !== undefined;
   const isVisible = isControlled ? controlledOpen : isOpen;
+
+  // RTL detection - listen for dir attribute changes
+  useEffect(() => {
+    const updateDir = () => {
+      setIsRTL(document.documentElement.dir === "rtl");
+    };
+    updateDir();
+
+    const observer = new MutationObserver(updateDir);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["dir"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const sizeStyles = {
     sm: "px-2.5 py-1.5 text-xs",
@@ -159,7 +177,23 @@ export const Tooltip: React.FC<TooltipProps> = ({
     const cx = triggerRect.left + triggerRect.width / 2;
     const cy = triggerRect.top + triggerRect.height / 2;
 
-    switch (placement) {
+    // RTL-aware placement mapping
+    const getPlacement = (): TooltipPlacement => {
+      if (isRTL) {
+        // Mirror horizontal placements
+        if (placement === "left") return "right";
+        if (placement === "right") return "left";
+        if (placement === "top-left") return "top-right";
+        if (placement === "top-right") return "top-left";
+        if (placement === "bottom-left") return "bottom-right";
+        if (placement === "bottom-right") return "bottom-left";
+      }
+      return placement;
+    };
+
+    const actualPlacement = getPlacement();
+
+    switch (actualPlacement) {
       case "top":
         top = triggerRect.top - tooltipHeight - gap;
         left = cx - tooltipWidth / 2;
@@ -206,7 +240,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
     setCoords({ top, left });
     return true;
-  }, [placement]);
+  }, [placement, isRTL]);
 
   useLayoutEffect(() => {
     if (!isVisible) {
@@ -240,6 +274,13 @@ export const Tooltip: React.FC<TooltipProps> = ({
     raf = requestAnimationFrame(tryMeasure);
     return () => cancelAnimationFrame(raf);
   }, [isVisible, calculatePosition]);
+
+  // Re-calculate position when RTL changes
+  useEffect(() => {
+    if (isVisible && mounted) {
+      calculatePosition();
+    }
+  }, [isRTL, isVisible, mounted, calculatePosition]);
 
   useEffect(() => {
     if (!isVisible) return;
@@ -297,6 +338,20 @@ export const Tooltip: React.FC<TooltipProps> = ({
     "bottom-right": "top-[-5px] right-3",
   };
 
+  // Get RTL-aware arrow position
+  const getArrowPos = (): string => {
+    if (isRTL) {
+      // Mirror horizontal arrow positions
+      if (placement === "left") return arrowPos["right"];
+      if (placement === "right") return arrowPos["left"];
+      if (placement === "top-left") return arrowPos["top-right"];
+      if (placement === "top-right") return arrowPos["top-left"];
+      if (placement === "bottom-left") return arrowPos["bottom-right"];
+      if (placement === "bottom-right") return arrowPos["bottom-left"];
+    }
+    return arrowPos[placement] || arrowPos["top"];
+  };
+
   return (
     <>
       <div
@@ -323,21 +378,23 @@ export const Tooltip: React.FC<TooltipProps> = ({
               ${variantClass}
               ${sizeStyles[size]}
               ${className}
+              ${isRTL ? "text-right" : "text-left"}
             `}
             style={{
-              // CRITICAL: .glass sets position:relative and would override Tailwind "fixed"
               position: "fixed",
               top: coords.top,
               left: coords.left,
               maxWidth,
+              direction: isRTL ? "rtl" : "ltr",
             }}
             role="tooltip"
+            dir={isRTL ? "rtl" : "ltr"}
           >
             {content}
 
             {arrow && (
               <div
-                className={`absolute w-2.5 h-2.5 rotate-45 ${arrowPos[placement]}`}
+                className={`absolute w-2.5 h-2.5 rotate-45 ${getArrowPos()}`}
                 style={{
                   background: "inherit",
                   border:
