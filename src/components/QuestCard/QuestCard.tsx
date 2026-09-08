@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Modal } from "../Modal/Modal";
-import { SwordIcon, ClockIcon } from "../Icons";
+import { FlagIcon, ClockIcon } from "../Icons";
 export interface QuestCardProps {
   /**
    * Quest title
@@ -273,7 +273,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
           className="font-mono text-xs text-[var(--color-secondary)] uppercase tracking-wider mb-3 flex items-center gap-1.5"
           style={{ transform: "translateZ(20px)" }}
         >
-          <SwordIcon className="h-3 w-3 flex-shrink-0" />
+          <FlagIcon className="h-3 w-3 flex-shrink-0" />
           MISSION
         </p>
 
@@ -372,8 +372,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
         onConfirm={handleConfirmComplete}
       >
         <p className="text-[var(--color-text-secondary)] mb-2 flex items-center gap-2">
-          <SwordIcon className="h-4 w-4 text-[var(--color-primary)] flex-shrink-0" />
-          Are you sure you want to complete the mission:
+          Are you sure you want to complete the mission?
         </p>
         <p className="font-heading font-bold text-lg text-[var(--color-text-primary)] mb-3">
           "{title}"

@@ -657,11 +657,7 @@ export const BlogPlaceholderIcon = ({
 // Quest & Mission Icons
 // ============================================
 
-export const SwordIcon = ({
-  className = "h-4 w-4",
-}: {
-  className?: string;
-}) => (
+export const FlagIcon = ({ className = "h-4 w-4" }: { className?: string }) => (
   <svg
     className={className}
     fill="none"
@@ -671,14 +667,8 @@ export const SwordIcon = ({
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <path d="M14.5 9.5L20 4" />
-    <path d="M4 20L9.5 14.5" />
-    <path d="M12 12L20 4" />
-    <path d="M12 12L4 20" />
-    <path d="M12 12L14.5 9.5" />
-    <path d="M12 12L9.5 14.5" />
-    <path d="M10 5L14 9" />
-    <path d="M5 10L9 14" />
+    <path d="M4 21V3" />
+    <path d="M4 3L20 7L4 11Z" />
   </svg>
 );
 
