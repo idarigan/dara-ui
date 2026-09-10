@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Input } from "../Input/Input";
+import { useI18n } from "../LanguageChanger/LanguageChanger";
 
 export interface NavLink {
   label: string;
@@ -44,6 +45,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   rightContent,
   className = "",
 }) => {
+  const { t } = useI18n();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
@@ -499,8 +501,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {showSecondaryNav && secondaryLinks.length > 0 && (
             <div className="mt-6 pt-4 border-t border-[var(--color-border-primary)] space-y-1">
-              <p className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono px-4 mb-2">
-                More
+              <p
+                className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono px-4 mb-2"
+                dir="auto"
+              >
+                {t("navbar.more")}
               </p>
               {secondaryLinks.map((link, index) => (
                 <a

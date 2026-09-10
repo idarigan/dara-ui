@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import { Modal } from "../Modal/Modal";
 import { FlagIcon, ClockIcon } from "../Icons";
+import { useI18n } from "../LanguageChanger/LanguageChanger";
+
 export interface QuestCardProps {
   /**
    * Quest title
@@ -63,6 +65,8 @@ export interface QuestCardProps {
  * - Theme-aware colors
  * - 3D tilt effect on hover
  * - Smooth animated glow transitions
+ * - Full i18n support for internal labels
+ * - RTL-aware rank badge placement
  */
 export const QuestCard: React.FC<QuestCardProps> = ({
   title,
@@ -77,6 +81,9 @@ export const QuestCard: React.FC<QuestCardProps> = ({
   onComplete,
   className = "",
 }) => {
+  // ----- i18n -----
+  const { t } = useI18n();
+
   const [isDone, setIsDone] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showSparkles, setShowSparkles] = useState(false);
@@ -85,6 +92,19 @@ export const QuestCard: React.FC<QuestCardProps> = ({
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  // Live RTL detection
+  const [isRTL, setIsRTL] = useState(false);
+  React.useEffect(() => {
+    const updateDir = () => setIsRTL(document.documentElement.dir === "rtl");
+    updateDir();
+    const observer = new MutationObserver(updateDir);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["dir"],
+    });
+    return () => observer.disconnect();
+  }, []);
 
   const isControlled = controlledDone !== undefined;
   const completed = isControlled ? controlledDone : isDone;
@@ -120,10 +140,10 @@ export const QuestCard: React.FC<QuestCardProps> = ({
 
     const lowerDeadline = deadline.toLowerCase();
     if (lowerDeadline === "tomorrow") {
-      return "Deadline: Tomorrow";
+      return t("quest.deadlineTomorrow") || "Deadline: Tomorrow";
     }
     if (lowerDeadline === "tonight") {
-      return "Deadline: Tonight";
+      return t("quest.deadlineTonight") || "Deadline: Tonight";
     }
 
     if (isNaN(deadlineDate.getTime())) {
@@ -133,16 +153,36 @@ export const QuestCard: React.FC<QuestCardProps> = ({
     const diffTime = deadlineDate.getTime() - now.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-    if (diffDays === 0) return "Deadline: Today";
-    if (diffDays === 1) return "Deadline: Tomorrow";
-    if (diffDays === -1) return "Deadline: Yesterday";
-    if (diffDays < 0) return `${Math.abs(diffDays)} days ago`;
-    if (diffDays < 7) return `Deadline: ${diffDays} days`;
-    if (diffDays < 14) return "Deadline: 1 week";
-    if (diffDays < 30) return `Deadline: ${Math.floor(diffDays / 7)} weeks`;
-    if (diffDays < 60) return "Deadline: 1 month";
-    if (diffDays < 365) return `Deadline: ${Math.floor(diffDays / 30)} months`;
-    return `Deadline: ${Math.floor(diffDays / 365)} years`;
+    if (diffDays === 0) return t("quest.deadlineToday") || "Deadline: Today";
+    if (diffDays === 1)
+      return t("quest.deadlineTomorrow") || "Deadline: Tomorrow";
+    if (diffDays === -1)
+      return t("quest.deadlineYesterday") || "Deadline: Yesterday";
+    if (diffDays < 0)
+      return `${Math.abs(diffDays)} ${t("quest.daysAgo") || "days ago"}`;
+    if (diffDays < 7)
+      return `${t("quest.deadline") || "Deadline"}: ${diffDays} ${
+        t("quest.days") || "days"
+      }`;
+    if (diffDays < 14)
+      return `${t("quest.deadline") || "Deadline"}: 1 ${
+        t("quest.week") || "week"
+      }`;
+    if (diffDays < 30)
+      return `${t("quest.deadline") || "Deadline"}: ${Math.floor(
+        diffDays / 7,
+      )} ${t("quest.weeks") || "weeks"}`;
+    if (diffDays < 60)
+      return `${t("quest.deadline") || "Deadline"}: 1 ${
+        t("quest.month") || "month"
+      }`;
+    if (diffDays < 365)
+      return `${t("quest.deadline") || "Deadline"}: ${Math.floor(
+        diffDays / 30,
+      )} ${t("quest.months") || "months"}`;
+    return `${t("quest.deadline") || "Deadline"}: ${Math.floor(
+      diffDays / 365,
+    )} ${t("quest.years") || "years"}`;
   };
 
   const getRankColor = (): string => {
@@ -270,17 +310,19 @@ export const QuestCard: React.FC<QuestCardProps> = ({
 
         {/* Mission Label */}
         <p
-          className="font-mono text-xs text-[var(--color-secondary)] uppercase tracking-wider mb-3 flex items-center gap-1.5"
+          className="font-mono text-xs text-[var(--color-secondary)] uppercase tracking-wider me-7 mb-3 flex items-center gap-1"
           style={{ transform: "translateZ(20px)" }}
+          dir="auto"
         >
           <FlagIcon className="h-3 w-3 flex-shrink-0" />
-          MISSION
+          {t("common.mission")}
         </p>
 
         {/* Title */}
         <h4
           className="font-heading text-xl font-bold mb-2 text-[var(--color-text-primary)]"
           style={{ transform: "translateZ(25px)" }}
+          dir="auto"
         >
           {title}
         </h4>
@@ -289,20 +331,27 @@ export const QuestCard: React.FC<QuestCardProps> = ({
         <p
           className="text-[var(--color-text-secondary)] text-sm mb-3 flex-grow"
           style={{ transform: "translateZ(15px)" }}
+          dir="auto"
         >
           {description}
         </p>
 
         {/* XP and Deadline */}
         <div
-          className="flex items-center gap-4 flex-wrap"
+          className={`flex items-center gap-4 flex-wrap flex-row-reverse`}
           style={{ transform: "translateZ(10px)" }}
         >
-          <span className="font-accent text-sm text-[var(--color-success)]">
+          <span
+            className="font-accent text-sm text-[var(--color-success)]"
+            dir="auto"
+          >
             +{xp} {xpLabel}
           </span>
           {deadline && (
-            <span className="font-mono text-xs text-[var(--color-danger)] flex items-center gap-1">
+            <span
+              className="font-mono text-xs text-[var(--color-danger)] flex items-center gap-1"
+              dir="auto"
+            >
               <ClockIcon className="h-3 w-3 flex-shrink-0" />
               {getDeadlineDisplay()}
             </span>
@@ -315,14 +364,18 @@ export const QuestCard: React.FC<QuestCardProps> = ({
             className="mt-3 pt-3 border-t border-[var(--color-border-secondary)]"
             style={{ transform: "translateZ(5px)" }}
           >
-            <p className="text-xs text-[var(--color-text-tertiary)] font-mono mb-1.5">
-              Requirements:
+            <p
+              className="text-xs text-[var(--color-text-tertiary)] font-mono mb-1.5"
+              dir="auto"
+            >
+              {t("common.requirements")}
             </p>
             <ul className="space-y-1">
               {requirements.map((req, index) => (
                 <li
                   key={index}
                   className="text-xs text-[var(--color-text-secondary)] flex items-center gap-1.5"
+                  dir="auto"
                 >
                   <span className="text-[var(--color-primary)]">•</span>
                   {req}
@@ -332,10 +385,10 @@ export const QuestCard: React.FC<QuestCardProps> = ({
           </div>
         )}
 
-        {/* Rank Badge */}
+        {/* Rank Badge - fixed placement in RTL */}
         {rank && (
           <div
-            className="absolute top-4 right-4"
+            className={`absolute top-4 ${isRTL ? "left-4" : "right-4"}`}
             style={{ transform: "translateZ(30px)" }}
           >
             <span
@@ -355,8 +408,24 @@ export const QuestCard: React.FC<QuestCardProps> = ({
         {/* Done overlay */}
         {completed && (
           <div className="absolute inset-0 flex items-center justify-center bg-[var(--color-bg-primary)]/60 backdrop-blur-sm rounded-[var(--radius-standard)] z-20">
-            <span className="font-heading text-2xl font-bold text-[var(--color-success)]">
-              ✓ COMPLETE
+            <span
+              className="font-heading text-2xl font-bold text-[var(--color-success)] flex items-center gap-2"
+              dir="auto"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={3}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+              {t("common.complete").toUpperCase()}
             </span>
           </div>
         )}
@@ -366,34 +435,45 @@ export const QuestCard: React.FC<QuestCardProps> = ({
       <Modal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
-        title="Complete Mission"
-        confirmText="✔️ Complete"
-        cancelText="Cancel"
+        title={t("common.completeMission")}
+        confirmText={t("common.complete")}
+        cancelText={t("modal.decline")}
         onConfirm={handleConfirmComplete}
       >
-        <p className="text-[var(--color-text-secondary)] mb-2 flex items-center gap-2">
-          Are you sure you want to complete the mission?
+        <p
+          className="text-[var(--color-text-secondary)] mb-2 flex items-center gap-2"
+          dir="auto"
+        >
+          <FlagIcon className="h-4 w-4 text-[var(--color-primary)] flex-shrink-0" />
+          {t("common.areYouSureComplete")}
         </p>
-        <p className="font-heading font-bold text-lg text-[var(--color-text-primary)] mb-3">
+        <p
+          className="font-heading font-bold text-lg text-[var(--color-text-primary)] mb-3"
+          dir="auto"
+        >
           "{title}"
         </p>
-        <p className="text-[var(--color-text-secondary)] text-sm">
-          You will earn{" "}
+        <p className="text-[var(--color-text-secondary)] text-sm" dir="auto">
+          {t("common.youWillEarn")}{" "}
           <span className="text-[var(--color-success)] font-bold">
             +{xp} {xpLabel}
           </span>{" "}
-          upon completion.
+          {t("common.uponCompletion")}
         </p>
         {requirements.length > 0 && (
           <div className="mt-3 p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
-            <p className="text-xs text-[var(--color-text-tertiary)] font-mono mb-1">
-              Requirements:
+            <p
+              className="text-xs text-[var(--color-text-tertiary)] font-mono mb-1"
+              dir="auto"
+            >
+              {t("common.requirements")}
             </p>
             <ul className="space-y-1">
               {requirements.map((req, index) => (
                 <li
                   key={index}
                   className="text-xs text-[var(--color-text-secondary)] flex items-center gap-1.5"
+                  dir="auto"
                 >
                   <span className="text-[var(--color-success)]">✓</span>
                   {req}

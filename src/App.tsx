@@ -174,32 +174,27 @@ const dropdownOptionsWithIcons = [
 
 function ToastDemo() {
   const toast = useToast();
+  const { t } = useI18n();
 
   return (
     <div className="flex gap-3 flex-wrap">
       <Button
         variant="success"
-        onClick={() => toast.success("Mission complete! +300 XP earned.")}
+        onClick={() => toast.success(t("toast.successMsg"))}
       >
-        Success Toast
+        {t("toast.successToast")}
       </Button>
-      <Button
-        variant="danger"
-        onClick={() => toast.error("Connection lost. Retrying...")}
-      >
-        Error Toast
+      <Button variant="danger" onClick={() => toast.error(t("toast.errorMsg"))}>
+        {t("toast.errorToast")}
       </Button>
       <Button
         variant="outline"
-        onClick={() => toast.warning("Please check your connection")}
+        onClick={() => toast.warning(t("toast.warningMsg"))}
       >
-        Warning Toast
+        {t("toast.warningToast")}
       </Button>
-      <Button
-        variant="glass"
-        onClick={() => toast.info("Archives are being indexed")}
-      >
-        Info Toast
+      <Button variant="glass" onClick={() => toast.info(t("toast.infoMsg"))}>
+        {t("toast.infoToast")}
       </Button>
     </div>
   );
@@ -318,15 +313,25 @@ function AppContent() {
         title: t("accordion.q3"),
         content: (
           <div>
-            <code className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm">
+            <code
+              className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm"
+              dir="ltr"
+              style={{ textAlign: "left", unicodeBidi: "embed" }}
+            >
               npm install dara-ui
               <br />
               # or
               <br />
               yarn add dara-ui
             </code>
-            <p className="mt-2">Then import components:</p>
-            <code className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm">
+            <p className="mt-2" dir="auto">
+              {t("common.thenImport")}
+            </p>
+            <code
+              className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm"
+              dir="ltr"
+              style={{ textAlign: "left", unicodeBidi: "embed" }}
+            >
               import {"{ Button, Card, Input }"} from 'dara-ui';
             </code>
           </div>
@@ -432,14 +437,13 @@ function AppContent() {
           <section className="text-center mb-24 relative">
             <GradientRing />
             <span className="section-label block mb-4" data-i18n="hero.version">
-              v1.0 - The Digital Archives
+              {t("hero.version")}
             </span>
             <h1 className="font-heading text-7xl md:text-8xl font-bold mb-6 tracking-tight text-gradient-hero">
-              DARA UI
+              {t("hero.title")}
             </h1>
             <p className="text-[var(--color-text-secondary)] text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed mb-8">
-              A design system discovered inside a futuristic archive hidden
-              beneath during a snowstorm.
+              {t("hero.subtitle")}
             </p>
           </section>
 
@@ -1195,24 +1199,35 @@ function AppContent() {
                   <h3 className="font-heading font-bold">
                     {t("cards.primaryGlow")}
                   </h3>
-                  <p className="text-[var(--color-text-secondary)] text-sm">
-                    Hover to float ✨
+                  <p
+                    className="text-[var(--color-text-secondary)] text-sm"
+                    dir="auto"
+                  >
+                    {t("common.hoverToFloat")}
                   </p>
                 </Card>
+
                 <Card float glow="secondary">
                   <h3 className="font-heading font-bold">
                     {t("cards.secondaryGlow")}
                   </h3>
-                  <p className="text-[var(--color-text-secondary)] text-sm">
-                    Hover to float ✨
+                  <p
+                    className="text-[var(--color-text-secondary)] text-sm"
+                    dir="auto"
+                  >
+                    {t("common.hoverToFloat")}
                   </p>
                 </Card>
+
                 <Card float glow="accent">
                   <h3 className="font-heading font-bold">
                     {t("cards.accentGlow")}
                   </h3>
-                  <p className="text-[var(--color-text-secondary)] text-sm">
-                    Hover to float ✨
+                  <p
+                    className="text-[var(--color-text-secondary)] text-sm"
+                    dir="auto"
+                  >
+                    {t("common.hoverToFloat")}
                   </p>
                 </Card>
               </div>
@@ -1651,8 +1666,8 @@ function AppContent() {
                 value={3400}
                 max={5000}
                 level={14}
-                customLabel={`★ ${t("xpbar.rankProgress")}`}
-                levelLabel="Rank"
+                customLabel={t("xpbar.rankProgress")}
+                levelLabel={t("xpbar.rank")}
                 xpLabel={t("xpbar.exp")}
               />
             </div>
@@ -1665,13 +1680,13 @@ function AppContent() {
                 level={14}
                 levelLabel={t("xpbar.tier")}
                 xpLabel={t("xpbar.points")}
-                customLabel={`🏆 ${t("xpbar.rankProgress")}`}
+                customLabel={t("xpbar.rankProgress")}
                 ranks={[
-                  { label: "Common", requiredXP: 0 },
-                  { label: "Uncommon", requiredXP: 1000 },
-                  { label: "Rare", requiredXP: 2500 },
-                  { label: "Epic", requiredXP: 4000 },
-                  { label: "Legendary", requiredXP: 6000 },
+                  { label: t("rank.common"), requiredXP: 0 },
+                  { label: t("rank.uncommon"), requiredXP: 1000 },
+                  { label: t("rank.rare"), requiredXP: 2500 },
+                  { label: t("rank.epic"), requiredXP: 4000 },
+                  { label: t("rank.legendary"), requiredXP: 6000 },
                 ]}
               />
             </div>
@@ -1684,13 +1699,13 @@ function AppContent() {
                 level={3}
                 levelLabel={t("xpbar.prestige")}
                 xpLabel={t("xpbar.score")}
-                customLabel={`⚔️ ${t("xpbar.missionProgress")}`}
+                customLabel={t("xpbar.missionProgress")}
                 ranks={[
-                  { label: "Recruit", requiredXP: 0 },
-                  { label: "Soldier", requiredXP: 300 },
-                  { label: "Veteran", requiredXP: 600 },
-                  { label: "Elite", requiredXP: 900 },
-                  { label: "Commander", requiredXP: 1200 },
+                  { label: t("rank.recruit"), requiredXP: 0 },
+                  { label: t("rank.soldier"), requiredXP: 300 },
+                  { label: t("rank.veteran"), requiredXP: 600 },
+                  { label: t("rank.elite"), requiredXP: 900 },
+                  { label: t("rank.commander"), requiredXP: 1200 },
                 ]}
               />
             </div>

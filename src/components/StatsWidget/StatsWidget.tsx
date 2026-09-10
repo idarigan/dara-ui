@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Progress } from "../Progress/Progress";
+import { useI18n } from "../LanguageChanger/LanguageChanger";
 
 export interface StatsWidgetData {
   /**
@@ -86,6 +87,7 @@ export const StatsWidget: React.FC<StatsWidgetProps> = ({
   layout = "vertical",
   className = "",
 }) => {
+  const { t } = useI18n();
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -257,8 +259,11 @@ export const StatsWidget: React.FC<StatsWidgetProps> = ({
             {title}
           </p>
           {isHorizontal && (
-            <span className="text-[10px] text-[var(--color-text-tertiary)] font-mono md:mt-1">
-              {stats.length} stats
+            <span
+              className="text-[10px] text-[var(--color-text-tertiary)] font-mono md:mt-1"
+              dir="auto"
+            >
+              {stats.length} {t("statsWidget.statsSuffix")}
             </span>
           )}
         </div>
