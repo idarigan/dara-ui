@@ -41,6 +41,8 @@ import Radio from "./components/Radio";
 import { Range } from "./components/Range/Range";
 import { ProductCard } from "./components/ProductCard/ProductCard";
 import { BlogCard } from "./components/BlogCard/BlogCard";
+import { Sidebar } from "./components/Sidebar";
+import type { SidebarGroup } from "./components/Sidebar";
 
 import {
   I18nProvider,
@@ -70,6 +72,10 @@ import {
   VolumeHighIcon,
   VolumeMuteIcon,
   StarIcon,
+  FolderIcon,
+  DocsIcon,
+  MailIcon,
+  LogoutIcon,
 } from "./components/Icons";
 
 // Social Media Icons
@@ -341,7 +347,7 @@ function AppContent() {
     [t],
   );
 
-  // ----- Accordion items with icons and i18n -----
+  // ----- Accordion items -----
   const accordionItemsWithIcons = useMemo(
     () => [
       {
@@ -373,6 +379,207 @@ function AppContent() {
             {t("accordion.settingsContentAccordion")}
           </div>
         ),
+      },
+    ],
+    [t],
+  );
+
+  // ----- Sidebar groups -----
+  const sidebarGroups: SidebarGroup[] = useMemo(
+    () => [
+      {
+        label: t("sidebar.main"),
+        icon: <HomeIcon />,
+        defaultExpanded: true,
+        items: [
+          {
+            id: "dashboard",
+            label: t("sidebar.dashboard"),
+            icon: <HomeIcon />,
+            content: (
+              <div>
+                <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+                  {t("sidebar.dashboard")}
+                </h2>
+                <p className="text-[var(--color-text-secondary)]" dir="auto">
+                  {t("sidebar.dashboardContent")}
+                </p>
+              </div>
+            ),
+          },
+          {
+            id: "projects",
+            label: t("sidebar.projects"),
+            icon: <FolderIcon />,
+            badge: 12,
+            content: (
+              <div>
+                <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+                  {t("sidebar.projects")}
+                </h2>
+                <p className="text-[var(--color-text-secondary)]" dir="auto">
+                  {t("sidebar.projectsContent")}
+                </p>
+              </div>
+            ),
+          },
+          {
+            id: "team",
+            label: t("sidebar.team"),
+            icon: <UserIcon />,
+            content: (
+              <div>
+                <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+                  {t("sidebar.team")}
+                </h2>
+                <p className="text-[var(--color-text-secondary)]" dir="auto">
+                  {t("sidebar.teamContent")}
+                </p>
+              </div>
+            ),
+          },
+        ],
+      },
+      {
+        label: t("sidebar.management"),
+        icon: <SettingsIcon />,
+        items: [
+          {
+            id: "documents",
+            label: t("sidebar.documents"),
+            icon: <DocsIcon />,
+            subItems: [
+              {
+                id: "docs-invoices",
+                label: t("sidebar.invoices"),
+                content: (
+                  <div>
+                    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+                      {t("sidebar.invoices")}
+                    </h2>
+                    <p
+                      className="text-[var(--color-text-secondary)]"
+                      dir="auto"
+                    >
+                      {t("sidebar.invoicesContent")}
+                    </p>
+                  </div>
+                ),
+              },
+              {
+                id: "docs-reports",
+                label: t("sidebar.reports"),
+                badge: 3,
+                content: (
+                  <div>
+                    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+                      {t("sidebar.reports")}
+                    </h2>
+                    <p
+                      className="text-[var(--color-text-secondary)]"
+                      dir="auto"
+                    >
+                      {t("sidebar.reportsContent")}
+                    </p>
+                  </div>
+                ),
+              },
+              {
+                id: "docs-archive",
+                label: t("sidebar.archive"),
+                content: (
+                  <div>
+                    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+                      {t("sidebar.archive")}
+                    </h2>
+                    <p
+                      className="text-[var(--color-text-secondary)]"
+                      dir="auto"
+                    >
+                      {t("sidebar.archiveContent")}
+                    </p>
+                  </div>
+                ),
+              },
+            ],
+            content: <div>{t("sidebar.documents")}</div>,
+          },
+          {
+            id: "messages",
+            label: t("sidebar.messages"),
+            icon: <MailIcon />,
+            badge: 5,
+            subItems: [
+              {
+                id: "msgs-inbox",
+                label: t("sidebar.inbox"),
+                content: (
+                  <div>
+                    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+                      {t("sidebar.inbox")}
+                    </h2>
+                    <p
+                      className="text-[var(--color-text-secondary)]"
+                      dir="auto"
+                    >
+                      {t("sidebar.inboxContent")}
+                    </p>
+                  </div>
+                ),
+              },
+              {
+                id: "msgs-sent",
+                label: t("sidebar.sent"),
+                content: (
+                  <div>
+                    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+                      {t("sidebar.sent")}
+                    </h2>
+                    <p
+                      className="text-[var(--color-text-secondary)]"
+                      dir="auto"
+                    >
+                      {t("sidebar.sentContent")}
+                    </p>
+                  </div>
+                ),
+              },
+              {
+                id: "msgs-drafts",
+                label: t("sidebar.drafts"),
+                content: (
+                  <div>
+                    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+                      {t("sidebar.drafts")}
+                    </h2>
+                    <p
+                      className="text-[var(--color-text-secondary)]"
+                      dir="auto"
+                    >
+                      {t("sidebar.draftsContent")}
+                    </p>
+                  </div>
+                ),
+              },
+            ],
+            content: <div>{t("sidebar.messages")}</div>,
+          },
+          {
+            id: "settings",
+            label: t("sidebar.settings"),
+            icon: <SettingsIcon />,
+            content: (
+              <div>
+                <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+                  {t("sidebar.settings")}
+                </h2>
+                <p className="text-[var(--color-text-secondary)]" dir="auto">
+                  {t("sidebar.settingsContent")}
+                </p>
+              </div>
+            ),
+          },
+        ],
       },
     ],
     [t],
@@ -665,7 +872,7 @@ function AppContent() {
                 variant="secondary"
                 rightIcon={
                   <svg
-                    className="h-4 w-4"
+                    className="h-4 w-4 rtl:-scale-x-100"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -2630,6 +2837,49 @@ function AppContent() {
           </section>
 
           {/* ============================================
+            SIDEBAR SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("sidebar.title")}
+            </h2>
+            <p
+              className="text-sm text-[var(--color-text-secondary)] mb-4 font-mono"
+              dir="auto"
+            >
+              {t("sidebar.subtitle")}
+            </p>
+            <div
+              className="relative h-[520px] overflow-hidden rounded-[var(--radius-large)] border border-[var(--color-border-primary)]"
+              dir={direction}
+            >
+              <Sidebar
+                brand={
+                  <span
+                    className="font-heading font-bold text-lg tracking-tight truncate"
+                    style={{
+                      background: "var(--gradient-primary)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    DARA UI
+                  </span>
+                }
+                groups={sidebarGroups}
+                footer={
+                  <button className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 w-full px-3 py-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-elevated)]/30 text-sm">
+                    <LogoutIcon />
+                    <span>{t("sidebar.logout")}</span>
+                  </button>
+                }
+                height="520px"
+              />
+            </div>
+          </section>
+
+          {/* ============================================
             THEME CHANGER SHOWCASE
             ============================================ */}
           <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
@@ -2780,16 +3030,32 @@ function AppContent() {
               {t("gradients.title")}
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-primary text-white text-center">
+              <div
+                className="p-4 rounded-[var(--radius-standard)] text-white text-center"
+                style={{ background: "var(--gradient-primary)" }}
+                dir="auto"
+              >
                 {t("gradients.primary")}
               </div>
-              <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-accent text-white text-center">
+              <div
+                className="p-4 rounded-[var(--radius-standard)] text-white text-center"
+                style={{ background: "var(--gradient-accent)" }}
+                dir="auto"
+              >
                 {t("gradients.accent")}
               </div>
-              <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-success text-white text-center">
+              <div
+                className="p-4 rounded-[var(--radius-standard)] text-white text-center"
+                style={{ background: "var(--gradient-success)" }}
+                dir="auto"
+              >
                 {t("gradients.success")}
               </div>
-              <div className="p-4 rounded-[var(--radius-standard)] bg-gradient-danger text-white text-center">
+              <div
+                className="p-4 rounded-[var(--radius-standard)] text-white text-center"
+                style={{ background: "var(--gradient-danger)" }}
+                dir="auto"
+              >
                 {t("gradients.danger")}
               </div>
             </div>
@@ -3100,23 +3366,23 @@ function AppContent() {
                 className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
                 dir="auto"
               >
-                With icons
+                {t("switch.withIcons")}
               </p>
               <div className="flex flex-wrap gap-8">
                 <Switch
-                  label="Notifications"
+                  label={t("switch.notifications")}
                   defaultChecked
                   glow
                   onIcon={<BellIcon />}
                   offIcon={<BellSlashIcon />}
                 />
                 <Switch
-                  label="Dark mode"
+                  label={t("switch.darkMode")}
                   onIcon={<MoonIcon />}
                   offIcon={<SunIcon />}
                 />
                 <Switch
-                  label="Sound"
+                  label={t("switch.sound")}
                   defaultChecked
                   onIcon={<VolumeHighIcon />}
                   offIcon={<VolumeMuteIcon />}
@@ -3315,7 +3581,7 @@ function AppContent() {
                 className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
                 dir="auto"
               >
-                Horizontal group
+                {t("radio.horizontalGroup")}
               </p>
               <div className="glass p-6 rounded-[var(--radius-md)] inline-block">
                 {(() => {
@@ -3325,7 +3591,7 @@ function AppContent() {
                       <Radio
                         name="theme-demo"
                         value="nightfall"
-                        label="Nightfall"
+                        label={t("radio.nightfall")}
                         checked={theme === "nightfall"}
                         onChange={() => setTheme("nightfall")}
                         glow
@@ -3333,14 +3599,14 @@ function AppContent() {
                       <Radio
                         name="theme-demo"
                         value="daylight"
-                        label="Daylight"
+                        label={t("radio.daylight")}
                         checked={theme === "daylight"}
                         onChange={() => setTheme("daylight")}
                       />
                       <Radio
                         name="theme-demo"
                         value="dracula"
-                        label="Dracula"
+                        label={t("radio.dracula")}
                         checked={theme === "dracula"}
                         onChange={() => setTheme("dracula")}
                       />

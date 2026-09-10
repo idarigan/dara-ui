@@ -167,7 +167,7 @@ export const WithIcons: Story = {
         <Button
           rightIcon={
             <svg
-              className="h-4 w-4"
+              className="h-4 w-4 rtl:-scale-x-100"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

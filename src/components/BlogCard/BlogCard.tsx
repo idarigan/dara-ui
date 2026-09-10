@@ -398,8 +398,8 @@ export const BlogCard: React.FC<BlogCardProps> = ({
                 Read more
                 <svg
                   className={`
-                    h-4 w-4 transition-transform duration-200
-                    ${isHovering ? "translate-x-0.5" : ""}
+                    h-4 w-4 transition-transform duration-200 rtl:-scale-x-100
+                    ${isHovering ? "translate-x-0.5 rtl:-translate-x-0.5" : ""}
                   `}
                   fill="none"
                   viewBox="0 0 24 24"
