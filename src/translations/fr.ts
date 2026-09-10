@@ -147,6 +147,17 @@ export const fr = {
     hoverDetails: "Survolez pour plus de détails",
     disabledTooltip: "Cette infobulle est désactivée",
     noArrow: "Pas de flèche sur cette infobulle",
+    interactive: "Infobulle interactive",
+    demoTitle: "Démo d'infobulle",
+    demoDescription:
+      "Survolez les boutons ci-dessous pour voir les infobulles en action",
+    placementDemo: "Démo de placement",
+    variantDemo: "Démo de variantes",
+    sizeDemo: "Démo de tailles",
+    longContentDemo: "Démo de contenu long",
+    badgeDemo: "Démo avec badge",
+    disabledDemo: "Démo d'infobulle désactivée",
+    noArrowDemo: "Démo sans flèche",
   },
   tabs: {
     title: "Onglets",
@@ -155,7 +166,7 @@ export const fr = {
     stats: "Statistiques",
     settings: "Paramètres",
     archiveContent:
-      "Parcourez les enregistrements Jedi cryptés, les holocrons et les journaux de mission des archives de .",
+      "Parcourez les enregistrements Jedi cryptés, les holocrons et les journaux de mission des archives.",
     questsContent:
       "Des missions actives, des primes et des quêtes secondaires vous attendent, Padawan.",
     statsContent:

@@ -88,51 +88,6 @@ import "./styles/index.css";
 type Theme = "nightfall" | "daylight" | "dracula";
 
 // ============================================
-// Tab items for Tabs demo
-// ============================================
-
-const tabItems = [
-  {
-    label: "Archive",
-    value: "archive",
-    content: (
-      <div className="py-4 text-[var(--color-text-secondary)]">
-        Browse encrypted Jedi records, holocrons, and mission logs from the
-        archive.
-      </div>
-    ),
-  },
-  {
-    label: "Quests",
-    value: "quests",
-    content: (
-      <div className="py-4 text-[var(--color-text-secondary)]">
-        Active missions, bounties, and side-quests await your attention,
-        Padawan.
-      </div>
-    ),
-  },
-  {
-    label: "Stats",
-    value: "stats",
-    content: (
-      <div className="py-4 text-[var(--color-text-secondary)]">
-        Track your Force alignment, XP gains, and cybernetic enhancement levels.
-      </div>
-    ),
-  },
-  {
-    label: "Settings",
-    value: "settings",
-    content: (
-      <div className="py-4 text-[var(--color-text-secondary)]">
-        Configure your HUD, theme mode, and archive encryption preferences.
-      </div>
-    ),
-  },
-];
-
-// ============================================
 // Accordion items for demo
 // ============================================
 
@@ -188,40 +143,6 @@ const accordionItems = [
         <code className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm">
           import {"{ Button, Card, Input }"} from 'dara-ui';
         </code>
-      </div>
-    ),
-  },
-];
-
-// Accordion items with icons
-const accordionItemsWithIcons = [
-  {
-    id: "1",
-    title: "Dashboard",
-    icon: <HomeIcon />,
-    content: (
-      <div className="text-[var(--color-text-secondary)]">
-        Dashboard overview with key metrics and recent activity.
-      </div>
-    ),
-  },
-  {
-    id: "2",
-    title: "Projects",
-    icon: <ExploreIcon />,
-    content: (
-      <div className="text-[var(--color-text-secondary)]">
-        Active projects and their current status.
-      </div>
-    ),
-  },
-  {
-    id: "3",
-    title: "Settings",
-    icon: <SettingsIcon />,
-    content: (
-      <div className="text-[var(--color-text-secondary)]">
-        Configure your application preferences.
       </div>
     ),
   },
@@ -316,7 +237,7 @@ function AppContent() {
     console.log("Searching for:", query);
   };
 
-  // ----- Navbar links with i18n support -----
+  // ----- Navbar links -----
   const navbarLinks: NavLink[] = useMemo(
     () => [
       { label: t("navbar.home"), href: "#", icon: <HomeIcon />, active: true },
@@ -332,6 +253,122 @@ function AppContent() {
       { label: t("navbar.projects"), href: "#" },
       { label: t("navbar.team"), href: "#" },
       { label: t("navbar.analytics"), href: "#" },
+    ],
+    [t],
+  );
+
+  // ----- Tab items -----
+  const tabItems = useMemo(
+    () => [
+      {
+        label: t("tabs.archive"),
+        value: "archive",
+        content: (
+          <div className="py-4 text-[var(--color-text-secondary)]">
+            {t("tabs.archiveContent")}
+          </div>
+        ),
+      },
+      {
+        label: t("tabs.quests"),
+        value: "quests",
+        content: (
+          <div className="py-4 text-[var(--color-text-secondary)]">
+            {t("tabs.questsContent")}
+          </div>
+        ),
+      },
+      {
+        label: t("tabs.stats"),
+        value: "stats",
+        content: (
+          <div className="py-4 text-[var(--color-text-secondary)]">
+            {t("tabs.statsContent")}
+          </div>
+        ),
+      },
+      {
+        label: t("tabs.settings"),
+        value: "settings",
+        content: (
+          <div className="py-4 text-[var(--color-text-secondary)]">
+            {t("tabs.settingsContent")}
+          </div>
+        ),
+      },
+    ],
+    [t],
+  );
+
+  // ----- Accordion items -----
+  const accordionItems = useMemo(
+    () => [
+      {
+        id: "1",
+        title: t("accordion.q1"),
+        content: <div>{t("accordion.a1")}</div>,
+      },
+      {
+        id: "2",
+        title: t("accordion.q2"),
+        content: <div>{t("accordion.a2")}</div>,
+      },
+      {
+        id: "3",
+        title: t("accordion.q3"),
+        content: (
+          <div>
+            <code className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm">
+              npm install dara-ui
+              <br />
+              # or
+              <br />
+              yarn add dara-ui
+            </code>
+            <p className="mt-2">Then import components:</p>
+            <code className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm">
+              import {"{ Button, Card, Input }"} from 'dara-ui';
+            </code>
+          </div>
+        ),
+      },
+    ],
+    [t],
+  );
+
+  // ----- Accordion items with icons and i18n -----
+  const accordionItemsWithIcons = useMemo(
+    () => [
+      {
+        id: "1",
+        title: t("accordion.dashboard"),
+        icon: <HomeIcon />,
+        content: (
+          <div className="text-[var(--color-text-secondary)]">
+            {t("accordion.dashboardContent")}
+          </div>
+        ),
+      },
+      {
+        id: "2",
+        title: t("accordion.projects"),
+        icon: <ExploreIcon />,
+        content: (
+          <div className="text-[var(--color-text-secondary)]">
+            {t("accordion.projectsContent")}
+          </div>
+        ),
+      },
+      {
+        id: "3",
+        title: t("accordion.settingsAccordion"),
+        icon: <SettingsIcon />,
+        content: (
+          <div className="text-[var(--color-text-secondary)]">
+            {t("accordion.settingsContentAccordion")}
+          </div>
+        ),
+      },
     ],
     [t],
   );
@@ -502,16 +539,16 @@ function AppContent() {
               </p>
               <div className="flex flex-wrap gap-3">
                 <Badge variant="primary">
-                  <span className="mr-1">📦</span> {t("badges.package")}
+                  <span className="me-1">📦</span> {t("badges.package")}
                 </Badge>
                 <Badge variant="success">
-                  <span className="mr-1">✅</span> {t("badges.done")}
+                  <span className="me-1">✅</span> {t("badges.done")}
                 </Badge>
                 <Badge variant="warning">
-                  <span className="mr-1">⚠️</span> {t("badges.warning")}
+                  <span className="me-1">⚠️</span> {t("badges.warning")}
                 </Badge>
                 <Badge variant="danger">
-                  <span className="mr-1">❌</span> {t("badges.failed")}
+                  <span className="me-1">❌</span> {t("badges.failed")}
                 </Badge>
               </div>
             </div>
@@ -810,24 +847,24 @@ function AppContent() {
                 {t("tooltip.placements")}
               </p>
               <div className="grid grid-cols-4 gap-4">
-                <Tooltip content="Top" placement="top">
+                <Tooltip content={t("tooltip.top")} placement="top">
                   <Button size="sm" variant="glass" className="w-full">
-                    Top
+                    {t("tooltip.top")}
                   </Button>
                 </Tooltip>
-                <Tooltip content="Bottom" placement="bottom">
+                <Tooltip content={t("tooltip.bottom")} placement="bottom">
                   <Button size="sm" variant="glass" className="w-full">
-                    Bottom
+                    {t("tooltip.bottom")}
                   </Button>
                 </Tooltip>
-                <Tooltip content="Left" placement="left">
+                <Tooltip content={t("tooltip.left")} placement="left">
                   <Button size="sm" variant="glass" className="w-full">
-                    Left
+                    {t("tooltip.left")}
                   </Button>
                 </Tooltip>
-                <Tooltip content="Right" placement="right">
+                <Tooltip content={t("tooltip.right")} placement="right">
                   <Button size="sm" variant="glass" className="w-full">
-                    Right
+                    {t("tooltip.right")}
                   </Button>
                 </Tooltip>
               </div>
@@ -842,14 +879,17 @@ function AppContent() {
                 {t("tooltip.variants")}
               </p>
               <div className="flex items-center gap-4">
-                <Tooltip content="Glass tooltip" variant="glass">
-                  <Button variant="glass">Glass</Button>
+                <Tooltip content={t("tooltip.glassTooltip")} variant="glass">
+                  <Button variant="glass">{t("buttons.glass")}</Button>
                 </Tooltip>
-                <Tooltip content="Solid tooltip" variant="solid">
-                  <Button variant="secondary">Solid</Button>
+                <Tooltip content={t("tooltip.solidTooltip")} variant="solid">
+                  <Button variant="secondary">{t("buttons.secondary")}</Button>
                 </Tooltip>
-                <Tooltip content="Outline tooltip" variant="outline">
-                  <Button variant="outline">Outline</Button>
+                <Tooltip
+                  content={t("tooltip.outlineTooltip")}
+                  variant="outline"
+                >
+                  <Button variant="outline">{t("buttons.outline")}</Button>
                 </Tooltip>
               </div>
             </div>
@@ -862,7 +902,7 @@ function AppContent() {
               >
                 {t("tooltip.withBadge")}
               </p>
-              <Tooltip content="You have 42 unread messages">
+              <Tooltip content={t("tooltip.unreadMessages", { count: 42 })}>
                 <Badge variant="primary" glow className="cursor-pointer">
                   42
                 </Badge>
@@ -877,8 +917,8 @@ function AppContent() {
               >
                 {t("tooltip.longContent")}
               </p>
-              <Tooltip content="This is a longer tooltip with more detailed information about the element you're hovering over.">
-                <Button variant="primary">Hover for details</Button>
+              <Tooltip content={t("tooltip.longTooltip")}>
+                <Button variant="primary">{t("tooltip.hoverDetails")}</Button>
               </Tooltip>
             </div>
           </section>

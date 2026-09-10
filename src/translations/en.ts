@@ -146,6 +146,16 @@ export const en = {
     hoverDetails: "Hover for details",
     disabledTooltip: "This tooltip is disabled",
     noArrow: "No arrow on this tooltip",
+    interactive: "Interactive tooltip",
+    demoTitle: "Tooltip Demo",
+    demoDescription: "Hover over the buttons below to see tooltips in action",
+    placementDemo: "Placement Demo",
+    variantDemo: "Variant Demo",
+    sizeDemo: "Size Demo",
+    longContentDemo: "Long Content Demo",
+    badgeDemo: "Badge Demo",
+    disabledDemo: "Disabled Tooltip Demo",
+    noArrowDemo: "No Arrow Demo",
   },
   tabs: {
     title: "Tabs",
@@ -154,7 +164,7 @@ export const en = {
     stats: "Stats",
     settings: "Settings",
     archiveContent:
-      "Browse encrypted Jedi records, holocrons, and mission logs from the  archive.",
+      "Browse encrypted Jedi records, holocrons, and mission logs from the archive.",
     questsContent:
       "Active missions, bounties, and side-quests await your attention, Padawan.",
     statsContent:
