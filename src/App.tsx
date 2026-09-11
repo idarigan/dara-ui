@@ -41,9 +41,8 @@ import Radio from "./components/Radio";
 import { Range } from "./components/Range/Range";
 import { ProductCard } from "./components/ProductCard/ProductCard";
 import { BlogCard } from "./components/BlogCard/BlogCard";
-import { Sidebar } from "./components/Sidebar";
+import { Sidebar, SidebarMobileTrigger } from "./components/Sidebar";
 import type { SidebarGroup } from "./components/Sidebar";
-
 import {
   I18nProvider,
   useI18n,
@@ -387,63 +386,357 @@ function AppContent() {
   // ----- Sidebar groups -----
   const sidebarGroups: SidebarGroup[] = useMemo(
     () => [
+      // ============================================
+      // GROUP 1 - Main
+      // ============================================
       {
         label: t("sidebar.main"),
         icon: <HomeIcon />,
         defaultExpanded: true,
         items: [
+          // ----- Dashboard -----
           {
             id: "dashboard",
             label: t("sidebar.dashboard"),
             icon: <HomeIcon />,
             content: (
-              <div>
-                <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                  {t("sidebar.dashboard")}
-                </h2>
-                <p className="text-[var(--color-text-secondary)]" dir="auto">
-                  {t("sidebar.dashboardContent")}
-                </p>
+              <div className="flex flex-col gap-5">
+                <div>
+                  <h2
+                    className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-1"
+                    dir="auto"
+                  >
+                    {t("sidebar.dashboard")}
+                  </h2>
+                  <p
+                    className="text-[var(--color-text-secondary)] text-sm"
+                    dir="auto"
+                  >
+                    {t("sidebar.dashboardContent")}
+                  </p>
+                </div>
+
+                {/* Stat cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <Card glow="primary" className="text-center">
+                    <div className="text-2xl font-heading font-bold text-[var(--color-primary)]">
+                      12
+                    </div>
+                    <p
+                      className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-1"
+                      dir="auto"
+                    >
+                      {t("sidebar.activeProjectsLabel")}
+                    </p>
+                  </Card>
+                  <Card glow="secondary" className="text-center">
+                    <div className="text-2xl font-heading font-bold text-[var(--color-secondary)]">
+                      47
+                    </div>
+                    <p
+                      className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-1"
+                      dir="auto"
+                    >
+                      {t("sidebar.completedTasksLabel")}
+                    </p>
+                  </Card>
+                  <Card glow="accent" className="text-center">
+                    <div className="text-2xl font-heading font-bold text-[var(--color-accent)]">
+                      8
+                    </div>
+                    <p
+                      className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-1"
+                      dir="auto"
+                    >
+                      {t("sidebar.teamMembersLabel")}
+                    </p>
+                  </Card>
+                </div>
+
+                {/* Storage widget */}
+                <Card variant="solid">
+                  <p
+                    className="text-xs font-mono uppercase tracking-wider text-[var(--color-text-tertiary)] mb-3"
+                    dir="auto"
+                  >
+                    {t("sidebar.storageLabel")}
+                  </p>
+                  <Progress
+                    value={72}
+                    color="gradient"
+                    labelPosition="right"
+                    showLabel
+                  />
+                </Card>
+
+                {/* Recent activity */}
+                <Card variant="outline">
+                  <p
+                    className="text-xs font-mono uppercase tracking-wider text-[var(--color-text-tertiary)] mb-3"
+                    dir="auto"
+                  >
+                    {t("sidebar.recentActivityLabel")}
+                  </p>
+                  <ul className="flex flex-col gap-3">
+                    {[
+                      {
+                        avatar: "JD",
+                        text: t("sidebar.activityUpload"),
+                        time: t("sidebar.minutesAgo", { count: 5 }),
+                      },
+                      {
+                        avatar: "JS",
+                        text: t("sidebar.activityComment"),
+                        time: t("sidebar.minutesAgo", { count: 22 }),
+                      },
+                      {
+                        avatar: "AK",
+                        text: t("sidebar.activityMerge"),
+                        time: t("sidebar.hoursAgo", { count: 1 }),
+                      },
+                      {
+                        avatar: "MR",
+                        text: t("sidebar.activityDeploy"),
+                        time: t("sidebar.hoursAgo", { count: 3 }),
+                      },
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-center gap-3">
+                        <Avatar size="sm" fallbackText={item.avatar} />
+                        <div className="flex flex-col min-w-0 flex-1">
+                          <span
+                            className="text-sm text-[var(--color-text-primary)] truncate"
+                            dir="auto"
+                          >
+                            {item.text}
+                          </span>
+                          <span
+                            className="text-[10px] font-mono text-[var(--color-text-tertiary)]"
+                            dir="auto"
+                          >
+                            {item.time}
+                          </span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
               </div>
             ),
           },
+
+          // ----- Projects -----
           {
             id: "projects",
             label: t("sidebar.projects"),
             icon: <FolderIcon />,
             badge: 12,
             content: (
-              <div>
-                <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                  {t("sidebar.projects")}
-                </h2>
-                <p className="text-[var(--color-text-secondary)]" dir="auto">
-                  {t("sidebar.projectsContent")}
-                </p>
+              <div className="flex flex-col gap-5">
+                <div>
+                  <h2
+                    className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-1"
+                    dir="auto"
+                  >
+                    {t("sidebar.projects")}
+                  </h2>
+                  <p
+                    className="text-[var(--color-text-secondary)] text-sm"
+                    dir="auto"
+                  >
+                    {t("sidebar.projectsContent")}
+                  </p>
+                </div>
+
+                {/* Quick actions */}
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    leftIcon={
+                      <svg
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2.5}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 4v16m8-8H4"
+                        />
+                      </svg>
+                    }
+                  >
+                    {t("sidebar.deployAction")}
+                  </Button>
+                  <Button variant="secondary" size="sm">
+                    {t("sidebar.reviewAction")}
+                  </Button>
+                  <Button variant="glass" size="sm">
+                    {t("sidebar.inviteAction")}
+                  </Button>
+                </div>
+
+                {/* Project cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {[
+                    {
+                      title: t("sidebar.projectAlpha"),
+                      status: t("sidebar.inProgress"),
+                      color: "primary" as const,
+                      progress: 65,
+                    },
+                    {
+                      title: t("sidebar.projectBeta"),
+                      status: t("sidebar.completed"),
+                      color: "success" as const,
+                      progress: 100,
+                    },
+                    {
+                      title: t("sidebar.projectGamma"),
+                      status: t("sidebar.onHold"),
+                      color: "warning" as const,
+                      progress: 32,
+                    },
+                    {
+                      title: t("sidebar.projectDelta"),
+                      status: t("sidebar.review"),
+                      color: "accent" as const,
+                      progress: 88,
+                    },
+                  ].map((p, i) => (
+                    <Card key={i} variant="solid" glow={p.color}>
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <h3
+                          className="font-heading font-bold text-[var(--color-text-primary)] text-sm"
+                          dir="auto"
+                        >
+                          {p.title}
+                        </h3>
+                        <Badge variant={p.color} size="sm" outline>
+                          {p.status}
+                        </Badge>
+                      </div>
+                      <Progress
+                        value={p.progress}
+                        color={p.color}
+                        labelPosition="right"
+                        showLabel
+                        size="sm"
+                      />
+                    </Card>
+                  ))}
+                </div>
               </div>
             ),
           },
+
+          // ----- Team -----
           {
             id: "team",
             label: t("sidebar.team"),
             icon: <UserIcon />,
             content: (
-              <div>
-                <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                  {t("sidebar.team")}
-                </h2>
-                <p className="text-[var(--color-text-secondary)]" dir="auto">
-                  {t("sidebar.teamContent")}
-                </p>
+              <div className="flex flex-col gap-5">
+                <div>
+                  <h2
+                    className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-1"
+                    dir="auto"
+                  >
+                    {t("sidebar.team")}
+                  </h2>
+                  <p
+                    className="text-[var(--color-text-secondary)] text-sm"
+                    dir="auto"
+                  >
+                    {t("sidebar.teamContent")}
+                  </p>
+                </div>
+
+                {/* Member list */}
+                <div className="flex flex-col gap-3">
+                  {[
+                    {
+                      avatar: "JD",
+                      name: "John Doe",
+                      role: t("sidebar.memberRole1"),
+                      status: "online" as const,
+                    },
+                    {
+                      avatar: "JS",
+                      name: "Jane Smith",
+                      role: t("sidebar.memberRole2"),
+                      status: "online" as const,
+                    },
+                    {
+                      avatar: "AK",
+                      name: "Alex Kim",
+                      role: t("sidebar.memberRole3"),
+                      status: "away" as const,
+                    },
+                    {
+                      avatar: "MR",
+                      name: "Maya Ross",
+                      role: t("sidebar.memberRole4"),
+                      status: "offline" as const,
+                    },
+                  ].map((m, i) => (
+                    <Card
+                      key={i}
+                      variant="glass"
+                      padding="sm"
+                      className="flex items-center gap-3"
+                    >
+                      <Avatar
+                        size="md"
+                        fallbackText={m.avatar}
+                        status={m.status}
+                        glow={m.status === "online" ? "primary" : undefined}
+                      />
+                      <div className="flex flex-col min-w-0 flex-1">
+                        <span
+                          className="text-sm font-medium text-[var(--color-text-primary)] truncate"
+                          dir="auto"
+                        >
+                          {m.name}
+                        </span>
+                        <span
+                          className="text-[11px] text-[var(--color-text-tertiary)] truncate"
+                          dir="auto"
+                        >
+                          {m.role}
+                        </span>
+                      </div>
+                      <Badge
+                        variant={
+                          m.status === "online"
+                            ? "success"
+                            : m.status === "away"
+                              ? "warning"
+                              : "secondary"
+                        }
+                        size="sm"
+                      >
+                        {m.status}
+                      </Badge>
+                    </Card>
+                  ))}
+                </div>
               </div>
             ),
           },
         ],
       },
+
+      // ============================================
+      // GROUP 2 - Management
+      // ============================================
       {
         label: t("sidebar.management"),
         icon: <SettingsIcon />,
         items: [
+          // ----- Documents (with sub-menu) -----
           {
             id: "documents",
             label: t("sidebar.documents"),
@@ -453,16 +746,63 @@ function AppContent() {
                 id: "docs-invoices",
                 label: t("sidebar.invoices"),
                 content: (
-                  <div>
-                    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                      {t("sidebar.invoices")}
-                    </h2>
-                    <p
-                      className="text-[var(--color-text-secondary)]"
+                  <div className="flex flex-col gap-5">
+                    <h2
+                      className="font-heading text-2xl font-bold text-[var(--color-text-primary)]"
                       dir="auto"
                     >
-                      {t("sidebar.invoicesContent")}
-                    </p>
+                      {t("sidebar.invoices")}
+                    </h2>
+                    <div className="flex flex-col gap-3">
+                      {[
+                        {
+                          num: 1042,
+                          amount: "$1,250.00",
+                          status: t("sidebar.invoicePaid"),
+                          color: "success" as const,
+                        },
+                        {
+                          num: 1041,
+                          amount: "$890.00",
+                          status: t("sidebar.invoicePaid"),
+                          color: "success" as const,
+                        },
+                        {
+                          num: 1040,
+                          amount: "$2,100.00",
+                          status: t("sidebar.invoicePending"),
+                          color: "warning" as const,
+                        },
+                        {
+                          num: 1039,
+                          amount: "$450.00",
+                          status: t("sidebar.invoiceOverdue"),
+                          color: "danger" as const,
+                        },
+                      ].map((inv, i) => (
+                        <Card
+                          key={i}
+                          variant="outline"
+                          padding="sm"
+                          className="flex items-center justify-between gap-3"
+                        >
+                          <div className="flex flex-col min-w-0">
+                            <span
+                              className="text-sm font-medium text-[var(--color-text-primary)] truncate"
+                              dir="auto"
+                            >
+                              {t("sidebar.invoiceNumber", { num: inv.num })}
+                            </span>
+                            <span className="text-xs font-mono text-[var(--color-text-tertiary)]">
+                              {inv.amount}
+                            </span>
+                          </div>
+                          <Badge variant={inv.color} size="sm" outline>
+                            {inv.status}
+                          </Badge>
+                        </Card>
+                      ))}
+                    </div>
                   </div>
                 ),
               },
@@ -471,16 +811,48 @@ function AppContent() {
                 label: t("sidebar.reports"),
                 badge: 3,
                 content: (
-                  <div>
-                    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                      {t("sidebar.reports")}
-                    </h2>
-                    <p
-                      className="text-[var(--color-text-secondary)]"
+                  <div className="flex flex-col gap-5">
+                    <h2
+                      className="font-heading text-2xl font-bold text-[var(--color-text-primary)]"
                       dir="auto"
                     >
-                      {t("sidebar.reportsContent")}
-                    </p>
+                      {t("sidebar.reports")}
+                    </h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      {[
+                        {
+                          label: t("sidebar.reportWeekly"),
+                          value: 62,
+                          color: "primary" as const,
+                        },
+                        {
+                          label: t("sidebar.reportMonthly"),
+                          value: 84,
+                          color: "secondary" as const,
+                        },
+                        {
+                          label: t("sidebar.reportQuarterly"),
+                          value: 47,
+                          color: "accent" as const,
+                        },
+                      ].map((r, i) => (
+                        <Card key={i} variant="solid" className="text-center">
+                          <Progress
+                            variant="radial"
+                            value={r.value}
+                            color={r.color}
+                            radialSize={80}
+                            showLabel
+                          />
+                          <p
+                            className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-2"
+                            dir="auto"
+                          >
+                            {r.label}
+                          </p>
+                        </Card>
+                      ))}
+                    </div>
                   </div>
                 ),
               },
@@ -488,22 +860,44 @@ function AppContent() {
                 id: "docs-archive",
                 label: t("sidebar.archive"),
                 content: (
-                  <div>
-                    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                      {t("sidebar.archive")}
-                    </h2>
-                    <p
-                      className="text-[var(--color-text-secondary)]"
+                  <div className="flex flex-col gap-5">
+                    <h2
+                      className="font-heading text-2xl font-bold text-[var(--color-text-primary)]"
                       dir="auto"
                     >
-                      {t("sidebar.archiveContent")}
-                    </p>
+                      {t("sidebar.archive")}
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <BlogCard
+                        title={t("blogCard.post1")}
+                        excerpt={t("blogCard.excerpt1")}
+                        coverImage="https://picsum.photos/seed/archive-blog/400/250"
+                        author={t("blogCard.author1")}
+                        date={new Date("2024-11-15")}
+                        readTime={5}
+                        category={t("blogCard.category1")}
+                        link="#"
+                      />
+                      <BlogCard
+                        title={t("blogCard.post2")}
+                        excerpt={t("blogCard.excerpt2")}
+                        coverImage="https://picsum.photos/seed/archive-blog2/400/250"
+                        author={t("blogCard.author2")}
+                        date={new Date("2024-11-10")}
+                        readTime={8}
+                        category={t("blogCard.category2")}
+                        glow="secondary"
+                        link="#"
+                      />
+                    </div>
                   </div>
                 ),
               },
             ],
             content: <div>{t("sidebar.documents")}</div>,
           },
+
+          // ----- Messages (with sub-menu) -----
           {
             id: "messages",
             label: t("sidebar.messages"),
@@ -514,16 +908,70 @@ function AppContent() {
                 id: "msgs-inbox",
                 label: t("sidebar.inbox"),
                 content: (
-                  <div>
-                    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                      {t("sidebar.inbox")}
-                    </h2>
-                    <p
-                      className="text-[var(--color-text-secondary)]"
+                  <div className="flex flex-col gap-5">
+                    <h2
+                      className="font-heading text-2xl font-bold text-[var(--color-text-primary)]"
                       dir="auto"
                     >
-                      {t("sidebar.inboxContent")}
-                    </p>
+                      {t("sidebar.inbox")}
+                    </h2>
+                    <div className="flex flex-col gap-3">
+                      {[
+                        {
+                          avatar: "JD",
+                          name: "John Doe",
+                          preview: t("sidebar.activityComment"),
+                          time: t("sidebar.minutesAgo", { count: 5 }),
+                        },
+                        {
+                          avatar: "JS",
+                          name: "Jane Smith",
+                          preview: t("sidebar.activityUpload"),
+                          time: t("sidebar.minutesAgo", { count: 22 }),
+                        },
+                        {
+                          avatar: "AK",
+                          name: "Alex Kim",
+                          preview: t("sidebar.activityMerge"),
+                          time: t("sidebar.hoursAgo", { count: 2 }),
+                        },
+                      ].map((m, i) => (
+                        <Card
+                          key={i}
+                          variant="glass"
+                          padding="sm"
+                          className="flex items-start gap-3"
+                        >
+                          <Avatar
+                            size="md"
+                            fallbackText={m.avatar}
+                            status="online"
+                          />
+                          <div className="flex flex-col min-w-0 flex-1">
+                            <div className="flex items-center justify-between gap-2">
+                              <span
+                                className="text-sm font-medium text-[var(--color-text-primary)] truncate"
+                                dir="auto"
+                              >
+                                {m.name}
+                              </span>
+                              <span
+                                className="text-[10px] font-mono text-[var(--color-text-tertiary)] shrink-0"
+                                dir="auto"
+                              >
+                                {m.time}
+                              </span>
+                            </div>
+                            <span
+                              className="text-xs text-[var(--color-text-secondary)] truncate mt-0.5"
+                              dir="auto"
+                            >
+                              {m.preview}
+                            </span>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
                   </div>
                 ),
               },
@@ -531,12 +979,15 @@ function AppContent() {
                 id: "msgs-sent",
                 label: t("sidebar.sent"),
                 content: (
-                  <div>
-                    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+                  <div className="flex flex-col gap-5">
+                    <h2
+                      className="font-heading text-2xl font-bold text-[var(--color-text-primary)]"
+                      dir="auto"
+                    >
                       {t("sidebar.sent")}
                     </h2>
                     <p
-                      className="text-[var(--color-text-secondary)]"
+                      className="text-[var(--color-text-secondary)] text-sm"
                       dir="auto"
                     >
                       {t("sidebar.sentContent")}
@@ -548,12 +999,15 @@ function AppContent() {
                 id: "msgs-drafts",
                 label: t("sidebar.drafts"),
                 content: (
-                  <div>
-                    <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
+                  <div className="flex flex-col gap-5">
+                    <h2
+                      className="font-heading text-2xl font-bold text-[var(--color-text-primary)]"
+                      dir="auto"
+                    >
                       {t("sidebar.drafts")}
                     </h2>
                     <p
-                      className="text-[var(--color-text-secondary)]"
+                      className="text-[var(--color-text-secondary)] text-sm"
                       dir="auto"
                     >
                       {t("sidebar.draftsContent")}
@@ -564,18 +1018,74 @@ function AppContent() {
             ],
             content: <div>{t("sidebar.messages")}</div>,
           },
+
+          // ----- Settings -----
           {
             id: "settings",
             label: t("sidebar.settings"),
             icon: <SettingsIcon />,
             content: (
-              <div>
-                <h2 className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-4">
-                  {t("sidebar.settings")}
-                </h2>
-                <p className="text-[var(--color-text-secondary)]" dir="auto">
-                  {t("sidebar.settingsContent")}
-                </p>
+              <div className="flex flex-col gap-5">
+                <div>
+                  <h2
+                    className="font-heading text-2xl font-bold text-[var(--color-text-primary)] mb-1"
+                    dir="auto"
+                  >
+                    {t("sidebar.settings")}
+                  </h2>
+                  <p
+                    className="text-[var(--color-text-secondary)] text-sm"
+                    dir="auto"
+                  >
+                    {t("sidebar.settingsContent")}
+                  </p>
+                </div>
+
+                {/* Settings switches using i18n-aware labels */}
+                <Card variant="solid" className="flex flex-col gap-4">
+                  <Switch
+                    label={t("switch.notifications")}
+                    defaultChecked
+                    glow
+                    onIcon={<BellIcon />}
+                    offIcon={<BellSlashIcon />}
+                  />
+                  <Switch
+                    label={t("switch.darkMode")}
+                    defaultChecked
+                    onIcon={<MoonIcon />}
+                    offIcon={<SunIcon />}
+                  />
+                  <Switch
+                    label={t("switch.sound")}
+                    onIcon={<VolumeHighIcon />}
+                    offIcon={<VolumeMuteIcon />}
+                  />
+                </Card>
+
+                {/* Quick upgrade CTA */}
+                <Card
+                  glow="accent"
+                  className="flex items-center justify-between gap-3"
+                >
+                  <div className="min-w-0">
+                    <h3
+                      className="font-heading font-bold text-[var(--color-text-primary)] text-sm"
+                      dir="auto"
+                    >
+                      {t("sidebar.upgradeAction")}
+                    </h3>
+                    <p
+                      className="text-xs text-[var(--color-text-secondary)] truncate"
+                      dir="auto"
+                    >
+                      {t("sidebar.settingsContent")}
+                    </p>
+                  </div>
+                  <Button variant="accent" size="sm">
+                    {t("sidebar.upgradeAction")}
+                  </Button>
+                </Card>
               </div>
             ),
           },
@@ -2844,33 +3354,44 @@ function AppContent() {
             >
               {t("sidebar.subtitle")}
             </p>
+            <p
+              className="text-xs text-[var(--color-text-tertiary)] mb-4 font-mono md:hidden"
+              dir="auto"
+            >
+              {t("sidebar.mobileSidebarHint")}
+            </p>
+
+            {/* Desktop sidebar inside a framed container */}
             <div
-              className="relative h-[520px] overflow-hidden rounded-[var(--radius-large)] border border-[var(--color-border-primary)]"
+              className="relative h-[680px] overflow-hidden rounded-[var(--radius-large)] border border-[var(--color-border-primary)]"
               dir={direction}
             >
-              <Sidebar
-                brand={
-                  <span
-                    className="font-heading font-bold text-lg tracking-tight truncate"
-                    style={{
-                      background: "var(--gradient-primary)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    DARA UI
-                  </span>
-                }
-                groups={sidebarGroups}
-                footer={
-                  <button className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 w-full px-3 py-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-elevated)]/30 text-sm">
-                    <LogoutIcon />
-                    <span>{t("sidebar.logout")}</span>
-                  </button>
-                }
-                height="520px"
-              />
+              {/* SidebarMobileTrigger handles both desktop (hidden sidebar wrapper) and mobile (FAB + drawer) */}
+              <SidebarMobileTrigger width="85vw">
+                <Sidebar
+                  brand={
+                    <span
+                      className="font-heading font-bold text-lg tracking-tight truncate"
+                      style={{
+                        background: "var(--gradient-primary)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                      }}
+                    >
+                      DARA UI
+                    </span>
+                  }
+                  groups={sidebarGroups}
+                  footer={
+                    <button className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 w-full px-3 py-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-elevated)]/30 text-sm">
+                      <LogoutIcon />
+                      <span>{t("sidebar.logout")}</span>
+                    </button>
+                  }
+                  height="680px"
+                />
+              </SidebarMobileTrigger>
             </div>
           </section>
 
