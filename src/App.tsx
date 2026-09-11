@@ -75,6 +75,9 @@ import {
   DocsIcon,
   MailIcon,
   LogoutIcon,
+  SuccessIcon,
+  ErrorIcon,
+  WarningIcon,
 } from "./components/Icons";
 
 // Social Media Icons
@@ -1259,18 +1262,24 @@ function AppContent() {
                 {t("badges.withIcons")}
               </p>
               <div className="flex flex-wrap gap-3">
-                <Badge variant="primary">
-                  <span className="me-1">📦</span> {t("badges.package")}
-                </Badge>
-                <Badge variant="success">
-                  <span className="me-1">✅</span> {t("badges.done")}
-                </Badge>
-                <Badge variant="warning">
-                  <span className="me-1">⚠️</span> {t("badges.warning")}
-                </Badge>
-                <Badge variant="danger">
-                  <span className="me-1">❌</span> {t("badges.failed")}
-                </Badge>
+                <div className="flex flex-wrap gap-3">
+                  <Badge variant="primary">
+                    <FolderIcon className="h-3.5 w-3.5 me-1 flex-shrink-0" />
+                    {t("badges.package")}
+                  </Badge>
+                  <Badge variant="success">
+                    <SuccessIcon className="h-3.5 w-3.5 me-1 flex-shrink-0" />
+                    {t("badges.done")}
+                  </Badge>
+                  <Badge variant="warning">
+                    <WarningIcon className="h-3.5 w-3.5 me-1 flex-shrink-0" />
+                    {t("badges.warning")}
+                  </Badge>
+                  <Badge variant="danger">
+                    <ErrorIcon className="h-3.5 w-3.5 me-1 flex-shrink-0" />
+                    {t("badges.failed")}
+                  </Badge>
+                </div>
               </div>
             </div>
           </section>
@@ -2770,7 +2779,7 @@ function AppContent() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <StatsWidget
                 variant="bar"
-                title={`📈 ${t("statsWidget.progress")}`}
+                title={t("statsWidget.progress")}
                 glow="accent"
                 stats={[
                   {
