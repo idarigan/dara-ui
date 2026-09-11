@@ -156,7 +156,7 @@ export const fa = {
     unreadMessages: "شما {{count}} پیام خوانده‌نشده دارید",
     longTooltip:
       "این یک راهنمای بلندتر با اطلاعات دقیق‌تر درباره المان مورد نظر است.",
-    hoverDetails: "هاور برای جزئیات",
+    hoverDetails: "برای جزئیات هاور کن",
     disabledTooltip: "این راهنما غیرفعال است",
     noArrow: "بدون پیکان در این راهنما",
     interactive: "راهنمای تعاملی",

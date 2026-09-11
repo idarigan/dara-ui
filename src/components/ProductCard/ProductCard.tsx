@@ -11,7 +11,7 @@ export interface ProductCardProps {
   /**
    * Product price
    */
-  price: number | stringtring;
+  price: number | string;
   /**
    * Product currency symbol
    * @default "$"

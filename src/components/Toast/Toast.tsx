@@ -1,11 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
-import {
-  ToastSuccessIcon,
-  ToastErrorIcon,
-  ToastWarningIcon,
-  ToastInfoIcon,
-} from "../Icons";
+import { SuccessIcon, ErrorIcon, WarningIcon, InfoIcon } from "../Icons";
 
 export type ToastType = "success" | "error" | "warning" | "info";
 
@@ -40,13 +35,13 @@ export interface ToastProps {
 const ToastIcon: React.FC<{ type: ToastType }> = ({ type }) => {
   switch (type) {
     case "success":
-      return <ToastSuccessIcon />;
+      return <SuccessIcon />;
     case "error":
-      return <ToastErrorIcon />;
+      return <ErrorIcon />;
     case "warning":
-      return <ToastWarningIcon />;
+      return <WarningIcon />;
     default:
-      return <ToastInfoIcon />;
+      return <InfoIcon />;
   }
 };
 

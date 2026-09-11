@@ -1094,7 +1094,7 @@ function AppContent() {
                   <Button variant="glass">{t("buttons.glass")}</Button>
                 </Tooltip>
                 <Tooltip content={t("tooltip.solidTooltip")} variant="solid">
-                  <Button variant="secondary">{t("buttons.secondary")}</Button>
+                  <Button variant="secondary">{t("tooltip.solidLabel")}</Button>
                 </Tooltip>
                 <Tooltip
                   content={t("tooltip.outlineTooltip")}
@@ -1862,12 +1862,7 @@ function AppContent() {
           <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
             <h2 className="text-2xl font-semibold mb-6">{t("xpbar.title")}</h2>
 
-            {/* Basic XP Bar */}
-            <div className="glass mb-5 p-6 float-card">
-              <XPBar value={3400} max={5000} level={14} />
-            </div>
-
-            {/* With custom labels */}
+            {/* Basic (custom labels for language changing awareness) */}
             <div className="glass mb-5 p-6 float-card glow-secondary">
               <XPBar
                 value={3400}

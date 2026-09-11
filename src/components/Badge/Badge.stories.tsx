@@ -139,16 +139,16 @@ export const WithIcons: Story = {
   render: () => (
     <div className="flex items-center gap-3 flex-wrap">
       <Badge variant="primary">
-        <span className="mr-1">📦</span> Package
+        <span className="me-1">📦</span> Package
       </Badge>
       <Badge variant="success">
-        <span className="mr-1">✅</span> Done
+        <span className="me-1">✅</span> Done
       </Badge>
       <Badge variant="warning">
-        <span className="mr-1">⚠️</span> Pending
+        <span className="me-1">⚠️</span> Pending
       </Badge>
       <Badge variant="danger">
-        <span className="mr-1">❌</span> Failed
+        <span className="me-1">❌</span> Failed
       </Badge>
     </div>
   ),
