@@ -272,6 +272,205 @@ export const TrophyIcon = ({
   </svg>
 );
 
+export const PackageIcon = ({
+  className = "h-4 w-4",
+}: {
+  className?: string;
+}) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
+    <path d="M3.27 6.96L12 12.01l8.73-5.05" />
+    <path d="M12 22.08V12" />
+  </svg>
+);
+
+export const TargetIcon = ({
+  className = "h-4 w-4",
+}: {
+  className?: string;
+}) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="10" />
+    <circle cx="12" cy="12" r="6" />
+    <circle cx="12" cy="12" r="2" />
+  </svg>
+);
+
+export const BanIcon = ({ className = "h-4 w-4" }: { className?: string }) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="10" />
+    <path d="M4.93 4.93l14.14 14.14" />
+  </svg>
+);
+
+export const SettingsGearIcon = ({
+  className = "h-4 w-4",
+}: {
+  className?: string;
+}) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="3" />
+    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z" />
+  </svg>
+);
+
+export const FolderDocIcon = ({
+  className = "h-4 w-4",
+}: {
+  className?: string;
+}) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+    <path d="M9 13h6M9 17h4" />
+  </svg>
+);
+
+export const SwordsSmallIcon = ({
+  className = "h-4 w-4",
+}: {
+  className?: string;
+}) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M14.5 17.5L3 6V3h3l11.5 11.5" />
+    <path d="M13 19l6-6" />
+    <path d="M16 16l4 4" />
+  </svg>
+);
+
+export const ChartSmallIcon = ({
+  className = "h-4 w-4",
+}: {
+  className?: string;
+}) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <rect x="3" y="12" width="4" height="9" rx="1" />
+    <rect x="10" y="7" width="4" height="14" rx="1" />
+    <rect x="17" y="3" width="4" height="18" rx="1" />
+  </svg>
+);
+
+export const UserSmallIcon = ({
+  className = "h-4 w-4",
+}: {
+  className?: string;
+}) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4 21v-2a6 6 0 016-6h4a6 6 0 016 6v2" />
+  </svg>
+);
+
+export const HomeSmallIcon = ({
+  className = "h-4 w-4",
+}: {
+  className?: string;
+}) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M3 12l9-9 9 9" />
+    <path d="M5 10v10h14V10" />
+  </svg>
+);
+
+export const FolderSmallIcon = ({
+  className = "h-4 w-4",
+}: {
+  className?: string;
+}) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+  </svg>
+);
+
 // ============================================
 // Theme & Language Icons
 // ============================================

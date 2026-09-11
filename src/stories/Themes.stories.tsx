@@ -154,9 +154,9 @@ export const ThemesOverview: Story = {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <ThemePreview theme="nightfall" label="🌙 Nightfall" />
-          <ThemePreview theme="daylight" label="☀️ Daylight" />
-          <ThemePreview theme="dracula" label="🧛 Dracula" />
+          <ThemePreview theme="nightfall" label="Nightfall" />
+          <ThemePreview theme="daylight" label="Daylight" />
+          <ThemePreview theme="dracula" label="Dracula" />
         </div>
       </div>
     );

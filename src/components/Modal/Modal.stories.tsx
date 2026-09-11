@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Modal } from "./Modal";
 import { useState } from "react";
 import Button from "../Button/Button";
+import { SwordsIcon, FolderIcon } from "../Icons";
 
 const meta = {
   title: "Components/Modal",
@@ -50,7 +51,8 @@ export const Default: Story = {
     return (
       <div>
         <Button variant="primary" onClick={() => setIsOpen(true)}>
-          🔮 Open Modal
+          <SwordsIcon className="h-4 w-4 me-2" />
+          Open Modal
         </Button>
         <Modal {...args} isOpen={isOpen} onClose={() => setIsOpen(false)} />
       </div>
@@ -140,12 +142,13 @@ export const WithoutActions: Story = {
     return (
       <div>
         <Button variant="glass" onClick={() => setIsOpen(true)}>
-          📜 View Content Only
+          <FolderIcon className="h-4 w-4 me-2" />
+          View Content Only
         </Button>
         <Modal
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
-          title="📜 Just Content"
+          title="Just Content"
         >
           This modal has no action buttons. Click the X or backdrop to close.
         </Modal>
@@ -178,17 +181,10 @@ export const Interactive: Story = {
     return (
       <div>
         <Button variant="primary" onClick={() => setIsOpen(true)}>
-          🔮 Open Modal
+          <SwordsIcon className="h-4 w-4 me-2" />
+          Open Modal
         </Button>
-        <Modal
-          {...args}
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
-          onConfirm={() => {
-            console.log("Mission accepted!");
-            setIsOpen(false);
-          }}
-        />
+        <Modal {...args} isOpen={isOpen} onClose={() => setIsOpen(false)} />
       </div>
     );
   },

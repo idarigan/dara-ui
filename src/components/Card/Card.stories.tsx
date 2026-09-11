@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Card } from "./Card";
+import { PackageIcon, TargetIcon } from "../Icons";
 
 const meta = {
   title: "Components/Card",
@@ -119,19 +120,19 @@ export const WithGlow: Story = {
         <Card glow="primary" className="w-56">
           <h3 className="font-heading font-bold">Primary Glow</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
-            Hover to float ✨
+            Hover to float
           </p>
         </Card>
         <Card glow="secondary" className="w-56">
           <h3 className="font-heading font-bold">Secondary Glow</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
-            Hover to float ✨
+            Hover to float
           </p>
         </Card>
         <Card glow="accent" className="w-56">
           <h3 className="font-heading font-bold">Accent Glow</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
-            Hover to float ✨
+            Hover to float
           </p>
         </Card>
       </div>
@@ -146,13 +147,13 @@ export const FloatCards: Story = {
         <Card float className="w-56">
           <h3 className="font-heading font-bold">Float Card</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
-            Hover to float ✨
+            Hover to float
           </p>
         </Card>
         <Card float glow="primary" className="w-56">
           <h3 className="font-heading font-bold">Float + Glow</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
-            Hover to float ✨
+            Hover to float
           </p>
         </Card>
       </div>
@@ -166,7 +167,7 @@ export const ContentExamples: Story = {
       <div className="flex flex-wrap gap-4">
         <Card className="w-64">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-2xl">📦</span>
+            <PackageIcon className="h-6 w-6 text-[var(--color-primary)]" />
             <h3 className="font-heading font-bold">Package</h3>
           </div>
           <p className="text-[var(--color-text-secondary)] text-sm">
@@ -174,7 +175,9 @@ export const ContentExamples: Story = {
           </p>
         </Card>
         <Card glow="primary" className="w-64">
-          <div className="text-4xl mb-3">🎯</div>
+          <div className="mb-3 text-[var(--color-primary)]">
+            <TargetIcon className="h-9 w-9" />
+          </div>
           <h3 className="font-heading font-bold">Feature Card</h3>
           <p className="text-[var(--color-text-secondary)] text-sm">
             With glow effect.

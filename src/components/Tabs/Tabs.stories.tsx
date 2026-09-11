@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Tabs } from "./Tabs";
 import { useState } from "react";
+import {
+  FolderSmallIcon,
+  SwordsSmallIcon,
+  ChartSmallIcon,
+  SettingsGearIcon,
+  HomeSmallIcon,
+  UserSmallIcon,
+} from "../Icons";
 
 const meta = {
   title: "Components/Tabs",
@@ -39,32 +47,36 @@ const defaultItems = [
   {
     label: "Archive",
     content: (
-      <div className="p-4 text-[var(--color-text-secondary)]">
-        📁 Archive content
+      <div className="p-4 text-[var(--color-text-secondary)] flex items-center gap-2">
+        <FolderSmallIcon className="h-4 w-4 text-[var(--color-primary)]" />
+        Archive content
       </div>
     ),
   },
   {
     label: "Quests",
     content: (
-      <div className="p-4 text-[var(--color-text-secondary)]">
-        ⚔️ Quests content
+      <div className="p-4 text-[var(--color-text-secondary)] flex items-center gap-2">
+        <SwordsSmallIcon className="h-4 w-4 text-[var(--color-secondary)]" />
+        Quests content
       </div>
     ),
   },
   {
     label: "Stats",
     content: (
-      <div className="p-4 text-[var(--color-text-secondary)]">
-        📊 Stats content
+      <div className="p-4 text-[var(--color-text-secondary)] flex items-center gap-2">
+        <ChartSmallIcon className="h-4 w-4 text-[var(--color-accent)]" />
+        Stats content
       </div>
     ),
   },
   {
     label: "Settings",
     content: (
-      <div className="p-4 text-[var(--color-text-secondary)]">
-        ⚙️ Settings content
+      <div className="p-4 text-[var(--color-text-secondary)] flex items-center gap-2">
+        <SettingsGearIcon className="h-4 w-4 text-[var(--color-text-tertiary)]" />
+        Settings content
       </div>
     ),
   },
@@ -147,7 +159,7 @@ export const WithIcons: Story = {
     items: [
       {
         label: "Home",
-        icon: "🏠",
+        icon: <HomeSmallIcon className="h-4 w-4" />,
         content: (
           <div className="p-4 text-[var(--color-text-secondary)]">
             Home content
@@ -156,7 +168,7 @@ export const WithIcons: Story = {
       },
       {
         label: "Profile",
-        icon: "👤",
+        icon: <UserSmallIcon className="h-4 w-4" />,
         content: (
           <div className="p-4 text-[var(--color-text-secondary)]">
             Profile content
@@ -165,7 +177,7 @@ export const WithIcons: Story = {
       },
       {
         label: "Settings",
-        icon: "⚙️",
+        icon: <SettingsGearIcon className="h-4 w-4" />,
         content: (
           <div className="p-4 text-[var(--color-text-secondary)]">
             Settings content

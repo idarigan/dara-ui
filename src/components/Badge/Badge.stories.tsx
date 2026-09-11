@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Badge } from "./Badge";
+import { PackageIcon, CheckIcon, WarningIcon, ErrorIcon } from "../Icons";
 
 const meta = {
   title: "Components/Badge",
@@ -139,16 +140,20 @@ export const WithIcons: Story = {
   render: () => (
     <div className="flex items-center gap-3 flex-wrap">
       <Badge variant="primary">
-        <span className="me-1">📦</span> Package
+        <PackageIcon className="h-3.5 w-3.5 me-1 flex-shrink-0" />
+        Package
       </Badge>
       <Badge variant="success">
-        <span className="me-1">✅</span> Done
+        <CheckIcon className="h-3.5 w-3.5 me-1 flex-shrink-0" />
+        Done
       </Badge>
       <Badge variant="warning">
-        <span className="me-1">⚠️</span> Pending
+        <WarningIcon className="h-3.5 w-3.5 me-1 flex-shrink-0" />
+        Pending
       </Badge>
       <Badge variant="danger">
-        <span className="me-1">❌</span> Failed
+        <ErrorIcon className="h-3.5 w-3.5 me-1 flex-shrink-0" />
+        Failed
       </Badge>
     </div>
   ),
