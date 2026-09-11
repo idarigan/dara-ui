@@ -2082,11 +2082,11 @@ function AppContent() {
             <h2 className="text-2xl font-semibold mb-6">{t("modal.title")}</h2>
             <div className="flex gap-3 flex-wrap">
               <Button variant="primary" onClick={() => setIsModalOpen(true)}>
-                <SwordsIcon className="h-4 w-4 me-2" />
+                <SwordsIcon className="h-4 w-4" />
                 {t("modal.openModal")}
               </Button>
               <Button variant="glass" onClick={() => setIsModalOpen(true)}>
-                <FolderIcon className="h-4 w-4 me-2" />
+                <FolderIcon className="h-4 w-4" />
                 {t("modal.viewContent")}
               </Button>
             </div>
@@ -3519,21 +3519,6 @@ function AppContent() {
                 </span>
                 <LanguageChanger iconOnly size="sm" />
               </div>
-
-              {/* Custom Languages */}
-              <div className="flex flex-col gap-2">
-                <span className="text-xs text-[var(--color-text-tertiary)] font-mono">
-                  {t("languageChanger.customLanguages")}
-                </span>
-                <LanguageChanger
-                  availableLanguages={[
-                    { value: "en", label: "English", icon: "🇬🇧", dir: "ltr" },
-                    { value: "fa", label: "فارسی", icon: "🇮🇷", dir: "rtl" },
-                    { value: "fr", label: "Français", icon: "🇫🇷", dir: "ltr" },
-                  ]}
-                  size="md"
-                />
-              </div>
             </div>
 
             <div className="mt-6 p-4 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)]">
@@ -4459,7 +4444,7 @@ function AppContent() {
                 />
               </div>
               <p className="text-xs text-[var(--color-text-tertiary)] mt-2 font-mono">
-                ✨ {t("range.sparkleNote")}
+                {t("range.sparkleNote")}
               </p>
             </div>
 
