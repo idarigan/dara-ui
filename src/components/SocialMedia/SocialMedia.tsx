@@ -1,21 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import {
-  faGithub,
-  faTwitter,
-  faDiscord,
-  faYoutube,
-  faInstagram,
-  faLinkedin,
-  faBluesky,
-} from "@fortawesome/free-brands-svg-icons";
+  GithubIcon,
+  XTwitterIcon,
+  DiscordIcon,
+  YoutubeIcon,
+  InstagramIcon,
+  LinkedinIcon,
+  BlueskyIcon,
+} from "../Icons";
 
 export interface SocialLink {
   platform: string;
   url: string;
   label?: string;
-  icon?: IconDefinition | React.ReactNode;
+  icon?: React.ReactNode;
   color?: string;
 }
 
@@ -29,17 +27,51 @@ export interface SocialMediaProps {
   className?: string;
 }
 
-// Platform dat
-const PLATFORM_DATA: Record<string, { icon: IconDefinition; color: string }> = {
-  github: { icon: faGithub, color: "#24292e" },
-  twitter: { icon: faTwitter, color: "#1DA1F2" },
-  discord: { icon: faDiscord, color: "#5865F2" },
-  youtube: { icon: faYoutube, color: "#FF0000" },
-  instagram: { icon: faInstagram, color: "#E4405F" },
-  linkedin: { icon: faLinkedin, color: "#0A66C2" },
-  bluesky: { icon: faBluesky, color: "#1185FE" },
-};
+// Platform data - maps platform names to icons and colors
+const PLATFORM_DATA: Record<string, { icon: React.ReactNode; color: string }> =
+  {
+    github: {
+      icon: <GithubIcon className="h-4 w-4" />,
+      color: "#f0f6fc",
+    },
+    twitter: {
+      icon: <XTwitterIcon className="h-4 w-4" />,
+      color: "#000",
+    },
+    discord: {
+      icon: <DiscordIcon className="h-4 w-4" />,
+      color: "#5865F2",
+    },
+    youtube: {
+      icon: <YoutubeIcon className="h-4 w-4" />,
+      color: "#FF0000",
+    },
+    instagram: {
+      icon: <InstagramIcon className="h-4 w-4" />,
+      color: "#E4405F",
+    },
+    linkedin: {
+      icon: <LinkedinIcon className="h-4 w-4" />,
+      color: "#0A66C2",
+    },
+    bluesky: {
+      icon: <BlueskyIcon className="h-4 w-4" />,
+      color: "#1185FE",
+    },
+  };
 
+/**
+ * Dara UI SocialMedia - Floating social media links with expand/collapse
+ *
+ * Features:
+ * - Expandable side panel with social icons
+ * - Self-contained SVG icons (no external dependencies)
+ * - Light/dark mode adaptive colors
+ * - Click outside to close
+ * - Smooth expand/collapse animation
+ * - Left or right positioning
+ * - RTL aware
+ */
 export const SocialMedia: React.FC<SocialMediaProps> = ({
   links,
   position = "right",
@@ -209,7 +241,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     return color;
   };
 
-  // Render icon helper
+  // Render icon helper - clones the icon with proper sizing
   const renderIcon = (link: SocialLink, iconSizeClass: string) => {
     const platform = detectPlatform(link.url);
     const platformData = getPlatformData(platform);
@@ -218,36 +250,24 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     if (link.icon && React.isValidElement(link.icon)) {
       return React.cloneElement(link.icon as React.ReactElement, {
         className: `${iconSizeClass} flex-shrink-0`,
-        "aria-hidden": true,
       });
     }
 
-    // If custom icon is provided as IconDefinition
-    if (link.icon) {
-      return (
-        <FontAwesomeIcon
-          icon={link.icon as IconDefinition}
-          className={`${iconSizeClass} flex-shrink-0`}
-          aria-hidden="true"
-        />
-      );
+    // Use platform default icon with proper sizing
+    const defaultIcon = platformData.icon;
+    if (React.isValidElement(defaultIcon)) {
+      return React.cloneElement(defaultIcon as React.ReactElement, {
+        className: `${iconSizeClass} flex-shrink-0`,
+      });
     }
 
-    // Fallback to platform default
-    return (
-      <FontAwesomeIcon
-        icon={platformData.icon}
-        className={`${iconSizeClass} flex-shrink-0`}
-        aria-hidden="true"
-      />
-    );
+    return defaultIcon;
   };
 
   // Get icon color - user provided or adapted
   const getIconColor = (link: SocialLink) => {
     if (link.color) return link.color;
     const platform = detectPlatform(link.url);
-    const data = getPlatformData(platform);
     return getAdaptiveColor(link);
   };
 

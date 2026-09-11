@@ -78,18 +78,11 @@ import {
   SuccessIcon,
   ErrorIcon,
   WarningIcon,
+  RocketIcon,
+  AnalyticsIcon,
+  SwordsIcon,
+  ChartBarIcon,
 } from "./components/Icons";
-
-// Social Media Icons
-import {
-  faGithub,
-  faXTwitter,
-  faDiscord,
-  faYoutube,
-  faInstagram,
-  faLinkedin,
-  faBluesky,
-} from "@fortawesome/free-brands-svg-icons";
 
 import "./styles/index.css";
 
@@ -1969,7 +1962,9 @@ function AppContent() {
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Card glow="primary" className="text-center">
-                  <div className="text-4xl mb-2">🚀</div>
+                  <div className="flex justify-center mb-3 text-[var(--color-primary)]">
+                    <RocketIcon className="h-10 w-10" />
+                  </div>
                   <h3 className="font-heading font-bold">
                     {t("cards.launch")}
                   </h3>
@@ -1978,7 +1973,9 @@ function AppContent() {
                   </p>
                 </Card>
                 <Card variant="solid" className="text-center">
-                  <div className="text-4xl mb-2">📊</div>
+                  <div className="flex justify-center mb-3 text-[var(--color-secondary)]">
+                    <AnalyticsIcon className="h-10 w-10" />
+                  </div>
                   <h3 className="font-heading font-bold">
                     {t("cards.analytics")}
                   </h3>
@@ -2085,10 +2082,12 @@ function AppContent() {
             <h2 className="text-2xl font-semibold mb-6">{t("modal.title")}</h2>
             <div className="flex gap-3 flex-wrap">
               <Button variant="primary" onClick={() => setIsModalOpen(true)}>
-                🔮 {t("modal.openModal")}
+                <SwordsIcon className="h-4 w-4 me-2" />
+                {t("modal.openModal")}
               </Button>
               <Button variant="glass" onClick={() => setIsModalOpen(true)}>
-                📜 {t("modal.viewContent")}
+                <FolderIcon className="h-4 w-4 me-2" />
+                {t("modal.viewContent")}
               </Button>
             </div>
             <Modal
@@ -2849,7 +2848,7 @@ function AppContent() {
             <div className="flex flex-col gap-6">
               <StatsWidget
                 layout="horizontal"
-                title={`⚔️ ${t("statsWidget.battleStats")}`}
+                title={t("statsWidget.battleStats")}
                 glow="secondary"
                 stats={[
                   {
@@ -2882,7 +2881,7 @@ function AppContent() {
               <StatsWidget
                 variant="bar"
                 layout="horizontal"
-                title={`📊 ${t("statsWidget.skillProgress")}`}
+                title={t("statsWidget.skillProgress")}
                 glow="primary"
                 stats={[
                   {
@@ -4568,43 +4567,36 @@ function AppContent() {
               {
                 platform: "github",
                 url: "https://github.com/dara-ui",
-                icon: faGithub,
                 color: "#f0f6fc",
               },
               {
                 platform: "twitter",
                 url: "https://twitter.com/dara-ui",
-                icon: faXTwitter,
                 color: "#000",
               },
               {
                 platform: "discord",
                 url: "https://discord.gg/dara-ui",
-                icon: faDiscord,
                 color: "#5865F2",
               },
               {
                 platform: "youtube",
                 url: "https://youtube.com/@dara-ui",
-                icon: faYoutube,
                 color: "#FF0000",
               },
               {
                 platform: "instagram",
                 url: "https://instagram.com/dara-ui",
-                icon: faInstagram,
                 color: "#E4405F",
               },
               {
                 platform: "linkedin",
                 url: "https://linkedin.com/company/dara-ui",
-                icon: faLinkedin,
                 color: "#0A66C2",
               },
               {
                 platform: "bluesky",
                 url: "https://bsky.app/profile/dara-ui",
-                icon: faBluesky,
                 color: "#1185FE",
               },
             ]}
