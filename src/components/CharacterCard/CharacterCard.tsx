@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Avatar } from "../Avatar/Avatar";
 import { Badge } from "../Badge/Badge";
+import { AvatarIcon } from "../Icons";
 
 export interface CharacterStat {
   /**
@@ -35,9 +36,9 @@ export interface CharacterCardProps {
    */
   portrait?: string;
   /**
-   * Custom emoji/icon instead of portrait
+   * Custom icon instead of portrait
    */
-  icon?: string;
+  icon?: React.ReactNode;
   /**
    * MBTI personality type
    */
@@ -311,14 +312,29 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
       >
         {/* Portrait and Name */}
         <div className="flex items-center gap-4">
-          <Avatar
-            src={portrait}
-            fallbackText={name}
-            fallback={!portrait && !icon}
-            size="lg"
-            glow={glow !== "none" ? "primary" : undefined}
-            bordered
-          />
+          {portrait ? (
+            <Avatar
+              src={portrait}
+              fallbackText={name}
+              size="lg"
+              glow={glow !== "none" ? "primary" : undefined}
+              bordered
+            />
+          ) : (
+            <div
+              className={`
+                flex items-center justify-center
+                w-12 h-12 rounded-full flex-shrink-0
+                bg-[var(--color-bg-tertiary)]
+                text-[var(--color-primary)]
+                border-2 border-[var(--color-border-secondary)]
+                ${glow !== "none" ? "shadow-[var(--shadow-glow-primary)]" : ""}
+              `}
+              aria-hidden="true"
+            >
+              {icon || <AvatarIcon className="h-6 w-6" />}
+            </div>
+          )}
           <div className="min-w-0 flex-1">
             <h4 className="font-heading font-bold text-lg text-[var(--color-text-primary)] truncate">
               {name}

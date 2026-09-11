@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { CharacterCard } from "./CharacterCard";
+import { MoonIcon, SwordsIcon, UserIcon } from "../Icons";
 
 const meta = {
   title: "Components/CharacterCard",
@@ -37,7 +38,7 @@ type Story = StoryObj<typeof meta>;
 // ----- Default -----
 export const Default: Story = {
   args: {
-    icon: "🦇",
+    icon: <MoonIcon className="h-6 w-6" />,
     traits: ["MBTI: INTJ", "Species: Human/Cyborg"],
     stats: [
       { label: "Force Alignment", value: 73, color: "primary" },
@@ -62,10 +63,10 @@ export const WithPortrait: Story = {
   },
 };
 
-// ----- With Emoji Icon -----
-export const WithEmojiIcon: Story = {
+// ----- With Custom Icon -----
+export const WithCustomIcon: Story = {
   args: {
-    icon: "🧙",
+    icon: <SwordsIcon className="h-6 w-6" />,
     name: "Merlin",
     subtitle: "Archmage",
     quote: "Magic is just science we don't understand yet.",
@@ -91,7 +92,7 @@ export const DifferentGlows: Story = {
           name="Dara"
           subtitle="Jedi Archivist"
           quote="The dark is not to be feared - it is to be archived."
-          icon="🦇"
+          icon={<MoonIcon className="h-6 w-6" />}
           mbti="INTJ"
           species="Human/Cyborg"
           affiliation="Jedi Order"
@@ -108,7 +109,7 @@ export const DifferentGlows: Story = {
           name="Cipher"
           subtitle="Netrunner"
           quote="The code is the key to everything."
-          icon="🔮"
+          icon={<SwordsIcon className="h-6 w-6" />}
           mbti="INTP"
           species="Cyborg"
           affiliation="Netwatch"
@@ -125,7 +126,7 @@ export const DifferentGlows: Story = {
           name="Shadow"
           subtitle="Night Hunter"
           quote="I move in the darkness where they cannot see."
-          icon="🌙"
+          icon={<MoonIcon className="h-6 w-6" />}
           mbti="ISTP"
           species="Vampire"
           affiliation="Night Council"
@@ -144,7 +145,7 @@ export const DifferentGlows: Story = {
 // ----- With Full Stats -----
 export const FullStats: Story = {
   args: {
-    icon: "⚔️",
+    icon: <SwordsIcon className="h-6 w-6" />,
     name: "Aric Voss",
     subtitle: "Battle Master",
     quote:
@@ -168,7 +169,7 @@ export const FullStats: Story = {
 // ----- Simple -----
 export const Simple: Story = {
   args: {
-    icon: "👤",
+    icon: <UserIcon className="h-6 w-6" />,
     name: "John Doe",
     subtitle: "Adventurer",
     quote: "Every journey begins with a single step.",

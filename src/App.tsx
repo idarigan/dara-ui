@@ -85,6 +85,8 @@ import {
   CircleFilledIcon,
   CircleOutlineIcon,
   SparkleIcon,
+  MoonOutlineIcon,
+  BatIcon,
 } from "./components/Icons";
 
 import "./styles/index.css";
@@ -2535,7 +2537,7 @@ function AppContent() {
                 name={t("character.daraName")}
                 subtitle={t("character.daraSubtitle")}
                 quote={t("character.daraQuote")}
-                icon="🦇"
+                icon={<MoonIcon className="h-5 w-5" />}
                 mbti="INTJ"
                 species="Human/Cyborg"
                 affiliation="Jedi Order"
@@ -2587,7 +2589,7 @@ function AppContent() {
                 name={t("character.shadowName")}
                 subtitle={t("character.shadowSubtitle")}
                 quote={t("character.shadowQuote")}
-                icon="🌙"
+                icon={<MoonIcon className="h-5 w-5" />}
                 mbti="ISTP"
                 species="Vampire"
                 affiliation="Night Council"
@@ -2616,7 +2618,7 @@ function AppContent() {
                 name={t("character.daraName")}
                 subtitle={t("character.daraSubtitle")}
                 quote={t("character.daraQuote")}
-                icon="🦇"
+                icon={<MoonIcon className="h-5 w-5" />}
                 mbti="INTJ"
                 species="Human/Cyborg"
                 affiliation="Jedi Order"
@@ -2670,7 +2672,7 @@ function AppContent() {
                 name={t("character.shadowName")}
                 subtitle={t("character.shadowSubtitle")}
                 quote={t("character.shadowQuote")}
-                icon="🌙"
+                icon={<MoonIcon className="h-5 w-5" />}
                 mbti="ISTP"
                 species="Vampire"
                 affiliation="Night Council"
