@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Checkbox } from "./Checkbox";
 import { useState } from "react";
+import { CircleFilledIcon, CircleOutlineIcon } from "../Icons";
 
 const meta = {
   title: "Components/Checkbox",
@@ -133,8 +134,19 @@ export const Controlled: Story = {
           onCheckedChange={setChecked}
           glow
         />
-        <div className="text-xs text-[var(--color-text-secondary)] font-mono">
-          Status: {checked ? "✅ Checked" : "⬜ Unchecked"}
+        <div className="text-xs text-[var(--color-text-secondary)] font-mono flex items-center gap-1.5">
+          <span>Status:</span>
+          {checked ? (
+            <span className="text-[var(--color-success)] flex items-center gap-1">
+              <CircleFilledIcon className="h-3 w-3" />
+              Checked
+            </span>
+          ) : (
+            <span className="text-[var(--color-text-tertiary)] flex items-center gap-1">
+              <CircleOutlineIcon className="h-3 w-3" />
+              Unchecked
+            </span>
+          )}
         </div>
         <div className="flex gap-2">
           <button

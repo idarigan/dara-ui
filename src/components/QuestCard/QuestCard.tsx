@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Modal } from "../Modal/Modal";
-import { FlagIcon, ClockIcon } from "../Icons";
+import { FlagIcon, ClockIcon, CheckIcon } from "../Icons";
 import { useI18n } from "../LanguageChanger/LanguageChanger";
 
 export interface QuestCardProps {
@@ -475,7 +475,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
                   className="text-xs text-[var(--color-text-secondary)] flex items-center gap-1.5"
                   dir="auto"
                 >
-                  <span className="text-[var(--color-success)]">✓</span>
+                  <CheckIcon className="h-3 w-3 text-[var(--color-success)] flex-shrink-0" />
                   {req}
                 </li>
               ))}

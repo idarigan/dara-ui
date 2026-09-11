@@ -122,7 +122,7 @@ export const CustomRankLabels: Story = {
     level: 5,
     levelLabel: "Tier",
     xpLabel: "Points",
-    customLabel: "🏆 RANK PROGRESS",
+    customLabel: "RANK PROGRESS",
     ranks: [
       { label: "Bronze", requiredXP: 0 },
       { label: "Silver", requiredXP: 500 },
@@ -141,7 +141,7 @@ export const GameStyle: Story = {
     level: 3,
     levelLabel: "Prestige",
     xpLabel: "Score",
-    customLabel: "⚔️ MISSION PROGRESS",
+    customLabel: "MISSION PROGRESS",
     ranks: [
       { label: "Recruit", requiredXP: 0 },
       { label: "Soldier", requiredXP: 300 },

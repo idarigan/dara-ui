@@ -82,6 +82,9 @@ import {
   AnalyticsIcon,
   SwordsIcon,
   ChartBarIcon,
+  CircleFilledIcon,
+  CircleOutlineIcon,
+  SparkleIcon,
 } from "./components/Icons";
 
 import "./styles/index.css";
@@ -95,7 +98,7 @@ type Theme = "nightfall" | "daylight" | "dracula";
 const accordionItems = [
   {
     id: "1",
-    title: "📜 What is Dara UI?",
+    title: "What is Dara UI?",
     content: (
       <div>
         Dara UI is a design system that feels like an interface discovered
@@ -107,7 +110,7 @@ const accordionItems = [
   },
   {
     id: "2",
-    title: "🎨 What themes are available?",
+    title: "What themes are available?",
     content: (
       <div>
         <p className="mb-2">Three themes are available:</p>
@@ -130,7 +133,7 @@ const accordionItems = [
   },
   {
     id: "3",
-    title: "🔧 How do I install it?",
+    title: "How do I install it?",
     content: (
       <div>
         <code className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm">
@@ -3752,9 +3755,19 @@ function AppContent() {
                         onCheckedChange={setControlledChecked}
                         glow
                       />
-                      <div className="text-xs text-[var(--color-text-secondary)] font-mono">
-                        {t("checkbox.status")}:{" "}
-                        {controlledChecked ? "✅ Checked" : "⬜ Unchecked"}
+                      <div className="text-xs text-[var(--color-text-secondary)] font-mono flex items-center gap-1.5">
+                        <span>{t("checkbox.status")}:</span>
+                        {controlledChecked ? (
+                          <span className="text-[var(--color-success)] flex items-center gap-1">
+                            <CircleFilledIcon className="h-3 w-3" />
+                            {t("checkbox.checked")}
+                          </span>
+                        ) : (
+                          <span className="text-[var(--color-text-tertiary)] flex items-center gap-1">
+                            <CircleOutlineIcon className="h-3 w-3" />
+                            {t("checkbox.unchecked")}
+                          </span>
+                        )}
                       </div>
                       <div className="flex gap-2">
                         <button
@@ -3956,8 +3969,19 @@ function AppContent() {
                       onCheckedChange={setOn}
                       glow
                     />
-                    <div className="text-xs text-[var(--color-text-secondary)] font-mono">
-                      {t("switch.status")}: {on ? "✅ On" : "⬜ Off"}
+                    <div className="text-xs text-[var(--color-text-secondary)] font-mono flex items-center gap-1.5">
+                      <span>{t("switch.status")}:</span>
+                      {on ? (
+                        <span className="text-[var(--color-success)] flex items-center gap-1">
+                          <CircleFilledIcon className="h-3 w-3" />
+                          {t("switch.on")}
+                        </span>
+                      ) : (
+                        <span className="text-[var(--color-text-tertiary)] flex items-center gap-1">
+                          <CircleOutlineIcon className="h-3 w-3" />
+                          {t("switch.off")}
+                        </span>
+                      )}
                     </div>
                     <div className="flex gap-2">
                       <button
@@ -4443,7 +4467,8 @@ function AppContent() {
                   color="success"
                 />
               </div>
-              <p className="text-xs text-[var(--color-text-tertiary)] mt-2 font-mono">
+              <p className="text-xs text-[var(--color-text-tertiary)] mt-2 font-mono flex items-center gap-1.5">
+                <SparkleIcon className="h-3 w-3 text-[var(--color-warning)]" />
                 {t("range.sparkleNote")}
               </p>
             </div>

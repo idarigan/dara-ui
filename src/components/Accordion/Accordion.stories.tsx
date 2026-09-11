@@ -30,19 +30,19 @@ type Story = StoryObj<typeof meta>;
 const defaultItems = [
   {
     id: "1",
-    title: "📜 What is Dara UI?",
+    title: "What is Dara UI?",
     content:
       "Dara UI is a design system that feels like an interface discovered inside a futuristic archive hidden beneath  during a snowstorm. It blends glassmorphism, cyberpunk, gothic aesthetics, Apple minimalism, and anime HUD elements.",
   },
   {
     id: "2",
-    title: "🎨 What themes are available?",
+    title: "What themes are available?",
     content:
       "Night Archive (default), Snow  (light), Sith Mode (black + red), Jedi Temple (white + blue), Dracula (purple), and Wine (deep reds).",
   },
   {
     id: "3",
-    title: "🔧 How do I install it?",
+    title: "How do I install it?",
     content:
       "npm install dara-ui\n# or\nyarn add dara-ui\n# then\nimport { Button, Card, Glass } from 'dara-ui';",
   },
@@ -150,9 +150,9 @@ export const WithoutGlass: Story = {
 export const WithIcons: Story = {
   args: {
     items: [
-      { id: "1", title: "📊 Dashboard", content: "Dashboard content" },
-      { id: "2", title: "🚀 Projects", content: "Projects content" },
-      { id: "3", title: "⚙️ Settings", content: "Settings content" },
+      { id: "1", title: "Dashboard", content: "Dashboard content" },
+      { id: "2", title: "Projects", content: "Projects content" },
+      { id: "3", title: "Settings", content: "Settings content" },
     ],
   },
   render: function WithIconsStory(args) {
@@ -167,14 +167,14 @@ export const WithIcons: Story = {
 export const DisabledItem: Story = {
   args: {
     items: [
-      { id: "1", title: "✅ Enabled", content: "This item works" },
+      { id: "1", title: "Enabled", content: "This item works" },
       {
         id: "2",
-        title: "🚫 Disabled",
+        title: "Disabled",
         content: "This item is disabled",
         disabled: true,
       },
-      { id: "3", title: "✅ Enabled", content: "This item works" },
+      { id: "3", title: "Enabled", content: "This item works" },
     ],
   },
   render: function DisabledItemStory(args) {

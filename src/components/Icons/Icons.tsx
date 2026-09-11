@@ -200,6 +200,78 @@ export const BellSlashIcon = ({
   </svg>
 );
 
+export const CircleFilledIcon = ({
+  className = "h-3 w-3",
+}: {
+  className?: string;
+}) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="10" />
+  </svg>
+);
+
+export const CircleOutlineIcon = ({
+  className = "h-3 w-3",
+}: {
+  className?: string;
+}) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="9" />
+  </svg>
+);
+
+export const SparkleIcon = ({
+  className = "h-3 w-3",
+}: {
+  className?: string;
+}) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path d="M12 2l1.8 5.4L19 9l-5.2 1.6L12 16l-1.8-5.4L5 9l5.2-1.6L12 2z" />
+    <path d="M19 15l.9 2.7L22 18.6l-2.1.9L19 22l-.9-2.5-2.1-.9 2.1-.9L19 15z" />
+    <path d="M5 14l.7 2.1L8 16.8l-2.3.7L5 20l-.7-2.5L2 16.8l2.3-.7L5 14z" />
+  </svg>
+);
+
+export const TrophyIcon = ({
+  className = "h-4 w-4",
+}: {
+  className?: string;
+}) => (
+  <svg
+    className={className}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M8 21h8" />
+    <path d="M12 17v4" />
+    <path d="M7 4h10v5a5 5 0 01-10 0V4z" />
+    <path d="M17 4h3v2a3 3 0 01-3 3" />
+    <path d="M7 4H4v2a3 3 0 003 3" />
+  </svg>
+);
+
 // ============================================
 // Theme & Language Icons
 // ============================================

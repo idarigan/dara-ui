@@ -129,7 +129,7 @@ export const CustomUnits: Story = {
 // ----- Game Stats -----
 export const GameStats: Story = {
   args: {
-    title: "⚔️ STATS",
+    title: "STATS",
     glow: "secondary",
     stats: [
       { label: "Strength", value: 78, color: "danger", trend: 22 },
@@ -143,7 +143,7 @@ export const GameStats: Story = {
 // ----- Mixed Stats (with different colors) -----
 export const MixedColors: Story = {
   args: {
-    title: "📊 STATS",
+    title: "STATS",
     glow: "accent",
     stats: [
       { label: "Hacking", value: 95, color: "secondary", trend: 5 },
@@ -159,7 +159,7 @@ export const BarHorizontal: Story = {
   args: {
     variant: "bar",
     layout: "horizontal",
-    title: "📈 PROGRESS",
+    title: "PROGRESS",
     glow: "primary",
     stats: [
       { label: "Strength", value: 78, color: "danger", trend: 22 },
