@@ -494,14 +494,29 @@ export const MoonOutlineIcon = ({
   </svg>
 );
 
-export const BatIcon = ({ className = "h-5 w-5" }: { className?: string }) => (
+export const SkullIcon = ({
+  className = "h-5 w-5",
+}: {
+  className?: string;
+}) => (
   <svg
     className={className}
-    fill="currentColor"
+    fill="none"
     viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={1.8}
+    strokeLinecap="round"
+    strokeLinejoin="round"
     aria-hidden="true"
   >
-    <path d="M12 3c-1.2 0-2.2.8-2.6 1.9L5.5 6.5c-1.1-.3-2.3-.1-3.2.6-.6.5-.9 1.2-.8 1.9.1.7.6 1.3 1.3 1.6-.3.6-.4 1.2-.2 1.8.2.6.6 1.1 1.2 1.4.1 1.3.8 2.5 1.9 3.1.1.1.3.2.4.2.1 1.2.9 2.2 2 2.6.7.3 1.4.3 2.1 0 1.1-.4 1.9-1.4 2-2.6.1-.1.3-.1.4-.2 1.1-.7 1.8-1.8 1.9-3.1.6-.3 1-.8 1.2-1.4.2-.6.1-1.2-.2-1.8.7-.3 1.2-.9 1.3-1.6.1-.7-.2-1.4-.8-1.9-.9-.7-2.1-.9-3.2-.6l-3.9-1.6C14.2 3.8 13.2 3 12 3zm-2 8c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1 .4-1 1-1zm4 0c.6 0 1 .4 1 1s-.4 1-1 1-1-.4-1-1 .4-1 1-1zm-2 4c.8 0 1.5.4 2 1h-4c.5-.6 1.2-1 2-1z" />
+    {/* Cranium */}
+    <path d="M5 11a7 7 0 0114 0v3a2 2 0 01-2 2h-1v2a1 1 0 01-1 1h-6a1 1 0 01-1-1v-2H7a2 2 0 01-2-2v-3z" />
+    {/* Left eye */}
+    <circle cx="9.5" cy="11" r="1.3" fill="currentColor" />
+    {/* Right eye */}
+    <circle cx="14.5" cy="11" r="1.3" fill="currentColor" />
+    {/* Nose cavity */}
+    <path d="M12 14v1.5" />
   </svg>
 );
 
