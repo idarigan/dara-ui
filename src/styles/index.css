@@ -590,6 +590,14 @@ html[dir="rtl"] .section-label {
 }
 
 /* =============================================
+   SIDEBAR HORIZONTAL SCROLL STRIP
+   ============================================= */
+
+.sidebar-horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* =============================================
    RTL / LTR FONT-STACK SWITCHING
    ============================================= */
 
@@ -638,8 +646,8 @@ html[dir="rtl"] {
   }
 
   /* EXCEPTION: Actual code blocks should stay LTR */
-  code:not(.font-mono),
-  pre:not(.font-mono),
+  code.font-mono,
+  pre.font-mono,
   .code-block,
   code.code-block,
   pre.code-block {

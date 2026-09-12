@@ -41,7 +41,7 @@ import Radio from "./components/Radio";
 import { Range } from "./components/Range/Range";
 import { ProductCard } from "./components/ProductCard/ProductCard";
 import { BlogCard } from "./components/BlogCard/BlogCard";
-import { Sidebar, SidebarMobileTrigger } from "./components/Sidebar";
+import { Sidebar } from "./components/Sidebar";
 import type { SidebarGroup } from "./components/Sidebar";
 import {
   I18nProvider,
@@ -3329,37 +3329,28 @@ function AppContent() {
               {t("sidebar.mobileSidebarHint")}
             </p>
 
-            {/* Desktop sidebar inside a framed container */}
+            {/* Horizontal tab strip inside a framed container */}
             <div
-              className="relative h-[680px] overflow-hidden rounded-[var(--radius-large)] border border-[var(--color-border-primary)]"
+              className="rounded-[var(--radius-large)] border border-[var(--color-border-primary)] p-4"
               dir={direction}
             >
-              {/* SidebarMobileTrigger handles both desktop (hidden sidebar wrapper) and mobile (FAB + drawer) */}
-              <SidebarMobileTrigger width="85vw">
-                <Sidebar
-                  brand={
-                    <span
-                      className="font-heading font-bold text-lg tracking-tight truncate"
-                      style={{
-                        background: "var(--gradient-primary)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                      }}
-                    >
-                      DARA UI
-                    </span>
-                  }
-                  groups={sidebarGroups}
-                  footer={
-                    <button className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 w-full px-3 py-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-elevated)]/30 text-sm">
-                      <LogoutIcon />
-                      <span>{t("sidebar.logout")}</span>
-                    </button>
-                  }
-                  height="680px"
-                />
-              </SidebarMobileTrigger>
+              <Sidebar
+                orientation="horizontal"
+                brand={
+                  <span
+                    className="font-heading font-bold text-base tracking-tight truncate px-2"
+                    style={{
+                      background: "var(--gradient-primary)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    DARA UI
+                  </span>
+                }
+                groups={sidebarGroups}
+              />
             </div>
           </section>
 
