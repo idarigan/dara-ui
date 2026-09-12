@@ -86,83 +86,12 @@ import {
   CircleOutlineIcon,
   SparkleIcon,
   MoonOutlineIcon,
-  BatIcon,
+  SkullIcon,
 } from "./components/Icons";
 
 import "./styles/index.css";
 
 type Theme = "nightfall" | "daylight" | "dracula";
-
-// ============================================
-// Accordion items for demo
-// ============================================
-
-const accordionItems = [
-  {
-    id: "1",
-    title: "What is Dara UI?",
-    content: (
-      <div>
-        Dara UI is a design system that feels like an interface discovered
-        inside a futuristic archive hidden beneath during a snowstorm. It blends
-        glassmorphism, cyberpunk, gothic aesthetics, Apple minimalism, and anime
-        HUD elements.
-      </div>
-    ),
-  },
-  {
-    id: "2",
-    title: "What themes are available?",
-    content: (
-      <div>
-        <p className="mb-2">Three themes are available:</p>
-        <ul className="list-disc list-inside space-y-1 text-[var(--color-text-tertiary)]">
-          <li>
-            <span className="text-[var(--color-primary)]">Nightfall</span> -
-            Dark, mysterious, glass-heavy
-          </li>
-          <li>
-            <span className="text-[var(--color-warning)]">Daylight</span> -
-            Light, clean, minimal
-          </li>
-          <li>
-            <span className="text-[var(--color-danger)]">Dracula</span> - Dark,
-            intense, red-accented
-          </li>
-        </ul>
-      </div>
-    ),
-  },
-  {
-    id: "3",
-    title: t("accordion.q3"),
-    content: (
-      <div>
-        <code
-          className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm code-block"
-          dir="ltr"
-        >
-          {t("codeBlock.install")}
-          <br />
-          <span className="text-[var(--color-text-tertiary)]">
-            # {t("codeBlock.or")}
-          </span>
-          <br />
-          {t("codeBlock.yarnAdd")}
-        </code>
-        <p className="mt-2" dir="auto">
-          {t("common.thenImport")}
-        </p>
-        <code
-          className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm code-block"
-          dir="ltr"
-        >
-          {t("codeBlock.importExample")}
-        </code>
-      </div>
-    ),
-  },
-];
 
 // ============================================
 // Dropdown options
@@ -2603,7 +2532,7 @@ function AppContent() {
                 name={t("character.shadowName")}
                 subtitle={t("character.shadowSubtitle")}
                 quote={t("character.shadowQuote")}
-                icon={<BatIcon className="h-5 w-5" />}
+                icon={<SkullIcon className="h-5 w-5" />}
                 mbti="ISTP"
                 species={t("character.speciesVampire")}
                 affiliation={t("character.affiliationNightCouncil")}
@@ -2695,7 +2624,7 @@ function AppContent() {
                 name={t("character.shadowName")}
                 subtitle={t("character.shadowSubtitle")}
                 quote={t("character.shadowQuote")}
-                icon={<BatIcon className="h-5 w-5" />}
+                icon={<SkullIcon className="h-5 w-5" />}
                 mbti="ISTP"
                 species={t("character.speciesVampire")}
                 affiliation={t("character.affiliationNightCouncil")}

@@ -428,35 +428,6 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
               </span>
             </div>
           )}
-
-          {species && (
-            <div
-              className={`flex items-center gap-0.5 min-w-0 ${isHorizontal ? "max-w-[calc(50%-0.5rem)]" : ""}`}
-            >
-              <span className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono flex-shrink-0">
-                Species:
-              </span>
-              <span className="text-xs font-medium text-[var(--color-text-secondary)] truncate min-w-0">
-                {species}
-              </span>
-            </div>
-          )}
-
-          {affiliation && (
-            <div
-              className={`
-                flex items-center gap-1.5 min-w-0
-                ${isHorizontal ? "max-w-full" : "col-span-2"}
-              `}
-            >
-              <span className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono flex-shrink-0">
-                Affiliation:
-              </span>
-              <span className="text-sm font-medium text-[var(--color-text-secondary)] truncate min-w-0">
-                {affiliation}
-              </span>
-            </div>
-          )}
         </div>
 
         {/* Traits */}
