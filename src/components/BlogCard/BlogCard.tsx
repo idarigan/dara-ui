@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Badge } from "../Badge/Badge";
 import { Avatar } from "../Avatar/Avatar";
 import { BlogPlaceholderIcon } from "../Icons";
+import { useI18n } from "../LanguageChanger/LanguageChanger";
 
 export interface BlogCardProps {
   /**
@@ -119,6 +120,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
   className = "",
   fullWidthMobile = false,
 }) => {
+  const { t } = useI18n();
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -168,7 +170,14 @@ export const BlogCard: React.FC<BlogCardProps> = ({
       if (isNaN(d.getTime())) {
         return "";
       }
-      return d.toLocaleDateString("en-US", {
+      // Map language code to locale for date formatting
+      const localeMap: Record<string, string> = {
+        en: "en-US",
+        fa: "fa-IR",
+        fr: "fr-FR",
+      };
+      const locale = localeMap[language] || "en-US";
+      return d.toLocaleDateString(locale, {
         year: "numeric",
         month: "short",
         day: "numeric",
@@ -379,7 +388,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                {readTime} min
+                {t("blogLabels.minRead", { count: readTime })}
               </span>
             )}
           </div>
@@ -395,7 +404,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
                   ${isHovering ? "opacity-100 translate-x-0.5" : "opacity-70"}
                 `}
               >
-                Read more
+                {t("blogLabels.readMore")}
                 <svg
                   className={`
                     h-4 w-4 transition-transform duration-200 rtl:-scale-x-100

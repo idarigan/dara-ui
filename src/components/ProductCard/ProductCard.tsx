@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Badge } from "../Badge/Badge";
 import Button from "../Button/Button";
 import { ImagePlaceholderIcon } from "../Icons";
+import { useI18n } from "../LanguageChanger/LanguageChanger";
 
 export interface ProductCardProps {
   /**
@@ -103,7 +104,7 @@ export interface ProductCardProps {
 }
 
 /**
- * Dara UI ProductCard – glass product card with 3D tilt, elevation & glow hover
+ * Dara UI ProductCard - glass product card with 3D tilt, elevation & glow hover
  */
 export const ProductCard: React.FC<ProductCardProps> = ({
   title,
@@ -129,6 +130,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   className = "",
   fullWidthMobile = false,
 }) => {
+  const { t } = useI18n();
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -258,7 +260,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           }
         `}
       >
-        Sale
+        {t("productLabels.sale")}
       </span>
     </div>
   );
@@ -321,7 +323,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       {isCompact && !inStock && (
         <div className="absolute inset-0 z-30 flex items-center justify-center rounded-[inherit] bg-black/60 backdrop-blur-[2px]">
           <span className="font-heading font-bold text-white text-[11px] uppercase tracking-widest px-2 text-center">
-            Out of Stock
+            {t("productLabels.outOfStock")}
           </span>
         </div>
       )}
@@ -373,7 +375,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         {!inStock && !isCompact && (
           <div className="absolute inset-0 bg-black/55 flex items-center justify-center z-10">
             <span className="font-heading font-bold text-white text-xs uppercase tracking-wider">
-              Out of Stock
+              {t("productLabels.outOfStock")}
             </span>
           </div>
         )}
@@ -491,7 +493,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 onAddToCart?.();
               }}
             >
-              {inStock ? "Add to Cart" : "Out of Stock"}
+              {inStock
+                ? t("productLabels.addToCart")
+                : t("productLabels.outOfStock")}
             </Button>
           </div>
         )}
@@ -517,7 +521,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             }
             ${isHovering && inStock ? "scale-110 shadow-[var(--shadow-glow-primary)]" : "scale-100"}
           `}
-          aria-label={inStock ? "Add to cart" : "Out of stock"}
+          aria-label={
+            inStock
+              ? t("productLabels.addToCart")
+              : t("productLabels.outOfStock")
+          }
         >
           <svg
             className="h-4 w-4"

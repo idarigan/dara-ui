@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Avatar } from "../Avatar/Avatar";
 import { Badge } from "../Badge/Badge";
 import { AvatarIcon } from "../Icons";
+import { useI18n } from "../LanguageChanger/LanguageChanger";
 
 export interface CharacterStat {
   /**
@@ -106,6 +107,9 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  // ----- i18n -----
+  const { t } = useI18n();
 
   // Handle 3D tilt on mouse move
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -388,10 +392,39 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
               className={`flex items-center gap-0.5 min-w-0 ${isHorizontal ? "max-w-[calc(50%-0.5rem)]" : ""}`}
             >
               <span className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono flex-shrink-0">
-                MBTI:
+                {t("characterLabels.mbti")}:
               </span>
               <span className="text-xs font-medium text-[var(--color-text-secondary)] truncate min-w-0">
                 {mbti}
+              </span>
+            </div>
+          )}
+
+          {species && (
+            <div
+              className={`flex items-center gap-0.5 min-w-0 ${isHorizontal ? "max-w-[calc(50%-0.5rem)]" : ""}`}
+            >
+              <span className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono flex-shrink-0">
+                {t("characterLabels.species")}:
+              </span>
+              <span className="text-xs font-medium text-[var(--color-text-secondary)] truncate min-w-0">
+                {species}
+              </span>
+            </div>
+          )}
+
+          {affiliation && (
+            <div
+              className={`
+                flex items-center gap-1.5 min-w-0
+                ${isHorizontal ? "max-w-full" : "col-span-2"}
+              `}
+            >
+              <span className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono flex-shrink-0">
+                {t("characterLabels.affiliation")}:
+              </span>
+              <span className="text-sm font-medium text-[var(--color-text-secondary)] truncate min-w-0">
+                {affiliation}
               </span>
             </div>
           )}

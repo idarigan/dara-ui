@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { BlogCard } from "./BlogCard";
+import { I18nProvider } from "../LanguageChanger/LanguageChanger";
+import { translations } from "../../translations";
 
 const meta = {
   title: "Components/BlogCard",
@@ -8,6 +10,13 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <I18nProvider translations={translations} defaultLanguage="en">
+        <Story />
+      </I18nProvider>
+    ),
+  ],
   argTypes: {
     layout: {
       control: "select",

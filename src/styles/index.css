@@ -640,10 +640,22 @@ html[dir="rtl"] {
   /* EXCEPTION: Actual code blocks should stay LTR */
   code:not(.font-mono),
   pre:not(.font-mono),
-  .code-block {
+  .code-block,
+  code.code-block,
+  pre.code-block {
     font-family: var(--font-family-mono) !important;
     direction: ltr !important;
     unicode-bidi: embed;
+    text-align: left !important;
+  }
+
+  /* Code blocks always LTR regardless of direction */
+  .code-block,
+  code.code-block,
+  pre.code-block {
+    direction: ltr;
+    unicode-bidi: embed;
+    text-align: left;
   }
 
   /* Section labels with mono font - force RTL text */

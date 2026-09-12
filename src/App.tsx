@@ -135,19 +135,29 @@ const accordionItems = [
   },
   {
     id: "3",
-    title: "How do I install it?",
+    title: t("accordion.q3"),
     content: (
       <div>
-        <code className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm">
-          npm install dara-ui
+        <code
+          className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm code-block"
+          dir="ltr"
+        >
+          {t("codeBlock.install")}
           <br />
-          # or
+          <span className="text-[var(--color-text-tertiary)]">
+            # {t("codeBlock.or")}
+          </span>
           <br />
-          yarn add dara-ui
+          {t("codeBlock.yarnAdd")}
         </code>
-        <p className="mt-2">Then import components:</p>
-        <code className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm">
-          import {"{ Button, Card, Input }"} from 'dara-ui';
+        <p className="mt-2" dir="auto">
+          {t("common.thenImport")}
+        </p>
+        <code
+          className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm code-block"
+          dir="ltr"
+        >
+          {t("codeBlock.importExample")}
         </code>
       </div>
     ),
@@ -2537,11 +2547,14 @@ function AppContent() {
                 name={t("character.daraName")}
                 subtitle={t("character.daraSubtitle")}
                 quote={t("character.daraQuote")}
-                icon={<MoonIcon className="h-5 w-5" />}
+                icon={<MoonOutlineIcon className="h-5 w-5" />}
                 mbti="INTJ"
-                species="Human/Cyborg"
-                affiliation="Jedi Order"
-                traits={["MBTI: INTJ", "Human/Cyborg"]}
+                species={t("character.speciesHumanCyborg")}
+                affiliation={t("character.affiliationJedi")}
+                traits={[
+                  t("character.traitMbtiIntj"),
+                  t("character.traitHumanCyborg"),
+                ]}
                 stats={[
                   { label: t("character.force"), value: 73, color: "primary" },
                   {
@@ -2558,16 +2571,18 @@ function AppContent() {
                 ]}
                 glow="primary"
               />
-
               <CharacterCard
                 name={t("character.cipherName")}
                 subtitle={t("character.cipherSubtitle")}
                 quote={t("character.cipherQuote")}
                 portrait="https://i.pravatar.cc/150?img=11"
                 mbti="INTP"
-                species="Cyborg"
-                affiliation="Netwatch"
-                traits={["MBTI: INTP", "Cyborg"]}
+                species={t("character.speciesCyborg")}
+                affiliation={t("character.affiliationNetwatch")}
+                traits={[
+                  t("character.traitMbtiIntp"),
+                  t("character.traitCyborg"),
+                ]}
                 stats={[
                   {
                     label: t("character.hacking"),
@@ -2584,16 +2599,18 @@ function AppContent() {
                 ]}
                 glow="secondary"
               />
-
               <CharacterCard
                 name={t("character.shadowName")}
                 subtitle={t("character.shadowSubtitle")}
                 quote={t("character.shadowQuote")}
-                icon={<MoonIcon className="h-5 w-5" />}
+                icon={<BatIcon className="h-5 w-5" />}
                 mbti="ISTP"
-                species="Vampire"
-                affiliation="Night Council"
-                traits={["MBTI: ISTP", "Vampire"]}
+                species={t("character.speciesVampire")}
+                affiliation={t("character.affiliationNightCouncil")}
+                traits={[
+                  t("character.traitMbtiIstp"),
+                  t("character.traitVampire"),
+                ]}
                 stats={[
                   { label: t("character.agility"), value: 92, color: "accent" },
                   { label: t("character.stealth"), value: 88, color: "danger" },
@@ -2618,11 +2635,14 @@ function AppContent() {
                 name={t("character.daraName")}
                 subtitle={t("character.daraSubtitle")}
                 quote={t("character.daraQuote")}
-                icon={<MoonIcon className="h-5 w-5" />}
+                icon={<MoonOutlineIcon className="h-5 w-5" />}
                 mbti="INTJ"
-                species="Human/Cyborg"
-                affiliation="Jedi Order"
-                traits={["MBTI: INTJ", "Human/Cyborg"]}
+                species={t("character.speciesHumanCyborg")}
+                affiliation={t("character.affiliationJedi")}
+                traits={[
+                  t("character.traitMbtiIntj"),
+                  t("character.traitHumanCyborg"),
+                ]}
                 stats={[
                   { label: t("character.force"), value: 73, color: "primary" },
                   {
@@ -2647,9 +2667,12 @@ function AppContent() {
                 quote={t("character.cipherQuote")}
                 portrait="https://i.pravatar.cc/150?img=11"
                 mbti="INTP"
-                species="Cyborg"
-                affiliation="Netwatch"
-                traits={["MBTI: INTP", "Cyborg"]}
+                species={t("character.speciesCyborg")}
+                affiliation={t("character.affiliationNetwatch")}
+                traits={[
+                  t("character.traitMbtiIntp"),
+                  t("character.traitCyborg"),
+                ]}
                 stats={[
                   {
                     label: t("character.hacking"),
@@ -2672,11 +2695,14 @@ function AppContent() {
                 name={t("character.shadowName")}
                 subtitle={t("character.shadowSubtitle")}
                 quote={t("character.shadowQuote")}
-                icon={<MoonIcon className="h-5 w-5" />}
+                icon={<BatIcon className="h-5 w-5" />}
                 mbti="ISTP"
-                species="Vampire"
-                affiliation="Night Council"
-                traits={["MBTI: ISTP", "Vampire"]}
+                species={t("character.speciesVampire")}
+                affiliation={t("character.affiliationNightCouncil")}
+                traits={[
+                  t("character.traitMbtiIstp"),
+                  t("character.traitVampire"),
+                ]}
                 stats={[
                   { label: t("character.agility"), value: 92, color: "accent" },
                   { label: t("character.stealth"), value: 88, color: "danger" },
@@ -2959,7 +2985,7 @@ function AppContent() {
                   reviewCount={89}
                   category={t("productCard.category2")}
                   tags={[t("productCard.tag3"), t("productCard.tag1")]}
-                  badge="New"
+                  badge={t("productLabels.new")}
                   badgeVariant="primary"
                   onSale
                   originalPrice={199.99}

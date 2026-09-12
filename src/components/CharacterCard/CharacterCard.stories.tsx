@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { CharacterCard } from "./CharacterCard";
 import { MoonIcon, SwordsIcon, UserIcon } from "../Icons";
+import { I18nProvider } from "../LanguageChanger/LanguageChanger";
+import { translations } from "../../translations";
 
 const meta = {
   title: "Components/CharacterCard",
@@ -9,6 +11,13 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <I18nProvider translations={translations} defaultLanguage="en">
+        <Story />
+      </I18nProvider>
+    ),
+  ],
   argTypes: {
     name: { control: "text" },
     subtitle: { control: "text" },
