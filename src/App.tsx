@@ -259,7 +259,7 @@ function AppContent() {
         content: (
           <div>
             <code
-              className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm"
+              className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] text-sm"
               dir="ltr"
               style={{ textAlign: "left", unicodeBidi: "embed" }}
             >
@@ -273,7 +273,7 @@ function AppContent() {
               {t("common.thenImport")}
             </p>
             <code
-              className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] font-mono text-sm"
+              className="block p-3 rounded-[var(--radius-md)] bg-[var(--color-bg-tertiary)] text-sm"
               dir="ltr"
               style={{ textAlign: "left", unicodeBidi: "embed" }}
             >
@@ -358,34 +358,34 @@ function AppContent() {
 
                 {/* Stat cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <Card glow="primary" className="text-center">
-                    <div className="text-2xl font-heading font-bold text-[var(--color-primary)]">
+                  <Card glow="primary">
+                    <div className="text-2xl text-center font-heading font-bold text-[var(--color-primary)]">
                       12
                     </div>
                     <p
-                      className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-1"
+                      className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-1 text-center"
                       dir="auto"
                     >
                       {t("sidebar.activeProjectsLabel")}
                     </p>
                   </Card>
-                  <Card glow="secondary" className="text-center">
-                    <div className="text-2xl font-heading font-bold text-[var(--color-secondary)]">
+                  <Card glow="secondary">
+                    <div className="text-2xl text-center font-heading font-bold text-[var(--color-secondary)]">
                       47
                     </div>
                     <p
-                      className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-1"
+                      className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-1 text-center"
                       dir="auto"
                     >
                       {t("sidebar.completedTasksLabel")}
                     </p>
                   </Card>
-                  <Card glow="accent" className="text-center">
-                    <div className="text-2xl font-heading font-bold text-[var(--color-accent)]">
+                  <Card glow="accent">
+                    <div className="text-2xl text-center font-heading font-bold text-[var(--color-accent)]">
                       8
                     </div>
                     <p
-                      className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-1"
+                      className="text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)] font-mono mt-1 text-center"
                       dir="auto"
                     >
                       {t("sidebar.teamMembersLabel")}

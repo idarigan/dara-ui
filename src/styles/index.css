@@ -701,6 +701,12 @@ html[dir="rtl"] {
     letter-spacing: 0 !important;
   }
 
+  p.font-mono.text-center,
+  span.font-mono.text-center,
+  .font-mono.text-center {
+    text-align: center !important;
+  }
+
   /* ALL span tags with font-mono need RTL */
   span.font-mono {
     font-family: var(--font-family-persian-body) !important;
@@ -918,6 +924,14 @@ html[dir="rtl"] {
     font-family: var(--font-family-heading) !important;
     direction: ltr !important;
     unicode-bidi: embed;
+  }
+
+  /* ---- Center-alignment escape hatch ---- */
+  .font-mono.text-center,
+  p.font-mono.text-center,
+  span.font-mono.text-center,
+  [class*="font-mono"].text-center {
+    text-align: center !important;
   }
 }
 
