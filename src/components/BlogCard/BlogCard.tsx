@@ -120,7 +120,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
   className = "",
   fullWidthMobile = false,
 }) => {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -355,12 +355,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
           {/* Author row */}
           {showAuthor && author && (
             <div className="flex items-center gap-2 min-w-0">
-              <Avatar
-                src={authorAvatar}
-                fallbackText={author}
-                size="sm"
-                glow="none"
-              />
+              <Avatar src={authorAvatar} fallbackText={author} size="sm" />
               <span className="text-sm font-medium text-[var(--color-text-primary)] truncate">
                 {author}
               </span>

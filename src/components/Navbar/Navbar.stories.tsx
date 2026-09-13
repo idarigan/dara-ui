@@ -5,7 +5,7 @@ import { ThemeChanger } from "../ThemeChanger/ThemeChanger";
 import { useState, useEffect } from "react";
 import Button from "../Button/Button";
 import { Avatar } from "../Avatar/Avatar";
-import { HomeIcon, ExploreIcon, SettingsIcon } from "../Icons";
+import { HomeIcon, ExploreIcon, SettingsIcon, RocketIcon } from "../Icons";
 
 const meta = {
   title: "Components/Navbar",
@@ -186,7 +186,7 @@ export const WithCustomBrand: Story = {
           {...args}
           brand={
             <div className="flex items-center gap-2">
-              <span className="text-2xl">🚀</span>
+              <RocketIcon className="h-10 w-10" />
               <span className="font-heading font-bold text-lg text-[var(--color-text-primary)]">
                 My App
               </span>

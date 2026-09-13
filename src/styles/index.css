@@ -590,6 +590,14 @@ html[dir="rtl"] .section-label {
 }
 
 /* =============================================
+   SIDEBAR HORIZONTAL SCROLL STRIP
+   ============================================= */
+
+.sidebar-horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* =============================================
    RTL / LTR FONT-STACK SWITCHING
    ============================================= */
 
@@ -792,6 +800,10 @@ html[dir="rtl"] {
     unicode-bidi: embed;
     text-align: right !important;
     letter-spacing: 0 !important;
+  }
+
+  .sidebar-horizontal-scroll::-webkit-scrollbar {
+    display: none;
   }
 
   /* Quest card text in RTL */
