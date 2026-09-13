@@ -3329,37 +3329,34 @@ function AppContent() {
               {t("sidebar.mobileSidebarHint")}
             </p>
 
-            {/* Desktop sidebar inside a framed container */}
+            {/* Sidebar — vertical on desktop, horizontal tabs on mobile */}
             <div
-              className="relative h-[680px] overflow-hidden rounded-[var(--radius-large)] border border-[var(--color-border-primary)]"
+              className="rounded-[var(--radius-large)] border border-[var(--color-border-primary)] overflow-hidden h-[680px]"
               dir={direction}
             >
-              {/* SidebarMobileTrigger handles both desktop (hidden sidebar wrapper) and mobile (FAB + drawer) */}
-              <SidebarMobileTrigger width="85vw">
-                <Sidebar
-                  brand={
-                    <span
-                      className="font-heading font-bold text-lg tracking-tight truncate"
-                      style={{
-                        background: "var(--gradient-primary)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                      }}
-                    >
-                      DARA UI
-                    </span>
-                  }
-                  groups={sidebarGroups}
-                  footer={
-                    <button className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 w-full px-3 py-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-elevated)]/30 text-sm">
-                      <LogoutIcon />
-                      <span>{t("sidebar.logout")}</span>
-                    </button>
-                  }
-                  height="680px"
-                />
-              </SidebarMobileTrigger>
+              <Sidebar
+                brand={
+                  <span
+                    className="font-heading font-bold text-lg tracking-tight truncate"
+                    style={{
+                      background: "var(--gradient-primary)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    DARA UI
+                  </span>
+                }
+                groups={sidebarGroups}
+                footer={
+                  <button className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-180 w-full px-3 py-2 rounded-[var(--radius-md)] hover:bg-[var(--color-bg-elevated)]/30 text-sm">
+                    <LogoutIcon />
+                    <span>{t("sidebar.logout")}</span>
+                  </button>
+                }
+                height="680px"
+              />
             </div>
           </section>
 
