@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  useMemo,
-} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 export interface SidebarItem {
   /**
@@ -78,30 +72,25 @@ export interface SidebarProps {
    */
   groups: SidebarGroup[];
   /**
-   * Layout orientation
-   * @default "horizontal"
-   */
-  orientation?: "horizontal" | "vertical";
-  /**
-   * Whether the sidebar is collapsible (vertical only)
+   * Whether the sidebar is collapsible
    * @default true
    */
   collapsible?: boolean;
   /**
-   * Initially collapsed state (vertical only)
+   * Initially collapsed state
    * @default false
    */
   defaultCollapsed?: boolean;
   /**
-   * Controlled collapsed state (vertical only)
+   * Controlled collapsed state
    */
   collapsed?: boolean;
   /**
-   * Callback when collapse state changes (vertical only)
+   * Callback when collapse state changes
    */
   onCollapseChange?: (collapsed: boolean) => void;
   /**
-   * Icon-only mode (vertical only)
+   * Icon-only mode
    * @default false
    */
   iconOnly?: boolean;
@@ -123,12 +112,12 @@ export interface SidebarProps {
    */
   onItemClick?: (itemId: string) => void;
   /**
-   * Width when expanded (vertical only)
+   * Width when expanded
    * @default "260px"
    */
   expandedWidth?: string;
   /**
-   * Width when collapsed (vertical only)
+   * Width when collapsed
    * @default "64px"
    */
   collapsedWidth?: string;
@@ -137,7 +126,8 @@ export interface SidebarProps {
    */
   className?: string;
   /**
-   * Footer content (vertical only)
+   * Footer content (e.g. logout button).
+   * When collapsed, text labels are auto-hidden and only icons remain centered.
    */
   footer?: React.ReactNode;
   /**
@@ -146,27 +136,26 @@ export interface SidebarProps {
    */
   fixed?: boolean;
   /**
-   * Height of the sidebar container (vertical only)
+   * Height of the sidebar container
    * @default "100%"
    */
   height?: string;
 }
 
 /**
- * Dara UI Sidebar - Navigation with horizontal tab strip or vertical column
+ * Dara UI Sidebar - Collapsible navigation with groups and sub-menus
  *
  * Features:
- * - Horizontal orientation: scrollable tab strip with edge arrows
- * - Vertical orientation: classic collapsible sidebar (Ctrl+B)
- * - Groups become labeled sections in the tab strip
- * - Items with sub-items reveal a second row of sub-tabs
- * - Content panel renders below the tab strip (horizontal) or beside (vertical)
- * - Full RTL support (scroll direction, chevrons, active bar)
+ * - Collapse / expand with Ctrl+B
+ * - Icon-only mode when collapsed (labels + group headers hide cleanly)
+ * - Footer (logout etc.) keeps only the icon when collapsed
+ * - Smooth fade when switching content panels
+ * - Animated group + nested sub-menu expand/collapse
+ * - Full RTL support (items, chevrons, active bar, brand, footer, borders)
  */
 export const Sidebar: React.FC<SidebarProps> = ({
   brand,
   groups = [],
-  orientation = "horizontal",
   collapsible = true,
   defaultCollapsed = false,
   collapsed: controlledCollapsed,
@@ -183,9 +172,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
   fixed = false,
   height = "100%",
 }) => {
-  const isHorizontal = orientation === "horizontal";
-
-  // ----- Collapse state (vertical only) -----
   const isControlledCollapse = controlledCollapsed !== undefined;
   const [internalCollapsed, setInternalCollapsed] = useState(defaultCollapsed);
   const isCollapsed = isControlledCollapse
@@ -193,17 +179,32 @@ export const Sidebar: React.FC<SidebarProps> = ({
     : internalCollapsed;
   const isIconOnly = iconOnly || isCollapsed;
 
-  // ----- Active item state -----
   const isControlledActive = controlledActiveId !== undefined;
   const [internalActiveId, setInternalActiveId] = useState<string | undefined>(
     defaultActiveItemId || groups[0]?.items[0]?.id,
   );
   const activeId = isControlledActive ? controlledActiveId : internalActiveId;
 
-  // ----- RTL detection -----
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => {
+    const initial = new Set<string>();
+    groups.forEach((group, index) => {
+      if (group.defaultExpanded !== false) {
+        initial.add(`group-${index}`);
+      }
+    });
+    return initial;
+  });
+
+  const [expandedSubItems, setExpandedSubItems] = useState<Set<string>>(
+    new Set(),
+  );
+
+  // Live RTL detection (updates when language changes)
   const [isRTL, setIsRTL] = useState(false);
   useEffect(() => {
-    const updateDir = () => setIsRTL(document.documentElement.dir === "rtl");
+    const updateDir = () => {
+      setIsRTL(document.documentElement.dir === "rtl");
+    };
     updateDir();
     const observer = new MutationObserver(updateDir);
     observer.observe(document.documentElement, {
@@ -213,36 +214,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
     return () => observer.disconnect();
   }, []);
 
-  // ----- Find active item + its parent -----
-  const { activeItem, activeParent, activeGroupIndex } = useMemo(() => {
-    for (let gi = 0; gi < groups.length; gi++) {
-      const group = groups[gi];
+  // Content fade animation
+  const getActiveContent = useCallback((): React.ReactNode => {
+    for (const group of groups) {
       for (const item of group.items) {
-        if (item.id === activeId) {
-          return { activeItem: item, activeParent: null, activeGroupIndex: gi };
-        }
+        if (item.id === activeId) return item.content;
         if (item.subItems) {
-          for (const sub of item.subItems) {
-            if (sub.id === activeId) {
-              return {
-                activeItem: sub,
-                activeParent: item,
-                activeGroupIndex: gi,
-              };
-            }
+          for (const subItem of item.subItems) {
+            if (subItem.id === activeId) return subItem.content;
           }
         }
       }
     }
-    return {
-      activeItem: null,
-      activeParent: null,
-      activeGroupIndex: -1,
-    };
+    return null;
   }, [groups, activeId]);
 
-  // ----- Content fade animation -----
-  const activeContent = activeItem?.content ?? activeParent?.content ?? null;
+  const activeContent = getActiveContent();
   const [displayedContent, setDisplayedContent] =
     useState<React.ReactNode>(activeContent);
   const [contentVisible, setContentVisible] = useState(true);
@@ -257,366 +244,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
     return () => clearTimeout(timer);
   }, [activeContent, displayedContent]);
 
-  // ----- Handlers -----
-  const handleItemClick = useCallback(
-    (itemId: string, onClick?: () => void) => {
-      if (!isControlledActive) setInternalActiveId(itemId);
-      onItemClick?.(itemId);
-      onClick?.();
-    },
-    [isControlledActive, onItemClick],
-  );
-
+  // Collapse / expand
   const toggleCollapse = useCallback(() => {
     if (!collapsible) return;
     const newState = !isCollapsed;
     if (!isControlledCollapse) setInternalCollapsed(newState);
     onCollapseChange?.(newState);
   }, [collapsible, isCollapsed, isControlledCollapse, onCollapseChange]);
-
-  // Ctrl+B shortcut (vertical only)
-  useEffect(() => {
-    if (isHorizontal) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === "b") {
-        e.preventDefault();
-        toggleCollapse();
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isHorizontal, toggleCollapse]);
-
-  // ----- Horizontal scroll strip logic -----
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollStart, setCanScrollStart] = useState(false);
-  const [canScrollEnd, setCanScrollEnd] = useState(false);
-
-  const updateScrollState = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const { scrollLeft, scrollWidth, clientWidth } = el;
-    if (isRTL) {
-      // RTL: scrollLeft goes negative from 0 to -(scrollWidth - clientWidth)
-      setCanScrollStart(scrollLeft < -1);
-      setCanScrollEnd(scrollLeft > -(scrollWidth - clientWidth) + 1);
-    } else {
-      setCanScrollStart(scrollLeft > 1);
-      setCanScrollEnd(scrollLeft < scrollWidth - clientWidth - 1);
-    }
-  }, [isRTL]);
-
-  useEffect(() => {
-    if (!isHorizontal) return;
-    const el = scrollRef.current;
-    if (!el) return;
-    updateScrollState();
-    el.addEventListener("scroll", updateScrollState, { passive: true });
-    window.addEventListener("resize", updateScrollState);
-    return () => {
-      el.removeEventListener("scroll", updateScrollState);
-      window.removeEventListener("resize", updateScrollState);
-    };
-  }, [isHorizontal, updateScrollState]);
-
-  const scrollBy = useCallback(
-    (direction: "start" | "end") => {
-      const el = scrollRef.current;
-      if (!el) return;
-      const amount = Math.max(el.clientWidth * 0.7, 200);
-      const delta =
-        direction === "start"
-          ? isRTL
-            ? amount
-            : -amount
-          : isRTL
-            ? -amount
-            : amount;
-      el.scrollBy({ left: delta, behavior: "smooth" });
-    },
-    [isRTL],
-  );
-
-  // Scroll active item into view when it changes
-  useEffect(() => {
-    if (!isHorizontal) return;
-    const el = scrollRef.current?.querySelector<HTMLElement>(
-      `[data-sidebar-id="${activeId}"]`,
-    );
-    el?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "center",
-    });
-  }, [activeId, isHorizontal]);
-
-  // ============================================
-  // HORIZONTAL RENDER
-  // ============================================
-  if (isHorizontal) {
-    return (
-      <div className={`flex flex-col w-full ${className}`}>
-        {/* ===== Tab strip ===== */}
-        <div className="relative flex items-stretch gap-2">
-          {/* Left scroll arrow */}
-          {canScrollStart && (
-            <button
-              type="button"
-              onClick={() => scrollBy("start")}
-              className="
-                flex-shrink-0 w-8 self-stretch
-                flex items-center justify-center
-                rounded-[var(--radius-md)]
-                glass
-                text-[var(--color-text-secondary)]
-                hover:text-[var(--color-text-primary)]
-                transition-all duration-180
-              "
-              aria-label="Scroll previous"
-            >
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2.5}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
-          )}
-
-          {/* Scrollable tab row */}
-          <div
-            ref={scrollRef}
-            className="
-              flex-1 min-w-0
-              flex items-center gap-1
-              overflow-x-auto scroll-smooth
-              pb-1 sidebar-horizontal-scroll
-            "
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
-          >
-            {brand && (
-              <div className="flex-shrink-0 me-3 flex items-center">
-                {brand}
-              </div>
-            )}
-
-            {groups.map((group, groupIndex) => (
-              <React.Fragment key={`group-${groupIndex}`}>
-                {/* Group label chip */}
-                {showGroupLabels && (
-                  <span
-                    className="
-                      flex-shrink-0 px-3 py-1
-                      text-[10px] font-mono uppercase tracking-wider
-                      text-[var(--color-text-tertiary)]
-                      border-e border-[var(--color-border-secondary)]
-                      me-1
-                    "
-                    dir="auto"
-                  >
-                    {group.label}
-                  </span>
-                )}
-
-                {/* Group items */}
-                {group.items.map((item) => {
-                  const hasSubItems = !!(
-                    item.subItems && item.subItems.length > 0
-                  );
-                  const isActive =
-                    activeId === item.id ||
-                    (hasSubItems &&
-                      item.subItems!.some((s) => s.id === activeId));
-
-                  return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      data-sidebar-id={item.id}
-                      onClick={() => handleItemClick(item.id, item.onClick)}
-                      disabled={item.disabled}
-                      className={`
-                        flex-shrink-0
-                        flex items-center gap-2
-                        px-4 py-2 rounded-full
-                        text-sm font-medium whitespace-nowrap
-                        transition-all duration-180
-                        ${
-                          item.disabled
-                            ? "opacity-40 cursor-not-allowed"
-                            : "cursor-pointer"
-                        }
-                        ${
-                          isActive
-                            ? "bg-[var(--color-primary-solid)] text-white shadow-[var(--shadow-glow-primary)]"
-                            : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/40"
-                        }
-                      `}
-                      aria-current={isActive ? "page" : undefined}
-                      aria-disabled={item.disabled}
-                    >
-                      {item.icon && (
-                        <span className="flex-shrink-0 w-4 h-4 flex items-center justify-center">
-                          {item.icon}
-                        </span>
-                      )}
-                      <span>{item.label}</span>
-                      {item.badge !== undefined && (
-                        <span
-                          className={`
-                            flex-shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded-full
-                            ${
-                              isActive
-                                ? "bg-white/25 text-white"
-                                : "bg-[var(--color-bg-tertiary)] text-[var(--color-text-tertiary)]"
-                            }
-                          `}
-                        >
-                          {item.badge}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
-              </React.Fragment>
-            ))}
-          </div>
-
-          {/* Right scroll arrow */}
-          {canScrollEnd && (
-            <button
-              type="button"
-              onClick={() => scrollBy("end")}
-              className="
-                flex-shrink-0 w-8 self-stretch
-                flex items-center justify-center
-                rounded-[var(--radius-md)]
-                glass
-                text-[var(--color-text-secondary)]
-                hover:text-[var(--color-text-primary)]
-                transition-all duration-180
-              "
-              aria-label="Scroll next"
-            >
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2.5}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
-          )}
-        </div>
-
-        {/* ===== Sub-items row ===== */}
-        {activeParent && activeParent.subItems && (
-          <div className="flex flex-wrap items-center gap-1 mt-2 ps-1">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--color-text-tertiary)] me-1">
-              {activeParent.label}:
-            </span>
-            {activeParent.subItems.map((sub) => {
-              const isSubActive = activeId === sub.id;
-              return (
-                <button
-                  key={sub.id}
-                  type="button"
-                  onClick={() => handleItemClick(sub.id, sub.onClick)}
-                  disabled={sub.disabled}
-                  className={`
-                    flex items-center gap-1.5
-                    px-3 py-1 rounded-full
-                    text-xs font-medium whitespace-nowrap
-                    transition-all duration-180
-                    ${
-                      sub.disabled
-                        ? "opacity-40 cursor-not-allowed"
-                        : "cursor-pointer"
-                    }
-                    ${
-                      isSubActive
-                        ? "bg-[var(--color-primary-light)] text-[var(--color-primary)] border border-[var(--color-primary)]/40"
-                        : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/40"
-                    }
-                  `}
-                  aria-current={isSubActive ? "page" : undefined}
-                >
-                  {sub.icon && (
-                    <span className="flex-shrink-0 w-3.5 h-3.5 flex items-center justify-center">
-                      {sub.icon}
-                    </span>
-                  )}
-                  <span>{sub.label}</span>
-                  {sub.badge !== undefined && (
-                    <span
-                      className={`
-                        flex-shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-full
-                        ${
-                          isSubActive
-                            ? "bg-[var(--color-primary)]/20 text-[var(--color-primary)]"
-                            : "bg-[var(--color-bg-tertiary)] text-[var(--color-text-tertiary)]"
-                        }
-                      `}
-                    >
-                      {sub.badge}
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        )}
-
-        {/* ===== Content panel ===== */}
-        {displayedContent != null && (
-          <div
-            className="flex-1 mt-4 transition-all duration-300 ease-[var(--ease-in-out)]"
-            style={{
-              opacity: contentVisible ? 1 : 0,
-              transform: contentVisible ? "translateY(0)" : "translateY(6px)",
-              transition:
-                "opacity 160ms cubic-bezier(0.4, 0, 0.2, 1), transform 160ms cubic-bezier(0.4, 0, 0.2, 1)",
-            }}
-          >
-            {displayedContent}
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  // ============================================
-  // VERTICAL RENDER
-  // ============================================
-  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => {
-    const initial = new Set<string>();
-    groups.forEach((group, index) => {
-      if (group.defaultExpanded !== false) {
-        initial.add(`group-${index}`);
-      }
-    });
-    return initial;
-  });
-
-  const [expandedSubItems, setExpandedSubItems] = useState<Set<string>>(
-    new Set(),
-  );
 
   const toggleGroup = useCallback((groupKey: string) => {
     setExpandedGroups((prev) => {
@@ -636,17 +270,40 @@ export const Sidebar: React.FC<SidebarProps> = ({
     });
   }, []);
 
-  const renderVerticalItem = (
+  const handleItemClick = useCallback(
+    (itemId: string, onClick?: () => void) => {
+      if (!isControlledActive) setInternalActiveId(itemId);
+      onItemClick?.(itemId);
+      onClick?.();
+    },
+    [isControlledActive, onItemClick],
+  );
+
+  // Ctrl+B shortcut
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "b") {
+        e.preventDefault();
+        toggleCollapse();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [toggleCollapse]);
+
+  // Render helpers
+  const renderItem = (
     item: SidebarItem,
     depth: number = 0,
     parentId?: string,
-  ): React.ReactNode => {
+  ) => {
     const isActive = activeId === item.id;
     const hasSubItems = !!(item.subItems && item.subItems.length > 0);
     const subKey = `${parentId || item.id}-sub`;
     const isSubExpanded = expandedSubItems.has(subKey);
     const depthPadding = isIconOnly ? 0 : depth * 16;
 
+    // Icon-only (collapsed) mode
     if (isIconOnly) {
       return (
         <div key={item.id} className="relative">
@@ -706,6 +363,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       );
     }
 
+    // Expanded mode
     return (
       <div key={item.id} className="relative">
         <button
@@ -805,6 +463,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           )}
         </button>
 
+        {/* Nested sub-items – same open/close animation as groups */}
         {hasSubItems && !isIconOnly && (
           <div
             className={`
@@ -823,7 +482,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               `}
             >
               {item.subItems!.map((subItem) =>
-                renderVerticalItem(subItem, depth + 1, item.id),
+                renderItem(subItem, depth + 1, item.id),
               )}
             </div>
           </div>
@@ -832,14 +491,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
     );
   };
 
-  const renderVerticalGroup = (group: SidebarGroup, index: number) => {
+  const renderGroup = (group: SidebarGroup, index: number) => {
     const groupKey = `group-${index}`;
     const isExpanded = expandedGroups.has(groupKey);
 
     if (isIconOnly) {
       return (
         <div key={groupKey} className="space-y-1">
-          {group.items.map((item) => renderVerticalItem(item))}
+          {group.items.map((item) => renderItem(item))}
         </div>
       );
     }
@@ -894,13 +553,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
           `}
         >
           <div className="space-y-1 py-1">
-            {group.items.map((item) => renderVerticalItem(item))}
+            {group.items.map((item) => renderItem(item))}
           </div>
         </div>
       </div>
     );
   };
 
+  // Outer radius: only the edge that faces the content is rounded
   const radiusClass = fixed
     ? ""
     : isRTL
@@ -911,6 +571,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     ? "fixed top-0 z-40"
     : `relative overflow-hidden ${radiusClass}`;
 
+  // direction style forces nested flex (logo+text, icon+label) to mirror
   const rtlDirection =
     isRTL && !isCollapsed
       ? ({ direction: "rtl" } as const)
@@ -928,6 +589,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         maxHeight: fixed ? "100%" : height,
       }}
     >
+      {/* Sidebar */}
       <aside
         className={`
           ${positionClasses}
@@ -950,6 +612,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         role="navigation"
         aria-label="Sidebar navigation"
       >
+        {/* Brand / logo – direction:rtl mirrors nested flex content */}
         {brand && (
           <div
             className={`
@@ -965,6 +628,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         )}
 
+        {/* Navigation */}
         <nav
           className="flex-1 overflow-y-auto p-3 space-y-2 min-h-0 sidebar-scroll"
           style={{
@@ -982,11 +646,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
             .sidebar-scroll::-webkit-scrollbar-thumb:hover {
               background: var(--color-text-tertiary);
             }
-            .sidebar-horizontal-scroll::-webkit-scrollbar { display: none; }
           `}</style>
-          {groups.map((group, index) => renderVerticalGroup(group, index))}
+          {groups.map((group, index) => renderGroup(group, index))}
         </nav>
 
+        {/* Footer + collapse toggle */}
         <div className="border-t border-[var(--color-border-primary)] flex-shrink-0">
           {footer && (
             <div className={`p-3 ${isCollapsed ? "flex justify-center" : ""}`}>
@@ -1068,6 +732,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
       </aside>
 
+      {/* Content area with smooth fade */}
       {displayedContent != null && (
         <div
           className="flex-1 p-6 overflow-y-auto transition-all duration-300 ease-[var(--ease-in-out)]"

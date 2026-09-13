@@ -242,16 +242,11 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {
-    orientation: {
-      control: "select",
-      options: ["horizontal", "vertical"],
-    },
     collapsible: { control: "boolean" },
     iconOnly: { control: "boolean" },
     showGroupLabels: { control: "boolean" },
   },
   args: {
-    orientation: "horizontal",
     collapsible: true,
     showGroupLabels: true,
   },
@@ -260,44 +255,19 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Horizontal: Story = {
-  render: (args) => (
-    <div className="min-h-screen bg-[var(--color-bg-primary)] p-6">
-      <div className="rounded-[var(--radius-large)] border border-[var(--color-border-primary)] p-4">
-        <Sidebar
-          {...args}
-          orientation="horizontal"
-          brand={brand}
-          groups={groups}
-        />
-      </div>
-    </div>
-  ),
-};
-
-export const Vertical: Story = {
+export const Default: Story = {
   render: (args) => (
     <div className="min-h-screen bg-[var(--color-bg-primary)]">
-      <Sidebar
-        {...args}
-        orientation="vertical"
-        brand={brand}
-        groups={groups}
-        footer={footer}
-      />
+      <Sidebar {...args} brand={brand} groups={groups} footer={footer} />
     </div>
   ),
 };
 
-export const Default: Story = {
-  ...Horizontal,
-};
 export const Collapsed: Story = {
   render: (args) => (
     <div className="min-h-screen bg-[var(--color-bg-primary)]">
       <Sidebar
         {...args}
-        orientation="vertical"
         brand={brand}
         groups={groups}
         footer={footer}
@@ -312,7 +282,6 @@ export const IconOnly: Story = {
     <div className="min-h-screen bg-[var(--color-bg-primary)]">
       <Sidebar
         {...args}
-        orientation="vertical"
         brand={brand}
         groups={groups}
         footer={footer}
@@ -331,7 +300,6 @@ export const Controlled: Story = {
       <div className="min-h-screen bg-[var(--color-bg-primary)]">
         <Sidebar
           {...args}
-          orientation="vertical"
           brand={brand}
           groups={groups}
           footer={footer}
@@ -342,7 +310,9 @@ export const Controlled: Story = {
         />
         <div
           className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex gap-3 flex-wrap justify-center bg-[var(--color-bg-secondary)] p-3 rounded-[var(--radius-md)] glass"
-          style={{ marginLeft: collapsed ? "32px" : "130px" }}
+          style={{
+            marginLeft: collapsed ? "32px" : "130px",
+          }}
         >
           <button
             className="px-3 py-1.5 text-xs rounded-[var(--radius-md)] bg-[var(--color-primary-solid)] text-white hover:bg-[var(--color-primary-hover)]"
