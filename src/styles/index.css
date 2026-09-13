@@ -597,6 +597,20 @@ html[dir="rtl"] .section-label {
   display: none;
 }
 
+.sidebar-content-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar-content-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar-content-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-border-primary);
+  border-radius: 4px;
+}
+.sidebar-content-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}
+
 /* =============================================
    RTL / LTR FONT-STACK SWITCHING
    ============================================= */

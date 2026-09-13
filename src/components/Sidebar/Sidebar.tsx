@@ -677,9 +677,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
   // ============================================
   if (isMobile) {
     return (
-      <div className={`flex flex-col w-full ${className}`}>
+      <div className={`flex flex-col w-full h-full min-h-0 ${className}`}>
         {/* ===== Tab strip ===== */}
-        <div className="relative flex items-stretch gap-2">
+        <div className="relative flex items-stretch gap-2 px-4 pt-4 flex-shrink-0">
           {/* Scroll start arrow */}
           {canScrollStart && (
             <button
@@ -847,7 +847,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         {/* ===== Sub-items row ===== */}
         {activeParent && activeParent.subItems && (
-          <div className="flex flex-wrap items-center gap-1 mt-2 ps-1">
+          <div className="flex flex-wrap items-center gap-1 mt-2 px-4 flex-shrink-0">
             <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--color-text-tertiary)] me-1">
               {activeParent.label}:
             </span>
@@ -903,10 +903,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         )}
 
-        {/* ===== Content panel ===== */}
+        {/* ===== Content panel — scrolls vertically when tall ===== */}
         {displayedContent != null && (
           <div
-            className="flex-1 mt-4 transition-all duration-300 ease-[var(--ease-in-out)]"
+            className="flex-1 min-h-0 mt-4 px-4 pb-4 overflow-y-auto sidebar-content-scroll"
             style={{
               opacity: contentVisible ? 1 : 0,
               transform: contentVisible ? "translateY(0)" : "translateY(6px)",
@@ -920,6 +920,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         <style>{`
           .sidebar-horizontal-scroll::-webkit-scrollbar { display: none; }
+          .sidebar-content-scroll::-webkit-scrollbar { width: 4px; }
+          .sidebar-content-scroll::-webkit-scrollbar-track { background: transparent; }
+          .sidebar-content-scroll::-webkit-scrollbar-thumb {
+            background: var(--color-border-primary);
+            border-radius: 4px;
+          }
         `}</style>
       </div>
     );
@@ -943,6 +949,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
       ? ({ direction: "rtl" } as const)
       : ({ direction: "ltr" } as const);
 
+  // Nav scrollbar: on desktop, scrollbar rides on the edge that faces the
+  // content (left in LTR when sidebar sits on the left, right in RTL).
+  // We force it with a wrapper that flips the scroll container.
+  const navDirection = isRTL ? "ltr" : "rtl";
+  const innerDirection = isRTL ? "rtl" : "ltr";
+
   return (
     <div
       className={`
@@ -955,6 +967,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
         maxHeight: fixed ? "100%" : height,
       }}
     >
+      <style>{`
+        .sidebar-scroll::-webkit-scrollbar { width: 4px; }
+        .sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+          background: var(--color-border-primary);
+          border-radius: 4px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+          background: var(--color-text-tertiary);
+        }
+      `}</style>
+
       <aside
         className={`
           ${positionClasses}
@@ -992,25 +1016,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         )}
 
+        {/* Nav uses an outer flipped-direction wrapper so the scrollbar
+            sits on the edge facing the content */}
         <nav
-          className="flex-1 overflow-y-auto p-3 space-y-2 min-h-0 sidebar-scroll"
+          className="flex-1 overflow-y-auto min-h-0 sidebar-scroll"
           style={{
             scrollbarWidth: "thin",
             scrollbarColor: "var(--color-border-primary) transparent",
+            direction: navDirection,
           }}
+          dir={navDirection}
         >
-          <style>{`
-            .sidebar-scroll::-webkit-scrollbar { width: 4px; }
-            .sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
-            .sidebar-scroll::-webkit-scrollbar-thumb {
-              background: var(--color-border-primary);
-              border-radius: 4px;
-            }
-            .sidebar-scroll::-webkit-scrollbar-thumb:hover {
-              background: var(--color-text-tertiary);
-            }
-          `}</style>
-          {groups.map((group, index) => renderGroup(group, index))}
+          <div
+            className="p-3 space-y-2"
+            style={{ direction: innerDirection }}
+            dir={innerDirection}
+          >
+            {groups.map((group, index) => renderGroup(group, index))}
+          </div>
         </nav>
 
         <div className="border-t border-[var(--color-border-primary)] flex-shrink-0">
