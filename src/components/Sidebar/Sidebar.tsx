@@ -165,7 +165,8 @@ export interface SidebarProps {
  * - Desktop (>= 768px): classic vertical column — collapse/expand, Ctrl+B,
  *   group labels, nested sub-menus, icon-only mode, footer
  * - Mobile (< 768px): auto-switches to a horizontal scrollable tab strip
- *   with edge scroll arrows and a second row for sub-items
+ *   with edge-aware scroll arrows (each side hides itself once you've
+ *   scrolled all the way in that direction) and a second row for sub-items
  * - Full RTL support (items, chevrons, active bar, scroll direction, borders)
  */
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -287,6 +288,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
     const el = scrollRef.current;
     if (!el) return;
     const { scrollLeft, scrollWidth, clientWidth } = el;
+    // No overflow at all — nothing to scroll either direction.
+    if (scrollWidth - clientWidth <= 1) {
+      setCanScrollStart(false);
+      setCanScrollEnd(false);
+      return;
+    }
     if (isRTL) {
       setCanScrollStart(scrollLeft < -1);
       setCanScrollEnd(scrollLeft > -(scrollWidth - clientWidth) + 1);
@@ -301,6 +308,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
       const el = scrollRef.current;
       if (!el) return;
       const amount = Math.max(el.clientWidth * 0.7, 200);
+      // "start" always walks back toward the first item, "end" toward the
+      // last one — direction of travel flips under RTL since scrollLeft
+      // itself is mirrored by the browser.
       const delta =
         direction === "start"
           ? isRTL
@@ -352,19 +362,30 @@ export const Sidebar: React.FC<SidebarProps> = ({
   // EFFECTS
   // ============================================
 
-  // Update scroll indicators on mobile
+  // Update scroll indicators on mobile — recompute on scroll, on window
+  // resize, and whenever the strip's own content changes size (items
+  // added/removed, fonts loading, etc.) via ResizeObserver.
   useEffect(() => {
     if (!isMobile) return;
     const el = scrollRef.current;
     if (!el) return;
+
     updateScrollState();
     el.addEventListener("scroll", updateScrollState, { passive: true });
     window.addEventListener("resize", updateScrollState);
+
+    let resizeObserver: ResizeObserver | undefined;
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(() => updateScrollState());
+      resizeObserver.observe(el);
+    }
+
     return () => {
       el.removeEventListener("scroll", updateScrollState);
       window.removeEventListener("resize", updateScrollState);
+      resizeObserver?.disconnect();
     };
-  }, [isMobile, updateScrollState]);
+  }, [isMobile, updateScrollState, groups]);
 
   // Scroll active item into view (mobile)
   useEffect(() => {
@@ -678,39 +699,47 @@ export const Sidebar: React.FC<SidebarProps> = ({
   if (isMobile) {
     return (
       <div className={`flex flex-col w-full h-full min-h-0 ${className}`}>
-        {/* ===== Tab strip ===== */}
+        {/* ===== Tab strip / navbar ===== */}
         <div className="relative flex items-stretch gap-2 px-4 pt-4 flex-shrink-0">
-          {/* Scroll start arrow */}
-          {canScrollStart && (
-            <button
-              type="button"
-              onClick={() => scrollBy("start")}
-              className="
-                flex-shrink-0 w-8 self-stretch
-                flex items-center justify-center
-                rounded-[var(--radius-md)]
-                glass
-                text-[var(--color-text-secondary)]
-                hover:text-[var(--color-text-primary)]
-                transition-all duration-180
-              "
-              aria-label="Scroll previous"
+          {/* LEFT / START arrow — scrolls back toward the first item, and
+              hides itself once there's nothing further back to reveal */}
+          <button
+            type="button"
+            onClick={() => scrollBy("start")}
+            disabled={!canScrollStart}
+            aria-label="Scroll left"
+            aria-hidden={!canScrollStart}
+            tabIndex={canScrollStart ? 0 : -1}
+            className="
+              flex-shrink-0 w-8 self-stretch
+              flex items-center justify-center
+              rounded-[var(--radius-md)]
+              bg-[var(--color-bg-elevated)]/40
+              border border-[var(--color-border-primary)]
+              text-[var(--color-text-secondary)]
+              hover:text-[var(--color-text-primary)]
+              hover:bg-[var(--color-bg-elevated)]/70
+              transition-all duration-180
+              outline-none focus:outline-none focus-visible:outline-none
+              shadow-none hover:shadow-none focus:shadow-none
+              disabled:opacity-0 disabled:pointer-events-none
+            "
+            style={{ boxShadow: "none", filter: "none" }}
+          >
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2.5}
             >
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2.5}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
-          )}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
 
           {/* Scrollable tab row */}
           <div
@@ -778,10 +807,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         }
                         ${
                           isActive
-                            ? "bg-[var(--color-primary-solid)] text-white shadow-[var(--shadow-glow-primary)]"
+                            ? "bg-[var(--color-primary-solid)] text-white"
                             : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/40"
                         }
                       `}
+                      style={isActive ? { boxShadow: "none" } : undefined}
                       aria-current={isActive ? "page" : undefined}
                       aria-disabled={item.disabled}
                     >
@@ -812,37 +842,45 @@ export const Sidebar: React.FC<SidebarProps> = ({
             ))}
           </div>
 
-          {/* Scroll end arrow */}
-          {canScrollEnd && (
-            <button
-              type="button"
-              onClick={() => scrollBy("end")}
-              className="
-                flex-shrink-0 w-8 self-stretch
-                flex items-center justify-center
-                rounded-[var(--radius-md)]
-                glass
-                text-[var(--color-text-secondary)]
-                hover:text-[var(--color-text-primary)]
-                transition-all duration-180
-              "
-              aria-label="Scroll next"
+          {/* RIGHT / END arrow — scrolls forward toward the last item, and
+              hides itself once there's nothing further ahead to reveal */}
+          <button
+            type="button"
+            onClick={() => scrollBy("end")}
+            disabled={!canScrollEnd}
+            aria-label="Scroll right"
+            aria-hidden={!canScrollEnd}
+            tabIndex={canScrollEnd ? 0 : -1}
+            className="
+              flex-shrink-0 w-8 self-stretch
+              flex items-center justify-center
+              rounded-[var(--radius-md)]
+              bg-[var(--color-bg-elevated)]/40
+              border border-[var(--color-border-primary)]
+              text-[var(--color-text-secondary)]
+              hover:text-[var(--color-text-primary)]
+              hover:bg-[var(--color-bg-elevated)]/70
+              transition-all duration-180
+              outline-none focus:outline-none focus-visible:outline-none
+              shadow-none hover:shadow-none focus:shadow-none
+              disabled:opacity-0 disabled:pointer-events-none
+            "
+            style={{ boxShadow: "none", filter: "none" }}
+          >
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2.5}
             >
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2.5}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
-          )}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
         </div>
 
         {/* ===== Sub-items row ===== */}
@@ -903,7 +941,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         )}
 
-        {/* ===== Content panel — scrolls vertically when tall ===== */}
+        {/* ===== Content panel ===== */}
         {displayedContent != null && (
           <div
             className="flex-1 min-h-0 mt-4 px-4 pb-4 overflow-y-auto sidebar-content-scroll"
