@@ -27,7 +27,7 @@ export interface SocialMediaProps {
   className?: string;
 }
 
-// Platform data - maps platform names to icons and colors
+// Platform data - maps platform names to icons.
 const PLATFORM_DATA: Record<string, { icon: React.ReactNode; color: string }> =
   {
     github: {
@@ -36,7 +36,7 @@ const PLATFORM_DATA: Record<string, { icon: React.ReactNode; color: string }> =
     },
     twitter: {
       icon: <XTwitterIcon className="h-4 w-4" />,
-      color: "#000",
+      color: "#1DA1F2",
     },
     discord: {
       icon: <DiscordIcon className="h-4 w-4" />,
@@ -84,25 +84,6 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  // Detect if we're in dark mode by checking the theme
-  const [isDarkMode, setIsDarkMode] = useState(true);
-
-  useEffect(() => {
-    const checkTheme = () => {
-      const theme = document.documentElement.getAttribute("data-theme");
-      setIsDarkMode(theme === "nightfall" || theme === "dracula" || !theme);
-    };
-    checkTheme();
-
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
 
   const detectPlatform = (url: string): string => {
     const urlLower = url.toLowerCase();
@@ -213,34 +194,6 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
   const buttonPx = sizeStyles.buttonPx;
   const gapPx = 8;
 
-  // Helper to determine if a color is dark
-  const isDarkColor = (hex: string) => {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-    return luminance < 0.5;
-  };
-
-  // Get adaptive icon color
-  const getAdaptiveColor = (link: SocialLink) => {
-    const color = link.color || getPlatformData(detectPlatform(link.url)).color;
-
-    // If user provided a color, use it
-    if (link.color) return color;
-
-    // In dark mode: keep the color as-is
-    if (isDarkMode) return color;
-
-    // In light mode
-    if (isDarkColor(color)) {
-      // Lighten dark colors for light mode
-      return color === "#24292e" ? "#57606a" : color;
-    }
-
-    return color;
-  };
-
   // Render icon helper - clones the icon with proper sizing
   const renderIcon = (link: SocialLink, iconSizeClass: string) => {
     const platform = detectPlatform(link.url);
@@ -264,11 +217,10 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     return defaultIcon;
   };
 
-  // Get icon color - user provided or adapted
+  // Get icon color
   const getIconColor = (link: SocialLink) => {
     if (link.color) return link.color;
-    const platform = detectPlatform(link.url);
-    return getAdaptiveColor(link);
+    return getPlatformData(detectPlatform(link.url)).color;
   };
 
   return (
