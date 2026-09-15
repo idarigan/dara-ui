@@ -15,7 +15,14 @@ export default defineConfig({
     tailwindcss(),
     dts({
       include: ["src"],
-      exclude: ["src/**/*.stories.tsx", "src/App.tsx"],
+      exclude: [
+        "src/**/*.stories.tsx",
+        "src/**/*.stories.ts",
+        "src/App.tsx",
+        "src/main.tsx",
+        "src/stories/**",
+      ],
+      rollupTypes: true,
     }),
   ],
   build: {
