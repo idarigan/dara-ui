@@ -8,7 +8,7 @@ export interface GradientRingProps {
   size?: number;
   /**
    * Colors for the conic gradient
-   * @default ["#7c5cff", "#00d9ff", "#ff4d9d", "#7c5cff"]
+   * @default ["var(--color-primary)", "var(--color-secondary)", "var(--color-accent)", "var(--color-primary)"]
    */
   colors?: string[];
   /**
@@ -42,7 +42,12 @@ export interface GradientRingProps {
  */
 export const GradientRing: React.FC<GradientRingProps> = ({
   size = 280,
-  colors = ["#7c5cff", "#00d9ff", "#ff4d9d", "#7c5cff"],
+  colors = [
+    "var(--color-primary)",
+    "var(--color-secondary)",
+    "var(--color-accent)",
+    "var(--color-primary)",
+  ],
   blur = 60,
   opacity = 0.5,
   duration = 15,

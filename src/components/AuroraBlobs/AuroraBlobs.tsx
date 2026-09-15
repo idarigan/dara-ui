@@ -3,7 +3,7 @@ import React from "react";
 export interface AuroraBlobsProps {
   /**
    * Colors for the three blobs
-   * @default ["rgba(124,92,255,0.25)", "rgba(0,217,255,0.2)", "rgba(255,77,157,0.18)"]
+   * @default ["color-mix(in srgb, var(--color-primary) 25%, transparent)", ...]
    */
   colors?: [string, string, string];
   /**
@@ -28,9 +28,9 @@ export interface AuroraBlobsProps {
  */
 export const AuroraBlobs: React.FC<AuroraBlobsProps> = ({
   colors = [
-    "rgba(124,92,255,0.25)",
-    "rgba(0,217,255,0.2)",
-    "rgba(255,77,157,0.18)",
+    "color-mix(in srgb, var(--color-primary) 25%, transparent)",
+    "color-mix(in srgb, var(--color-secondary) 20%, transparent)",
+    "color-mix(in srgb, var(--color-accent) 18%, transparent)",
   ],
   sizes = [500, 400, 350],
   className = "",

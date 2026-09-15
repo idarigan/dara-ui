@@ -42,8 +42,13 @@ interface Particle {
   color: string;
 }
 
-// Stable defaults – never recreated across renders
-const DEFAULT_COLORS = ["#7C5CFF", "#00D9FF", "#FF4D9D", "#ffffff"];
+// Stable defaults
+const DEFAULT_COLORS = [
+  "var(--color-primary)",
+  "var(--color-secondary)",
+  "var(--color-accent)",
+  "#ffffff",
+];
 const DEFAULT_OPACITY: [number, number] = [0.15, 0.5];
 const DEFAULT_SIZE: [number, number] = [0.5, 2.5];
 const DEFAULT_SPEED: [number, number] = [0.1, 0.4];
@@ -87,12 +92,29 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
       canvas.height = window.innerHeight;
     }, []);
 
+    // Resolve CSS custom properties to concrete rgb strings once
+    const resolveColors = useCallback((): string[] => {
+      if (typeof window === "undefined") return configRef.current.colors;
+      const root = document.documentElement;
+      return configRef.current.colors.map((c) => {
+        const trimmed = c.trim();
+        if (trimmed.startsWith("var(")) {
+          const varName = trimmed.slice(4, -1).trim();
+          const resolved = getComputedStyle(root)
+            .getPropertyValue(varName)
+            .trim();
+          return resolved || "#ffffff";
+        }
+        return trimmed;
+      });
+    }, []);
+
     const createParticles = useCallback(() => {
       const canvas = canvasRef.current;
       if (!canvas) return;
 
-      const { count, colors, opacityRange, sizeRange, speedRange } =
-        configRef.current;
+      const { count, opacityRange, sizeRange, speedRange } = configRef.current;
+      const resolvedColors = resolveColors();
 
       const particles: Particle[] = [];
       for (let i = 0; i < count; i++) {
@@ -106,13 +128,14 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
           opacity:
             Math.random() * (opacityRange[1] - opacityRange[0]) +
             opacityRange[0],
-          color: colors[Math.floor(Math.random() * colors.length)],
+          color:
+            resolvedColors[Math.floor(Math.random() * resolvedColors.length)],
         });
       }
       particlesRef.current = particles;
-    }, []);
+    }, [resolveColors]);
 
-    // Mount once: start loop, handle resize. Only recreate when count changes.
+    // Mount once: start loop, handle resize
     useEffect(() => {
       const canvas = canvasRef.current;
       if (!canvas) return;
@@ -122,6 +145,13 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
 
       resizeCanvas();
       createParticles();
+
+      const onThemeChange = () => createParticles();
+      const observer = new MutationObserver(onThemeChange);
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"],
+      });
 
       const animate = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -159,6 +189,7 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
       return () => {
         cancelAnimationFrame(animationIdRef.current);
         window.removeEventListener("resize", handleResize);
+        observer.disconnect();
       };
     }, [count, resizeCanvas, createParticles]);
 
