@@ -118,7 +118,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   const [visible, setVisible] = useState(false);
   const [coords, setCoords] = useState({ top: -9999, left: -9999 });
   const [isRTL, setIsRTL] = useState(false);
-
+  const tooltipId = React.useId();
   const triggerRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const showTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -361,6 +361,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
         onMouseLeave={hideTooltip}
         onFocus={showTooltip}
         onBlur={hideTooltip}
+        aria-describedby={isVisible ? tooltipId : undefined}
       >
         {children}
       </div>
@@ -387,6 +388,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
               maxWidth,
               direction: isRTL ? "rtl" : "ltr",
             }}
+            id={tooltipId}
             role="tooltip"
             dir={isRTL ? "rtl" : "ltr"}
           >
