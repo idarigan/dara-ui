@@ -262,6 +262,7 @@ export const en = {
     q2: "What themes are available?",
     a2: "Nightfall (default), Daylight (light) and Dracula (purple).",
     q3: "How do I install it?",
+    a3: "npm install dara-ui, then import { Button, Card, Input } from 'dara-ui'. Works with Vite, Next.js, and CRA out of the box.",
     dashboard: "Dashboard",
     projects: "Projects",
     settingsAccordion: "Settings",

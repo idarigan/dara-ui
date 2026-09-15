@@ -264,6 +264,7 @@ export const fr = {
     q2: "Quels thèmes sont disponibles ?",
     a2: "Archive Nocturne (défaut),  Enneigée (clair), Mode Sith (noir + rouge), Temple Jedi (blanc + bleu), Dracula (violet) et Vin (rouges profonds).",
     q3: "Comment l'installer ?",
+    a3: "npm install dara-ui, puis import { Button, Card, Input } from 'dara-ui'. Fonctionne avec Vite, Next.js et CRA.",
     dashboard: "Tableau de bord",
     projects: "Projets",
     settingsAccordion: "Paramètres",
