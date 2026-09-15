@@ -130,12 +130,38 @@ export const Modal: React.FC<ModalProps> = ({
 
   // Focus management
   useEffect(() => {
-    if (isOpen) {
-      previousFocusRef.current = document.activeElement as HTMLElement;
-      const t = setTimeout(() => modalRef.current?.focus(), 30);
-      return () => clearTimeout(t);
+    if (!isOpen) {
+      previousFocusRef.current?.focus();
+      return;
     }
-    previousFocusRef.current?.focus();
+
+    previousFocusRef.current = document.activeElement as HTMLElement;
+    const t = setTimeout(() => modalRef.current?.focus(), 30);
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab" || !modalRef.current) return;
+      const focusables = modalRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])',
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleTab);
+    return () => {
+      clearTimeout(t);
+      document.removeEventListener("keydown", handleTab);
+    };
   }, [isOpen]);
 
   // Handle backdrop click
