@@ -33,7 +33,6 @@ import { ThemeProvider, ThemeChanger } from "./components/ThemeChanger";
 import { Navbar } from "./components/Navbar";
 import type { NavLink } from "./components/Navbar";
 import { SocialMedia } from "./components/SocialMedia";
-import useDirection from "./hooks/useDirection";
 import StatsWidget from "./components/StatsWidget";
 import Checkbox from "./components/Checkbox";
 import Switch from "./components/Switch";
@@ -88,8 +87,6 @@ import {
   MoonOutlineIcon,
   SkullIcon,
 } from "./components/Icons";
-
-import "./styles/index.css";
 
 type Theme = "nightfall" | "daylight" | "dracula";
 
@@ -154,7 +151,6 @@ function AppContent() {
   const { t } = useI18n();
 
   const [theme, setTheme] = useState<Theme>("nightfall");
-  const { direction, toggleDirection } = useDirection("ltr");
   const [activeTab, setActiveTab] = useState("archive");
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>(["1"]);
   const [accordionMode, setAccordionMode] = useState<"single" | "multiple">(
@@ -3332,7 +3328,7 @@ function AppContent() {
             {/* Sidebar — vertical on desktop, horizontal tabs on mobile */}
             <div
               className="rounded-[var(--radius-large)] border border-[var(--color-border-primary)] overflow-hidden h-[680px]"
-              dir={direction}
+              dir="auto"
             >
               <Sidebar
                 brand={
