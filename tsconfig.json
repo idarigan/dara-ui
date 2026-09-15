@@ -1,4 +1,7 @@
 {
+  "declaration": true,
+  "declarationMap": true,
+  "outDir": "dist",
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
