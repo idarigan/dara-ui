@@ -159,13 +159,13 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
 
     // Glow colors
     const glowColors = {
-      primary: "rgba(167, 139, 250, 0.35)",
-      secondary: "rgba(0, 217, 255, 0.35)",
-      accent: "rgba(255, 77, 157, 0.35)",
-      success: "rgba(0, 255, 153, 0.35)",
-      danger: "rgba(255, 83, 112, 0.35)",
-      warning: "rgba(255, 200, 87, 0.35)",
-      gradient: "rgba(167, 139, 250, 0.35)",
+      primary: "color-mix(in srgb, var(--color-primary) 35%, transparent)",
+      secondary: "color-mix(in srgb, var(--color-secondary) 35%, transparent)",
+      accent: "color-mix(in srgb, var(--color-accent) 35%, transparent)",
+      success: "color-mix(in srgb, var(--color-success) 35%, transparent)",
+      danger: "color-mix(in srgb, var(--color-danger) 35%, transparent)",
+      warning: "color-mix(in srgb, var(--color-warning) 35%, transparent)",
+      gradient: "color-mix(in srgb, var(--color-primary) 35%, transparent)",
     };
 
     // Generate label text
