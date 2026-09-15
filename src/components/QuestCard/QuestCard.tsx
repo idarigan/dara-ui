@@ -232,12 +232,12 @@ export const QuestCard: React.FC<QuestCardProps> = ({
   const generateSparkles = () => {
     const sparkles = [];
     const colors = [
-      "#ffd700",
-      "#ff6b35",
-      "#ff4d9d",
-      "#7c5cff",
-      "#00d9ff",
-      "#00ff99",
+      "var(--color-warning)",
+      "var(--color-accent)",
+      "var(--color-accent)",
+      "var(--color-primary)",
+      "var(--color-secondary)",
+      "var(--color-success)",
       "#ffffff",
     ];
     const total = 20;
@@ -300,6 +300,12 @@ export const QuestCard: React.FC<QuestCardProps> = ({
         role="button"
         tabIndex={0}
         aria-label={`Quest: ${title}`}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleCardClick();
+          }
+        }}
       >
         {/* Sparkle Drop Effect */}
         {showSparkles && (
