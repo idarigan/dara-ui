@@ -91,10 +91,6 @@ const preview: Preview = {
       defaultTheme: "nightfall",
       attributeName: "data-theme",
     }),
-    (Story) => {
-      document.documentElement.setAttribute("data-theme", "nightfall");
-      return <Story />;
-    },
   ],
 };
 

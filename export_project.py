@@ -18,7 +18,7 @@ class AdvancedProjectExporter:
         '.kt', '.swift', '.c', '.cpp', '.h', '.hpp', '.cs', '.fs', '.vb',
         '.sql', '.graphql', '.gql', '.proto', '.toml', '.ini', '.cfg',
         '.conf', '.lock', '.svg', '.vue', '.svelte', '.glsl', '.vert',
-        '.frag', '.comp', '.rpc',
+        '.frag', '.comp', '.rpc', '.json', '.md',
     }
     
     EXCLUDE_DIRS = {

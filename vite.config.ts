@@ -22,7 +22,7 @@ export default defineConfig({
         "src/main.tsx",
         "src/stories/**",
       ],
-      rollupTypes: true,
+      bundleTypes: true,
     }),
   ],
   build: {
