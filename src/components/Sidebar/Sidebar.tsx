@@ -708,7 +708,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onClick={() => scrollBy("start")}
             disabled={!canScrollStart}
             aria-label="Scroll left"
-            aria-hidden={!canScrollStart}
+            hidden={!canScrollStart}
             tabIndex={canScrollStart ? 0 : -1}
             className="
               flex-shrink-0 w-8 self-stretch
@@ -849,7 +849,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onClick={() => scrollBy("end")}
             disabled={!canScrollEnd}
             aria-label="Scroll right"
-            aria-hidden={!canScrollEnd}
+            hidden={!canScrollEnd}
             tabIndex={canScrollEnd ? 0 : -1}
             className="
               flex-shrink-0 w-8 self-stretch
