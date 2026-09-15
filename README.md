@@ -1,75 +1,185 @@
-# React + TypeScript + Vite
+# Dara UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React component library built for interfaces that feel refined and intentional.  
+Glassmorphism surfaces, subtle cyberpunk accents, complete RTL support, and a flexible theming system - all in one cohesive package.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- **Glassmorphism design language** - soft translucency, layered depth, and restrained glow
+- **Three built-in themes** - Nightfall, Daylight, and Dracula
+- **Full RTL support** - layout, icons, scroll direction, and typography adapt automatically
+- **Accessible by default** - keyboard navigation, focus states, and ARIA attributes
+- **Tree-shakeable** - import only what you need
+- **TypeScript-first** - complete type definitions out of the box
+- **Zero-config theming** - CSS variables + simple provider pattern
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install dara-ui
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+or
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+yarn add dara-ui
+pnpm add dara-ui
 ```
+
+---
+
+## Quick Start
+
+### 1. Import styles
+
+Add the stylesheet once at the root of your application:
+
+```ts
+import "dara-ui/style.css";
+```
+
+### 2. Wrap your app with providers
+
+```tsx
+import { ThemeProvider, I18nProvider } from "dara-ui";
+import { translations } from "dara-ui/translations";
+
+export default function Root() {
+  return (
+    <ThemeProvider defaultTheme="nightfall">
+      <I18nProvider translations={translations} defaultLanguage="en">
+        <App />
+      </I18nProvider>
+    </ThemeProvider>
+  );
+}
+```
+
+---
+
+## Themes
+
+Dara UI ships with three carefully tuned themes:
+
+| Theme       | Description                             | Default |
+| ----------- | --------------------------------------- | ------- |
+| `nightfall` | Deep charcoal with cyan accents         | Yes     |
+| `daylight`  | Soft light surfaces with muted contrast | No      |
+| `dracula`   | High-contrast purple-tinted dark mode   | No      |
+
+### Switching themes
+
+**Option A - HTML attribute**
+
+```html
+<html data-theme="daylight"></html>
+```
+
+**Option B - Component**
+
+```tsx
+import { ThemeChanger } from "dara-ui";
+
+<ThemeChanger />;
+```
+
+Themes are applied via CSS custom properties, so you can also override individual tokens in your own stylesheet.
+
+---
+
+## Components
+
+### Core
+
+Button · Badge · Input · Checkbox · Switch · Radio · Range · Avatar · Tooltip · Progress
+
+### Layout & Navigation
+
+Card · Tabs · Accordion · Dropdown · Modal · Navbar · Sidebar
+
+### Data Display
+
+XPBar · StatsWidget · QuestCard · CharacterCard · ProductCard · BlogCard
+
+### Feedback & Utilities
+
+Toast · ThemeChanger · LanguageChanger · SocialMedia
+
+### Visual Effects
+
+AuroraBlobs · Particles · GradientRing · NoiseOverlay
+
+All components accept standard React props and respect the active theme and text direction.
+
+---
+
+## Internationalization
+
+Dara UI includes a lightweight `I18nProvider` that works with the built-in translation dictionaries or your own.
+
+```tsx
+import { I18nProvider, LanguageChanger } from "dara-ui";
+import { translations } from "dara-ui/translations";
+
+<I18nProvider translations={translations} defaultLanguage="en">
+  <LanguageChanger />
+  {/* your app */}
+</I18nProvider>;
+```
+
+RTL is detected automatically from `document.documentElement.dir` and applied across layout, icons, scroll behavior, and spacing.
+
+---
+
+## Sidebar
+
+The `Sidebar` component is fully responsive:
+
+- **Desktop** - classic vertical navigation with collapse / expand, group labels, nested items, and icon-only mode
+- **Mobile** - horizontal scrollable tab strip with edge arrows that appear only when scrolling is possible
+
+```tsx
+import { Sidebar } from "dara-ui";
+
+<Sidebar
+  groups={[
+    {
+      label: "Main",
+      items: [
+        { id: "dashboard", label: "Dashboard", icon: <IconHome /> },
+        { id: "settings", label: "Settings", icon: <IconSettings /> },
+      ],
+    },
+  ]}
+  collapsible
+  defaultCollapsed={false}
+/>;
+```
+
+---
+
+## Customization
+
+All visual tokens are exposed as CSS variables. Override them globally or per component:
+
+```css
+:root {
+  --color-primary: #00e5ff;
+  --radius-md: 10px;
+  --shadow-float: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+```
+
+---
+
+## License
+
+MIT © Dara UI
+
+---
+
+Built with care for interfaces that deserve better defaults.
