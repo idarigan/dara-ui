@@ -112,7 +112,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       sizes[size],
       fullWidth ? "w-full" : "",
       loading ? "opacity-80 pointer-events-none" : "",
-      glow && glow !== "" ? glowStyles[glow] : "",
+      glow ? glowStyles[glow] : "",
       className,
     ]
       .filter(Boolean)

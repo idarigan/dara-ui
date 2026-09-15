@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import { GradientRing } from "./GradientRing";
 
 const meta: Meta<typeof GradientRing> = {
@@ -12,7 +12,7 @@ type Story = StoryObj<typeof GradientRing>;
 
 export const Default: Story = {
   args: { size: 64 },
-  render: (args) => (
+  render: (args: { size?: number }) => (
     <GradientRing {...args}>
       <div
         className="flex h-full w-full items-center justify-center rounded-full bg-[var(--color-bg-tertiary)] text-sm font-bold text-[var(--color-text-primary)]"

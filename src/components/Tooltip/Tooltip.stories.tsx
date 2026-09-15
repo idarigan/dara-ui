@@ -62,12 +62,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Wrapper component to use translations
-const TooltipDemo = ({ children }: { children: React.ReactNode }) => {
-  const { t } = useI18n();
-  return <>{children}</>;
-};
-
 // ----- Default -----
 export const Default: Story = {
   render: () => {

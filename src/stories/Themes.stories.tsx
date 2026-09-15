@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Card } from "../components/Card/Card";
 import { Button } from "../components/Button/Button";
 import { Badge } from "../components/Badge/Badge";
 
@@ -28,9 +27,6 @@ type Story = StoryObj<typeof meta>;
  * Theme Demo Component
  */
 const ThemePreview = ({ theme, label }: { theme: string; label: string }) => {
-  // Temporarily apply theme for the preview
-  const originalTheme = document.documentElement.getAttribute("data-theme");
-
   // Apply theme for this specific container
   const containerStyle = {
     padding: "20px",
@@ -76,10 +72,6 @@ const ThemePreview = ({ theme, label }: { theme: string; label: string }) => {
 
 export const ThemesOverview: Story = {
   render: () => {
-    // Save current theme
-    const currentTheme =
-      document.documentElement.getAttribute("data-theme") || "nightfall";
-
     return (
       <div className="max-w-4xl w-full">
         <h1 className="font-heading text-3xl font-bold text-gradient-primary mb-6">

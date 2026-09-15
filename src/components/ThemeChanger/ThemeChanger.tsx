@@ -135,32 +135,13 @@ const DraculaIcon = () => (
   </svg>
 );
 
-const GothicIcon = () => (
-  <svg
-    className="flex-shrink-0"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M12 2L2 7l10 5 10-5-10-5z" />
-    <path d="M2 17l10 5 10-5" />
-    <path d="M2 12l10 5 10-5" />
-    <circle cx="12" cy="12" r="2" />
-  </svg>
-);
-
 /**
  * Default Dara UI themes with SVG icons
  */
 const DEFAULT_THEMES: ThemeOption[] = [
   { value: "nightfall", label: "Nightfall", icon: <MoonIcon /> },
   { value: "daylight", label: "Daylight", icon: <SunIcon /> },
-  { value: "bloody-moon", label: "Bloody Moon", icon: <GothicIcon /> },
+  { value: "dracula", label: "Dracula", icon: <DraculaIcon /> },
 ];
 
 // ============================================
@@ -186,12 +167,9 @@ const getDefaultIcon = (value: string): React.ReactNode => {
   const iconMap: Record<string, React.ReactNode> = {
     nightfall: <MoonIcon />,
     daylight: <SunIcon />,
+    dracula: <DraculaIcon />,
     dark: <MoonIcon />,
     light: <SunIcon />,
-    dracula: <DraculaIcon />,
-    wine: <GothicIcon />,
-    gothic: <GothicIcon />,
-    cyber: <MoonIcon />,
   };
   return iconMap[value] || <MoonIcon />;
 };
@@ -571,17 +549,22 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
     ? sizeStyles[size].iconOnlyWidth
     : fixedWidth || "140px";
 
-  // Render icon helper - ensures consistent sizing
+  // Render icon helper
   const renderIcon = (icon: React.ReactNode) => {
     if (React.isValidElement(icon)) {
-      // Clone the element and add consistent sizing
-      return React.cloneElement(icon, {
+      const el = icon as React.ReactElement<{
+        className?: string;
+        width?: string;
+        height?: string;
+        viewBox?: string;
+      }>;
+      return React.cloneElement(el, {
         className: `flex-shrink-0 ${
           size === "sm" ? "w-4 h-4" : size === "lg" ? "w-6 h-6" : "w-5 h-5"
-        } ${icon.props.className || ""}`,
+        } ${el.props.className || ""}`,
         width: size === "sm" ? "16" : size === "lg" ? "24" : "20",
         height: size === "sm" ? "16" : size === "lg" ? "24" : "20",
-        viewBox: icon.props.viewBox || "0 0 24 24",
+        viewBox: el.props.viewBox || "0 0 24 24",
       });
     }
     return icon;

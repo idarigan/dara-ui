@@ -194,14 +194,15 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
   const buttonPx = sizeStyles.buttonPx;
   const gapPx = 8;
 
-  // Render icon helper - clones the icon with proper sizing
+  // Render icon helper
   const renderIcon = (link: SocialLink, iconSizeClass: string) => {
     const platform = detectPlatform(link.url);
     const platformData = getPlatformData(platform);
 
     // If custom icon is provided as React node
     if (link.icon && React.isValidElement(link.icon)) {
-      return React.cloneElement(link.icon as React.ReactElement, {
+      const icon = link.icon as React.ReactElement<{ className?: string }>;
+      return React.cloneElement(icon, {
         className: `${iconSizeClass} flex-shrink-0`,
       });
     }
@@ -209,7 +210,8 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     // Use platform default icon with proper sizing
     const defaultIcon = platformData.icon;
     if (React.isValidElement(defaultIcon)) {
-      return React.cloneElement(defaultIcon as React.ReactElement, {
+      const icon = defaultIcon as React.ReactElement<{ className?: string }>;
+      return React.cloneElement(icon, {
         className: `${iconSizeClass} flex-shrink-0`,
       });
     }

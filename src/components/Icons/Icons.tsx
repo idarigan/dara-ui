@@ -5,8 +5,6 @@
  * Import from here instead of redefining in each component.
  */
 
-import React from "react";
-
 // ============================================
 // Navigation Icons
 // ============================================

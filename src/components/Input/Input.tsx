@@ -1,5 +1,5 @@
 import React, { forwardRef, useState, useId } from "react";
-import { ErrorIcon, SuccessIcon, WarningIcon } from "../Icons";
+import { ErrorIcon, SuccessIcon } from "../Icons";
 
 export interface InputProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,

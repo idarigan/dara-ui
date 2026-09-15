@@ -249,6 +249,7 @@ const meta = {
   args: {
     collapsible: true,
     showGroupLabels: true,
+    groups,
   },
 } satisfies Meta<typeof Sidebar>;
 
@@ -258,7 +259,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => (
     <div className="min-h-screen bg-[var(--color-bg-primary)]">
-      <Sidebar {...args} brand={brand} groups={groups} footer={footer} />
+      <Sidebar {...args} brand={brand} footer={footer} />
     </div>
   ),
 };
@@ -266,7 +267,7 @@ export const Default: Story = {
 export const MobileTabs: Story = {
   render: (args) => (
     <div className="min-h-screen bg-[var(--color-bg-primary)] p-4">
-      <Sidebar {...args} forceMobile brand={brand} groups={groups} />
+      <Sidebar {...args} forceMobile brand={brand} />
     </div>
   ),
 };
@@ -274,14 +275,7 @@ export const MobileTabs: Story = {
 export const Collapsed: Story = {
   render: (args) => (
     <div className="min-h-screen bg-[var(--color-bg-primary)]">
-      <Sidebar
-        {...args}
-        orientation="vertical"
-        brand={brand}
-        groups={groups}
-        footer={footer}
-        defaultCollapsed
-      />
+      <Sidebar {...args} brand={brand} footer={footer} defaultCollapsed />
     </div>
   ),
 };
@@ -289,14 +283,7 @@ export const Collapsed: Story = {
 export const IconOnly: Story = {
   render: (args) => (
     <div className="min-h-screen bg-[var(--color-bg-primary)]">
-      <Sidebar
-        {...args}
-        orientation="vertical"
-        brand={brand}
-        groups={groups}
-        footer={footer}
-        iconOnly
-      />
+      <Sidebar {...args} brand={brand} footer={footer} iconOnly />
     </div>
   ),
 };
@@ -310,9 +297,7 @@ export const Controlled: Story = {
       <div className="min-h-screen bg-[var(--color-bg-primary)]">
         <Sidebar
           {...args}
-          orientation="vertical"
           brand={brand}
-          groups={groups}
           footer={footer}
           activeItemId={activeId}
           onItemClick={setActiveId}

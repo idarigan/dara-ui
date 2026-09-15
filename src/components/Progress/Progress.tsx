@@ -146,17 +146,6 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
         "bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)]",
     };
 
-    // Color mapping for radial
-    const radialColorMap = {
-      primary: "var(--color-primary)",
-      secondary: "var(--color-secondary)",
-      accent: "var(--color-accent)",
-      success: "var(--color-success)",
-      danger: "var(--color-danger)",
-      warning: "var(--color-warning)",
-      gradient: "url(#radialGradient)",
-    };
-
     // Glow colors
     const glowColors = {
       primary: "color-mix(in srgb, var(--color-primary) 35%, transparent)",
@@ -358,9 +347,6 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
     const radius = (actualSize - thickness) / 2;
     const circumference = 2 * Math.PI * radius;
     const offset = circumference - (percentage / 100) * circumference;
-
-    const glowColor =
-      glowColors[color as keyof typeof glowColors] || glowColors.primary;
     const displayLabel = showLabel ? labelText : "";
 
     // Get the stroke color for the radial progress

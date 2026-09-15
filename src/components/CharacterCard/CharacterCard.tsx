@@ -140,23 +140,6 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
   const glowClass = glowStyles[glow] || "";
   const isHorizontal = layout === "horizontal";
 
-  // Stat color mapping for radial rings
-  const statColors = {
-    primary: "stroke-[var(--color-primary)]",
-    secondary: "stroke-[var(--color-secondary)]",
-    accent: "stroke-[var(--color-accent)]",
-    success: "stroke-[var(--color-success)]",
-    danger: "stroke-[var(--color-danger)]",
-    warning: "stroke-[var(--color-warning)]",
-  };
-
-  const getStatColor = (color?: string) => {
-    if (color && color in statColors) {
-      return statColors[color as keyof typeof statColors];
-    }
-    return "stroke-[var(--color-primary)]";
-  };
-
   // Render radial stat ring
   const renderStatRing = (stat: CharacterStat) => {
     const percentage = Math.min(100, Math.max(0, stat.value));
@@ -165,7 +148,6 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
     const radius = size / 2 - strokeWidth / 2;
     const circumference = 2 * Math.PI * radius;
     const offset = circumference - (percentage / 100) * circumference;
-    const center = size / 2;
     const itemWidth = isHorizontal ? 60 : 68;
 
     // Extra padding so the blur has room

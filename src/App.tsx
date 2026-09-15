@@ -13,7 +13,7 @@
 // IMPORTS
 // ============================================
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import Button from "./components/Button/Button";
 import { Badge } from "./components/Badge/Badge";
 import { Input } from "./components/Input/Input";
@@ -40,7 +40,7 @@ import Radio from "./components/Radio";
 import { Range } from "./components/Range/Range";
 import { ProductCard } from "./components/ProductCard/ProductCard";
 import { BlogCard } from "./components/BlogCard/BlogCard";
-import { Sidebar, SidebarMobileTrigger } from "./components/Sidebar";
+import { Sidebar } from "./components/Sidebar";
 import type { SidebarGroup } from "./components/Sidebar";
 import {
   I18nProvider,
@@ -80,15 +80,12 @@ import {
   RocketIcon,
   AnalyticsIcon,
   SwordsIcon,
-  ChartBarIcon,
   CircleFilledIcon,
   CircleOutlineIcon,
   SparkleIcon,
   MoonOutlineIcon,
   SkullIcon,
 } from "./components/Icons";
-
-type Theme = "nightfall" | "daylight" | "dracula";
 
 // ============================================
 // Dropdown options
@@ -150,7 +147,6 @@ function AppContent() {
   // ----- Get translation function from i18n context -----
   const { t } = useI18n();
 
-  const [theme, setTheme] = useState<Theme>("nightfall");
   const [activeTab, setActiveTab] = useState("archive");
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>(["1"]);
   const [accordionMode, setAccordionMode] = useState<"single" | "multiple">(
@@ -158,15 +154,6 @@ function AppContent() {
   );
   const [selectedFramework, setSelectedFramework] = useState("react");
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Apply theme to document
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-  }, [theme]);
-
-  const changeTheme = (newTheme: Theme) => {
-    setTheme(newTheme);
-  };
 
   // Handle search from navbar
   const handleSearch = (query: string) => {
@@ -542,7 +529,17 @@ function AppContent() {
                       progress: 88,
                     },
                   ].map((p, i) => (
-                    <Card key={i} variant="solid" glow={p.color}>
+                    <Card
+                      key={i}
+                      variant="solid"
+                      glow={
+                        p.color === "accent"
+                          ? "accent"
+                          : p.color === "success" || p.color === "warning"
+                            ? "primary"
+                            : p.color
+                      }
+                    >
                       <div className="flex items-start justify-between gap-2 mb-2">
                         <h3
                           className="font-heading font-bold text-[var(--color-text-primary)] text-sm"
@@ -550,7 +547,11 @@ function AppContent() {
                         >
                           {p.title}
                         </h3>
-                        <Badge variant={p.color} size="sm" outline>
+                        <Badge
+                          variant={p.color === "accent" ? "primary" : p.color}
+                          size="sm"
+                          outline
+                        >
                           {p.status}
                         </Badge>
                       </div>

@@ -11,11 +11,6 @@ export interface SidebarMobileTriggerProps {
    */
   width?: string;
   /**
-   * Breakpoint below which the trigger is visible
-   * @default 768
-   */
-  breakpoint?: number;
-  /**
    * Show a floating action button
    * @default true
    */
@@ -39,7 +34,6 @@ export interface SidebarMobileTriggerProps {
 export const SidebarMobileTrigger: React.FC<SidebarMobileTriggerProps> = ({
   children,
   width = "85vw",
-  breakpoint = 768,
   showFab = true,
   className = "",
 }) => {
