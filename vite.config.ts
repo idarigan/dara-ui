@@ -22,9 +22,13 @@ export default defineConfig({
         "src/main.tsx",
         "src/stories/**",
       ],
+      outDirs: ["dist"],
+      tsconfigPath: "./tsconfig.app.json",
+      insertTypesEntry: true,
     }),
   ],
   build: {
+    copyPublicDir: false,
     lib: {
       entry: resolve(dirname, "src/index.ts"),
       name: "DaraUI",

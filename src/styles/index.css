@@ -1,4 +1,9 @@
 @import "tailwindcss";
+
+@source "../components/**/*.{ts,tsx}";
+@source "../hooks/**/*.{ts,tsx}";
+@source "not ../components/**/*.stories.tsx";
+
 @import "./tokens.css";
 @import "./fonts.css";
 
@@ -630,11 +635,6 @@ html[dir="rtl"] {
 /* =============================================
    STORYBOOK DOCS A11Y + CONTRAST FIX
    ============================================= */
-
-/* Remove empty warning content (non-text only) */
-.text-\\[var\\(--color-warning\\)\\]:empty {
-  display: none;
-}
 
 /* Keep your existing color palette but add AA contrast */
 .docblock-color-palette-item {
