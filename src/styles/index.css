@@ -3,6 +3,8 @@
 @source "../components/**/*.{ts,tsx}";
 @source "../hooks/**/*.{ts,tsx}";
 @source "not ../components/**/*.stories.tsx";
+@source "not ../App.tsx";
+@source "not ../stories/**";
 
 @import "./tokens.css";
 @import "./fonts.css";

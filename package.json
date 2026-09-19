@@ -47,8 +47,9 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run build:css && tsc -b && vite build",
     "build:lib": "tsc -b && vite build",
+    "build:css": "tailwindcss -i src/styles/index.css -o build/style.css --minify",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
@@ -64,6 +65,7 @@
     "@storybook/addon-themes": "^8.6.18",
     "@storybook/react-vite": "^8.6.18",
     "@storybook/theming": "^8.6.18",
+    "@tailwindcss/cli": "^4.3.3",
     "@tailwindcss/vite": "^4.3.2",
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.17",

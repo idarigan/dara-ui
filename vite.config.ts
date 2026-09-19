@@ -1,8 +1,8 @@
 /// <reference types="vitest/config" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
 import dts from "vite-plugin-dts";
+import { copyFileSync, mkdirSync } from "node:fs";
 import path, { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { playwright } from "@vitest/browser-playwright";
@@ -12,7 +12,6 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(),
     dts({
       include: ["src"],
       exclude: [
@@ -26,6 +25,13 @@ export default defineConfig({
       tsconfigPath: "./tsconfig.app.json",
       insertTypesEntry: true,
     }),
+    {
+      name: "copy-compiled-css",
+      closeBundle() {
+        mkdirSync("dist", { recursive: true });
+        copyFileSync("build/style.css", "dist/style.css");
+      },
+    },
   ],
   build: {
     copyPublicDir: false,
@@ -42,7 +48,6 @@ export default defineConfig({
           react: "React",
           "react-dom": "ReactDOM",
         },
-        assetFileNames: "style.css",
       },
     },
     cssCodeSplit: false,
@@ -58,11 +63,7 @@ export default defineConfig({
             enabled: true,
             headless: true,
             provider: playwright({}),
-            instances: [
-              {
-                browser: "chromium",
-              },
-            ],
+            instances: [{ browser: "chromium" }],
           },
         },
       },
