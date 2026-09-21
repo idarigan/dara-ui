@@ -47,6 +47,12 @@ export interface PageLoaderProps {
    */
   minDuration?: number;
   /**
+   * Render inline (no fixed positioning, no backdrop)
+   * Used for inline previews inside cards
+   * @default false
+   */
+  inline?: boolean;
+  /**
    * Additional className
    */
   className?: string;
@@ -62,6 +68,8 @@ export interface PageLoaderProps {
  * - Theme-aware colors
  * - Minimum display time to prevent flash
  * - Smooth fade in/out
+ * - `inline` mode for embedding inside cards / previews
+ * - Glows follow the painted shape via drop-shadow (not bounding box)
  */
 export const PageLoader: React.FC<PageLoaderProps> = ({
   isLoading = true,
@@ -73,14 +81,21 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
   blur = true,
   showBrand = false,
   minDuration = 0,
+  inline = false,
   className = "",
 }) => {
   const [mounted, setMounted] = useState(isLoading);
   const [visible, setVisible] = useState(false);
   const [startTime] = useState(Date.now());
 
-  // Handle mount/unmount with min duration + fade
+  // Handle mount/unmount with min duration + fade (skip in inline mode)
   useEffect(() => {
+    if (inline) {
+      setMounted(isLoading);
+      setVisible(isLoading);
+      return;
+    }
+
     let timer: ReturnType<typeof setTimeout>;
 
     if (isLoading) {
@@ -97,10 +112,11 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
     }
 
     return () => clearTimeout(timer);
-  }, [isLoading, minDuration, startTime]);
+  }, [isLoading, minDuration, startTime, inline]);
 
-  // Lock body scroll while visible
+  // Lock body scroll while visible (skip in inline mode)
   useEffect(() => {
+    if (inline) return;
     if (mounted) {
       document.body.style.overflow = "hidden";
     } else {
@@ -109,7 +125,7 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
     return () => {
       document.body.style.overflow = "";
     };
-  }, [mounted]);
+  }, [mounted, inline]);
 
   if (!mounted) return null;
 
@@ -121,6 +137,13 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
 
   const s = sizeMap[size];
 
+  // Shared glow filters - drop-shadow follows painted pixels, so it hugs
+  // the shape instead of the SVG's rectangular bounding box.
+  const circleGlow =
+    "drop-shadow(0 0 6px var(--color-primary)) drop-shadow(0 0 12px color-mix(in srgb, var(--color-primary) 45%, transparent))";
+  const softGlow =
+    "drop-shadow(0 0 5px var(--color-primary)) drop-shadow(0 0 10px color-mix(in srgb, var(--color-primary) 40%, transparent))";
+
   // ----- Spinner -----
   const Spinner = () => (
     <svg
@@ -129,6 +152,7 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
       height={s.box}
       viewBox="0 0 50 50"
       aria-hidden="true"
+      style={{ filter: circleGlow, overflow: "visible" }}
     >
       <circle
         cx="25"
@@ -147,12 +171,11 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
         strokeWidth={s.stroke}
         strokeLinecap="round"
         strokeDasharray="90 150"
-        style={{ filter: "drop-shadow(0 0 6px var(--color-primary))" }}
       />
     </svg>
   );
 
-  // ----- Ring (segmented) -----
+  // ----- Ring (segmented, radial) -----
   const Ring = () => (
     <svg
       className="animate-spin"
@@ -160,7 +183,11 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
       height={s.box}
       viewBox="0 0 50 50"
       aria-hidden="true"
-      style={{ animationDuration: "1.2s" }}
+      style={{
+        animationDuration: "1.2s",
+        filter: softGlow,
+        overflow: "visible",
+      }}
     >
       {Array.from({ length: 12 }).map((_, i) => {
         const angle = (i / 12) * 360;
@@ -183,7 +210,7 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
 
   // ----- Dots -----
   const Dots = () => (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2" style={{ filter: softGlow }}>
       {[0, 1, 2].map((i) => (
         <span
           key={i}
@@ -192,7 +219,6 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
             width: s.dots,
             height: s.dots,
             animation: `pageLoaderDot 1.2s ease-in-out ${i * 0.15}s infinite`,
-            boxShadow: "0 0 8px var(--color-primary)",
           }}
         />
       ))}
@@ -201,7 +227,10 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
 
   // ----- Pulse -----
   const Pulse = () => (
-    <div className="relative" style={{ width: s.box, height: s.box }}>
+    <div
+      className="relative"
+      style={{ width: s.box, height: s.box, filter: softGlow }}
+    >
       <span
         className="absolute inset-0 rounded-full bg-[var(--color-primary)]"
         style={{ animation: "pageLoaderPulse 1.5s ease-out infinite" }}
@@ -218,7 +247,6 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
           width: s.dots * 1.5,
           height: s.dots * 1.5,
           transform: "translate(-50%, -50%)",
-          boxShadow: "0 0 12px var(--color-primary)",
         }}
       />
     </div>
@@ -226,7 +254,10 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
 
   // ----- Bars -----
   const Bars = () => (
-    <div className="flex items-end gap-1.5" style={{ height: s.bars }}>
+    <div
+      className="flex items-end gap-1.5"
+      style={{ height: s.bars, filter: softGlow }}
+    >
       {[0, 1, 2, 3, 4].map((i) => (
         <span
           key={i}
@@ -236,7 +267,6 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
             height: "100%",
             animation: `pageLoaderBar 1s ease-in-out ${i * 0.1}s infinite`,
             transformOrigin: "bottom",
-            boxShadow: "0 0 6px var(--color-primary)",
           }}
         />
       ))}
@@ -251,6 +281,40 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
     bars: <Bars />,
   };
 
+  // Inline mode: no fixed positioning, no backdrop, no fade — just the
+  // inner content centered. Used inside cards / preview boxes.
+  if (inline) {
+    return (
+      <div
+        className={`flex flex-col items-center justify-center gap-3 ${className}`}
+        role="status"
+        aria-live="polite"
+        aria-busy={isLoading}
+      >
+        {showBrand && (
+          <span
+            className="font-heading font-bold text-xl tracking-tight"
+            style={{
+              background: "var(--gradient-primary)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            DARA UI
+          </span>
+        )}
+        {shapeMap[shape]}
+        {label && (
+          <p className="text-xs text-[var(--color-text-secondary)] font-mono tracking-wide">
+            {label}
+          </p>
+        )}
+      </div>
+    );
+  }
+
+  // Full-screen overlay mode
   return (
     <div
       className={`
@@ -304,7 +368,7 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
                 className="h-full rounded-full bg-[var(--color-primary)] transition-all duration-300"
                 style={{
                   width: `${Math.max(0, Math.min(100, progress))}%`,
-                  boxShadow: "0 0 12px var(--color-primary)",
+                  filter: softGlow,
                 }}
               />
             </div>

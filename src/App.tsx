@@ -162,14 +162,25 @@ function PageLoaderPreview({
   return (
     <Card
       variant="solid"
-      className="text-center cursor-pointer hover:bg-[var(--color-bg-elevated)]/30 transition-colors"
+      padding="none"
+      className="relative text-center overflow-hidden"
     >
+      {/* Full-surface click target */}
       <button
+        type="button"
         onClick={() => {
           setActive(true);
           setTimeout(() => setActive(false), 1800);
         }}
-        className="w-full flex flex-col items-center gap-2"
+        className="
+          group w-full flex flex-col items-center justify-center gap-2
+          py-6 px-4
+          cursor-pointer
+          transition-colors duration-180
+          hover:bg-[var(--color-bg-elevated)]/30
+          focus:outline-none focus-visible:bg-[var(--color-bg-elevated)]/40
+        "
+        aria-label={label}
       >
         <PageLoader
           isLoading={active}
@@ -178,8 +189,9 @@ function PageLoaderPreview({
           size="sm"
           blur={false}
           showBrand
+          inline
         />
-        <p className="font-mono text-xs text-[var(--color-text-secondary)]">
+        <p className="font-mono text-xs text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] transition-colors">
           {label}
         </p>
       </button>
