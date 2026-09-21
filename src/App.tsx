@@ -48,6 +48,12 @@ import {
   LanguageChanger,
 } from "./components/LanguageChanger";
 import { translations } from "./translations";
+import { ScrollReveal } from "./components/ScrollReveal";
+import {
+  PageLoader,
+  PageLoaderProvider,
+  usePageLoader,
+} from "./components/PageLoader";
 
 // Visual Effects - imported once
 import { Particles } from "./components/Particles/Particles";
@@ -134,6 +140,109 @@ function ToastDemo() {
       </Button>
       <Button variant="glass" onClick={() => toast.info(t("toast.infoMsg"))}>
         {t("toast.infoToast")}
+      </Button>
+    </div>
+  );
+}
+
+// ============================================
+// Page Loader Preview (inline card)
+// ============================================
+
+function PageLoaderPreview({
+  shape,
+  label,
+}: {
+  shape: "spinner" | "ring" | "dots" | "pulse" | "bars";
+  label: string;
+}) {
+  const { t } = useI18n();
+  const [active, setActive] = useState(false);
+
+  return (
+    <>
+      <Card
+        variant="solid"
+        className="text-center cursor-pointer hover:bg-[var(--color-bg-elevated)]/30 transition-colors"
+      >
+        <button
+          onClick={() => {
+            setActive(true);
+            setTimeout(() => setActive(false), 1800);
+          }}
+          className="w-full flex flex-col items-center gap-2"
+        >
+          <PageLoader
+            isLoading={active}
+            shape={shape}
+            label={t("pageLoader.navigating")}
+            size="sm"
+            blur={false}
+            showBrand
+          />
+          <p className="font-mono text-xs text-[var(--color-text-secondary)]">
+            {label}
+          </p>
+        </button>
+      </Card>
+    </>
+  );
+}
+
+// ============================================
+// Page Loader Full Demo
+// ============================================
+
+function PageLoaderDemo() {
+  const loader = usePageLoader();
+
+  const simulateRoute = () => {
+    loader.show({
+      label: t("pageLoader.navigating"),
+      shape: "spinner",
+      showBrand: true,
+      minDuration: 600,
+    });
+    setTimeout(() => loader.hide(), 1800);
+  };
+
+  const simulateFetch = () => {
+    loader.wrap(
+      async () => {
+        await new Promise((r) => setTimeout(r, 1600));
+      },
+      { label: t("pageLoader.fetchingData"), shape: "dots" },
+    );
+  };
+
+  const simulateUpload = () => {
+    loader.show({
+      label: t("pageLoader.uploading"),
+      shape: "bars",
+      showProgress: true,
+      showBrand: true,
+    });
+    let p = 0;
+    const interval = setInterval(() => {
+      p += 5;
+      loader.setProgress(p);
+      if (p >= 100) {
+        clearInterval(interval);
+        setTimeout(() => loader.hide(), 300);
+      }
+    }, 80);
+  };
+
+  return (
+    <div className="flex flex-wrap gap-3">
+      <Button variant="primary" onClick={simulateRoute}>
+        {t("pageLoader.simulateRoute")}
+      </Button>
+      <Button variant="secondary" onClick={simulateFetch}>
+        {t("pageLoader.simulateFetch")}
+      </Button>
+      <Button variant="accent" onClick={simulateUpload}>
+        {t("pageLoader.simulateUpload")}
       </Button>
     </div>
   );
@@ -2871,6 +2980,131 @@ function AppContent() {
           </section>
 
           {/* ============================================
+            SCROLL REVEAL SHOWCASE
+            ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("scrollReveal.title")}
+            </h2>
+            <p className="text-[var(--color-text-secondary)] text-sm mb-6">
+              {t("scrollReveal.subtitle")} — {t("scrollReveal.demoTip")}
+            </p>
+
+            {/* Staggered reveal */}
+            <div className="mb-6">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
+                {t("scrollReveal.stagger")}
+              </p>
+              <div className="flex flex-col gap-3">
+                {[0, 1, 2, 3].map((i) => (
+                  <ScrollReveal key={i} animation="fade-up" delay={i * 120}>
+                    <Card glow="primary">
+                      <h3 className="font-heading font-bold">
+                        {t("scrollReveal.animation")} {i + 1}
+                      </h3>
+                      <p className="text-[var(--color-text-secondary)] text-sm">
+                        {t("scrollReveal.demoTip")}
+                      </p>
+                    </Card>
+                  </ScrollReveal>
+                ))}
+              </div>
+            </div>
+
+            {/* All presets */}
+            <div className="mb-6">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
+                {t("scrollReveal.allPresets")}
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {(["fade-up", "fade-left", "zoom-in", "flip-up"] as const).map(
+                  (anim) => (
+                    <ScrollReveal key={anim} animation={anim}>
+                      <Card variant="solid" className="text-center">
+                        <p className="font-mono text-xs text-[var(--color-primary)]">
+                          {anim}
+                        </p>
+                      </Card>
+                    </ScrollReveal>
+                  ),
+                )}
+              </div>
+            </div>
+
+            {/* Re-trigger */}
+            <div>
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
+                {t("scrollReveal.triggerAgain")}
+              </p>
+              <ScrollReveal animation="fade-up" once={false}>
+                <Card variant="outline" glow="accent">
+                  <h3 className="font-heading font-bold">
+                    {t("scrollReveal.triggerAgain")}
+                  </h3>
+                  <p className="text-[var(--color-text-secondary)] text-sm">
+                    {t("scrollReveal.demoTip")}
+                  </p>
+                </Card>
+              </ScrollReveal>
+            </div>
+          </section>
+
+          {/* ============================================
+             PAGE LOADER SHOWCASE
+             ============================================ */}
+          <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
+            <h2 className="text-2xl font-semibold mb-6">
+              {t("pageLoader.title")}
+            </h2>
+            <p className="text-[var(--color-text-secondary)] text-sm mb-6">
+              {t("pageLoader.subtitle")}
+            </p>
+
+            {/* Shapes */}
+            <div className="mb-6">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
+                {t("pageLoader.shapes")}
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                {(
+                  [
+                    ["spinner", t("pageLoader.spinner")],
+                    ["ring", t("pageLoader.ring")],
+                    ["dots", t("pageLoader.dots")],
+                    ["pulse", t("pageLoader.pulse")],
+                    ["bars", t("pageLoader.bars")],
+                  ] as const
+                ).map(([shape, label]) => (
+                  <PageLoaderPreview key={shape} shape={shape} label={label} />
+                ))}
+              </div>
+            </div>
+
+            {/* Full-screen demos */}
+            <div className="mb-6">
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
+                {t("pageLoader.provider")}
+              </p>
+              <PageLoaderDemo />
+            </div>
+          </section>
+
+          {/* ============================================
             PRODUCT CARDS SHOWCASE
             ============================================ */}
           <section className="p-8 mb-8 rounded-[var(--radius-large)] bg-[var(--color-bg-secondary)]">
@@ -4581,7 +4815,9 @@ function App() {
     <ToastProvider>
       <I18nProvider translations={translations} defaultLanguage="en">
         <ThemeProvider defaultTheme="nightfall">
-          <AppContent />
+          <PageLoaderProvider>
+            <AppContent />
+          </PageLoaderProvider>
         </ThemeProvider>
       </I18nProvider>
     </ToastProvider>

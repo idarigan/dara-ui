@@ -95,7 +95,7 @@ export { BlogCard } from "./components/BlogCard/BlogCard";
 export type { BlogCardProps } from "./components/BlogCard/BlogCard";
 
 // ----- Theme & Language Changers -----
-export { ThemeChanger } from "./components/ThemeChanger";
+export { ThemeProvider, ThemeChanger } from "./components/ThemeChanger";
 export type { ThemeChangerProps, ThemeOption } from "./components/ThemeChanger";
 
 export {
@@ -107,6 +107,8 @@ export type {
   LanguageChangerProps,
   LanguageOption,
 } from "./components/LanguageChanger";
+
+export { translations } from "./translations";
 
 // ----- RPG/Specialty Components -----
 export { CharacterCard } from "./components/CharacterCard/CharacterCard";
@@ -139,6 +141,25 @@ export type { GradientRingProps } from "./components/GradientRing/GradientRing";
 
 export { NoiseOverlay } from "./components/NoiseOverlay/NoiseOverlay";
 export type { NoiseOverlayProps } from "./components/NoiseOverlay/NoiseOverlay";
+
+// ----- Scroll Reveal & Page Loader -----
+export { ScrollReveal, useScrollReveal } from "./components/ScrollReveal";
+export type {
+  ScrollRevealProps,
+  ScrollRevealAnimation,
+  UseScrollRevealOptions,
+} from "./components/ScrollReveal";
+
+export {
+  PageLoader,
+  PageLoaderProvider,
+  usePageLoader,
+} from "./components/PageLoader";
+export type {
+  PageLoaderProps,
+  LoaderShape,
+  PageLoaderOptions,
+} from "./components/PageLoader";
 
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";
