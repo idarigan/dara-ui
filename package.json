@@ -1,6 +1,6 @@
 {
   "name": "dara-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Some Modernlike React component library with full RTL and theming support.",
   "type": "module",
   "license": "MIT",
