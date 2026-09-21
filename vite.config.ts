@@ -6,12 +6,14 @@ import { copyFileSync, mkdirSync } from "node:fs";
 import path, { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { playwright } from "@vitest/browser-playwright";
+import tailwindcss from "@tailwindcss/vite";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [
     react(),
+    tailwindcss(),
     dts({
       include: ["src"],
       exclude: [

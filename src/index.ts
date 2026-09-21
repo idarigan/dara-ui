@@ -167,3 +167,6 @@ export type { Direction } from "./hooks/useDirection";
 
 // ----- Metadata -----
 export const version = "0.1.0";
+
+// ----- Style -----
+import "./styles/index.css";
