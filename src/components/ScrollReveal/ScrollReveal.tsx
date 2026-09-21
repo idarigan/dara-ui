@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export type ScrollRevealAnimation =
   | "fade"
@@ -57,11 +57,6 @@ export interface ScrollRevealProps {
    * Additional className
    */
   className?: string;
-  /**
-   * HTML tag to render
-   * @default "div"
-   */
-  as?: keyof React.JSX.IntrinsicElements;
 }
 
 /**
@@ -84,9 +79,8 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
   once = true,
   rootMargin = "0px 0px -10% 0px",
   className = "",
-  as: Tag = "div",
 }) => {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
 
@@ -156,38 +150,27 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
     }
   };
 
-  const getInitialOpacity = (): number => {
-    if (prefersReducedMotion) return 1;
-    return animation === "fade" ||
-      animation.startsWith("fade") ||
-      animation.startsWith("slide") ||
-      animation.startsWith("zoom") ||
-      animation.startsWith("flip")
-      ? 0
-      : 0;
-  };
-
   const shouldAnimate = isVisible || hasAnimated;
 
   const style: React.CSSProperties = prefersReducedMotion
     ? {}
     : {
-        opacity: shouldAnimate ? 1 : getInitialOpacity(),
+        opacity: shouldAnimate ? 1 : 0,
         transform: shouldAnimate ? "none" : getInitialTransform(),
         transition: `opacity ${duration}ms cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms, transform ${duration}ms cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms`,
         willChange: shouldAnimate ? "auto" : "opacity, transform",
       };
 
   return (
-    <Tag
-      ref={ref as never}
+    <div
+      ref={ref}
       className={className}
       style={style}
       data-scroll-reveal={animation}
       data-scroll-reveal-visible={shouldAnimate ? "true" : "false"}
     >
       {children}
-    </Tag>
+    </div>
   );
 };
 
