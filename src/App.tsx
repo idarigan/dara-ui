@@ -160,32 +160,30 @@ function PageLoaderPreview({
   const [active, setActive] = useState(false);
 
   return (
-    <>
-      <Card
-        variant="solid"
-        className="text-center cursor-pointer hover:bg-[var(--color-bg-elevated)]/30 transition-colors"
+    <Card
+      variant="solid"
+      className="text-center cursor-pointer hover:bg-[var(--color-bg-elevated)]/30 transition-colors"
+    >
+      <button
+        onClick={() => {
+          setActive(true);
+          setTimeout(() => setActive(false), 1800);
+        }}
+        className="w-full flex flex-col items-center gap-2"
       >
-        <button
-          onClick={() => {
-            setActive(true);
-            setTimeout(() => setActive(false), 1800);
-          }}
-          className="w-full flex flex-col items-center gap-2"
-        >
-          <PageLoader
-            isLoading={active}
-            shape={shape}
-            label={t("pageLoader.navigating")}
-            size="sm"
-            blur={false}
-            showBrand
-          />
-          <p className="font-mono text-xs text-[var(--color-text-secondary)]">
-            {label}
-          </p>
-        </button>
-      </Card>
-    </>
+        <PageLoader
+          isLoading={active}
+          shape={shape}
+          label={t("pageLoader.navigating")}
+          size="sm"
+          blur={false}
+          showBrand
+        />
+        <p className="font-mono text-xs text-[var(--color-text-secondary)]">
+          {label}
+        </p>
+      </button>
+    </Card>
   );
 }
 
@@ -194,6 +192,7 @@ function PageLoaderPreview({
 // ============================================
 
 function PageLoaderDemo() {
+  const { t } = useI18n();
   const loader = usePageLoader();
 
   const simulateRoute = () => {

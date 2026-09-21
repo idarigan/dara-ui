@@ -435,7 +435,11 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
             `}
             style={{ transform: "translateZ(5px)" }}
           >
-            {stats.map((stat) => renderStatRing(stat))}
+            {stats.map((stat, index) => (
+              <React.Fragment key={`${stat.label}-${index}`}>
+                {renderStatRing(stat)}
+              </React.Fragment>
+            ))}
           </div>
         )}
       </div>
