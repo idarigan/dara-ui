@@ -146,7 +146,7 @@ function ToastDemo() {
 }
 
 // ============================================
-// Page Loader Preview (inline card)
+// Page Loader Preview
 // ============================================
 
 function PageLoaderPreview({
@@ -165,7 +165,6 @@ function PageLoaderPreview({
       padding="none"
       className="relative text-center overflow-hidden"
     >
-      {/* Full-surface click target */}
       <button
         type="button"
         onClick={() => {
@@ -174,7 +173,7 @@ function PageLoaderPreview({
         }}
         className="
           group w-full flex flex-col items-center justify-center gap-2
-          py-6 px-4
+          py-5 px-3
           cursor-pointer
           transition-colors duration-180
           hover:bg-[var(--color-bg-elevated)]/30
@@ -185,7 +184,7 @@ function PageLoaderPreview({
         <PageLoader
           isLoading={active}
           shape={shape}
-          label={t("pageLoader.navigating")}
+          label={active ? t("pageLoader.navigating") : ""}
           size="sm"
           blur={false}
           showBrand
@@ -200,7 +199,7 @@ function PageLoaderPreview({
 }
 
 // ============================================
-// Page Loader Full Demo
+// Page Loader Demo
 // ============================================
 
 function PageLoaderDemo() {

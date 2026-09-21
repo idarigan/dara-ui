@@ -2,6 +2,14 @@ import React, { useEffect, useState } from "react";
 
 export type LoaderShape = "spinner" | "ring" | "dots" | "pulse" | "bars";
 
+export type LoaderColor =
+  | "primary"
+  | "secondary"
+  | "accent"
+  | "success"
+  | "danger"
+  | "warning";
+
 export interface PageLoaderProps {
   /**
    * Whether the loader is visible
@@ -13,6 +21,16 @@ export interface PageLoaderProps {
    * @default "spinner"
    */
   shape?: LoaderShape;
+  /**
+   * Semantic color variant
+   * @default "primary"
+   */
+  color?: LoaderColor;
+  /**
+   * Arbitrary CSS color (overrides `color` when provided)
+   * @example "var(--color-primary)" or "#7c5cff"
+   */
+  customColor?: string;
   /**
    * Loading label text
    */
@@ -65,7 +83,7 @@ export interface PageLoaderProps {
  * - Multiple loader shapes (spinner, ring, dots, pulse, bars)
  * - Optional progress bar with percentage
  * - Glass backdrop with blur
- * - Theme-aware colors
+ * - Theme-aware colors + custom color support
  * - Minimum display time to prevent flash
  * - Smooth fade in/out
  * - `inline` mode for embedding inside cards / previews
@@ -74,6 +92,8 @@ export interface PageLoaderProps {
 export const PageLoader: React.FC<PageLoaderProps> = ({
   isLoading = true,
   shape = "spinner",
+  color = "primary",
+  customColor,
   label,
   progress,
   showProgress = false,
@@ -87,6 +107,9 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
   const [mounted, setMounted] = useState(isLoading);
   const [visible, setVisible] = useState(false);
   const [startTime] = useState(Date.now());
+
+  // Resolve the actual color: customColor wins, otherwise map to token
+  const resolvedColor = customColor || `var(--color-${color})`;
 
   // Handle mount/unmount with min duration + fade (skip in inline mode)
   useEffect(() => {
@@ -137,12 +160,9 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
 
   const s = sizeMap[size];
 
-  // Shared glow filters - drop-shadow follows painted pixels, so it hugs
-  // the shape instead of the SVG's rectangular bounding box.
-  const circleGlow =
-    "drop-shadow(0 0 6px var(--color-primary)) drop-shadow(0 0 12px color-mix(in srgb, var(--color-primary) 45%, transparent))";
-  const softGlow =
-    "drop-shadow(0 0 5px var(--color-primary)) drop-shadow(0 0 10px color-mix(in srgb, var(--color-primary) 40%, transparent))";
+  // Glow filters follow the painted shape, not the SVG bounding box
+  const circleGlow = `drop-shadow(0 0 6px ${resolvedColor}) drop-shadow(0 0 12px color-mix(in srgb, ${resolvedColor} 45%, transparent))`;
+  const softGlow = `drop-shadow(0 0 5px ${resolvedColor}) drop-shadow(0 0 10px color-mix(in srgb, ${resolvedColor} 40%, transparent))`;
 
   // ----- Spinner -----
   const Spinner = () => (
@@ -167,7 +187,7 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
         cy="25"
         r="20"
         fill="none"
-        stroke="var(--color-primary)"
+        stroke={resolvedColor}
         strokeWidth={s.stroke}
         strokeLinecap="round"
         strokeDasharray="90 150"
@@ -175,7 +195,7 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
     </svg>
   );
 
-  // ----- Ring (segmented, radial) -----
+  // ----- Ring (segmented) -----
   const Ring = () => (
     <svg
       className="animate-spin"
@@ -199,7 +219,7 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
             width="2"
             height="8"
             rx="1"
-            fill="var(--color-primary)"
+            fill={resolvedColor}
             opacity={0.15 + (i / 12) * 0.85}
             transform={`rotate(${angle} 25 25)`}
           />
@@ -214,10 +234,11 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
       {[0, 1, 2].map((i) => (
         <span
           key={i}
-          className="rounded-full bg-[var(--color-primary)]"
+          className="rounded-full"
           style={{
             width: s.dots,
             height: s.dots,
+            backgroundColor: resolvedColor,
             animation: `pageLoaderDot 1.2s ease-in-out ${i * 0.15}s infinite`,
           }}
         />
@@ -232,20 +253,27 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
       style={{ width: s.box, height: s.box, filter: softGlow }}
     >
       <span
-        className="absolute inset-0 rounded-full bg-[var(--color-primary)]"
-        style={{ animation: "pageLoaderPulse 1.5s ease-out infinite" }}
+        className="absolute inset-0 rounded-full"
+        style={{
+          backgroundColor: resolvedColor,
+          animation: "pageLoaderPulse 1.5s ease-out infinite",
+        }}
       />
       <span
-        className="absolute inset-0 rounded-full bg-[var(--color-primary)]"
-        style={{ animation: "pageLoaderPulse 1.5s ease-out 0.5s infinite" }}
+        className="absolute inset-0 rounded-full"
+        style={{
+          backgroundColor: resolvedColor,
+          animation: "pageLoaderPulse 1.5s ease-out 0.5s infinite",
+        }}
       />
       <span
-        className="absolute rounded-full bg-[var(--color-primary)]"
+        className="absolute rounded-full"
         style={{
           top: "50%",
           left: "50%",
           width: s.dots * 1.5,
           height: s.dots * 1.5,
+          backgroundColor: resolvedColor,
           transform: "translate(-50%, -50%)",
         }}
       />
@@ -261,10 +289,11 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
       {[0, 1, 2, 3, 4].map((i) => (
         <span
           key={i}
-          className="rounded-full bg-[var(--color-primary)]"
+          className="rounded-full"
           style={{
             width: 3,
             height: "100%",
+            backgroundColor: resolvedColor,
             animation: `pageLoaderBar 1s ease-in-out ${i * 0.1}s infinite`,
             transformOrigin: "bottom",
           }}
@@ -281,9 +310,12 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
     bars: <Bars />,
   };
 
-  // Inline mode: no fixed positioning, no backdrop, no fade — just the
-  // inner content centered. Used inside cards / preview boxes.
+  // Inline mode: fixed-size box so the layout never shifts when the loader
+  // toggles. Everything is centered inside an invisible shell that matches
+  // the largest shape's footprint.
   if (inline) {
+    const inlineBox = s.box + 24;
+
     return (
       <div
         className={`flex flex-col items-center justify-center gap-3 ${className}`}
@@ -304,7 +336,24 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
             DARA UI
           </span>
         )}
-        {shapeMap[shape]}
+
+        {/* Fixed-size box keeps the card from resizing */}
+        <div
+          className="relative flex items-center justify-center"
+          style={{ width: inlineBox, height: inlineBox }}
+        >
+          <div
+            className="flex items-center justify-center"
+            style={{
+              opacity: isLoading ? 1 : 0,
+              transition: "opacity 220ms cubic-bezier(0.4, 0, 0.2, 1)",
+              pointerEvents: isLoading ? "auto" : "none",
+            }}
+          >
+            {shapeMap[shape]}
+          </div>
+        </div>
+
         {label && (
           <p className="text-xs text-[var(--color-text-secondary)] font-mono tracking-wide">
             {label}
@@ -365,9 +414,10 @@ export const PageLoader: React.FC<PageLoaderProps> = ({
           <div className="w-56 flex flex-col items-center gap-2">
             <div className="w-full h-1.5 rounded-full bg-[var(--color-bg-tertiary)] overflow-hidden">
               <div
-                className="h-full rounded-full bg-[var(--color-primary)] transition-all duration-300"
+                className="h-full rounded-full transition-all duration-300"
                 style={{
                   width: `${Math.max(0, Math.min(100, progress))}%`,
+                  backgroundColor: resolvedColor,
                   filter: softGlow,
                 }}
               />
