@@ -1,4 +1,4 @@
-import type { Preview } from "@storybook/react-vite";
+import type { Preview } from "@storybook/react";
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
 import { daraTheme } from "./theme";
 import "../src/styles/index.css";

@@ -38,6 +38,7 @@ const meta = {
     distance: 40,
     threshold: 0.15,
     once: true,
+    children: null,
   },
 } satisfies Meta<typeof ScrollReveal>;
 
@@ -96,26 +97,32 @@ const ScrollDemo = ({
 );
 
 export const Default: Story = {
+  args: { children: null },
   render: () => <ScrollDemo />,
 };
 
 export const FadeUp: Story = {
+  args: { children: null },
   render: () => <ScrollDemo animation="fade-up" />,
 };
 
 export const FadeLeft: Story = {
+  args: { children: null },
   render: () => <ScrollDemo animation="fade-left" />,
 };
 
 export const ZoomIn: Story = {
+  args: { children: null },
   render: () => <ScrollDemo animation="zoom-in" />,
 };
 
 export const FlipUp: Story = {
+  args: { children: null },
   render: () => <ScrollDemo animation="flip-up" />,
 };
 
 export const WithStagger: Story = {
+  args: { children: null },
   render: () => (
     <div className="p-8 space-y-4">
       <h1 className="font-heading text-3xl font-bold text-[var(--color-text-primary)] mb-8">
@@ -136,6 +143,7 @@ export const WithStagger: Story = {
 };
 
 export const AllAnimations: Story = {
+  args: { children: null },
   render: () => (
     <div className="p-8">
       <h1 className="font-heading text-3xl font-bold text-[var(--color-text-primary)] mb-8">
@@ -172,5 +180,6 @@ export const AllAnimations: Story = {
 };
 
 export const ReTrigger: Story = {
+  args: { children: null },
   render: () => <ScrollDemo animation="fade-up" once={false} />,
 };
