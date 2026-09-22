@@ -2,7 +2,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
-import { copyFileSync, mkdirSync } from "node:fs";
 import path, { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { playwright } from "@vitest/browser-playwright";
@@ -27,13 +26,6 @@ export default defineConfig({
       tsconfigPath: "./tsconfig.app.json",
       insertTypesEntry: true,
     }),
-    {
-      name: "copy-compiled-css",
-      closeBundle() {
-        mkdirSync("dist", { recursive: true });
-        copyFileSync("build/style.css", "dist/style.css");
-      },
-    },
   ],
   build: {
     copyPublicDir: false,
@@ -42,6 +34,7 @@ export default defineConfig({
       name: "DaraUI",
       formats: ["es", "cjs"],
       fileName: (format) => `dara-ui.${format}.js`,
+      cssFileName: "style",
     },
     rollupOptions: {
       external: ["react", "react-dom", "react/jsx-runtime"],

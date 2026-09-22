@@ -2,11 +2,12 @@
 @import "./tokens.css";
 @import "./fonts.css";
 
-@source "../components/**/*.{ts,tsx}";
-@source "../hooks/**/*.{ts,tsx}";
-@source "not ../components/**/*.stories.tsx";
-@source "not ../App.tsx";
-@source "not ../stories/**";
+@source "../components/**/*.tsx";
+@source "../components/**/*.ts";
+@source "../hooks/**/*.ts";
+@source "../hooks/**/*.tsx";
+@source not "../components/**/*.stories.tsx";
+@source not "../components/**/*.stories.ts";
 
 /* =============================================
    BASE STYLES
