@@ -57,6 +57,13 @@ export type {
   SidebarGroup,
 } from "./components/Sidebar/Sidebar";
 
+export { Footer } from "./components/Footer/Footer";
+export type {
+  FooterProps,
+  FooterColumn,
+  FooterVariant,
+} from "./components/Footer/Footer";
+
 export { SocialMedia } from "./components/SocialMedia/SocialMedia";
 export type {
   SocialMediaProps,

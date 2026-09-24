@@ -26,6 +26,22 @@ export interface NavbarProps {
   themeChangerMobile?: React.ReactNode;
   rightContent?: React.ReactNode;
   className?: string;
+  /**
+   * Enable IntersectionObserver-based scroll-spy.
+   * Each link's `href` (e.g. "#about") is observed; the section closest to
+   * the top of the viewport becomes active.
+   * @default false
+   */
+  scrollSpy?: boolean;
+  /**
+   * Offset from viewport top (px) where a section is considered "active"
+   * @default 140
+   */
+  scrollSpyOffset?: number;
+  /**
+   * Called with the currently-active section id whenever it changes
+   */
+  onActiveChange?: (id: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -44,6 +60,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   themeChangerMobile,
   rightContent,
   className = "",
+  scrollSpy = false,
+  scrollSpyOffset = 140,
+  onActiveChange,
 }) => {
   const { t } = useI18n();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -52,6 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [isSecondaryNavOpen, setIsSecondaryNavOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
 
   const navbarRef = useRef<HTMLElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -69,7 +89,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Throttled scroll handler to prevent excessive re-renders
+  // Throttled scroll handler
   useEffect(() => {
     const handleScroll = () => {
       if (scrollTimeoutRef.current) {
@@ -89,6 +109,73 @@ export const Navbar: React.FC<NavbarProps> = ({
     };
   }, []);
 
+  // ============================================
+  // SCROLL SPY
+  // ============================================
+  useEffect(() => {
+    if (!scrollSpy || typeof window === "undefined") return;
+
+    // Collect all sections referenced by nav links (#id)
+    const sectionIds = links
+      .map((link) => link.href.replace(/^#/, ""))
+      .filter(Boolean);
+
+    if (sectionIds.length === 0) return;
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (sections.length === 0) return;
+
+    // Track visibility ratios for all sections; the most-visible section wins
+    const ratios = new Map<string, number>();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.id;
+          ratios.set(id, entry.intersectionRatio);
+        });
+
+        // Find the section with the highest intersection ratio that's
+        // currently above the scrollSpyOffset line
+        let best: { id: string; score: number } | null = null;
+
+        sections.forEach((section) => {
+          const rect = section.getBoundingClientRect();
+          const ratio = ratios.get(section.id) ?? 0;
+
+          // Section must be at or below the navbar and visible
+          if (rect.bottom < scrollSpyOffset) return;
+          if (rect.top > window.innerHeight) return;
+
+          // Score prioritizes sections whose top is closest to the offset line
+          const distanceFromOffset = Math.abs(rect.top - scrollSpyOffset);
+          const score = ratio * 1000 - distanceFromOffset;
+
+          if (!best || score > best.score) {
+            best = { id: section.id, score };
+          }
+        });
+
+        if (best && (best as { id: string }).id !== activeSection) {
+          const nextId = (best as { id: string }).id;
+          setActiveSection(nextId);
+          onActiveChange?.(nextId);
+        }
+      },
+      {
+        rootMargin: `-${scrollSpyOffset}px 0px -50% 0px`,
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [scrollSpy, scrollSpyOffset, links, activeSection, onActiveChange]);
+
+  // Escape closes mobile menu
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isMobileMenuOpen) {
@@ -147,7 +234,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     setIsMobileMenuOpen(false);
   }, []);
 
-  // Debounced secondary nav handlers
   const handleSecondaryNavEnter = useCallback(() => {
     setIsSecondaryNavOpen(true);
   }, []);
@@ -155,6 +241,16 @@ export const Navbar: React.FC<NavbarProps> = ({
   const handleSecondaryNavLeave = useCallback(() => {
     setIsSecondaryNavOpen(false);
   }, []);
+
+  // Compute link.active dynamically when scrollSpy is on
+  const isLinkActive = useCallback(
+    (link: NavLink) => {
+      if (!scrollSpy) return !!link.active;
+      const id = link.href.replace(/^#/, "");
+      return id !== "" && id === activeSection;
+    },
+    [scrollSpy, activeSection],
+  );
 
   const defaultBrand = (
     <span
@@ -206,7 +302,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             transition-all duration-300 ease-[var(--ease-in-out)]
             ${
               isScrolled
-                ? "glass-heavy rounded-full shadow-[var(--shadow-float)] py-2 px-5 md:px-8"
+                ? "navbar-glass rounded-full shadow-[var(--shadow-float)] py-2 px-5 md:px-8"
                 : "bg-[var(--color-bg-secondary)]/80 backdrop-blur-[20px] border-b border-[var(--color-border-primary)] py-3 px-5 md:px-8 rounded-none"
             }
           `}
@@ -222,28 +318,31 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* CENTER - Desktop links */}
             <div className="hidden md:flex items-center justify-center gap-1">
-              {links.map((link, index) => (
-                <a
-                  key={index}
-                  href={link.href}
-                  className={`
-                    px-4 py-1.5 rounded-full text-sm font-medium
-                    transition-all duration-180
-                    flex items-center gap-2
-                    ${
-                      link.active
-                        ? "bg-[var(--color-primary-solid)] !text-white shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)]"
-                        : "!text-[var(--color-text-secondary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
-                    }
-                  `}
-                  onClick={handleLinkClick}
-                >
-                  {link.icon && (
-                    <span className="flex-shrink-0">{link.icon}</span>
-                  )}
-                  {link.label}
-                </a>
-              ))}
+              {links.map((link, index) => {
+                const active = isLinkActive(link);
+                return (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className={`
+                      px-4 py-1.5 rounded-full text-sm font-medium
+                      transition-all duration-180
+                      flex items-center gap-2
+                      ${
+                        active
+                          ? "bg-[var(--color-primary-solid)] !text-white shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)]"
+                          : "!text-[var(--color-text-secondary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
+                      }
+                    `}
+                    onClick={handleLinkClick}
+                  >
+                    {link.icon && (
+                      <span className="flex-shrink-0">{link.icon}</span>
+                    )}
+                    {link.label}
+                  </a>
+                );
+              })}
             </div>
 
             {/* RIGHT - Controls */}
@@ -479,25 +578,30 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Drawer Links */}
         <div className="flex-1 overflow-y-auto p-4 space-y-1">
-          {links.map((link, index) => (
-            <a
-              key={index}
-              href={link.href}
-              className={`
-                flex items-center gap-3 px-4 py-3.5 rounded-[var(--radius-md)]
-                transition-all duration-180
-                ${
-                  link.active
-                    ? "bg-[var(--color-primary-solid)] !text-white shadow-[var(--shadow-glow-primary)]"
-                    : "!text-[var(--color-text-secondary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
-                }
-              `}
-              onClick={handleLinkClick}
-            >
-              {link.icon && <span className="flex-shrink-0">{link.icon}</span>}
-              <span className="font-medium">{link.label}</span>
-            </a>
-          ))}
+          {links.map((link, index) => {
+            const active = isLinkActive(link);
+            return (
+              <a
+                key={index}
+                href={link.href}
+                className={`
+                  flex items-center gap-3 px-4 py-3.5 rounded-[var(--radius-md)]
+                  transition-all duration-180
+                  ${
+                    active
+                      ? "bg-[var(--color-primary-solid)] !text-white shadow-[var(--shadow-glow-primary)]"
+                      : "!text-[var(--color-text-secondary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
+                  }
+                `}
+                onClick={handleLinkClick}
+              >
+                {link.icon && (
+                  <span className="flex-shrink-0">{link.icon}</span>
+                )}
+                <span className="font-medium">{link.label}</span>
+              </a>
+            );
+          })}
 
           {showSecondaryNav && secondaryLinks.length > 0 && (
             <div className="mt-6 pt-4 border-t border-[var(--color-border-primary)] space-y-1">
