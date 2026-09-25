@@ -6,7 +6,7 @@ export const daraTheme = create({
   // Brand
   brandTitle: "Dara UI",
   brandUrl: "https://dara-ui.vercel.app",
-  brandImage: "/favicon.svg",
+  brandImage: "/favicon.ico",
   brandTarget: "_self",
 
   // Colors

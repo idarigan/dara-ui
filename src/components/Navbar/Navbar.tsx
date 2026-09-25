@@ -299,11 +299,14 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div
           className={`
             mx-auto
-            transition-all duration-300 ease-[var(--ease-in-out)]
+            transition-[padding,border-radius,box-shadow,background-color,border-color]
+            duration-300 ease-[var(--ease-in-out)]
+            bg-[var(--color-bg-secondary)]/80 backdrop-blur-[20px]
+            border-b
             ${
               isScrolled
-                ? "navbar-glass rounded-full shadow-[var(--shadow-float)] py-2 px-5 md:px-8"
-                : "bg-[var(--color-bg-secondary)]/80 backdrop-blur-[20px] border-b border-[var(--color-border-primary)] py-3 px-5 md:px-8 rounded-none"
+                ? "rounded-full shadow-[var(--shadow-float)] py-2 px-5 md:px-8 border-transparent"
+                : "border-[var(--color-border-primary)] py-3 px-5 md:px-8 rounded-none"
             }
           `}
         >
