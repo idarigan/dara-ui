@@ -28,6 +28,7 @@
       "require": "./dist/dara-ui.cjs.js"
     },
     "./style.css": "./dist/style.css",
+    "./fonts/*": "./dist/fonts/*",
     "./package.json": "./package.json"
   },
   "keywords": [

@@ -2,7 +2,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
-import { copyFileSync, mkdirSync } from "node:fs";
+import { copyFileSync, mkdirSync, cpSync, existsSync } from "node:fs";
 import path, { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { playwright } from "@vitest/browser-playwright";
@@ -28,10 +28,20 @@ export default defineConfig({
       insertTypesEntry: true,
     }),
     {
-      name: "copy-cli-css",
-      closeBundle() {
+      name: "copy-assets-to-dist",
+      writeBundle() {
         mkdirSync("dist", { recursive: true });
         copyFileSync("build/style.css", "dist/style.css");
+        console.log("✓ Copied build/style.css → dist/style.css");
+        const srcFonts = path.resolve(dirname, "public/fonts");
+        const distFonts = path.resolve(dirname, "dist/fonts");
+        if (existsSync(srcFonts)) {
+          mkdirSync(distFonts, { recursive: true });
+          cpSync(srcFonts, distFonts, { recursive: true });
+          console.log("✓ Copied public/fonts → dist/fonts");
+        } else {
+          console.warn(`⚠ public/fonts not found at ${srcFonts}`);
+        }
       },
     },
   ],
@@ -53,6 +63,7 @@ export default defineConfig({
       },
     },
     cssCodeSplit: false,
+    assetsInlineLimit: 0,
   },
   test: {
     projects: [
