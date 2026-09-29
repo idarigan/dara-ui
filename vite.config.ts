@@ -31,10 +31,17 @@ export default defineConfig({
       name: "copy-assets-to-dist",
       writeBundle() {
         mkdirSync("dist", { recursive: true });
-        copyFileSync("build/style.css", "dist/style.css");
-        console.log("✓ Copied build/style.css → dist/style.css");
+
+        if (existsSync("build/style.css")) {
+          copyFileSync("build/style.css", "dist/style.css");
+          console.log("✓ Copied build/style.css → dist/style.css");
+        } else {
+          console.warn("⚠ build/style.css not found — run build:css first");
+        }
+
         const srcFonts = path.resolve(dirname, "public/fonts");
         const distFonts = path.resolve(dirname, "dist/fonts");
+
         if (existsSync(srcFonts)) {
           mkdirSync(distFonts, { recursive: true });
           cpSync(srcFonts, distFonts, { recursive: true });

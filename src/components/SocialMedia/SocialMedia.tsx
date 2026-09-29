@@ -36,7 +36,7 @@ const PLATFORM_DATA: Record<string, { icon: React.ReactNode; color: string }> =
     },
     twitter: {
       icon: <XTwitterIcon className="h-4 w-4" />,
-      color: "#1DA1F2",
+      color: "#000000",
     },
     discord: {
       icon: <DiscordIcon className="h-4 w-4" />,

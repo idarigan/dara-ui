@@ -18,6 +18,9 @@
   "style": "./dist/style.css",
   "files": [
     "dist",
+    "dist/fonts/*.woff2",
+    "dist/fonts/*.woff",
+    "dist/fonts/*.ttf",
     "README.md",
     "LICENSE"
   ],
