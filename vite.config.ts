@@ -2,7 +2,14 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
-import { copyFileSync, mkdirSync, cpSync, existsSync } from "node:fs";
+import {
+  copyFileSync,
+  mkdirSync,
+  cpSync,
+  existsSync,
+  readFileSync,
+  writeFileSync,
+} from "node:fs";
 import path, { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { playwright } from "@vitest/browser-playwright";
@@ -33,21 +40,35 @@ export default defineConfig({
         mkdirSync("dist", { recursive: true });
 
         if (existsSync("build/style.css")) {
-          copyFileSync("build/style.css", "dist/style.css");
-          console.log("✓ Copied build/style.css → dist/style.css");
+          let css = readFileSync("build/style.css", "utf-8");
+
+          css = css.replace(
+            /url\(\s*(['"]?)\.\.\/assets\/fonts\//g,
+            "url($1./fonts/",
+          );
+
+          writeFileSync("dist/style.css", css);
+          console.log("✓ Copied + rewrote build/style.css → dist/style.css");
         } else {
           console.warn("⚠ build/style.css not found — run build:css first");
         }
 
-        const srcFonts = path.resolve(dirname, "public/fonts");
+        const srcFonts = path.resolve(dirname, "src/assets/fonts");
         const distFonts = path.resolve(dirname, "dist/fonts");
 
         if (existsSync(srcFonts)) {
           mkdirSync(distFonts, { recursive: true });
           cpSync(srcFonts, distFonts, { recursive: true });
-          console.log("✓ Copied public/fonts → dist/fonts");
+          console.log("✓ Copied src/assets/fonts → dist/fonts");
         } else {
-          console.warn(`⚠ public/fonts not found at ${srcFonts}`);
+          const publicFonts = path.resolve(dirname, "public/fonts");
+          if (existsSync(publicFonts)) {
+            mkdirSync(distFonts, { recursive: true });
+            cpSync(publicFonts, distFonts, { recursive: true });
+            console.log("✓ Copied public/fonts → dist/fonts");
+          } else {
+            console.warn(`⚠ Fonts not found at ${srcFonts} or ${publicFonts}`);
+          }
         }
       },
     },
