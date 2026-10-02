@@ -3,11 +3,11 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import {
-  copyFileSync,
   mkdirSync,
   cpSync,
   existsSync,
   readFileSync,
+  readdirSync,
   writeFileSync,
 } from "node:fs";
 import path, { resolve } from "node:path";
@@ -39,37 +39,52 @@ export default defineConfig({
       writeBundle() {
         mkdirSync("dist", { recursive: true });
 
-        if (existsSync("build/style.css")) {
-          let css = readFileSync("build/style.css", "utf-8");
-
-          css = css.replace(
-            /url\(\s*(['"]?)\.\.\/assets\/fonts\//g,
-            "url($1./fonts/",
-          );
-
-          writeFileSync("dist/style.css", css);
-          console.log("✓ Copied + rewrote build/style.css → dist/style.css");
-        } else {
-          console.warn("⚠ build/style.css not found — run build:css first");
+        // Stylesheet comes from build:css, no css = no package
+        if (!existsSync("build/style.css")) {
+          throw new Error("build/style.css not found, run build:css first");
         }
 
+        let css = readFileSync("build/style.css", "utf-8");
+
+        // Point font urls at dist/fonts, whatever form the minifier left them in
+        css = css.replace(
+          /url\(\s*(['"]?)(?:\.{1,2}\/)+(?:src\/)?assets\/fonts\//g,
+          "url($1./fonts/",
+        );
+
+        if (/assets\/fonts/.test(css)) {
+          throw new Error("style.css still has unresolved font urls");
+        }
+
+        writeFileSync("dist/style.css", css);
+        console.log("✓ Copied + rewrote build/style.css → dist/style.css");
+
+        // Fonts are shipped with the package, consumers install nothing
         const srcFonts = path.resolve(dirname, "src/assets/fonts");
         const distFonts = path.resolve(dirname, "dist/fonts");
 
-        if (existsSync(srcFonts)) {
-          mkdirSync(distFonts, { recursive: true });
-          cpSync(srcFonts, distFonts, { recursive: true });
-          console.log("✓ Copied src/assets/fonts → dist/fonts");
-        } else {
-          const publicFonts = path.resolve(dirname, "public/fonts");
-          if (existsSync(publicFonts)) {
-            mkdirSync(distFonts, { recursive: true });
-            cpSync(publicFonts, distFonts, { recursive: true });
-            console.log("✓ Copied public/fonts → dist/fonts");
-          } else {
-            console.warn(`⚠ Fonts not found at ${srcFonts} or ${publicFonts}`);
-          }
+        if (!existsSync(srcFonts)) {
+          throw new Error(`Fonts folder not found at ${srcFonts}`);
         }
+
+        mkdirSync(distFonts, { recursive: true });
+        cpSync(srcFonts, distFonts, { recursive: true });
+        console.log("✓ Copied src/assets/fonts → dist/fonts");
+
+        // Every font the css asks for must exist, case-sensitive like Linux
+        const present = new Set(readdirSync(distFonts));
+        const referenced = [
+          ...css.matchAll(/url\(\s*['"]?\.\/fonts\/([^'")\s]+)/g),
+        ].map((m) => m[1]);
+        const missing = [...new Set(referenced)].filter(
+          (file) => !present.has(file),
+        );
+
+        if (missing.length > 0) {
+          throw new Error(`Missing font files: ${missing.join(", ")}`);
+        }
+
+        console.log(`✓ Verified ${new Set(referenced).size} font files`);
       },
     },
   ],
