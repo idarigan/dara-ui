@@ -54,13 +54,13 @@ samp {
 }
 
 /* ----- Links ----- */
-a {
+a:not([class*="inline-flex"]) {
   color: var(--color-primary);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
-a:hover {
+a:not([class*="inline-flex"]):hover {
   color: var(--color-primary-hover);
 }
 

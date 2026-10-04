@@ -87,23 +87,23 @@ export const Button = React.forwardRef<
     ref,
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center gap-2 font-heading font-semibold tracking-wide transition-all duration-180 rounded-full active:scale-95 disabled:opacity-45 disabled:cursor-not-allowed disabled:pointer-events-none relative overflow-hidden hover:-translate-y-0.5";
+      "inline-flex items-center justify-center gap-2 font-heading font-semibold tracking-wide transition-all duration-180 rounded-full active:scale-95 disabled:opacity-45 disabled:cursor-not-allowed disabled:pointer-events-none relative overflow-hidden hover:-translate-y-0.5 no-underline hover:no-underline";
 
     const variants = {
       primary:
-        "bg-[var(--color-primary-solid)] text-white shadow-[var(--shadow-btn-primary)] hover:bg-[var(--color-primary-hover)] hover:shadow-[var(--shadow-btn-primary-hover)] hover:brightness-105",
+        "bg-[var(--color-primary-solid)] !text-white shadow-[var(--shadow-btn-primary)] hover:bg-[var(--color-primary-hover)] hover:shadow-[var(--shadow-btn-primary-hover)] hover:brightness-105",
       secondary:
-        "bg-[var(--color-secondary-solid)] text-white shadow-[var(--shadow-btn-secondary)] hover:bg-[var(--color-secondary-hover)] hover:shadow-[var(--shadow-btn-secondary-hover)] hover:brightness-105",
+        "bg-[var(--color-secondary-solid)] !text-white shadow-[var(--shadow-btn-secondary)] hover:bg-[var(--color-secondary-hover)] hover:shadow-[var(--shadow-btn-secondary-hover)] hover:brightness-105",
       accent:
-        "bg-[var(--color-accent-solid)] text-white shadow-[var(--shadow-btn-accent)] hover:bg-[var(--color-accent-hover)] hover:shadow-[var(--shadow-btn-accent-hover)] hover:brightness-105",
+        "bg-[var(--color-accent-solid)] !text-white shadow-[var(--shadow-btn-accent)] hover:bg-[var(--color-accent-hover)] hover:shadow-[var(--shadow-btn-accent-hover)] hover:brightness-105",
       glass:
-        "glass text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/40 hover:border-[var(--color-border-secondary)] hover:shadow-[var(--shadow-float)]",
+        "glass !text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/40 hover:border-[var(--color-border-secondary)] hover:shadow-[var(--shadow-float)]",
       danger:
-        "bg-[var(--color-danger-solid)] text-white shadow-[var(--shadow-btn-danger)] hover:bg-[var(--color-danger-hover)] hover:shadow-[var(--shadow-btn-danger-hover)] hover:brightness-105",
+        "bg-[var(--color-danger-solid)] !text-white shadow-[var(--shadow-btn-danger)] hover:bg-[var(--color-danger-hover)] hover:shadow-[var(--shadow-btn-danger-hover)] hover:brightness-105",
       success:
-        "bg-[var(--color-success-solid)] text-white shadow-[var(--shadow-btn-success)] hover:bg-[var(--color-success-hover)] hover:shadow-[var(--shadow-btn-success-hover)] hover:brightness-105",
+        "bg-[var(--color-success-solid)] !text-white shadow-[var(--shadow-btn-success)] hover:bg-[var(--color-success-hover)] hover:shadow-[var(--shadow-btn-success-hover)] hover:brightness-105",
       outline:
-        "bg-transparent text-[var(--color-text-primary)] border-2 border-[var(--color-border-primary)] hover:bg-[var(--color-primary-light)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] hover:shadow-[var(--shadow-btn-primary)]",
+        "bg-transparent !text-[var(--color-text-primary)] border-2 border-[var(--color-border-primary)] hover:bg-[var(--color-primary-light)] hover:border-[var(--color-primary)] hover:!text-[var(--color-primary)] hover:shadow-[var(--shadow-btn-primary)]",
     };
 
     const sizes = {
