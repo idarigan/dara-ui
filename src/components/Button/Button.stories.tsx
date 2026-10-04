@@ -9,6 +9,11 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {
+    as: {
+      control: "select",
+      options: ["button", "a"],
+      description: "Render as a button or an anchor link",
+    },
     variant: {
       control: "select",
       options: [
@@ -229,5 +234,17 @@ export const Interactive: Story = {
     variant: "primary",
     size: "md",
     glow: "primary",
+  },
+};
+
+export const AsLink: Story = {
+  args: {
+    as: "a",
+    children: "Visit Dara UI",
+    href: "https://dara-ui.vercel.app",
+    target: "_blank",
+    rel: "noopener noreferrer",
+    variant: "primary",
+    size: "md",
   },
 };

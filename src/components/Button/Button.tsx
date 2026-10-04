@@ -1,6 +1,16 @@
 import React from "react";
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonAsProp = "button" | "a";
+
+export interface ButtonProps
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  /**
+   * The HTML element to render the button as.
+   * @default "button"
+   */
+  as?: ButtonAsProp;
   /**
    * Button visual style variant
    * @default "primary"
@@ -53,10 +63,15 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
  * - Full width option
  * - Icon support on both sides
  * - Smooth hover animations with scale and lift
+ * - Can be rendered as a link or any other HTML element via the `as` prop
  */
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = React.forwardRef<
+  HTMLButtonElement | HTMLAnchorElement,
+  ButtonProps
+>(
   (
     {
+      as: Component = "button",
       children,
       variant = "primary",
       size = "md",
@@ -118,9 +133,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       .filter(Boolean)
       .join(" ");
 
+    const componentRef = ref as any;
+
     return (
-      <button
-        ref={ref}
+      <Component
+        ref={componentRef}
         className={classes}
         disabled={disabled || loading}
         {...props}
@@ -131,7 +148,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {leftIcon && <span className="flex-shrink-0">{leftIcon}</span>}
         {children}
         {rightIcon && <span className="flex-shrink-0">{rightIcon}</span>}
-      </button>
+      </Component>
     );
   },
 );

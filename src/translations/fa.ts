@@ -184,6 +184,9 @@ export const fa = {
     launch: "اجرا",
     next: "بعدی",
     confirm: "تأیید",
+    asLink: "دکمه به عنوان لینک",
+    visitSite: "مشاهده سایت",
+    viewOnGithub: "مشاهده در گیت‌هاب",
   },
   avatar: {
     title: "آواتار",

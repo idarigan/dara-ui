@@ -185,6 +185,9 @@ export const en = {
     launch: "Launch",
     next: "Next",
     confirm: "Confirm",
+    asLink: "Button as Link",
+    visitSite: "Visit Site",
+    viewOnGithub: "View on GitHub",
   },
   avatar: {
     title: "Avatar",
