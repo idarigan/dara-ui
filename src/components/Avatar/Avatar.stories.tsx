@@ -11,7 +11,7 @@ const meta = {
   argTypes: {
     size: {
       control: "select",
-      options: ["xs", "sm", "md", "lg", "xl"],
+      options: ["xs", "sm", "md", "lg", "xl", "hero"],
     },
     shape: {
       control: "select",
@@ -57,6 +57,58 @@ export const Sizes: Story = {
       <Avatar size="md" fallbackText="JD" />
       <Avatar size="lg" fallbackText="JD" />
       <Avatar size="xl" fallbackText="JD" />
+      <Avatar size="hero" fallbackText="JD" />
+    </div>
+  ),
+};
+
+// ----- Hero Size -----
+export const HeroSize: Story = {
+  render: () => (
+    <div className="flex items-center gap-6">
+      <Avatar
+        size="hero"
+        src="https://i.pravatar.cc/300?img=5"
+        alt="Profile"
+        glow="primary"
+        bordered
+      />
+      <Avatar
+        size="hero"
+        src="https://i.pravatar.cc/300?img=9"
+        alt="Profile"
+        shape="rounded"
+        glow="secondary"
+      />
+      <Avatar size="hero" fallbackText="Dara" glow="accent" />
+    </div>
+  ),
+};
+
+// ----- Profile Block (Hero + Text) -----
+export const ProfileBlock: Story = {
+  render: () => (
+    <div className="glass p-6 rounded-[var(--radius-large)] flex items-center gap-6 max-w-lg">
+      <Avatar
+        size="hero"
+        src="https://i.pravatar.cc/300?img=12"
+        alt="Dara"
+        glow="primary"
+        bordered
+        status="online"
+      />
+      <div className="flex flex-col gap-1 min-w-0">
+        <h3 className="font-heading text-2xl font-bold text-[var(--color-text-primary)]">
+          Dara
+        </h3>
+        <p className="text-sm font-mono text-[var(--color-primary)]">
+          @dara_ui
+        </p>
+        <p className="text-sm text-[var(--color-text-secondary)] mt-1 leading-relaxed">
+          Building futuristic interfaces one glassmorphism card at a time.
+          Archivist of the digital snowstorm.
+        </p>
+      </div>
     </div>
   ),
 };

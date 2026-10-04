@@ -1512,7 +1512,7 @@ function AppContent() {
             </div>
 
             {/* Clickable */}
-            <div>
+            <div className="mb-6">
               <p
                 className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
                 dir="auto"
@@ -1524,6 +1524,46 @@ function AppContent() {
                 onClick={() => alert("Avatar clicked!")}
                 glow="primary"
               />
+            </div>
+
+            {/* Hero Profile Block */}
+            <div>
+              <p
+                className="text-sm text-[var(--color-text-secondary)] mb-3 font-mono"
+                dir="auto"
+              >
+                {t("avatar.heroProfile")}
+              </p>
+              <div className="glass p-6 rounded-[var(--radius-large)] flex flex-col sm:flex-row items-center sm:items-start gap-6 max-w-2xl">
+                <Avatar
+                  size="hero"
+                  src="https://i.pravatar.cc/300?img=12"
+                  alt="Dara"
+                  glow="primary"
+                  bordered
+                  status="online"
+                />
+                <div className="flex flex-col gap-1.5 min-w-0 text-center sm:text-start">
+                  <h3
+                    className="font-heading text-2xl font-bold text-[var(--color-text-primary)]"
+                    dir="auto"
+                  >
+                    {t("avatar.profileName")}
+                  </h3>
+                  <p
+                    className="text-sm font-mono text-[var(--color-primary)]"
+                    dir="ltr"
+                  >
+                    @dara_ui
+                  </p>
+                  <p
+                    className="text-sm text-[var(--color-text-secondary)] mt-1 leading-relaxed"
+                    dir="auto"
+                  >
+                    {t("avatar.profileBio")}
+                  </p>
+                </div>
+              </div>
             </div>
           </section>
 

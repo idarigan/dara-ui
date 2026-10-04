@@ -198,6 +198,10 @@ export const en = {
     withImage: "With Image",
     group: "Group",
     clickable: "Clickable",
+    heroProfile: "Hero Profile Block",
+    profileName: "Dara",
+    profileBio:
+      "Building futuristic interfaces one glassmorphism card at a time. Archivist of the digital snowstorm.",
   },
   tooltip: {
     title: "Tooltip",

@@ -197,6 +197,10 @@ export const fa = {
     withImage: "با تصویر",
     group: "گروه",
     clickable: "قابل کلیک",
+    heroProfile: "بلوک پروفایل قهرمان",
+    profileName: "دارا",
+    profileBio:
+      "ساخت رابط‌های آینده‌نگرانه، یک کارت شیشه‌ای در هر لحظه. بایگان طوفان برفی دیجیتال.",
   },
   tooltip: {
     title: "راهنما",

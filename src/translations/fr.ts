@@ -199,6 +199,10 @@ export const fr = {
     withImage: "Avec image",
     group: "Groupe",
     clickable: "Cliquable",
+    heroProfile: "Bloc de profil héros",
+    profileName: "Dara",
+    profileBio:
+      "Construction d'interfaces futuristes, une carte glassmorphique à la fois. Archiviste de la tempête de neige numérique.",
   },
   tooltip: {
     title: "Infobulle",
