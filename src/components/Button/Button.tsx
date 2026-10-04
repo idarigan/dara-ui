@@ -90,15 +90,23 @@ export const Button = React.forwardRef<
     leftIcon,
     rightIcon,
     className = "",
-    disabled,
     ...rest
   } = props;
 
-  // Narrow the rest props based on the component type
+  // Extract disabled state only when the element is a button
+  const disabled =
+    Component === "button" && "disabled" in rest ? rest.disabled : undefined;
+
+  // Strip disabled from rest to avoid passing it to anchors
+  const { disabled: _ignoredDisabled, ...restWithoutDisabled } = rest as {
+    disabled?: boolean;
+  };
+
+  // Conditionally build the final props object
   const elementProps =
     Component === "button"
-      ? { disabled: disabled || loading, ...rest }
-      : { ...rest };
+      ? { ...restWithoutDisabled, disabled: disabled || loading }
+      : restWithoutDisabled;
 
   const baseStyles =
     "inline-flex items-center justify-center gap-2 font-heading font-semibold tracking-wide transition-all duration-180 rounded-full active:scale-95 disabled:opacity-45 disabled:cursor-not-allowed disabled:pointer-events-none relative overflow-hidden hover:-translate-y-0.5 no-underline hover:no-underline";
@@ -147,17 +155,18 @@ export const Button = React.forwardRef<
     .filter(Boolean)
     .join(" ");
 
+  const ComponentAny = Component as any;
   const componentRef = ref as React.Ref<any>;
 
   return (
-    <Component ref={componentRef} className={classes} {...elementProps}>
+    <ComponentAny ref={componentRef} className={classes} {...elementProps}>
       {loading && (
         <span className="spinner inline-block w-4 h-4 border-2 border-transparent border-t-current rounded-full animate-spin" />
       )}
       {leftIcon && <span className="flex-shrink-0">{leftIcon}</span>}
       {children}
       {rightIcon && <span className="flex-shrink-0">{rightIcon}</span>}
-    </Component>
+    </ComponentAny>
   );
 });
 
