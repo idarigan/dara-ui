@@ -39,14 +39,12 @@ export default defineConfig({
       writeBundle() {
         mkdirSync("dist", { recursive: true });
 
-        // Stylesheet comes from build:css, no css = no package
         if (!existsSync("build/style.css")) {
           throw new Error("build/style.css not found, run build:css first");
         }
 
         let css = readFileSync("build/style.css", "utf-8");
 
-        // Point font urls at dist/fonts, whatever form the minifier left them in
         css = css.replace(
           /url\(\s*(['"]?)(?:\.{1,2}\/)+(?:src\/)?assets\/fonts\//g,
           "url($1./fonts/",
@@ -59,7 +57,6 @@ export default defineConfig({
         writeFileSync("dist/style.css", css);
         console.log("✓ Copied + rewrote build/style.css → dist/style.css");
 
-        // Fonts are shipped with the package, consumers install nothing
         const srcFonts = path.resolve(dirname, "src/assets/fonts");
         const distFonts = path.resolve(dirname, "dist/fonts");
 
@@ -71,7 +68,6 @@ export default defineConfig({
         cpSync(srcFonts, distFonts, { recursive: true });
         console.log("✓ Copied src/assets/fonts → dist/fonts");
 
-        // Every font the css asks for must exist, case-sensitive like Linux
         const present = new Set(readdirSync(distFonts));
         const referenced = [
           ...css.matchAll(/url\(\s*['"]?\.\/fonts\/([^'")\s]+)/g),
