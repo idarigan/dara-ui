@@ -1,0 +1,24 @@
+{
+  "services": {
+    "demo": {
+      "root": ".",
+      "buildCommand": "npm run build",
+      "outputDirectory": "dist"
+    },
+    "storybook": {
+      "root": ".",
+      "buildCommand": "npm run build-storybook",
+      "outputDirectory": "storybook-static"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/storybook/(.*)",
+      "destination": { "service": "storybook" }
+    },
+    {
+      "source": "/(.*)",
+      "destination": { "service": "demo" }
+    }
+  ]
+}
