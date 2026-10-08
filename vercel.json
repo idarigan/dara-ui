@@ -2,11 +2,13 @@
   "services": {
     "demo": {
       "root": ".",
+      "framework": "vite",
       "buildCommand": "npm run build",
       "outputDirectory": "dist"
     },
     "storybook": {
       "root": ".",
+      "framework": "storybook",
       "buildCommand": "npm run build-storybook",
       "outputDirectory": "storybook-static"
     }
