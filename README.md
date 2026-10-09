@@ -178,8 +178,8 @@ All visual tokens are exposed as CSS variables. Override them globally or per co
 
 ## License
 
-MIT © Dara UI
+MIT © 2026 Dara
 
 ---
 
-Built with care for interfaces that deserve better defaults.
+Built with 🖤 by Dara
