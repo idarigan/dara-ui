@@ -49,7 +49,7 @@
   "scripts": {
     "dev": "vite",
     "build:css": "tailwindcss -i src/styles/index.css -o build/style.css --minify",
-    "build": "npm run build:css && tsc -b && vite build",
+    "build": "npm run build:css && tsc -b && DARA_LIB_BUILD=1 vite build",
     "pack:check": "npm run build && npm pack --dry-run",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",

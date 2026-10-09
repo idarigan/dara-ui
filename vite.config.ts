@@ -36,7 +36,10 @@ export default defineConfig({
     }),
     {
       name: "copy-assets-to-dist",
+      apply: "build",
       writeBundle() {
+        if (process.env.DARA_LIB_BUILD !== "1") return;
+
         mkdirSync("dist", { recursive: true });
 
         if (!existsSync("build/style.css")) {
