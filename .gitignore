@@ -1,33 +1,33 @@
 # Dependencies
 node_modules/
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
 
 # Build outputs
 dist/
-dist-ssr/
-*.local
-
-# Storybook
+build/
 storybook-static/
-*.storybook.log
 
-# IDE
-.vscode/
-.idea/
-*.sw?
-.DS_Store
-
-# Environment
+# Env files
 .env
 .env.local
-.env.*.local
+*.local
 
-# Project Exporter
-dara-ui_export.txt
-export_project.py
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
 
-original-dmeo.html
-build/
-src/styles/generated.css
+# Logs
+*.log
+npm-debug.log*
+
+# Export dumps
+*_export.txt
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+
+# Test coverage
+coverage/

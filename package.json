@@ -85,7 +85,6 @@
     "tailwindcss": "^4.3.2",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.62.0",
-    "vercel": "^37.0.0",
     "vite": "^6.0.0",
     "vite-plugin-dts": "^5.1.0",
     "vitest": "^4.1.9"
