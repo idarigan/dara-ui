@@ -83,10 +83,13 @@ input::-ms-clear {
 /* ----- Standard Glass ----- */
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border-strong);
+  outline: 1px solid var(--glass-outline);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.13),
+    inset 0 1px 0 var(--glass-highlight);
   border-radius: var(--radius-standard);
   transition: all var(--transition-med);
   position: relative;
@@ -107,8 +110,11 @@ button.glass {
   background: var(--glass-bg);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--glass-border-strong);
+  outline: 1px solid var(--glass-outline);
+  box-shadow:
+    0 14px 44px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 var(--glass-highlight);
   border-radius: var(--radius-standard);
   transition: all var(--transition-med);
 }
@@ -118,8 +124,11 @@ button.glass {
   background: var(--glass-bg);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border-strong);
+  outline: 1px solid var(--glass-outline);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 var(--glass-highlight);
   border-radius: var(--radius-standard);
   transition: all var(--transition-med);
 }
@@ -129,7 +138,8 @@ button.glass {
   background: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--glass-border-strong);
+  outline: 1px solid var(--glass-outline);
   box-shadow: none;
   border-radius: var(--radius-standard);
   transition: all var(--transition-med);
@@ -179,12 +189,47 @@ button.glass {
 .float-card {
   transition:
     transform var(--transition-med),
-    box-shadow var(--transition-med);
+    box-shadow var(--transition-med),
+    border-color var(--transition-med);
+  overflow: hidden;
 }
 
 .float-card:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 6px 52px rgba(0, 0, 0, 0.4);
+  border-color: var(--color-primary);
+}
+
+/* Cursor-tracked spotlight */
+.float-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(
+    260px circle at var(--x, 50%) var(--y, 50%),
+    color-mix(in srgb, var(--color-primary) 16%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.float-card:hover::before {
+  opacity: 1;
+}
+
+/* Icon pop on hover */
+.float-card:hover svg {
+  animation: daraIconPop 0.6s;
+}
+
+@keyframes daraIconPop {
+  40% {
+    transform: scale(1.3) rotate(-10deg);
+  }
 }
 
 .glow-primary.float-card:hover {
@@ -311,6 +356,77 @@ html[dir="rtl"] .section-label {
 }
 
 /* =============================================
+   BUTTON SHINE SWEEP
+   ============================================= */
+
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+
+.btn-shine:hover:not(:disabled)::after {
+  left: 150%;
+  transition: left 0.7s ease;
+}
+
+/* =============================================
+   ACCORDION PLUS BADGE
+   ============================================= */
+
+.accordion-trigger-icon {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  transition:
+    transform 0.35s ease,
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+.accordion-trigger[aria-expanded="true"] .accordion-trigger-icon {
+  transform: rotate(45deg);
+  background: var(--color-primary-solid);
+  color: white;
+}
+
+/* =============================================
+   SCROLL REVEAL (generic rise)
+   ============================================= */
+
+@keyframes daraRise {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.98);
+  }
+}
+
+.dara-rise {
+  animation: daraRise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+
+/* =============================================
    RTL / LTR FONT-STACK SWITCHING
    ============================================= */
 
@@ -344,7 +460,6 @@ html[dir="rtl"] {
     letter-spacing: 0 !important;
   }
 
-  /* CRITICAL FIX: Any element with font-mono in RTL should use Persian body font */
   .font-mono,
   [class*="font-mono"],
   code.font-mono,
@@ -358,7 +473,6 @@ html[dir="rtl"] {
     letter-spacing: 0 !important;
   }
 
-  /* EXCEPTION: Actual code blocks should stay LTR */
   code:not(.font-mono),
   pre:not(.font-mono),
   .code-block,
@@ -638,7 +752,6 @@ html[dir="rtl"] {
    STORYBOOK DOCS A11Y + CONTRAST FIX
    ============================================= */
 
-/* Keep your existing color palette but add AA contrast */
 .docblock-color-palette-item {
   background: var(--color-bg-secondary);
   border: 1px solid var(--color-border-primary);
