@@ -27,6 +27,21 @@ export interface ParticlesProps {
    */
   speedRange?: [number, number];
   /**
+   * Particles are pushed away by the mouse pointer
+   * @default true
+   */
+  interactive?: boolean;
+  /**
+   * Pointer influence radius in pixels
+   * @default 140
+   */
+  interactionRadius?: number;
+  /**
+   * Pointer push strength multiplier
+   * @default 1
+   */
+  interactionStrength?: number;
+  /**
    * Additional className
    */
   className?: string;
@@ -35,6 +50,10 @@ export interface ParticlesProps {
 interface Particle {
   x: number;
   y: number;
+  dx: number;
+  dy: number;
+  vx: number;
+  vy: number;
   size: number;
   speedY: number;
   speedX: number;
@@ -59,6 +78,8 @@ const DEFAULT_SPEED: [number, number] = [0.1, 0.4];
  * Features:
  * - Configurable particle count, colors, sizes, and speeds
  * - Smooth floating animation
+ * - Optional mouse interaction with a single cheap distance check per particle
+ * - Pauses while the tab is hidden and respects reduced motion
  * - Particles are created once (and on resize / count change only)
  * - Safe under frequent parent re-renders (e.g. controlled Range)
  */
@@ -69,11 +90,15 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
     opacityRange = DEFAULT_OPACITY,
     sizeRange = DEFAULT_SIZE,
     speedRange = DEFAULT_SPEED,
+    interactive = true,
+    interactionRadius = 140,
+    interactionStrength = 1,
     className = "",
   }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const particlesRef = useRef<Particle[]>([]);
     const animationIdRef = useRef<number>(0);
+    const pointerRef = useRef({ x: -9999, y: -9999, active: false });
 
     // Keep latest config in refs so resize can use them without effect churn
     const configRef = useRef({
@@ -82,8 +107,20 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
       opacityRange,
       sizeRange,
       speedRange,
+      interactive,
+      interactionRadius,
+      interactionStrength,
     });
-    configRef.current = { count, colors, opacityRange, sizeRange, speedRange };
+    configRef.current = {
+      count,
+      colors,
+      opacityRange,
+      sizeRange,
+      speedRange,
+      interactive,
+      interactionRadius,
+      interactionStrength,
+    };
 
     const resizeCanvas = useCallback(() => {
       const canvas = canvasRef.current;
@@ -121,6 +158,10 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
+          dx: 0,
+          dy: 0,
+          vx: 0,
+          vy: 0,
           size: Math.random() * (sizeRange[1] - sizeRange[0]) + sizeRange[0],
           speedY:
             Math.random() * (speedRange[1] - speedRange[0]) + speedRange[0],
@@ -135,13 +176,17 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
       particlesRef.current = particles;
     }, [resolveColors]);
 
-    // Mount once: start loop, handle resize
+    // Mount once: start loop, handle resize and pointer
     useEffect(() => {
       const canvas = canvasRef.current;
       if (!canvas) return;
 
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
+
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
 
       resizeCanvas();
       createParticles();
@@ -153,42 +198,108 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
         attributeFilter: ["data-theme"],
       });
 
-      const animate = () => {
+      const draw = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        const { interactive, interactionRadius, interactionStrength } =
+          configRef.current;
+        const pointer = pointerRef.current;
+        const usePointer = interactive && pointer.active && !reduceMotion;
+        const radius = interactionRadius;
+        const radiusSq = radius * radius;
+
         particlesRef.current.forEach((particle) => {
-          particle.y += particle.speedY;
-          particle.x += particle.speedX;
+          if (!reduceMotion) {
+            particle.y += particle.speedY;
+            particle.x += particle.speedX;
+          }
 
           if (particle.y > canvas.height + 10) {
             particle.y = -10;
             particle.x = Math.random() * canvas.width;
+            particle.dx = particle.dy = particle.vx = particle.vy = 0;
           }
           if (particle.x < -10) particle.x = canvas.width + 10;
           if (particle.x > canvas.width + 10) particle.x = -10;
 
+          if (usePointer) {
+            const diffX = particle.x + particle.dx - pointer.x;
+            const diffY = particle.y + particle.dy - pointer.y;
+            const distSq = diffX * diffX + diffY * diffY;
+
+            if (distSq < radiusSq && distSq > 0.01) {
+              const dist = Math.sqrt(distSq);
+              const falloff = 1 - dist / radius;
+              const force = falloff * falloff * 2.2 * interactionStrength;
+              particle.vx += (diffX / dist) * force;
+              particle.vy += (diffY / dist) * force;
+            }
+          }
+
+          particle.vx *= 0.9;
+          particle.vy *= 0.9;
+          particle.dx = (particle.dx + particle.vx) * 0.97;
+          particle.dy = (particle.dy + particle.vy) * 0.97;
+
           ctx.beginPath();
-          ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+          ctx.arc(
+            particle.x + particle.dx,
+            particle.y + particle.dy,
+            particle.size,
+            0,
+            Math.PI * 2,
+          );
           ctx.fillStyle = particle.color;
           ctx.globalAlpha = particle.opacity;
           ctx.fill();
           ctx.globalAlpha = 1;
         });
-
-        animationIdRef.current = requestAnimationFrame(animate);
       };
 
-      animate();
+      const animate = () => {
+        animationIdRef.current = requestAnimationFrame(animate);
+        if (document.hidden) return;
+        draw();
+      };
+
+      if (reduceMotion) {
+        draw();
+      } else {
+        animate();
+      }
+
+      const onPointerMove = (e: PointerEvent) => {
+        pointerRef.current.x = e.clientX;
+        pointerRef.current.y = e.clientY;
+        pointerRef.current.active = true;
+      };
+      const onPointerLeave = () => {
+        pointerRef.current.active = false;
+      };
+      const onPointerUp = (e: PointerEvent) => {
+        if (e.pointerType === "touch") pointerRef.current.active = false;
+      };
+
+      window.addEventListener("pointermove", onPointerMove, { passive: true });
+      window.addEventListener("pointerup", onPointerUp, { passive: true });
+      document.documentElement.addEventListener("pointerleave", onPointerLeave);
 
       const handleResize = () => {
         resizeCanvas();
         createParticles();
+        if (reduceMotion) draw();
       };
       window.addEventListener("resize", handleResize);
 
       return () => {
         cancelAnimationFrame(animationIdRef.current);
         window.removeEventListener("resize", handleResize);
+        window.removeEventListener("pointermove", onPointerMove);
+        window.removeEventListener("pointerup", onPointerUp);
+        document.documentElement.removeEventListener(
+          "pointerleave",
+          onPointerLeave,
+        );
         observer.disconnect();
       };
     }, [count, resizeCanvas, createParticles]);
