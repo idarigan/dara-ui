@@ -44,6 +44,39 @@ export interface NavbarProps {
   onActiveChange?: (id: string) => void;
 }
 
+// ============================================
+// GLASS SURFACES
+// ============================================
+
+const glassSurface: React.CSSProperties = {
+  background:
+    "linear-gradient(145deg, color-mix(in srgb, var(--color-bg-elevated) 82%, transparent), color-mix(in srgb, var(--color-bg-tertiary) 55%, transparent))",
+  backdropFilter: "blur(14px)",
+  WebkitBackdropFilter: "blur(14px)",
+  border: "1px solid var(--glass-border-strong)",
+  boxShadow:
+    "0 8px 26px rgba(0,0,0,0.16), inset 0 1px 0 var(--glass-highlight)",
+};
+
+const glassSurfaceMerged: React.CSSProperties = {
+  ...glassSurface,
+  backdropFilter: "blur(18px)",
+  WebkitBackdropFilter: "blur(18px)",
+  boxShadow:
+    "0 12px 34px rgba(0,0,0,0.2), inset 0 1px 0 var(--glass-highlight)",
+};
+
+const SurfaceLayer: React.FC<{
+  visible: boolean;
+  style: React.CSSProperties;
+}> = ({ visible, style }) => (
+  <span
+    aria-hidden="true"
+    className="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity duration-300 ease-[var(--ease-out)]"
+    style={{ ...style, opacity: visible ? 1 : 0 }}
+  />
+);
+
 export const Navbar: React.FC<NavbarProps> = ({
   brand,
   links = [],
@@ -76,7 +109,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navbarRef = useRef<HTMLElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
-  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // RTL detection
   const isRTL =
@@ -89,24 +121,12 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Throttled scroll handler
+  // Merge on the very first scroll event, no debounce
   useEffect(() => {
-    const handleScroll = () => {
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-      scrollTimeoutRef.current = setTimeout(() => {
-        setIsScrolled(window.scrollY > 20);
-      }, 50);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-    };
+    const update = () => setIsScrolled(window.scrollY > 8);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
   }, []);
 
   // ============================================
@@ -234,11 +254,11 @@ export const Navbar: React.FC<NavbarProps> = ({
     setIsMobileMenuOpen(false);
   }, []);
 
-  const handleSecondaryNavEnter = useCallback(() => {
+  const handleNavEnter = useCallback(() => {
     setIsSecondaryNavOpen(true);
   }, []);
 
-  const handleSecondaryNavLeave = useCallback(() => {
+  const handleNavLeave = useCallback(() => {
     setIsSecondaryNavOpen(false);
   }, []);
 
@@ -285,91 +305,132 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* MAIN NAVBAR */}
       <nav
         ref={navbarRef}
-        className={`
-          fixed top-0 left-0 right-0 z-50
-          transition-all duration-300 ease-[var(--ease-in-out)]
-          ${isScrolled ? "px-3 md:px-4" : ""}
-          ${className}
-        `}
-        style={{
-          paddingTop: isScrolled ? "12px" : "0",
-          paddingBottom: isScrolled ? "12px" : "0",
-        }}
+        className={`fixed top-3 left-0 right-0 z-50 px-4 pointer-events-none ${className}`}
       >
         <div
-          className={`
-            mx-auto
-            transition-[padding,border-radius,box-shadow,background-color,border-color]
-            duration-300 ease-[var(--ease-in-out)]
-            bg-[var(--color-bg-secondary)]/80 backdrop-blur-[20px]
-            border-b
-            ${
-              isScrolled
-                ? "rounded-full py-2 px-5 md:px-8 border-transparent"
-                : "border-[var(--color-border-primary)] py-3 px-5 md:px-8 rounded-none"
-            }
-          `}
-          style={
-            isScrolled
-              ? {
-                  boxShadow:
-                    "0 12px 34px rgba(0,0,0,0.2), inset 0 1px 0 var(--glass-highlight)",
-                }
-              : undefined
-          }
+          className="relative mx-auto flex items-center justify-between gap-2.5 p-1.5 rounded-full pointer-events-auto"
+          style={{
+            maxWidth: "1800px",
+            width: isScrolled ? "min(960px, 100%)" : "100%",
+            transition: "width 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+          }}
+          onMouseEnter={handleNavEnter}
+          onMouseLeave={handleNavLeave}
         >
-          {/* 3-COLUMN LAYOUT */}
-          <div className="grid grid-cols-[auto_1fr_auto] items-center md:gap-4">
-            {/* LEFT - Brand */}
-            <div className="flex-shrink-0">
-              <a href="/" className="block" onClick={handleLinkClick}>
-                {renderBrand()}
-              </a>
-            </div>
+          {/* Merged pill surface */}
+          <SurfaceLayer visible={isScrolled} style={glassSurfaceMerged} />
 
-            {/* CENTER - Desktop links */}
-            <div className="hidden md:flex items-center justify-center gap-1">
-              {links.map((link, index) => {
-                const active = isLinkActive(link);
-                return (
-                  <a
-                    key={index}
-                    href={link.href}
-                    className={`
-                      px-4 py-1.5 rounded-full text-sm font-medium
-                      transition-all duration-180
-                      flex items-center gap-2
-                      ${
-                        active
-                          ? "bg-[var(--color-primary-solid)] !text-white shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)]"
-                          : "!text-[var(--color-text-secondary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
+          {/* LEFT capsule - brand */}
+          <div className="relative flex-shrink-0 flex items-center rounded-full px-5 min-h-12">
+            <SurfaceLayer visible={!isScrolled} style={glassSurface} />
+            <a
+              href="/"
+              className="relative z-[1] block"
+              onClick={handleLinkClick}
+            >
+              {renderBrand()}
+            </a>
+          </div>
+
+          {/* RIGHT capsule - links + controls */}
+          <div className="relative flex items-center rounded-full px-2 md:px-3 py-1.5 min-h-12">
+            <SurfaceLayer visible={!isScrolled} style={glassSurface} />
+
+            <div className="relative z-[1] flex items-center gap-1">
+              {/* Desktop links */}
+              <div className="hidden md:flex items-center gap-1">
+                {links.map((link, index) => {
+                  const active = isLinkActive(link);
+                  return (
+                    <a
+                      key={index}
+                      href={link.href}
+                      className={`
+                        px-4 py-1.5 rounded-full text-sm font-medium
+                        transition-all duration-180
+                        flex items-center gap-2
+                        hover:-translate-y-0.5
+                        ${
+                          active
+                            ? "bg-[var(--color-primary-solid)] !text-white shadow-[var(--shadow-glow-primary)] hover:bg-[var(--color-primary-hover)]"
+                            : "!text-[var(--color-text-secondary)] hover:!text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30"
+                        }
+                      `}
+                      onClick={handleLinkClick}
+                    >
+                      {link.icon && (
+                        <span className="flex-shrink-0">{link.icon}</span>
+                      )}
+                      {link.label}
+                    </a>
+                  );
+                })}
+              </div>
+
+              {/* Right-side controls */}
+              <div className="flex items-center gap-2 justify-end md:ms-2">
+                {/* Search - Desktop */}
+                {showSearch && !isMobile && (
+                  <form onSubmit={handleSearchSubmit} className="relative">
+                    <Input
+                      ref={searchInputRef}
+                      type="search"
+                      placeholder={searchPlaceholder}
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      size="sm"
+                      className="w-44 lg:w-56"
+                      leftIcon={
+                        <svg
+                          className="h-4 w-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                          />
+                        </svg>
                       }
-                    `}
-                    onClick={handleLinkClick}
-                  >
-                    {link.icon && (
-                      <span className="flex-shrink-0">{link.icon}</span>
-                    )}
-                    {link.label}
-                  </a>
-                );
-              })}
-            </div>
+                    />
+                  </form>
+                )}
 
-            {/* RIGHT - Controls */}
-            <div className="flex items-center gap-2 justify-end">
-              {/* Search - Desktop */}
-              {showSearch && !isMobile && (
-                <form onSubmit={handleSearchSubmit} className="relative">
-                  <Input
-                    ref={searchInputRef}
-                    type="search"
-                    placeholder={searchPlaceholder}
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    size="sm"
-                    className="w-44 lg:w-56"
-                    leftIcon={
+                {/* Search - Mobile expandable */}
+                {showSearch && isMobile && (
+                  <div
+                    className={`
+                      flex items-center transition-all duration-300 ease-[var(--ease-in-out)]
+                      ${isSearchExpanded ? "w-40" : "w-8"}
+                    `}
+                  >
+                    {isSearchExpanded && (
+                      <form
+                        onSubmit={handleSearchSubmit}
+                        className="w-full mr-1"
+                      >
+                        <Input
+                          ref={searchInputRef}
+                          type="search"
+                          placeholder={searchPlaceholder}
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onBlur={handleSearchBlur}
+                          size="sm"
+                          className="w-full"
+                        />
+                      </form>
+                    )}
+                    <button
+                      onClick={toggleSearch}
+                      className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30 transition-all duration-180"
+                      aria-label={
+                        isSearchExpanded ? "Close search" : "Open search"
+                      }
+                    >
                       <svg
                         className="h-4 w-4"
                         fill="none"
@@ -377,122 +438,82 @@ export const Navbar: React.FC<NavbarProps> = ({
                         stroke="currentColor"
                         strokeWidth={2}
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                        />
+                        {isSearchExpanded ? (
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        ) : (
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                          />
+                        )}
                       </svg>
-                    }
-                  />
-                </form>
-              )}
+                    </button>
+                  </div>
+                )}
 
-              {/* Search - Mobile expandable */}
-              {showSearch && isMobile && (
-                <div
-                  className={`
-                    flex items-center transition-all duration-300 ease-[var(--ease-in-out)]
-                    ${isSearchExpanded ? "w-40" : "w-8"}
-                  `}
+                {/* Language & Theme - ONLY on desktop */}
+                {!isMobile && showLanguageChanger && languageChanger}
+                {!isMobile && showThemeChanger && themeChanger}
+
+                {/* Right Content */}
+                {rightContent}
+
+                {/* Hamburger - Mobile only */}
+                <button
+                  onClick={toggleMobileMenu}
+                  className="md:hidden relative w-10 h-10 rounded-full bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] transition-all duration-180 flex items-center justify-center flex-shrink-0"
+                  aria-label="Toggle menu"
+                  aria-expanded={isMobileMenuOpen}
                 >
-                  {isSearchExpanded && (
-                    <form onSubmit={handleSearchSubmit} className="w-full mr-1">
-                      <Input
-                        ref={searchInputRef}
-                        type="search"
-                        placeholder={searchPlaceholder}
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onBlur={handleSearchBlur}
-                        size="sm"
-                        className="w-full"
-                      />
-                    </form>
-                  )}
-                  <button
-                    onClick={toggleSearch}
-                    className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/30 transition-all duration-180"
-                    aria-label={
-                      isSearchExpanded ? "Close search" : "Open search"
-                    }
-                  >
-                    <svg
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      {isSearchExpanded ? (
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      ) : (
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                        />
-                      )}
-                    </svg>
-                  </button>
-                </div>
-              )}
-
-              {/* Language & Theme - ONLY on desktop */}
-              {!isMobile && showLanguageChanger && languageChanger}
-              {!isMobile && showThemeChanger && themeChanger}
-
-              {/* Right Content */}
-              {rightContent}
-
-              {/* Hamburger - Mobile only */}
-              <button
-                onClick={toggleMobileMenu}
-                className="md:hidden relative w-10 h-10 rounded-full bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] transition-all duration-180 flex items-center justify-center flex-shrink-0"
-                aria-label="Toggle menu"
-                aria-expanded={isMobileMenuOpen}
-              >
-                <span
-                  className={`absolute block w-5 h-0.5 rounded-full bg-[var(--color-text-primary)] transition-all duration-300 ease-[var(--ease-in-out)] ${
-                    isMobileMenuOpen ? "rotate-45" : "-translate-y-1.5"
-                  }`}
-                />
-                <span
-                  className={`absolute block w-5 h-0.5 rounded-full bg-[var(--color-text-primary)] transition-all duration-300 ease-[var(--ease-in-out)] ${
-                    isMobileMenuOpen ? "opacity-0 scale-0" : "opacity-100"
-                  }`}
-                />
-                <span
-                  className={`absolute block w-5 h-0.5 rounded-full bg-[var(--color-text-primary)] transition-all duration-300 ease-[var(--ease-in-out)] ${
-                    isMobileMenuOpen ? "-rotate-45" : "translate-y-1.5"
-                  }`}
-                />
-              </button>
+                  <span
+                    className={`absolute block w-5 h-0.5 rounded-full bg-[var(--color-text-primary)] transition-all duration-300 ease-[var(--ease-in-out)] ${
+                      isMobileMenuOpen ? "rotate-45" : "-translate-y-1.5"
+                    }`}
+                  />
+                  <span
+                    className={`absolute block w-5 h-0.5 rounded-full bg-[var(--color-text-primary)] transition-all duration-300 ease-[var(--ease-in-out)] ${
+                      isMobileMenuOpen ? "opacity-0 scale-0" : "opacity-100"
+                    }`}
+                  />
+                  <span
+                    className={`absolute block w-5 h-0.5 rounded-full bg-[var(--color-text-primary)] transition-all duration-300 ease-[var(--ease-in-out)] ${
+                      isMobileMenuOpen ? "-rotate-45" : "translate-y-1.5"
+                    }`}
+                  />
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* Secondary Navigation (desktop) */}
-          {showSecondaryNav && !isMobile && (
+          {/* Secondary Navigation (desktop) - drops below the bar */}
+          {showSecondaryNav && !isMobile && secondaryLinks.length > 0 && (
             <div
-              className={`overflow-hidden transition-all duration-300 ease-[var(--ease-in-out)] ${
-                isSecondaryNavOpen
-                  ? "max-h-20 opacity-100 mt-2"
-                  : "max-h-0 opacity-0"
-              }`}
-              onMouseEnter={handleSecondaryNavEnter}
-              onMouseLeave={handleSecondaryNavLeave}
+              className={`
+                absolute left-1/2 top-full -translate-x-1/2 pt-2
+                transition-all duration-300 ease-[var(--ease-in-out)]
+                ${
+                  isSecondaryNavOpen
+                    ? "opacity-100 translate-y-0 pointer-events-auto"
+                    : "opacity-0 -translate-y-2 pointer-events-none"
+                }
+              `}
             >
-              <div className="flex items-center justify-center gap-1 pt-2 border-t border-[var(--color-border-primary)]">
+              <div
+                className="flex items-center justify-center gap-1 rounded-full px-2 py-1.5"
+                style={glassSurface}
+              >
                 {secondaryLinks.map((link, index) => (
                   <a
                     key={index}
                     href={link.href}
                     className={`
                       px-3 py-1 rounded-full text-xs font-medium transition-all duration-180 flex items-center gap-1.5
+                      hover:-translate-y-0.5
                       ${
                         link.active
                           ? "bg-[var(--color-primary-solid)] !text-white shadow-[var(--shadow-glow-primary)]"
