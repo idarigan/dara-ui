@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Modal } from "../Modal/Modal";
 import { FlagIcon, ClockIcon, CheckIcon } from "../Icons";
 import { useI18n } from "../LanguageChanger/LanguageChanger";
+import { useHoverPop } from "../../hooks/useHoverPop";
 
 export interface QuestCardProps {
   /**
@@ -92,6 +93,8 @@ export const QuestCard: React.FC<QuestCardProps> = ({
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  useHoverPop(cardRef);
 
   // Live RTL detection
   const [isRTL, setIsRTL] = useState(false);

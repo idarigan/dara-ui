@@ -3,6 +3,7 @@ import { Avatar } from "../Avatar/Avatar";
 import { Badge } from "../Badge/Badge";
 import { AvatarIcon } from "../Icons";
 import { useI18n } from "../LanguageChanger/LanguageChanger";
+import { useHoverPop } from "../../hooks/useHoverPop";
 
 export interface CharacterStat {
   /**
@@ -107,6 +108,8 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  useHoverPop(cardRef);
 
   // ----- i18n -----
   const { t } = useI18n();

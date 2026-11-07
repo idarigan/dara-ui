@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useHoverPop } from "../../hooks/useHoverPop";
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -59,6 +60,8 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     const [rotation, setRotation] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
+
+    useHoverPop(cardRef);
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
       if (!cardRef.current || !float) return;

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Progress } from "../Progress/Progress";
 import { useI18n } from "../LanguageChanger/LanguageChanger";
+import { useHoverPop } from "../../hooks/useHoverPop";
 
 export interface StatsWidgetData {
   /**
@@ -91,6 +92,8 @@ export const StatsWidget: React.FC<StatsWidgetProps> = ({
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  useHoverPop(cardRef);
 
   // Handle 3D tilt on mouse move
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
