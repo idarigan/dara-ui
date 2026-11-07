@@ -109,7 +109,7 @@ export const Button = React.forwardRef<
       : restWithoutDisabled;
 
   const baseStyles =
-    "inline-flex items-center justify-center gap-2 font-heading font-semibold tracking-wide transition-all duration-180 rounded-full active:scale-95 disabled:opacity-45 disabled:cursor-not-allowed disabled:pointer-events-none relative overflow-hidden hover:-translate-y-0.5 no-underline hover:no-underline";
+    "btn-shine inline-flex items-center justify-center gap-2 font-heading font-semibold tracking-wide transition-all duration-180 rounded-full active:scale-95 disabled:opacity-45 disabled:cursor-not-allowed disabled:pointer-events-none relative overflow-hidden hover:-translate-y-0.5 no-underline hover:no-underline";
 
   const variants = {
     primary:
