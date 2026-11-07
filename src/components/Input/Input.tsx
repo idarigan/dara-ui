@@ -122,10 +122,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const glowStyles = glowFocus
       ? {
           default:
-            "focus:shadow-[var(--shadow-glow-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20",
-          success: "focus:shadow-[var(--shadow-glow-success)]",
-          error: "focus:shadow-[var(--shadow-glow-danger)]",
-          warning: "focus:shadow-[var(--shadow-glow-warning)]",
+            "focus:shadow-[var(--shadow-glow-primary),0_0_0_4px_color-mix(in_srgb,var(--color-primary)_22%,transparent)]",
+          success:
+            "focus:shadow-[var(--shadow-glow-success),0_0_0_4px_color-mix(in_srgb,var(--color-success)_22%,transparent)]",
+          error:
+            "focus:shadow-[var(--shadow-glow-danger),0_0_0_4px_color-mix(in_srgb,var(--color-danger)_22%,transparent)]",
+          warning:
+            "focus:shadow-[var(--shadow-glow-warning),0_0_0_4px_color-mix(in_srgb,var(--color-warning)_22%,transparent)]",
         }[validation || "default"]
       : "";
 
