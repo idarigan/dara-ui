@@ -128,6 +128,7 @@ export const Accordion: React.FC<AccordionProps> = ({
               onClick={() => toggleItem(item.id)}
               disabled={item.disabled}
               className={`
+                accordion-trigger
                 w-full flex items-center justify-between
                 font-heading font-semibold
                 transition-colors duration-180
