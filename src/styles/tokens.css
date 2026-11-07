@@ -140,6 +140,9 @@
   /* Glass variables */
   --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-strong: rgba(255, 255, 255, 0.12);
+  --glass-outline: rgba(255, 255, 255, 0.05);
+  --glass-highlight: rgba(255, 255, 255, 0.1);
 }
 
 /* ----- DAYLIGHT ----- */
@@ -235,6 +238,9 @@
 
   --glass-bg: rgba(255, 255, 255, 0.6);
   --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-border-strong: rgba(255, 255, 255, 0.85);
+  --glass-outline: rgba(110, 110, 125, 0.2);
+  --glass-highlight: #ffffff;
 }
 
 /* ----- DRACULA ----- */
@@ -329,4 +335,7 @@
 
   --glass-bg: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-strong: rgba(255, 255, 255, 0.12);
+  --glass-outline: rgba(255, 255, 255, 0.05);
+  --glass-highlight: rgba(255, 255, 255, 0.1);
 }
