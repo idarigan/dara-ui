@@ -238,7 +238,7 @@ export const Modal: React.FC<ModalProps> = ({
 
         {/* Footer - using Button component */}
         {(confirmText || cancelText) && (
-          <div className="flex gap-3 mt-6">
+          <div className="flex gap-3 mt-6 [&_button:focus-visible]:outline-none [&_button:focus-visible]:shadow-[0_0_0_4px_color-mix(in_srgb,var(--color-primary)_22%,transparent)]">
             {confirmText && (
               <Button variant="primary" onClick={handleConfirm}>
                 {confirmText}
