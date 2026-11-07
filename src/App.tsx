@@ -92,6 +92,7 @@ import {
   MoonOutlineIcon,
   SkullIcon,
 } from "./components/Icons";
+import Topography from "./components/Topography";
 
 // ============================================
 // Dropdown options
@@ -1156,7 +1157,7 @@ function AppContent() {
       {/* ===== VISUAL EFFECTS ===== */}
       <NoiseOverlay />
       <AuroraBlobs />
-      <Particles />
+      <Topography />
 
       {/* ============================================
           NAVBAR
