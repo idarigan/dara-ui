@@ -156,12 +156,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current || isCompact) return;
+    if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     cardRef.current.style.setProperty("--x", `${x}px`);
     cardRef.current.style.setProperty("--y", `${y}px`);
+    if (isCompact) return;
     setRotation({
       x: ((y - rect.height / 2) / (rect.height / 2)) * -6,
       y: ((x - rect.width / 2) / (rect.width / 2)) * 6,
@@ -314,7 +315,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         style={{
           opacity: isHovering ? 1 : 0,
           background:
-            "radial-gradient(ellipse at 30% 0%, color-mix(in srgb, var(--color-primary) 14%, transparent), transparent 55%)",
+            "radial-gradient(260px circle at var(--x, 50%) var(--y, 50%), color-mix(in srgb, var(--color-primary) 16%, transparent), transparent 70%)",
         }}
       />
 
@@ -405,14 +406,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             transition-colors duration-180
             ${isHovering ? "text-[var(--color-primary)]" : ""}
           `}
-          onClick={(e) => {
-            if (link) {
-              e.stopPropagation();
-              window.open(link, "_blank");
-            }
-          }}
         >
-          {title}
+          {link ? (
+            <a
+              href={link}
+              onClick={(e) => e.stopPropagation()}
+              className="!text-inherit no-underline focus-visible:underline"
+            >
+              {title}
+            </a>
+          ) : (
+            title
+          )}
         </h3>
 
         {description && !isCompact && (

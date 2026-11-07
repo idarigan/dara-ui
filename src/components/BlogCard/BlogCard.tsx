@@ -265,7 +265,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
         style={{
           opacity: isHovering ? 1 : 0,
           background:
-            "radial-gradient(ellipse at 30% 0%, color-mix(in srgb, var(--color-primary) 14%, transparent), transparent 55%)",
+            "radial-gradient(260px circle at var(--x, 50%) var(--y, 50%), color-mix(in srgb, var(--color-primary) 16%, transparent), transparent 70%)",
         }}
       />
 
@@ -315,14 +315,18 @@ export const BlogCard: React.FC<BlogCardProps> = ({
             transition-colors duration-180
             ${isHovering ? "text-[var(--color-primary)]" : "text-[var(--color-text-primary)]"}
           `}
-          onClick={(e) => {
-            if (link) {
-              e.stopPropagation();
-              window.open(link, "_blank");
-            }
-          }}
         >
-          {title}
+          {link ? (
+            <a
+              href={link}
+              onClick={(e) => e.stopPropagation()}
+              className="!text-inherit no-underline focus-visible:underline"
+            >
+              {title}
+            </a>
+          ) : (
+            title
+          )}
         </h3>
 
         <p
