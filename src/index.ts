@@ -140,6 +140,9 @@ export type { XPBarProps, RankTier } from "./components/XPBar/XPBar";
 export { Particles } from "./components/Particles/Particles";
 export type { ParticlesProps } from "./components/Particles/Particles";
 
+export { Topography } from "./components/Topography/Topography";
+export type { TopographyProps } from "./components/Topography/Topography";
+
 export { AuroraBlobs } from "./components/AuroraBlobs/AuroraBlobs";
 export type { AuroraBlobsProps } from "./components/AuroraBlobs/AuroraBlobs";
 
