@@ -132,6 +132,8 @@ export const BlogCard: React.FC<BlogCardProps> = ({
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
+    cardRef.current.style.setProperty("--x", `${x}px`);
+    cardRef.current.style.setProperty("--y", `${y}px`);
     setRotation({
       x: ((y - rect.height / 2) / (rect.height / 2)) * -6,
       y: ((x - rect.width / 2) / (rect.width / 2)) * 6,
