@@ -305,10 +305,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             border-b
             ${
               isScrolled
-                ? "rounded-full shadow-[var(--shadow-float)] py-2 px-5 md:px-8 border-transparent"
+                ? "rounded-full py-2 px-5 md:px-8 border-transparent"
                 : "border-[var(--color-border-primary)] py-3 px-5 md:px-8 rounded-none"
             }
           `}
+          style={
+            isScrolled
+              ? {
+                  boxShadow:
+                    "0 12px 34px rgba(0,0,0,0.2), inset 0 1px 0 var(--glass-highlight)",
+                }
+              : undefined
+          }
         >
           {/* 3-COLUMN LAYOUT */}
           <div className="grid grid-cols-[auto_1fr_auto] items-center md:gap-4">
