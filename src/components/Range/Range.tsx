@@ -482,6 +482,7 @@ export const Range = React.forwardRef<HTMLDivElement, RangeProps>(
                 ${colors.thumb}
                 flex items-center justify-center
                 shadow-[var(--shadow-float)]
+                ${!disabled ? "active:shadow-[0_0_0_6px_color-mix(in_srgb,var(--color-primary)_22%,transparent),var(--shadow-float)]" : ""}
                 ${disabled ? "cursor-not-allowed" : "cursor-grab active:cursor-grabbing"}
               `}
               style={{
