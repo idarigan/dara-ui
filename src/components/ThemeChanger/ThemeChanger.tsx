@@ -23,6 +23,8 @@ export interface ThemeOption {
   icon?: React.ReactNode;
 }
 
+export type BuiltInTheme = "nightfall" | "daylight" | "dracula";
+
 export interface ThemeChangerProps {
   /**
    * Controlled value
@@ -37,14 +39,9 @@ export interface ThemeChangerProps {
    */
   onChange?: (theme: string) => void;
   /**
-   * Available themes (overrides auto-detect)
+   * Available themes when used without a ThemeProvider
    */
   availableThemes?: ThemeOption[];
-  /**
-   * Whether to auto-detect themes from CSS
-   * @default true
-   */
-  autoDetect?: boolean;
   /**
    * Component size
    * @default "md"
@@ -81,9 +78,6 @@ export interface ThemeChangerProps {
  */
 const MoonIcon = () => (
   <svg
-    className="flex-shrink-0"
-    width="20"
-    height="20"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -97,9 +91,6 @@ const MoonIcon = () => (
 
 const SunIcon = () => (
   <svg
-    className="flex-shrink-0"
-    width="20"
-    height="20"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -121,9 +112,6 @@ const SunIcon = () => (
 
 const DraculaIcon = () => (
   <svg
-    className="flex-shrink-0"
-    width="20"
-    height="20"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -135,14 +123,85 @@ const DraculaIcon = () => (
   </svg>
 );
 
+const PaletteIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 3a9 9 0 100 18c1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.3-.5-.8-.5-1.2 0-1.1.9-2 2-2h2.3A3.7 3.7 0 0021 11c0-4.4-4-8-9-8z" />
+    <circle cx="7.5" cy="11" r="1" />
+    <circle cx="11" cy="7.5" r="1" />
+    <circle cx="16" cy="8" r="1" />
+  </svg>
+);
+
+const getDefaultIcon = (value: string): React.ReactNode => {
+  const iconMap: Record<string, React.ReactNode> = {
+    nightfall: <MoonIcon />,
+    daylight: <SunIcon />,
+    dracula: <DraculaIcon />,
+    dark: <MoonIcon />,
+    light: <SunIcon />,
+  };
+  return iconMap[value] || <PaletteIcon />;
+};
+
 /**
- * Default Dara UI themes with SVG icons
+ * Built-in Dara UI themes
  */
-const DEFAULT_THEMES: ThemeOption[] = [
+export const BUILT_IN_THEMES: ThemeOption[] = [
   { value: "nightfall", label: "Nightfall", icon: <MoonIcon /> },
   { value: "daylight", label: "Daylight", icon: <SunIcon /> },
   { value: "dracula", label: "Dracula", icon: <DraculaIcon /> },
 ];
+
+const STORAGE_KEY = "dara-ui-theme";
+
+const withIcons = (list: ThemeOption[]): ThemeOption[] =>
+  list.map((theme) => ({
+    ...theme,
+    icon: theme.icon ?? getDefaultIcon(theme.value),
+  }));
+
+const resolveThemes = (
+  builtIn?: BuiltInTheme[],
+  custom?: ThemeOption[],
+): ThemeOption[] => {
+  const extra = custom ?? [];
+  const base = BUILT_IN_THEMES.filter(
+    (theme) => !builtIn || builtIn.includes(theme.value as BuiltInTheme),
+  ).map((theme) => extra.find((item) => item.value === theme.value) ?? theme);
+
+  extra.forEach((item) => {
+    if (!base.some((theme) => theme.value === item.value)) base.push(item);
+  });
+
+  return withIcons(base.length > 0 ? base : [BUILT_IN_THEMES[0]]);
+};
+
+const readStored = (): string | null => {
+  try {
+    return localStorage.getItem(STORAGE_KEY);
+  } catch {
+    return null;
+  }
+};
+
+const writeStored = (value: string) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, value);
+  } catch {
+    // storage unavailable
+  }
+};
+
+const applyTheme = (themeValue: string) => {
+  document.documentElement.setAttribute("data-theme", themeValue);
+};
 
 // ============================================
 // Theme Context & Provider
@@ -155,163 +214,81 @@ export interface ThemeContextValue {
 }
 
 export interface ThemeProviderProps {
+  /**
+   * Theme used when nothing is stored yet
+   */
   defaultTheme?: string;
+  /**
+   * Built-in themes to keep. Omit to keep all, pass [] to remove them all
+   */
+  builtIn?: BuiltInTheme[];
+  /**
+   * Extra themes, defined in CSS with [data-theme="value"]
+   * A theme with the same value as a built-in one replaces it
+   */
   themes?: ThemeOption[];
-  autoDetect?: boolean;
   children: React.ReactNode;
 }
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
-const getDefaultIcon = (value: string): React.ReactNode => {
-  const iconMap: Record<string, React.ReactNode> = {
-    nightfall: <MoonIcon />,
-    daylight: <SunIcon />,
-    dracula: <DraculaIcon />,
-    dark: <MoonIcon />,
-    light: <SunIcon />,
-  };
-  return iconMap[value] || <MoonIcon />;
-};
-
+/**
+ * ThemeProvider - Applies the active theme and shares the theme list
+ *
+ * Features:
+ * - Keep all, some or none of the built-in themes
+ * - Add custom themes with their own icons
+ * - Persists the choice in localStorage
+ * - Falls back to the first available theme when the stored one is gone
+ */
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   defaultTheme,
+  builtIn,
   themes: customThemes,
-  autoDetect = true,
   children,
 }) => {
-  const STORAGE_KEY = "dara-ui-theme";
+  const builtInKey = builtIn ? builtIn.join("|") : "*";
+  const availableThemes = useMemo(
+    () => resolveThemes(builtIn, customThemes),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [builtInKey, customThemes],
+  );
 
-  const getInitialTheme = (): string => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      return stored;
-    }
-    return defaultTheme || DEFAULT_THEMES[0]?.value || "nightfall";
-  };
-
-  const [availableThemes, setAvailableThemes] =
-    useState<ThemeOption[]>(DEFAULT_THEMES);
-  const [theme, setThemeState] = useState<string>(getInitialTheme);
-
-  useEffect(() => {
-    if (!autoDetect && customThemes) {
-      setAvailableThemes(customThemes);
-      return;
-    }
-
-    if (customThemes) {
-      setAvailableThemes(customThemes);
-      return;
-    }
-
-    const detectedThemes: ThemeOption[] = [];
-    const styleSheets = document.styleSheets;
-
-    try {
-      for (const sheet of styleSheets) {
-        try {
-          const rules = sheet.cssRules || sheet.rules;
-          for (const rule of rules) {
-            if (rule instanceof CSSStyleRule) {
-              const match = rule.selectorText?.match(
-                /\[data-theme="([^"]+)"\]/,
-              );
-              if (match && match[1]) {
-                const themeValue = match[1];
-                const label = themeValue
-                  .split("-")
-                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                  .join(" ");
-                if (!detectedThemes.some((t) => t.value === themeValue)) {
-                  detectedThemes.push({
-                    value: themeValue,
-                    label: label,
-                    icon: getDefaultIcon(themeValue),
-                  });
-                }
-              }
-            }
-          }
-        } catch {
-          continue;
-        }
-      }
-    } catch {
-      // fallback
-    }
-
-    if (detectedThemes.length > 0) {
-      setAvailableThemes(detectedThemes);
-      if (!detectedThemes.some((t) => t.value === theme)) {
-        const newTheme = detectedThemes[0]?.value || "nightfall";
-        setThemeState(newTheme);
-        applyTheme(newTheme);
-      }
-    } else if (customThemes) {
-      setAvailableThemes(customThemes);
-    }
-  }, [autoDetect, customThemes]);
-
-  const applyTheme = useCallback((themeValue: string) => {
-    document.documentElement.setAttribute("data-theme", themeValue);
-  }, []);
-
-  useEffect(() => {
-    applyTheme(theme);
-  }, [theme, applyTheme]);
-
-  const setTheme = useCallback(
-    (themeValue: string) => {
-      const themeOption = availableThemes.find((t) => t.value === themeValue);
-      if (!themeOption) return;
-
-      setThemeState(themeValue);
-      applyTheme(themeValue);
-      localStorage.setItem(STORAGE_KEY, themeValue);
-
-      window.dispatchEvent(
-        new CustomEvent("dara-theme-change", { detail: { theme: themeValue } }),
-      );
+  const pickTheme = useCallback(
+    (stored: string | null): string => {
+      const values = availableThemes.map((theme) => theme.value);
+      if (stored && values.includes(stored)) return stored;
+      if (defaultTheme && values.includes(defaultTheme)) return defaultTheme;
+      return values[0];
     },
-    [availableThemes, applyTheme],
+    [availableThemes, defaultTheme],
+  );
+
+  const [theme, setThemeState] = useState<string>(() =>
+    pickTheme(readStored()),
   );
 
   useEffect(() => {
-    const initialTheme = getInitialTheme();
-    const themeOption = availableThemes.find((t) => t.value === initialTheme);
-    if (themeOption) {
-      applyTheme(initialTheme);
+    if (!availableThemes.some((item) => item.value === theme)) {
+      setThemeState(pickTheme(null));
     }
-  }, [availableThemes, applyTheme]);
+  }, [availableThemes, theme, pickTheme]);
 
   useEffect(() => {
-    const handleThemeChange = (event: CustomEvent) => {
-      const { theme: newTheme } = event.detail;
-      if (newTheme && newTheme !== theme) {
-        setThemeState(newTheme);
-      }
-    };
-
-    window.addEventListener(
-      "dara-theme-change",
-      handleThemeChange as EventListener,
-    );
-
-    return () => {
-      window.removeEventListener(
-        "dara-theme-change",
-        handleThemeChange as EventListener,
-      );
-    };
+    applyTheme(theme);
   }, [theme]);
 
+  const setTheme = useCallback(
+    (themeValue: string) => {
+      if (!availableThemes.some((item) => item.value === themeValue)) return;
+      setThemeState(themeValue);
+      writeStored(themeValue);
+    },
+    [availableThemes],
+  );
+
   const value: ThemeContextValue = useMemo(
-    () => ({
-      theme,
-      setTheme,
-      themes: availableThemes,
-    }),
+    () => ({ theme, setTheme, themes: availableThemes }),
     [theme, setTheme, availableThemes],
   );
 
@@ -332,13 +309,25 @@ export const useTheme = (): ThemeContextValue => {
 // ThemeChanger Component
 // ============================================
 
+const iconPixels = { sm: 16, md: 20, lg: 24 };
+
+const renderIcon = (icon: React.ReactNode, px: number) => (
+  <span
+    className="inline-flex flex-shrink-0 items-center justify-center [&>svg]:h-full [&>svg]:w-full [&>img]:h-full [&>img]:w-full [&>img]:object-contain"
+    style={{ width: px, height: px }}
+    aria-hidden="true"
+  >
+    {icon}
+  </span>
+);
+
 /**
  * Dara UI ThemeChanger - Dropdown for switching between themes
  *
  * Features:
- * - Auto-detects available themes from CSS
- * - Supports custom theme lists
- * - Clean dropdown with SVG icon support
+ * - Reads the theme list from ThemeProvider
+ * - Custom icon per theme (any React node, SVG or image)
+ * - Hides itself when only one theme is available
  * - Icon-only mode for compact navigation bars
  * - Fixed width option for consistent sizing
  * - Controlled or uncontrolled modes
@@ -346,14 +335,12 @@ export const useTheme = (): ThemeContextValue => {
  * - Size variants (sm, md, lg)
  * - Dropdown is always centered under the trigger
  * - Menu width matches the button when iconOnly or fixedWidth is used
- * - All ThemeChanger instances sync through Theme context
  */
 export const ThemeChanger: React.FC<ThemeChangerProps> = ({
   value: controlledValue,
   defaultValue,
   onChange,
   availableThemes,
-  autoDetect = true,
   size = "md",
   iconOnly = false,
   fixedWidth,
@@ -362,110 +349,39 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
   openUpward = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [themes, setThemes] = useState<ThemeOption[]>(DEFAULT_THEMES);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const STORAGE_KEY = "dara-ui-theme";
 
-  let contextValue: ThemeContextValue | null = null;
-  let isInContext = false;
-
-  try {
-    const ctx = useTheme();
-    contextValue = ctx;
-    isInContext = useThemeContext && true;
-  } catch {
-    isInContext = false;
-    contextValue = null;
-  }
-
+  const context = useContext(ThemeContext);
+  const isInContext = useThemeContext && context !== undefined;
   const isControlled = controlledValue !== undefined;
 
+  const standaloneThemes = useMemo(
+    () => withIcons(availableThemes ?? BUILT_IN_THEMES),
+    [availableThemes],
+  );
+  const themes = isInContext ? context.themes : standaloneThemes;
+
   const [internalValue, setInternalValue] = useState<string>(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      return stored;
-    }
-    return defaultValue || DEFAULT_THEMES[0]?.value || "nightfall";
+    const values = standaloneThemes.map((theme) => theme.value);
+    const stored = readStored();
+    if (stored && values.includes(stored)) return stored;
+    if (defaultValue && values.includes(defaultValue)) return defaultValue;
+    return values[0];
   });
 
   let currentTheme: string;
   if (isControlled) {
     currentTheme = controlledValue;
-  } else if (isInContext && contextValue) {
-    currentTheme = contextValue.theme;
+  } else if (isInContext) {
+    currentTheme = context.theme;
   } else {
     currentTheme = internalValue;
   }
 
-  // Auto-detect themes
+  // Standalone mode applies the theme itself
   useEffect(() => {
-    if (!autoDetect && availableThemes) {
-      setThemes(availableThemes);
-      return;
-    }
-
-    if (availableThemes) {
-      setThemes(availableThemes);
-      return;
-    }
-
-    const detectedThemes: ThemeOption[] = [];
-    const styleSheets = document.styleSheets;
-
-    try {
-      for (const sheet of styleSheets) {
-        try {
-          const rules = sheet.cssRules || sheet.rules;
-          for (const rule of rules) {
-            if (rule instanceof CSSStyleRule) {
-              const match = rule.selectorText?.match(
-                /\[data-theme="([^"]+)"\]/,
-              );
-              if (match && match[1]) {
-                const themeValue = match[1];
-                const label = themeValue
-                  .split("-")
-                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                  .join(" ");
-                if (!detectedThemes.some((t) => t.value === themeValue)) {
-                  detectedThemes.push({
-                    value: themeValue,
-                    label: label,
-                    icon: getDefaultIcon(themeValue),
-                  });
-                }
-              }
-            }
-          }
-        } catch {
-          continue;
-        }
-      }
-    } catch {
-      // fallback
-    }
-
-    if (detectedThemes.length > 0) {
-      setThemes(detectedThemes);
-      if (!detectedThemes.some((t) => t.value === currentTheme)) {
-        const newValue = detectedThemes[0]?.value || "nightfall";
-        if (!isControlled && !isInContext) {
-          setInternalValue(newValue);
-        }
-        applyTheme(newValue);
-      }
-    } else if (availableThemes) {
-      setThemes(availableThemes);
-    }
-  }, [autoDetect, availableThemes]);
-
-  const applyTheme = useCallback((themeValue: string) => {
-    document.documentElement.setAttribute("data-theme", themeValue);
-  }, []);
-
-  useEffect(() => {
-    applyTheme(currentTheme);
-  }, [currentTheme, applyTheme]);
+    if (!isInContext) applyTheme(currentTheme);
+  }, [isInContext, currentTheme]);
 
   // Click outside to close
   useEffect(() => {
@@ -489,86 +405,50 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
 
   const handleSelect = useCallback(
     (themeValue: string) => {
-      if (isInContext && contextValue) {
-        contextValue.setTheme(themeValue);
-      } else if (!isControlled) {
-        setInternalValue(themeValue);
+      if (isInContext) {
+        context.setTheme(themeValue);
+      } else {
+        if (!isControlled) setInternalValue(themeValue);
+        applyTheme(themeValue);
+        writeStored(themeValue);
       }
 
-      applyTheme(themeValue);
       onChange?.(themeValue);
       setIsOpen(false);
-
-      window.dispatchEvent(
-        new CustomEvent("dara-theme-change", { detail: { theme: themeValue } }),
-      );
     },
-    [isInContext, contextValue, isControlled, onChange, applyTheme],
+    [isInContext, context, isControlled, onChange],
   );
 
-  // Ensure themes have icons
-  const displayThemes = useMemo(
-    () =>
-      themes.map((theme) => ({
-        ...theme,
-        icon: theme.icon || getDefaultIcon(theme.value),
-      })),
-    [themes],
-  );
+  // Nothing to switch between
+  if (themes.length <= 1) return null;
 
   // Size styles
   const sizeStyles = {
     sm: {
       trigger: "px-3 py-1.5 text-xs",
       option: "px-3 py-1.5 text-xs",
-      icon: "h-3 w-3",
-      iconOnlySize: "w-8 h-8",
       chevronSize: "h-3 w-3",
       iconOnlyWidth: "32px",
     },
     md: {
       trigger: "px-4 py-2 text-sm",
       option: "px-4 py-2 text-sm",
-      icon: "h-4 w-4",
-      iconOnlySize: "w-10 h-10",
       chevronSize: "h-4 w-4",
       iconOnlyWidth: "40px",
     },
     lg: {
       trigger: "px-5 py-2.5 text-base",
       option: "px-5 py-2.5 text-base",
-      icon: "h-5 w-5",
-      iconOnlySize: "w-12 h-12",
       chevronSize: "h-5 w-5",
       iconOnlyWidth: "48px",
     },
   };
 
-  const currentOption = displayThemes.find((t) => t.value === currentTheme);
+  const px = iconPixels[size];
+  const currentOption = themes.find((t) => t.value === currentTheme);
   const menuWidth = iconOnly
     ? sizeStyles[size].iconOnlyWidth
     : fixedWidth || "140px";
-
-  // Render icon helper
-  const renderIcon = (icon: React.ReactNode) => {
-    if (React.isValidElement(icon)) {
-      const el = icon as React.ReactElement<{
-        className?: string;
-        width?: string;
-        height?: string;
-        viewBox?: string;
-      }>;
-      return React.cloneElement(el, {
-        className: `flex-shrink-0 ${
-          size === "sm" ? "w-4 h-4" : size === "lg" ? "w-6 h-6" : "w-5 h-5"
-        } ${el.props.className || ""}`,
-        width: size === "sm" ? "16" : size === "lg" ? "24" : "20",
-        height: size === "sm" ? "16" : size === "lg" ? "24" : "20",
-        viewBox: el.props.viewBox || "0 0 24 24",
-      });
-    }
-    return icon;
-  };
 
   // Icon-only mode
   if (iconOnly) {
@@ -600,14 +480,13 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
           aria-haspopup="listbox"
           aria-label={`Current theme: ${currentOption?.label || "Theme"}`}
         >
-          {currentOption?.icon && renderIcon(currentOption.icon)}
+          {currentOption?.icon && renderIcon(currentOption.icon, px)}
         </button>
 
         <div
           className={`
             absolute z-50
             left-1/2 -translate-x-1/2
-            ${openUpward ? "bottom-full mb-1.5" : "top-full mt-1.5"}
             glass
             rounded-[var(--radius-md)]
             py-1
@@ -633,7 +512,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
           }}
           role="listbox"
         >
-          {displayThemes.map((theme) => {
+          {themes.map((theme) => {
             const isActive = theme.value === currentTheme;
             return (
               <button
@@ -654,7 +533,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
                 aria-selected={isActive}
                 title={theme.label}
               >
-                {theme.icon && renderIcon(theme.icon)}
+                {theme.icon && renderIcon(theme.icon, px)}
               </button>
             );
           })}
@@ -689,7 +568,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
         aria-haspopup="listbox"
       >
         <span className="flex items-center gap-2 flex-1 min-w-0">
-          {currentOption?.icon && renderIcon(currentOption.icon)}
+          {currentOption?.icon && renderIcon(currentOption.icon, px)}
           <span className="font-mono tracking-wide truncate">
             {currentOption?.label || "Theme"}
           </span>
@@ -717,12 +596,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
 
       {/* Dropdown Menu */}
       <div
-        className={`
-        absolute z-50
-        left-1/2 -translate-x-1/2
-        ${openUpward ? "bottom-full mb-1.5" : "top-full mt-1.5"}
-        pointer-events-none
-      `}
+        className="absolute z-50 left-1/2 -translate-x-1/2 pointer-events-none"
         style={{
           width: menuWidth,
           minWidth: menuWidth,
@@ -749,7 +623,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
           }
         `}
         >
-          {displayThemes.map((theme) => {
+          {themes.map((theme) => {
             const isActive = theme.value === currentTheme;
             return (
               <button
@@ -769,7 +643,7 @@ export const ThemeChanger: React.FC<ThemeChangerProps> = ({
                 role="option"
                 aria-selected={isActive}
               >
-                {theme.icon && renderIcon(theme.icon)}
+                {theme.icon && renderIcon(theme.icon, px)}
                 <span className="truncate">{theme.label}</span>
                 {isActive && (
                   <svg

@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { ThemeChanger } from "./ThemeChanger";
+import { ThemeChanger, ThemeProvider } from "./ThemeChanger";
 
 const meta = {
   title: "Components/ThemeChanger",
@@ -15,10 +15,6 @@ const meta = {
       options: ["sm", "md", "lg"],
       description: "Component size",
     },
-    autoDetect: {
-      control: "boolean",
-      description: "Auto-detect themes from CSS",
-    },
     iconOnly: {
       control: "boolean",
       description: "Show only the icon in a fixed circle",
@@ -30,7 +26,6 @@ const meta = {
   },
   args: {
     size: "md",
-    autoDetect: true,
     iconOnly: false,
   },
 } satisfies Meta<typeof ThemeChanger>;
@@ -54,7 +49,6 @@ export const Default: Story = {
 
 /**
  * Icon-only mode - perfect for navigation bars
- * Fixed size circle with just the theme icon
  */
 export const IconOnly: Story = {
   render: () => (
@@ -73,7 +67,6 @@ export const IconOnly: Story = {
 
 /**
  * Fixed width ensures the dropdown stays consistent
- * regardless of selected theme label length
  */
 export const FixedWidth: Story = {
   render: () => (
@@ -91,7 +84,7 @@ export const FixedWidth: Story = {
 };
 
 /**
- * Different size variants for various UI contexts
+ * Different size variants
  */
 export const Sizes: Story = {
   render: () => (
@@ -119,16 +112,53 @@ export const Sizes: Story = {
 };
 
 /**
- * Custom themes with custom icons and labels
+ * Custom themes with their own icons
  */
 export const CustomThemes: Story = {
   render: () => (
     <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
       <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
-        Custom theme list with SVG icons
+        Custom theme list with custom icons
       </p>
-      <ThemeChanger autoDetect={false} />
+      <ThemeChanger
+        availableThemes={[
+          { value: "nightfall", label: "Night", icon: <span>🌙</span> },
+          { value: "daylight", label: "Day", icon: <span>☀️</span> },
+        ]}
+      />
     </div>
+  ),
+};
+
+/**
+ * Keep only some of the built-in themes through the provider
+ */
+export const KeepSomeThemes: Story = {
+  render: () => (
+    <ThemeProvider builtIn={["nightfall", "daylight"]}>
+      <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+        <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+          Only nightfall and daylight are available
+        </p>
+        <ThemeChanger />
+      </div>
+    </ThemeProvider>
+  ),
+};
+
+/**
+ * With a single theme the changer renders nothing
+ */
+export const SingleTheme: Story = {
+  render: () => (
+    <ThemeProvider builtIn={["nightfall"]}>
+      <div className="flex flex-col gap-4 items-center p-8 bg-[var(--color-bg-primary)] rounded-[var(--radius-standard)]">
+        <p className="text-xs text-[var(--color-text-tertiary)] font-mono">
+          One theme only - the changer is hidden
+        </p>
+        <ThemeChanger />
+      </div>
+    </ThemeProvider>
   ),
 };
 
