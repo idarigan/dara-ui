@@ -996,7 +996,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <div
       className={`
-        flex ${isRTL ? "flex-row-reverse" : ""} transition-all duration-300 ease-[var(--ease-in-out)]
+        flex transition-all duration-300 ease-[var(--ease-in-out)]
         ${fixed ? "min-h-screen" : ""}
         ${className}
       `}
