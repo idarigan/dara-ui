@@ -198,3 +198,6 @@ export type { Direction } from "./hooks/useDirection";
 
 // ----- Metadata -----
 export const version = "0.1.0";
+
+// ----- Deafult Icons -----
+export * from "./components/Icons";
