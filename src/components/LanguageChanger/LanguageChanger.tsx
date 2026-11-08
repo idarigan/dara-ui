@@ -113,13 +113,13 @@ const writeStored = (value: string) => {
 // Translation lookup
 // ============================================
 
-type Dictionary = Record<string, any>;
+type Dictionary = Record<string, unknown>;
 
 const lookup = (source: Dictionary | undefined, keys: string[]) => {
-  let value: any = source;
+  let value: unknown = source;
   for (const key of keys) {
     if (value && typeof value === "object" && key in value) {
-      value = value[key];
+      value = (value as Record<string, unknown>)[key];
     } else {
       return undefined;
     }
@@ -137,7 +137,7 @@ const translate = (
   const value =
     lookup(dictionaries[language], keys) ??
     lookup(dictionaries.en, keys) ??
-    lookup(builtInTranslations.en, keys);
+    lookup(builtInTranslations.en as Dictionary, keys);
 
   if (typeof value !== "string") return key;
 
@@ -189,7 +189,7 @@ export interface I18nProviderProps {
    * Missing keys fall back to the built-in English labels
    * @example { en: { welcome: "Welcome" }, fa: { welcome: "خوش آمدید" } }
    */
-  translations?: Record<string, Record<string, any>>;
+  translations?: Record<string, Record<string, unknown>>;
   /**
    * Available languages (overrides default). One language makes the app single-language
    */
@@ -239,6 +239,11 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
     ? customLanguages
     : DEFAULT_LANGUAGES;
 
+  // Stable key for effects / memo deps
+  const availableLanguagesKey = availableLanguages
+    .map((l) => l.value)
+    .join("|");
+
   const getInitialLang = (): string => {
     const stored = readStored();
     if (stored && availableLanguages.some((l) => l.value === stored)) {
@@ -278,7 +283,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
       writeStored(lang);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [availableLanguages.map((l) => l.value).join("|")],
+    [availableLanguagesKey],
   );
 
   // Apply the active language on mount and whenever it changes
@@ -297,7 +302,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
       setLanguageState(availableLanguages[0]?.value || "en");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [availableLanguages.map((l) => l.value).join("|")]);
+  }, [availableLanguagesKey]);
 
   const currentDir =
     availableLanguages.find((l) => l.value === language)?.dir || "ltr";
@@ -311,7 +316,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
       dir: currentDir,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [language, setLanguage, t, currentDir, availableLanguages.length],
+    [language, setLanguage, t, currentDir, availableLanguagesKey],
   );
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
