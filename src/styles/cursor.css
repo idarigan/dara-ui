@@ -1,0 +1,42 @@
+/* =============================================
+   CUSTOM CURSOR
+   ============================================= */
+
+/* ----- Default cursor ----- */
+html[data-dara-cursor],
+html[data-dara-cursor] * {
+  cursor: var(--dara-cursor, auto);
+}
+
+/* ----- Pointer cursor ----- */
+html[data-dara-cursor] a[href],
+html[data-dara-cursor] button,
+html[data-dara-cursor] summary,
+html[data-dara-cursor] select,
+html[data-dara-cursor] label[for],
+html[data-dara-cursor] [role="button"],
+html[data-dara-cursor] [role="tab"],
+html[data-dara-cursor] [role="option"],
+html[data-dara-cursor] [data-cursor="pointer"],
+html[data-dara-cursor] .cursor-pointer,
+html[data-dara-cursor] input[type="checkbox"],
+html[data-dara-cursor] input[type="radio"],
+html[data-dara-cursor] input[type="range"] {
+  cursor: var(--dara-cursor-pointer, pointer);
+}
+
+/* ----- Text fields ----- */
+html[data-dara-cursor]
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not(
+    [type="button"]
+  ):not([type="submit"]),
+html[data-dara-cursor] textarea {
+  cursor: text;
+}
+
+/* ----- Disabled ----- */
+html[data-dara-cursor] :disabled,
+html[data-dara-cursor] [aria-disabled="true"],
+html[data-dara-cursor] .cursor-not-allowed {
+  cursor: not-allowed;
+}

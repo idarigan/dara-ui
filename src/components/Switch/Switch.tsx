@@ -152,12 +152,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
 
     // LTR: OFF at left (0), ON at right (travel)
     // RTL: OFF at right (0), ON at left (-travel)
-    let thumbX = 0;
-    if (checked) {
-      thumbX = isRTL ? -s.travel : s.travel;
-    } else {
-      thumbX = 0;
-    }
+    const thumbX = checked ? (isRTL ? -s.travel : s.travel) : 0;
 
     return (
       <label

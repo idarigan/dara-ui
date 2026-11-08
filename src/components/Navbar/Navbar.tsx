@@ -1,4 +1,10 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
 import { Input } from "../Input/Input";
 import { useI18n } from "../LanguageChanger/LanguageChanger";
 
@@ -272,18 +278,21 @@ export const Navbar: React.FC<NavbarProps> = ({
     [scrollSpy, activeSection],
   );
 
-  const defaultBrand = (
-    <span
-      className="font-heading font-bold text-lg tracking-tight"
-      style={{
-        background: "var(--gradient-primary)",
-        WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent",
-        backgroundClip: "text",
-      }}
-    >
-      DARA UI
-    </span>
+  const defaultBrand = useMemo(
+    () => (
+      <span
+        className="font-heading font-bold text-lg tracking-tight"
+        style={{
+          background: "var(--gradient-primary)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+        }}
+      >
+        DARA UI
+      </span>
+    ),
+    [],
   );
 
   const renderBrand = useCallback(() => {
@@ -298,7 +307,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       return brand;
     }
     return defaultBrand;
-  }, [brand]);
+  }, [brand, defaultBrand]);
 
   return (
     <>

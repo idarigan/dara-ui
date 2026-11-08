@@ -171,8 +171,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
     if (tooltipWidth === 0 || tooltipHeight === 0) return false;
 
     const gap = 8;
-    let top = 0;
-    let left = 0;
+    let top: number;
+    let left: number;
 
     const cx = triggerRect.left + triggerRect.width / 2;
     const cy = triggerRect.top + triggerRect.height / 2;
@@ -226,9 +226,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
         top = triggerRect.bottom + gap;
         left = triggerRect.right - tooltipWidth;
         break;
-      default:
-        top = triggerRect.top - tooltipHeight - gap;
-        left = cx - tooltipWidth / 2;
     }
 
     const vw = window.innerWidth;

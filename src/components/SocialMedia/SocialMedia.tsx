@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import {
   GithubIcon,
   XTwitterIcon,
@@ -133,7 +133,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     },
   };
 
-  const toggleExpanded = () => {
+  const toggleExpanded = useCallback(() => {
     if (isExpanded) {
       setIsClosing(true);
       setTimeout(() => {
@@ -144,7 +144,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
       setIsExpanded(true);
       setIsClosing(false);
     }
-  };
+  }, [isExpanded]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -163,7 +163,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isExpanded, isClosing]);
+  }, [isExpanded, isClosing, toggleExpanded]);
 
   const getVerticalOffset = () => {
     if (typeof verticalOffset === "number") {

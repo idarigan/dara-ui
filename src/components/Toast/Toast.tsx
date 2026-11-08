@@ -97,15 +97,6 @@ export const Toast: React.FC<ToastProps> = ({
     return () => clearTimeout(timer);
   }, []);
 
-  // Auto-dismiss - remove toast after duration
-  useEffect(() => {
-    if (duration <= 0) return;
-    const timer = setTimeout(() => {
-      handleDismiss();
-    }, duration);
-    return () => clearTimeout(timer);
-  }, [duration]);
-
   /**
    * handleDismiss - Triggers exit animation then calls onDismiss
    * Uses two-phase animation: first scale down, then remove from DOM
@@ -117,6 +108,15 @@ export const Toast: React.FC<ToastProps> = ({
       onDismiss?.();
     }, 300);
   }, [onDismiss]);
+
+  // Auto-dismiss - remove toast after duration
+  useEffect(() => {
+    if (duration <= 0) return;
+    const timer = setTimeout(() => {
+      handleDismiss();
+    }, duration);
+    return () => clearTimeout(timer);
+  }, [duration, handleDismiss]);
 
   const colors = typeColors[type];
 

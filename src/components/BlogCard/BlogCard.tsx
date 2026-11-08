@@ -185,7 +185,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
         month: "short",
         day: "numeric",
       });
-    } catch (error) {
+    } catch (_error) {
       console.warn("Invalid date provided to BlogCard:", dateValue);
       return "";
     }
@@ -199,7 +199,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
       }
       const testDate = new Date(dateValue);
       return isNaN(testDate.getTime()) ? undefined : dateValue;
-    } catch (error) {
+    } catch (_error) {
       return undefined;
     }
   };

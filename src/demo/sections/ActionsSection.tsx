@@ -25,8 +25,8 @@ export const ActionsSection = () => {
   return (
     <Section
       id="actions"
-      title="Actions"
-      description="Buttons, badges, avatars and tooltips for everyday interface actions."
+      title={t("demo.sections.actions.title")}
+      description={t("demo.sections.actions.description")}
     >
       <Preview
         title={t("buttons.title")}
