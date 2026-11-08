@@ -102,17 +102,31 @@ export { BlogCard } from "./components/BlogCard/BlogCard";
 export type { BlogCardProps } from "./components/BlogCard/BlogCard";
 
 // ----- Theme & Language Changers -----
-export { ThemeProvider, ThemeChanger } from "./components/ThemeChanger";
-export type { ThemeChangerProps, ThemeOption } from "./components/ThemeChanger";
+export {
+  ThemeProvider,
+  ThemeChanger,
+  useTheme,
+  BUILT_IN_THEMES,
+} from "./components/ThemeChanger";
+export type {
+  ThemeChangerProps,
+  ThemeOption,
+  ThemeProviderProps,
+  ThemeContextValue,
+  BuiltInTheme,
+} from "./components/ThemeChanger";
 
 export {
   LanguageChanger,
   I18nProvider,
   useI18n,
+  DEFAULT_LANGUAGES,
 } from "./components/LanguageChanger";
 export type {
   LanguageChangerProps,
   LanguageOption,
+  I18nProviderProps,
+  I18nContextValue,
 } from "./components/LanguageChanger";
 
 export { translations } from "./translations";
@@ -151,6 +165,13 @@ export type { GradientRingProps } from "./components/GradientRing/GradientRing";
 
 export { NoiseOverlay } from "./components/NoiseOverlay/NoiseOverlay";
 export type { NoiseOverlayProps } from "./components/NoiseOverlay/NoiseOverlay";
+
+// ----- Custom Cursor -----
+export { CustomCursor } from "./components/CustomCursor/CustomCursor";
+export type {
+  CustomCursorProps,
+  CursorImage,
+} from "./components/CustomCursor/CustomCursor";
 
 // ----- Scroll Reveal & Page Loader -----
 export { ScrollReveal, useScrollReveal } from "./components/ScrollReveal";
