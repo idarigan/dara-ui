@@ -25,8 +25,8 @@ export const FormsSection = () => {
   return (
     <Section
       id="forms"
-      title="Forms"
-      description="Inputs and controls that share the same glass surface and focus glow."
+      title={t("demo.sections.forms.title")}
+      description={t("demo.sections.forms.description")}
     >
       <Preview
         title={t("inputs.title")}

@@ -23,10 +23,7 @@ export const Section: React.FC<SectionProps> = ({
         {title}
       </h2>
       {description && (
-        <p
-          className="mt-2 max-w-2xl text-[var(--color-text-secondary)]"
-          dir="auto"
-        >
+        <p className="mt-2 max-w-2xl text-[var(--color-text-secondary)]">
           {description}
         </p>
       )}
@@ -54,10 +51,7 @@ export const Preview: React.FC<PreviewProps> = ({
 }) => (
   <div className="glass hover:z-20 focus-within:z-20">
     <div className="px-5 py-3 border-b border-[var(--color-border-secondary)]">
-      <h3
-        className="font-heading text-sm font-semibold text-[var(--color-text-primary)]"
-        dir="auto"
-      >
+      <h3 className="font-heading text-sm font-semibold text-[var(--color-text-primary)]">
         {title}
       </h3>
     </div>

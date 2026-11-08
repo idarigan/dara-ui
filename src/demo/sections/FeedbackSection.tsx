@@ -30,8 +30,8 @@ export const FeedbackSection = () => {
   return (
     <Section
       id="feedback"
-      title="Feedback"
-      description="Toasts, modals and loaders that react to what the user just did."
+      title={t("demo.sections.feedback.title")}
+      description={t("demo.sections.feedback.description")}
     >
       <Preview
         title={t("toast.title")}

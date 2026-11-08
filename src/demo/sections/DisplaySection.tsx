@@ -33,8 +33,8 @@ export const DisplaySection = () => {
   return (
     <Section
       id="display"
-      title="Data display"
-      description="Tabs, accordions and progress indicators for structured content."
+      title={t("demo.sections.display.title")}
+      description={t("demo.sections.display.description")}
     >
       <Preview title={t("tabs.title")}>
         <div className="w-full">

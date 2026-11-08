@@ -88,8 +88,8 @@ export const LayoutSection = () => {
   return (
     <Section
       id="layout"
-      title="Layout"
-      description="Navigation structures that switch to a horizontal strip on small screens."
+      title={t("demo.sections.layout.title")}
+      description={t("demo.sections.layout.description")}
     >
       <Preview title={t("sidebar.title")}>
         <div className="h-[380px] w-full overflow-hidden rounded-[var(--radius-large)] border border-[var(--color-border-primary)]">

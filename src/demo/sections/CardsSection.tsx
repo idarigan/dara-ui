@@ -9,31 +9,35 @@ import {
 } from "../../index";
 import { Preview, Section } from "../Section";
 
+const threeDaysFromNow = new Date(
+  Date.now() + 3 * 24 * 60 * 60 * 1000,
+).toISOString();
+
 export const CardsSection = () => {
   const { t } = useI18n();
 
   return (
     <Section
       id="cards"
-      title="Cards"
-      description="Hover any card: the glow eases toward your cursor and icons finish their pop."
+      title={t("demo.sections.cards.title")}
+      description={t("demo.sections.cards.description")}
     >
       <Preview title={t("cards.title")} grid>
         <Card float glow="primary">
           <h3 className="font-heading font-bold">{t("cards.primaryGlow")}</h3>
-          <p className="text-sm text-[var(--color-text-secondary)]" dir="auto">
+          <p className="text-sm text-[var(--color-text-secondary)]">
             {t("common.hoverToFloat")}
           </p>
         </Card>
         <Card float glow="secondary">
           <h3 className="font-heading font-bold">{t("cards.secondaryGlow")}</h3>
-          <p className="text-sm text-[var(--color-text-secondary)]" dir="auto">
+          <p className="text-sm text-[var(--color-text-secondary)]">
             {t("common.hoverToFloat")}
           </p>
         </Card>
         <Card float glow="accent">
           <h3 className="font-heading font-bold">{t("cards.accentGlow")}</h3>
-          <p className="text-sm text-[var(--color-text-secondary)]" dir="auto">
+          <p className="text-sm text-[var(--color-text-secondary)]">
             {t("common.hoverToFloat")}
           </p>
         </Card>
@@ -52,7 +56,7 @@ export const CardsSection = () => {
           title={t("quest.secureArchives")}
           description={t("quest.secureArchivesDesc")}
           xp={200}
-          deadline="3 days"
+          deadline={threeDaysFromNow}
           rank="A"
           glow="primary"
           requirements={[t("quest.completeReviews"), t("quest.writeTests")]}
