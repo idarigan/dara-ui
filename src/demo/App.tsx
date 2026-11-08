@@ -20,6 +20,8 @@ import {
   useI18n,
 } from "../index";
 import type { NavLink } from "../index";
+import { DocsNav } from "./DocsNav";
+import { useActiveSection } from "./useActiveSection";
 import { ActionsSection } from "./sections/ActionsSection";
 import { CardsSection } from "./sections/CardsSection";
 import { DisplaySection } from "./sections/DisplaySection";
@@ -31,20 +33,16 @@ import { LayoutSection } from "./sections/LayoutSection";
 // NAVIGATION
 // ============================================
 
-const sections = [
-  { id: "actions", label: "Actions" },
-  { id: "forms", label: "Forms" },
-  { id: "display", label: "Data display" },
-  { id: "feedback", label: "Feedback" },
-  { id: "cards", label: "Cards" },
-  { id: "layout", label: "Layout" },
-];
+const sectionIds = [
+  "actions",
+  "forms",
+  "display",
+  "feedback",
+  "cards",
+  "layout",
+] as const;
 
-const backgrounds = [
-  { value: "topography", label: "Topography" },
-  { value: "particles", label: "Particles" },
-  { value: "none", label: "None" },
-];
+const backgroundValues = ["topography", "particles", "none"] as const;
 
 const brand = (
   <span
@@ -63,10 +61,29 @@ function Shell() {
   const { t } = useI18n();
   const [background, setBackground] = useState("topography");
   const [cursor, setCursor] = useState(true);
+  const activeSection = useActiveSection(sectionIds);
+
+  const sections = useMemo(
+    () =>
+      sectionIds.map((id) => ({
+        id,
+        label: t(`demo.sections.${id}.title`),
+      })),
+    [t],
+  );
+
+  const backgrounds = useMemo(
+    () =>
+      backgroundValues.map((value) => ({
+        value,
+        label: t(`demo.backgrounds.${value}`),
+      })),
+    [t],
+  );
 
   const navLinks: NavLink[] = useMemo(
     () => sections.map((s) => ({ label: s.label, href: `#${s.id}` })),
-    [],
+    [sections],
   );
 
   return (
@@ -101,22 +118,19 @@ function Shell() {
           <h1 className="font-heading text-6xl md:text-8xl font-bold mb-6 tracking-tight text-gradient-hero">
             {t("hero.title")}
           </h1>
-          <p
-            className="mx-auto mb-10 max-w-2xl text-lg md:text-xl leading-relaxed text-[var(--color-text-secondary)]"
-            dir="auto"
-          >
+          <p className="mx-auto mb-10 max-w-2xl text-lg md:text-xl leading-relaxed text-[var(--color-text-secondary)]">
             {t("hero.subtitle")}
           </p>
 
           <div className="glass mx-auto flex max-w-xl flex-wrap items-end justify-center gap-6 p-5 hover:z-20 focus-within:z-20">
             <Dropdown
-              label="Background"
+              label={t("demo.background")}
               options={backgrounds}
               value={background}
               onChange={setBackground}
             />
             <Switch
-              label="Custom cursor"
+              label={t("demo.customCursor")}
               checked={cursor}
               onCheckedChange={setCursor}
               glow
@@ -127,20 +141,11 @@ function Shell() {
         {/* Docs */}
         <div className="lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-12">
           <aside className="hidden lg:block">
-            <nav
-              className="sticky top-28 flex flex-col gap-1 text-sm"
-              aria-label="Sections"
-            >
-              {sections.map((s) => (
-                <a
-                  key={s.id}
-                  href={`#${s.id}`}
-                  className="rounded-[var(--radius-md)] px-3 py-2 !text-[var(--color-text-secondary)] transition-colors duration-180 hover:bg-[var(--color-bg-elevated)]/40 hover:!text-[var(--color-primary)]"
-                >
-                  {s.label}
-                </a>
-              ))}
-            </nav>
+            <DocsNav
+              items={sections}
+              activeId={activeSection}
+              label={t("demo.navLabel")}
+            />
           </aside>
 
           <div className="min-w-0">
@@ -160,11 +165,11 @@ function Shell() {
         tagline={t("hero.subtitle")}
         columns={[
           {
-            title: "Components",
+            title: t("demo.footer.components"),
             links: sections.map((s) => ({ label: s.label, href: `#${s.id}` })),
           },
           {
-            title: "Project",
+            title: t("demo.footer.project"),
             links: [
               {
                 label: "GitHub",
@@ -179,7 +184,7 @@ function Shell() {
             ],
           },
         ]}
-        bottomBar={<>© 2026 Dara UI</>}
+        bottomBar={<>{t("demo.footer.rights")}</>}
       />
 
       <SocialMedia
