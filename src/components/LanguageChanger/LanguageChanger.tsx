@@ -7,6 +7,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
+import { translations as builtInTranslations } from "../../translations";
 
 export interface LanguageOption {
   /**
@@ -90,6 +91,65 @@ export const DEFAULT_LANGUAGES: LanguageOption[] = [
   { value: "fr", label: "Français", dir: "ltr" },
 ];
 
+const STORAGE_KEY = "dara-ui-language";
+
+const readStored = (): string | null => {
+  try {
+    return localStorage.getItem(STORAGE_KEY);
+  } catch {
+    return null;
+  }
+};
+
+const writeStored = (value: string) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, value);
+  } catch {
+    // storage unavailable
+  }
+};
+
+// ============================================
+// Translation lookup
+// ============================================
+
+type Dictionary = Record<string, any>;
+
+const lookup = (source: Dictionary | undefined, keys: string[]) => {
+  let value: any = source;
+  for (const key of keys) {
+    if (value && typeof value === "object" && key in value) {
+      value = value[key];
+    } else {
+      return undefined;
+    }
+  }
+  return value;
+};
+
+const translate = (
+  dictionaries: Record<string, Dictionary>,
+  language: string,
+  key: string,
+  params?: Record<string, string | number>,
+): string => {
+  const keys = key.split(".");
+  const value =
+    lookup(dictionaries[language], keys) ??
+    lookup(dictionaries.en, keys) ??
+    lookup(builtInTranslations.en, keys);
+
+  if (typeof value !== "string") return key;
+
+  if (params) {
+    return value.replace(/\{\{(\w+)\}\}/g, (_, paramName) => {
+      return String(params[paramName] ?? `{{${paramName}}}`);
+    });
+  }
+
+  return value;
+};
+
 // ============================================
 // I18n Context & Provider
 // ============================================
@@ -126,11 +186,12 @@ export interface I18nProviderProps {
   defaultLanguage?: string;
   /**
    * Translations object - keyed by language code
+   * Missing keys fall back to the built-in English labels
    * @example { en: { welcome: "Welcome" }, fa: { welcome: "خوش آمدید" } }
    */
-  translations: Record<string, Record<string, any>>;
+  translations?: Record<string, Record<string, any>>;
   /**
-   * Available languages (overrides default)
+   * Available languages (overrides default). One language makes the app single-language
    */
   languages?: LanguageOption[];
   /**
@@ -139,6 +200,20 @@ export interface I18nProviderProps {
   children: React.ReactNode;
 }
 
+const fallbackContext: I18nContextValue = {
+  language: "en",
+  setLanguage: () => {},
+  t: (key, params) =>
+    translate(
+      builtInTranslations as Record<string, Dictionary>,
+      "en",
+      key,
+      params,
+    ),
+  languages: [DEFAULT_LANGUAGES[0]],
+  dir: "ltr",
+};
+
 const I18nContext = createContext<I18nContextValue | undefined>(undefined);
 
 /**
@@ -146,6 +221,8 @@ const I18nContext = createContext<I18nContextValue | undefined>(undefined);
  *
  * Features:
  * - Self-contained i18n system, no external dependencies
+ * - Optional: without a provider every component uses built-in English labels
+ * - Single-language mode with one entry in `languages`
  * - Nested key resolution (e.g., 'welcome.title')
  * - Parameter interpolation (e.g., 'Hello {{name}}')
  * - Language persistence in localStorage
@@ -154,139 +231,87 @@ const I18nContext = createContext<I18nContextValue | undefined>(undefined);
  */
 export const I18nProvider: React.FC<I18nProviderProps> = ({
   defaultLanguage,
-  translations,
+  translations = builtInTranslations,
   languages: customLanguages,
   children,
 }) => {
-  const STORAGE_KEY = "dara-ui-language";
+  const availableLanguages: LanguageOption[] = customLanguages?.length
+    ? customLanguages
+    : DEFAULT_LANGUAGES;
 
-  // Determine default languages
-  const defaultLanguages: LanguageOption[] =
-    customLanguages || DEFAULT_LANGUAGES;
-
-  // Get initial language from localStorage or default
   const getInitialLang = (): string => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored && defaultLanguages.some((l) => l.value === stored)) {
+    const stored = readStored();
+    if (stored && availableLanguages.some((l) => l.value === stored)) {
       return stored;
     }
-    return defaultLanguage || defaultLanguages[0]?.value || "en";
+    if (
+      defaultLanguage &&
+      availableLanguages.some((l) => l.value === defaultLanguage)
+    ) {
+      return defaultLanguage;
+    }
+    return availableLanguages[0]?.value || "en";
   };
 
   const [language, setLanguageState] = useState<string>(getInitialLang);
 
-  // Translation function with nested key resolution and parameter interpolation
   const t = useCallback(
-    (key: string, params?: Record<string, string | number>): string => {
-      const currentTranslations =
-        translations[language] || translations.en || {};
-
-      // Resolve nested keys (e.g., 'welcome.title')
-      const keys = key.split(".");
-      let value: any = currentTranslations;
-      for (const k of keys) {
-        if (value && typeof value === "object" && k in value) {
-          value = value[k];
-        } else {
-          // Fallback to English if available
-          const fallback = translations.en || {};
-          let fallbackValue: any = fallback;
-          for (const fk of keys) {
-            if (
-              fallbackValue &&
-              typeof fallbackValue === "object" &&
-              fk in fallbackValue
-            ) {
-              fallbackValue = fallbackValue[fk];
-            } else {
-              return key; // Return the key if not found anywhere
-            }
-          }
-          value = fallbackValue;
-          break;
-        }
-      }
-
-      if (typeof value !== "string") {
-        return key;
-      }
-
-      // Parameter interpolation
-      if (params) {
-        return value.replace(/\{\{(\w+)\}\}/g, (_, paramName) => {
-          return String(params[paramName] ?? `{{${paramName}}}`);
-        });
-      }
-
-      return value;
-    },
+    (key: string, params?: Record<string, string | number>): string =>
+      translate(
+        translations as Record<string, Dictionary>,
+        language,
+        key,
+        params,
+      ),
     [language, translations],
   );
 
   // Set language and apply to document
   const setLanguage = useCallback(
     (lang: string) => {
-      const langOption = defaultLanguages.find((l) => l.value === lang);
+      const langOption = availableLanguages.find((l) => l.value === lang);
       if (!langOption) return;
 
       setLanguageState(lang);
       document.documentElement.lang = lang;
       document.documentElement.dir = langOption.dir || "ltr";
-      localStorage.setItem(STORAGE_KEY, lang);
-
-      // Dispatch event for other components
-      window.dispatchEvent(
-        new CustomEvent("dara-language-change", { detail: { lang } }),
-      );
+      writeStored(lang);
     },
-    [defaultLanguages],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [availableLanguages.map((l) => l.value).join("|")],
   );
 
-  // Apply initial language on mount
+  // Apply the active language on mount and whenever it changes
   useEffect(() => {
-    const initialLang = getInitialLang();
-    const langOption = defaultLanguages.find((l) => l.value === initialLang);
+    const langOption = availableLanguages.find((l) => l.value === language);
     if (langOption) {
-      document.documentElement.lang = initialLang;
+      document.documentElement.lang = language;
       document.documentElement.dir = langOption.dir || "ltr";
     }
-  }, [defaultLanguages]);
-
-  // Listen for language changes from other components (e.g., LanguageChanger)
-  useEffect(() => {
-    const handleLanguageChange = (event: CustomEvent) => {
-      const { lang } = event.detail;
-      if (lang && lang !== language) {
-        setLanguageState(lang);
-      }
-    };
-
-    window.addEventListener(
-      "dara-language-change",
-      handleLanguageChange as EventListener,
-    );
-
-    return () => {
-      window.removeEventListener(
-        "dara-language-change",
-        handleLanguageChange as EventListener,
-      );
-    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language]);
 
-  // Get current language direction
+  // Fall back when the active language is removed from the list
+  useEffect(() => {
+    if (!availableLanguages.some((l) => l.value === language)) {
+      setLanguageState(availableLanguages[0]?.value || "en");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [availableLanguages.map((l) => l.value).join("|")]);
+
   const currentDir =
-    defaultLanguages.find((l) => l.value === language)?.dir || "ltr";
+    availableLanguages.find((l) => l.value === language)?.dir || "ltr";
 
   const value: I18nContextValue = useMemo(
     () => ({
       language,
       setLanguage,
       t,
-      languages: defaultLanguages,
+      languages: availableLanguages,
       dir: currentDir,
     }),
-    [language, setLanguage, t, defaultLanguages, currentDir],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [language, setLanguage, t, currentDir, availableLanguages.length],
   );
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
@@ -294,6 +319,8 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
 
 /**
  * useI18n - Hook for accessing i18n context
+ *
+ * Works without a provider and returns the built-in English labels.
  *
  * @example
  * ```tsx
@@ -310,11 +337,7 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
  * ```
  */
 export const useI18n = (): I18nContextValue => {
-  const context = useContext(I18nContext);
-  if (!context) {
-    throw new Error("useI18n must be used within an I18nProvider");
-  }
-  return context;
+  return useContext(I18nContext) ?? fallbackContext;
 };
 
 // ============================================
@@ -417,7 +440,8 @@ const FlagIcon: React.FC<{ code: string; className?: string }> = ({
  * Dara UI LanguageChanger - Dropdown for switching between languages
  *
  * Features:
- * - Auto-detects available languages from default list
+ * - Reads the language list from I18nProvider
+ * - Hides itself when only one language is available
  * - Supports custom language lists
  * - Clean dropdown with flag icons from Flagpedia CDN
  * - Icon-only mode for compact navigation bars
@@ -444,10 +468,7 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   useContext: useI18nContext = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [languages, setLanguages] =
-    useState<LanguageOption[]>(DEFAULT_LANGUAGES);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const STORAGE_KEY = "dara-ui-language";
 
   // Check if we're inside I18nProvider by checking context directly
   const context = useContext(I18nContext);
@@ -456,15 +477,18 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   // Determine if controlled or uncontrolled
   const isControlled = controlledValue !== undefined;
 
+  const languages: LanguageOption[] = useMemo(
+    () =>
+      availableLanguages ??
+      (isInContext ? context.languages : DEFAULT_LANGUAGES),
+    [availableLanguages, isInContext, context],
+  );
+
   // For internal state - only used when not in context or controlled
   const [internalValue, setInternalValue] = useState<string>(() => {
-    // Try to load from localStorage
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      const lang = DEFAULT_LANGUAGES.find((l) => l.value === stored);
-      if (lang) return stored;
-    }
-    return defaultValue || DEFAULT_LANGUAGES[0]?.value || "en";
+    const stored = readStored();
+    if (stored && languages.some((l) => l.value === stored)) return stored;
+    return defaultValue || languages[0]?.value || "en";
   });
 
   // Current language: priority: controlled > context > internal
@@ -477,35 +501,21 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
     currentLang = internalValue;
   }
 
-  // Set languages from props or defaults
-  useEffect(() => {
-    if (availableLanguages) {
-      setLanguages(availableLanguages);
-    }
-  }, [availableLanguages]);
-
   // Apply language to document
   const applyLanguage = useCallback(
     (lang: string) => {
       const langOption = languages.find((l) => l.value === lang);
       document.documentElement.lang = lang;
       document.documentElement.dir = langOption?.dir || "ltr";
-
-      // Persist to localStorage
-      localStorage.setItem(STORAGE_KEY, lang);
-
-      // Dispatch custom event for components using useI18n
-      window.dispatchEvent(
-        new CustomEvent("dara-language-change", { detail: { lang } }),
-      );
+      writeStored(lang);
     },
     [languages],
   );
 
-  // Apply on mount and when language changes
+  // Standalone mode applies the language itself
   useEffect(() => {
-    applyLanguage(currentLang);
-  }, [currentLang, applyLanguage]);
+    if (!isInContext) applyLanguage(currentLang);
+  }, [isInContext, currentLang, applyLanguage]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -530,14 +540,13 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
   // Handle language selection
   const handleSelect = useCallback(
     (lang: string) => {
-      // If we're in context, use context's setLanguage
       if (isInContext) {
         context.setLanguage(lang);
-      } else if (!isControlled) {
-        setInternalValue(lang);
+      } else {
+        if (!isControlled) setInternalValue(lang);
+        applyLanguage(lang);
       }
 
-      applyLanguage(lang);
       onChange?.(lang);
       setIsOpen(false);
     },
@@ -553,6 +562,9 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
       })),
     [languages],
   );
+
+  // Nothing to switch between
+  if (languages.length <= 1) return null;
 
   // Size styles
   const sizeStyles = {
@@ -799,8 +811,10 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
         style={{
           width: menuWidth,
           minWidth: menuWidth,
-          top: "100%",
-          marginTop: "6px",
+          top: openUpward ? "auto" : "100%",
+          bottom: openUpward ? "100%" : "auto",
+          marginTop: openUpward ? "0" : "6px",
+          marginBottom: openUpward ? "6px" : "0",
         }}
       >
         <div
@@ -811,7 +825,13 @@ export const LanguageChanger: React.FC<LanguageChangerProps> = ({
           shadow-[var(--shadow-float)]
           transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
           overflow-hidden
-          ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}
+          ${
+            isOpen
+              ? "opacity-100 translate-y-0 pointer-events-auto"
+              : openUpward
+                ? "opacity-0 translate-y-2 pointer-events-none"
+                : "opacity-0 -translate-y-2 pointer-events-none"
+          }
         `}
         >
           {displayLanguages.map((lang) => {
