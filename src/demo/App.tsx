@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import {
+  BackToTop,
   CustomCursor,
   Dropdown,
   Footer,
@@ -10,6 +11,7 @@ import {
   NoiseOverlay,
   PageLoaderProvider,
   Particles,
+  Range,
   SocialMedia,
   Switch,
   ThemeChanger,
@@ -20,7 +22,9 @@ import {
   useI18n,
 } from "../index";
 import type { NavLink } from "../index";
+import { DocsLink } from "./DocsLink";
 import { DocsNav } from "./DocsNav";
+import { demoControls } from "./demoControls";
 import { useActiveSection } from "./useActiveSection";
 import { ActionsSection } from "./sections/ActionsSection";
 import { CardsSection } from "./sections/CardsSection";
@@ -44,6 +48,8 @@ const sectionIds = [
 
 const backgroundValues = ["topography", "particles", "none"] as const;
 
+const STORYBOOK_URL = "https://dara-ui.vercel.app";
+
 const brand = (
   <span
     className="font-heading font-bold text-lg tracking-tight text-gradient-primary"
@@ -54,6 +60,24 @@ const brand = (
 );
 
 // ============================================
+// TRANSLATIONS
+// ============================================
+
+const appTranslations = {
+  en: { ...translations.en, ...demoControls.en },
+  fa: { ...translations.fa, ...demoControls.fa },
+  fr: { ...translations.fr, ...demoControls.fr },
+};
+
+// ============================================
+// BACKGROUND MAPPING
+// ============================================
+
+const toLineCount = (density: number) => Math.round(6 + (density / 100) * 34);
+
+const toParticleCount = (density: number) => Math.round(10 + density * 2);
+
+// ============================================
 // SHELL
 // ============================================
 
@@ -61,6 +85,8 @@ function Shell() {
   const { t } = useI18n();
   const [background, setBackground] = useState("topography");
   const [cursor, setCursor] = useState(true);
+  const [opacity, setOpacity] = useState(50);
+  const [density, setDensity] = useState(35);
   const activeSection = useActiveSection(sectionIds);
 
   const sections = useMemo(
@@ -90,8 +116,12 @@ function Shell() {
     <>
       {/* Effects */}
       <NoiseOverlay />
-      {background === "topography" && <Topography />}
-      {background === "particles" && <Particles />}
+      {background === "topography" && (
+        <Topography opacity={opacity / 100} lineCount={toLineCount(density)} />
+      )}
+      {background === "particles" && (
+        <Particles opacity={opacity / 100} count={toParticleCount(density)} />
+      )}
       {cursor && <CustomCursor />}
 
       {/* Navbar */}
@@ -122,7 +152,7 @@ function Shell() {
             {t("hero.subtitle")}
           </p>
 
-          <div className="glass mx-auto flex max-w-xl flex-wrap items-end justify-center gap-6 p-5 hover:z-20 focus-within:z-20">
+          <div className="glass mx-auto flex max-w-3xl flex-wrap items-end justify-center gap-6 p-5 hover:z-20 focus-within:z-20">
             <Dropdown
               label={t("demo.background")}
               options={backgrounds}
@@ -135,6 +165,29 @@ function Shell() {
               onCheckedChange={setCursor}
               glow
             />
+            {background !== "none" && (
+              <>
+                <Range
+                  label={t("demoControls.opacity")}
+                  value={opacity}
+                  onChange={setOpacity}
+                  min={0}
+                  max={100}
+                  fullWidth={false}
+                  className="w-44"
+                />
+                <Range
+                  label={t("demoControls.density")}
+                  value={density}
+                  onChange={setDensity}
+                  min={0}
+                  max={100}
+                  color="secondary"
+                  fullWidth={false}
+                  className="w-44"
+                />
+              </>
+            )}
           </div>
         </section>
 
@@ -178,7 +231,7 @@ function Shell() {
               },
               {
                 label: "Storybook",
-                href: "https://dara-ui.vercel.app",
+                href: STORYBOOK_URL,
                 external: true,
               },
             ],
@@ -196,6 +249,9 @@ function Shell() {
         position="left"
         size="md"
       />
+
+      <DocsLink href={STORYBOOK_URL} />
+      <BackToTop label={t("demoControls.backToTop")} />
     </>
   );
 }
@@ -207,7 +263,7 @@ function Shell() {
 function App() {
   return (
     <ToastProvider>
-      <I18nProvider translations={translations} defaultLanguage="en">
+      <I18nProvider translations={appTranslations} defaultLanguage="en">
         <ThemeProvider defaultTheme="nightfall">
           <PageLoaderProvider>
             <Shell />
