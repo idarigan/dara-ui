@@ -3,6 +3,7 @@ import { Badge } from "../Badge/Badge";
 import Button from "../Button/Button";
 import { ImagePlaceholderIcon } from "../Icons";
 import { useI18n } from "../LanguageChanger/LanguageChanger";
+import { useHoverPop } from "../../hooks/useHoverPop";
 
 export interface ProductCardProps {
   /**
@@ -136,6 +137,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const [imageError, setImageError] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
+  useHoverPop(cardRef);
+
   const isHorizontal = layout === "horizontal";
   const isCompact = layout === "compact";
   const isVertical = layout === "vertical";
@@ -156,13 +159,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || isCompact) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    cardRef.current.style.setProperty("--x", `${x}px`);
-    cardRef.current.style.setProperty("--y", `${y}px`);
-    if (isCompact) return;
     setRotation({
       x: ((y - rect.height / 2) / (rect.height / 2)) * -6,
       y: ((x - rect.width / 2) / (rect.width / 2)) * 6,
@@ -193,7 +193,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   }[glow];
 
   const restShadow = "var(--shadow-float, 0 8px 24px rgba(0,0,0,0.18))";
-  const elevatedShadow = `0 16px 40px rgba(0,0,0,0.28), ${hoverGlowShadow}`;
+  const elevatedShadow = `0 16px 40px color-mix(in srgb, var(--shadow-color) 28%, transparent), ${hoverGlowShadow}`;
 
   const formatPrice = (value: number | string) => {
     if (typeof value === "string") return value;
@@ -271,6 +271,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div
       ref={cardRef}
+      data-glow="true"
       className={`
         glass relative overflow-hidden
         ${isCompact ? "p-3" : "p-4"}
@@ -315,7 +316,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         style={{
           opacity: isHovering ? 1 : 0,
           background:
-            "radial-gradient(260px circle at var(--x, 50%) var(--y, 50%), color-mix(in srgb, var(--color-primary) 16%, transparent), transparent 70%)",
+            "radial-gradient(260px circle at var(--glow-x, 50%) var(--glow-y, 50%), color-mix(in srgb, var(--color-primary) 16%, transparent), transparent 70%)",
         }}
       />
 

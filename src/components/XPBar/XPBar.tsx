@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useHoverPop } from "../../hooks/useHoverPop";
 
 export interface RankTier {
   /**
@@ -86,14 +87,14 @@ export const XPBar: React.FC<XPBarProps> = ({
   const [isHovering, setIsHovering] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
+  useHoverPop(cardRef);
+
   // Handle 3D tilt on mouse move
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    cardRef.current.style.setProperty("--x", `${x}px`);
-    cardRef.current.style.setProperty("--y", `${y}px`);
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     const rotateX = ((y - centerY) / centerY) * -6;

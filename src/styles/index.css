@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "./tokens.css";
+@import "./theme-meta.css";
 @import "./fonts.css";
+@import "./cursor.css";
 
 @source "../components/**/*.tsx";
 @source "../components/**/*.ts";
@@ -88,7 +90,7 @@ input::-ms-clear {
   border: 1px solid var(--glass-border-strong);
   outline: 1px solid var(--glass-outline);
   box-shadow:
-    0 14px 40px rgba(0, 0, 0, 0.13),
+    0 14px 40px color-mix(in srgb, var(--shadow-color) 13%, transparent),
     inset 0 1px 0 var(--glass-highlight);
   border-radius: var(--radius-standard);
   transition: all var(--transition-med);
@@ -113,7 +115,7 @@ button.glass {
   border: 1px solid var(--glass-border-strong);
   outline: 1px solid var(--glass-outline);
   box-shadow:
-    0 14px 44px rgba(0, 0, 0, 0.4),
+    0 14px 44px color-mix(in srgb, var(--shadow-color) 40%, transparent),
     inset 0 1px 0 var(--glass-highlight);
   border-radius: var(--radius-standard);
   transition: all var(--transition-med);
@@ -127,7 +129,7 @@ button.glass {
   border: 1px solid var(--glass-border-strong);
   outline: 1px solid var(--glass-outline);
   box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.2),
+    0 4px 20px color-mix(in srgb, var(--shadow-color) 20%, transparent),
     inset 0 1px 0 var(--glass-highlight);
   border-radius: var(--radius-standard);
   transition: all var(--transition-med);
@@ -157,7 +159,7 @@ button.glass {
 .glow-primary.float-card:hover {
   box-shadow:
     var(--shadow-glow-primary),
-    0 16px 48px rgba(0, 0, 0, 0.4);
+    0 16px 48px color-mix(in srgb, var(--shadow-color) 40%, transparent);
 }
 
 .glow-secondary {
@@ -168,7 +170,7 @@ button.glass {
 .glow-secondary.float-card:hover {
   box-shadow:
     var(--shadow-glow-secondary),
-    0 16px 48px rgba(0, 0, 0, 0.4);
+    0 16px 48px color-mix(in srgb, var(--shadow-color) 40%, transparent);
 }
 
 .glow-accent {
@@ -179,7 +181,7 @@ button.glass {
 .glow-accent.float-card:hover {
   box-shadow:
     var(--shadow-glow-accent),
-    0 16px 48px rgba(0, 0, 0, 0.4);
+    0 16px 48px color-mix(in srgb, var(--shadow-color) 40%, transparent);
 }
 
 /* =============================================
@@ -196,7 +198,8 @@ button.glass {
 
 .float-card:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 6px 52px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 52px
+    color-mix(in srgb, var(--shadow-color) 40%, transparent);
   border-color: var(--color-primary);
 }
 
@@ -209,7 +212,7 @@ button.glass {
   opacity: 0;
   transition: opacity 0.3s;
   background: radial-gradient(
-    260px circle at var(--x, 50%) var(--y, 50%),
+    260px circle at var(--glow-x, 50%) var(--glow-y, 50%),
     color-mix(in srgb, var(--color-primary) 16%, transparent),
     transparent 70%
   );
