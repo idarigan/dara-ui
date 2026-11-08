@@ -18,6 +18,7 @@ const meta = {
       options: ["none", "cross", "dot"],
     },
     interactive: { control: "boolean" },
+    opacity: { control: { type: "range", min: 0, max: 1, step: 0.05 } },
     lineCount: { control: "number", min: 4, max: 40 },
     lineWidth: { control: "number", min: 0.5, max: 4, step: 0.1 },
     speed: { control: "number", min: 0, max: 1, step: 0.05 },
@@ -29,6 +30,7 @@ const meta = {
     mode: "auto",
     markers: "dot",
     interactive: true,
+    opacity: 0.5,
     lineCount: 18,
     lineWidth: 1.5,
     speed: 0.25,
@@ -62,6 +64,18 @@ export const Default: Story = {
 export const WithCrosses: Story = {
   args: {
     markers: "cross",
+  },
+  render: (args) => (
+    <div className="relative min-h-screen bg-[var(--color-bg-primary)]">
+      <Topography {...args} />
+    </div>
+  ),
+};
+
+export const CustomColor: Story = {
+  args: {
+    color: "var(--color-secondary)",
+    opacity: 0.7,
   },
   render: (args) => (
     <div className="relative min-h-screen bg-[var(--color-bg-primary)]">

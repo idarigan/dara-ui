@@ -7,12 +7,18 @@ export interface ParticlesProps {
    */
   count?: number;
   /**
-   * Colors for particles
-   * @default ["#7C5CFF", "#00D9FF", "#FF4D9D", "#ffffff"]
+   * Particle colors - one color string or an array of colors
+   * Replaces the theme colors when provided
+   * @default theme tokens (primary, secondary, accent, text)
    */
-  colors?: string[];
+  colors?: string | string[];
   /**
-   * Opacity range [min, max]
+   * Opacity of the whole layer (0-1)
+   * @default 0.5
+   */
+  opacity?: number;
+  /**
+   * Opacity range per particle [min, max]
    * @default [0.15, 0.5]
    */
   opacityRange?: [number, number];
@@ -58,7 +64,7 @@ interface Particle {
   speedY: number;
   speedX: number;
   opacity: number;
-  color: string;
+  colorIndex: number;
 }
 
 // Stable defaults
@@ -66,18 +72,38 @@ const DEFAULT_COLORS = [
   "var(--color-primary)",
   "var(--color-secondary)",
   "var(--color-accent)",
-  "#ffffff",
+  "var(--color-text-primary)",
 ];
 const DEFAULT_OPACITY: [number, number] = [0.15, 0.5];
 const DEFAULT_SIZE: [number, number] = [0.5, 2.5];
 const DEFAULT_SPEED: [number, number] = [0.1, 0.4];
+
+const normalizeColors = (colors?: string | string[]): string[] => {
+  const list = (Array.isArray(colors) ? colors : colors ? [colors] : []).filter(
+    Boolean,
+  );
+  return list.length > 0 ? list : DEFAULT_COLORS;
+};
+
+// Resolve CSS custom properties to concrete color strings
+const resolveToken = (value: string): string => {
+  const trimmed = value.trim();
+  if (!trimmed.startsWith("var(")) return trimmed;
+  const [name, fallback] = trimmed.slice(4, -1).split(/,(.+)/);
+  const resolved = getComputedStyle(document.documentElement)
+    .getPropertyValue(name.trim())
+    .trim();
+  return resolved || (fallback ? resolveToken(fallback) : "#ffffff");
+};
 
 /**
  * Dara UI Particles - Animated starfield/particle background
  *
  * Features:
  * - Configurable particle count, colors, sizes, and speeds
- * - Smooth floating animation
+ * - Theme-aware default colors that follow the active theme tokens
+ * - One color or many, passed as a string or an array
+ * - Layer opacity control
  * - Optional mouse interaction with a single cheap distance check per particle
  * - Pauses while the tab is hidden and respects reduced motion
  * - Particles are created once (and on resize / count change only)
@@ -86,7 +112,8 @@ const DEFAULT_SPEED: [number, number] = [0.1, 0.4];
 export const Particles: React.FC<ParticlesProps> = React.memo(
   ({
     count = 60,
-    colors = DEFAULT_COLORS,
+    colors,
+    opacity = 0.5,
     opacityRange = DEFAULT_OPACITY,
     sizeRange = DEFAULT_SIZE,
     speedRange = DEFAULT_SPEED,
@@ -97,13 +124,17 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
   }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const particlesRef = useRef<Particle[]>([]);
+    const paletteRef = useRef<string[]>([]);
     const animationIdRef = useRef<number>(0);
     const pointerRef = useRef({ x: -9999, y: -9999, active: false });
+
+    const colorList = normalizeColors(colors);
+    const colorKey = colorList.join("|");
 
     // Keep latest config in refs so resize can use them without effect churn
     const configRef = useRef({
       count,
-      colors,
+      colorList,
       opacityRange,
       sizeRange,
       speedRange,
@@ -113,7 +144,7 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
     });
     configRef.current = {
       count,
-      colors,
+      colorList,
       opacityRange,
       sizeRange,
       speedRange,
@@ -129,21 +160,8 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
       canvas.height = window.innerHeight;
     }, []);
 
-    // Resolve CSS custom properties to concrete rgb strings once
-    const resolveColors = useCallback((): string[] => {
-      if (typeof window === "undefined") return configRef.current.colors;
-      const root = document.documentElement;
-      return configRef.current.colors.map((c) => {
-        const trimmed = c.trim();
-        if (trimmed.startsWith("var(")) {
-          const varName = trimmed.slice(4, -1).trim();
-          const resolved = getComputedStyle(root)
-            .getPropertyValue(varName)
-            .trim();
-          return resolved || "#ffffff";
-        }
-        return trimmed;
-      });
+    const refreshPalette = useCallback(() => {
+      paletteRef.current = configRef.current.colorList.map(resolveToken);
     }, []);
 
     const createParticles = useCallback(() => {
@@ -151,7 +169,7 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
       if (!canvas) return;
 
       const { count, opacityRange, sizeRange, speedRange } = configRef.current;
-      const resolvedColors = resolveColors();
+      const paletteSize = Math.max(1, paletteRef.current.length);
 
       const particles: Particle[] = [];
       for (let i = 0; i < count; i++) {
@@ -169,12 +187,11 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
           opacity:
             Math.random() * (opacityRange[1] - opacityRange[0]) +
             opacityRange[0],
-          color:
-            resolvedColors[Math.floor(Math.random() * resolvedColors.length)],
+          colorIndex: Math.floor(Math.random() * paletteSize),
         });
       }
       particlesRef.current = particles;
-    }, [resolveColors]);
+    }, []);
 
     // Mount once: start loop, handle resize and pointer
     useEffect(() => {
@@ -189,10 +206,10 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
       ).matches;
 
       resizeCanvas();
+      refreshPalette();
       createParticles();
 
-      const onThemeChange = () => createParticles();
-      const observer = new MutationObserver(onThemeChange);
+      const observer = new MutationObserver(refreshPalette);
       observer.observe(document.documentElement, {
         attributes: true,
         attributeFilter: ["data-theme"],
@@ -207,6 +224,7 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
         const usePointer = interactive && pointer.active && !reduceMotion;
         const radius = interactionRadius;
         const radiusSq = radius * radius;
+        const palette = paletteRef.current;
 
         particlesRef.current.forEach((particle) => {
           if (!reduceMotion) {
@@ -249,7 +267,8 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
             0,
             Math.PI * 2,
           );
-          ctx.fillStyle = particle.color;
+          ctx.fillStyle =
+            palette[particle.colorIndex % palette.length] || "#fff";
           ctx.globalAlpha = particle.opacity;
           ctx.fill();
           ctx.globalAlpha = 1;
@@ -302,12 +321,14 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
         );
         observer.disconnect();
       };
-    }, [count, resizeCanvas, createParticles]);
+    }, [count, colorKey, resizeCanvas, refreshPalette, createParticles]);
 
     return (
       <canvas
         ref={canvasRef}
+        aria-hidden="true"
         className={`fixed inset-0 z-0 pointer-events-none ${className}`}
+        style={{ opacity: Math.min(1, Math.max(0, opacity)) }}
       />
     );
   },

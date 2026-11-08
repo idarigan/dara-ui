@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from "react";
 
 export interface TopographyProps {
   /**
-   * Line color (hex, rgb or a CSS variable like "var(--color-primary-solid)")
+   * Line color (any CSS color or a CSS variable like "var(--color-primary-solid)")
    * @default "var(--color-primary-solid)"
    */
   color?: string;
   /**
-   * Rendering mode. "auto" follows the daylight theme
+   * Rendering mode. "auto" follows the --theme-mode token of the active theme
    * @default "auto"
    */
   mode?: "auto" | "light" | "dark";
@@ -52,8 +52,8 @@ export interface TopographyProps {
    */
   fog?: number;
   /**
-   * Overall opacity
-   * @default 1
+   * Opacity of the whole layer (0-1)
+   * @default 0.5
    */
   opacity?: number;
   /**
@@ -273,6 +273,9 @@ const link = (
   return { program, uniforms };
 };
 
+// Parses any CSS color through a 1x1 canvas
+let scratch: CanvasRenderingContext2D | null = null;
+
 const resolveColor = (value: string): number[] => {
   let v = value.trim();
 
@@ -284,22 +287,20 @@ const resolveColor = (value: string): number[] => {
         .trim() || "#7c5cff";
   }
 
-  if (v.startsWith("#")) {
-    let hex = v.slice(1);
-    if (hex.length === 3) {
-      hex = hex
-        .split("")
-        .map((c) => c + c)
-        .join("");
-    }
-    const n = parseInt(hex.slice(0, 6), 16);
-    return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
+  if (!scratch) {
+    const probe = document.createElement("canvas");
+    probe.width = 1;
+    probe.height = 1;
+    scratch = probe.getContext("2d", { willReadFrequently: true });
   }
+  if (!scratch) return [0.486, 0.361, 1];
 
-  const match = v.match(/rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)/);
-  if (match) return [+match[1] / 255, +match[2] / 255, +match[3] / 255];
-
-  return [0.486, 0.361, 1];
+  scratch.clearRect(0, 0, 1, 1);
+  scratch.fillStyle = "#7c5cff";
+  scratch.fillStyle = v;
+  scratch.fillRect(0, 0, 1, 1);
+  const [r, g, b] = scratch.getImageData(0, 0, 1, 1).data;
+  return [r / 255, g / 255, b / 255];
 };
 
 const orient = (yaw: number, pitch: number) => {
@@ -373,9 +374,10 @@ const viewProj = (cam: Cam, aspect: number, out: Float32Array) => {
  * Features:
  * - WebGL2 terrain rendered as animated contour lines
  * - Optional pointer glow and camera lean, solved analytically (no ray marching)
+ * - Layer opacity control
  * - Frame rate cap, capped pixel ratio and no post-processing passes
  * - Pauses while hidden or offscreen and honors reduced motion
- * - Theme-aware color and light/dark rendering
+ * - Follows the active theme color tokens and the --theme-mode token
  * - Renders nothing when WebGL2 is unavailable
  */
 export const Topography: React.FC<TopographyProps> = ({
@@ -389,7 +391,7 @@ export const Topography: React.FC<TopographyProps> = ({
   morph = 0.39,
   tilt = 90,
   fog = 0.3,
-  opacity = 1,
+  opacity = 0.5,
   markers = "dot",
   interactive = true,
   parallax = 1,
@@ -412,7 +414,6 @@ export const Topography: React.FC<TopographyProps> = ({
     morph,
     tilt,
     fog,
-    opacity,
     markers,
     interactive,
     parallax,
@@ -431,7 +432,6 @@ export const Topography: React.FC<TopographyProps> = ({
     morph,
     tilt,
     fog,
-    opacity,
     markers,
     interactive,
     parallax,
@@ -498,9 +498,10 @@ export const Topography: React.FC<TopographyProps> = ({
     const readTheme = () => {
       const c = cfg.current;
       theme.rgb = resolveColor(c.color);
-      const attr = document.documentElement.getAttribute("data-theme");
-      theme.light =
-        c.mode === "auto" ? attr === "daylight" : c.mode === "light";
+      const meta = getComputedStyle(document.documentElement)
+        .getPropertyValue("--theme-mode")
+        .trim();
+      theme.light = c.mode === "auto" ? meta === "light" : c.mode === "light";
       lastColor = c.color;
       lastMode = c.mode;
     };
@@ -699,7 +700,7 @@ export const Topography: React.FC<TopographyProps> = ({
       gl.uniform3fv(u.uSun, SUN);
       gl.uniform1f(u.uReveal, reveal);
       gl.uniform1f(u.uLightMode, theme.light ? 1 : 0);
-      gl.uniform1f(u.uOpacity, c.opacity);
+      gl.uniform1f(u.uOpacity, 1);
 
       gl.enable(gl.DEPTH_TEST);
       gl.depthFunc(gl.LESS);
@@ -741,7 +742,7 @@ export const Topography: React.FC<TopographyProps> = ({
         gl.uniform1f(m.uReveal, reveal);
         gl.uniform1f(m.uBrightness, 1);
         gl.uniform1f(m.uLightMode, theme.light ? 1 : 0);
-        gl.uniform1f(m.uOpacity, c.opacity);
+        gl.uniform1f(m.uOpacity, 1);
         gl.uniform1f(m.uStyle, c.markers === "cross" ? 0 : 1);
         gl.uniform1f(m.uPixel, pixel);
 
@@ -902,6 +903,7 @@ export const Topography: React.FC<TopographyProps> = ({
       ref={containerRef}
       aria-hidden="true"
       className={`fixed inset-0 z-0 pointer-events-none ${className}`}
+      style={{ opacity: clamp(opacity, 0, 1) }}
     />
   );
 };
