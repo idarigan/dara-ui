@@ -99,7 +99,7 @@ Button · Badge · Input · Checkbox · Switch · Radio · Range · Avatar · To
 
 ### Layout & Navigation
 
-Card · Tabs · Accordion · Dropdown · Modal · Navbar · Sidebar
+Card · Tabs · Accordion · Dropdown · Modal · Navbar · Sidebar · Footer · BackToTop
 
 ### Data Display
 
@@ -107,11 +107,11 @@ XPBar · StatsWidget · QuestCard · CharacterCard · ProductCard · BlogCard
 
 ### Feedback & Utilities
 
-Toast · ThemeChanger · LanguageChanger · SocialMedia
+Toast · PageLoader · ThemeChanger · LanguageChanger · SocialMedia · CustomCursor · ScrollReveal
 
 ### Visual Effects
 
-AuroraBlobs · Particles · GradientRing · NoiseOverlay
+Topography · Particles · AuroraBlobs · GradientRing · NoiseOverlay
 
 All components accept standard React props and respect the active theme and text direction.
 
@@ -162,6 +162,18 @@ import { Sidebar } from "dara-ui";
 
 ---
 
+## BackToTop
+
+A floating button that scrolls the page to the top. It sits on the right in LTR and on the left in RTL.
+
+```tsx
+import { BackToTop } from "dara-ui";
+
+<BackToTop showAfter={300} label="Back to top" />;
+```
+
+---
+
 ## Customization
 
 All visual tokens are exposed as CSS variables. Override them globally or per component:
@@ -172,6 +184,17 @@ All visual tokens are exposed as CSS variables. Override them globally or per co
   --radius-md: 10px;
   --shadow-float: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
+```
+
+---
+
+## Development
+
+```bash
+npm run dev            # demo site
+npm run storybook      # component docs
+npm run build:demo     # build the demo site
+npm run build          # build the library
 ```
 
 ---

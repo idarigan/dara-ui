@@ -1,6 +1,6 @@
 {
   "name": "dara-ui",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Some Modernlike React component library with full RTL and theming support.",
   "type": "module",
   "license": "MIT",
@@ -50,6 +50,8 @@
     "dev": "vite",
     "build:css": "tailwindcss -i src/styles/index.css -o build/style.css --minify",
     "build": "npm run build:css && tsc -b && cross-env DARA_LIB_BUILD=1 vite build",
+    "build:demo": "tsc -b && vite build --outDir dara-ui-demo --emptyOutDir",
+    "deploy-demo": "npm run build:demo && vercel deploy dara-ui-demo --prod --yes",
     "pack:check": "npm run build && npm pack --dry-run",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
