@@ -357,14 +357,6 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
       return `var(--color-${color})`;
     };
 
-    // Get the stroke color for the glow ring
-    const getGlowStrokeColor = () => {
-      if (color === "gradient") {
-        return "url(#glowGradient)";
-      }
-      return `var(--color-${color})`;
-    };
-
     return (
       <div
         ref={ref}
@@ -380,6 +372,36 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
           aria-valuemin={0}
           aria-valuemax={max}
         >
+          {/* Glow layer (follows the arc only) */}
+          {glow && percentage > 0 && (
+            <svg
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              viewBox={`0 0 ${actualSize} ${actualSize}`}
+              aria-hidden="true"
+              style={{
+                overflow: "visible",
+                filter: "blur(6px)",
+                opacity: 0.55,
+              }}
+            >
+              <circle
+                cx={center}
+                cy={center}
+                r={radius}
+                fill="none"
+                stroke={getStrokeColor()}
+                strokeWidth={thickness}
+                strokeDasharray={circumference}
+                strokeDashoffset={offset}
+                strokeLinecap="round"
+                transform={`rotate(-90 ${center} ${center})`}
+                style={{
+                  transition: animated ? "stroke-dashoffset 0.6s ease" : "none",
+                }}
+              />
+            </svg>
+          )}
+
           <svg
             className="relative w-full h-full"
             viewBox={`0 0 ${actualSize} ${actualSize}`}
@@ -397,39 +419,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                 <stop offset="0%" stopColor="var(--color-primary)" />
                 <stop offset="100%" stopColor="var(--color-secondary)" />
               </linearGradient>
-              {/* Gradient for the glow ring */}
-              <linearGradient
-                id="glowGradient"
-                x1="0%"
-                y1="0%"
-                x2="100%"
-                y2="100%"
-              >
-                <stop offset="0%" stopColor="var(--color-primary)" />
-                <stop offset="100%" stopColor="var(--color-secondary)" />
-              </linearGradient>
             </defs>
-
-            {/* Glow ring (outer glow) */}
-            {glow && percentage > 0 && (
-              <circle
-                cx={center}
-                cy={center}
-                r={radius + thickness / 2}
-                fill="none"
-                stroke={getGlowStrokeColor()}
-                strokeWidth={thickness + 6}
-                strokeDasharray={circumference}
-                strokeDashoffset={offset}
-                strokeLinecap="round"
-                transform={`rotate(-90 ${center} ${center})`}
-                style={{
-                  filter: "blur(10px)",
-                  opacity: 0.35,
-                  transition: animated ? "stroke-dashoffset 0.6s ease" : "none",
-                }}
-              />
-            )}
 
             {/* Background track */}
             <circle
