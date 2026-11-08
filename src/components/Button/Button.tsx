@@ -62,6 +62,8 @@ export type ButtonAsAnchorProps = ButtonBaseProps &
 // Union type for the component
 export type ButtonProps = ButtonAsButtonProps | ButtonAsAnchorProps;
 
+type ButtonElement = HTMLButtonElement | HTMLAnchorElement;
+
 /**
  * Dara UI Button - Glassmorphism style with cyberpunk aesthetics
  *
@@ -75,100 +77,99 @@ export type ButtonProps = ButtonAsButtonProps | ButtonAsAnchorProps;
  * - Smooth hover animations with scale and lift
  * - Can be rendered as a link or any other HTML element via the `as` prop
  */
-export const Button = React.forwardRef<
-  HTMLButtonElement | HTMLAnchorElement,
-  ButtonProps
->((props, ref) => {
-  const {
-    as: Component = "button",
-    children,
-    variant = "primary",
-    size = "md",
-    fullWidth = false,
-    loading = false,
-    glow,
-    leftIcon,
-    rightIcon,
-    className = "",
-    ...rest
-  } = props;
+export const Button = React.forwardRef<ButtonElement, ButtonProps>(
+  (props, ref) => {
+    const {
+      as: Component = "button",
+      children,
+      variant = "primary",
+      size = "md",
+      fullWidth = false,
+      loading = false,
+      glow,
+      leftIcon,
+      rightIcon,
+      className = "",
+      ...rest
+    } = props;
 
-  // Extract disabled state only when the element is a button
-  const disabled =
-    Component === "button" && "disabled" in rest ? rest.disabled : undefined;
+    // Extract disabled state only when the element is a button
+    const disabled =
+      Component === "button" && "disabled" in rest ? rest.disabled : undefined;
 
-  // Strip disabled from rest to avoid passing it to anchors
-  const { disabled: _ignoredDisabled, ...restWithoutDisabled } = rest as {
-    disabled?: boolean;
-  };
+    // Strip disabled from rest to avoid passing it to anchors
+    const { disabled: _ignoredDisabled, ...restWithoutDisabled } = rest as {
+      disabled?: boolean;
+    };
 
-  // Conditionally build the final props object
-  const elementProps =
-    Component === "button"
-      ? { ...restWithoutDisabled, disabled: disabled || loading }
-      : restWithoutDisabled;
+    // Conditionally build the final props object
+    const elementProps =
+      Component === "button"
+        ? { ...restWithoutDisabled, disabled: disabled || loading }
+        : restWithoutDisabled;
 
-  const baseStyles =
-    "btn-shine inline-flex items-center justify-center gap-2 font-heading font-semibold tracking-wide transition-all duration-180 rounded-full active:scale-95 disabled:opacity-45 disabled:cursor-not-allowed disabled:pointer-events-none relative overflow-hidden hover:-translate-y-0.5 no-underline hover:no-underline";
+    const baseStyles =
+      "btn-shine inline-flex items-center justify-center gap-2 font-heading font-semibold tracking-wide transition-all duration-180 rounded-full active:scale-95 disabled:opacity-45 disabled:cursor-not-allowed disabled:pointer-events-none relative overflow-hidden hover:-translate-y-0.5 no-underline hover:no-underline";
 
-  const variants = {
-    primary:
-      "bg-[var(--color-primary-solid)] !text-white shadow-[var(--shadow-btn-primary)] hover:bg-[var(--color-primary-hover)] hover:shadow-[var(--shadow-btn-primary-hover)] hover:brightness-105",
-    secondary:
-      "bg-[var(--color-secondary-solid)] !text-white shadow-[var(--shadow-btn-secondary)] hover:bg-[var(--color-secondary-hover)] hover:shadow-[var(--shadow-btn-secondary-hover)] hover:brightness-105",
-    accent:
-      "bg-[var(--color-accent-solid)] !text-white shadow-[var(--shadow-btn-accent)] hover:bg-[var(--color-accent-hover)] hover:shadow-[var(--shadow-btn-accent-hover)] hover:brightness-105",
-    glass:
-      "glass !text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/40 hover:border-[var(--color-border-secondary)] hover:shadow-[var(--shadow-float)]",
-    danger:
-      "bg-[var(--color-danger-solid)] !text-white shadow-[var(--shadow-btn-danger)] hover:bg-[var(--color-danger-hover)] hover:shadow-[var(--shadow-btn-danger-hover)] hover:brightness-105",
-    success:
-      "bg-[var(--color-success-solid)] !text-white shadow-[var(--shadow-btn-success)] hover:bg-[var(--color-success-hover)] hover:shadow-[var(--shadow-btn-success-hover)] hover:brightness-105",
-    outline:
-      "bg-transparent !text-[var(--color-text-primary)] border-2 border-[var(--color-border-primary)] hover:bg-[var(--color-primary-light)] hover:border-[var(--color-primary)] hover:!text-[var(--color-primary)] hover:shadow-[var(--shadow-btn-primary)]",
-  };
+    const variants = {
+      primary:
+        "bg-[var(--color-primary-solid)] !text-white shadow-[var(--shadow-btn-primary)] hover:bg-[var(--color-primary-hover)] hover:shadow-[var(--shadow-btn-primary-hover)] hover:brightness-105",
+      secondary:
+        "bg-[var(--color-secondary-solid)] !text-white shadow-[var(--shadow-btn-secondary)] hover:bg-[var(--color-secondary-hover)] hover:shadow-[var(--shadow-btn-secondary-hover)] hover:brightness-105",
+      accent:
+        "bg-[var(--color-accent-solid)] !text-white shadow-[var(--shadow-btn-accent)] hover:bg-[var(--color-accent-hover)] hover:shadow-[var(--shadow-btn-accent-hover)] hover:brightness-105",
+      glass:
+        "glass !text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/40 hover:border-[var(--color-border-secondary)] hover:shadow-[var(--shadow-float)]",
+      danger:
+        "bg-[var(--color-danger-solid)] !text-white shadow-[var(--shadow-btn-danger)] hover:bg-[var(--color-danger-hover)] hover:shadow-[var(--shadow-btn-danger-hover)] hover:brightness-105",
+      success:
+        "bg-[var(--color-success-solid)] !text-white shadow-[var(--shadow-btn-success)] hover:bg-[var(--color-success-hover)] hover:shadow-[var(--shadow-btn-success-hover)] hover:brightness-105",
+      outline:
+        "bg-transparent !text-[var(--color-text-primary)] border-2 border-[var(--color-border-primary)] hover:bg-[var(--color-primary-light)] hover:border-[var(--color-primary)] hover:!text-[var(--color-primary)] hover:shadow-[var(--shadow-btn-primary)]",
+    };
 
-  const sizes = {
-    sm: "px-4 py-1.5 text-sm min-h-[32px]",
-    md: "px-6 py-2.5 text-base min-h-[40px]",
-    lg: "px-8 py-3.5 text-lg min-h-[48px]",
-  };
+    const sizes = {
+      sm: "px-4 py-1.5 text-sm min-h-[32px]",
+      md: "px-6 py-2.5 text-base min-h-[40px]",
+      lg: "px-8 py-3.5 text-lg min-h-[48px]",
+    };
 
-  const glowStyles = {
-    primary:
-      "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-primary-solid)_50%,_transparent)]",
-    secondary:
-      "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-secondary-solid)_50%,_transparent)]",
-    accent:
-      "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-accent-solid)_50%,_transparent)]",
-  };
+    const glowStyles = {
+      primary:
+        "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-primary-solid)_50%,_transparent)]",
+      secondary:
+        "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-secondary-solid)_50%,_transparent)]",
+      accent:
+        "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-accent-solid)_50%,_transparent)]",
+    };
 
-  const classes = [
-    baseStyles,
-    variants[variant],
-    sizes[size],
-    fullWidth ? "w-full" : "",
-    loading ? "opacity-80 pointer-events-none" : "",
-    glow ? glowStyles[glow] : "",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+    const classes = [
+      baseStyles,
+      variants[variant],
+      sizes[size],
+      fullWidth ? "w-full" : "",
+      loading ? "opacity-80 pointer-events-none" : "",
+      glow ? glowStyles[glow] : "",
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
 
-  const ComponentAny = Component as any;
-  const componentRef = ref as React.Ref<any>;
+    const ComponentAny = Component as React.ElementType;
+    const componentRef = ref as React.Ref<ButtonElement>;
 
-  return (
-    <ComponentAny ref={componentRef} className={classes} {...elementProps}>
-      {loading && (
-        <span className="spinner inline-block w-4 h-4 border-2 border-transparent border-t-current rounded-full animate-spin" />
-      )}
-      {leftIcon && <span className="flex-shrink-0">{leftIcon}</span>}
-      {children}
-      {rightIcon && <span className="flex-shrink-0">{rightIcon}</span>}
-    </ComponentAny>
-  );
-});
+    return (
+      <ComponentAny ref={componentRef} className={classes} {...elementProps}>
+        {loading && (
+          <span className="spinner inline-block w-4 h-4 border-2 border-transparent border-t-current rounded-full animate-spin" />
+        )}
+        {leftIcon && <span className="flex-shrink-0">{leftIcon}</span>}
+        {children}
+        {rightIcon && <span className="flex-shrink-0">{rightIcon}</span>}
+      </ComponentAny>
+    );
+  },
+);
 
 Button.displayName = "Button";
 export default Button;
