@@ -8,6 +8,53 @@ export const fr = {
     subtitle:
       "Un système de design découvert dans une archive futuriste cachée sous la neige.",
   },
+  demo: {
+    navLabel: "Sections",
+    background: "Arrière-plan",
+    customCursor: "Curseur personnalisé",
+    backgrounds: {
+      topography: "Topographie",
+      particles: "Particules",
+      none: "Aucun",
+    },
+    sections: {
+      actions: {
+        title: "Actions",
+        description:
+          "Boutons, badges, avatars et infobulles pour les actions courantes de l'interface.",
+      },
+      forms: {
+        title: "Formulaires",
+        description:
+          "Champs et contrôles partageant la même surface en verre et la même lueur de focus.",
+      },
+      display: {
+        title: "Affichage des données",
+        description:
+          "Onglets, accordéons et indicateurs de progression pour du contenu structuré.",
+      },
+      feedback: {
+        title: "Retours",
+        description:
+          "Toasts, modales et chargeurs qui réagissent à l'action de l'utilisateur.",
+      },
+      cards: {
+        title: "Cartes",
+        description:
+          "Survolez une carte : la lueur suit doucement votre curseur et les icônes terminent leur animation.",
+      },
+      layout: {
+        title: "Disposition",
+        description:
+          "Structures de navigation qui passent en bande horizontale sur petits écrans.",
+      },
+    },
+    footer: {
+      components: "Composants",
+      project: "Projet",
+      rights: "© 2026 Dara UI",
+    },
+  },
   navbar: {
     home: "Accueil",
     explore: "Explorer",
@@ -310,6 +357,7 @@ export const fr = {
     outlineCard: "Carte contour",
     primaryGlow: "Lueur Primaire",
     secondaryGlow: "Lueur Secondaire",
+    accentGlow: "Lueur Accent",
     launch: "Lancer",
     analytics: "Analyses",
     deployProject: "Déployez votre projet en un clic.",

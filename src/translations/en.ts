@@ -8,6 +8,53 @@ export const en = {
     subtitle:
       "A design system discovered inside a futuristic archive hidden beneath during a snowstorm.",
   },
+  demo: {
+    navLabel: "Sections",
+    background: "Background",
+    customCursor: "Custom cursor",
+    backgrounds: {
+      topography: "Topography",
+      particles: "Particles",
+      none: "None",
+    },
+    sections: {
+      actions: {
+        title: "Actions",
+        description:
+          "Buttons, badges, avatars and tooltips for everyday interface actions.",
+      },
+      forms: {
+        title: "Forms",
+        description:
+          "Inputs and controls that share the same glass surface and focus glow.",
+      },
+      display: {
+        title: "Data display",
+        description:
+          "Tabs, accordions and progress indicators for structured content.",
+      },
+      feedback: {
+        title: "Feedback",
+        description:
+          "Toasts, modals and loaders that react to what the user just did.",
+      },
+      cards: {
+        title: "Cards",
+        description:
+          "Hover any card: the glow eases toward your cursor and icons finish their pop.",
+      },
+      layout: {
+        title: "Layout",
+        description:
+          "Navigation structures that switch to a horizontal strip on small screens.",
+      },
+    },
+    footer: {
+      components: "Components",
+      project: "Project",
+      rights: "© 2026 Dara UI",
+    },
+  },
   navbar: {
     home: "Home",
     explore: "Explore",
