@@ -70,6 +70,9 @@ export type {
   SocialLink,
 } from "./components/SocialMedia/SocialMedia";
 
+export { BackToTop } from "./components/BackToTop/BackToTop";
+export type { BackToTopProps } from "./components/BackToTop/BackToTop";
+
 // ----- Toast -----
 export {
   Toast,
@@ -197,7 +200,7 @@ export { default as useDirection } from "./hooks/useDirection";
 export type { Direction } from "./hooks/useDirection";
 
 // ----- Metadata -----
-export const version = "0.1.0";
+export const version = "0.6.0";
 
 // ----- Deafult Icons -----
 export * from "./components/Icons";
