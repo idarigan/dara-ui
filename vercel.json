@@ -4,5 +4,10 @@
   "outputDirectory": "storybook-static",
   "framework": null,
   "installCommand": "npm install",
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/((?!.*\\.(?:svg|ico|png|jpg|jpeg|gif|webp|woff2?|css|js|json)).*)",
+      "destination": "/index.html"
+    }
+  ]
 }

@@ -1,0 +1,63 @@
+<svg viewBox="296.96 116.736 536.576 733.184" xmlns="http://www.w3.org/2000/svg" style="max-height: 500px" width="536.576" height="733.184">
+  <defs>
+    <linearGradient y2="1" x2="0.88" y1="0.02" x1="0.08" id="doorFace">
+      <stop stop-color="#253b86" offset="0"/>
+      <stop stop-color="#111b45" offset="0.48"/>
+      <stop stop-color="#080d25" offset="1"/>
+    </linearGradient>
+    <linearGradient y2="1" x2="1" y1="0" x1="0" id="doorSheen">
+      <stop stop-opacity=".48" stop-color="#8bbcff" offset="0"/>
+      <stop stop-opacity=".12" stop-color="#6b8dff" offset=".52"/>
+      <stop stop-opacity="0" stop-color="#07102c" offset="1"/>
+    </linearGradient>
+    <linearGradient y2="0" x2="1" y1="0" x1="0" id="edge">
+      <stop stop-color="#315cff" offset="0"/>
+      <stop stop-color="#27d9ff" offset=".55"/>
+      <stop stop-color="#d34cff" offset="1"/>
+    </linearGradient>
+    <linearGradient y2="1" x2="0.9" y1="0" x1="0" id="portal">
+      <stop stop-color="#a23cff" offset="0"/>
+      <stop stop-color="#19cfff" offset=".48"/>
+      <stop stop-color="#f02ebc" offset="1"/>
+    </linearGradient>
+    <linearGradient y2="1" x2="0" y1="0" x1="0" id="handle">
+      <stop stop-color="#21eaff" offset="0"/>
+      <stop stop-color="#8c5cff" offset=".5"/>
+      <stop stop-color="#ff39c7" offset="1"/>
+    </linearGradient>
+    <radialGradient r="50%" cy="50%" cx="50%" id="floorGlow">
+      <stop stop-opacity=".55" stop-color="#e84bff" offset="0"/>
+      <stop stop-opacity=".28" stop-color="#765cff" offset=".48"/>
+      <stop stop-opacity="0" stop-color="#22d9ff" offset="1"/>
+    </radialGradient>
+    <filter height="240%" width="240%" y="-70%" x="-70%" id="blurGlow">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+    <filter height="220%" width="220%" y="-60%" x="-60%" id="softGlow">
+      <feGaussianBlur result="b" stdDeviation="10"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter height="260%" width="260%" y="-80%" x="-80%" id="smallGlow">
+      <feGaussianBlur result="b" stdDeviation="5"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  
+  <path filter="url(#softGlow)" stroke-width="10" stroke="#573cff" fill="#0a1030" d="M548 205 Q548 178 576 178 L779 178 Q810 178 810 209 L810 747 Q810 777 780 777 L548 777 Z"/>
+  <path filter="url(#smallGlow)" fill="url(#portal)" d="M576 207 L753 207 Q779 207 779 233 L779 744 L576 744 Z"/>
+  <path filter="url(#smallGlow)" opacity=".92" stroke-width="5" stroke="#fff0ff" fill="none" d="M576 207 L753 207 Q779 207 779 233 L779 744"/>
+  <path filter="url(#softGlow)" opacity=".55" stroke-width="12" stroke="#d78bff" fill="none" d="M576 207 L753 207 Q779 207 779 233"/>
+  <path filter="url(#softGlow)" opacity=".65" stroke-width="8" stroke="#23dcff" d="M779 233 L779 744"/>
+
+  
+  <path filter="url(#softGlow)" stroke-linejoin="round" stroke-width="9" stroke="url(#edge)" fill="url(#doorFace)" d="M325 240 Q325 211 353 202 L586 135 Q615 127 615 158 L615 810 Q615 839 586 831 L350 764 Q325 757 325 729 Z"/>
+  <path opacity=".8" fill="url(#doorSheen)" d="M337 245 Q337 222 359 215 L598 148 L598 470 L337 700 Z"/>
+  <path opacity=".7" stroke-width="5" stroke="#a5c8ff" fill="none" d="M337 245 Q337 222 359 215 L598 148"/>
+  <path filter="url(#smallGlow)" opacity=".75" stroke-width="5" stroke="#26dfff" fill="none" d="M337 729 L586 801 Q598 805 598 791"/>
+  <path filter="url(#smallGlow)" opacity=".9" stroke-width="4" stroke="#f4baff" d="M615 158 L615 810"/>
+
+  
+  <rect filter="url(#softGlow)" stroke-width="3" stroke="#b9faff" fill="url(#handle)" rx="19" height="132" width="43" y="437" x="519"/>
+  <path opacity=".9" stroke-linecap="round" stroke-width="4" stroke="#fff" d="M531 449 Q531 444 537 444"/>
+</svg>

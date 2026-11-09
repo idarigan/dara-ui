@@ -701,8 +701,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div className={`flex flex-col w-full h-full min-h-0 ${className}`}>
         {/* ===== Tab strip / navbar ===== */}
         <div className="relative flex items-stretch gap-2 px-4 pt-4 flex-shrink-0">
-          {/* LEFT / START arrow — scrolls back toward the first item, and
-              hides itself once there's nothing further back to reveal */}
           <button
             type="button"
             onClick={() => scrollBy("start")}
@@ -1103,7 +1101,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
           {collapsible && (
             <div
-              className={`px-3 pb-3 ${isCollapsed ? "flex justify-center" : ""}`}
+              className={`px-3 py-3 ${isCollapsed ? "flex justify-center" : ""}`}
             >
               <button
                 onClick={toggleCollapse}

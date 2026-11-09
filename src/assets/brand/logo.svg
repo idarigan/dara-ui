@@ -1,71 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+<svg viewBox="296.96 116.736 536.576 733.184" xmlns="http://www.w3.org/2000/svg" style="max-height: 500px" width="536.576" height="733.184">
   <defs>
-    <linearGradient id="doorFace" x1="0.08" y1="0.02" x2="0.88" y2="1">
-      <stop offset="0" stop-color="#253b86"/>
-      <stop offset="0.48" stop-color="#111b45"/>
-      <stop offset="1" stop-color="#080d25"/>
+    <linearGradient y2="1" x2="0.88" y1="0.02" x1="0.08" id="doorFace">
+      <stop stop-color="#253b86" offset="0"/>
+      <stop stop-color="#111b45" offset="0.48"/>
+      <stop stop-color="#080d25" offset="1"/>
     </linearGradient>
-    <linearGradient id="doorSheen" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#8bbcff" stop-opacity=".48"/>
-      <stop offset=".52" stop-color="#6b8dff" stop-opacity=".12"/>
-      <stop offset="1" stop-color="#07102c" stop-opacity="0"/>
+    <linearGradient y2="1" x2="1" y1="0" x1="0" id="doorSheen">
+      <stop stop-opacity=".48" stop-color="#8bbcff" offset="0"/>
+      <stop stop-opacity=".12" stop-color="#6b8dff" offset=".52"/>
+      <stop stop-opacity="0" stop-color="#07102c" offset="1"/>
     </linearGradient>
-    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#315cff"/>
-      <stop offset=".55" stop-color="#27d9ff"/>
-      <stop offset="1" stop-color="#d34cff"/>
+    <linearGradient y2="0" x2="1" y1="0" x1="0" id="edge">
+      <stop stop-color="#315cff" offset="0"/>
+      <stop stop-color="#27d9ff" offset=".55"/>
+      <stop stop-color="#d34cff" offset="1"/>
     </linearGradient>
-    <linearGradient id="portal" x1="0" y1="0" x2="0.9" y2="1">
-      <stop offset="0" stop-color="#a23cff"/>
-      <stop offset=".48" stop-color="#19cfff"/>
-      <stop offset="1" stop-color="#f02ebc"/>
+    <linearGradient y2="1" x2="0.9" y1="0" x1="0" id="portal">
+      <stop stop-color="#a23cff" offset="0"/>
+      <stop stop-color="#19cfff" offset=".48"/>
+      <stop stop-color="#f02ebc" offset="1"/>
     </linearGradient>
-    <linearGradient id="handle" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#21eaff"/>
-      <stop offset=".5" stop-color="#8c5cff"/>
-      <stop offset="1" stop-color="#ff39c7"/>
+    <linearGradient y2="1" x2="0" y1="0" x1="0" id="handle">
+      <stop stop-color="#21eaff" offset="0"/>
+      <stop stop-color="#8c5cff" offset=".5"/>
+      <stop stop-color="#ff39c7" offset="1"/>
     </linearGradient>
-    <radialGradient id="floorGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0" stop-color="#e84bff" stop-opacity=".55"/>
-      <stop offset=".48" stop-color="#765cff" stop-opacity=".28"/>
-      <stop offset="1" stop-color="#22d9ff" stop-opacity="0"/>
+    <radialGradient r="50%" cy="50%" cx="50%" id="floorGlow">
+      <stop stop-opacity=".55" stop-color="#e84bff" offset="0"/>
+      <stop stop-opacity=".28" stop-color="#765cff" offset=".48"/>
+      <stop stop-opacity="0" stop-color="#22d9ff" offset="1"/>
     </radialGradient>
-    <filter id="blurGlow" x="-70%" y="-70%" width="240%" height="240%">
+    <filter height="240%" width="240%" y="-70%" x="-70%" id="blurGlow">
       <feGaussianBlur stdDeviation="28"/>
     </filter>
-    <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
-      <feGaussianBlur stdDeviation="10" result="b"/>
+    <filter height="220%" width="220%" y="-60%" x="-60%" id="softGlow">
+      <feGaussianBlur result="b" stdDeviation="10"/>
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="smallGlow" x="-80%" y="-80%" width="260%" height="260%">
-      <feGaussianBlur stdDeviation="5" result="b"/>
+    <filter height="260%" width="260%" y="-80%" x="-80%" id="smallGlow">
+      <feGaussianBlur result="b" stdDeviation="5"/>
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
 
-  <!-- Rear frame -->
-  <path d="M548 205 Q548 178 576 178 L779 178 Q810 178 810 209 L810 747 Q810 777 780 777 L548 777 Z"
-        fill="#0a1030" stroke="#573cff" stroke-width="10" filter="url(#softGlow)"/>
-  <path d="M576 207 L753 207 Q779 207 779 233 L779 744 L576 744 Z"
-        fill="url(#portal)" filter="url(#smallGlow)"/>
-  <path d="M576 207 L753 207 Q779 207 779 233 L779 744"
-        fill="none" stroke="#fff0ff" stroke-width="5" opacity=".92" filter="url(#smallGlow)"/>
-  <path d="M576 207 L753 207 Q779 207 779 233"
-        fill="none" stroke="#d78bff" stroke-width="12" opacity=".55" filter="url(#softGlow)"/>
-  <path d="M779 233 L779 744" stroke="#23dcff" stroke-width="8" opacity=".65" filter="url(#softGlow)"/>
+  
+  <path filter="url(#softGlow)" stroke-width="10" stroke="#573cff" fill="#0a1030" d="M548 205 Q548 178 576 178 L779 178 Q810 178 810 209 L810 747 Q810 777 780 777 L548 777 Z"/>
+  <path filter="url(#smallGlow)" fill="url(#portal)" d="M576 207 L753 207 Q779 207 779 233 L779 744 L576 744 Z"/>
+  <path filter="url(#smallGlow)" opacity=".92" stroke-width="5" stroke="#fff0ff" fill="none" d="M576 207 L753 207 Q779 207 779 233 L779 744"/>
+  <path filter="url(#softGlow)" opacity=".55" stroke-width="12" stroke="#d78bff" fill="none" d="M576 207 L753 207 Q779 207 779 233"/>
+  <path filter="url(#softGlow)" opacity=".65" stroke-width="8" stroke="#23dcff" d="M779 233 L779 744"/>
 
-  <!-- Door silhouette -->
-  <path d="M325 240 Q325 211 353 202 L586 135 Q615 127 615 158 L615 810 Q615 839 586 831 L350 764 Q325 757 325 729 Z"
-        fill="url(#doorFace)" stroke="url(#edge)" stroke-width="9" stroke-linejoin="round" filter="url(#softGlow)"/>
-  <path d="M337 245 Q337 222 359 215 L598 148 L598 470 L337 700 Z"
-        fill="url(#doorSheen)" opacity=".8"/>
-  <path d="M337 245 Q337 222 359 215 L598 148"
-        fill="none" stroke="#a5c8ff" stroke-width="5" opacity=".7"/>
-  <path d="M337 729 L586 801 Q598 805 598 791"
-        fill="none" stroke="#26dfff" stroke-width="5" opacity=".75" filter="url(#smallGlow)"/>
-  <path d="M615 158 L615 810" stroke="#f4baff" stroke-width="4" opacity=".9" filter="url(#smallGlow)"/>
+  
+  <path filter="url(#softGlow)" stroke-linejoin="round" stroke-width="9" stroke="url(#edge)" fill="url(#doorFace)" d="M325 240 Q325 211 353 202 L586 135 Q615 127 615 158 L615 810 Q615 839 586 831 L350 764 Q325 757 325 729 Z"/>
+  <path opacity=".8" fill="url(#doorSheen)" d="M337 245 Q337 222 359 215 L598 148 L598 470 L337 700 Z"/>
+  <path opacity=".7" stroke-width="5" stroke="#a5c8ff" fill="none" d="M337 245 Q337 222 359 215 L598 148"/>
+  <path filter="url(#smallGlow)" opacity=".75" stroke-width="5" stroke="#26dfff" fill="none" d="M337 729 L586 801 Q598 805 598 791"/>
+  <path filter="url(#smallGlow)" opacity=".9" stroke-width="4" stroke="#f4baff" d="M615 158 L615 810"/>
 
-  <!-- Handle -->
-  <rect x="519" y="437" width="43" height="132" rx="19" fill="url(#handle)" stroke="#b9faff" stroke-width="3" filter="url(#softGlow)"/>
-  <path d="M531 449 Q531 444 537 444" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+  
+  <rect filter="url(#softGlow)" stroke-width="3" stroke="#b9faff" fill="url(#handle)" rx="19" height="132" width="43" y="437" x="519"/>
+  <path opacity=".9" stroke-linecap="round" stroke-width="4" stroke="#fff" d="M531 449 Q531 444 537 444"/>
 </svg>

@@ -241,7 +241,7 @@ export const AsLink: Story = {
   args: {
     as: "a",
     children: "Visit Dara UI",
-    href: "https://dara-ui.vercel.app",
+    href: "https://dara-ui-d.vercel.app",
     target: "_blank",
     rel: "noopener noreferrer",
     variant: "primary",
