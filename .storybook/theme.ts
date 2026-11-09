@@ -1,14 +1,12 @@
 import { create } from "@storybook/theming/create";
 
-const logo = `<svg xmlns="http://www.w3.org/2000/svg" width="168" height="40" viewBox="0 0 168 40"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><rect x="2" y="4" width="32" height="32" rx="10" fill="url(#g)"/><path d="M12 11h6.5a9 9 0 0 1 0 18H12z M16 15v10h2.5a5 5 0 0 0 0-10z" fill="#ffffff" fill-rule="evenodd"/><text x="44" y="27" font-family="Space Grotesk, Inter, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="1" fill="#f1f5f9">DARA UI</text></svg>`;
-
 export const daraTheme = create({
   base: "dark",
 
   // ----- Brand -----
   brandTitle: "Dara UI",
   brandUrl: "https://dara-ui-d.vercel.app",
-  brandImage: `data:image/svg+xml,${encodeURIComponent(logo)}`,
+  brandImage: "/logo.svg",
   brandTarget: "_self",
 
   // ----- Colors -----
