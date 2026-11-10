@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 
 export interface BackToTopProps {
   /**
-   * Scroll distance in pixels before the button appears, 0 keeps it always visible
+   * Scroll distance in pixels before the button appears, it always stays hidden at the very top of the page
    * @default 0
    */
   showAfter?: number;
@@ -50,7 +50,7 @@ export const BackToTop: React.FC<BackToTopProps> = ({
   label = "Back to top",
   className = "",
 }) => {
-  const [visible, setVisible] = useState(showAfter <= 0);
+  const [visible, setVisible] = useState(false);
   const [isRTL, setIsRTL] = useState(false);
 
   // Live RTL detection
@@ -66,7 +66,7 @@ export const BackToTop: React.FC<BackToTopProps> = ({
   }, []);
 
   useEffect(() => {
-    const update = () => setVisible(window.scrollY >= showAfter);
+    const update = () => setVisible(window.scrollY > Math.max(showAfter, 16));
     update();
     window.addEventListener("scroll", update, { passive: true });
     return () => window.removeEventListener("scroll", update);
