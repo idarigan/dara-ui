@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, DocsIcon, useI18n } from "../index";
 
 // ============================================
@@ -13,14 +13,38 @@ interface DocsLinkProps {
 export const DocsLink: React.FC<DocsLinkProps> = ({ href, className = "" }) => {
   const { t, dir } = useI18n();
   const side = dir === "rtl" ? "right" : "left";
+  const [visible, setVisible] = useState(true);
+
+  // Fade out near the page bottom
+  useEffect(() => {
+    const update = () => {
+      const distance =
+        document.documentElement.scrollHeight -
+        (window.innerHeight + window.scrollY);
+      setVisible(distance > 160);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
 
   return (
     <div
-      className={`fixed z-[45] ${className}`}
+      className={`
+        fixed z-[45]
+        transition-all duration-300 ease-[var(--ease-in-out)]
+        ${visible ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"}
+        ${className}
+      `}
       style={{
         bottom: "max(24px, env(safe-area-inset-bottom))",
         [side]: 24,
       }}
+      inert={!visible}
     >
       <Button
         as="a"
