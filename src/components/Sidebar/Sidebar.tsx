@@ -6,6 +6,13 @@ import React, {
   useMemo,
 } from "react";
 
+// ============================================
+// SURFACE
+// ============================================
+
+const surfaceBackground =
+  "linear-gradient(145deg, color-mix(in srgb, var(--color-bg-elevated) 82%, transparent), color-mix(in srgb, var(--color-bg-tertiary) 55%, transparent))";
+
 export interface SidebarItem {
   /**
    * Unique identifier for the item
@@ -1021,7 +1028,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
         className={`
           ${positionClasses}
           h-full
-          bg-[var(--color-bg-secondary)]/95
           backdrop-blur-[20px]
           transition-all duration-300 ease-[var(--ease-in-out)]
           flex flex-col
@@ -1030,6 +1036,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           ${fixed ? "" : "shadow-[var(--shadow-float)]"}
         `}
         style={{
+          background: surfaceBackground,
           width: isCollapsed ? collapsedWidth : expandedWidth,
           [isRTL ? "right" : "left"]: fixed ? 0 : "auto",
           flexShrink: 0,
@@ -1103,7 +1110,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
           {collapsible && (
             <div
-              className={`px-3 pb-3 ${isCollapsed ? "flex justify-center" : ""}`}
+              className={`px-3 py-3 ${isCollapsed ? "flex justify-center" : ""}`}
             >
               <button
                 onClick={toggleCollapse}
