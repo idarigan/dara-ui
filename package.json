@@ -51,6 +51,7 @@
     "build:css": "tailwindcss -i src/styles/index.css -o build/style.css --minify",
     "build": "npm run build:css && tsc -b && cross-env DARA_LIB_BUILD=1 vite build",
     "build:demo": "tsc -b && vite build --outDir dara-ui-demo --emptyOutDir",
+    "build:site": "npm run build:demo && storybook build -o dara-ui-demo/storybook",
     "deploy-demo": "npm run build:demo && vercel deploy dara-ui-demo --prod --yes",
     "pack:check": "npm run build && npm pack --dry-run",
     "preview": "vite preview",

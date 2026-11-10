@@ -48,7 +48,9 @@ const sectionIds = [
 
 const backgroundValues = ["topography", "particles", "none"] as const;
 
-const STORYBOOK_URL = "https://dara-ui.vercel.app";
+const STORYBOOK_URL = import.meta.env.DEV
+  ? "http://localhost:6006"
+  : "/storybook/";
 
 const brand = (
   <span
