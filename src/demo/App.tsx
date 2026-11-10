@@ -48,7 +48,7 @@ const sectionIds = [
 
 const backgroundValues = ["topography", "particles", "none"] as const;
 
-const STORYBOOK_URL = "https://dara-ui-d.vercel.app";
+const STORYBOOK_URL = "https://dara-ui.vercel.app";
 
 const brand = (
   <span
