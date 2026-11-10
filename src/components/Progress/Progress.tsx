@@ -379,6 +379,8 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
               viewBox={`0 0 ${actualSize} ${actualSize}`}
               aria-hidden="true"
               style={{
+                position: "absolute",
+                display: "block",
                 overflow: "visible",
                 filter: "blur(6px)",
                 opacity: 0.55,
@@ -406,6 +408,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
             className="relative w-full h-full"
             viewBox={`0 0 ${actualSize} ${actualSize}`}
             aria-hidden="true"
+            style={{ position: "relative", display: "block" }}
           >
             <defs>
               {/* Gradient for the main ring */}
