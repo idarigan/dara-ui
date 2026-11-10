@@ -403,7 +403,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
           )}
 
           <svg
-            className="absolute w-full h-full"
+            className="relative w-full h-full"
             viewBox={`0 0 ${actualSize} ${actualSize}`}
             aria-hidden="true"
           >
