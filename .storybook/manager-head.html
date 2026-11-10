@@ -1,2 +1,32 @@
 <title>Dara UI</title>
 <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+
+<style>
+  /* ----- Brand ----- */
+  a:has(img[alt="Dara UI"]) {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+
+  a:has(img[alt="Dara UI"]) img {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    max-width: 30px !important;
+    max-height: 30px !important;
+    object-fit: contain !important;
+    flex: 0 0 30px !important;
+  }
+
+  a:has(img[alt="Dara UI"])::after {
+    content: "Dara UI";
+    font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: #f1f5f9;
+    white-space: nowrap;
+  }
+</style>
