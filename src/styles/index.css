@@ -89,8 +89,8 @@ input::-ms-clear {
 /* ----- Standard Glass ----- */
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
   border: 1px solid var(--glass-border-strong);
   outline: 1px solid var(--glass-outline);
   box-shadow:
@@ -114,8 +114,8 @@ button.glass {
 /* ----- Heavy Glass (blur: 30px, more opaque) ----- */
 .glass-heavy {
   background: var(--glass-bg);
-  backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
   border: 1px solid var(--glass-border-strong);
   outline: 1px solid var(--glass-outline);
   box-shadow:
@@ -128,8 +128,8 @@ button.glass {
 /* ----- Solid Glass (less blur, more opaque) ----- */
 .glass-solid {
   background: var(--glass-bg);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   border: 1px solid var(--glass-border-strong);
   outline: 1px solid var(--glass-outline);
   box-shadow:
@@ -142,8 +142,8 @@ button.glass {
 /* ----- Outline Glass (transparent, border only) ----- */
 .glass-outline {
   background: transparent;
-  backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   border: 1px solid var(--glass-border-strong);
   outline: 1px solid var(--glass-outline);
   box-shadow: none;
