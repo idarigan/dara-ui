@@ -95,12 +95,12 @@ export interface DropdownProps {
 
 const menuSurface: React.CSSProperties = {
   background:
-    "linear-gradient(145deg, color-mix(in srgb, var(--color-bg-elevated) 90%, transparent), color-mix(in srgb, var(--color-bg-tertiary) 78%, transparent))",
-  backdropFilter: "blur(14px)",
-  WebkitBackdropFilter: "blur(14px)",
+    "linear-gradient(145deg, color-mix(in srgb, var(--color-bg-elevated) 82%, transparent), color-mix(in srgb, var(--color-bg-tertiary) 55%, transparent))",
+  backdropFilter: "blur(18px)",
+  WebkitBackdropFilter: "blur(18px)",
   border: "1px solid var(--glass-border-strong)",
   boxShadow:
-    "0 8px 26px rgba(0,0,0,0.16), inset 0 1px 0 var(--glass-highlight)",
+    "0 12px 34px rgba(0,0,0,0.2), inset 0 1px 0 var(--glass-highlight)",
 };
 
 export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
