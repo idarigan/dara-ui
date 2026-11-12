@@ -21,7 +21,7 @@ import {
   translations,
   useI18n,
 } from "../index";
-import type { NavLink } from "../index";
+import type { LanguageOption, NavLink } from "../index";
 import { DocsLink } from "./DocsLink";
 import { DocsNav } from "./DocsNav";
 import { demoControls } from "./demoControls";
@@ -70,6 +70,16 @@ const appTranslations = {
   fa: { ...translations.fa, ...demoControls.fa },
   fr: { ...translations.fr, ...demoControls.fr },
 };
+
+// ============================================
+// LANGUAGES
+// ============================================
+
+const languages: LanguageOption[] = [
+  { value: "fa", label: "فارسی", dir: "rtl" },
+  { value: "en", label: "English", dir: "ltr" },
+  { value: "fr", label: "Français", dir: "ltr" },
+];
 
 // ============================================
 // BACKGROUND MAPPING
@@ -265,7 +275,11 @@ function Shell() {
 function App() {
   return (
     <ToastProvider>
-      <I18nProvider translations={appTranslations} defaultLanguage="en">
+      <I18nProvider
+        translations={appTranslations}
+        languages={languages}
+        defaultLanguage="fa"
+      >
         <ThemeProvider defaultTheme="nightfall">
           <PageLoaderProvider>
             <Shell />
