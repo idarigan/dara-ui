@@ -49,7 +49,7 @@ export const Preview: React.FC<PreviewProps> = ({
   grid = false,
   children,
 }) => (
-  <div className="glass hover:z-20 focus-within:z-20">
+  <div className="glass focus-within:z-20">
     <div className="px-5 py-3 border-b border-[var(--color-border-secondary)]">
       <h3 className="font-heading text-sm font-semibold text-[var(--color-text-primary)]">
         {title}
