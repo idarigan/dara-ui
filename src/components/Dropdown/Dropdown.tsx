@@ -89,6 +89,20 @@ export interface DropdownProps {
   errorMessage?: string;
 }
 
+// ============================================
+// GLASS SURFACE
+// ============================================
+
+const menuSurface: React.CSSProperties = {
+  background:
+    "linear-gradient(145deg, color-mix(in srgb, var(--color-bg-elevated) 90%, transparent), color-mix(in srgb, var(--color-bg-tertiary) 78%, transparent))",
+  backdropFilter: "blur(14px)",
+  WebkitBackdropFilter: "blur(14px)",
+  border: "1px solid var(--glass-border-strong)",
+  boxShadow:
+    "0 8px 26px rgba(0,0,0,0.16), inset 0 1px 0 var(--glass-highlight)",
+};
+
 export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
   (
     {
@@ -310,8 +324,8 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
           {/* Dropdown Menu */}
           <div
             className={`
-              z-50 w-full mt-1.5 glass max-h-60 overflow-auto
-              rounded-[var(--radius-md)] py-1 shadow-[var(--shadow-float)]
+              z-50 w-full mt-1.5 max-h-60 overflow-auto
+              rounded-[var(--radius-md)] py-1
               transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
               ${
                 isOpen
@@ -319,7 +333,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                   : "opacity-0 -translate-y-2 pointer-events-none"
               }
             `}
-            style={{ position: "absolute" }}
+            style={{ ...menuSurface, position: "absolute" }}
           >
             {/* Search Input */}
             {searchable && (
