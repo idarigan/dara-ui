@@ -171,12 +171,14 @@ function Shell() {
               value={background}
               onChange={setBackground}
             />
-            <Switch
-              label={t("demo.customCursor")}
-              checked={cursor}
-              onCheckedChange={setCursor}
-              glow
-            />
+            <div className="hidden md:block">
+              <Switch
+                label={t("demo.customCursor")}
+                checked={cursor}
+                onCheckedChange={setCursor}
+                glow
+              />
+            </div>
             {background !== "none" && (
               <>
                 <Range
