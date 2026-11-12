@@ -43,7 +43,11 @@ export const FormsSection = () => {
           placeholder={t("inputs.enterEmail")}
           helperText={t("inputs.emailHelper")}
         />
-        <Input type="password" placeholder={t("inputs.password")} />
+        <Input
+          label={t("inputs.password")}
+          type="password"
+          placeholder={t("inputs.password")}
+        />
         <Input
           placeholder={t("inputs.success")}
           validation="success"
