@@ -1,4 +1,12 @@
-import React, { useState, useRef, useEffect, useCallback, useId } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+  useMemo,
+  useId,
+} from "react";
 
 export interface DropdownOption {
   /**
@@ -92,16 +100,29 @@ export interface DropdownProps {
 // ============================================
 // GLASS SURFACE
 // ============================================
-
 const menuSurface: React.CSSProperties = {
-  background:
-    "linear-gradient(145deg, color-mix(in srgb, var(--color-bg-elevated) 82%, transparent), color-mix(in srgb, var(--color-bg-tertiary) 55%, transparent))",
-  backdropFilter: "blur(18px)",
-  WebkitBackdropFilter: "blur(18px)",
+  backgroundColor: "var(--color-bg-secondary)",
+  background: "color-mix(in srgb, var(--color-bg-secondary) 95%, transparent)",
+  backdropFilter: "blur(14px) saturate(130%)",
+  WebkitBackdropFilter: "blur(14px) saturate(130%)",
   border: "1px solid var(--glass-border-strong)",
+  outline: "1px solid var(--glass-outline)",
   boxShadow:
-    "0 12px 34px rgba(0,0,0,0.2), inset 0 1px 0 var(--glass-highlight)",
+    "0 8px 26px color-mix(in srgb, var(--shadow-color) 22%, transparent), inset 0 1px 0 var(--glass-highlight)",
 };
+
+const selectionSurface: React.CSSProperties = {
+  background: "var(--glass-bg)",
+  border: "1px solid var(--glass-border-strong)",
+};
+
+type MenuPlacement = "top" | "bottom";
+
+interface IndicatorPosition {
+  top: number;
+  height: number;
+  visible: boolean;
+}
 
 export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
   (
@@ -131,9 +152,18 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
     );
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
+    const [activeIndex, setActiveIndex] = useState(-1);
+    const [menuPlacement, setMenuPlacement] = useState<MenuPlacement>("bottom");
+    const [indicator, setIndicator] = useState<IndicatorPosition>({
+      top: 0,
+      height: 0,
+      visible: false,
+    });
 
     const dropdownRef = useRef<HTMLDivElement>(null);
     const searchInputRef = useRef<HTMLInputElement>(null);
+    const optionsListRef = useRef<HTMLDivElement>(null);
+    const typeaheadRef = useRef({ value: "", time: 0 });
 
     const selectedValue = isControlled ? controlledValue : internalValue;
 
@@ -141,57 +171,246 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
     const selectedOption = options.find((opt) => opt.value === selectedValue);
 
     // Filter options based on search term
-    const filteredOptions = searchable
-      ? options.filter((opt) =>
-          opt.label.toLowerCase().includes(searchTerm.toLowerCase()),
-        )
-      : options;
+    const filteredOptions = useMemo(
+      () =>
+        searchable
+          ? options.filter((opt) =>
+              opt.label.toLowerCase().includes(searchTerm.toLowerCase()),
+            )
+          : options,
+      [options, searchable, searchTerm],
+    );
 
     const dropdownId = useId();
+    const triggerId = `${dropdownId}-trigger`;
+    const labelId = `${dropdownId}-label`;
+    const listboxId = `${dropdownId}-listbox`;
+
+    const selectedIndex = filteredOptions.findIndex(
+      (option) => option.value === selectedValue,
+    );
+
+    const getFirstEnabledIndex = useCallback(
+      (items: DropdownOption[]) =>
+        items.findIndex((option) => !option.disabled),
+      [],
+    );
+
+    const getLastEnabledIndex = useCallback((items: DropdownOption[]) => {
+      for (let index = items.length - 1; index >= 0; index -= 1) {
+        if (!items[index].disabled) return index;
+      }
+      return -1;
+    }, []);
+
+    // Open dropdown and determine its position
+    const openDropdown = useCallback(() => {
+      if (disabled || isOpen) return;
+
+      const trigger = dropdownRef.current?.querySelector("button");
+      if (trigger) {
+        const rect = trigger.getBoundingClientRect();
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+
+        setMenuPlacement(
+          spaceBelow < 260 && spaceAbove > spaceBelow ? "top" : "bottom",
+        );
+      }
+
+      setSearchTerm("");
+      setActiveIndex(
+        selectedIndex >= 0
+          ? selectedIndex
+          : getFirstEnabledIndex(filteredOptions),
+      );
+      setIsOpen(true);
+    }, [
+      disabled,
+      isOpen,
+      selectedIndex,
+      getFirstEnabledIndex,
+      filteredOptions,
+    ]);
+
+    // Close dropdown
+    const closeDropdown = useCallback(() => {
+      setIsOpen(false);
+      setSearchTerm("");
+      setIndicator((current) => ({ ...current, visible: false }));
+    }, []);
 
     // Toggle dropdown
     const toggleDropdown = useCallback(() => {
-      if (!disabled) {
-        setIsOpen((prev) => !prev);
-        if (!isOpen) {
-          setSearchTerm("");
-        }
+      if (disabled) return;
+
+      if (isOpen) {
+        closeDropdown();
+      } else {
+        openDropdown();
       }
-    }, [disabled, isOpen]);
+    }, [disabled, isOpen, closeDropdown, openDropdown]);
 
     // Select an option
     const selectOption = useCallback(
-      (value: string) => {
+      (option: DropdownOption) => {
+        if (option.disabled) return;
+
         if (!isControlled) {
-          setInternalValue(value);
+          setInternalValue(option.value);
         }
-        onChange?.(value);
-        setIsOpen(false);
-        setSearchTerm("");
+
+        onChange?.(option.value);
+        closeDropdown();
       },
-      [isControlled, onChange],
+      [isControlled, onChange, closeDropdown],
+    );
+
+    // Move the active option while skipping disabled options
+    const moveActiveOption = useCallback(
+      (direction: 1 | -1) => {
+        if (filteredOptions.length === 0) return;
+
+        let nextIndex = activeIndex;
+
+        for (let step = 0; step < filteredOptions.length; step += 1) {
+          nextIndex += direction;
+
+          if (nextIndex < 0) {
+            nextIndex = filteredOptions.length - 1;
+          } else if (nextIndex >= filteredOptions.length) {
+            nextIndex = 0;
+          }
+
+          if (!filteredOptions[nextIndex].disabled) {
+            setActiveIndex(nextIndex);
+            return;
+          }
+        }
+      },
+      [activeIndex, filteredOptions],
+    );
+
+    // Handle keyboard navigation
+    const handleKeyDown = useCallback(
+      (event: React.KeyboardEvent<HTMLElement>) => {
+        if (disabled) return;
+
+        if (!isOpen) {
+          if (
+            event.key === "ArrowDown" ||
+            event.key === "ArrowUp" ||
+            event.key === "Enter" ||
+            event.key === " "
+          ) {
+            event.preventDefault();
+            openDropdown();
+          }
+          return;
+        }
+
+        switch (event.key) {
+          case "ArrowDown":
+            event.preventDefault();
+            moveActiveOption(1);
+            break;
+
+          case "ArrowUp":
+            event.preventDefault();
+            moveActiveOption(-1);
+            break;
+
+          case "Home":
+            event.preventDefault();
+            setActiveIndex(getFirstEnabledIndex(filteredOptions));
+            break;
+
+          case "End":
+            event.preventDefault();
+            setActiveIndex(getLastEnabledIndex(filteredOptions));
+            break;
+
+          case "Enter":
+          case " ":
+            event.preventDefault();
+            if (activeIndex >= 0 && filteredOptions[activeIndex]) {
+              selectOption(filteredOptions[activeIndex]);
+            }
+            break;
+
+          case "Escape":
+            event.preventDefault();
+            closeDropdown();
+            break;
+
+          case "Tab":
+            closeDropdown();
+            break;
+
+          default: {
+            if (
+              !searchable &&
+              event.key.length === 1 &&
+              !event.ctrlKey &&
+              !event.metaKey &&
+              !event.altKey
+            ) {
+              const now = Date.now();
+              const previous = typeaheadRef.current;
+              const nextValue =
+                now - previous.time > 700
+                  ? event.key.toLowerCase()
+                  : previous.value + event.key.toLowerCase();
+
+              typeaheadRef.current = { value: nextValue, time: now };
+
+              const matchIndex = filteredOptions.findIndex(
+                (option) =>
+                  !option.disabled &&
+                  option.label.toLowerCase().startsWith(nextValue),
+              );
+
+              if (matchIndex >= 0) {
+                setActiveIndex(matchIndex);
+              }
+            }
+          }
+        }
+      },
+      [
+        disabled,
+        isOpen,
+        openDropdown,
+        moveActiveOption,
+        getFirstEnabledIndex,
+        getLastEnabledIndex,
+        filteredOptions,
+        activeIndex,
+        selectOption,
+        closeDropdown,
+        searchable,
+      ],
     );
 
     // Close dropdown when clicking outside
     useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
+      const handlePointerDown = (event: PointerEvent) => {
         if (
           dropdownRef.current &&
           !dropdownRef.current.contains(event.target as Node)
         ) {
-          setIsOpen(false);
-          setSearchTerm("");
+          closeDropdown();
         }
       };
 
       if (isOpen) {
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("pointerdown", handlePointerDown);
       }
 
       return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
+        document.removeEventListener("pointerdown", handlePointerDown);
       };
-    }, [isOpen]);
+    }, [isOpen, closeDropdown]);
 
     // Focus search input when opened
     useEffect(() => {
@@ -199,6 +418,53 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
         searchInputRef.current.focus();
       }
     }, [isOpen, searchable]);
+
+    // Keep the active option visible while navigating
+    useEffect(() => {
+      if (!isOpen || activeIndex < 0) return;
+
+      const activeOption = optionsListRef.current?.querySelector<HTMLElement>(
+        `[data-option-index="${activeIndex}"]`,
+      );
+
+      activeOption?.scrollIntoView({ block: "nearest" });
+    }, [isOpen, activeIndex, filteredOptions]);
+
+    // Measure the active option for the gliding selection surface
+    useLayoutEffect(() => {
+      if (!isOpen || activeIndex < 0) {
+        setIndicator((current) =>
+          current.visible ? { ...current, visible: false } : current,
+        );
+        return;
+      }
+
+      const list = optionsListRef.current;
+      const activeOption = list?.querySelector<HTMLElement>(
+        `[data-option-index="${activeIndex}"]`,
+      );
+
+      if (!list || !activeOption || filteredOptions[activeIndex]?.disabled) {
+        setIndicator((current) =>
+          current.visible ? { ...current, visible: false } : current,
+        );
+        return;
+      }
+
+      const nextIndicator = {
+        top: activeOption.offsetTop,
+        height: activeOption.offsetHeight,
+        visible: true,
+      };
+
+      setIndicator((current) =>
+        current.top === nextIndicator.top &&
+        current.height === nextIndicator.height &&
+        current.visible === nextIndicator.visible
+          ? current
+          : nextIndicator,
+      );
+    }, [isOpen, activeIndex, filteredOptions]);
 
     // Size styles
     const sizeStyles = {
@@ -247,7 +513,11 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
       >
         {/* Label */}
         {label && (
-          <label className="text-sm font-medium text-[var(--color-text-secondary)] font-sans">
+          <label
+            id={labelId}
+            htmlFor={triggerId}
+            className="text-sm font-medium text-[var(--color-text-secondary)] font-sans"
+          >
             {label}
           </label>
         )}
@@ -256,8 +526,10 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
         <div ref={dropdownRef} className="relative w-full">
           {/* Trigger Button */}
           <button
+            id={triggerId}
             type="button"
             onClick={toggleDropdown}
+            onKeyDown={handleKeyDown}
             disabled={disabled}
             className={`
               w-full flex items-center justify-between gap-2
@@ -268,19 +540,26 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
               ${
                 disabled
                   ? "opacity-60 cursor-not-allowed bg-[var(--color-bg-tertiary)]"
-                  : "cursor-pointer bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)]"
+                  : "cursor-pointer bg-[var(--glass-bg)] hover:bg-[var(--color-bg-elevated)]"
               }
               ${
                 error
                   ? "border border-[var(--color-danger)] focus:border-[var(--color-danger)]"
-                  : "border border-[var(--color-border-primary)] focus:border-[var(--color-primary)]"
+                  : "border border-[var(--glass-border-strong)] focus:border-[var(--color-primary)]"
               }
               focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20
               ${isOpen ? "border-[var(--color-primary)]" : ""}
             `}
+            aria-labelledby={label ? labelId : undefined}
             aria-haspopup="listbox"
+            aria-controls={listboxId}
             aria-expanded={isOpen}
             aria-disabled={disabled}
+            aria-activedescendant={
+              isOpen && activeIndex >= 0
+                ? `${dropdownId}-option-${activeIndex}`
+                : undefined
+            }
           >
             <span
               className={`
@@ -304,6 +583,7 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                 text-[var(--color-text-tertiary)]
                 flex-shrink-0
               `}
+              aria-hidden="true"
             >
               <svg
                 className={iconSizes[size]}
@@ -323,21 +603,33 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
 
           {/* Dropdown Menu */}
           <div
+            aria-hidden={!isOpen}
             className={`
-              z-50 w-full mt-1.5 max-h-60 overflow-auto
-              rounded-[var(--radius-md)] py-1
-              transition-all duration-[var(--transition-fast)] ease-[var(--ease-in-out)]
+              z-50 absolute w-full
+              ${menuPlacement === "bottom" ? "top-full mt-1.5" : "bottom-full mb-1.5"}
+              rounded-[var(--radius-md)] p-1.5
+              transition-[opacity,transform,visibility] duration-200
+              ease-[var(--ease-in-out)]
               ${
                 isOpen
-                  ? "opacity-100 translate-y-0 pointer-events-auto"
-                  : "opacity-0 -translate-y-2 pointer-events-none"
+                  ? "opacity-100 translate-y-0 scale-100 visible pointer-events-auto"
+                  : `opacity-0 scale-[0.98] invisible pointer-events-none ${
+                      menuPlacement === "bottom"
+                        ? "-translate-y-1.5"
+                        : "translate-y-1.5"
+                    }`
               }
             `}
-            style={{ ...menuSurface, position: "absolute" }}
+            style={{
+              ...menuSurface,
+              zIndex: 50,
+              transformOrigin:
+                menuPlacement === "bottom" ? "top center" : "bottom center",
+            }}
           >
             {/* Search Input */}
             {searchable && (
-              <div className="px-2 pb-1.5 border-b border-[var(--color-border-secondary)]">
+              <div className="px-1 pb-2 mb-1 border-b border-[var(--glass-border-strong)]">
                 <label htmlFor={`${dropdownId}-search`} className="sr-only">
                   {searchPlaceholder}
                 </label>
@@ -345,26 +637,40 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                   ref={searchInputRef}
                   id={`${dropdownId}-search`}
                   type="text"
+                  role="searchbox"
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(event) => {
+                    setSearchTerm(event.target.value);
+                    setActiveIndex(-1);
+                  }}
+                  onKeyDown={handleKeyDown}
                   placeholder={searchPlaceholder}
                   className={`
                     w-full font-sans
-                    bg-[var(--color-bg-secondary)]
                     text-[var(--color-text-primary)]
-                    border border-[var(--color-border-primary)]
+                    placeholder:text-[var(--color-text-tertiary)]
+                    border border-[var(--glass-border-strong)]
                     rounded-[var(--radius-sm)]
                     outline-none
                     focus:border-[var(--color-primary)]
+                    focus:ring-2 focus:ring-[var(--color-primary)]/15
+                    transition-colors duration-150
                     ${sizeStyles[size].search}
                   `}
-                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    background:
+                      "color-mix(in srgb, var(--color-bg-tertiary) 55%, transparent)",
+                  }}
+                  onClick={(event) => event.stopPropagation()}
                 />
               </div>
             )}
+
             {/* Options */}
             <div
-              className="py-1"
+              ref={optionsListRef}
+              id={listboxId}
+              className="relative max-h-56 overflow-y-auto overscroll-contain py-0.5"
               role="listbox"
               aria-label={label || "Dropdown options"}
             >
@@ -375,77 +681,94 @@ export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
                   No options found
                 </div>
               ) : (
-                filteredOptions.map((option) => {
-                  const isSelected = option.value === selectedValue;
+                <>
+                  <div
+                    aria-hidden="true"
+                    className="absolute left-1 right-1 rounded-[calc(var(--radius-md)-2px)] pointer-events-none"
+                    style={{
+                      ...selectionSurface,
+                      top: indicator.top,
+                      height: indicator.height,
+                      opacity: isOpen && indicator.visible ? 1 : 0,
+                      transform: `translateY(0)`,
+                      transition:
+                        "top 240ms cubic-bezier(0.2, 0.8, 0.2, 1), height 180ms ease, opacity 140ms ease",
+                    }}
+                  />
 
-                  return (
-                    <div
-                      key={option.value}
-                      role="option"
-                      aria-selected={isSelected}
-                      aria-disabled={option.disabled || undefined}
-                      tabIndex={option.disabled ? -1 : 0}
-                      onClick={() => {
-                        if (!option.disabled) {
-                          selectOption(option.value);
-                        }
-                      }}
-                      onKeyDown={(e) => {
-                        if (
-                          !option.disabled &&
-                          (e.key === "Enter" || e.key === " ")
-                        ) {
-                          e.preventDefault();
-                          selectOption(option.value);
-                        }
-                      }}
-                      className={`
-                        w-full flex items-center gap-2 text-left
-                        ${sizeStyles[size].option}
-                        ${
-                          option.disabled
-                            ? "opacity-40 cursor-not-allowed"
-                            : "cursor-pointer hover:bg-[var(--color-bg-elevated)]/50"
-                        }
-                        ${
-                          isSelected
-                            ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
-                            : "text-[var(--color-text-primary)]"
-                        }
-                        focus:outline-none focus:bg-[var(--color-bg-elevated)]/30
-                      `}
-                    >
-                      {option.icon && (
-                        <span className="flex-shrink-0" aria-hidden="true">
-                          {option.icon}
-                        </span>
-                      )}
-                      <span className="truncate" dir="auto">
-                        {option.label}
-                      </span>
-                      {isSelected && (
-                        <span
-                          className="ml-auto text-[var(--color-primary)] flex-shrink-0"
-                          aria-hidden="true"
-                        >
-                          <svg
-                            className={`${iconSizes[size]} opacity-80`}
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2.5}
+                  {filteredOptions.map((option, index) => {
+                    const isSelected = option.value === selectedValue;
+                    const isActive = index === activeIndex;
+
+                    return (
+                      <div
+                        key={option.value}
+                        id={`${dropdownId}-option-${index}`}
+                        data-option-index={index}
+                        role="option"
+                        aria-selected={isSelected}
+                        aria-disabled={option.disabled || undefined}
+                        onClick={() => selectOption(option)}
+                        onMouseEnter={() => {
+                          if (!option.disabled) setActiveIndex(index);
+                        }}
+                        className={`
+                          relative z-[1] w-full flex items-center gap-2 text-left
+                          rounded-[calc(var(--radius-md)-2px)]
+                          ${sizeStyles[size].option}
+                          transition-colors duration-150
+                          ${
+                            option.disabled
+                              ? "opacity-40 cursor-not-allowed"
+                              : "cursor-pointer"
+                          }
+                          ${
+                            isSelected
+                              ? "text-[var(--color-primary)]"
+                              : "text-[var(--color-text-primary)]"
+                          }
+                          ${
+                            isActive
+                              ? ""
+                              : "hover:bg-[var(--color-bg-elevated)]/30"
+                          }
+                        `}
+                      >
+                        {option.icon && (
+                          <span
+                            className="flex-shrink-0 inline-flex"
+                            aria-hidden="true"
                           >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
+                            {option.icon}
+                          </span>
+                        )}
+                        <span className="min-w-0 flex-1 truncate" dir="auto">
+                          {option.label}
                         </span>
-                      )}
-                    </div>
-                  );
-                })
+                        {isSelected && (
+                          <span
+                            className="ml-auto text-[var(--color-primary)] flex-shrink-0"
+                            aria-hidden="true"
+                          >
+                            <svg
+                              className={`${iconSizes[size]} opacity-90`}
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth={2.5}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M5 13l4 4L19 7"
+                              />
+                            </svg>
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </>
               )}
             </div>
           </div>
