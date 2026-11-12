@@ -397,14 +397,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
   // Scroll active item into view (mobile)
   useEffect(() => {
     if (!isMobile) return;
-    const el = scrollRef.current?.querySelector<HTMLElement>(
+    const strip = scrollRef.current;
+    const el = strip?.querySelector<HTMLElement>(
       `[data-sidebar-id="${activeId}"]`,
     );
-    el?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "center",
-    });
+    if (!strip || !el) return;
+
+    const stripRect = strip.getBoundingClientRect();
+    const itemRect = el.getBoundingClientRect();
+    const offset =
+      itemRect.left +
+      itemRect.width / 2 -
+      (stripRect.left + stripRect.width / 2);
+
+    strip.scrollBy({ left: offset, behavior: "smooth" });
   }, [activeId, isMobile]);
 
   // Content fade transition
