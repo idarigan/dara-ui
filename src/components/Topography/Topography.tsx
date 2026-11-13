@@ -1,4 +1,8 @@
 import React, { useEffect, useRef } from "react";
+import {
+  backgroundLayerStyle,
+  backgroundCanvasStyle,
+} from "../shared/backgroundLayer";
 
 export interface TopographyProps {
   /**
@@ -378,6 +382,7 @@ const viewProj = (cam: Cam, aspect: number, out: Float32Array) => {
  * - Frame rate cap, capped pixel ratio and no post-processing passes
  * - Pauses while hidden or offscreen and honors reduced motion
  * - Follows the active theme color tokens and the --theme-mode token
+ * - Sized by its own fixed, size-contained box so it can never stretch the page
  * - Renders nothing when WebGL2 is unavailable
  */
 export const Topography: React.FC<TopographyProps> = ({
@@ -445,7 +450,8 @@ export const Topography: React.FC<TopographyProps> = ({
     if (!container) return;
 
     const canvas = document.createElement("canvas");
-    canvas.style.cssText = "display:block;width:100%;height:100%";
+    canvas.style.cssText =
+      "position:absolute;top:0;left:0;display:block;width:100%;height:100%";
     container.appendChild(canvas);
 
     const gl = canvas.getContext("webgl2", {
@@ -902,8 +908,12 @@ export const Topography: React.FC<TopographyProps> = ({
     <div
       ref={containerRef}
       aria-hidden="true"
-      className={`fixed inset-0 z-0 pointer-events-none ${className}`}
-      style={{ opacity: clamp(opacity, 0, 1) }}
+      className={className}
+      style={{
+        ...backgroundLayerStyle,
+        zIndex: 0,
+        opacity: clamp(opacity, 0, 1),
+      }}
     />
   );
 };

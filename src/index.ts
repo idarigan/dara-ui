@@ -157,6 +157,9 @@ export type { XPBarProps, RankTier } from "./components/XPBar/XPBar";
 export { Particles } from "./components/Particles/Particles";
 export type { ParticlesProps } from "./components/Particles/Particles";
 
+export { Rain } from "./components/Rain/Rain";
+export type { RainProps } from "./components/Rain/Rain";
+
 export { Topography } from "./components/Topography/Topography";
 export type { TopographyProps } from "./components/Topography/Topography";
 

@@ -1,4 +1,8 @@
 import React, { useEffect, useRef, useCallback } from "react";
+import {
+  backgroundLayerStyle,
+  backgroundCanvasStyle,
+} from "../shared/backgroundLayer";
 
 export interface ParticlesProps {
   /**
@@ -106,7 +110,8 @@ const resolveToken = (value: string): string => {
  * - Layer opacity control
  * - Optional mouse interaction with a single cheap distance check per particle
  * - Pauses while the tab is hidden and respects reduced motion
- * - Particles are created once (and on resize / count change only)
+ * - Particles are created once (and on width change / count change only)
+ * - Sized by its own fixed box, so it can never stretch the page
  * - Safe under frequent parent re-renders (e.g. controlled Range)
  */
 export const Particles: React.FC<ParticlesProps> = React.memo(
@@ -122,6 +127,7 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
     interactionStrength = 1,
     className = "",
   }) => {
+    const wrapperRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const particlesRef = useRef<Particle[]>([]);
     const paletteRef = useRef<string[]>([]);
@@ -154,10 +160,18 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
     };
 
     const resizeCanvas = useCallback(() => {
+      const wrapper = wrapperRef.current;
       const canvas = canvasRef.current;
-      if (!canvas) return;
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      if (!wrapper || !canvas) return false;
+
+      const width = Math.max(1, wrapper.clientWidth);
+      const height = Math.max(1, wrapper.clientHeight);
+      const widthChanged = canvas.width !== width;
+
+      canvas.width = width;
+      canvas.height = height;
+
+      return widthChanged;
     }, []);
 
     const refreshPalette = useCallback(() => {
@@ -195,8 +209,9 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
 
     // Mount once: start loop, handle resize and pointer
     useEffect(() => {
+      const wrapper = wrapperRef.current;
       const canvas = canvasRef.current;
-      if (!canvas) return;
+      if (!wrapper || !canvas) return;
 
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
@@ -303,16 +318,15 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
       window.addEventListener("pointerup", onPointerUp, { passive: true });
       document.documentElement.addEventListener("pointerleave", onPointerLeave);
 
-      const handleResize = () => {
-        resizeCanvas();
-        createParticles();
+      const resizeObserver = new ResizeObserver(() => {
+        if (resizeCanvas()) createParticles();
         if (reduceMotion) draw();
-      };
-      window.addEventListener("resize", handleResize);
+      });
+      resizeObserver.observe(wrapper);
 
       return () => {
         cancelAnimationFrame(animationIdRef.current);
-        window.removeEventListener("resize", handleResize);
+        resizeObserver.disconnect();
         window.removeEventListener("pointermove", onPointerMove);
         window.removeEventListener("pointerup", onPointerUp);
         document.documentElement.removeEventListener(
@@ -324,12 +338,18 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
     }, [count, colorKey, resizeCanvas, refreshPalette, createParticles]);
 
     return (
-      <canvas
-        ref={canvasRef}
+      <div
+        ref={wrapperRef}
         aria-hidden="true"
-        className={`fixed inset-0 z-0 pointer-events-none ${className}`}
-        style={{ opacity: Math.min(1, Math.max(0, opacity)) }}
-      />
+        className={className}
+        style={{
+          ...backgroundLayerStyle,
+          zIndex: 0,
+          opacity: Math.min(1, Math.max(0, opacity)),
+        }}
+      >
+        <canvas ref={canvasRef} style={backgroundCanvasStyle} />
+      </div>
     );
   },
 );

@@ -475,22 +475,22 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {/* Hamburger - Mobile only */}
                 <button
                   onClick={toggleMobileMenu}
-                  className="md:hidden relative w-10 h-10 rounded-full bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] transition-all duration-180 flex items-center justify-center flex-shrink-0"
+                  className="md:hidden relative w-10 h-10 rounded-full bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] transition-all duration-180 flex items-center justify-center flex-shrink-0"
                   aria-label="Toggle menu"
                   aria-expanded={isMobileMenuOpen}
                 >
                   <span
-                    className={`absolute block w-5 h-0.5 rounded-full bg-[var(--color-text-primary)] transition-all duration-300 ease-[var(--ease-in-out)] ${
+                    className={`absolute block w-5 h-0.5 rounded-full bg-current transition-all duration-300 ease-[var(--ease-in-out)] ${
                       isMobileMenuOpen ? "rotate-45" : "-translate-y-1.5"
                     }`}
                   />
                   <span
-                    className={`absolute block w-5 h-0.5 rounded-full bg-[var(--color-text-primary)] transition-all duration-300 ease-[var(--ease-in-out)] ${
+                    className={`absolute block w-5 h-0.5 rounded-full bg-current transition-all duration-300 ease-[var(--ease-in-out)] ${
                       isMobileMenuOpen ? "opacity-0 scale-0" : "opacity-100"
                     }`}
                   />
                   <span
-                    className={`absolute block w-5 h-0.5 rounded-full bg-[var(--color-text-primary)] transition-all duration-300 ease-[var(--ease-in-out)] ${
+                    className={`absolute block w-5 h-0.5 rounded-full bg-current transition-all duration-300 ease-[var(--ease-in-out)] ${
                       isMobileMenuOpen ? "-rotate-45" : "translate-y-1.5"
                     }`}
                   />

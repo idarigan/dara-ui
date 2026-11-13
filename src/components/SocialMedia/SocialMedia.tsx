@@ -70,7 +70,7 @@ const PLATFORM_DATA: Record<string, { icon: React.ReactNode; color: string }> =
  * - Click outside to close
  * - Smooth expand/collapse animation
  * - Left or right positioning
- * - RTL aware
+ * - RTL aware, the panel jumps to the opposite side of the page
  */
 export const SocialMedia: React.FC<SocialMediaProps> = ({
   links,
@@ -83,7 +83,20 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [isRTL, setIsRTL] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Live RTL detection
+  useEffect(() => {
+    const updateDir = () => setIsRTL(document.documentElement.dir === "rtl");
+    updateDir();
+    const observer = new MutationObserver(updateDir);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["dir"],
+    });
+    return () => observer.disconnect();
+  }, []);
 
   const detectPlatform = (url: string): string => {
     const urlLower = url.toLowerCase();
@@ -172,7 +185,9 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     return verticalOffset;
   };
 
-  const isLeft = position === "left";
+  // Mirror to the opposite page edge in RTL
+  const side = isRTL ? (position === "left" ? "right" : "left") : position;
+  const isLeft = side === "left";
   const sizeStyles = sizeMap[size] || sizeMap.md;
 
   const positionStyles = {
@@ -190,7 +205,7 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({
     },
   };
 
-  const pos = positionStyles[position];
+  const pos = positionStyles[side];
   const buttonPx = sizeStyles.buttonPx;
   const gapPx = 8;
 

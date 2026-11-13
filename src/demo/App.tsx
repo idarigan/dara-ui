@@ -11,6 +11,7 @@ import {
   NoiseOverlay,
   PageLoaderProvider,
   Particles,
+  Rain,
   Range,
   SocialMedia,
   Switch,
@@ -46,7 +47,7 @@ const sectionIds = [
   "layout",
 ] as const;
 
-const backgroundValues = ["topography", "particles", "none"] as const;
+const backgroundValues = ["topography", "particles", "rain", "none"] as const;
 
 const STORYBOOK_URL = import.meta.env.DEV
   ? "http://localhost:6006"
@@ -89,6 +90,8 @@ const toLineCount = (density: number) => Math.round(6 + (density / 100) * 34);
 
 const toParticleCount = (density: number) => Math.round(10 + density * 2);
 
+const toRainCount = (density: number) => Math.round(60 + density * 7);
+
 // ============================================
 // SHELL
 // ============================================
@@ -97,6 +100,8 @@ function Shell() {
   const { t } = useI18n();
   const [background, setBackground] = useState("topography");
   const [cursor, setCursor] = useState(true);
+  const [lightning, setLightning] = useState(false);
+  const [sound, setSound] = useState(false);
   const [opacity, setOpacity] = useState(50);
   const [density, setDensity] = useState(35);
   const activeSection = useActiveSection(sectionIds);
@@ -114,7 +119,10 @@ function Shell() {
     () =>
       backgroundValues.map((value) => ({
         value,
-        label: t(`demo.backgrounds.${value}`),
+        label:
+          value === "rain"
+            ? t("demoControls.rain")
+            : t(`demo.backgrounds.${value}`),
       })),
     [t],
   );
@@ -133,6 +141,14 @@ function Shell() {
       )}
       {background === "particles" && (
         <Particles opacity={opacity / 100} count={toParticleCount(density)} />
+      )}
+      {background === "rain" && (
+        <Rain
+          opacity={opacity / 100}
+          count={toRainCount(density)}
+          lightning={lightning}
+          sound={sound}
+        />
       )}
       {cursor && <CustomCursor />}
 
@@ -179,6 +195,22 @@ function Shell() {
                 glow
               />
             </div>
+            {background === "rain" && (
+              <>
+                <Switch
+                  label={t("demoControls.lightning")}
+                  checked={lightning}
+                  onCheckedChange={setLightning}
+                  glow
+                />
+                <Switch
+                  label={t("demoControls.sound")}
+                  checked={sound}
+                  onCheckedChange={setSound}
+                  glow
+                />
+              </>
+            )}
             {background !== "none" && (
               <>
                 <Range

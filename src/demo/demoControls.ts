@@ -7,6 +7,9 @@ export const demoControls = {
     demoControls: {
       opacity: "Opacity",
       density: "Density",
+      rain: "Rain",
+      lightning: "Lightning",
+      sound: "Sound",
       docs: "Storybook docs",
       backToTop: "Back to top",
     },
@@ -15,6 +18,9 @@ export const demoControls = {
     demoControls: {
       opacity: "شفافیت",
       density: "تراکم",
+      rain: "باران",
+      lightning: "رعد و برق",
+      sound: "صدا",
       docs: "مستندات استوری‌بوک",
       backToTop: "بازگشت به بالا",
     },
@@ -23,6 +29,9 @@ export const demoControls = {
     demoControls: {
       opacity: "Opacité",
       density: "Densité",
+      rain: "Pluie",
+      lightning: "Éclairs",
+      sound: "Son",
       docs: "Documentation Storybook",
       backToTop: "Retour en haut",
     },

@@ -89,13 +89,14 @@ export interface TooltipProps {
  *
  * Features:
  * - Multiple placements (top, bottom, left, right, corners)
+ * - Placements are physical, left stays left in RTL
  * - Glass, solid, and outline variants
  * - Arrow indicator
  * - Delay controls
  * - Controlled/Uncontrolled modes
  * - Portal rendering for correct z-index
  * - Proper fade + position (no corner jump)
- * - RTL support via MutationObserver
+ * - RTL text direction via MutationObserver
  */
 export const Tooltip: React.FC<TooltipProps> = ({
   content,
@@ -177,23 +178,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
     const cx = triggerRect.left + triggerRect.width / 2;
     const cy = triggerRect.top + triggerRect.height / 2;
 
-    // RTL-aware placement mapping
-    const getPlacement = (): TooltipPlacement => {
-      if (isRTL) {
-        // Mirror horizontal placements
-        if (placement === "left") return "right";
-        if (placement === "right") return "left";
-        if (placement === "top-left") return "top-right";
-        if (placement === "top-right") return "top-left";
-        if (placement === "bottom-left") return "bottom-right";
-        if (placement === "bottom-right") return "bottom-left";
-      }
-      return placement;
-    };
-
-    const actualPlacement = getPlacement();
-
-    switch (actualPlacement) {
+    switch (placement) {
       case "top":
         top = triggerRect.top - tooltipHeight - gap;
         left = cx - tooltipWidth / 2;
@@ -237,7 +222,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
     setCoords({ top, left });
     return true;
-  }, [placement, isRTL]);
+  }, [placement]);
 
   useLayoutEffect(() => {
     if (!isVisible) {
@@ -335,17 +320,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
     "bottom-right": "top-[-5px] right-3",
   };
 
-  // Get RTL-aware arrow position
   const getArrowPos = (): string => {
-    if (isRTL) {
-      // Mirror horizontal arrow positions
-      if (placement === "left") return arrowPos["right"];
-      if (placement === "right") return arrowPos["left"];
-      if (placement === "top-left") return arrowPos["top-right"];
-      if (placement === "top-right") return arrowPos["top-left"];
-      if (placement === "bottom-left") return arrowPos["bottom-right"];
-      if (placement === "bottom-right") return arrowPos["bottom-left"];
-    }
     return arrowPos[placement] || arrowPos["top"];
   };
 

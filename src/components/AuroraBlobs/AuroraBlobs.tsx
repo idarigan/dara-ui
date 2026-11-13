@@ -1,4 +1,5 @@
 import React from "react";
+import { backgroundLayerStyle } from "../shared/backgroundLayer";
 
 export interface AuroraBlobsProps {
   /**
@@ -47,9 +48,7 @@ export const AuroraBlobs: React.FC<AuroraBlobsProps> = ({
   ];
 
   return (
-    <div
-      className={`fixed inset-0 z-0 pointer-events-none overflow-hidden ${className}`}
-    >
+    <div className={className} style={{ ...backgroundLayerStyle, zIndex: 0 }}>
       {blobPositions.map((pos, index) => (
         <div
           key={index}
