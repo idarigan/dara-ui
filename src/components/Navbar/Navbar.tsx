@@ -475,7 +475,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {/* Hamburger - Mobile only */}
                 <button
                   onClick={toggleMobileMenu}
-                  className="md:hidden relative w-10 h-10 rounded-full bg-[var(--color-bg-tertiary)] hover:bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] transition-all duration-180 flex items-center justify-center flex-shrink-0"
+                  className="md:hidden relative w-10 h-10 rounded-full hover:bg-[var(--color-bg-elevated)] text-[var(--color-text-primary)] transition-all duration-180 flex items-center justify-center flex-shrink-0"
                   aria-label="Toggle menu"
                   aria-expanded={isMobileMenuOpen}
                 >
