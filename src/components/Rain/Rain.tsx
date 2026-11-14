@@ -28,7 +28,8 @@ export interface RainProps {
    */
   lightning?: boolean;
   /**
-   * Synthesized rain sound, thunder joins in whenever lightning is on
+   * Synthesized rain sound, density follows count and closeness follows opacity
+   * Thunder joins in whenever lightning is on
    * Starts after the first user interaction when the browser requires it
    * @default false
    */
@@ -110,7 +111,7 @@ const LAYERS: {
 const rand = (range: [number, number]) =>
   range[0] + Math.random() * (range[1] - range[0]);
 
-const toIntensity = (count: number) => Math.min(1, Math.max(0.1, count / 500));
+const toIntensity = (count: number) => Math.min(1, Math.max(0.1, count / 700));
 
 // Resolve CSS custom properties to concrete color strings
 const resolveToken = (value: string): string => {
@@ -222,7 +223,8 @@ const flashLevel = (age: number) => {
  * - Constant slant of 20 degrees that mirrors with the document direction
  * - Endless drops recycled at the top, three depth layers
  * - Optional lightning with a jagged bolt and a screen flash
- * - Optional synthesized rain sound, with thunder locked to each lightning flash
+ * - Optional synthesized rain sound that follows the drop count and the layer opacity
+ * - Thunder tied to each lightning flash, with a random distance per strike
  * - Optional mouse interaction that pushes drops away from the pointer
  * - Layer opacity control and theme-aware color
  * - Pauses while the tab is hidden and respects reduced motion
@@ -449,7 +451,7 @@ export const Rain: React.FC<RainProps> = React.memo(
 
           if (!st.bolt && st.clock >= st.nextStrike) {
             st.bolt = buildBolt(width, height);
-            audioRef.current?.thunder(0.6 + Math.random() * 0.4);
+            audioRef.current?.thunder(0.2 + Math.random() * 0.8);
           }
 
           if (st.bolt) {
@@ -553,6 +555,7 @@ export const Rain: React.FC<RainProps> = React.memo(
 
       const audio = createRainAudio();
       audio.setIntensity(toIntensity(count));
+      audio.setPresence(opacity);
       audio.setVolume(volume);
       audioRef.current = audio;
 
@@ -587,6 +590,10 @@ export const Rain: React.FC<RainProps> = React.memo(
     useEffect(() => {
       audioRef.current?.setIntensity(toIntensity(count));
     }, [count, sound]);
+
+    useEffect(() => {
+      audioRef.current?.setPresence(opacity);
+    }, [opacity, sound]);
 
     useEffect(() => {
       audioRef.current?.setVolume(volume);

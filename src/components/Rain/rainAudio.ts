@@ -20,11 +20,15 @@ export interface RainAudio {
    */
   setIntensity: (value: number) => void;
   /**
+   * How close and bright the rain sounds from 0 to 1
+   */
+  setPresence: (value: number) => void;
+  /**
    * Master volume from 0 to 1
    */
   setVolume: (value: number) => void;
   /**
-   * Plays a thunder strike starting right now
+   * Plays a thunder strike, power sets how loud and how close it is
    */
   thunder: (power?: number) => void;
   /**
@@ -46,7 +50,8 @@ type NoiseKind = "white" | "pink" | "brown";
 
 const NOISE_SECONDS = 6;
 const WHITE_SECONDS = 2;
-const TICK_MS = 60;
+const BROWN_SECONDS = 12;
+const TICK_MS = 50;
 const FADE_OUT = 0.5;
 
 // ============================================
@@ -55,6 +60,8 @@ const FADE_OUT = 0.5;
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
+
+const rand = (min: number, max: number) => min + Math.random() * (max - min);
 
 const getContextConstructor = (): ContextConstructor | null => {
   const w = window as unknown as {
@@ -111,6 +118,18 @@ const createNoiseBuffer = (
   return buffer;
 };
 
+const createImpulse = (ctx: AudioContext, seconds: number, decay: number) => {
+  const length = Math.floor(ctx.sampleRate * seconds);
+  const buffer = ctx.createBuffer(2, length, ctx.sampleRate);
+  for (let channel = 0; channel < 2; channel++) {
+    const data = buffer.getChannelData(channel);
+    for (let i = 0; i < length; i++) {
+      data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+    }
+  }
+  return buffer;
+};
+
 const createLoop = (ctx: AudioContext, buffer: AudioBuffer) => {
   const source = ctx.createBufferSource();
   source.buffer = buffer;
@@ -132,11 +151,20 @@ const createFilter = (
   return filter;
 };
 
+const createLfo = (ctx: AudioContext, frequency: number, target: AudioNode) => {
+  const lfo = ctx.createOscillator();
+  lfo.type = "sine";
+  lfo.frequency.value = frequency;
+  lfo.connect(target);
+  lfo.start();
+  return lfo;
+};
+
 // ============================================
 // THUNDER VOICES
 // ============================================
 
-const playCrack = (
+const playCrackle = (
   ctx: AudioContext,
   out: AudioNode,
   noise: AudioBuffer,
@@ -146,43 +174,33 @@ const playCrack = (
   const source = ctx.createBufferSource();
   source.buffer = noise;
 
-  const high = createFilter(ctx, "highpass", 900);
-  const low = createFilter(ctx, "lowpass", 9000);
-  low.frequency.setValueAtTime(9000, when);
-  low.frequency.exponentialRampToValueAtTime(1800, when + 0.2);
+  const high = createFilter(ctx, "highpass", 600);
+  const sweep = createFilter(ctx, "lowpass", 8000);
+  sweep.frequency.setValueAtTime(8000, when);
+  sweep.frequency.exponentialRampToValueAtTime(900, when + 1.1);
 
+  const peak = 0.4 + 0.6 * power;
   const gain = ctx.createGain();
   gain.gain.setValueAtTime(0, when);
-  gain.gain.linearRampToValueAtTime(power * 0.9, when + 0.003);
-  gain.gain.exponentialRampToValueAtTime(0.0001, when + 0.22);
+  gain.gain.linearRampToValueAtTime(peak, when + 0.002);
+  gain.gain.exponentialRampToValueAtTime(peak * 0.2, when + 0.09);
+
+  let t = 0.09;
+  while (t < 1.1) {
+    const rise = t + 0.01 + Math.random() * 0.03;
+    const level = peak * (0.15 + 0.5 * Math.random()) * (1 - t / 1.2);
+    gain.gain.linearRampToValueAtTime(level, when + rise);
+    const fall = rise + 0.03 + Math.random() * 0.08;
+    gain.gain.linearRampToValueAtTime(level * 0.12, when + fall);
+    t = fall;
+  }
+  gain.gain.linearRampToValueAtTime(0.0001, when + 1.4);
 
   source.connect(high);
-  high.connect(low);
-  low.connect(gain);
+  high.connect(sweep);
+  sweep.connect(gain);
   gain.connect(out);
-  source.start(when, Math.random() * (noise.duration - 0.5), 0.3);
-};
-
-const playBoom = (
-  ctx: AudioContext,
-  out: AudioNode,
-  when: number,
-  power: number,
-) => {
-  const osc = ctx.createOscillator();
-  osc.type = "sine";
-  osc.frequency.setValueAtTime(110, when);
-  osc.frequency.exponentialRampToValueAtTime(38, when + 0.45);
-
-  const gain = ctx.createGain();
-  gain.gain.setValueAtTime(0, when);
-  gain.gain.linearRampToValueAtTime(power * 0.9, when + 0.01);
-  gain.gain.exponentialRampToValueAtTime(0.0001, when + 0.6);
-
-  osc.connect(gain);
-  gain.connect(out);
-  osc.start(when);
-  osc.stop(when + 0.7);
+  source.start(when, Math.random() * (noise.duration - 1.6), 1.5);
 };
 
 const playRumble = (
@@ -191,37 +209,57 @@ const playRumble = (
   noise: AudioBuffer,
   when: number,
   power: number,
+  distance: number,
+  scale: number,
+  level: number,
 ) => {
-  const duration = 2.6 + 2.4 * power;
+  const duration = (3.2 + 3 * power + 2.2 * distance) / scale;
+  const peak = (0.9 + 1.8 * power) * level;
+  const rise = 0.12 + distance * 0.5 + Math.random() * 0.15;
 
   const source = ctx.createBufferSource();
   source.buffer = noise;
 
-  const low = createFilter(ctx, "lowpass", 520);
-  low.frequency.setValueAtTime(520, when);
-  low.frequency.exponentialRampToValueAtTime(60, when + duration);
-  const high = createFilter(ctx, "highpass", 25);
+  const low = createFilter(ctx, "lowpass", (420 - 220 * distance) * scale);
+  low.frequency.setValueAtTime((420 - 220 * distance) * scale, when);
+  low.frequency.exponentialRampToValueAtTime(50 * scale, when + duration);
+  const high = createFilter(ctx, "highpass", 20 * scale);
+
+  const roll = ctx.createGain();
+  roll.gain.value = 0.85;
+  createLfo(
+    ctx,
+    rand(5, 12),
+    (() => {
+      const depth = ctx.createGain();
+      depth.gain.value = 0.15;
+      depth.connect(roll.gain);
+      return depth;
+    })(),
+  ).stop(when + duration + 0.1);
 
   const gain = ctx.createGain();
   gain.gain.setValueAtTime(0, when);
-  gain.gain.linearRampToValueAtTime(power * 2.6, when + 0.12);
+  gain.gain.linearRampToValueAtTime(peak, when + rise);
 
-  let time = 0.12;
-  while (time < duration * 0.75) {
-    time += 0.25 + Math.random() * 0.5;
-    const level = power * (0.9 + Math.random() * 1.6) * (1 - time / duration);
-    gain.gain.linearRampToValueAtTime(Math.max(level, 0.001), when + time);
+  let t = rise;
+  while (t < duration * 0.7) {
+    t += 0.18 + Math.random() * 0.55;
+    const fade = Math.pow(Math.max(0, 1 - t / duration), 1.3);
+    const next = peak * (0.25 + 0.9 * Math.random()) * fade;
+    gain.gain.linearRampToValueAtTime(Math.max(next, 0.001), when + t);
   }
   gain.gain.exponentialRampToValueAtTime(0.0001, when + duration);
 
   source.connect(low);
   low.connect(high);
-  high.connect(gain);
+  high.connect(roll);
+  roll.connect(gain);
   gain.connect(out);
   source.start(
     when,
-    Math.random() * Math.max(0, noise.duration - duration - 0.1),
-    duration + 0.1,
+    Math.random() * Math.max(0, noise.duration - duration - 0.2),
+    duration + 0.2,
   );
 };
 
@@ -233,36 +271,62 @@ const playRumble = (
  * Dara UI rain audio - Synthesized rain and thunder, no audio files
  *
  * Features:
- * - Layered filtered noise for the rain wash, body and hiss
- * - Randomized stereo drop ticks scaled by intensity
- * - Slow gusts that breathe the rain volume
- * - Thunder with a crack, a boom and a rolling rumble
- * - Thunder starts the moment it is called, so it can be locked to a flash
+ * - Layered filtered noise for the rain wash, body, low patter and hiss
+ * - Randomized stereo drop impacts in three sizes scaled by intensity
+ * - Irregular gusts that breathe the rain volume
+ * - Presence control that moves the rain from distant and soft to close and crisp
+ * - Shared room reverb that gives rain and thunder a natural space
+ * - Thunder with a ragged crackle and a long rolling rumble
+ * - Thunder distance from power, far strikes arrive later, darker and wetter
  */
 export const createRainAudio = (): RainAudio => {
   let ctx: AudioContext | null = null;
   let master: GainNode | null = null;
   let wash: GainNode | null = null;
   let body: GainNode | null = null;
+  let low: GainNode | null = null;
   let hiss: GainNode | null = null;
-  let gust: GainNode | null = null;
+  let gustWash: GainNode | null = null;
+  let gustBody: GainNode | null = null;
+  let tone: BiquadFilterNode | null = null;
+  let dropBus: GainNode | null = null;
+  let reverbIn: GainNode | null = null;
   let white: AudioBuffer | null = null;
   let brown: AudioBuffer | null = null;
   let timer = 0;
   let intensity = 0.4;
+  let presence = 0.5;
   let volume = 0.5;
   let destroyed = false;
 
   // ============================================
   // LEVELS
   // ============================================
-  const applyIntensity = () => {
-    if (!ctx || !wash || !body || !hiss || !gust) return;
+  const applyLevels = () => {
+    if (
+      !ctx ||
+      !wash ||
+      !body ||
+      !low ||
+      !hiss ||
+      !gustWash ||
+      !gustBody ||
+      !tone
+    )
+      return;
+
     const t = ctx.currentTime;
-    wash.gain.setTargetAtTime(0.1 + 0.5 * intensity, t, 0.3);
-    body.gain.setTargetAtTime(0.05 + 0.3 * intensity, t, 0.3);
-    hiss.gain.setTargetAtTime(0.01 + 0.07 * intensity, t, 0.3);
-    gust.gain.setTargetAtTime(0.02 + 0.06 * intensity, t, 0.3);
+    const near = 0.25 + 0.75 * presence;
+    const washLevel = (0.08 + 0.45 * intensity) * near;
+    const bodyLevel = (0.04 + 0.28 * intensity) * near;
+
+    wash.gain.setTargetAtTime(washLevel, t, 0.3);
+    body.gain.setTargetAtTime(bodyLevel, t, 0.3);
+    low.gain.setTargetAtTime(0.03 + 0.14 * intensity, t, 0.3);
+    hiss.gain.setTargetAtTime((0.01 + 0.07 * intensity) * near, t, 0.3);
+    gustWash.gain.setTargetAtTime(washLevel * 0.3, t, 0.3);
+    gustBody.gain.setTargetAtTime(bodyLevel * 0.3, t, 0.3);
+    tone.frequency.setTargetAtTime(2800 + 5200 * presence, t, 0.3);
   };
 
   const applyVolume = (smooth = 0.08) => {
@@ -274,23 +338,47 @@ export const createRainAudio = (): RainAudio => {
   // DROPS
   // ============================================
   const scheduleDrop = (when: number) => {
-    if (!ctx || !master || !white) return;
+    if (!ctx || !white || !dropBus) return;
+
+    const roll = Math.random();
+    const kind = roll < 0.72 ? 0 : roll < 0.95 ? 1 : 2;
+
+    let freq: number;
+    let q: number;
+    let peak: number;
+    let decay: number;
+
+    if (kind === 0) {
+      freq = rand(3000, 8500);
+      q = rand(2, 7);
+      peak = rand(0.03, 0.09);
+      decay = rand(0.006, 0.02);
+    } else if (kind === 1) {
+      freq = rand(1400, 4000);
+      q = rand(1.5, 4.5);
+      peak = rand(0.06, 0.14);
+      decay = rand(0.015, 0.045);
+    } else {
+      freq = rand(500, 1600);
+      q = rand(1, 3);
+      peak = rand(0.1, 0.2);
+      decay = rand(0.04, 0.11);
+    }
+
+    const level = peak * (0.35 + 0.65 * intensity) * (0.4 + 0.6 * presence);
 
     const source = ctx.createBufferSource();
     source.buffer = white;
 
-    const filter = createFilter(
-      ctx,
-      "bandpass",
-      1800 + Math.random() * 5200,
-      3 + Math.random() * 7,
-    );
+    const filter = createFilter(ctx, "bandpass", freq, q);
+    if (kind === 2) {
+      filter.frequency.setValueAtTime(freq * 1.4, when);
+      filter.frequency.exponentialRampToValueAtTime(freq, when + decay);
+    }
 
-    const peak = (0.03 + Math.random() * 0.12) * (0.4 + intensity * 0.6);
-    const decay = 0.012 + Math.random() * 0.03;
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0, when);
-    gain.gain.linearRampToValueAtTime(peak, when + 0.002);
+    gain.gain.linearRampToValueAtTime(level, when + 0.002);
     gain.gain.exponentialRampToValueAtTime(0.0001, when + 0.002 + decay);
 
     source.connect(filter);
@@ -300,19 +388,20 @@ export const createRainAudio = (): RainAudio => {
       const pan = ctx.createStereoPanner();
       pan.pan.value = Math.random() * 2 - 1;
       gain.connect(pan);
-      pan.connect(master);
+      pan.connect(dropBus);
     } else {
-      gain.connect(master);
+      gain.connect(dropBus);
     }
 
-    source.start(when, Math.random() * (white.duration - 0.1), 0.05);
+    source.start(when, Math.random() * (white.duration - 0.2), 0.2);
   };
 
   const tick = () => {
     if (!ctx) return;
 
     if (ctx.state === "running") {
-      const expected = (6 + 80 * intensity) * (TICK_MS / 1000);
+      const rate = (5 + 150 * intensity) * (0.55 + 0.45 * presence);
+      const expected = rate * (TICK_MS / 1000);
       let count = Math.floor(expected);
       if (Math.random() < expected - count) count++;
 
@@ -330,7 +419,7 @@ export const createRainAudio = (): RainAudio => {
   const build = (c: AudioContext) => {
     const pink = createNoiseBuffer(c, NOISE_SECONDS, "pink");
     white = createNoiseBuffer(c, WHITE_SECONDS, "white");
-    brown = createNoiseBuffer(c, NOISE_SECONDS, "brown");
+    brown = createNoiseBuffer(c, BROWN_SECONDS, "brown");
 
     const out = c.createGain();
     out.gain.value = 0;
@@ -343,42 +432,88 @@ export const createRainAudio = (): RainAudio => {
     out.connect(compressor);
     compressor.connect(c.destination);
 
+    // ----- Room -----
+    const convolver = c.createConvolver();
+    convolver.buffer = createImpulse(c, 3.4, 2.4);
+    const reverbTone = createFilter(c, "lowpass", 4200);
+    const reverbOut = c.createGain();
+    reverbOut.gain.value = 0.55;
+    const reverbGate = c.createGain();
+    reverbGate.gain.value = 1;
+    reverbGate.connect(convolver);
+    convolver.connect(reverbTone);
+    reverbTone.connect(reverbOut);
+    reverbOut.connect(out);
+
+    // ----- Wash -----
+    const toneFilter = createFilter(c, "lowpass", 6000);
     const washGain = c.createGain();
     washGain.gain.value = 0;
-    const washLoop = createLoop(c, pink);
-    washLoop
-      .connect(createFilter(c, "highpass", 500))
-      .connect(createFilter(c, "lowpass", 7000))
+    createLoop(c, pink)
+      .connect(createFilter(c, "highpass", 400))
+      .connect(toneFilter)
       .connect(washGain);
     washGain.connect(out);
+    const washSend = c.createGain();
+    washSend.gain.value = 0.14;
+    washGain.connect(washSend);
+    washSend.connect(reverbGate);
 
+    // ----- Body -----
     const bodyGain = c.createGain();
     bodyGain.gain.value = 0;
     createLoop(c, pink)
-      .connect(createFilter(c, "bandpass", 900, 0.5))
+      .connect(createFilter(c, "bandpass", 1100, 0.45))
       .connect(bodyGain);
     bodyGain.connect(out);
 
+    // ----- Low patter -----
+    const lowGain = c.createGain();
+    lowGain.gain.value = 0;
+    createLoop(c, brown)
+      .connect(createFilter(c, "bandpass", 160, 0.6))
+      .connect(lowGain);
+    lowGain.connect(out);
+
+    // ----- Hiss -----
     const hissGain = c.createGain();
     hissGain.gain.value = 0;
     createLoop(c, pink)
-      .connect(createFilter(c, "highpass", 4500))
+      .connect(createFilter(c, "highpass", 5500))
       .connect(hissGain);
     hissGain.connect(out);
 
-    const lfo = c.createOscillator();
-    lfo.frequency.value = 0.13;
-    const gustGain = c.createGain();
-    gustGain.gain.value = 0;
-    lfo.connect(gustGain);
-    gustGain.connect(washGain.gain);
-    lfo.start();
+    // ----- Gusts -----
+    const gustWashGain = c.createGain();
+    gustWashGain.gain.value = 0;
+    gustWashGain.connect(washGain.gain);
+    createLfo(c, 0.09, gustWashGain);
+    createLfo(c, 0.21, gustWashGain);
+
+    const gustBodyGain = c.createGain();
+    gustBodyGain.gain.value = 0;
+    gustBodyGain.connect(bodyGain.gain);
+    createLfo(c, 0.15, gustBodyGain);
+
+    // ----- Drops -----
+    const dropGain = c.createGain();
+    dropGain.gain.value = 1;
+    dropGain.connect(out);
+    const dropSend = c.createGain();
+    dropSend.gain.value = 0.16;
+    dropGain.connect(dropSend);
+    dropSend.connect(reverbGate);
 
     master = out;
     wash = washGain;
     body = bodyGain;
+    low = lowGain;
     hiss = hissGain;
-    gust = gustGain;
+    gustWash = gustWashGain;
+    gustBody = gustBodyGain;
+    tone = toneFilter;
+    dropBus = dropGain;
+    reverbIn = reverbGate;
   };
 
   // ============================================
@@ -394,7 +529,7 @@ export const createRainAudio = (): RainAudio => {
       const created = new Constructor();
       ctx = created;
       build(created);
-      applyIntensity();
+      applyLevels();
       applyVolume(0.5);
       tick();
     }
@@ -420,15 +555,37 @@ export const createRainAudio = (): RainAudio => {
   };
 
   const thunder = (power = 1) => {
-    if (!ctx || !master || !white || !brown || ctx.state !== "running") return;
+    if (!ctx || !master || !white || !brown || !reverbIn) return;
+    if (ctx.state !== "running") return;
 
+    const c = ctx;
     const p = clamp(power, 0, 1);
-    const when = ctx.currentTime + 0.01;
+    const distance = 1 - p;
+    const when = c.currentTime + 0.02 + distance * 1.2;
 
-    playCrack(ctx, master, white, when, p);
-    playCrack(ctx, master, white, when + 0.13, p * 0.55);
-    playBoom(ctx, master, when, p);
-    playRumble(ctx, master, brown, when, p);
+    const bus = c.createGain();
+    bus.gain.value = 0.45 + 0.55 * p;
+    const air = createFilter(c, "lowpass", 9000 - distance * 6500, 0.5);
+    const wet = c.createGain();
+    wet.gain.value = 0.25 + 0.6 * distance;
+
+    bus.connect(air);
+    air.connect(master);
+    air.connect(wet);
+    wet.connect(reverbIn);
+
+    if (distance < 0.6) playCrackle(c, bus, white, when, p);
+    playRumble(c, bus, brown, when, p, distance, 1, 1);
+    playRumble(c, bus, brown, when, p, distance, 2, 0.45);
+
+    window.setTimeout(
+      () => {
+        bus.disconnect();
+        air.disconnect();
+        wet.disconnect();
+      },
+      (when - c.currentTime + 12) * 1000,
+    );
   };
 
   const destroy = () => {
@@ -441,8 +598,13 @@ export const createRainAudio = (): RainAudio => {
     master = null;
     wash = null;
     body = null;
+    low = null;
     hiss = null;
-    gust = null;
+    gustWash = null;
+    gustBody = null;
+    tone = null;
+    dropBus = null;
+    reverbIn = null;
     if (!c || !m) return;
 
     m.gain.cancelScheduledValues(c.currentTime);
@@ -461,7 +623,11 @@ export const createRainAudio = (): RainAudio => {
     resume,
     setIntensity: (value) => {
       intensity = clamp(value, 0, 1);
-      applyIntensity();
+      applyLevels();
+    },
+    setPresence: (value) => {
+      presence = clamp(value, 0, 1);
+      applyLevels();
     },
     setVolume: (value) => {
       volume = clamp(value, 0, 1);
