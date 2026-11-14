@@ -102,6 +102,7 @@ function Shell() {
   const [cursor, setCursor] = useState(true);
   const [lightning, setLightning] = useState(false);
   const [sound, setSound] = useState(false);
+  const [volume, setVolume] = useState(50);
   const [opacity, setOpacity] = useState(50);
   const [density, setDensity] = useState(35);
   const activeSection = useActiveSection(sectionIds);
@@ -148,6 +149,7 @@ function Shell() {
           count={toRainCount(density)}
           lightning={lightning}
           sound={sound}
+          volume={volume / 100}
         />
       )}
       {cursor && <CustomCursor />}
@@ -209,6 +211,18 @@ function Shell() {
                   onCheckedChange={setSound}
                   glow
                 />
+                {sound && (
+                  <Range
+                    label={t("range.volume")}
+                    value={volume}
+                    onChange={setVolume}
+                    min={0}
+                    max={100}
+                    color="accent"
+                    fullWidth={false}
+                    className="w-44"
+                  />
+                )}
               </>
             )}
             {background !== "none" && (
