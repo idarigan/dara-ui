@@ -168,7 +168,7 @@ function Shell() {
         themeChangerMobile={<ThemeChanger iconOnly size="sm" openUpward />}
       />
 
-      <main className="relative z-10 mx-auto max-w-6xl px-4 pt-32 pb-24">
+      <main className="relative z-10 mx-auto max-w-6xl overflow-x-clip px-4 pt-32 pb-24">
         {/* Hero */}
         <section className="relative mb-24 text-center">
           <GradientRing />
