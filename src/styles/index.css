@@ -3,6 +3,7 @@
 @import "./theme-meta.css";
 @import "./fonts.css";
 @import "./cursor.css";
+@import "./glow.css";
 
 @source "../components/**/*.tsx";
 @source "../components/**/*.ts";
