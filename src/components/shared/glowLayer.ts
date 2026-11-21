@@ -8,6 +8,9 @@ const DEFAULT_Z_INDEX = "2147483000";
 const IDLE_FRAMES = 30;
 const VIEWPORT_MARGIN = 240;
 const FALLBACK_EXTENT = 120;
+const SCROLL_SETTLE_MS = 140;
+
+type GlowMode = "page" | "fixed" | "tracked";
 
 export const GLOW_SELECTOR = [
   "[data-glow-lift]",
@@ -60,6 +63,7 @@ interface GlowEntry {
   el: HTMLElement;
   halo: HTMLDivElement | null;
   clippers: HTMLElement[];
+  mode: GlowMode;
   epoch: number;
   applied: Applied;
 }
@@ -76,6 +80,9 @@ const halos = new WeakSet<Node>();
 
 let users = 0;
 let layer: HTMLDivElement | null = null;
+let pageLayer: HTMLDivElement | null = null;
+let scrollingAt = 0;
+let settleTimer = 0;
 let mutations: MutationObserver | null = null;
 let rootMutations: MutationObserver | null = null;
 let resizes: ResizeObserver | null = null;
@@ -189,6 +196,45 @@ function effectiveOpacity(el: HTMLElement, style: CSSStyleDeclaration): number {
   return value;
 }
 
+function isScrollable(el: HTMLElement, style: CSSStyleDeclaration): boolean {
+  const scrolls = /(auto|scroll|overlay)/.test(
+    `${style.overflowX} ${style.overflowY}`,
+  );
+  const hidden = /hidden/.test(`${style.overflowX} ${style.overflowY}`);
+
+  if (scrolls) return true;
+  return (
+    hidden &&
+    (el.scrollHeight > el.clientHeight + 1 ||
+      el.scrollWidth > el.clientWidth + 1)
+  );
+}
+
+function detectMode(el: HTMLElement): GlowMode {
+  const own = getComputedStyle(el);
+  if (own.position === "fixed") return "fixed";
+
+  let inner = own.position === "sticky";
+  let pinned = false;
+
+  for (
+    let node = el.parentElement;
+    node && node !== document.body && node !== document.documentElement;
+    node = node.parentElement
+  ) {
+    const style = getComputedStyle(node);
+    if (style.display === "contents") continue;
+    if (style.position === "sticky" || isScrollable(node, style)) inner = true;
+    if (style.position === "fixed") {
+      pinned = true;
+      break;
+    }
+  }
+
+  if (inner) return "tracked";
+  return pinned ? "fixed" : "page";
+}
+
 function collectClippers(el: HTMLElement): HTMLElement[] {
   const list: HTMLElement[] = [];
   if (getComputedStyle(el).position === "fixed") return list;
@@ -266,7 +312,7 @@ function createHalo(entry: GlowEntry): HTMLDivElement {
     transition: "box-shadow 0.4s ease, border-radius 0.2s ease",
   });
 
-  layer?.appendChild(halo);
+  (entry.mode === "page" ? pageLayer : layer)?.appendChild(halo);
   halos.add(halo);
   entry.halo = halo;
   return halo;
@@ -305,7 +351,25 @@ function apply(entry: GlowEntry, vw: number, vh: number): boolean {
 
   if (entry.epoch !== epoch) {
     entry.clippers = collectClippers(el);
+    const mode = detectMode(el);
+
+    if (mode !== entry.mode) {
+      entry.mode = mode;
+      if (entry.halo) {
+        (mode === "page" ? pageLayer : layer)?.appendChild(entry.halo);
+        entry.applied = blankApplied();
+        entry.halo.style.display = "none";
+      }
+    }
+
     entry.epoch = epoch;
+  }
+
+  if (
+    entry.mode === "tracked" &&
+    performance.now() - scrollingAt < SCROLL_SETTLE_MS
+  ) {
+    return hide(entry);
   }
 
   const region = visibleRegion(entry.clippers, rect);
@@ -328,7 +392,11 @@ function apply(entry: GlowEntry, vw: number, vh: number): boolean {
     changed = true;
   }
 
-  const transform = `translate3d(${round(rect.left)}px, ${round(rect.top)}px, 0)`;
+  const offsetX = entry.mode === "page" ? window.scrollX : 0;
+  const offsetY = entry.mode === "page" ? window.scrollY : 0;
+  const transform = `translate3d(${round(rect.left + offsetX)}px, ${round(
+    rect.top + offsetY,
+  )}px, 0)`;
   if (applied.transform !== transform) {
     halo.style.transform = transform;
     applied.transform = transform;
@@ -403,6 +471,10 @@ function sync(): boolean {
     (document.body || document.documentElement).appendChild(layer);
   }
 
+  if (pageLayer && !pageLayer.isConnected) {
+    document.documentElement.appendChild(pageLayer);
+  }
+
   const vw = window.innerWidth;
   const vh = window.innerHeight;
   let changed = false;
@@ -431,6 +503,7 @@ function register(el: HTMLElement) {
     el,
     halo: null,
     clippers: [],
+    mode: "page",
     epoch: -1,
     applied: blankApplied(),
   });
@@ -457,7 +530,9 @@ function reconcile(el: HTMLElement) {
 }
 
 function scan(node: Node) {
-  if (!(node instanceof HTMLElement) || node === layer) return;
+  if (!(node instanceof HTMLElement) || node === layer || node === pageLayer) {
+    return;
+  }
 
   if (node.matches(GLOW_SELECTOR)) register(node);
   node.querySelectorAll<HTMLElement>(GLOW_SELECTOR).forEach(register);
@@ -474,6 +549,19 @@ function schedule() {
 function wake() {
   idle = 0;
   schedule();
+}
+
+function onScroll(event: Event) {
+  if (event.target !== document && event.target !== document.documentElement) {
+    scrollingAt = performance.now();
+    entries.forEach((entry) => {
+      if (entry.mode === "tracked") hide(entry);
+    });
+    window.clearTimeout(settleTimer);
+    settleTimer = window.setTimeout(wake, SCROLL_SETTLE_MS + 20);
+  }
+
+  wake();
 }
 
 function tick() {
@@ -494,7 +582,7 @@ function onMutations(records: MutationRecord[]) {
 
   for (const record of records) {
     const target = record.target;
-    if (target === layer || halos.has(target)) continue;
+    if (target === layer || target === pageLayer || halos.has(target)) continue;
 
     if (record.type === "childList") {
       record.addedNodes.forEach(scan);
@@ -522,23 +610,31 @@ function mount() {
     getComputedStyle(root).getPropertyValue("--glow-layer-z").trim() ||
     DEFAULT_Z_INDEX;
 
-  layer = document.createElement("div");
-  layer.className = "dara-glow-layer";
-  layer.setAttribute(LAYER_ATTR, "");
-  layer.setAttribute("aria-hidden", "true");
+  const build = (position: "fixed" | "absolute") => {
+    const node = document.createElement("div");
+    node.className = "dara-glow-layer";
+    node.setAttribute(LAYER_ATTR, "");
+    node.setAttribute("aria-hidden", "true");
 
-  Object.assign(layer.style, {
-    position: "fixed",
-    top: "0",
-    left: "0",
-    width: "0",
-    height: "0",
-    overflow: "visible",
-    pointerEvents: "none",
-    zIndex,
-  });
+    Object.assign(node.style, {
+      position,
+      top: "0",
+      left: "0",
+      width: "0",
+      height: "0",
+      overflow: "visible",
+      pointerEvents: "none",
+      zIndex,
+    });
+
+    return node;
+  };
+
+  layer = build("fixed");
+  pageLayer = build("absolute");
 
   (document.body || root).appendChild(layer);
+  root.appendChild(pageLayer);
   root.setAttribute(ROOT_ATTR, "");
 
   resizes =
@@ -556,7 +652,10 @@ function mount() {
   rootMutations.observe(root, { attributes: true });
 
   WAKE_EVENTS.forEach((name) =>
-    document.addEventListener(name, wake, { capture: true, passive: true }),
+    document.addEventListener(name, name === "scroll" ? onScroll : wake, {
+      capture: true,
+      passive: true,
+    }),
   );
   window.addEventListener("resize", wake, { passive: true });
   document.fonts?.ready.then(wake);
@@ -578,14 +677,19 @@ function unmount() {
   resizes = null;
 
   WAKE_EVENTS.forEach((name) =>
-    document.removeEventListener(name, wake, { capture: true }),
+    document.removeEventListener(name, name === "scroll" ? onScroll : wake, {
+      capture: true,
+    }),
   );
+  window.clearTimeout(settleTimer);
   window.removeEventListener("resize", wake);
 
   Array.from(entries.keys()).forEach(unregister);
 
   layer?.remove();
+  pageLayer?.remove();
   layer = null;
+  pageLayer = null;
   document.documentElement.removeAttribute(ROOT_ATTR);
 }
 
