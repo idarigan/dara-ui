@@ -2,6 +2,8 @@
 // DARA UI - Main Entry Point
 // ========================================
 
+import { startGlowLayer } from "./components/shared/glowLayer";
+
 // ----- Core Components -----
 export { Button } from "./components/Button/Button";
 export type { ButtonProps } from "./components/Button/Button";
@@ -201,6 +203,15 @@ export type {
 // ----- Hooks -----
 export { default as useDirection } from "./hooks/useDirection";
 export type { Direction } from "./hooks/useDirection";
+
+// ----- Glow Layer -----
+export { default as useGlowLayer } from "./hooks/useGlowLayer";
+export {
+  startGlowLayer,
+  refreshGlowLayer,
+} from "./components/shared/glowLayer";
+
+startGlowLayer();
 
 // ----- Metadata -----
 export const version = "0.6.0";
