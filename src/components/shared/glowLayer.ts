@@ -75,6 +75,16 @@ interface Region {
   bottom: number;
 }
 
+interface TiltBox {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  matrix: string;
+  ox: number;
+  oy: number;
+}
+
 const entries = new Map<HTMLElement, GlowEntry>();
 const halos = new WeakSet<Node>();
 
@@ -182,18 +192,66 @@ function readShadow(el: HTMLElement, style: CSSStyleDeclaration): string {
   return sourced && sourced !== "none" ? sourced : "";
 }
 
-function effectiveOpacity(el: HTMLElement, style: CSSStyleDeclaration): number {
-  let value = toNumber(style.opacity);
+function isFlat(style: CSSStyleDeclaration): boolean {
+  const transform = style.transform;
+  const flatTransform =
+    !transform ||
+    transform === "none" ||
+    transform === "matrix(1, 0, 0, 1, 0, 0)";
 
-  for (
-    let node = el.parentElement;
-    node && value > 0;
-    node = node.parentElement
-  ) {
-    value *= toNumber(getComputedStyle(node).opacity);
+  return flatTransform && (!style.perspective || style.perspective === "none");
+}
+
+function inspectAncestors(el: HTMLElement, style: CSSStyleDeclaration) {
+  let opacity = toNumber(style.opacity);
+  let flat = true;
+
+  for (let node = el.parentElement; node; node = node.parentElement) {
+    const parent = getComputedStyle(node);
+    if (opacity > 0) opacity *= toNumber(parent.opacity);
+    if (flat && !isFlat(parent)) flat = false;
   }
 
-  return value;
+  return { opacity, flat };
+}
+
+function tiltBox(
+  el: HTMLElement,
+  style: CSSStyleDeclaration,
+  rect: DOMRect,
+): TiltBox | null {
+  if (!style.transform || style.transform === "none") return null;
+
+  const matrix = new DOMMatrix(style.transform);
+  const w = el.offsetWidth;
+  const h = el.offsetHeight;
+  if (matrix.isIdentity || !w || !h) return null;
+
+  const [ox, oy] = style.transformOrigin.split(" ").map(parseFloat);
+  let minX = Infinity;
+  let minY = Infinity;
+
+  for (const [cx, cy] of [
+    [0, 0],
+    [w, 0],
+    [0, h],
+    [w, h],
+  ]) {
+    const point = matrix.transformPoint(new DOMPoint(cx - ox, cy - oy, 0, 1));
+    if (point.w <= 0.01) return null;
+    minX = Math.min(minX, point.x / point.w + ox);
+    minY = Math.min(minY, point.y / point.w + oy);
+  }
+
+  return {
+    x: rect.left - minX,
+    y: rect.top - minY,
+    w,
+    h,
+    matrix: style.transform,
+    ox,
+    oy,
+  };
 }
 
 function isScrollable(el: HTMLElement, style: CSSStyleDeclaration): boolean {
@@ -346,7 +404,7 @@ function apply(entry: GlowEntry, vw: number, vh: number): boolean {
     return hide(entry);
   }
 
-  const opacity = effectiveOpacity(el, style);
+  const { opacity, flat } = inspectAncestors(el, style);
   if (opacity < 0.01) return hide(entry);
 
   if (entry.epoch !== epoch) {
@@ -392,25 +450,40 @@ function apply(entry: GlowEntry, vw: number, vh: number): boolean {
     changed = true;
   }
 
+  const trimmed =
+    region.left > rect.left + 0.5 ||
+    region.top > rect.top + 0.5 ||
+    region.right < rect.right - 0.5 ||
+    region.bottom < rect.bottom - 0.5;
+
+  const tilt = !trimmed && flat ? tiltBox(el, style, rect) : null;
   const offsetX = entry.mode === "page" ? window.scrollX : 0;
   const offsetY = entry.mode === "page" ? window.scrollY : 0;
-  const transform = `translate3d(${round(rect.left + offsetX)}px, ${round(
-    rect.top + offsetY,
-  )}px, 0)`;
+
+  const transform = tilt
+    ? `translate3d(${round(tilt.x + offsetX)}px, ${round(
+        tilt.y + offsetY,
+      )}px, 0) translate(${round(tilt.ox)}px, ${round(tilt.oy)}px) ${
+        tilt.matrix
+      } translate(${round(-tilt.ox)}px, ${round(-tilt.oy)}px)`
+    : `translate3d(${round(rect.left + offsetX)}px, ${round(
+        rect.top + offsetY,
+      )}px, 0)`;
   if (applied.transform !== transform) {
     halo.style.transform = transform;
+    halo.style.transformOrigin = "0 0";
     applied.transform = transform;
     changed = true;
   }
 
-  const width = `${round(rect.width)}px`;
+  const width = `${round(tilt ? tilt.w : rect.width)}px`;
   if (applied.width !== width) {
     halo.style.width = width;
     applied.width = width;
     changed = true;
   }
 
-  const height = `${round(rect.height)}px`;
+  const height = `${round(tilt ? tilt.h : rect.height)}px`;
   if (applied.height !== height) {
     halo.style.height = height;
     applied.height = height;
@@ -438,12 +511,6 @@ function apply(entry: GlowEntry, vw: number, vh: number): boolean {
     applied.opacity = opacityValue;
     changed = true;
   }
-
-  const trimmed =
-    region.left > rect.left + 0.5 ||
-    region.top > rect.top + 0.5 ||
-    region.right < rect.right - 0.5 ||
-    region.bottom < rect.bottom - 0.5;
 
   let clip = "";
   if (trimmed) {
