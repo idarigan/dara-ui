@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import type { RefObject } from "react";
+import { useGlowLayer } from "./useGlowLayer";
 
 export interface HoverPopOptions {
   /**
@@ -22,6 +23,8 @@ export function useHoverPop<T extends HTMLElement>(
   ref: RefObject<T | null>,
   { ease = 0.14 }: HoverPopOptions = {},
 ) {
+  useGlowLayer();
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
