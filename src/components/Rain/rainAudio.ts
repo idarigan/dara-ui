@@ -28,7 +28,7 @@ export interface RainAudio {
    */
   setVolume: (value: number) => void;
   /**
-   * Plays a thunder strike, power sets how loud and how close it is
+   * Plays a thunder strike, power sets how loud and how dark it is
    */
   thunder: (power?: number) => void;
   /**
@@ -215,7 +215,7 @@ const playRumble = (
 ) => {
   const duration = (3.2 + 3 * power + 2.2 * distance) / scale;
   const peak = (0.9 + 1.8 * power) * level;
-  const rise = 0.12 + distance * 0.5 + Math.random() * 0.15;
+  const rise = 0.04 + distance * 0.12 + Math.random() * 0.04;
 
   const source = ctx.createBufferSource();
   source.buffer = noise;
@@ -273,11 +273,12 @@ const playRumble = (
  * Features:
  * - Layered filtered noise for the rain wash, body, low patter and hiss
  * - Randomized stereo drop impacts in three sizes scaled by intensity
- * - Irregular gusts that breathe the rain volume
+ * - Steady rain level that never swells or fades on its own
  * - Presence control that moves the rain from distant and soft to close and crisp
  * - Shared room reverb that gives rain and thunder a natural space
  * - Thunder with a ragged crackle and a long rolling rumble
- * - Thunder distance from power, far strikes arrive later, darker and wetter
+ * - Thunder starts on the same instant as the lightning flash
+ * - Thunder power sets loudness, weaker strikes sound darker and wetter
  */
 export const createRainAudio = (): RainAudio => {
   let ctx: AudioContext | null = null;
@@ -286,8 +287,6 @@ export const createRainAudio = (): RainAudio => {
   let body: GainNode | null = null;
   let low: GainNode | null = null;
   let hiss: GainNode | null = null;
-  let gustWash: GainNode | null = null;
-  let gustBody: GainNode | null = null;
   let tone: BiquadFilterNode | null = null;
   let dropBus: GainNode | null = null;
   let reverbIn: GainNode | null = null;
@@ -303,17 +302,7 @@ export const createRainAudio = (): RainAudio => {
   // LEVELS
   // ============================================
   const applyLevels = () => {
-    if (
-      !ctx ||
-      !wash ||
-      !body ||
-      !low ||
-      !hiss ||
-      !gustWash ||
-      !gustBody ||
-      !tone
-    )
-      return;
+    if (!ctx || !wash || !body || !low || !hiss || !tone) return;
 
     const t = ctx.currentTime;
     const near = 0.25 + 0.75 * presence;
@@ -324,8 +313,6 @@ export const createRainAudio = (): RainAudio => {
     body.gain.setTargetAtTime(bodyLevel, t, 0.3);
     low.gain.setTargetAtTime(0.03 + 0.14 * intensity, t, 0.3);
     hiss.gain.setTargetAtTime((0.01 + 0.07 * intensity) * near, t, 0.3);
-    gustWash.gain.setTargetAtTime(washLevel * 0.3, t, 0.3);
-    gustBody.gain.setTargetAtTime(bodyLevel * 0.3, t, 0.3);
     tone.frequency.setTargetAtTime(2800 + 5200 * presence, t, 0.3);
   };
 
@@ -483,18 +470,6 @@ export const createRainAudio = (): RainAudio => {
       .connect(hissGain);
     hissGain.connect(out);
 
-    // ----- Gusts -----
-    const gustWashGain = c.createGain();
-    gustWashGain.gain.value = 0;
-    gustWashGain.connect(washGain.gain);
-    createLfo(c, 0.09, gustWashGain);
-    createLfo(c, 0.21, gustWashGain);
-
-    const gustBodyGain = c.createGain();
-    gustBodyGain.gain.value = 0;
-    gustBodyGain.connect(bodyGain.gain);
-    createLfo(c, 0.15, gustBodyGain);
-
     // ----- Drops -----
     const dropGain = c.createGain();
     dropGain.gain.value = 1;
@@ -509,8 +484,6 @@ export const createRainAudio = (): RainAudio => {
     body = bodyGain;
     low = lowGain;
     hiss = hissGain;
-    gustWash = gustWashGain;
-    gustBody = gustBodyGain;
     tone = toneFilter;
     dropBus = dropGain;
     reverbIn = reverbGate;
@@ -561,7 +534,7 @@ export const createRainAudio = (): RainAudio => {
     const c = ctx;
     const p = clamp(power, 0, 1);
     const distance = 1 - p;
-    const when = c.currentTime + 0.02 + distance * 1.2;
+    const when = c.currentTime + 0.005;
 
     const bus = c.createGain();
     bus.gain.value = 0.45 + 0.55 * p;
@@ -574,7 +547,7 @@ export const createRainAudio = (): RainAudio => {
     air.connect(wet);
     wet.connect(reverbIn);
 
-    if (distance < 0.6) playCrackle(c, bus, white, when, p);
+    playCrackle(c, bus, white, when, p);
     playRumble(c, bus, brown, when, p, distance, 1, 1);
     playRumble(c, bus, brown, when, p, distance, 2, 0.45);
 
@@ -600,8 +573,6 @@ export const createRainAudio = (): RainAudio => {
     body = null;
     low = null;
     hiss = null;
-    gustWash = null;
-    gustBody = null;
     tone = null;
     dropBus = null;
     reverbIn = null;
