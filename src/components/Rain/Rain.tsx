@@ -23,6 +23,11 @@ export interface RainProps {
    */
   opacity?: number;
   /**
+   * Blur of the whole layer in pixels
+   * @default 0
+   */
+  blur?: number;
+  /**
    * Random lightning strikes with a screen flash
    * @default false
    */
@@ -224,9 +229,9 @@ const flashLevel = (age: number) => {
  * - Endless drops recycled at the top, three depth layers
  * - Optional lightning with a jagged bolt and a screen flash
  * - Optional synthesized rain sound that follows the drop count and the layer opacity
- * - Thunder tied to each lightning flash, with a random distance per strike
+ * - Thunder tied to each lightning flash, with a random loudness per strike
  * - Optional mouse interaction that pushes drops away from the pointer
- * - Layer opacity control and theme-aware color
+ * - Layer opacity and blur control and theme-aware color
  * - Pauses while the tab is hidden and respects reduced motion
  * - Sized by its own fixed box, so it can never stretch the page
  */
@@ -235,6 +240,7 @@ export const Rain: React.FC<RainProps> = React.memo(
     count = 140,
     color = "var(--color-secondary)",
     opacity = 0.5,
+    blur = 0,
     lightning = false,
     sound = false,
     volume = 0.5,
@@ -608,6 +614,7 @@ export const Rain: React.FC<RainProps> = React.memo(
           ...backgroundLayerStyle,
           zIndex: 0,
           opacity: Math.min(1, Math.max(0, opacity)),
+          filter: blur > 0 ? `blur(${blur}px)` : undefined,
         }}
       >
         <canvas ref={canvasRef} style={backgroundCanvasStyle} />

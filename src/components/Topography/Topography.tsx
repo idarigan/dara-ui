@@ -61,6 +61,11 @@ export interface TopographyProps {
    */
   opacity?: number;
   /**
+   * Blur of the whole layer in pixels
+   * @default 0
+   */
+  blur?: number;
+  /**
    * Marker style drawn on the terrain grid
    * @default "dot"
    */
@@ -378,7 +383,7 @@ const viewProj = (cam: Cam, aspect: number, out: Float32Array) => {
  * Features:
  * - WebGL2 terrain rendered as animated contour lines
  * - Optional pointer glow and camera lean, solved analytically (no ray marching)
- * - Layer opacity control
+ * - Layer opacity and blur control
  * - Frame rate cap, capped pixel ratio and no post-processing passes
  * - Pauses while hidden or offscreen and honors reduced motion
  * - Follows the active theme color tokens and the --theme-mode token
@@ -397,6 +402,7 @@ export const Topography: React.FC<TopographyProps> = ({
   tilt = 90,
   fog = 0.3,
   opacity = 0.5,
+  blur = 0,
   markers = "dot",
   interactive = true,
   parallax = 1,
@@ -913,6 +919,7 @@ export const Topography: React.FC<TopographyProps> = ({
         ...backgroundLayerStyle,
         zIndex: 0,
         opacity: clamp(opacity, 0, 1),
+        filter: blur > 0 ? `blur(${blur}px)` : undefined,
       }}
     />
   );

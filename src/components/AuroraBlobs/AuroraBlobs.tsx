@@ -13,6 +13,11 @@ export interface AuroraBlobsProps {
    */
   sizes?: [number, number, number];
   /**
+   * Blur of each blob in pixels
+   * @default 120
+   */
+  blur?: number;
+  /**
    * Additional className
    */
   className?: string;
@@ -25,6 +30,7 @@ export interface AuroraBlobsProps {
  * - Three animated gradient blobs
  * - Smooth drifting animation
  * - Theme-aware colors
+ * - Configurable blur amount
  * - Used as a subtle atmospheric background effect
  */
 export const AuroraBlobs: React.FC<AuroraBlobsProps> = ({
@@ -34,6 +40,7 @@ export const AuroraBlobs: React.FC<AuroraBlobsProps> = ({
     "color-mix(in srgb, var(--color-accent) 18%, transparent)",
   ],
   sizes = [500, 400, 350],
+  blur = 120,
   className = "",
 }) => {
   const blobPositions = [
@@ -52,11 +59,12 @@ export const AuroraBlobs: React.FC<AuroraBlobsProps> = ({
       {blobPositions.map((pos, index) => (
         <div
           key={index}
-          className="aurora-blob absolute rounded-full blur-[120px] opacity-35"
+          className="aurora-blob absolute rounded-full opacity-35"
           style={{
             width: sizes[index],
             height: sizes[index],
             background: colors[index],
+            filter: blur > 0 ? `blur(${blur}px)` : undefined,
             top: pos.top,
             left: pos.left,
             right: pos.right as string | undefined,

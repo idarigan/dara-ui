@@ -92,6 +92,8 @@ const toParticleCount = (density: number) => Math.round(10 + density * 2);
 
 const toRainCount = (density: number) => Math.round(60 + density * 7);
 
+const toBlur = (value: number) => Math.round(value * 0.2);
+
 // ============================================
 // SHELL
 // ============================================
@@ -105,6 +107,7 @@ function Shell() {
   const [volume, setVolume] = useState(50);
   const [opacity, setOpacity] = useState(50);
   const [density, setDensity] = useState(35);
+  const [blur, setBlur] = useState(0);
   const activeSection = useActiveSection(sectionIds);
 
   const sections = useMemo(
@@ -138,15 +141,24 @@ function Shell() {
       {/* Effects */}
       <NoiseOverlay />
       {background === "topography" && (
-        <Topography opacity={opacity / 100} lineCount={toLineCount(density)} />
+        <Topography
+          opacity={opacity / 100}
+          lineCount={toLineCount(density)}
+          blur={toBlur(blur)}
+        />
       )}
       {background === "particles" && (
-        <Particles opacity={opacity / 100} count={toParticleCount(density)} />
+        <Particles
+          opacity={opacity / 100}
+          count={toParticleCount(density)}
+          blur={toBlur(blur)}
+        />
       )}
       {background === "rain" && (
         <Rain
           opacity={opacity / 100}
           count={toRainCount(density)}
+          blur={toBlur(blur)}
           lightning={lightning}
           sound={sound}
           volume={volume / 100}
@@ -243,6 +255,16 @@ function Shell() {
                   min={0}
                   max={100}
                   color="secondary"
+                  fullWidth={false}
+                  className="w-44"
+                />
+                <Range
+                  label={t("demoControls.blur")}
+                  value={blur}
+                  onChange={setBlur}
+                  min={0}
+                  max={100}
+                  color="warning"
                   fullWidth={false}
                   className="w-44"
                 />

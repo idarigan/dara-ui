@@ -22,6 +22,11 @@ export interface ParticlesProps {
    */
   opacity?: number;
   /**
+   * Blur of the whole layer in pixels
+   * @default 0
+   */
+  blur?: number;
+  /**
    * Opacity range per particle [min, max]
    * @default [0.15, 0.5]
    */
@@ -107,7 +112,7 @@ const resolveToken = (value: string): string => {
  * - Configurable particle count, colors, sizes, and speeds
  * - Theme-aware default colors that follow the active theme tokens
  * - One color or many, passed as a string or an array
- * - Layer opacity control
+ * - Layer opacity and blur control
  * - Optional mouse interaction with a single cheap distance check per particle
  * - Pauses while the tab is hidden and respects reduced motion
  * - Particles are created once (and on width change / count change only)
@@ -119,6 +124,7 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
     count = 60,
     colors,
     opacity = 0.5,
+    blur = 0,
     opacityRange = DEFAULT_OPACITY,
     sizeRange = DEFAULT_SIZE,
     speedRange = DEFAULT_SPEED,
@@ -346,6 +352,7 @@ export const Particles: React.FC<ParticlesProps> = React.memo(
           ...backgroundLayerStyle,
           zIndex: 0,
           opacity: Math.min(1, Math.max(0, opacity)),
+          filter: blur > 0 ? `blur(${blur}px)` : undefined,
         }}
       >
         <canvas ref={canvasRef} style={backgroundCanvasStyle} />

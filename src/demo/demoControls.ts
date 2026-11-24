@@ -7,6 +7,7 @@ export const demoControls = {
     demoControls: {
       opacity: "Opacity",
       density: "Density",
+      blur: "Blur",
       rain: "Rain",
       lightning: "Lightning",
       sound: "Sound",
@@ -18,6 +19,7 @@ export const demoControls = {
     demoControls: {
       opacity: "شفافیت",
       density: "تراکم",
+      blur: "محو شدگی",
       rain: "باران",
       lightning: "رعد و برق",
       sound: "صدا",
@@ -29,6 +31,7 @@ export const demoControls = {
     demoControls: {
       opacity: "Opacité",
       density: "Densité",
+      blur: "Flou",
       rain: "Pluie",
       lightning: "Éclairs",
       sound: "Son",
