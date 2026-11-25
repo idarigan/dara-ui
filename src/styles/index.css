@@ -90,8 +90,13 @@ input::-ms-clear {
 /* ----- Standard Glass ----- */
 .glass {
   background: var(--glass-bg);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+  background-image: linear-gradient(
+    145deg,
+    var(--glass-sheen, transparent),
+    transparent 55%
+  );
+  -webkit-backdrop-filter: blur(14px) var(--glass-saturate, saturate(180%));
+  backdrop-filter: blur(14px) var(--glass-saturate, saturate(180%));
   border: 1px solid var(--glass-border-strong);
   outline: 1px solid var(--glass-outline);
   box-shadow:
@@ -115,8 +120,13 @@ button.glass {
 /* ----- Heavy Glass (blur: 30px, more opaque) ----- */
 .glass-heavy {
   background: var(--glass-bg);
-  -webkit-backdrop-filter: blur(30px);
-  backdrop-filter: blur(30px);
+  background-image: linear-gradient(
+    145deg,
+    var(--glass-sheen, transparent),
+    transparent 55%
+  );
+  -webkit-backdrop-filter: blur(30px) var(--glass-saturate, saturate(180%));
+  backdrop-filter: blur(30px) var(--glass-saturate, saturate(180%));
   border: 1px solid var(--glass-border-strong);
   outline: 1px solid var(--glass-outline);
   box-shadow:
@@ -129,8 +139,13 @@ button.glass {
 /* ----- Solid Glass (less blur, more opaque) ----- */
 .glass-solid {
   background: var(--glass-bg);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+  background-image: linear-gradient(
+    145deg,
+    var(--glass-sheen, transparent),
+    transparent 55%
+  );
+  -webkit-backdrop-filter: blur(8px) var(--glass-saturate, saturate(180%));
+  backdrop-filter: blur(8px) var(--glass-saturate, saturate(180%));
   border: 1px solid var(--glass-border-strong);
   outline: 1px solid var(--glass-outline);
   box-shadow:
@@ -226,6 +241,30 @@ button.glass {
 }
 
 .float-card:hover::before {
+  opacity: 1;
+}
+
+/* Accent line on top edge */
+.float-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-primary),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity var(--transition-med);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.float-card:hover::after {
   opacity: 1;
 }
 
