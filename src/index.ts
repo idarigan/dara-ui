@@ -165,6 +165,9 @@ export type { RainProps } from "./components/Rain/Rain";
 export { Topography } from "./components/Topography/Topography";
 export type { TopographyProps } from "./components/Topography/Topography";
 
+export { GlowBackdrop } from "./components/GlowBackdrop/GlowBackdrop";
+export type { GlowBackdropProps } from "./components/GlowBackdrop/GlowBackdrop";
+
 export { AuroraBlobs } from "./components/AuroraBlobs/AuroraBlobs";
 export type { AuroraBlobsProps } from "./components/AuroraBlobs/AuroraBlobs";
 

@@ -4,6 +4,7 @@ import {
   CustomCursor,
   Dropdown,
   Footer,
+  GlowBackdrop,
   GradientRing,
   I18nProvider,
   LanguageChanger,
@@ -47,7 +48,13 @@ const sectionIds = [
   "layout",
 ] as const;
 
-const backgroundValues = ["topography", "particles", "rain", "none"] as const;
+const backgroundValues = [
+  "topography",
+  "particles",
+  "rain",
+  "glow",
+  "none",
+] as const;
 
 const STORYBOOK_URL = import.meta.env.DEV
   ? "http://localhost:6006"
@@ -92,6 +99,8 @@ const toParticleCount = (density: number) => Math.round(10 + density * 2);
 
 const toRainCount = (density: number) => Math.round(60 + density * 7);
 
+const toGlowIntensity = (density: number) => 0.1 + density * 0.005;
+
 const toBlur = (value: number) => Math.round(value * 0.2);
 
 // ============================================
@@ -124,8 +133,8 @@ function Shell() {
       backgroundValues.map((value) => ({
         value,
         label:
-          value === "rain"
-            ? t("demoControls.rain")
+          value === "rain" || value === "glow"
+            ? t(`demoControls.${value}`)
             : t(`demo.backgrounds.${value}`),
       })),
     [t],
@@ -162,6 +171,13 @@ function Shell() {
           lightning={lightning}
           sound={sound}
           volume={volume / 100}
+        />
+      )}
+      {background === "glow" && (
+        <GlowBackdrop
+          opacity={opacity / 100}
+          intensity={toGlowIntensity(density)}
+          blur={toBlur(blur)}
         />
       )}
       {cursor && <CustomCursor />}
