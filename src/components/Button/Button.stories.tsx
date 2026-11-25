@@ -20,6 +20,7 @@ const meta = {
         "primary",
         "secondary",
         "accent",
+        "gradient",
         "glass",
         "danger",
         "success",
@@ -59,6 +60,7 @@ export const Variants: Story = {
         <Button variant="primary">Primary</Button>
         <Button variant="secondary">Secondary</Button>
         <Button variant="accent">Accent</Button>
+        <Button variant="gradient">Gradient</Button>
         <Button variant="glass">Glass</Button>
         <Button variant="danger">Danger</Button>
         <Button variant="success">Success</Button>
@@ -100,6 +102,9 @@ export const WithGlow: Story = {
         </Button>
         <Button glow="accent" variant="accent">
           Accent Glow
+        </Button>
+        <Button glow="primary" variant="gradient">
+          Gradient Glow
         </Button>
       </div>
     );

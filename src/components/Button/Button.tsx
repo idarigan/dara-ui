@@ -14,6 +14,7 @@ interface ButtonBaseProps {
     | "primary"
     | "secondary"
     | "accent"
+    | "gradient"
     | "glass"
     | "danger"
     | "success"
@@ -68,7 +69,7 @@ type ButtonElement = HTMLButtonElement | HTMLAnchorElement;
  * Dara UI Button - Glassmorphism style with cyberpunk aesthetics
  *
  * Features:
- * - Multiple variants: primary, secondary, accent, glass, danger, success, outline
+ * - Multiple variants: primary, secondary, accent, gradient, glass, danger, success, outline
  * - Three sizes: sm, md, lg
  * - Glow effects with theme-aware shadows
  * - Loading state with spinner
@@ -118,6 +119,8 @@ export const Button = React.forwardRef<ButtonElement, ButtonProps>(
         "bg-[var(--color-secondary-solid)] !text-white shadow-[var(--shadow-btn-secondary)] hover:bg-[var(--color-secondary-hover)] hover:shadow-[var(--shadow-btn-secondary-hover)] hover:brightness-105",
       accent:
         "bg-[var(--color-accent-solid)] !text-white shadow-[var(--shadow-btn-accent)] hover:bg-[var(--color-accent-hover)] hover:shadow-[var(--shadow-btn-accent-hover)] hover:brightness-105",
+      gradient:
+        "bg-[image:var(--gradient-primary)] !text-white shadow-[var(--shadow-btn-primary)] hover:shadow-[var(--shadow-btn-primary-hover)] hover:brightness-110",
       glass:
         "glass !text-[var(--color-text-primary)] hover:bg-[var(--color-bg-elevated)]/40 hover:border-[var(--color-border-secondary)] hover:shadow-[var(--shadow-float)]",
       danger:
