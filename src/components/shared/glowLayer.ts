@@ -1,18 +1,39 @@
 // ============================================
 // GLOW LAYER
 // ============================================
+//
+// Glows (box-shadows) of elements that live in the normal, window-scrolled
+// page are re-painted as "halos" in one absolutely positioned layer on
+// <html>. That lets a glow spill over `overflow: hidden` parents, and because
+// the layer is part of the document it scrolls natively on the compositor —
+// it can never lag behind or be left behind while scrolling.
+//
+// Everything else keeps its own NATIVE box-shadow:
+//   - elements that are fixed / sticky, or inside a fixed / sticky ancestor
+//   - elements inside any scroll container that is not the viewport
+//     (app-shell <main overflow-auto>, sidebars, modals, and a <body> that
+//     scrolls instead of the window)
+// A halo could only follow those one frame late (main thread vs. compositor),
+// which is exactly the "glow left behind after scrolling" ghost.
+//
+// Halos never paint over fixed / sticky UI (navbar, toasts, back-to-top,
+// modals …): the layer is kept one z-index below the lowest of them, and any
+// that can't be out-stacked (z-index auto/0) are cut out of the halo with a
+// clip-path. Mark custom elements with `data-glow-occluder` to force this, or
+// `data-glow-occluder="false"` to opt out.
+// ============================================
 
 const ROOT_ATTR = "data-dara-glow";
 const LAYER_ATTR = "data-dara-glow-layer";
-const DEFAULT_Z_INDEX = "2147483000";
+const NATIVE_ATTR = "data-dara-glow-native";
+const OCCLUDER_ATTR = "data-glow-occluder";
+const DEFAULT_Z_INDEX = 2147483000;
 const IDLE_FRAMES = 30;
 const VIEWPORT_MARGIN = 240;
 const FALLBACK_EXTENT = 120;
-const SCROLL_SETTLE_MS = 140;
-const THIN_REFERENCE = 24;
-const MIN_THIN_SCALE = 0.3;
+const OCCLUDER_SCAN_MS = 250;
 
-type GlowMode = "page" | "fixed" | "sticky";
+type GlowMode = "page" | "native";
 
 export const GLOW_SELECTOR = [
   "[data-glow-lift]",
@@ -25,6 +46,24 @@ export const GLOW_SELECTOR = [
   '[class*="shadow-[var(--shadow-glow-"]',
   '[class*="shadow-[var(--shadow-btn-"]',
   '[class*="shadow-[0_0_50px_color-mix("]',
+].join(", ");
+
+/** Where fixed / sticky UI usually hides — cheap pre-filter for occluders. */
+const OCCLUDER_CANDIDATES = [
+  "body > *",
+  "nav",
+  "header",
+  "footer",
+  "aside",
+  "dialog",
+  '[role="dialog"]',
+  '[role="alert"]',
+  '[role="status"]',
+  '[class*="fixed"]',
+  '[class*="sticky"]',
+  '[style*="fixed"]',
+  '[style*="sticky"]',
+  `[${OCCLUDER_ATTR}]`,
 ].join(", ");
 
 const WAKE_EVENTS = [
@@ -67,7 +106,6 @@ interface GlowEntry {
   clippers: HTMLElement[];
   mode: GlowMode;
   epoch: number;
-  scrollAt: number;
   applied: Applied;
 }
 
@@ -88,19 +126,30 @@ interface TiltBox {
   oy: number;
 }
 
+interface Occluder {
+  el: HTMLElement;
+  /** viewport rect, refreshed every sync */
+  rect: Region;
+}
+
 const entries = new Map<HTMLElement, GlowEntry>();
 const halos = new WeakSet<Node>();
 
 let users = 0;
-let layer: HTMLDivElement | null = null;
 let pageLayer: HTMLDivElement | null = null;
-let settleTimer = 0;
 let mutations: MutationObserver | null = null;
 let rootMutations: MutationObserver | null = null;
 let resizes: ResizeObserver | null = null;
 let frame = 0;
 let idle = 0;
 let epoch = 0;
+
+let baseZ = DEFAULT_Z_INDEX;
+let layerZ = "";
+let occluderEpoch = -1;
+let occluderScanAt = 0;
+/** fixed/sticky UI the halos must stay under, but can't out-stack → clipped */
+let clipOccluders: Occluder[] = [];
 
 const noop = () => {};
 
@@ -182,51 +231,6 @@ function shadowExtent(halo: HTMLElement): number {
   return Math.ceil(extent);
 }
 
-function splitTokens(value: string): string[] {
-  const tokens: string[] = [];
-  let depth = 0;
-  let current = "";
-
-  for (const char of value.trim()) {
-    if (char === "(") depth++;
-    else if (char === ")") depth--;
-
-    if (/\s/.test(char) && depth === 0) {
-      if (current) tokens.push(current);
-      current = "";
-    } else {
-      current += char;
-    }
-  }
-
-  if (current) tokens.push(current);
-  return tokens;
-}
-
-function scaleShadow(value: string, scale: number): string {
-  if (scale >= 0.999) return value;
-
-  return splitLayers(value)
-    .map((part) => {
-      const tokens = splitTokens(part);
-      if (tokens.includes("inset")) return part;
-
-      const at = tokens
-        .map((token, index) => (/^-?\d*\.?\d+(px)?$/.test(token) ? index : -1))
-        .filter((index) => index >= 0);
-
-      if (at.length < 3 || parseFloat(tokens[at[2]]) <= 0) return part;
-
-      at.forEach((index) => {
-        const scaled = round(parseFloat(tokens[index]) * scale);
-        tokens[index] = scaled === 0 ? "0" : `${scaled}px`;
-      });
-
-      return tokens.join(" ");
-    })
-    .join(", ");
-}
-
 // ============================================
 // ELEMENT SOURCES
 // ============================================
@@ -301,11 +305,45 @@ function tiltBox(
   };
 }
 
+function isScrollable(el: HTMLElement, style: CSSStyleDeclaration): boolean {
+  const scrolls = /(auto|scroll|overlay)/.test(
+    `${style.overflowX} ${style.overflowY}`,
+  );
+  const hidden = /hidden/.test(`${style.overflowX} ${style.overflowY}`);
+
+  if (scrolls) return true;
+  return (
+    hidden &&
+    (el.scrollHeight > el.clientHeight + 1 ||
+      el.scrollWidth > el.clientWidth + 1)
+  );
+}
+
+/**
+ * True when <body> scrolls by itself instead of the viewport — e.g. a project
+ * with `html, body { height: 100%; overflow-x: hidden }`. Body overflow only
+ * reaches the viewport when <html> overflow is `visible`.
+ */
+function bodyIsScroller(): boolean {
+  const body = document.body;
+  if (!body) return false;
+
+  const html = getComputedStyle(document.documentElement);
+  if (html.overflowX === "visible" && html.overflowY === "visible") {
+    return false;
+  }
+
+  const style = getComputedStyle(body);
+  return (
+    /(auto|scroll|overlay|hidden)/.test(`${style.overflowX} ${style.overflowY}`) &&
+    (body.scrollHeight > body.clientHeight + 1 ||
+      body.scrollWidth > body.clientWidth + 1)
+  );
+}
+
 function detectMode(el: HTMLElement): GlowMode {
   const own = getComputedStyle(el);
-  if (own.position === "fixed") return "fixed";
-
-  let sticky = own.position === "sticky";
+  if (own.position === "fixed" || own.position === "sticky") return "native";
 
   for (
     let node = el.parentElement;
@@ -314,16 +352,20 @@ function detectMode(el: HTMLElement): GlowMode {
   ) {
     const style = getComputedStyle(node);
     if (style.display === "contents") continue;
-    if (style.position === "fixed") return "fixed";
-    if (style.position === "sticky") sticky = true;
+    if (
+      style.position === "fixed" ||
+      style.position === "sticky" ||
+      isScrollable(node, style)
+    ) {
+      return "native";
+    }
   }
 
-  return sticky ? "sticky" : "page";
+  return bodyIsScroller() ? "native" : "page";
 }
 
 function collectClippers(el: HTMLElement): HTMLElement[] {
   const list: HTMLElement[] = [];
-  if (getComputedStyle(el).position === "fixed") return list;
 
   for (
     let node = el.parentElement;
@@ -336,8 +378,6 @@ function collectClippers(el: HTMLElement): HTMLElement[] {
     if (style.overflowX !== "visible" || style.overflowY !== "visible") {
       list.push(node);
     }
-
-    if (style.position === "fixed") break;
   }
 
   return list;
@@ -364,6 +404,130 @@ function visibleRegion(clippers: HTMLElement[], rect: DOMRect): Region | null {
   }
 
   return region;
+}
+
+// ============================================
+// OCCLUDERS (fixed / sticky UI the glow must stay under)
+// ============================================
+
+/**
+ * z-index this element competes with at the root stacking context: the
+ * z-index of its outermost ancestor that opens a stacking context.
+ * `null` = it can't be out-stacked by a positive z-index (auto / 0 / negative).
+ */
+function rootZ(el: HTMLElement): number | null {
+  let z: number | null = null;
+
+  for (
+    let node: HTMLElement | null = el;
+    node && node !== document.documentElement;
+    node = node.parentElement
+  ) {
+    const style = getComputedStyle(node);
+    const positioned = style.position !== "static";
+    const value = parseInt(style.zIndex, 10);
+    if (positioned && !Number.isNaN(value)) z = value;
+  }
+
+  return z;
+}
+
+function hasInteractiveContent(el: HTMLElement): boolean {
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_ELEMENT);
+  let budget = 60;
+
+  for (let node = walker.nextNode(); node && budget-- > 0; ) {
+    if (getComputedStyle(node as Element).pointerEvents !== "none") return true;
+    node = walker.nextNode();
+  }
+
+  return false;
+}
+
+function isOccluder(el: HTMLElement): boolean {
+  if (el === pageLayer || halos.has(el)) return false;
+
+  const flag = el.getAttribute(OCCLUDER_ATTR);
+  if (flag === "false") return false;
+
+  const style = getComputedStyle(el);
+  if (style.display === "none" || style.visibility === "hidden") return false;
+  if (toNumber(style.opacity) < 0.01) return false;
+  if (flag !== null) return true;
+
+  if (style.position !== "fixed" && style.position !== "sticky") return false;
+
+  // Decorative full-page layers (particles, noise, cursor …) are
+  // pointer-events: none all the way down. A navbar wrapper that is
+  // pointer-events: none but holds clickable content still counts.
+  if (style.pointerEvents === "none" && !hasInteractiveContent(el)) {
+    return false;
+  }
+
+  return true;
+}
+
+function scanOccluders() {
+  const found: HTMLElement[] = [];
+
+  document.querySelectorAll<HTMLElement>(OCCLUDER_CANDIDATES).forEach((el) => {
+    if (!isOccluder(el)) return;
+    // Nested inside an occluder we already have? the outer one covers it.
+    if (found.some((outer) => outer.contains(el))) return;
+    found.push(el);
+  });
+
+  let minZ = Infinity;
+  const clipped: HTMLElement[] = [];
+
+  for (const el of found) {
+    const z = rootZ(el);
+    // Backgrounds sitting behind the page aren't on top of anything.
+    if (z !== null && z < 0) continue;
+    if (z === null || z <= 1) clipped.push(el);
+    else minZ = Math.min(minZ, z);
+  }
+
+  baseZ =
+    parseInt(
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--glow-layer-z")
+        .trim(),
+      10,
+    ) || DEFAULT_Z_INDEX;
+
+  const z = String(Math.max(1, Math.min(baseZ, minZ - 1)));
+  if (pageLayer && z !== layerZ) {
+    pageLayer.style.zIndex = z;
+    layerZ = z;
+  }
+
+  clipOccluders = clipped.map((el) => ({
+    el,
+    rect: { left: 0, top: 0, right: 0, bottom: 0 },
+  }));
+}
+
+function refreshOccluderRects() {
+  clipOccluders = clipOccluders.filter((o) => o.el.isConnected);
+  for (const occluder of clipOccluders) {
+    const box = occluder.el.getBoundingClientRect();
+    occluder.rect = {
+      left: box.left,
+      top: box.top,
+      right: box.right,
+      bottom: box.bottom,
+    };
+  }
+}
+
+// ============================================
+// NATIVE MODE
+// ============================================
+
+function setNative(el: HTMLElement, native: boolean) {
+  if (native) el.setAttribute(NATIVE_ATTR, "");
+  else el.removeAttribute(NATIVE_ATTR);
 }
 
 // ============================================
@@ -398,10 +562,18 @@ function createHalo(entry: GlowEntry): HTMLDivElement {
     transition: "box-shadow 0.4s ease, border-radius 0.2s ease",
   });
 
-  (entry.mode === "page" ? pageLayer : layer)?.appendChild(halo);
+  pageLayer?.appendChild(halo);
   halos.add(halo);
   entry.halo = halo;
   return halo;
+}
+
+function dropHalo(entry: GlowEntry) {
+  if (!entry.halo) return;
+  halos.delete(entry.halo);
+  entry.halo.remove();
+  entry.halo = null;
+  entry.applied = blankApplied();
 }
 
 function hide(entry: GlowEntry): boolean {
@@ -412,8 +584,29 @@ function hide(entry: GlowEntry): boolean {
   return true;
 }
 
+function rectPath(l: number, t: number, r: number, b: number): string {
+  return `M${round(l)} ${round(t)}H${round(r)}V${round(b)}H${round(l)}Z`;
+}
+
 function apply(entry: GlowEntry, vw: number, vh: number): boolean {
   const { el } = entry;
+
+  if (entry.epoch !== epoch) {
+    const mode = detectMode(el);
+    entry.clippers = mode === "page" ? collectClippers(el) : [];
+
+    if (mode !== entry.mode) {
+      entry.mode = mode;
+      setNative(el, mode === "native");
+      if (mode === "native") dropHalo(entry);
+    }
+
+    entry.epoch = epoch;
+  }
+
+  // Native: the element paints its own box-shadow — nothing to sync.
+  if (entry.mode === "native") return false;
+
   const style = getComputedStyle(el);
 
   if (style.visibility === "hidden" || style.display === "none") {
@@ -435,26 +628,6 @@ function apply(entry: GlowEntry, vw: number, vh: number): boolean {
   const { opacity, flat } = inspectAncestors(el, style);
   if (opacity < 0.01) return hide(entry);
 
-  if (entry.epoch !== epoch) {
-    entry.clippers = collectClippers(el);
-    const mode = detectMode(el);
-
-    if (mode !== entry.mode) {
-      entry.mode = mode;
-      if (entry.halo) {
-        (mode === "page" ? pageLayer : layer)?.appendChild(entry.halo);
-        entry.applied = blankApplied();
-        entry.halo.style.display = "none";
-      }
-    }
-
-    entry.epoch = epoch;
-  }
-
-  if (performance.now() - entry.scrollAt < SCROLL_SETTLE_MS) {
-    return hide(entry);
-  }
-
   const region = visibleRegion(entry.clippers, rect);
   if (!region) return hide(entry);
 
@@ -468,27 +641,34 @@ function apply(entry: GlowEntry, vw: number, vh: number): boolean {
     changed = true;
   }
 
-  const trimmed =
-    region.left > rect.left + 0.5 ||
-    region.top > rect.top + 0.5 ||
-    region.right < rect.right - 0.5 ||
-    region.bottom < rect.bottom - 0.5;
-
-  const tilt = !trimmed && flat ? tiltBox(el, style, rect) : null;
-  const thin = Math.min(
-    tilt ? tilt.w : rect.width,
-    tilt ? tilt.h : rect.height,
-  );
-  const scale = Math.min(1, Math.max(MIN_THIN_SCALE, thin / THIN_REFERENCE));
-  const shadow = scaleShadow(readShadow(el, style), scale) || "none";
+  const shadow = readShadow(el, style) || "none";
   if (applied.shadow !== shadow) {
     halo.style.boxShadow = shadow;
     applied.shadow = shadow;
     changed = true;
   }
 
-  const offsetX = entry.mode === "page" ? window.scrollX : 0;
-  const offsetY = entry.mode === "page" ? window.scrollY : 0;
+  const trimmed =
+    region.left > rect.left + 0.5 ||
+    region.top > rect.top + 0.5 ||
+    region.right < rect.right - 0.5 ||
+    region.bottom < rect.bottom - 0.5;
+
+  // Low-z fixed/sticky UI this glow would spill onto
+  const extent = shadow === "none" ? 0 : shadowExtent(halo);
+  const holes = clipOccluders.filter(
+    ({ el: o, rect: r }) =>
+      !o.contains(el) &&
+      r.left < rect.right + extent &&
+      r.right > rect.left - extent &&
+      r.top < rect.bottom + extent &&
+      r.bottom > rect.top - extent,
+  );
+
+  const tilt =
+    !trimmed && !holes.length && flat ? tiltBox(el, style, rect) : null;
+  const offsetX = window.scrollX;
+  const offsetY = window.scrollY;
 
   const transform = tilt
     ? `translate3d(${round(tilt.x + offsetX)}px, ${round(
@@ -542,14 +722,30 @@ function apply(entry: GlowEntry, vw: number, vh: number): boolean {
     changed = true;
   }
 
+  // Clip-path in halo-local coordinates (origin = element's top-left).
   let clip = "";
-  if (trimmed) {
-    const extent = shadowExtent(halo);
-    clip = `inset(${round(region.top - extent - rect.top)}px ${round(
-      rect.right - region.right - extent,
-    )}px ${round(rect.bottom - region.bottom - extent)}px ${round(
-      region.left - extent - rect.left,
-    )}px)`;
+  if (trimmed || holes.length) {
+    const outer = trimmed
+      ? rectPath(
+          region.left - extent - rect.left,
+          region.top - extent - rect.top,
+          region.right + extent - rect.left,
+          region.bottom + extent - rect.top,
+        )
+      : rectPath(-extent, -extent, rect.width + extent, rect.height + extent);
+
+    const cuts = holes
+      .map(({ rect: r }) =>
+        rectPath(
+          r.left - rect.left,
+          r.top - rect.top,
+          r.right - rect.left,
+          r.bottom - rect.top,
+        ),
+      )
+      .join("");
+
+    clip = `path(evenodd, "${outer}${cuts}")`;
   }
 
   if (applied.clip !== clip) {
@@ -562,19 +758,24 @@ function apply(entry: GlowEntry, vw: number, vh: number): boolean {
 }
 
 function sync(): boolean {
-  if (!layer) return false;
+  if (!pageLayer) return false;
 
-  if (!layer.isConnected) {
-    (document.body || document.documentElement).appendChild(layer);
-  }
-
-  if (pageLayer && !pageLayer.isConnected) {
+  if (!pageLayer.isConnected) {
     document.documentElement.appendChild(pageLayer);
   }
 
+  const now = performance.now();
+  if (occluderEpoch !== epoch && now - occluderScanAt > OCCLUDER_SCAN_MS) {
+    scanOccluders();
+    occluderEpoch = epoch;
+    occluderScanAt = now;
+  }
+  refreshOccluderRects();
+
   const vw = window.innerWidth;
   const vh = window.innerHeight;
-  let changed = false;
+  // throttled occluder scan still pending → keep the loop alive for it
+  let changed = occluderEpoch !== epoch;
 
   entries.forEach((entry, el) => {
     if (!el.isConnected) {
@@ -602,7 +803,6 @@ function register(el: HTMLElement) {
     clippers: [],
     mode: "page",
     epoch: -1,
-    scrollAt: 0,
     applied: blankApplied(),
   });
 
@@ -613,11 +813,8 @@ function unregister(el: HTMLElement) {
   const entry = entries.get(el);
   if (!entry) return;
 
-  if (entry.halo) {
-    halos.delete(entry.halo);
-    entry.halo.remove();
-  }
-
+  dropHalo(entry);
+  setNative(el, false);
   entries.delete(el);
   resizes?.unobserve(el);
 }
@@ -628,7 +825,7 @@ function reconcile(el: HTMLElement) {
 }
 
 function scan(node: Node) {
-  if (!(node instanceof HTMLElement) || node === layer || node === pageLayer) {
+  if (!(node instanceof HTMLElement) || node === pageLayer) {
     return;
   }
 
@@ -641,7 +838,7 @@ function scan(node: Node) {
 // ============================================
 
 function schedule() {
-  if (!frame && layer) frame = requestAnimationFrame(tick);
+  if (!frame && pageLayer) frame = requestAnimationFrame(tick);
 }
 
 function wake() {
@@ -649,34 +846,19 @@ function wake() {
   schedule();
 }
 
-function onScroll(event: Event) {
-  const target = event.target;
-  const now = performance.now();
-  const isPage = target === document || target === document.documentElement;
-
-  entries.forEach((entry) => {
-    const moved = isPage
-      ? entry.mode === "sticky"
-      : target instanceof Node && target.contains(entry.el);
-
-    if (!moved) return;
-    entry.scrollAt = now;
-    hide(entry);
-  });
-
-  window.clearTimeout(settleTimer);
-  settleTimer = window.setTimeout(wake, SCROLL_SETTLE_MS + 20);
-
+function onResize() {
+  // overflow / position can change with media queries
+  epoch++;
   wake();
 }
 
 function tick() {
   frame = 0;
-  if (!layer) return;
+  if (!pageLayer) return;
 
   const changed = sync();
 
-  // Drop the records produced by our own halo writes
+  // Drop the records produced by our own halo / attribute writes
   mutations?.takeRecords();
 
   idle = changed ? 0 : idle + 1;
@@ -688,7 +870,7 @@ function onMutations(records: MutationRecord[]) {
 
   for (const record of records) {
     const target = record.target;
-    if (target === layer || target === pageLayer || halos.has(target)) continue;
+    if (target === pageLayer || halos.has(target)) continue;
 
     if (record.type === "childList") {
       record.addedNodes.forEach(scan);
@@ -699,6 +881,10 @@ function onMutations(records: MutationRecord[]) {
     ) {
       reconcile(target);
       structural = true;
+    } else if (record.attributeName === "style") {
+      // inline position / overflow / z-index changes affect mode & occluders
+      const value = (target as HTMLElement).getAttribute?.("style") ?? "";
+      if (/position|overflow|z-index|display/.test(value)) structural = true;
     }
   }
 
@@ -712,34 +898,28 @@ function onMutations(records: MutationRecord[]) {
 
 function mount() {
   const root = document.documentElement;
-  const zIndex =
-    getComputedStyle(root).getPropertyValue("--glow-layer-z").trim() ||
-    DEFAULT_Z_INDEX;
 
-  const build = (position: "fixed" | "absolute") => {
-    const node = document.createElement("div");
-    node.className = "dara-glow-layer";
-    node.setAttribute(LAYER_ATTR, "");
-    node.setAttribute("aria-hidden", "true");
+  const node = document.createElement("div");
+  node.className = "dara-glow-layer";
+  node.setAttribute(LAYER_ATTR, "");
+  node.setAttribute(OCCLUDER_ATTR, "false");
+  node.setAttribute("aria-hidden", "true");
 
-    Object.assign(node.style, {
-      position,
-      top: "0",
-      left: "0",
-      width: "0",
-      height: "0",
-      overflow: "visible",
-      pointerEvents: "none",
-      zIndex,
-    });
+  Object.assign(node.style, {
+    position: "absolute",
+    top: "0",
+    left: "0",
+    width: "0",
+    height: "0",
+    overflow: "visible",
+    pointerEvents: "none",
+    zIndex: String(DEFAULT_Z_INDEX),
+  });
 
-    return node;
-  };
-
-  layer = build("fixed");
-  pageLayer = build("absolute");
-
-  (document.body || root).appendChild(layer);
+  pageLayer = node;
+  layerZ = "";
+  occluderEpoch = -1;
+  occluderScanAt = 0;
   root.appendChild(pageLayer);
   root.setAttribute(ROOT_ATTR, "");
 
@@ -751,19 +931,25 @@ function mount() {
     childList: true,
     subtree: true,
     attributes: true,
-    attributeFilter: ["class", "style", "data-glow", "data-glow-lift"],
+    attributeFilter: [
+      "class",
+      "style",
+      "data-glow",
+      "data-glow-lift",
+      OCCLUDER_ATTR,
+    ],
   });
 
   rootMutations = new MutationObserver(wake);
   rootMutations.observe(root, { attributes: true });
 
   WAKE_EVENTS.forEach((name) =>
-    document.addEventListener(name, name === "scroll" ? onScroll : wake, {
+    document.addEventListener(name, wake, {
       capture: true,
       passive: true,
     }),
   );
-  window.addEventListener("resize", wake, { passive: true });
+  window.addEventListener("resize", onResize, { passive: true });
   document.fonts?.ready.then(wake);
 
   document.querySelectorAll<HTMLElement>(GLOW_SELECTOR).forEach(register);
@@ -783,18 +969,14 @@ function unmount() {
   resizes = null;
 
   WAKE_EVENTS.forEach((name) =>
-    document.removeEventListener(name, name === "scroll" ? onScroll : wake, {
-      capture: true,
-    }),
+    document.removeEventListener(name, wake, { capture: true }),
   );
-  window.clearTimeout(settleTimer);
-  window.removeEventListener("resize", wake);
+  window.removeEventListener("resize", onResize);
 
   Array.from(entries.keys()).forEach(unregister);
+  clipOccluders = [];
 
-  layer?.remove();
   pageLayer?.remove();
-  layer = null;
   pageLayer = null;
   document.documentElement.removeAttribute(ROOT_ATTR);
 }
@@ -823,5 +1005,6 @@ export function startGlowLayer(): () => void {
 
 export function refreshGlowLayer() {
   epoch++;
+  occluderScanAt = 0;
   wake();
 }

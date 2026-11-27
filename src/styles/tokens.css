@@ -95,24 +95,62 @@
   --radius-full: 9999px;
 
   /* Shadows - Button specific */
-  --shadow-btn-primary: 0 4px 20px rgba(124, 92, 255, 0.35);
-  --shadow-btn-primary-hover: 0 6px 32px rgba(124, 92, 255, 0.5);
-  --shadow-btn-secondary: 0 4px 20px rgba(34, 211, 238, 0.35);
-  --shadow-btn-secondary-hover: 0 6px 32px rgba(34, 211, 238, 0.5);
-  --shadow-btn-accent: 0 4px 20px rgba(236, 72, 153, 0.35);
-  --shadow-btn-accent-hover: 0 6px 32px rgba(236, 72, 153, 0.5);
-  --shadow-btn-success: 0 4px 20px rgba(16, 185, 129, 0.35);
-  --shadow-btn-success-hover: 0 6px 32px rgba(16, 185, 129, 0.5);
-  --shadow-btn-danger: 0 4px 20px rgba(239, 68, 68, 0.35);
-  --shadow-btn-danger-hover: 0 6px 32px rgba(239, 68, 68, 0.5);
+  --shadow-btn-primary:
+    0 0 10px 0 rgba(124, 92, 255, 0.315),
+    0 0 22px 3px rgba(124, 92, 255, 0.158);
+  --shadow-btn-primary-hover:
+    0 0 14px 1px rgba(124, 92, 255, 0.45),
+    0 0 32px 6px rgba(124, 92, 255, 0.225);
+  --shadow-btn-secondary:
+    0 0 10px 0 rgba(34, 211, 238, 0.315),
+    0 0 22px 3px rgba(34, 211, 238, 0.158);
+  --shadow-btn-secondary-hover:
+    0 0 14px 1px rgba(34, 211, 238, 0.45),
+    0 0 32px 6px rgba(34, 211, 238, 0.225);
+  --shadow-btn-accent:
+    0 0 10px 0 rgba(236, 72, 153, 0.315),
+    0 0 22px 3px rgba(236, 72, 153, 0.158);
+  --shadow-btn-accent-hover:
+    0 0 14px 1px rgba(236, 72, 153, 0.45),
+    0 0 32px 6px rgba(236, 72, 153, 0.225);
+  --shadow-btn-success:
+    0 0 10px 0 rgba(16, 185, 129, 0.315),
+    0 0 22px 3px rgba(16, 185, 129, 0.158);
+  --shadow-btn-success-hover:
+    0 0 14px 1px rgba(16, 185, 129, 0.45),
+    0 0 32px 6px rgba(16, 185, 129, 0.225);
+  --shadow-btn-danger:
+    0 0 10px 0 rgba(239, 68, 68, 0.315),
+    0 0 22px 3px rgba(239, 68, 68, 0.158);
+  --shadow-btn-danger-hover:
+    0 0 14px 1px rgba(239, 68, 68, 0.45),
+    0 0 32px 6px rgba(239, 68, 68, 0.225);
 
   /* General Glows */
-  --shadow-glow-primary: 0 0 40px rgba(124, 92, 255, 0.3);
-  --shadow-glow-secondary: 0 0 40px rgba(34, 211, 238, 0.3);
-  --shadow-glow-accent: 0 0 40px rgba(236, 72, 153, 0.3);
-  --shadow-glow-success: 0 0 40px rgba(16, 185, 129, 0.3);
-  --shadow-glow-danger: 0 0 40px rgba(239, 68, 68, 0.3);
-  --shadow-glow-warning: 0 0 40px rgba(251, 191, 36, 0.3);
+  --shadow-glow-primary:
+    0 0 4px 0 rgba(124, 92, 255, 0.165),
+    0 0 10px 1px rgba(124, 92, 255, 0.285),
+    0 0 26px 5px rgba(124, 92, 255, 0.15);
+  --shadow-glow-secondary:
+    0 0 4px 0 rgba(34, 211, 238, 0.165),
+    0 0 10px 1px rgba(34, 211, 238, 0.285),
+    0 0 26px 5px rgba(34, 211, 238, 0.15);
+  --shadow-glow-accent:
+    0 0 4px 0 rgba(236, 72, 153, 0.165),
+    0 0 10px 1px rgba(236, 72, 153, 0.285),
+    0 0 26px 5px rgba(236, 72, 153, 0.15);
+  --shadow-glow-success:
+    0 0 4px 0 rgba(16, 185, 129, 0.165),
+    0 0 10px 1px rgba(16, 185, 129, 0.285),
+    0 0 26px 5px rgba(16, 185, 129, 0.15);
+  --shadow-glow-danger:
+    0 0 4px 0 rgba(239, 68, 68, 0.165),
+    0 0 10px 1px rgba(239, 68, 68, 0.285),
+    0 0 26px 5px rgba(239, 68, 68, 0.15);
+  --shadow-glow-warning:
+    0 0 4px 0 rgba(251, 191, 36, 0.165),
+    0 0 10px 1px rgba(251, 191, 36, 0.285),
+    0 0 26px 5px rgba(251, 191, 36, 0.15);
 
   --shadow-color: #000000;
   --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.25);
@@ -219,23 +257,61 @@
     #0891b2 100%
   );
 
-  --shadow-btn-primary: 0 4px 20px rgba(109, 74, 255, 0.3);
-  --shadow-btn-primary-hover: 0 6px 32px rgba(109, 74, 255, 0.45);
-  --shadow-btn-secondary: 0 4px 20px rgba(8, 145, 178, 0.3);
-  --shadow-btn-secondary-hover: 0 6px 32px rgba(8, 145, 178, 0.45);
-  --shadow-btn-accent: 0 4px 20px rgba(219, 39, 119, 0.3);
-  --shadow-btn-accent-hover: 0 6px 32px rgba(219, 39, 119, 0.45);
-  --shadow-btn-success: 0 4px 20px rgba(5, 150, 105, 0.3);
-  --shadow-btn-success-hover: 0 6px 32px rgba(5, 150, 105, 0.45);
-  --shadow-btn-danger: 0 4px 20px rgba(220, 38, 38, 0.3);
-  --shadow-btn-danger-hover: 0 6px 32px rgba(220, 38, 38, 0.45);
+  --shadow-btn-primary:
+    0 0 10px 0 rgba(109, 74, 255, 0.27),
+    0 0 22px 3px rgba(109, 74, 255, 0.135);
+  --shadow-btn-primary-hover:
+    0 0 14px 1px rgba(109, 74, 255, 0.405),
+    0 0 32px 6px rgba(109, 74, 255, 0.203);
+  --shadow-btn-secondary:
+    0 0 10px 0 rgba(8, 145, 178, 0.27),
+    0 0 22px 3px rgba(8, 145, 178, 0.135);
+  --shadow-btn-secondary-hover:
+    0 0 14px 1px rgba(8, 145, 178, 0.405),
+    0 0 32px 6px rgba(8, 145, 178, 0.203);
+  --shadow-btn-accent:
+    0 0 10px 0 rgba(219, 39, 119, 0.27),
+    0 0 22px 3px rgba(219, 39, 119, 0.135);
+  --shadow-btn-accent-hover:
+    0 0 14px 1px rgba(219, 39, 119, 0.405),
+    0 0 32px 6px rgba(219, 39, 119, 0.203);
+  --shadow-btn-success:
+    0 0 10px 0 rgba(5, 150, 105, 0.27),
+    0 0 22px 3px rgba(5, 150, 105, 0.135);
+  --shadow-btn-success-hover:
+    0 0 14px 1px rgba(5, 150, 105, 0.405),
+    0 0 32px 6px rgba(5, 150, 105, 0.203);
+  --shadow-btn-danger:
+    0 0 10px 0 rgba(220, 38, 38, 0.27),
+    0 0 22px 3px rgba(220, 38, 38, 0.135);
+  --shadow-btn-danger-hover:
+    0 0 14px 1px rgba(220, 38, 38, 0.405),
+    0 0 32px 6px rgba(220, 38, 38, 0.203);
 
-  --shadow-glow-primary: 0 0 40px rgba(109, 74, 255, 0.25);
-  --shadow-glow-secondary: 0 0 40px rgba(8, 145, 178, 0.25);
-  --shadow-glow-accent: 0 0 40px rgba(219, 39, 119, 0.25);
-  --shadow-glow-success: 0 0 40px rgba(5, 150, 105, 0.25);
-  --shadow-glow-danger: 0 0 40px rgba(220, 38, 38, 0.25);
-  --shadow-glow-warning: 0 0 40px rgba(180, 83, 9, 0.25);
+  --shadow-glow-primary:
+    0 0 4px 0 rgba(109, 74, 255, 0.138),
+    0 0 10px 1px rgba(109, 74, 255, 0.237),
+    0 0 26px 5px rgba(109, 74, 255, 0.125);
+  --shadow-glow-secondary:
+    0 0 4px 0 rgba(8, 145, 178, 0.138),
+    0 0 10px 1px rgba(8, 145, 178, 0.237),
+    0 0 26px 5px rgba(8, 145, 178, 0.125);
+  --shadow-glow-accent:
+    0 0 4px 0 rgba(219, 39, 119, 0.138),
+    0 0 10px 1px rgba(219, 39, 119, 0.237),
+    0 0 26px 5px rgba(219, 39, 119, 0.125);
+  --shadow-glow-success:
+    0 0 4px 0 rgba(5, 150, 105, 0.138),
+    0 0 10px 1px rgba(5, 150, 105, 0.237),
+    0 0 26px 5px rgba(5, 150, 105, 0.125);
+  --shadow-glow-danger:
+    0 0 4px 0 rgba(220, 38, 38, 0.138),
+    0 0 10px 1px rgba(220, 38, 38, 0.237),
+    0 0 26px 5px rgba(220, 38, 38, 0.125);
+  --shadow-glow-warning:
+    0 0 4px 0 rgba(180, 83, 9, 0.138),
+    0 0 10px 1px rgba(180, 83, 9, 0.237),
+    0 0 26px 5px rgba(180, 83, 9, 0.125);
 
   --shadow-color: #1e293b;
 
@@ -318,23 +394,61 @@
     #9ece6a 100%
   );
 
-  --shadow-btn-primary: 0 4px 20px rgba(187, 154, 247, 0.35);
-  --shadow-btn-primary-hover: 0 6px 32px rgba(187, 154, 247, 0.5);
-  --shadow-btn-secondary: 0 4px 20px rgba(125, 207, 255, 0.35);
-  --shadow-btn-secondary-hover: 0 6px 32px rgba(125, 207, 255, 0.5);
-  --shadow-btn-accent: 0 4px 20px rgba(247, 118, 142, 0.35);
-  --shadow-btn-accent-hover: 0 6px 32px rgba(247, 118, 142, 0.5);
-  --shadow-btn-success: 0 4px 20px rgba(158, 206, 106, 0.35);
-  --shadow-btn-success-hover: 0 6px 32px rgba(158, 206, 106, 0.5);
-  --shadow-btn-danger: 0 4px 20px rgba(247, 118, 142, 0.35);
-  --shadow-btn-danger-hover: 0 6px 32px rgba(247, 118, 142, 0.5);
+  --shadow-btn-primary:
+    0 0 10px 0 rgba(187, 154, 247, 0.315),
+    0 0 22px 3px rgba(187, 154, 247, 0.158);
+  --shadow-btn-primary-hover:
+    0 0 14px 1px rgba(187, 154, 247, 0.45),
+    0 0 32px 6px rgba(187, 154, 247, 0.225);
+  --shadow-btn-secondary:
+    0 0 10px 0 rgba(125, 207, 255, 0.315),
+    0 0 22px 3px rgba(125, 207, 255, 0.158);
+  --shadow-btn-secondary-hover:
+    0 0 14px 1px rgba(125, 207, 255, 0.45),
+    0 0 32px 6px rgba(125, 207, 255, 0.225);
+  --shadow-btn-accent:
+    0 0 10px 0 rgba(247, 118, 142, 0.315),
+    0 0 22px 3px rgba(247, 118, 142, 0.158);
+  --shadow-btn-accent-hover:
+    0 0 14px 1px rgba(247, 118, 142, 0.45),
+    0 0 32px 6px rgba(247, 118, 142, 0.225);
+  --shadow-btn-success:
+    0 0 10px 0 rgba(158, 206, 106, 0.315),
+    0 0 22px 3px rgba(158, 206, 106, 0.158);
+  --shadow-btn-success-hover:
+    0 0 14px 1px rgba(158, 206, 106, 0.45),
+    0 0 32px 6px rgba(158, 206, 106, 0.225);
+  --shadow-btn-danger:
+    0 0 10px 0 rgba(247, 118, 142, 0.315),
+    0 0 22px 3px rgba(247, 118, 142, 0.158);
+  --shadow-btn-danger-hover:
+    0 0 14px 1px rgba(247, 118, 142, 0.45),
+    0 0 32px 6px rgba(247, 118, 142, 0.225);
 
-  --shadow-glow-primary: 0 0 40px rgba(187, 154, 247, 0.3);
-  --shadow-glow-secondary: 0 0 40px rgba(125, 207, 255, 0.3);
-  --shadow-glow-accent: 0 0 40px rgba(247, 118, 142, 0.3);
-  --shadow-glow-success: 0 0 40px rgba(158, 206, 106, 0.3);
-  --shadow-glow-danger: 0 0 40px rgba(247, 118, 142, 0.3);
-  --shadow-glow-warning: 0 0 40px rgba(224, 175, 104, 0.3);
+  --shadow-glow-primary:
+    0 0 4px 0 rgba(187, 154, 247, 0.165),
+    0 0 10px 1px rgba(187, 154, 247, 0.285),
+    0 0 26px 5px rgba(187, 154, 247, 0.15);
+  --shadow-glow-secondary:
+    0 0 4px 0 rgba(125, 207, 255, 0.165),
+    0 0 10px 1px rgba(125, 207, 255, 0.285),
+    0 0 26px 5px rgba(125, 207, 255, 0.15);
+  --shadow-glow-accent:
+    0 0 4px 0 rgba(247, 118, 142, 0.165),
+    0 0 10px 1px rgba(247, 118, 142, 0.285),
+    0 0 26px 5px rgba(247, 118, 142, 0.15);
+  --shadow-glow-success:
+    0 0 4px 0 rgba(158, 206, 106, 0.165),
+    0 0 10px 1px rgba(158, 206, 106, 0.285),
+    0 0 26px 5px rgba(158, 206, 106, 0.15);
+  --shadow-glow-danger:
+    0 0 4px 0 rgba(247, 118, 142, 0.165),
+    0 0 10px 1px rgba(247, 118, 142, 0.285),
+    0 0 26px 5px rgba(247, 118, 142, 0.15);
+  --shadow-glow-warning:
+    0 0 4px 0 rgba(224, 175, 104, 0.165),
+    0 0 10px 1px rgba(224, 175, 104, 0.285),
+    0 0 26px 5px rgba(224, 175, 104, 0.15);
 
   --glass-bg: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.08);
@@ -342,3 +456,23 @@
   --glass-outline: rgba(255, 255, 255, 0.05);
   --glass-highlight: rgba(255, 255, 255, 0.1);
 }
+
+/* ----- Strong glows (Button `glow` prop, hover states) -----
+   Even, shape-hugging glow: layered spread instead of one big blur, and no
+   y-offset, so small/short elements don't get a round blob under them. */
+:root,
+[data-theme] {
+  --shadow-glow-primary-strong:
+    0 0 4px 0 color-mix(in srgb, var(--color-primary-solid) 35%, transparent),
+    0 0 14px 2px color-mix(in srgb, var(--color-primary-solid) 45%, transparent),
+    0 0 34px 8px color-mix(in srgb, var(--color-primary-solid) 22%, transparent);
+  --shadow-glow-secondary-strong:
+    0 0 4px 0 color-mix(in srgb, var(--color-secondary-solid) 35%, transparent),
+    0 0 14px 2px color-mix(in srgb, var(--color-secondary-solid) 45%, transparent),
+    0 0 34px 8px color-mix(in srgb, var(--color-secondary-solid) 22%, transparent);
+  --shadow-glow-accent-strong:
+    0 0 4px 0 color-mix(in srgb, var(--color-accent-solid) 35%, transparent),
+    0 0 14px 2px color-mix(in srgb, var(--color-accent-solid) 45%, transparent),
+    0 0 34px 8px color-mix(in srgb, var(--color-accent-solid) 22%, transparent);
+}
+

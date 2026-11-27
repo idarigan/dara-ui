@@ -17,10 +17,29 @@ Peer dependencies: `react` and `react-dom` (18+).
 
 ## Import styles
 
+**Project without Tailwind** — import the prebuilt stylesheet:
+
 ```tsx
 // main.tsx or App root
 import "dara-ui/style.css";
 ```
+
+**Project that uses Tailwind v4** — don't import `style.css`. Import the
+Tailwind entry from your own main CSS file instead:
+
+```css
+/* src/index.css */
+@import "tailwindcss";
+@import "dara-ui/tailwind.css";
+```
+
+`style.css` carries its own compiled copy of Tailwind utilities
+(`grid-cols-1`, `sm:grid-cols-2`, `hidden`, `md:block`…). Loaded next to your
+Tailwind build, the same classes exist twice and whichever file loads last
+overrides your responsive variants, so only some breakpoints apply.
+`dara-ui/tailwind.css` ships only Dara's tokens, fonts, glass and glow styles
+and tells your Tailwind to scan Dara's components, so every utility is generated
+once, in the right order.
 
 ## Minimal setup
 
@@ -90,6 +109,20 @@ npm run storybook
 
 ## Do / Don't
 
+## Glow layer
+
+Glows on elements in the normal page are painted in a shared layer so they can
+spill over `overflow: hidden` parents. They always stay **under** fixed and
+sticky UI (navbar, toasts, modals, back-to-top). Glows on elements inside a
+scroll container, or inside a fixed/sticky parent, use the element's own
+`box-shadow`, so they scroll with it and are never left behind.
+
+- Custom fixed element that isn't detected? Add `data-glow-occluder`.
+- Decorative fixed overlay that shouldn't hide glows? Add `data-glow-occluder="false"`.
+- Glow tokens you can use in your own components:
+  `shadow-[var(--shadow-glow-primary)]`, `hover:shadow-[var(--shadow-glow-accent)]`,
+  `hover:shadow-[var(--shadow-glow-primary-strong)]`, …
+
 <div className="do-dont-grid">
   <div className="do-card">
     <span className="label">Do</span>
@@ -106,3 +139,4 @@ npm run storybook
     </p>
   </div>
 </div>
+

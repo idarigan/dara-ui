@@ -241,7 +241,7 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
                 style={{
                   width: `${percentage}%`,
                   height: `${actualThickness}px`,
-                  boxShadow: `0 0 20px ${glowColor}, 0 0 40px ${glowColor}`,
+                  boxShadow: `0 0 6px 1px ${glowColor}, 0 0 16px 3px ${glowColor}`,
                   opacity: 0.7,
                 }}
               />
@@ -481,3 +481,4 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
 
 Progress.displayName = "Progress";
 export default Progress;
+

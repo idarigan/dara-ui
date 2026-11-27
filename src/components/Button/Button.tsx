@@ -128,7 +128,8 @@ export const Button = React.forwardRef<ButtonElement, ButtonProps>(
       success:
         "bg-[var(--color-success-solid)] !text-white shadow-[var(--shadow-btn-success)] hover:bg-[var(--color-success-hover)] hover:shadow-[var(--shadow-btn-success-hover)] hover:brightness-105",
       outline:
-        "bg-transparent !text-[var(--color-text-primary)] border-2 border-[var(--color-border-primary)] hover:bg-[var(--color-primary-light)] hover:border-[var(--color-primary)] hover:!text-[var(--color-primary)] hover:shadow-[var(--shadow-btn-primary)]",
+        // border-current: the border is always the exact text colour (idle, hover, custom className text-*)
+        "bg-transparent !text-[var(--color-text-primary)] border-2 border-current hover:bg-[var(--color-primary-light)] hover:!text-[var(--color-primary)] hover:shadow-[var(--shadow-btn-primary)]",
     };
 
     const sizes = {
@@ -139,11 +140,11 @@ export const Button = React.forwardRef<ButtonElement, ButtonProps>(
 
     const glowStyles = {
       primary:
-        "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-primary-solid)_50%,_transparent)]",
+        "hover:shadow-[var(--shadow-glow-primary-strong)]",
       secondary:
-        "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-secondary-solid)_50%,_transparent)]",
+        "hover:shadow-[var(--shadow-glow-secondary-strong)]",
       accent:
-        "hover:shadow-[0_0_50px_color-mix(in_srgb,_var(--color-accent-solid)_50%,_transparent)]",
+        "hover:shadow-[var(--shadow-glow-accent-strong)]",
     };
 
     const classes = [
@@ -176,3 +177,4 @@ export const Button = React.forwardRef<ButtonElement, ButtonProps>(
 
 Button.displayName = "Button";
 export default Button;
+

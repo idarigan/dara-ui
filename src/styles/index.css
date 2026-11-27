@@ -178,8 +178,8 @@ button.glass {
 
 .glow-primary.float-card:hover {
   box-shadow:
-    var(--shadow-glow-primary),
-    0 16px 48px color-mix(in srgb, var(--shadow-color) 40%, transparent);
+    0 0 18px 2px color-mix(in srgb, var(--color-primary) 28%, transparent),
+    0 0 44px 8px color-mix(in srgb, var(--color-primary) 16%, transparent);
 }
 
 .glow-secondary {
@@ -189,8 +189,8 @@ button.glass {
 
 .glow-secondary.float-card:hover {
   box-shadow:
-    var(--shadow-glow-secondary),
-    0 16px 48px color-mix(in srgb, var(--shadow-color) 40%, transparent);
+    0 0 18px 2px color-mix(in srgb, var(--color-secondary) 28%, transparent),
+    0 0 44px 8px color-mix(in srgb, var(--color-secondary) 16%, transparent);
 }
 
 .glow-accent {
@@ -200,8 +200,8 @@ button.glass {
 
 .glow-accent.float-card:hover {
   box-shadow:
-    var(--shadow-glow-accent),
-    0 16px 48px color-mix(in srgb, var(--shadow-color) 40%, transparent);
+    0 0 18px 2px color-mix(in srgb, var(--color-accent) 28%, transparent),
+    0 0 44px 8px color-mix(in srgb, var(--color-accent) 16%, transparent);
 }
 
 /* =============================================
