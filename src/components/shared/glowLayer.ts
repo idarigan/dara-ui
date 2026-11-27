@@ -9,8 +9,10 @@ const IDLE_FRAMES = 30;
 const VIEWPORT_MARGIN = 240;
 const FALLBACK_EXTENT = 120;
 const SCROLL_SETTLE_MS = 140;
+const THIN_REFERENCE = 24;
+const MIN_THIN_SCALE = 0.3;
 
-type GlowMode = "page" | "fixed" | "tracked";
+type GlowMode = "page" | "fixed" | "sticky";
 
 export const GLOW_SELECTOR = [
   "[data-glow-lift]",
@@ -65,6 +67,7 @@ interface GlowEntry {
   clippers: HTMLElement[];
   mode: GlowMode;
   epoch: number;
+  scrollAt: number;
   applied: Applied;
 }
 
@@ -91,7 +94,6 @@ const halos = new WeakSet<Node>();
 let users = 0;
 let layer: HTMLDivElement | null = null;
 let pageLayer: HTMLDivElement | null = null;
-let scrollingAt = 0;
 let settleTimer = 0;
 let mutations: MutationObserver | null = null;
 let rootMutations: MutationObserver | null = null;
@@ -180,6 +182,51 @@ function shadowExtent(halo: HTMLElement): number {
   return Math.ceil(extent);
 }
 
+function splitTokens(value: string): string[] {
+  const tokens: string[] = [];
+  let depth = 0;
+  let current = "";
+
+  for (const char of value.trim()) {
+    if (char === "(") depth++;
+    else if (char === ")") depth--;
+
+    if (/\s/.test(char) && depth === 0) {
+      if (current) tokens.push(current);
+      current = "";
+    } else {
+      current += char;
+    }
+  }
+
+  if (current) tokens.push(current);
+  return tokens;
+}
+
+function scaleShadow(value: string, scale: number): string {
+  if (scale >= 0.999) return value;
+
+  return splitLayers(value)
+    .map((part) => {
+      const tokens = splitTokens(part);
+      if (tokens.includes("inset")) return part;
+
+      const at = tokens
+        .map((token, index) => (/^-?\d*\.?\d+(px)?$/.test(token) ? index : -1))
+        .filter((index) => index >= 0);
+
+      if (at.length < 3 || parseFloat(tokens[at[2]]) <= 0) return part;
+
+      at.forEach((index) => {
+        const scaled = round(parseFloat(tokens[index]) * scale);
+        tokens[index] = scaled === 0 ? "0" : `${scaled}px`;
+      });
+
+      return tokens.join(" ");
+    })
+    .join(", ");
+}
+
 // ============================================
 // ELEMENT SOURCES
 // ============================================
@@ -254,26 +301,11 @@ function tiltBox(
   };
 }
 
-function isScrollable(el: HTMLElement, style: CSSStyleDeclaration): boolean {
-  const scrolls = /(auto|scroll|overlay)/.test(
-    `${style.overflowX} ${style.overflowY}`,
-  );
-  const hidden = /hidden/.test(`${style.overflowX} ${style.overflowY}`);
-
-  if (scrolls) return true;
-  return (
-    hidden &&
-    (el.scrollHeight > el.clientHeight + 1 ||
-      el.scrollWidth > el.clientWidth + 1)
-  );
-}
-
 function detectMode(el: HTMLElement): GlowMode {
   const own = getComputedStyle(el);
   if (own.position === "fixed") return "fixed";
 
-  let inner = own.position === "sticky";
-  let pinned = false;
+  let sticky = own.position === "sticky";
 
   for (
     let node = el.parentElement;
@@ -282,15 +314,11 @@ function detectMode(el: HTMLElement): GlowMode {
   ) {
     const style = getComputedStyle(node);
     if (style.display === "contents") continue;
-    if (style.position === "sticky" || isScrollable(node, style)) inner = true;
-    if (style.position === "fixed") {
-      pinned = true;
-      break;
-    }
+    if (style.position === "fixed") return "fixed";
+    if (style.position === "sticky") sticky = true;
   }
 
-  if (inner) return "tracked";
-  return pinned ? "fixed" : "page";
+  return sticky ? "sticky" : "page";
 }
 
 function collectClippers(el: HTMLElement): HTMLElement[] {
@@ -423,10 +451,7 @@ function apply(entry: GlowEntry, vw: number, vh: number): boolean {
     entry.epoch = epoch;
   }
 
-  if (
-    entry.mode === "tracked" &&
-    performance.now() - scrollingAt < SCROLL_SETTLE_MS
-  ) {
+  if (performance.now() - entry.scrollAt < SCROLL_SETTLE_MS) {
     return hide(entry);
   }
 
@@ -443,13 +468,6 @@ function apply(entry: GlowEntry, vw: number, vh: number): boolean {
     changed = true;
   }
 
-  const shadow = readShadow(el, style) || "none";
-  if (applied.shadow !== shadow) {
-    halo.style.boxShadow = shadow;
-    applied.shadow = shadow;
-    changed = true;
-  }
-
   const trimmed =
     region.left > rect.left + 0.5 ||
     region.top > rect.top + 0.5 ||
@@ -457,6 +475,18 @@ function apply(entry: GlowEntry, vw: number, vh: number): boolean {
     region.bottom < rect.bottom - 0.5;
 
   const tilt = !trimmed && flat ? tiltBox(el, style, rect) : null;
+  const thin = Math.min(
+    tilt ? tilt.w : rect.width,
+    tilt ? tilt.h : rect.height,
+  );
+  const scale = Math.min(1, Math.max(MIN_THIN_SCALE, thin / THIN_REFERENCE));
+  const shadow = scaleShadow(readShadow(el, style), scale) || "none";
+  if (applied.shadow !== shadow) {
+    halo.style.boxShadow = shadow;
+    applied.shadow = shadow;
+    changed = true;
+  }
+
   const offsetX = entry.mode === "page" ? window.scrollX : 0;
   const offsetY = entry.mode === "page" ? window.scrollY : 0;
 
@@ -572,6 +602,7 @@ function register(el: HTMLElement) {
     clippers: [],
     mode: "page",
     epoch: -1,
+    scrollAt: 0,
     applied: blankApplied(),
   });
 
@@ -619,14 +650,22 @@ function wake() {
 }
 
 function onScroll(event: Event) {
-  if (event.target !== document && event.target !== document.documentElement) {
-    scrollingAt = performance.now();
-    entries.forEach((entry) => {
-      if (entry.mode === "tracked") hide(entry);
-    });
-    window.clearTimeout(settleTimer);
-    settleTimer = window.setTimeout(wake, SCROLL_SETTLE_MS + 20);
-  }
+  const target = event.target;
+  const now = performance.now();
+  const isPage = target === document || target === document.documentElement;
+
+  entries.forEach((entry) => {
+    const moved = isPage
+      ? entry.mode === "sticky"
+      : target instanceof Node && target.contains(entry.el);
+
+    if (!moved) return;
+    entry.scrollAt = now;
+    hide(entry);
+  });
+
+  window.clearTimeout(settleTimer);
+  settleTimer = window.setTimeout(wake, SCROLL_SETTLE_MS + 20);
 
   wake();
 }
